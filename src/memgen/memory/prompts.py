@@ -7,113 +7,102 @@ from memgen.data.base import Problem
 
 
 @dataclass
+class MemoryItem:
+    insight: str
+    reasoning: str
+
+
+@dataclass
 class Memory:
     problem_id: str
-    key_insight: str
-    successful_strategies: list[str]
-    common_pitfalls: list[str]
-    generalizable_technique: str
+    items: list[MemoryItem]
     raw_response: str
 
 
 MEMORY_SYSTEM_PROMPT = (
     "You are an expert analyst studying problem-solving approaches. Your job is "
-    "to extract GENERALIZABLE, TRANSFERABLE insights from comparing successful "
-    "and unsuccessful solution attempts. CRITICAL: Do NOT produce "
-    "problem-specific advice. Every insight you produce must be applicable to a "
-    "broad class of similar problems. Think of yourself as writing entries for "
-    "a problem-solving playbook that a student would consult before attempting "
-    "any problem in this domain."
+    "to extract and summarize useful insights in the format of memory items "
+    "based on comparing successful and unsuccessful solution attempts. "
+    "Every insight you produce must be GENERALIZABLE and TRANSFERABLE to other "
+    "problems — never tied to one specific problem's details."
 )
 
 _MAX_SOLUTIONS_PER_TIER = 5
-_SECTION_NAMES = (
-    "KEY INSIGHT",
-    "SUCCESSFUL STRATEGIES",
-    "COMMON PITFALLS",
-    "GENERALIZABLE TECHNIQUE",
-)
 
 
 def build_memory_creation_prompt(
     problem: Problem, grouped_solutions: dict[str, list[str]]
 ) -> str:
     sections = [
-        "Analyze the problem and the contrasted solution attempts below.",
-        "Your output must focus on insights that GENERALIZE beyond this specific problem.",
-        "Do not mention the exact answer, problem-specific numbers, or any advice tied only to this prompt.",
+        "## Guidelines",
+        "You need to extract and summarize useful insights in the format of memory items "
+        "based on comparing the successful and unsuccessful solution attempts below.",
+        "The goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — "
+        "each insight must be useful not just for this problem, but for a broad class of "
+        "similar problems. Write each memory as advice that would help someone who has "
+        "never seen this specific problem.",
         "",
-        "## Problem Statement",
+        "## Important notes",
+        "- You must first think about why certain attempts succeeded and others failed, then summarize the insights.",
+        "- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.",
+        "- Do NOT mention specific values, answers, variable names, or problem-specific details. "
+        "Every memory item must stand on its own as a general problem-solving principle or technique "
+        "that transfers across different problems in the same domain.",
+        "",
+        "<problem>",
         problem.statement.strip(),
+        "</problem>",
         "",
-        "## Solution Attempts Grouped by Outcome",
+        "<solution_attempts>",
     ]
 
     for tier, solutions in grouped_solutions.items():
         tier_solutions = solutions[:_MAX_SOLUTIONS_PER_TIER]
-        sections.append(f"### {tier.upper()}")
+        sections.append(f"<tier name=\"{tier}\">")
         for index, solution in enumerate(tier_solutions, start=1):
-            sections.append(f"Attempt {index}:")
+            sections.append(f"<attempt index=\"{index}\">")
             sections.append(solution.strip())
-            sections.append("")
+            sections.append("</attempt>")
         omitted_count = max(len(solutions) - len(tier_solutions), 0)
         if omitted_count:
-            sections.append(f"[{omitted_count} additional {tier} attempts omitted for brevity]")
-            sections.append("")
+            sections.append(f"<!-- {omitted_count} additional {tier} attempts omitted for brevity -->")
+        sections.append("</tier>")
 
+    sections.append("</solution_attempts>")
+    sections.append("")
     sections.extend(
         [
-            "Compare the stronger and weaker attempts.",
-            "Identify what transfers to other problems in the same domain.",
-            "Respond in this exact format:",
+            "## Response format",
+            "First write your analysis inside <reasoning> tags, then produce one or more memory items.",
+            "Each memory item must be a self-contained, generalizable insight that transfers to other problems.",
+            "A good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.",
             "",
-            "**KEY INSIGHT:**",
-            "[One sentence: the single most important transferable lesson]",
+            "<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>",
             "",
-            "**SUCCESSFUL STRATEGIES:**",
-            "- [Strategy 1]",
-            "- [Strategy 2]",
-            "- [Strategy 3: if applicable]",
-            "",
-            "**COMMON PITFALLS:**",
-            "- [Pitfall 1]",
-            "- [Pitfall 2]",
-            "- [Pitfall 3: if applicable]",
-            "",
-            "**GENERALIZABLE TECHNIQUE:**",
-            "[One paragraph: reusable problem-solving technique for similar problems. Do NOT reference the specific problem.]",
+            "<memories>",
+            "<memory>A concise, generalizable insight that would help solve similar problems in the future.</memory>",
+            "<memory>Another distinct insight, if applicable.</memory>",
+            "</memories>",
         ]
     )
     return "\n".join(sections)
 
 
 def parse_memory_response(problem_id: str, raw: str) -> Memory:
-    def extract_section(name: str) -> str:
-        pattern = rf"\*\*{re.escape(name)}:\*\*\s*(.*?)(?=\n\s*\*\*[A-Z ]+:\*\*|\Z)"
-        match = re.search(pattern, raw, flags=re.DOTALL)
-        if not match:
-            return ""
-        return match.group(1).strip()
+    reasoning_match = re.search(r"<reasoning>(.*?)</reasoning>", raw, flags=re.DOTALL)
+    reasoning = reasoning_match.group(1).strip() if reasoning_match else ""
 
-    def extract_bullets(section_text: str) -> list[str]:
-        items: list[str] = []
-        for line in section_text.splitlines():
-            bullet = re.match(r"^\s*[-*]\s+(.*)$", line)
-            if bullet:
-                item = bullet.group(1).strip()
-                if item:
-                    items.append(item)
-        return items
-
-    parsed_sections = {name: extract_section(name) for name in _SECTION_NAMES}
-    key_insight = " ".join(parsed_sections["KEY INSIGHT"].split())
-    generalizable_technique = parsed_sections["GENERALIZABLE TECHNIQUE"].strip()
+    memories_match = re.search(r"<memories>(.*?)</memories>", raw, flags=re.DOTALL)
+    items: list[MemoryItem] = []
+    if memories_match:
+        block = memories_match.group(1)
+        for m in re.finditer(r"<memory>(.*?)</memory>", block, flags=re.DOTALL):
+            insight = m.group(1).strip()
+            if insight:
+                items.append(MemoryItem(insight=insight, reasoning=reasoning))
 
     return Memory(
         problem_id=problem_id,
-        key_insight=key_insight,
-        successful_strategies=extract_bullets(parsed_sections["SUCCESSFUL STRATEGIES"]),
-        common_pitfalls=extract_bullets(parsed_sections["COMMON PITFALLS"]),
-        generalizable_technique=generalizable_technique,
+        items=items,
         raw_response=raw,
     )

@@ -14,7 +14,7 @@ from memgen.evaluation.evaluator import Evaluator, EvaluationResult
 from memgen.generation.generator import Generator
 from memgen.generation.prompts import get_prompt_fn
 from memgen.memory.creator import MemoryCreator
-from memgen.memory.prompts import Memory
+from memgen.memory.prompts import Memory, MemoryItem
 from memgen.persistence.store import ResultStore
 from memgen.scoring.base import ScoreResult
 from memgen.scoring.coding_scorer import get_scorer
@@ -135,10 +135,15 @@ class Pipeline:
             if mem_dict.get("skipped"):
                 memory = None
             else:
-                memory = Memory(**{
-                    k: v for k, v in mem_dict.items()
-                    if k in Memory.__dataclass_fields__
-                })
+                items = [
+                    MemoryItem(**item) if isinstance(item, dict) else item
+                    for item in mem_dict.get("items", [])
+                ]
+                memory = Memory(
+                    problem_id=mem_dict.get("problem_id", pid),
+                    items=items,
+                    raw_response=mem_dict.get("raw_response", ""),
+                )
 
             result = await self.evaluator.evaluate_problem(problem, memory)
             self.store.save_evaluation(pid, dataclasses.asdict(result))

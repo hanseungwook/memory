@@ -16,22 +16,15 @@ CODING_SYSTEM_PROMPT = (
 
 
 def format_memory_for_injection(memory: Memory) -> str:
-    strategies = memory.successful_strategies or ["Apply the strongest recurring strategy deliberately."]
-    pitfalls = memory.common_pitfalls or ["Avoid the recurring failure pattern seen in weaker attempts."]
+    if not memory.items:
+        return ""
 
-    strategy_lines = "\n".join(f"  - {strategy}" for strategy in strategies)
-    pitfall_lines = "\n".join(f"  - {pitfall}" for pitfall in pitfalls)
+    lines = ["Before solving, consider these insights from prior analysis:\n"]
+    for i, item in enumerate(memory.items, start=1):
+        lines.append(f"  {i}. {item.insight}")
+    lines.append("\nApply these insights to the problem below.")
 
-    return (
-        "Before solving, consider these problem-solving insights from prior analysis:\n\n"
-        f"KEY INSIGHT: {memory.key_insight}\n\n"
-        "SUCCESSFUL STRATEGIES:\n"
-        f"{strategy_lines}\n\n"
-        "COMMON PITFALLS TO AVOID:\n"
-        f"{pitfall_lines}\n\n"
-        f"RECOMMENDED TECHNIQUE: {memory.generalizable_technique}\n\n"
-        "Now apply these insights to the problem below."
-    )
+    return "\n".join(lines)
 
 
 def math_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
