@@ -5,7 +5,16 @@ import re
 from memgen.config import ScoringConfig
 from memgen.data.base import Problem
 from memgen.scoring.base import ScoreResult
-from memgen.scoring.sandbox import execute_code
+from memgen.scoring.sandbox import (
+    ExecutionResult,
+    execute_function_based,
+    execute_stdin_based,
+)
+
+
+def _is_function_based(problem: Problem) -> bool:
+    """Determine if a problem uses call-based (function) execution."""
+    return bool(problem.metadata.get("func_name") and problem.starter_code)
 
 
 class CodingScorer:
@@ -26,31 +35,32 @@ class CodingScorer:
                 details={"error": "no test cases"},
             )
 
-        passed = 0
-        case_results = []
-        for tc in test_cases:
-            stdin_input = tc.get("input", "")
-            expected = tc.get("output", "").strip()
+        all_inputs = [tc.get("input", "") for tc in test_cases]
+        all_outputs = [tc.get("output", "") for tc in test_cases]
 
-            stdout, stderr, returncode = execute_code(
-                code, stdin_input=stdin_input, timeout=self.timeout
+        if _is_function_based(problem):
+            func_name = problem.metadata["func_name"]
+            results = execute_function_based(
+                code, func_name, all_inputs, all_outputs, timeout=self.timeout
+            )
+        else:
+            results = execute_stdin_based(
+                code, all_inputs, all_outputs, timeout=self.timeout
             )
 
-            actual = stdout.strip()
-            ok = returncode == 0 and actual == expected
-            if ok:
-                passed += 1
-            case_results.append({
-                "passed": ok,
-                "expected": expected,
-                "actual": actual,
-                "stderr": stderr[:500] if stderr else "",
-                "returncode": returncode,
-            })
-
+        passed = sum(1 for r in results if r.passed)
         total = len(test_cases)
-        ratio = passed / total
+        case_results = [
+            {
+                "passed": r.passed,
+                "expected": exp.strip() if exp else "",
+                "actual": r.actual,
+                "error": r.error or "",
+            }
+            for r, exp in zip(results, all_outputs)
+        ]
 
+        ratio = passed / total
         if ratio == 0.0:
             tier = "fail"
         elif ratio < 1.0:
@@ -82,7 +92,6 @@ class CodingScorer:
         if matches:
             return matches[-1].strip()
 
-        # Raw text
         return text.strip()
 
     def _build_test_program(self, code: str, test_case: dict) -> str:
