@@ -12,9 +12,9 @@ Load Data → Generate (K=16) → Score → Create Memories → Evaluate (baseli
 
 | Stage | What it does |
 |-------|-------------|
-| **Generate** | Produce K=16 solutions per problem using gpt-5-mini |
+| **Generate** | Produce K=16 solutions per problem using gpt-5.4-nano-2026-03-17 |
 | **Score** | Math: binary exact-match (AIME answers are integers). Coding: tiered (fail/partial/full) via subprocess execution against test cases |
-| **Memory** | Group solutions by score tier, send correct vs incorrect groups to gpt-5-mini with a contrastive prompt, extract multiple generalizable memory items |
+| **Memory** | Group solutions by score tier, send correct vs incorrect groups to gpt-5.4-nano-2026-03-17 with a contrastive prompt, extract multiple generalizable memory items |
 | **Evaluate** | For each problem, generate 16 baseline solutions (no memory) and 16 augmented solutions (with memory injected), compare averaged pass@1 |
 
 Each stage writes JSONL to `results/`, enabling crash-safe resume at per-problem granularity.
@@ -79,10 +79,10 @@ Key parameters:
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `generation.model` | `gpt-5-mini` | Model for solution generation |
+| `generation.model` | `gpt-5.4-nano-2026-03-17` | Model for solution generation |
 | `generation.k` | `16` | Number of generations per problem |
 | `generation.temperature` | `0.7` | Sampling temperature for diversity |
-| `memory.model` | `gpt-5-mini` | Model for memory creation |
+| `memory.model` | `gpt-5.4-nano-2026-03-17` | Model for memory creation |
 | `memory.temperature` | `0.3` | Lower temperature for analytical task |
 | `evaluation.k` | `16` | Number of generations for pass@1 averaging |
 | `scoring.timeout_seconds` | `30` | Timeout per code execution |
@@ -93,7 +93,7 @@ Key parameters:
 For each problem, after generating and scoring K=16 solutions:
 
 1. **Group** solutions by score tier (correct/incorrect for math, full/partial/fail for coding)
-2. **Contrastive prompt** sends up to 5 solutions per tier to gpt-5-mini, asking it to:
+2. **Contrastive prompt** sends up to 5 solutions per tier to gpt-5.4-nano-2026-03-17, asking it to:
    - First reason about *why* certain attempts succeeded and others failed (`<reasoning>` tag)
    - Then extract multiple independent, generalizable memory items (`<memory>` tags)
 3. Each memory item is a self-contained problem-solving principle — no problem-specific details, only transferable techniques
