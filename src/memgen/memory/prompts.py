@@ -27,7 +27,7 @@ MEMORY_SYSTEM_PROMPT = (
     "problems — never tied to one specific problem's details."
 )
 
-_MAX_SOLUTIONS_PER_TIER = 5
+_MAX_SOLUTIONS_PER_TIER = None  # Use all solutions
 
 
 def build_memory_creation_prompt(
@@ -57,15 +57,14 @@ def build_memory_creation_prompt(
     ]
 
     for tier, solutions in grouped_solutions.items():
-        tier_solutions = solutions[:_MAX_SOLUTIONS_PER_TIER]
+        tier_solutions = solutions if _MAX_SOLUTIONS_PER_TIER is None else solutions[:_MAX_SOLUTIONS_PER_TIER]
         sections.append(f"<tier name=\"{tier}\">")
         for index, solution in enumerate(tier_solutions, start=1):
             sections.append(f"<attempt index=\"{index}\">")
             sections.append(solution.strip())
             sections.append("</attempt>")
-        omitted_count = max(len(solutions) - len(tier_solutions), 0)
-        if omitted_count:
-            sections.append(f"<!-- {omitted_count} additional {tier} attempts omitted for brevity -->")
+        if len(tier_solutions) < len(solutions):
+            sections.append(f"<!-- {len(solutions) - len(tier_solutions)} additional {tier} attempts omitted for brevity -->")
         sections.append("</tier>")
 
     sections.append("</solution_attempts>")
