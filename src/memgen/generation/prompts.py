@@ -17,12 +17,31 @@ def math_generation_prompt(problem: Problem) -> tuple[str, str]:
 def coding_generation_prompt(problem: Problem) -> tuple[str, str]:
     """Return (system_prompt, user_prompt) for competitive programming problems."""
     system = (
-        "You are an expert competitive programmer. Write a complete, correct "
-        "Python solution. Output ONLY the code, no explanations."
+        "You are an expert Python programmer. You will be given a question (problem "
+        "specification) and will generate a correct Python program that matches the "
+        "specification and passes all tests."
     )
-    user = problem.statement
+
     if problem.starter_code:
-        user += f"\n\nStarter code:\n```python\n{problem.starter_code}\n```"
+        format_instruction = (
+            "You will use the following starter code to write the solution to the problem "
+            "and enclose your code within delimiters."
+        )
+        code_block = f"```python\n{problem.starter_code}\n```"
+    else:
+        format_instruction = (
+            "Read the inputs from stdin solve the problem and write the answer to stdout "
+            "(do not directly test on the sample inputs). Enclose your code within delimiters "
+            "as follows. Ensure that when the python program runs, it reads the inputs, runs "
+            "the algorithm and writes output to STDOUT."
+        )
+        code_block = "```python\n# YOUR CODE HERE\n```"
+
+    user = (
+        f"### Question:\n{problem.statement}\n\n"
+        f"### Format:\n{format_instruction}\n{code_block}\n\n"
+        f"### Answer:\n(using the provided format with backticks)\n\n[BEGIN]"
+    )
     return system, user
 
 

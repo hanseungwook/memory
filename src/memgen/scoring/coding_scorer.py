@@ -71,16 +71,16 @@ class CodingScorer:
         return [self.score(problem, gen, i) for i, gen in enumerate(generations)]
 
     def _extract_code(self, text: str) -> str:
-        """Extract code from generation text."""
-        # Try ```python ... ``` blocks
-        match = re.search(r"```python\s*\n(.*?)```", text, re.DOTALL)
-        if match:
-            return match.group(1).strip()
+        """Extract code from generation text (last fence wins, per official LCB)."""
+        # Try ```python ... ``` blocks - take the last one
+        matches = re.findall(r"```python\s*\n(.*?)```", text, re.DOTALL)
+        if matches:
+            return matches[-1].strip()
 
-        # Try ``` ... ``` blocks
-        match = re.search(r"```\s*\n(.*?)```", text, re.DOTALL)
-        if match:
-            return match.group(1).strip()
+        # Try ``` ... ``` blocks - take the last one
+        matches = re.findall(r"```\s*\n(.*?)```", text, re.DOTALL)
+        if matches:
+            return matches[-1].strip()
 
         # Raw text
         return text.strip()
