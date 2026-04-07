@@ -13,10 +13,12 @@ def score_generation(generation: str):
     return scorer.score(make_problem(), generation, index=0)
 
 
-def test_math_generation_prompt_requires_answer_line_example():
+def test_math_generation_prompt_clarifies_response_shape():
     system_prompt, _ = math_generation_prompt(make_problem())
 
     assert "ANSWER: <integer>" in system_prompt
+    assert "first the reasoning, then a final line" in system_prompt
+    assert "a valid response could end like this" in system_prompt
     assert "ANSWER: 42" in system_prompt
     assert system_prompt == MATH_SYSTEM_PROMPT
 

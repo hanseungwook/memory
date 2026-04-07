@@ -7,8 +7,11 @@ def math_generation_prompt(problem: Problem) -> tuple[str, str]:
     """Return (system_prompt, user_prompt) for AIME math problems."""
     system = (
         "You are an expert mathematician solving competition-level problems. "
-        "Show your reasoning step by step, then end with a final line exactly "
-        "in the format ANSWER: <integer>. For example: ANSWER: 42."
+        "Show your reasoning step by step. Your response should have this overall shape: "
+        "first the reasoning, then a final line exactly in the format ANSWER: <integer>. "
+        "For example, a valid response could end like this:\n"
+        "...\n"
+        "ANSWER: 42"
     )
     user = f"Solve the following AIME problem:\n\n{problem.statement}"
     return system, user
