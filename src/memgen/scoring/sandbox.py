@@ -1,32 +1,510 @@
-"""Subprocess sandbox for executing code."""
+"""Dual-path code execution sandbox for LiveCodeBench problems.
 
+Supports:
+  - Function-based (call-based) execution for LeetCode-style problems
+  - Stdin-based execution for Codeforces/AtCoder-style problems
+
+Adapted from the official LiveCodeBench evaluation engine:
+  https://github.com/LiveCodeBench/LiveCodeBench
+  (Apache 2.0 License)
+"""
+
+import ast
+import faulthandler
+import json
+import multiprocessing
 import os
-import subprocess
-import tempfile
+import platform
+import signal
+import sys
+import time
+from dataclasses import dataclass
+from decimal import Decimal
+from io import StringIO
+from types import ModuleType
+from typing import Any
+from unittest.mock import mock_open, patch
+
+# Large import block prepended to submitted code so common libraries are available.
+IMPORT_STRING = (
+    "from string import *\nfrom re import *\nfrom datetime import *\n"
+    "from collections import *\nfrom heapq import *\nfrom bisect import *\n"
+    "from copy import *\nfrom math import *\nfrom random import *\n"
+    "from statistics import *\nfrom itertools import *\nfrom functools import *\n"
+    "from operator import *\nfrom io import *\nfrom sys import *\n"
+    "from json import *\nfrom builtins import *\nfrom typing import *\n"
+    "import string\nimport re\nimport datetime\nimport collections\n"
+    "import heapq\nimport bisect\nimport copy\nimport math\nimport random\n"
+    "import statistics\nimport itertools\nimport functools\nimport operator\n"
+    "import io\nimport sys\nimport json\n"
+    "sys.setrecursionlimit(50000)\n"
+)
 
 
-def execute_code(
-    code: str, stdin_input: str = "", timeout: int = 30
-) -> tuple[str, str, int]:
-    """Execute Python code in a subprocess.
+@dataclass
+class ExecutionResult:
+    passed: bool
+    actual: str
+    error: str | None = None
 
-    Returns (stdout, stderr, returncode).
-    On timeout, returns ("", "TimeoutExpired", -1).
+
+# ---------------------------------------------------------------------------
+# Timeout machinery
+# ---------------------------------------------------------------------------
+
+class TimeoutException(Exception):
+    pass
+
+
+def _timeout_handler(signum, frame):
+    raise TimeoutException("Execution timed out")
+
+
+# ---------------------------------------------------------------------------
+# Reliability guard — disable dangerous builtins/modules
+# ---------------------------------------------------------------------------
+
+def reliability_guard(maximum_memory_bytes: int | None = None) -> None:
+    """Disable destructive OS/subprocess functions before running untrusted code.
+
+    WARNING: This is NOT a security sandbox.  It reduces accidental damage but
+    does not protect against determined adversaries.
     """
-    fd, path = tempfile.mkstemp(suffix=".py")
-    try:
-        with os.fdopen(fd, "w") as f:
-            f.write(code)
+    if maximum_memory_bytes is not None:
+        import resource
+        resource.setrlimit(resource.RLIMIT_AS, (maximum_memory_bytes, maximum_memory_bytes))
+        resource.setrlimit(resource.RLIMIT_DATA, (maximum_memory_bytes, maximum_memory_bytes))
+        if platform.uname().system != "Darwin":
+            resource.setrlimit(resource.RLIMIT_STACK, (maximum_memory_bytes, maximum_memory_bytes))
 
-        result = subprocess.run(
-            ["python", path],
-            input=stdin_input,
-            capture_output=True,
-            text=True,
-            timeout=timeout,
+    faulthandler.disable()
+
+    import builtins
+    builtins.quit = None  # type: ignore[assignment]
+
+    os.environ["OMP_NUM_THREADS"] = "1"
+
+    for attr in (
+        "kill", "system", "putenv", "remove", "removedirs", "rmdir", "fchdir",
+        "setuid", "fork", "forkpty", "killpg", "rename", "renames", "truncate",
+        "replace", "unlink", "fchmod", "fchown", "chmod", "chown", "chroot",
+        "lchflags", "lchmod", "lchown", "getcwd", "chdir",
+    ):
+        if hasattr(os, attr):
+            setattr(os, attr, None)
+
+    import shutil
+    shutil.rmtree = None  # type: ignore[assignment]
+    shutil.move = None  # type: ignore[assignment]
+    shutil.chown = None  # type: ignore[assignment]
+
+    import subprocess
+    subprocess.Popen = None  # type: ignore[assignment]
+
+    if isinstance(__builtins__, dict):
+        __builtins__["help"] = None
+    else:
+        __builtins__.help = None  # type: ignore[union-attr]
+
+    sys.modules["ipdb"] = None  # type: ignore[assignment]
+    sys.modules["joblib"] = None  # type: ignore[assignment]
+    sys.modules["resource"] = None  # type: ignore[assignment]
+    sys.modules["psutil"] = None  # type: ignore[assignment]
+    sys.modules["tkinter"] = None  # type: ignore[assignment]
+
+
+# ---------------------------------------------------------------------------
+# Stdout capture helper
+# ---------------------------------------------------------------------------
+
+class Capturing(list):
+    """Context manager that captures everything written to sys.stdout."""
+
+    def __enter__(self):
+        self._stdout = sys.stdout
+        sys.stdout = self._stringio = StringIO()
+        self._stringio.close = lambda: None  # type: ignore[method-assign]
+        return self
+
+    def __exit__(self, *args):
+        self.append(self._stringio.getvalue())
+        del self._stringio
+        sys.stdout = self._stdout
+
+
+# ---------------------------------------------------------------------------
+# Mock stdin with buffer support (for binary reads)
+# ---------------------------------------------------------------------------
+
+class MockStdinWithBuffer:
+    def __init__(self, inputs: str):
+        self.inputs = inputs
+        self._stringio = StringIO(inputs)
+        self.buffer = _MockBuffer(inputs)
+
+    def read(self, *args):
+        return self.inputs
+
+    def readline(self, *args):
+        return self._stringio.readline(*args)
+
+    def readlines(self, *args):
+        return self.inputs.split("\n")
+
+    def __getattr__(self, name):
+        return getattr(self._stringio, name)
+
+
+class _MockBuffer:
+    def __init__(self, inputs: str):
+        self.inputs = inputs.encode("utf-8")
+
+    def read(self, *args):
+        return self.inputs
+
+    def readline(self, *args):
+        return self.inputs.split(b"\n")[0] + b"\n"
+
+
+# ---------------------------------------------------------------------------
+# AST helpers for stdin-based execution
+# ---------------------------------------------------------------------------
+
+def _clean_if_name(code: str) -> str:
+    """Strip ``if __name__ == '__main__':`` guard, inlining its body."""
+    try:
+        tree = ast.parse(code)
+        last = tree.body[-1]
+        if isinstance(last, ast.If) and ast.unparse(last.test).strip() == "__name__ == '__main__'":
+            code = ast.unparse(tree.body[:-1]) + "\n" + ast.unparse(last.body)
+    except Exception:
+        pass
+    return code
+
+
+def _make_function(code: str) -> str:
+    """Wrap non-import statements into ``wrapped_function()`` so we can call it with mocked stdin."""
+    try:
+        tree = ast.parse(code)
+        imports = []
+        body = []
+        for stmt in tree.body:
+            if isinstance(stmt, (ast.Import, ast.ImportFrom)):
+                imports.append(stmt)
+            else:
+                body.append(stmt)
+        func = ast.FunctionDef(
+            name="wrapped_function",
+            args=ast.arguments(posonlyargs=[], args=[], kwonlyargs=[], kw_defaults=[], defaults=[]),
+            body=body,
+            decorator_list=[],
+            lineno=-1,
         )
-        return result.stdout, result.stderr, result.returncode
-    except subprocess.TimeoutExpired:
-        return "", "TimeoutExpired", -1
+        return IMPORT_STRING + "\n" + ast.unparse(imports) + "\n" + ast.unparse(func)
+    except Exception:
+        return code
+
+
+# ---------------------------------------------------------------------------
+# Code compilation
+# ---------------------------------------------------------------------------
+
+def _compile_code(code: str, timeout: int) -> ModuleType | None:
+    signal.alarm(timeout)
+    try:
+        mod = ModuleType("tmp_sol", "")
+        exec(code, mod.__dict__)  # noqa: S102
+        if "class Solution" in code:
+            return mod.Solution()  # type: ignore[return-value]
+        return mod
     finally:
-        os.unlink(path)
+        signal.alarm(0)
+
+
+# ---------------------------------------------------------------------------
+# Call stdin-wrapped method with mocked IO
+# ---------------------------------------------------------------------------
+
+def _call_method(method, inputs: str):
+    if isinstance(inputs, list):
+        inputs = "\n".join(inputs)
+    inputs_line_iterator = iter(inputs.split("\n"))
+    mock_stdin = MockStdinWithBuffer(inputs)
+
+    @patch("builtins.open", mock_open(read_data=inputs))
+    @patch("sys.stdin", mock_stdin)
+    @patch("sys.stdin.readline", lambda *args: next(inputs_line_iterator))
+    @patch("sys.stdin.readlines", lambda *args: inputs.split("\n"))
+    @patch("sys.stdin.read", lambda *args: inputs)
+    def _inner(fn):
+        try:
+            return fn()
+        except SystemExit:
+            pass
+    return _inner(method)
+
+
+# ---------------------------------------------------------------------------
+# Decimal-based line comparison (float tolerance)
+# ---------------------------------------------------------------------------
+
+def _convert_line_to_decimals(line: str) -> tuple[bool, list[Decimal]]:
+    try:
+        return True, [Decimal(e) for e in line.split()]
+    except Exception:
+        return False, []
+
+
+def _get_stripped_lines(val: str) -> list[str]:
+    return [l.strip() for l in val.strip().split("\n")]
+
+
+def _compare_stdio_output(actual: str, expected: str) -> bool:
+    """Compare stdout output with Decimal-based float tolerance, line by line."""
+    pred_lines = _get_stripped_lines(actual)
+    exp_lines = _get_stripped_lines(expected)
+    if len(pred_lines) != len(exp_lines):
+        return False
+    for p, e in zip(pred_lines, exp_lines):
+        if p == e:
+            continue
+        ok_p, dec_p = _convert_line_to_decimals(p)
+        ok_e, dec_e = _convert_line_to_decimals(e)
+        if not ok_p or not ok_e:
+            return False
+        if dec_p != dec_e:
+            return False
+    return True
+
+
+# ---------------------------------------------------------------------------
+# Worker functions (run inside multiprocessing.Process)
+# ---------------------------------------------------------------------------
+
+def _worker_function_based(
+    code: str,
+    func_name: str,
+    all_inputs: list[str],
+    all_outputs: list[str],
+    timeout: int,
+    result_queue: multiprocessing.Queue,
+) -> None:
+    """Run call-based grading inside a child process."""
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    reliability_guard()
+
+    code = IMPORT_STRING + "\n\n" + code
+    try:
+        compiled = _compile_code(code, timeout)
+    except Exception as exc:
+        result_queue.put([
+            ExecutionResult(passed=False, actual="", error=f"Compilation error: {exc}")
+            for _ in all_inputs
+        ])
+        return
+
+    if compiled is None:
+        result_queue.put([
+            ExecutionResult(passed=False, actual="", error="Compilation returned None")
+            for _ in all_inputs
+        ])
+        return
+
+    method = getattr(compiled, func_name, None)
+    if method is None:
+        result_queue.put([
+            ExecutionResult(passed=False, actual="", error=f"Function '{func_name}' not found")
+            for _ in all_inputs
+        ])
+        return
+
+    parsed_inputs = [
+        [json.loads(line) for line in inp.split("\n") if line.strip()]
+        for inp in all_inputs
+    ]
+    parsed_outputs = [json.loads(out) for out in all_outputs]
+
+    results: list[ExecutionResult] = []
+    for args, expected in zip(parsed_inputs, parsed_outputs):
+        signal.alarm(timeout)
+        faulthandler.enable()
+        try:
+            prediction = method(*args)
+            signal.alarm(0)
+            if isinstance(prediction, tuple):
+                prediction = list(prediction)
+            ok = prediction == expected
+            results.append(ExecutionResult(
+                passed=ok,
+                actual=repr(prediction),
+                error=None if ok else "Wrong Answer",
+            ))
+        except TimeoutException:
+            results.append(ExecutionResult(passed=False, actual="", error="Time Limit Exceeded"))
+            break
+        except Exception as exc:
+            signal.alarm(0)
+            results.append(ExecutionResult(passed=False, actual="", error=f"Runtime Error: {exc}"))
+            break
+        finally:
+            signal.alarm(0)
+            faulthandler.disable()
+
+    # Pad remaining as not-run if we broke early
+    while len(results) < len(all_inputs):
+        results.append(ExecutionResult(passed=False, actual="", error="Skipped (earlier failure)"))
+
+    result_queue.put(results)
+
+
+def _worker_stdin_based(
+    code: str,
+    all_inputs: list[str],
+    all_outputs: list[str],
+    timeout: int,
+    result_queue: multiprocessing.Queue,
+) -> None:
+    """Run stdin-based grading inside a child process."""
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    reliability_guard()
+
+    code = _clean_if_name(code)
+    code = _make_function(code)
+
+    try:
+        compiled = _compile_code(code, timeout)
+    except Exception as exc:
+        result_queue.put([
+            ExecutionResult(passed=False, actual="", error=f"Compilation error: {exc}")
+            for _ in all_inputs
+        ])
+        return
+
+    if compiled is None:
+        result_queue.put([
+            ExecutionResult(passed=False, actual="", error="Compilation returned None")
+            for _ in all_inputs
+        ])
+        return
+
+    method = getattr(compiled, "wrapped_function", None)
+    if method is None:
+        result_queue.put([
+            ExecutionResult(passed=False, actual="", error="wrapped_function not found")
+            for _ in all_inputs
+        ])
+        return
+
+    results: list[ExecutionResult] = []
+    for inp, expected in zip(all_inputs, all_outputs):
+        signal.alarm(timeout)
+        faulthandler.enable()
+        with Capturing() as captured:
+            try:
+                _call_method(method, inp)
+                signal.alarm(0)
+            except TimeoutException:
+                signal.alarm(0)
+                results.append(ExecutionResult(passed=False, actual="", error="Time Limit Exceeded"))
+                break
+            except Exception as exc:
+                signal.alarm(0)
+                results.append(ExecutionResult(passed=False, actual="", error=f"Runtime Error: {exc}"))
+                break
+            finally:
+                signal.alarm(0)
+                faulthandler.disable()
+
+        actual = captured[0] if captured else ""
+        ok = _compare_stdio_output(actual, expected)
+        results.append(ExecutionResult(
+            passed=ok,
+            actual=actual.strip(),
+            error=None if ok else "Wrong Answer",
+        ))
+
+    while len(results) < len(all_inputs):
+        results.append(ExecutionResult(passed=False, actual="", error="Skipped (earlier failure)"))
+
+    result_queue.put(results)
+
+
+# ---------------------------------------------------------------------------
+# Public API
+# ---------------------------------------------------------------------------
+
+def execute_function_based(
+    code: str,
+    func_name: str,
+    all_inputs: list[str],
+    all_outputs: list[str],
+    timeout: int = 30,
+) -> list[ExecutionResult]:
+    """Execute function-based (LeetCode-style) code against test cases.
+
+    Each input is a newline-separated string of JSON-encoded arguments.
+    Each output is a JSON-encoded expected return value.
+    Returns one ``ExecutionResult`` per test case.
+    """
+    ctx = multiprocessing.get_context("fork")
+    q: multiprocessing.Queue = ctx.Queue()
+    proc = ctx.Process(
+        target=_worker_function_based,
+        args=(code, func_name, all_inputs, all_outputs, timeout, q),
+    )
+    proc.start()
+    proc.join(timeout=timeout + 5)
+
+    if proc.is_alive():
+        proc.kill()
+        proc.join()
+        return [
+            ExecutionResult(passed=False, actual="", error="Process timed out")
+            for _ in all_inputs
+        ]
+
+    if q.empty():
+        return [
+            ExecutionResult(passed=False, actual="", error="No results returned")
+            for _ in all_inputs
+        ]
+
+    return q.get()
+
+
+def execute_stdin_based(
+    code: str,
+    all_inputs: list[str],
+    all_outputs: list[str],
+    timeout: int = 30,
+) -> list[ExecutionResult]:
+    """Execute stdin-based (Codeforces/AtCoder-style) code against test cases.
+
+    Each input is a raw string piped to stdin.
+    Each output is the expected stdout string.
+    Returns one ``ExecutionResult`` per test case.
+    """
+    ctx = multiprocessing.get_context("fork")
+    q: multiprocessing.Queue = ctx.Queue()
+    proc = ctx.Process(
+        target=_worker_stdin_based,
+        args=(code, all_inputs, all_outputs, timeout, q),
+    )
+    proc.start()
+    proc.join(timeout=timeout + 5)
+
+    if proc.is_alive():
+        proc.kill()
+        proc.join()
+        return [
+            ExecutionResult(passed=False, actual="", error="Process timed out")
+            for _ in all_inputs
+        ]
+
+    if q.empty():
+        return [
+            ExecutionResult(passed=False, actual="", error="No results returned")
+            for _ in all_inputs
+        ]
+
+    return q.get()
