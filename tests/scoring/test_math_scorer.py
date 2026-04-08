@@ -2,7 +2,10 @@ import pytest
 
 from memgen.data.base import Problem
 from memgen.evaluation.prompts import MATH_SYSTEM_PROMPT
-from memgen.generation.prompts import math_generation_prompt
+from memgen.generation.prompts import (
+    MATH_SYSTEM_PROMPT as GENERATION_MATH_SYSTEM_PROMPT,
+    math_generation_prompt,
+)
 from memgen.scoring.math_scorer import MathScorer
 
 
@@ -23,6 +26,10 @@ def test_math_generation_prompt_clarifies_response_shape():
     assert "a valid response could end like this" in system_prompt
     assert "ANSWER: 42" in system_prompt
     assert system_prompt == MATH_SYSTEM_PROMPT
+
+
+def test_math_system_prompt_has_single_canonical_definition():
+    assert GENERATION_MATH_SYSTEM_PROMPT is MATH_SYSTEM_PROMPT
 
 
 def test_scores_plain_integer_answer_line_correct():
