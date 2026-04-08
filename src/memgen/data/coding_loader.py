@@ -66,7 +66,7 @@ def load_coding_problems(config: DatasetConfig | None = None) -> list[Problem]:
             except (json.JSONDecodeError, TypeError):
                 pass
 
-        meta["func_name"] = meta.get("func_name")
+        meta.setdefault("func_name", None)
 
         # Add extra fields to metadata
         meta["question_title"] = row.get("question_title", "")

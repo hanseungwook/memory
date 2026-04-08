@@ -14,7 +14,7 @@ from memgen.scoring.sandbox import (
 
 def _is_function_based(problem: Problem) -> bool:
     """Determine if a problem uses call-based (function) execution."""
-    return bool(problem.metadata.get("func_name") and problem.starter_code)
+    return bool(problem.metadata.get("func_name"))
 
 
 class CodingScorer:
@@ -82,17 +82,12 @@ class CodingScorer:
 
     def _extract_code(self, text: str) -> str:
         """Extract code from generation text (last fence wins, per official LCB)."""
-        # Try ```python ... ``` blocks - take the last one
-        matches = re.findall(r"```python\s*\n(.*?)```", text, re.DOTALL)
+        # Find all triple-backtick fence pairs and take the last one
+        matches = re.findall(r"```(?:\w*\s*\n)?(.*?)```", text, re.DOTALL)
         if matches:
             return matches[-1].strip()
-
-        # Try ``` ... ``` blocks - take the last one
-        matches = re.findall(r"```\s*\n(.*?)```", text, re.DOTALL)
-        if matches:
-            return matches[-1].strip()
-
-        return text.strip()
+        # Official returns empty string when no fence pair exists
+        return ""
 
     def _build_test_program(self, code: str, test_case: dict) -> str:
         """Build a test program. For stdin/stdout format, just use the code directly."""

@@ -453,7 +453,7 @@ def execute_function_based(
         args=(code, func_name, all_inputs, all_outputs, timeout, q),
     )
     proc.start()
-    proc.join(timeout=timeout + 5)
+    proc.join(timeout=(timeout + 1) * len(all_inputs) + 5)
 
     if proc.is_alive():
         proc.kill()
@@ -491,7 +491,7 @@ def execute_stdin_based(
         args=(code, all_inputs, all_outputs, timeout, q),
     )
     proc.start()
-    proc.join(timeout=timeout + 5)
+    proc.join(timeout=(timeout + 1) * len(all_inputs) + 5)
 
     if proc.is_alive():
         proc.kill()

@@ -30,7 +30,7 @@ class TestIsFunctionBased:
             metadata={"func_name": "solve"},
             starter_code=None,
         )
-        assert not _is_function_based(p)
+        assert _is_function_based(p)
 
 
 class TestCodingScorerStdin:
@@ -63,7 +63,7 @@ class TestCodingScorerStdin:
             ],
         )
         # Always prints 6 — passes first case, fails second
-        gen = 'print("6")'
+        gen = '```python\nprint("6")\n```'
         result = self.scorer.score(problem, gen, 0)
         assert result.score == 0.5
         assert result.tier == "partial"
@@ -116,4 +116,4 @@ class TestExtractCode:
         assert self.scorer._extract_code(text) == "print(2)"
 
     def test_raw_text(self):
-        assert self.scorer._extract_code("print(3)") == "print(3)"
+        assert self.scorer._extract_code("print(3)") == ""

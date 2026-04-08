@@ -122,8 +122,8 @@ def _fallback_coding_prompt(problem: Problem) -> tuple[str, str]:
 
     user = (
         f"### Question:\n{problem.statement}\n\n"
-        f"### Format:\n{format_instruction}\n{code_block}\n\n"
-        f"### Answer:\n(using the provided format with backticks)\n\n[BEGIN]"
+        f"### Format: {format_instruction}\n{code_block}\n\n"
+        f"### Answer: (use the provided format with backticks)\n"
     )
     return CODING_SYSTEM_PROMPT, user
 
