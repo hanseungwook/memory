@@ -11,7 +11,10 @@ from memgen.data.base import Problem
 from memgen.scoring.base import ScoreResult
 
 ANSWER_LINE_RE = re.compile(r"^\s*ANSWER:\s*(?P<fragment>.*?)\s*$")
+BOXED_ANSWER_RE = re.compile(r"^\\boxed\s*\{(?P<inner>.*)\}$", re.DOTALL)
 PERCENT_RE = re.compile(r"(?i)(?:%|percent(?:age)?|pct\b)")
+PLAIN_EXPRESSION_RE = re.compile(r"^[\d\s()+\-*/.^]+$")
+SEPARATE_INTEGER_RE = re.compile(r"\d\s+\d")
 
 
 class MathScorer:
@@ -91,6 +94,10 @@ class MathScorer:
             details["reason"] = "percentage_not_allowed"
             return None, details
 
+        if not self._is_valid_answer_fragment(stripped_fragment):
+            details["reason"] = "invalid_answer_fragment"
+            return None, details
+
         try:
             parsed = parse(
                 stripped_fragment,
@@ -119,6 +126,21 @@ class MathScorer:
 
         details["extracted"] = canonical
         return canonical, details
+
+    def _is_valid_answer_fragment(self, fragment: str) -> bool:
+        """Allow only a single boxed value or plain arithmetic expression."""
+        candidate = fragment.strip()
+
+        while boxed_match := BOXED_ANSWER_RE.fullmatch(candidate):
+            candidate = boxed_match.group("inner").strip()
+
+        if not candidate:
+            return False
+
+        if not PLAIN_EXPRESSION_RE.fullmatch(candidate):
+            return False
+
+        return SEPARATE_INTEGER_RE.search(candidate) is None
 
     def _canonicalize_integer(self, value: object) -> str | None:
         """Return the exact integer string for supported parsed values."""

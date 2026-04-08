@@ -1,3 +1,5 @@
+import pytest
+
 from memgen.data.base import Problem
 from memgen.evaluation.prompts import MATH_SYSTEM_PROMPT
 from memgen.generation.prompts import math_generation_prompt
@@ -47,6 +49,25 @@ def test_scores_expression_answer_line_correct():
     assert result_fraction.details["extracted"] == "42"
     assert result_product.score == 1.0
     assert result_product.details["extracted"] == "42"
+
+
+@pytest.mark.parametrize(
+    ("fragment", "expected_reason"),
+    [
+        ("The answer is 42", "invalid_answer_fragment"),
+        ("42 inches", "invalid_answer_fragment"),
+        ("43 and 42", "invalid_answer_fragment"),
+        (r"6 \\cdot 7", "invalid_answer_fragment"),
+    ],
+)
+def test_rejects_overly_permissive_answer_fragments(
+    fragment: str, expected_reason: str
+):
+    result = score_generation(f"Reasoning\nANSWER: {fragment}")
+
+    assert result.score == 0.0
+    assert result.details["reason"] == expected_reason
+    assert result.details["extracted"] is None
 
 
 def test_missing_answer_line_is_incorrect_even_with_correct_integer_elsewhere():
