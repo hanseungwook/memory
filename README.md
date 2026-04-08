@@ -1,23 +1,26 @@
 # Memory from Generations
 
-Experiment pipeline for creating generalizable problem-solving memories from contrastive analysis of LLM generations.
+Experiment pipeline for creating reusable problem-solving memories from contrastive analysis of LLM generations.
 
-**Core idea:** Given a problem, generate K solutions with an LLM, score them, group by correctness, then create *memories* — generalizable insights extracted by comparing what successful vs unsuccessful attempts did differently. Then verify whether injecting these memories improves performance on the same tasks.
+Core idea: for each problem, the pipeline generates multiple attempts, scores them, groups successful and unsuccessful solutions, extracts transferable memory items from the contrast, and then checks whether injecting those memories improves performance on the same problem.
 
-## Pipeline
+## Pipeline Overview
 
+```text
+Load Data -> Generate K Solutions -> Score -> Create Memories -> Evaluate -> Report
 ```
-Load Data → Generate (K=16) → Score → Create Memories → Evaluate (baseline vs augmented)
-```
 
-| Stage | What it does |
-|-------|-------------|
-| **Generate** | Produce K=16 solutions per problem using gpt-5.4-nano-2026-03-17 |
-| **Score** | Math: binary exact-match (AIME answers are integers). Coding: tiered (fail/partial/full) via subprocess execution against test cases |
-| **Memory** | Group solutions by score tier, send correct vs incorrect groups to gpt-5.4-nano-2026-03-17 with a contrastive prompt, extract multiple generalizable memory items |
-| **Evaluate** | For each problem, generate 16 baseline solutions (no memory) and 16 augmented solutions (with memory injected), compare averaged pass@1 |
+Each stage persists JSONL outputs under `results/<domain>/`, so runs can resume at per-problem granularity.
 
-Each stage writes JSONL to `results/`, enabling crash-safe resume at per-problem granularity.
+| Stage | What the current implementation does | Relevant files |
+| --- | --- | --- |
+| Load data | Lazily loads problems once per run. Math uses a HuggingFace AIME dataset loader; coding uses a HuggingFace loader that also decodes compressed test cases. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/data/math_loader.py`](src/memgen/data/math_loader.py), [`src/memgen/data/coding_loader.py`](src/memgen/data/coding_loader.py), [`src/memgen/data/base.py`](src/memgen/data/base.py) |
+| Generate | Builds a domain-specific prompt and issues `K` async Chat Completions calls through the OpenAI SDK. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/generation/prompts.py`](src/memgen/generation/prompts.py), [`src/memgen/generation/generator.py`](src/memgen/generation/generator.py), [`src/memgen/openai_compat.py`](src/memgen/openai_compat.py) |
+| Score | Math expects a final `ANSWER: <integer>` line and scores exact integer correctness. Coding extracts the last fenced code block, runs it against all tests, and assigns `fail` / `partial` / `full`. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/scoring/base.py`](src/memgen/scoring/base.py), [`src/memgen/scoring/math_scorer.py`](src/memgen/scoring/math_scorer.py), [`src/memgen/scoring/coding_scorer.py`](src/memgen/scoring/coding_scorer.py), [`src/memgen/scoring/sandbox.py`](src/memgen/scoring/sandbox.py) |
+| Create memories | Groups solutions by tier, builds a contrastive prompt over all solutions in each non-empty tier, requests a memory response, and parses `<reasoning>` / `<memory>` tags. If fewer than two tiers are populated, memory creation is skipped. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/memory/creator.py`](src/memgen/memory/creator.py), [`src/memgen/memory/prompts.py`](src/memgen/memory/prompts.py) |
+| Evaluate | Regenerates baseline samples, then regenerates augmented samples with memory injection when memory exists. `pass@1` is computed as the fraction of samples with score exactly `1.0`. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/evaluation/evaluator.py`](src/memgen/evaluation/evaluator.py), [`src/memgen/evaluation/prompts.py`](src/memgen/evaluation/prompts.py) |
+| Persist and inspect | Appends stage results to JSONL files and also writes per-problem artifact bundles as both JSON and Markdown. | [`src/memgen/persistence/store.py`](src/memgen/persistence/store.py) |
+| CLI entrypoints | Runs the pipeline by stage and prints aggregate evaluation stats. | [`src/memgen/cli.py`](src/memgen/cli.py) |
 
 ## Setup
 
@@ -25,25 +28,27 @@ Each stage writes JSONL to `results/`, enabling crash-safe resume at per-problem
 pip install -e ".[dev]"
 ```
 
-Set your OpenAI API key in `.env`:
+Environment:
 
+```bash
+export OPENAI_API_KEY=sk-...
 ```
-OPENAI_API_KEY=sk-...
-```
+
+The package requires Python 3.12+ and installs its runtime dependencies from [`pyproject.toml`](pyproject.toml).
 
 ## Usage
 
-### Full pipeline
+### Run the full pipeline
 
 ```bash
-# Math (AIME)
+# Math
 memgen run -c config/math_aime.yaml
 
-# Coding (LiveCodeBench)
+# Coding
 memgen run -c config/coding_lcb.yaml
 ```
 
-### Quick test (limit problems)
+### Run a smaller slice
 
 ```bash
 memgen run -c config/math_aime.yaml --max-problems 3
@@ -58,119 +63,183 @@ memgen run -c config/math_aime.yaml --stage memory
 memgen run -c config/math_aime.yaml --stage evaluate
 ```
 
-### View results
+### Print aggregate results
 
 ```bash
 memgen report -c config/math_aime.yaml
 ```
 
-## Datasets
-
-| Domain | Dataset | Split | Problems |
-|--------|---------|-------|----------|
-| Math | `gneubig/aime-1983-2024` | train | ~933 AIME problems (1983-2024) |
-| Coding | `hanseungwook/code_generation_lite` | train | 880 problems (LeetCode, Codeforces) |
+The CLI surface is implemented in [`src/memgen/cli.py`](src/memgen/cli.py), and stage dispatch lives in [`src/memgen/pipeline.py`](src/memgen/pipeline.py).
 
 ## Configuration
 
-Config files are in `config/`. The domain-specific YAML (`math_aime.yaml`, `coding_lcb.yaml`) is merged with `default.yaml` defaults.
+Configuration loading is defined in [`src/memgen/config.py`](src/memgen/config.py).
 
-Key parameters:
+Important implementation detail: `load_config()` loads exactly one YAML file and then lets the Pydantic models fill in missing fields from code defaults. It does not merge `config/math_aime.yaml` or `config/coding_lcb.yaml` with [`config/default.yaml`](config/default.yaml).
 
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `generation.model` | `gpt-5.4-nano-2026-03-17` | Model for solution generation |
-| `generation.k` | `16` | Number of generations per problem |
-| `generation.temperature` | `0.7` | Sampling temperature for diversity |
-| `memory.model` | `gpt-5.4-nano-2026-03-17` | Model for memory creation |
-| `memory.temperature` | `0.3` | Lower temperature for analytical task |
-| `evaluation.k` | `16` | Number of generations for pass@1 averaging |
-| `scoring.timeout_seconds` | `30` | Timeout per code execution |
-| `resume` | `true` | Skip already-processed problems on restart |
+- [`config/math_aime.yaml`](config/math_aime.yaml) only defines the math dataset.
+- [`config/coding_lcb.yaml`](config/coding_lcb.yaml) only defines the coding dataset.
+- [`config/default.yaml`](config/default.yaml) is a reference preset, not an automatically applied base config, and it is not runnable by itself because it has no `dataset` block.
 
-## How memory creation works
+So when you run `memgen run -c config/math_aime.yaml`, the effective fallback values come from the code defaults in [`src/memgen/config.py`](src/memgen/config.py), not from [`config/default.yaml`](config/default.yaml).
 
-For each problem, after generating and scoring K=16 solutions:
+### Code defaults used for unspecified fields
 
-1. **Group** solutions by score tier (correct/incorrect for math, full/partial/fail for coding)
-2. **Contrastive prompt** sends up to 5 solutions per tier to gpt-5.4-nano-2026-03-17, asking it to:
-   - First reason about *why* certain attempts succeeded and others failed (`<reasoning>` tag)
-   - Then extract multiple independent, generalizable memory items (`<memory>` tags)
-3. Each memory item is a self-contained problem-solving principle — no problem-specific details, only transferable techniques
+| Parameter | Default in code | Where it lives |
+| --- | --- | --- |
+| `generation.model` | `gpt-5-mini` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `generation.k` | `16` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `generation.temperature` | `0.7` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `generation.max_tokens` | `4096` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `generation.concurrent_requests` | `16` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `memory.model` | `gpt-5-mini` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `memory.temperature` | `0.3` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `memory.max_tokens` | `2048` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `evaluation.model` | `gpt-5-mini` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `evaluation.k` | `16` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `evaluation.temperature` | `0.7` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `evaluation.max_tokens` | `4096` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `scoring.timeout_seconds` | `30` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `scoring.max_output_length` | `10000` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `results_dir` | `results` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `resume` | `true` | [`src/memgen/config.py`](src/memgen/config.py) |
 
-**Key constraint:** Memories must be generalizable and transferable across different problems. The prompt reinforces this in the system message, guidelines, instructions, and response format.
+### OpenAI request compatibility
 
-### Memory creation prompt structure
+Request shaping is handled by [`src/memgen/openai_compat.py`](src/memgen/openai_compat.py).
 
-```
-System: Extract generalizable, transferable insights from comparing
-        successful and unsuccessful solution attempts.
+- The client sends `max_completion_tokens`, not `max_tokens`.
+- For models whose names start with `gpt-5`, custom `temperature` values are intentionally omitted because the Chat Completions API only supports the default temperature for those models.
+- For non-`gpt-5` models, `temperature` is passed through normally.
 
-User:
-  ## Guidelines
-  [Extract insights that are GENERALIZABLE and TRANSFERABLE]
+## Datasets
 
-  ## Important notes
-  [Think first, extract multiple items, no problem-specific details]
+| Domain | Default dataset config | Loader |
+| --- | --- | --- |
+| Math | `gneubig/aime-1983-2024` / `train` | [`src/memgen/data/math_loader.py`](src/memgen/data/math_loader.py) |
+| Coding | `hanseungwook/code_generation_lite` / `train` | [`src/memgen/data/coding_loader.py`](src/memgen/data/coding_loader.py) |
 
-  <problem>...</problem>
-  <solution_attempts>
-    <tier name="correct">
-      <attempt>...</attempt>
-    </tier>
-    <tier name="incorrect">
-      <attempt>...</attempt>
-    </tier>
-  </solution_attempts>
+Implementation notes:
 
-  ## Response format
-  <reasoning>Why did some attempts succeed and others fail?</reasoning>
-  <memories>
-    <memory>Generalizable insight 1</memory>
-    <memory>Generalizable insight 2</memory>
-  </memories>
-```
+- The math loader supports multiple AIME-like schemas by checking alternate column names such as `ID`/`id` and `Question`/`Problem`.
+- The coding loader decodes both plain JSON test cases and base64 + zlib + pickle encoded payloads.
+- Coding metadata is preserved on the `Problem` object, including `func_name`, platform, difficulty, and title.
 
-### Memory injection during evaluation
+## Stage Details
 
-Memories are prepended to the problem prompt as a numbered list:
+### 1. Load data
 
-```
-Before solving, consider these insights from prior analysis:
+The pipeline caches the loaded `Problem` objects in memory and chooses the loader from the configured domain in [`src/memgen/pipeline.py`](src/memgen/pipeline.py).
 
-  1. [insight from memory item 1]
-  2. [insight from memory item 2]
+Relevant files:
 
-Apply these insights to the problem below.
+- [`src/memgen/data/base.py`](src/memgen/data/base.py)
+- [`src/memgen/data/math_loader.py`](src/memgen/data/math_loader.py)
+- [`src/memgen/data/coding_loader.py`](src/memgen/data/coding_loader.py)
 
-[original problem prompt]
-```
+### 2. Generate
 
-## Output structure
+Prompt selection is domain-specific:
 
-```
+- Math generation uses [`src/memgen/generation/prompts.py`](src/memgen/generation/prompts.py) and reuses the competition-style math system prompt defined in [`src/memgen/evaluation/prompts.py`](src/memgen/evaluation/prompts.py).
+- Coding generation uses the coding prompt builder in [`src/memgen/generation/prompts.py`](src/memgen/generation/prompts.py), including starter code when available.
+
+The async generation engine is [`src/memgen/generation/generator.py`](src/memgen/generation/generator.py). It:
+
+- creates one shared `AsyncOpenAI` client,
+- enforces a semaphore using `generation.concurrent_requests`,
+- retries failed requests with exponential backoff,
+- gathers `K` independent samples concurrently.
+
+### 3. Score
+
+Scorer selection happens in [`src/memgen/scoring/coding_scorer.py`](src/memgen/scoring/coding_scorer.py) via `get_scorer()`.
+
+Math scoring in [`src/memgen/scoring/math_scorer.py`](src/memgen/scoring/math_scorer.py):
+
+- looks for a final `ANSWER:` line,
+- parses boxed or plain arithmetic expressions with `math-verify`,
+- canonicalizes the result to an exact integer,
+- returns `score=1.0` / `tier=correct` or `score=0.0` / `tier=incorrect`.
+
+Coding scoring in [`src/memgen/scoring/coding_scorer.py`](src/memgen/scoring/coding_scorer.py):
+
+- extracts the last fenced code block from the model output,
+- runs function-based grading when `problem.metadata["func_name"]` is present,
+- otherwise runs stdin/stdout grading,
+- computes a per-generation fractional score `passed / total`,
+- maps that ratio to `fail`, `partial`, or `full`.
+
+Execution lives in [`src/memgen/scoring/sandbox.py`](src/memgen/scoring/sandbox.py). Despite the module name, it is only a lightweight reliability guard and explicitly not a security sandbox.
+
+### 4. Create memories
+
+Memory grouping and request logic live in [`src/memgen/memory/creator.py`](src/memgen/memory/creator.py), with prompt construction and parsing in [`src/memgen/memory/prompts.py`](src/memgen/memory/prompts.py).
+
+Current behavior:
+
+1. Solutions are grouped by score tier in generation order.
+2. If fewer than two tiers are populated, the pipeline writes `{"skipped": true}` for that problem and does not call the memory model.
+3. Otherwise, the prompt includes the problem statement plus all solutions from each populated tier.
+4. The response parser extracts one shared `<reasoning>` block and zero or more `<memory>` items.
+
+The grouped tiers are:
+
+- Math: `correct`, `incorrect`
+- Coding: `full`, `partial`, `fail`
+
+### 5. Evaluate
+
+Evaluation is implemented in [`src/memgen/evaluation/evaluator.py`](src/memgen/evaluation/evaluator.py), and prompt injection lives in [`src/memgen/evaluation/prompts.py`](src/memgen/evaluation/prompts.py).
+
+Current behavior:
+
+1. Generate `evaluation.k` baseline samples using the same domain prompt family as the generation stage.
+2. Score those samples with the same scorer used earlier in the pipeline.
+3. If memory exists, prepend the memory items to the user prompt and generate a second augmented batch.
+4. If memory was skipped, reuse the baseline generations and mark `used_baseline_for_augmented = true`.
+5. Compute `pass@1` as the share of samples with score exactly `1.0`.
+
+That last point matters for coding: `partial` generations contribute to the stored per-sample scores, but they do not count as pass@1 successes.
+
+## Output Structure
+
+Persistence is implemented in [`src/memgen/persistence/store.py`](src/memgen/persistence/store.py).
+
+```text
 results/
 ├── math/
-│   ├── generations/generations.jsonl   # {problem_id, solutions: [...]}
-│   ├── scores/scores.jsonl             # {problem_id, scores: [{score, tier, ...}]}
-│   ├── memories/memories.jsonl         # {problem_id, items: [{insight, reasoning}]}
-│   ├── evaluations/evaluations.jsonl   # {problem_id, baseline_pass_rate, augmented_pass_rate, improvement}
+│   ├── generations/generations.jsonl
+│   ├── scores/scores.jsonl
+│   ├── memories/memories.jsonl
+│   ├── evaluations/evaluations.jsonl
 │   └── artifacts/
-│       ├── index.json                  # high-level index of saved problem artifacts
-│       ├── index.md                    # readable overview table
+│       ├── index.json
+│       ├── index.md
 │       └── <problem-slug>-<hash>/
-│           ├── artifact.json           # merged per-problem stage artifacts
-│           └── artifact.md             # human-readable report with prompts, generations, memories, eval outputs
+│           ├── artifact.json
+│           └── artifact.md
 └── coding/
     └── ...
 ```
 
-## Important notes
+Per-stage JSONL payloads:
 
-- **API cost:** A full run generates 16 solutions x ~900 problems x 3 stages (generation, memory, evaluation) = ~43K+ API calls. Use `--max-problems` to test incrementally.
-- **Resume:** The pipeline resumes from where it left off. Each problem is checkpointed independently. Safe to interrupt and restart.
-- **Artifacts:** Each problem also gets a readable artifact bundle under `results/<domain>/artifacts/` with prompts, generations, grouped memory inputs, parsed memories, and baseline vs augmented evaluation outputs.
-- **Code execution:** Coding problems run generated code in a subprocess with a 30-second timeout. This is suitable for research but not sandboxed for untrusted code.
-- **Scoring:** Math uses exact integer match. Coding compares stdout against expected output after stripping whitespace.
-- **No memory = skip:** If all K generations fall in the same tier (e.g., all correct), there's nothing to contrast, so no memory is created and evaluation uses the baseline score for both.
-- **Verification first:** This pipeline tests memories on the *same* tasks they were created from. This is an intentional verification step before later generalizing to unseen tasks via embedding-based retrieval.
+- `generations.jsonl`: `{"problem_id", "solutions"}`
+- `scores.jsonl`: `{"problem_id", "scores"}`
+- `memories.jsonl`: `{"problem_id", ...memory fields...}`
+- `evaluations.jsonl`: `{"problem_id", ...evaluation fields...}`
+
+Per-problem artifacts include the original problem plus accumulated stage payloads:
+
+- `artifact.json`: machine-readable merged view of all completed stages
+- `artifact.md`: human-readable report with prompts, outputs, grouped memory inputs, parsed memories, and evaluation results
+- `artifacts/index.json` and `artifacts/index.md`: cross-problem index over saved artifacts
+
+## Important Notes
+
+- Resume support is implemented by checking completed problem IDs in the corresponding JSONL files. See `ResultStore.get_completed_ids()` in [`src/memgen/persistence/store.py`](src/memgen/persistence/store.py).
+- The coding executor reduces accidental damage but is not suitable for securely running adversarial code. The warning is documented directly in [`src/memgen/scoring/sandbox.py`](src/memgen/scoring/sandbox.py).
+- Memory creation only runs when at least two score tiers are present for a problem.
+- If a memory response parses zero `<memory>` items, evaluation still treats that problem as having a memory object and will run an augmented pass with effectively no injected advice beyond blank separation.
+- `memgen report` only summarizes completed evaluation outputs; it does not rerun any stage.
