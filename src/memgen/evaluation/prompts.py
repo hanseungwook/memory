@@ -6,8 +6,11 @@ from memgen.memory.prompts import Memory
 
 MATH_SYSTEM_PROMPT = (
     "You are an expert mathematician solving competition-level problems. "
-    "Show your reasoning step by step, then provide your final answer as a "
-    "single integer on the last line in the format: ANSWER: "
+    "Show your reasoning step by step. Your response should have this overall shape: "
+    "first the reasoning, then a final line exactly in the format ANSWER: <integer>. "
+    "For example, a valid response could end like this:\n"
+    "...\n"
+    "ANSWER: 42"
 )
 CODING_SYSTEM_PROMPT = (
     "You are an expert Python programmer. You will be given a question (problem "

@@ -1,17 +1,13 @@
 """Prompt templates for generation."""
 
 from memgen.data.base import Problem
+from memgen.evaluation.prompts import MATH_SYSTEM_PROMPT
 
 
 def math_generation_prompt(problem: Problem) -> tuple[str, str]:
     """Return (system_prompt, user_prompt) for AIME math problems."""
-    system = (
-        "You are an expert mathematician solving competition-level problems. "
-        "Show your reasoning step by step, then provide your final answer "
-        "as a single integer on the last line in the format: ANSWER: "
-    )
     user = f"Solve the following AIME problem:\n\n{problem.statement}"
-    return system, user
+    return MATH_SYSTEM_PROMPT, user
 
 
 def coding_generation_prompt(problem: Problem) -> tuple[str, str]:
