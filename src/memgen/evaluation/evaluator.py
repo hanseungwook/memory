@@ -6,6 +6,7 @@ from memgen.config import EvaluationConfig, GenerationConfig
 from memgen.data.base import Problem
 from memgen.evaluation.prompts import get_augmented_prompt_fn, get_baseline_prompt_fn
 from memgen.memory.prompts import Memory
+from memgen.scoring.base import ScoreResult
 
 
 @dataclass
@@ -16,6 +17,29 @@ class EvaluationResult:
     improvement: float
     baseline_scores: list[float]
     augmented_scores: list[float]
+
+
+@dataclass
+class PromptArtifact:
+    system_prompt: str
+    user_prompt: str
+
+
+@dataclass
+class EvaluationArtifact:
+    baseline_prompt: PromptArtifact
+    baseline_solutions: list[str]
+    baseline_results: list[ScoreResult]
+    augmented_prompt: PromptArtifact | None
+    augmented_solutions: list[str]
+    augmented_results: list[ScoreResult]
+    used_baseline_for_augmented: bool = False
+
+
+@dataclass
+class EvaluationRun:
+    result: EvaluationResult
+    artifact: EvaluationArtifact
 
 
 class Evaluator:
@@ -33,9 +57,13 @@ class Evaluator:
 
     async def evaluate_problem(
         self, problem: Problem, memory: Memory | None
-    ) -> EvaluationResult:
+    ) -> EvaluationRun:
         baseline_prompt_fn = get_baseline_prompt_fn(problem.domain)
         baseline_system_prompt, baseline_user_prompt = baseline_prompt_fn(problem)
+        baseline_prompt = PromptArtifact(
+            system_prompt=baseline_system_prompt,
+            user_prompt=baseline_user_prompt,
+        )
 
         generator = self._get_generator()
         baseline_solutions = await generator.generate_k(
@@ -51,11 +79,19 @@ class Evaluator:
         baseline_scores = [result.score for result in baseline_results]
 
         if memory is None:
+            augmented_prompt = None
+            augmented_solutions = baseline_solutions.copy()
+            augmented_results = baseline_results.copy()
             augmented_scores = baseline_scores.copy()
+            used_baseline_for_augmented = True
         else:
             augmented_prompt_fn = get_augmented_prompt_fn(problem.domain)
             augmented_system_prompt, augmented_user_prompt = augmented_prompt_fn(
                 problem, memory
+            )
+            augmented_prompt = PromptArtifact(
+                system_prompt=augmented_system_prompt,
+                user_prompt=augmented_user_prompt,
             )
             augmented_solutions = await generator.generate_k(
                 problem,
@@ -68,11 +104,12 @@ class Evaluator:
                 for index, generation_text in enumerate(augmented_solutions)
             ]
             augmented_scores = [result.score for result in augmented_results]
+            used_baseline_for_augmented = False
 
         baseline_pass_rate = self._pass_at_1(baseline_scores)
         augmented_pass_rate = self._pass_at_1(augmented_scores)
 
-        return EvaluationResult(
+        result = EvaluationResult(
             problem_id=problem.id,
             baseline_pass_rate=baseline_pass_rate,
             augmented_pass_rate=augmented_pass_rate,
@@ -80,6 +117,16 @@ class Evaluator:
             baseline_scores=baseline_scores,
             augmented_scores=augmented_scores,
         )
+        artifact = EvaluationArtifact(
+            baseline_prompt=baseline_prompt,
+            baseline_solutions=baseline_solutions,
+            baseline_results=baseline_results,
+            augmented_prompt=augmented_prompt,
+            augmented_solutions=augmented_solutions,
+            augmented_results=augmented_results,
+            used_baseline_for_augmented=used_baseline_for_augmented,
+        )
+        return EvaluationRun(result=result, artifact=artifact)
 
     def _get_generator(self):
         if self._generator is None:

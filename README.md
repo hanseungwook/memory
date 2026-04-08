@@ -154,7 +154,13 @@ results/
 │   ├── generations/generations.jsonl   # {problem_id, solutions: [...]}
 │   ├── scores/scores.jsonl             # {problem_id, scores: [{score, tier, ...}]}
 │   ├── memories/memories.jsonl         # {problem_id, items: [{insight, reasoning}]}
-│   └── evaluations/evaluations.jsonl   # {problem_id, baseline_pass_rate, augmented_pass_rate, improvement}
+│   ├── evaluations/evaluations.jsonl   # {problem_id, baseline_pass_rate, augmented_pass_rate, improvement}
+│   └── artifacts/
+│       ├── index.json                  # high-level index of saved problem artifacts
+│       ├── index.md                    # readable overview table
+│       └── <problem-slug>-<hash>/
+│           ├── artifact.json           # merged per-problem stage artifacts
+│           └── artifact.md             # human-readable report with prompts, generations, memories, eval outputs
 └── coding/
     └── ...
 ```
@@ -163,6 +169,7 @@ results/
 
 - **API cost:** A full run generates 16 solutions x ~900 problems x 3 stages (generation, memory, evaluation) = ~43K+ API calls. Use `--max-problems` to test incrementally.
 - **Resume:** The pipeline resumes from where it left off. Each problem is checkpointed independently. Safe to interrupt and restart.
+- **Artifacts:** Each problem also gets a readable artifact bundle under `results/<domain>/artifacts/` with prompts, generations, grouped memory inputs, parsed memories, and baseline vs augmented evaluation outputs.
 - **Code execution:** Coding problems run generated code in a subprocess with a 30-second timeout. This is suitable for research but not sandboxed for untrusted code.
 - **Scoring:** Math uses exact integer match. Coding compares stdout against expected output after stripping whitespace.
 - **No memory = skip:** If all K generations fall in the same tier (e.g., all correct), there's nothing to contrast, so no memory is created and evaluation uses the baseline score for both.

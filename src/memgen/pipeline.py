@@ -10,11 +10,11 @@ from tqdm import tqdm
 
 from memgen.config import Domain, PipelineConfig
 from memgen.data.base import Problem
-from memgen.evaluation.evaluator import Evaluator, EvaluationResult
+from memgen.evaluation.evaluator import Evaluator
 from memgen.generation.generator import Generator
 from memgen.generation.prompts import get_prompt_fn
 from memgen.memory.creator import MemoryCreator
-from memgen.memory.prompts import Memory, MemoryItem
+from memgen.memory.prompts import Memory, MemoryItem, build_memory_creation_prompt
 from memgen.persistence.store import ResultStore
 from memgen.scoring.base import ScoreResult
 from memgen.scoring.coding_scorer import get_scorer
@@ -72,6 +72,15 @@ class Pipeline:
             system_prompt, user_prompt = prompt_fn(problem)
             solutions = await self.generator.generate_k(problem, system_prompt, user_prompt)
             self.store.save_generation(problem.id, solutions)
+            self.store.save_problem_artifact(
+                problem,
+                "generation",
+                {
+                    "system_prompt": system_prompt,
+                    "user_prompt": user_prompt,
+                    "solutions": solutions,
+                },
+            )
 
     async def run_score(self):
         """Run only the scoring stage."""
@@ -88,7 +97,13 @@ class Pipeline:
         for pid, solutions in tqdm(todo.items(), desc="Scoring"):
             problem = problems_by_id[pid]
             results = self.scorer.score_batch(problem, solutions)
-            self.store.save_scores(pid, [dataclasses.asdict(r) for r in results])
+            score_dicts = [dataclasses.asdict(r) for r in results]
+            self.store.save_scores(pid, score_dicts)
+            self.store.save_problem_artifact(
+                problem,
+                "scoring",
+                {"scores": score_dicts},
+            )
 
     async def run_memory(self):
         """Run only the memory creation stage."""
@@ -110,12 +125,37 @@ class Pipeline:
             scores = [ScoreResult(**d) for d in score_dicts]
 
             grouped = MemoryCreator.group_solutions(solutions, scores)
+            non_empty_tiers = [tier for tier, items in grouped.items() if items]
+            memory_prompt = (
+                build_memory_creation_prompt(problem, grouped)
+                if len(non_empty_tiers) >= 2
+                else None
+            )
             memory = await self.creator.create_memory(problem, grouped, scores)
 
             if memory is None:
                 self.store.save_memory(pid, {"skipped": True})
+                artifact_payload = {
+                    "grouped_solutions": grouped,
+                    "prompt": memory_prompt,
+                    "skipped": True,
+                    "skip_reason": "insufficient_tiers",
+                    "items": [],
+                    "raw_response": None,
+                }
             else:
                 self.store.save_memory(pid, dataclasses.asdict(memory))
+                artifact_payload = {
+                    "grouped_solutions": grouped,
+                    "prompt": memory_prompt,
+                    "skipped": False,
+                    "items": [
+                        dataclasses.asdict(item)
+                        for item in memory.items
+                    ],
+                    "raw_response": memory.raw_response,
+                }
+            self.store.save_problem_artifact(problem, "memory", artifact_payload)
 
     async def run_evaluate(self):
         """Run only the evaluation stage."""
@@ -145,8 +185,17 @@ class Pipeline:
                     raw_response=mem_dict.get("raw_response", ""),
                 )
 
-            result = await self.evaluator.evaluate_problem(problem, memory)
-            self.store.save_evaluation(pid, dataclasses.asdict(result))
+            evaluation_run = await self.evaluator.evaluate_problem(problem, memory)
+            self.store.save_evaluation(pid, dataclasses.asdict(evaluation_run.result))
+            evaluation_artifact = dataclasses.asdict(evaluation_run.artifact)
+            evaluation_artifact.update(
+                {
+                    "baseline_pass_rate": evaluation_run.result.baseline_pass_rate,
+                    "augmented_pass_rate": evaluation_run.result.augmented_pass_rate,
+                    "improvement": evaluation_run.result.improvement,
+                }
+            )
+            self.store.save_problem_artifact(problem, "evaluation", evaluation_artifact)
 
     def print_report(self):
         """Print aggregate statistics from completed evaluations."""
