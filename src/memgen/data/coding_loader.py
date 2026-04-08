@@ -14,7 +14,7 @@ def _decode_test_cases(raw: str) -> list[dict]:
 
     Handles two formats:
     1. Plain JSON string
-    2. Base64+zlib+pickle encoded (for large test cases)
+    2. Base64+zlib+pickle encoded JSON string (for large test cases)
     """
     if not raw:
         return []
@@ -27,9 +27,9 @@ def _decode_test_cases(raw: str) -> list[dict]:
 
     # Fall back to base64+zlib+pickle
     try:
-        decoded = base64.b64decode(raw)
+        decoded = base64.b64decode(raw.encode("utf-8"))
         decompressed = zlib.decompress(decoded)
-        return pickle.loads(decompressed)
+        return json.loads(pickle.loads(decompressed))
     except Exception:
         return []
 
@@ -65,6 +65,8 @@ def load_coding_problems(config: DatasetConfig | None = None) -> list[Problem]:
                 meta = json.loads(row["metadata"])
             except (json.JSONDecodeError, TypeError):
                 pass
+
+        meta.setdefault("func_name", None)
 
         # Add extra fields to metadata
         meta["question_title"] = row.get("question_title", "")

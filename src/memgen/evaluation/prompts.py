@@ -10,8 +10,9 @@ MATH_SYSTEM_PROMPT = (
     "single integer on the last line in the format: ANSWER: "
 )
 CODING_SYSTEM_PROMPT = (
-    "You are an expert competitive programmer. Write a complete, correct "
-    "Python solution. Output ONLY the code, no explanations."
+    "You are an expert Python programmer. You will be given a question (problem "
+    "specification) and will generate a correct Python program that matches the "
+    "specification and passes all tests."
 )
 
 
@@ -104,7 +105,27 @@ def _fallback_math_prompt(problem: Problem) -> tuple[str, str]:
 
 
 def _fallback_coding_prompt(problem: Problem) -> tuple[str, str]:
-    return CODING_SYSTEM_PROMPT, _format_problem_body(problem)
+    if problem.starter_code:
+        format_instruction = (
+            "You will use the following starter code to write the solution to the problem "
+            "and enclose your code within delimiters."
+        )
+        code_block = f"```python\n{problem.starter_code}\n```"
+    else:
+        format_instruction = (
+            "Read the inputs from stdin solve the problem and write the answer to stdout "
+            "(do not directly test on the sample inputs). Enclose your code within delimiters "
+            "as follows. Ensure that when the python program runs, it reads the inputs, runs "
+            "the algorithm and writes output to STDOUT."
+        )
+        code_block = "```python\n# YOUR CODE HERE\n```"
+
+    user = (
+        f"### Question:\n{problem.statement}\n\n"
+        f"### Format: {format_instruction}\n{code_block}\n\n"
+        f"### Answer: (use the provided format with backticks)\n"
+    )
+    return CODING_SYSTEM_PROMPT, user
 
 
 def _format_problem_body(problem: Problem) -> str:
