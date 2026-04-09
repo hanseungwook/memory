@@ -53,11 +53,17 @@ def test_save_problem_artifact_writes_json_markdown_and_index(tmp_path):
             "skipped": False,
             "raw_response": (
                 "<reasoning>Successful attempts verified the arithmetic.</reasoning>"
-                "<memories><memory>Verify simple computations before finalizing.</memory></memories>"
+                "<memories><memory>"
+                "<title>Validate Final Computation</title>"
+                "<description>Check the last computation before committing to an answer.</description>"
+                "<content>Successful solutions often fail only in the final arithmetic or simplification. A short verification pass can prevent that class of errors.</content>"
+                "</memory></memories>"
             ),
             "items": [
                 {
-                    "insight": "Verify simple computations before finalizing.",
+                    "title": "Validate Final Computation",
+                    "description": "Check the last computation before committing to an answer.",
+                    "content": "Successful solutions often fail only in the final arithmetic or simplification. A short verification pass can prevent that class of errors.",
                     "reasoning": "Successful attempts verified the arithmetic.",
                 }
             ],

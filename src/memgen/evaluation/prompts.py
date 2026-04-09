@@ -23,9 +23,14 @@ def format_memory_for_injection(memory: Memory) -> str:
     if not memory.items:
         return ""
 
-    lines = ["Before solving, consider these insights from prior analysis:\n"]
+    lines = ["Before solving, consider these reusable insights from prior analysis:\n"]
     for i, item in enumerate(memory.items, start=1):
-        lines.append(f"  {i}. {item.insight}")
+        header = item.title or f"Insight {i}"
+        summary = item.description or item.content
+        detail = item.content if item.content != summary else ""
+        lines.append(f"  {i}. {header}: {summary}")
+        if detail:
+            lines.append(f"     {detail}")
     lines.append("\nApply these insights to the problem below.")
 
     return "\n".join(lines)

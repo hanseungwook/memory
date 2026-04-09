@@ -19,7 +19,7 @@ class FakeGenerator:
     ) -> list[str]:
         del problem, system_prompt, k
 
-        if "Before solving, consider these insights" in user_prompt:
+        if "Before solving, consider these reusable insights" in user_prompt:
             return ["augmented good", "augmented bad"]
         return ["baseline good", "baseline bad"]
 
@@ -46,8 +46,20 @@ async def test_evaluate_problem_returns_artifact_outputs():
     problem = Problem(id="p1", domain="math", statement="Compute 2 + 2.", answer="4")
     memory = Memory(
         problem_id="p1",
-        items=[MemoryItem(insight="Check arithmetic carefully.", reasoning="")],
-        raw_response="<memories><memory>Check arithmetic carefully.</memory></memories>",
+        items=[
+            MemoryItem(
+                title="Validate Final Step",
+                description="Check the last arithmetic or symbolic step before finalizing.",
+                content="A short verification pass catches many otherwise correct solutions that fail at the end.",
+                reasoning="",
+            )
+        ],
+        raw_response=(
+            "<memories><memory><title>Validate Final Step</title>"
+            "<description>Check the last arithmetic or symbolic step before finalizing.</description>"
+            "<content>A short verification pass catches many otherwise correct solutions that fail at the end.</content>"
+            "</memory></memories>"
+        ),
     )
 
     run = await evaluator.evaluate_problem(problem, memory)
@@ -58,4 +70,5 @@ async def test_evaluate_problem_returns_artifact_outputs():
     assert run.artifact.baseline_solutions == ["baseline good", "baseline bad"]
     assert run.artifact.augmented_solutions == ["augmented good", "augmented bad"]
     assert "Compute 2 + 2." in run.artifact.baseline_prompt.user_prompt
-    assert "Check arithmetic carefully." in run.artifact.augmented_prompt.user_prompt
+    assert "Validate Final Step" in run.artifact.augmented_prompt.user_prompt
+    assert "Check the last arithmetic or symbolic step before finalizing." in run.artifact.augmented_prompt.user_prompt

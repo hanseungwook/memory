@@ -1185,7 +1185,9 @@ def render_visualization_html(data: dict[str, Any]) -> str:
               <ol class="list-clean">
                 ${(memory.items || []).map((item) => `
                   <li>
-                    <strong>${escapeHtml(item.insight || "")}</strong>
+                    <strong>${escapeHtml(item.title || item.insight || "")}</strong>
+                    ${(item.description || item.insight) ? `<div style="margin-top: 6px;">${escapeHtml(item.description || item.insight || "")}</div>` : ""}
+                    ${item.content && item.content !== item.description ? `<div class="muted" style="margin-top: 6px;">${escapeHtml(item.content)}</div>` : ""}
                     ${item.reasoning ? `<div class="muted" style="margin-top: 6px;">${escapeHtml(item.reasoning)}</div>` : ""}
                   </li>
                 `).join("")}

@@ -176,7 +176,7 @@ class Pipeline:
                 memory = None
             else:
                 items = [
-                    MemoryItem(**item) if isinstance(item, dict) else item
+                    MemoryItem.from_dict(item) if isinstance(item, dict) else item
                     for item in mem_dict.get("items", [])
                 ]
                 memory = Memory(

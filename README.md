@@ -195,7 +195,7 @@ Current behavior:
 1. Solutions are grouped by score tier in generation order.
 2. If fewer than two tiers are populated, the pipeline writes `{"skipped": true}` for that problem and does not call the memory model.
 3. Otherwise, the prompt includes the problem statement plus all solutions from each populated tier.
-4. The response parser extracts one shared `<reasoning>` block and zero or more `<memory>` items.
+4. The response parser extracts one shared `<reasoning>` block and zero or more structured `<memory>` items containing `<title>`, `<description>`, and `<content>`.
 
 The grouped tiers are:
 
@@ -241,7 +241,7 @@ Per-stage JSONL payloads:
 
 - `generations.jsonl`: `{"problem_id", "solutions"}`
 - `scores.jsonl`: `{"problem_id", "scores"}`
-- `memories.jsonl`: `{"problem_id", ...memory fields...}`
+- `memories.jsonl`: `{"problem_id", "items": [{"title", "description", "content", ...}], ...memory fields...}`
 - `evaluations.jsonl`: `{"problem_id", ...evaluation fields...}`
 
 Per-problem artifacts include the original problem plus accumulated stage payloads:

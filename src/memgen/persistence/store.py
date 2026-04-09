@@ -7,6 +7,8 @@ import json
 import re
 from pathlib import Path
 
+from memgen.memory.prompts import MemoryItem
+
 _STAGE_ORDER = ("generation", "scoring", "memory", "evaluation")
 
 
@@ -216,11 +218,24 @@ class ResultStore:
             if items:
                 lines.extend(["### Parsed Memory Items", ""])
                 for index, item in enumerate(items, start=1):
-                    insight = str(item.get("insight", "")).strip()
-                    reasoning = str(item.get("reasoning", "")).strip()
-                    lines.append(f"{index}. {insight}")
-                    if reasoning:
-                        lines.extend(self._render_details_block(f"Reasoning {index}", reasoning))
+                    normalized = MemoryItem.from_dict(item)
+                    lines.append(f"{index}. {normalized.title}")
+                    if normalized.description:
+                        lines.append(f"Description: {normalized.description}")
+                    if normalized.content:
+                        lines.extend(
+                            self._render_details_block(
+                                f"Content {index}",
+                                normalized.content,
+                            )
+                        )
+                    if normalized.reasoning:
+                        lines.extend(
+                            self._render_details_block(
+                                f"Reasoning {index}",
+                                normalized.reasoning,
+                            )
+                        )
             raw_response = memory.get("raw_response")
             if raw_response:
                 lines.extend(["### Raw Response", ""])

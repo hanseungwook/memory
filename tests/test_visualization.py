@@ -59,7 +59,9 @@ def test_build_visualization_data_merges_artifacts_and_stage_jsonl(tmp_path):
                 "prompt": "compare solutions",
                 "items": [
                     {
-                        "insight": "Check the final arithmetic.",
+                        "title": "Validate Final Arithmetic",
+                        "description": "Check the last arithmetic step before finalizing.",
+                        "content": "The correct branch verified the last step instead of assuming the simplification was right.",
                         "reasoning": "The correct branch verified the last step.",
                     }
                 ],
@@ -67,7 +69,11 @@ def test_build_visualization_data_merges_artifacts_and_stage_jsonl(tmp_path):
                     "correct": ["ANSWER: 42"],
                     "incorrect": ["ANSWER: 0"],
                 },
-                "raw_response": "<memory>Check the final arithmetic.</memory>",
+                "raw_response": (
+                    "<memory><title>Validate Final Arithmetic</title>"
+                    "<description>Check the last arithmetic step before finalizing.</description>"
+                    "<content>The correct branch verified the last step instead of assuming the simplification was right.</content></memory>"
+                ),
             },
             "evaluation": {
                 "baseline_pass_rate": 0.25,
