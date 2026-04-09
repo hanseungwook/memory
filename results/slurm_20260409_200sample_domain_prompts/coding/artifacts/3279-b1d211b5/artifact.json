@@ -1,0 +1,3080 @@
+{
+  "problem_id": "3279",
+  "domain": "coding",
+  "problem": {
+    "id": "3279",
+    "domain": "coding",
+    "statement": "Alice and Bob are playing a turn-based game on a circular field surrounded by flowers. The circle represents the field, and there are x flowers in the clockwise direction between Alice and Bob, and y flowers in the anti-clockwise direction between them.\nThe game proceeds as follows:\n\nAlice takes the first turn.\nIn each turn, a player must choose either the clockwise or anti-clockwise direction and pick one flower from that side.\nAt the end of the turn, if there are no flowers left at all, the current player captures their opponent and wins the game.\n\nGiven two integers, n and m, the task is to compute the number of possible pairs (x, y) that satisfy the conditions:\n\nAlice must win the game according to the described rules.\nThe number of flowers x in the clockwise direction must be in the range [1,n].\nThe number of flowers y in the anti-clockwise direction must be in the range [1,m].\n\nReturn the number of possible pairs (x, y) that satisfy the conditions mentioned in the statement.\n \nExample 1:\n\nInput: n = 3, m = 2\nOutput: 3\nExplanation: The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1).\n\nExample 2:\n\nInput: n = 1, m = 1\nOutput: 0\nExplanation: No pairs satisfy the conditions described in the statement.\n\n \nConstraints:\n\n1 <= n, m <= 10^5",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "3\n2",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n1",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n1",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "2\n3",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "3\n3",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "2\n2",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "5\n5",
+        "output": "12",
+        "testtype": "functional"
+      },
+      {
+        "input": "9\n9",
+        "output": "40",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n10",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "23\n4",
+        "output": "46",
+        "testtype": "functional"
+      },
+      {
+        "input": "5789\n9970",
+        "output": "28858165",
+        "testtype": "functional"
+      },
+      {
+        "input": "61160\n9412",
+        "output": "287818960",
+        "testtype": "functional"
+      },
+      {
+        "input": "90301\n25601",
+        "output": "1155897950",
+        "testtype": "functional"
+      },
+      {
+        "input": "100000\n100000",
+        "output": "5000000000",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "flowerGame",
+      "question_title": "alice-and-bob-playing-flower-game",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nAlice and Bob are playing a turn-based game on a circular field surrounded by flowers. The circle represents the field, and there are x flowers in the clockwise direction between Alice and Bob, and y flowers in the anti-clockwise direction between them.\nThe game proceeds as follows:\n\nAlice takes the first turn.\nIn each turn, a player must choose either the clockwise or anti-clockwise direction and pick one flower from that side.\nAt the end of the turn, if there are no flowers left at all, the current player captures their opponent and wins the game.\n\nGiven two integers, n and m, the task is to compute the number of possible pairs (x, y) that satisfy the conditions:\n\nAlice must win the game according to the described rules.\nThe number of flowers x in the clockwise direction must be in the range [1,n].\nThe number of flowers y in the anti-clockwise direction must be in the range [1,m].\n\nReturn the number of possible pairs (x, y) that satisfy the conditions mentioned in the statement.\n \nExample 1:\n\nInput: n = 3, m = 2\nOutput: 3\nExplanation: The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1).\n\nExample 2:\n\nInput: n = 1, m = 1\nOutput: 0\nExplanation: No pairs satisfy the conditions described in the statement.\n\n \nConstraints:\n\n1 <= n, m <= 10^5\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Players alternately take 1 flower from either side (clockwise x or anti-clockwise y).\n        # The current player wins immediately after a move that leaves no flowers at all.\n        #\n        # Let total = x + y. The player who makes the final move wins.\n        # Since Alice starts, Alice wins iff total is odd.\n        #\n        # Additionally, x in [1..n], y in [1..m].\n        #\n        # Count pairs (x,y) such that x+y is odd.\n        # That means x and y have different parity.\n        #\n        # Count odds/evens in ranges:\n        # odds(k) = ceil(k/2), evens(k) = floor(k/2)\n        def odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def evens(k: int) -> int:\n            return k // 2\n\n        ox, ex = odds(n), evens(n)\n        oy, ey = odds(m), evens(m)\n\n        # Different parity: (odd, even) or (even, odd)\n        return ox * ey + ex * oy\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In a position with x flowers clockwise and y flowers anti-clockwise:\n        # current player can remove from either side.\n        # The game ends immediately after a move where the board becomes empty.\n        #\n        # This is exactly the normal-play game where each move reduces either x or y\n        # by picking one flower from the chosen side; the player who takes the last\n        # flower wins (since the opponent is \"captured\" when no flowers remain).\n        #\n        # Such a game is equivalent to Nim with two heaps of sizes x and y:\n        # winner condition: first player wins iff (x XOR y) != 0.\n        #\n        # We need count of pairs (x,y) with 1<=x<=n, 1<=y<=m and x^y != 0.\n        # Total pairs - pairs with x^y == 0.\n        #\n        # x^y == 0  <=>  x == y\n        # so the number of losing pairs is min(n,m).\n        total = n * m\n        return total - min(n, m)\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers between Alice and Bob,\n        # and y be anti-clockwise flowers between them.\n        #\n        # Each move removes exactly 1 flower from one chosen side.\n        # The player who makes the move that removes the last flower wins.\n        #\n        # So Alice wins iff total turns (x+y) is odd.\n        # That is equivalent to x and y having opposite parity.\n        #\n        # Count pairs (x,y) with:\n        #   1<=x<=n, 1<=y<=m, and (x+y) odd  <=>  parity(x) != parity(y).\n        #\n        # Number of odd/even values in [1..k]:\n        #   odds = (k+1)//2, evens = k//2.\n        odds_n, evens_n = (n + 1) // 2, n // 2\n        odds_m, evens_m = (m + 1) // 2, m // 2\n\n        # Alice wins when (odd,even) or (even,odd)\n        return odds_n * evens_m + evens_n * odds_m\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be flowers clockwise, y anticlockwise (x,y >= 1).\n        # Total flowers = x + y.\n        #\n        # Players alternate removing one flower from either side.\n        # A player wins immediately at the end of a turn if no flowers remain.\n        # That means the winner is determined by the parity of (x+y):\n        # - If Alice takes first, she wins iff (x+y) is odd.\n        #\n        # So we count pairs (x,y) with:\n        #   1 <= x <= n\n        #   1 <= y <= m\n        #   x + y is odd\n        #\n        # i.e., x and y have opposite parity.\n        # Count odd/even numbers in ranges and combine.\n        \n        def count_odd(t: int) -> int:\n            return (t + 1) // 2\n        \n        odd_x = count_odd(n)\n        even_x = n - odd_x\n        odd_y = count_odd(m)\n        even_y = m - odd_y\n        \n        # Opposite parity: odd+even or even+odd\n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y be anti-clockwise flowers (both >= 1).\n        # Each turn the player chooses one side and removes exactly one flower from it.\n        #\n        # The mover wins only if they take the last flower (when total becomes 0),\n        # i.e., the game lasts an odd number of moves (since Alice starts).\n        #\n        # Total moves = x + y, Alice makes move numbers 1,3,5,... so she wins iff\n        # x + y is odd.\n        #\n        # Count pairs (x, y) with:\n        # 1 <= x <= n, 1 <= y <= m, and (x + y) is odd.\n        # That means x and y must have opposite parity.\n        #\n        # Number of odds in [1..k] is ceil(k/2), evens is floor(k/2).\n        def odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def evens(k: int) -> int:\n            return k // 2\n\n        ox, ex = odds(n), evens(n)\n        oy, ey = odds(m), evens(m)\n\n        # Opposite parity pairs\n        return ox * ey + ex * oy\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In the game, players alternately remove one flower from either side.\n        # A player wins immediately after their move if that move leaves no flowers\n        # on the table, i.e., when total remaining becomes 0.\n        #\n        # Let x be clockwise and y be anti-clockwise.\n        # Total flowers = x + y, and players will always remove exactly one per move,\n        # so the player who makes the last move wins.\n        #\n        # Since Alice moves first, Alice wins iff (x + y) is odd.\n        #\n        # We count pairs (x, y) with:\n        #   1 <= x <= n, 1 <= y <= m, and x+y is odd.\n        if n <= 0 or m <= 0:\n            return 0\n\n        # Count odd/even numbers in [1..n] and [1..m]\n        odd_n = (n + 1) // 2\n        even_n = n // 2\n        odd_m = (m + 1) // 2\n        even_m = m // 2\n\n        # x+y odd means one is odd and the other is even\n        return odd_n * even_m + even_n * odd_m\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins iff x == y + 1 or x == y + 2\n        # with constraints 1<=x<=n and 1<=y<=m.\n        ans = 0\n        # x = y + 1  -> y in [1,m], x=y+1 in [1,n] => y <= n-1\n        if n >= 2:\n            ans += max(0, min(m, n - 1) - 0)  # y from 1..min(m,n-1)\n\n        # x = y + 2 -> y <= n-2\n        if n >= 3:\n            ans += max(0, min(m, n - 2) - 0)  # y from 1..min(m,n-2)\n\n        return ans\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y anti-clockwise flowers.\n        # In each move the current player must take from one side.\n        # The current player wins iff after their move both sides become empty,\n        # i.e., they take the last remaining flower.\n        #\n        # Total flowers = x + y. Alice wins exactly when (x + y) is odd,\n        # since players alternate and the last move is made by Alice.\n        #\n        # Count pairs (x, y) with 1<=x<=n, 1<=y<=m and x+y odd.\n        # This happens when x and y have opposite parity.\n        \n        def count_odds(k: int) -> int:\n            return (k + 1) // 2\n        \n        def count_evens(k: int) -> int:\n            return k // 2\n        \n        ox, ex = count_odds(n), count_evens(n)\n        oy, ey = count_odds(m), count_evens(m)\n        \n        # Opposite parity pairs: odd-even + even-odd\n        return ox * ey + ex * oy\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins exactly when she can force taking the last flower.\n        # With optimal play, this happens iff x != y.\n        # Constraints require x in [1..n], y in [1..m]. Exclude x==y.\n        up = min(n, m)\n        return n * m - up\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game outcome:\n        # If x == y -> first player (Alice) can mirror and wins on final move => losing for Bob,\n        # but Bob wins in that case because if x==y, the second player can mirror and Alice\n        # will be the one who captures after the opponent takes last? In standard take-away\n        # with capturing when no flowers remain, the player who makes the last move wins.\n        #\n        # Let's analyze with the rule: on a turn, current player removes one from either side.\n        # If after removal total flowers becomes 0, current player wins.\n        # Total flowers = x + y. Therefore the winner is simply determined by parity of x+y:\n        # - If x+y is odd, Alice (starts) makes last move => Alice wins.\n        # - If x+y is even, Bob makes last move => Alice loses.\n        #\n        # Thus we count pairs (x,y) with:\n        # 1 <= x <= n, 1 <= y <= m, and (x+y) is odd.\n        \n        # Count odd x in [1..n] and even x in [1..n]\n        def cnt_odd(k: int) -> int:\n            return (k + 1) // 2  # odds: 1,3,5...\n        odds_x = cnt_odd(n)\n        evens_x = n - odds_x\n        \n        odds_y = cnt_odd(m)\n        evens_y = m - odds_y\n        \n        # (x+y) odd means one is odd and the other even:\n        return odds_x * evens_y + evens_x * odds_y\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3279",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 1,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "20",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "72",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "46",
+                "actual": "88",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28858165",
+                "actual": "57710541",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "287818960",
+                "actual": "575628508",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1155897950",
+                "actual": "2311770300",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5000000000",
+                "actual": "9999900000",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 6,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "15",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "46",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28858165",
+                "actual": "11575",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "287818960",
+                "actual": "18824",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1155897950",
+                "actual": "51202",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5000000000",
+                "actual": "199997",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 8,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "20",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "72",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "46",
+                "actual": "88",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28858165",
+                "actual": "57710541",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "287818960",
+                "actual": "575628508",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1155897950",
+                "actual": "2311770300",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5000000000",
+                "actual": "9999900000",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Players alternately take 1 flower from either side (clockwise x or anti-clockwise y).\n        # The current player wins immediately after a move that leaves no flowers at all.\n        #\n        # Let total = x + y. The player who makes the final move wins.\n        # Since Alice starts, Alice wins iff total is odd.\n        #\n        # Additionally, x in [1..n], y in [1..m].\n        #\n        # Count pairs (x,y) such that x+y is odd.\n        # That means x and y have different parity.\n        #\n        # Count odds/evens in ranges:\n        # odds(k) = ceil(k/2), evens(k) = floor(k/2)\n        def odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def evens(k: int) -> int:\n            return k // 2\n\n        ox, ex = odds(n), evens(n)\n        oy, ey = odds(m), evens(m)\n\n        # Different parity: (odd, even) or (even, odd)\n        return ox * ey + ex * oy\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers between Alice and Bob,\n        # and y be anti-clockwise flowers between them.\n        #\n        # Each move removes exactly 1 flower from one chosen side.\n        # The player who makes the move that removes the last flower wins.\n        #\n        # So Alice wins iff total turns (x+y) is odd.\n        # That is equivalent to x and y having opposite parity.\n        #\n        # Count pairs (x,y) with:\n        #   1<=x<=n, 1<=y<=m, and (x+y) odd  <=>  parity(x) != parity(y).\n        #\n        # Number of odd/even values in [1..k]:\n        #   odds = (k+1)//2, evens = k//2.\n        odds_n, evens_n = (n + 1) // 2, n // 2\n        odds_m, evens_m = (m + 1) // 2, m // 2\n\n        # Alice wins when (odd,even) or (even,odd)\n        return odds_n * evens_m + evens_n * odds_m\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be flowers clockwise, y anticlockwise (x,y >= 1).\n        # Total flowers = x + y.\n        #\n        # Players alternate removing one flower from either side.\n        # A player wins immediately at the end of a turn if no flowers remain.\n        # That means the winner is determined by the parity of (x+y):\n        # - If Alice takes first, she wins iff (x+y) is odd.\n        #\n        # So we count pairs (x,y) with:\n        #   1 <= x <= n\n        #   1 <= y <= m\n        #   x + y is odd\n        #\n        # i.e., x and y have opposite parity.\n        # Count odd/even numbers in ranges and combine.\n        \n        def count_odd(t: int) -> int:\n            return (t + 1) // 2\n        \n        odd_x = count_odd(n)\n        even_x = n - odd_x\n        odd_y = count_odd(m)\n        even_y = m - odd_y\n        \n        # Opposite parity: odd+even or even+odd\n        return odd_x * even_y + even_x * odd_y\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y be anti-clockwise flowers (both >= 1).\n        # Each turn the player chooses one side and removes exactly one flower from it.\n        #\n        # The mover wins only if they take the last flower (when total becomes 0),\n        # i.e., the game lasts an odd number of moves (since Alice starts).\n        #\n        # Total moves = x + y, Alice makes move numbers 1,3,5,... so she wins iff\n        # x + y is odd.\n        #\n        # Count pairs (x, y) with:\n        # 1 <= x <= n, 1 <= y <= m, and (x + y) is odd.\n        # That means x and y must have opposite parity.\n        #\n        # Number of odds in [1..k] is ceil(k/2), evens is floor(k/2).\n        def odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def evens(k: int) -> int:\n            return k // 2\n\n        ox, ex = odds(n), evens(n)\n        oy, ey = odds(m), evens(m)\n\n        # Opposite parity pairs\n        return ox * ey + ex * oy\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In the game, players alternately remove one flower from either side.\n        # A player wins immediately after their move if that move leaves no flowers\n        # on the table, i.e., when total remaining becomes 0.\n        #\n        # Let x be clockwise and y be anti-clockwise.\n        # Total flowers = x + y, and players will always remove exactly one per move,\n        # so the player who makes the last move wins.\n        #\n        # Since Alice moves first, Alice wins iff (x + y) is odd.\n        #\n        # We count pairs (x, y) with:\n        #   1 <= x <= n, 1 <= y <= m, and x+y is odd.\n        if n <= 0 or m <= 0:\n            return 0\n\n        # Count odd/even numbers in [1..n] and [1..m]\n        odd_n = (n + 1) // 2\n        even_n = n // 2\n        odd_m = (m + 1) // 2\n        even_m = m // 2\n\n        # x+y odd means one is odd and the other is even\n        return odd_n * even_m + even_n * odd_m\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y anti-clockwise flowers.\n        # In each move the current player must take from one side.\n        # The current player wins iff after their move both sides become empty,\n        # i.e., they take the last remaining flower.\n        #\n        # Total flowers = x + y. Alice wins exactly when (x + y) is odd,\n        # since players alternate and the last move is made by Alice.\n        #\n        # Count pairs (x, y) with 1<=x<=n, 1<=y<=m and x+y odd.\n        # This happens when x and y have opposite parity.\n        \n        def count_odds(k: int) -> int:\n            return (k + 1) // 2\n        \n        def count_evens(k: int) -> int:\n            return k // 2\n        \n        ox, ex = count_odds(n), count_evens(n)\n        oy, ey = count_odds(m), count_evens(m)\n        \n        # Opposite parity pairs: odd-even + even-odd\n        return ox * ey + ex * oy\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game outcome:\n        # If x == y -> first player (Alice) can mirror and wins on final move => losing for Bob,\n        # but Bob wins in that case because if x==y, the second player can mirror and Alice\n        # will be the one who captures after the opponent takes last? In standard take-away\n        # with capturing when no flowers remain, the player who makes the last move wins.\n        #\n        # Let's analyze with the rule: on a turn, current player removes one from either side.\n        # If after removal total flowers becomes 0, current player wins.\n        # Total flowers = x + y. Therefore the winner is simply determined by parity of x+y:\n        # - If x+y is odd, Alice (starts) makes last move => Alice wins.\n        # - If x+y is even, Bob makes last move => Alice loses.\n        #\n        # Thus we count pairs (x,y) with:\n        # 1 <= x <= n, 1 <= y <= m, and (x+y) is odd.\n        \n        # Count odd x in [1..n] and even x in [1..n]\n        def cnt_odd(k: int) -> int:\n            return (k + 1) // 2  # odds: 1,3,5...\n        odds_x = cnt_odd(n)\n        evens_x = n - odds_x\n        \n        odds_y = cnt_odd(m)\n        evens_y = m - odds_y\n        \n        # (x+y) odd means one is odd and the other even:\n        return odds_x * evens_y + evens_x * odds_y\n```"
+        ],
+        "partial": [
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In a position with x flowers clockwise and y flowers anti-clockwise:\n        # current player can remove from either side.\n        # The game ends immediately after a move where the board becomes empty.\n        #\n        # This is exactly the normal-play game where each move reduces either x or y\n        # by picking one flower from the chosen side; the player who takes the last\n        # flower wins (since the opponent is \"captured\" when no flowers remain).\n        #\n        # Such a game is equivalent to Nim with two heaps of sizes x and y:\n        # winner condition: first player wins iff (x XOR y) != 0.\n        #\n        # We need count of pairs (x,y) with 1<=x<=n, 1<=y<=m and x^y != 0.\n        # Total pairs - pairs with x^y == 0.\n        #\n        # x^y == 0  <=>  x == y\n        # so the number of losing pairs is min(n,m).\n        total = n * m\n        return total - min(n, m)\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins iff x == y + 1 or x == y + 2\n        # with constraints 1<=x<=n and 1<=y<=m.\n        ans = 0\n        # x = y + 1  -> y in [1,m], x=y+1 in [1,n] => y <= n-1\n        if n >= 2:\n            ans += max(0, min(m, n - 1) - 0)  # y from 1..min(m,n-1)\n\n        # x = y + 2 -> y <= n-2\n        if n >= 3:\n            ans += max(0, min(m, n - 2) - 0)  # y from 1..min(m,n-2)\n\n        return ans\n```",
+          "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins exactly when she can force taking the last flower.\n        # With optimal play, this happens iff x != y.\n        # Constraints require x in [1..n], y in [1..m]. Exclude x==y.\n        up = min(n, m)\n        return n * m - up\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nAlice and Bob are playing a turn-based game on a circular field surrounded by flowers. The circle represents the field, and there are x flowers in the clockwise direction between Alice and Bob, and y flowers in the anti-clockwise direction between them.\nThe game proceeds as follows:\n\nAlice takes the first turn.\nIn each turn, a player must choose either the clockwise or anti-clockwise direction and pick one flower from that side.\nAt the end of the turn, if there are no flowers left at all, the current player captures their opponent and wins the game.\n\nGiven two integers, n and m, the task is to compute the number of possible pairs (x, y) that satisfy the conditions:\n\nAlice must win the game according to the described rules.\nThe number of flowers x in the clockwise direction must be in the range [1,n].\nThe number of flowers y in the anti-clockwise direction must be in the range [1,m].\n\nReturn the number of possible pairs (x, y) that satisfy the conditions mentioned in the statement.\n \nExample 1:\n\nInput: n = 3, m = 2\nOutput: 3\nExplanation: The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1).\n\nExample 2:\n\nInput: n = 1, m = 1\nOutput: 0\nExplanation: No pairs satisfy the conditions described in the statement.\n\n \nConstraints:\n\n1 <= n, m <= 10^5\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Players alternately take 1 flower from either side (clockwise x or anti-clockwise y).\n        # The current player wins immediately after a move that leaves no flowers at all.\n        #\n        # Let total = x + y. The player who makes the final move wins.\n        # Since Alice starts, Alice wins iff total is odd.\n        #\n        # Additionally, x in [1..n], y in [1..m].\n        #\n        # Count pairs (x,y) such that x+y is odd.\n        # That means x and y have different parity.\n        #\n        # Count odds/evens in ranges:\n        # odds(k) = ceil(k/2), evens(k) = floor(k/2)\n        def odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def evens(k: int) -> int:\n            return k // 2\n\n        ox, ex = odds(n), evens(n)\n        oy, ey = odds(m), evens(m)\n\n        # Different parity: (odd, even) or (even, odd)\n        return ox * ey + ex * oy\n```\n\nAttempt 2\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers between Alice and Bob,\n        # and y be anti-clockwise flowers between them.\n        #\n        # Each move removes exactly 1 flower from one chosen side.\n        # The player who makes the move that removes the last flower wins.\n        #\n        # So Alice wins iff total turns (x+y) is odd.\n        # That is equivalent to x and y having opposite parity.\n        #\n        # Count pairs (x,y) with:\n        #   1<=x<=n, 1<=y<=m, and (x+y) odd  <=>  parity(x) != parity(y).\n        #\n        # Number of odd/even values in [1..k]:\n        #   odds = (k+1)//2, evens = k//2.\n        odds_n, evens_n = (n + 1) // 2, n // 2\n        odds_m, evens_m = (m + 1) // 2, m // 2\n\n        # Alice wins when (odd,even) or (even,odd)\n        return odds_n * evens_m + evens_n * odds_m\n```\n\nAttempt 3\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be flowers clockwise, y anticlockwise (x,y >= 1).\n        # Total flowers = x + y.\n        #\n        # Players alternate removing one flower from either side.\n        # A player wins immediately at the end of a turn if no flowers remain.\n        # That means the winner is determined by the parity of (x+y):\n        # - If Alice takes first, she wins iff (x+y) is odd.\n        #\n        # So we count pairs (x,y) with:\n        #   1 <= x <= n\n        #   1 <= y <= m\n        #   x + y is odd\n        #\n        # i.e., x and y have opposite parity.\n        # Count odd/even numbers in ranges and combine.\n        \n        def count_odd(t: int) -> int:\n            return (t + 1) // 2\n        \n        odd_x = count_odd(n)\n        even_x = n - odd_x\n        odd_y = count_odd(m)\n        even_y = m - odd_y\n        \n        # Opposite parity: odd+even or even+odd\n        return odd_x * even_y + even_x * odd_y\n```\n\nAttempt 4\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y be anti-clockwise flowers (both >= 1).\n        # Each turn the player chooses one side and removes exactly one flower from it.\n        #\n        # The mover wins only if they take the last flower (when total becomes 0),\n        # i.e., the game lasts an odd number of moves (since Alice starts).\n        #\n        # Total moves = x + y, Alice makes move numbers 1,3,5,... so she wins iff\n        # x + y is odd.\n        #\n        # Count pairs (x, y) with:\n        # 1 <= x <= n, 1 <= y <= m, and (x + y) is odd.\n        # That means x and y must have opposite parity.\n        #\n        # Number of odds in [1..k] is ceil(k/2), evens is floor(k/2).\n        def odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def evens(k: int) -> int:\n            return k // 2\n\n        ox, ex = odds(n), evens(n)\n        oy, ey = odds(m), evens(m)\n\n        # Opposite parity pairs\n        return ox * ey + ex * oy\n```\n\nAttempt 5\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In the game, players alternately remove one flower from either side.\n        # A player wins immediately after their move if that move leaves no flowers\n        # on the table, i.e., when total remaining becomes 0.\n        #\n        # Let x be clockwise and y be anti-clockwise.\n        # Total flowers = x + y, and players will always remove exactly one per move,\n        # so the player who makes the last move wins.\n        #\n        # Since Alice moves first, Alice wins iff (x + y) is odd.\n        #\n        # We count pairs (x, y) with:\n        #   1 <= x <= n, 1 <= y <= m, and x+y is odd.\n        if n <= 0 or m <= 0:\n            return 0\n\n        # Count odd/even numbers in [1..n] and [1..m]\n        odd_n = (n + 1) // 2\n        even_n = n // 2\n        odd_m = (m + 1) // 2\n        even_m = m // 2\n\n        # x+y odd means one is odd and the other is even\n        return odd_n * even_m + even_n * odd_m\n```\n\nAttempt 6\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y anti-clockwise flowers.\n        # In each move the current player must take from one side.\n        # The current player wins iff after their move both sides become empty,\n        # i.e., they take the last remaining flower.\n        #\n        # Total flowers = x + y. Alice wins exactly when (x + y) is odd,\n        # since players alternate and the last move is made by Alice.\n        #\n        # Count pairs (x, y) with 1<=x<=n, 1<=y<=m and x+y odd.\n        # This happens when x and y have opposite parity.\n        \n        def count_odds(k: int) -> int:\n            return (k + 1) // 2\n        \n        def count_evens(k: int) -> int:\n            return k // 2\n        \n        ox, ex = count_odds(n), count_evens(n)\n        oy, ey = count_odds(m), count_evens(m)\n        \n        # Opposite parity pairs: odd-even + even-odd\n        return ox * ey + ex * oy\n```\n\nAttempt 7\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game outcome:\n        # If x == y -> first player (Alice) can mirror and wins on final move => losing for Bob,\n        # but Bob wins in that case because if x==y, the second player can mirror and Alice\n        # will be the one who captures after the opponent takes last? In standard take-away\n        # with capturing when no flowers remain, the player who makes the last move wins.\n        #\n        # Let's analyze with the rule: on a turn, current player removes one from either side.\n        # If after removal total flowers becomes 0, current player wins.\n        # Total flowers = x + y. Therefore the winner is simply determined by parity of x+y:\n        # - If x+y is odd, Alice (starts) makes last move => Alice wins.\n        # - If x+y is even, Bob makes last move => Alice loses.\n        #\n        # Thus we count pairs (x,y) with:\n        # 1 <= x <= n, 1 <= y <= m, and (x+y) is odd.\n        \n        # Count odd x in [1..n] and even x in [1..n]\n        def cnt_odd(k: int) -> int:\n            return (k + 1) // 2  # odds: 1,3,5...\n        odds_x = cnt_odd(n)\n        evens_x = n - odds_x\n        \n        odds_y = cnt_odd(m)\n        evens_y = m - odds_y\n        \n        # (x+y) odd means one is odd and the other even:\n        return odds_x * evens_y + evens_x * odds_y\n```\n\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In a position with x flowers clockwise and y flowers anti-clockwise:\n        # current player can remove from either side.\n        # The game ends immediately after a move where the board becomes empty.\n        #\n        # This is exactly the normal-play game where each move reduces either x or y\n        # by picking one flower from the chosen side; the player who takes the last\n        # flower wins (since the opponent is \"captured\" when no flowers remain).\n        #\n        # Such a game is equivalent to Nim with two heaps of sizes x and y:\n        # winner condition: first player wins iff (x XOR y) != 0.\n        #\n        # We need count of pairs (x,y) with 1<=x<=n, 1<=y<=m and x^y != 0.\n        # Total pairs - pairs with x^y == 0.\n        #\n        # x^y == 0  <=>  x == y\n        # so the number of losing pairs is min(n,m).\n        total = n * m\n        return total - min(n, m)\n```\n\nAttempt 2\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins iff x == y + 1 or x == y + 2\n        # with constraints 1<=x<=n and 1<=y<=m.\n        ans = 0\n        # x = y + 1  -> y in [1,m], x=y+1 in [1,n] => y <= n-1\n        if n >= 2:\n            ans += max(0, min(m, n - 1) - 0)  # y from 1..min(m,n-1)\n\n        # x = y + 2 -> y <= n-2\n        if n >= 3:\n            ans += max(0, min(m, n - 2) - 0)  # y from 1..min(m,n-2)\n\n        return ans\n```\n\nAttempt 3\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins exactly when she can force taking the last flower.\n        # With optimal play, this happens iff x != y.\n        # Constraints require x in [1..n], y in [1..m]. Exclude x==y.\n        up = min(n, m)\n        return n * m - up\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Reduce the game to an invariant that depends only on move count",
+          "description": "For many take-away games, the winner can be determined solely by whether the first player makes the last move.",
+          "content": "When each move decreases a fixed amount of a global resource by exactly 1, the game length is forced to be the total remaining count. Then the winner is determined by whether that total is odd or even (given who moves first), often eliminating the need for complex strategy analysis.",
+          "reasoning": "All fully correct attempts converged on the same high-level reduction: the game outcome depends only on the parity of the total number of moves (equivalently, whether the last move is made by the first player). Once that invariant is identified, counting becomes a straightforward parity-counting problem over two independent ranges. The partially correct attempts failed because they used the wrong game-theoretic reduction (e.g., treating the situation like a misapplied Nim/heap-XOR criterion, or guessing a relationship like “x≠y” or “x equals y plus a constant”), which doesn’t match the actual winning condition derived from turn alternation. Another common failure mode in partially correct solutions is confusing “winning when no flowers remain” with a different terminal condition involving mirroring, or subtracting a wrong set of losing states."
+        },
+        {
+          "title": "Convert strategic conditions into explicit combinatorial criteria",
+          "description": "After finding the winning invariant, rewrite it as a concrete condition on the inputs to enable direct counting.",
+          "content": "Once the winning condition is expressed as something like “parity differs” (or another simple relation), counting pairs becomes a product-sum of counts of allowed categories (e.g., odds vs evens) within each range. This avoids fragile case-based guesses about specific relations between variables.",
+          "reasoning": "All fully correct attempts converged on the same high-level reduction: the game outcome depends only on the parity of the total number of moves (equivalently, whether the last move is made by the first player). Once that invariant is identified, counting becomes a straightforward parity-counting problem over two independent ranges. The partially correct attempts failed because they used the wrong game-theoretic reduction (e.g., treating the situation like a misapplied Nim/heap-XOR criterion, or guessing a relationship like “x≠y” or “x equals y plus a constant”), which doesn’t match the actual winning condition derived from turn alternation. Another common failure mode in partially correct solutions is confusing “winning when no flowers remain” with a different terminal condition involving mirroring, or subtracting a wrong set of losing states."
+        },
+        {
+          "title": "Beware of importing the wrong impartial-game model",
+          "description": "Don’t apply known game rules (e.g., Nim/XOR) unless the move structure matches exactly.",
+          "content": "Partial solutions that treated the game as Nim-like used a generic criterion that doesn’t follow from the actual move options. Always verify that the game’s state transitions correspond to the assumptions behind any imported theory before using its winning condition.",
+          "reasoning": "All fully correct attempts converged on the same high-level reduction: the game outcome depends only on the parity of the total number of moves (equivalently, whether the last move is made by the first player). Once that invariant is identified, counting becomes a straightforward parity-counting problem over two independent ranges. The partially correct attempts failed because they used the wrong game-theoretic reduction (e.g., treating the situation like a misapplied Nim/heap-XOR criterion, or guessing a relationship like “x≠y” or “x equals y plus a constant”), which doesn’t match the actual winning condition derived from turn alternation. Another common failure mode in partially correct solutions is confusing “winning when no flowers remain” with a different terminal condition involving mirroring, or subtracting a wrong set of losing states."
+        },
+        {
+          "title": "Use a verification step for any proposed winning characterization",
+          "description": "Any derived criterion should be sanity-checked against the terminal rule and turn alternation.",
+          "content": "If a proposed condition implies an outcome pattern that conflicts with the “last move wins” terminal behavior, it is likely incorrect. A quick cross-check on small totals (or reasoning from forced game length) can invalidate wrong relationships early.",
+          "reasoning": "All fully correct attempts converged on the same high-level reduction: the game outcome depends only on the parity of the total number of moves (equivalently, whether the last move is made by the first player). Once that invariant is identified, counting becomes a straightforward parity-counting problem over two independent ranges. The partially correct attempts failed because they used the wrong game-theoretic reduction (e.g., treating the situation like a misapplied Nim/heap-XOR criterion, or guessing a relationship like “x≠y” or “x equals y plus a constant”), which doesn’t match the actual winning condition derived from turn alternation. Another common failure mode in partially correct solutions is confusing “winning when no flowers remain” with a different terminal condition involving mirroring, or subtracting a wrong set of losing states."
+        }
+      ],
+      "raw_response": "<reasoning>\nAll fully correct attempts converged on the same high-level reduction: the game outcome depends only on the parity of the total number of moves (equivalently, whether the last move is made by the first player). Once that invariant is identified, counting becomes a straightforward parity-counting problem over two independent ranges. The partially correct attempts failed because they used the wrong game-theoretic reduction (e.g., treating the situation like a misapplied Nim/heap-XOR criterion, or guessing a relationship like “x≠y” or “x equals y plus a constant”), which doesn’t match the actual winning condition derived from turn alternation. Another common failure mode in partially correct solutions is confusing “winning when no flowers remain” with a different terminal condition involving mirroring, or subtracting a wrong set of losing states.\n</reasoning>\n\n<memories>\n<memory>\n<title>Reduce the game to an invariant that depends only on move count</title>\n<description>For many take-away games, the winner can be determined solely by whether the first player makes the last move.</description>\n<content>When each move decreases a fixed amount of a global resource by exactly 1, the game length is forced to be the total remaining count. Then the winner is determined by whether that total is odd or even (given who moves first), often eliminating the need for complex strategy analysis.</content>\n</memory>\n\n<memory>\n<title>Convert strategic conditions into explicit combinatorial criteria</title>\n<description>After finding the winning invariant, rewrite it as a concrete condition on the inputs to enable direct counting.</description>\n<content>Once the winning condition is expressed as something like “parity differs” (or another simple relation), counting pairs becomes a product-sum of counts of allowed categories (e.g., odds vs evens) within each range. This avoids fragile case-based guesses about specific relations between variables.</content>\n</memory>\n\n<memory>\n<title>Beware of importing the wrong impartial-game model</title>\n<description>Don’t apply known game rules (e.g., Nim/XOR) unless the move structure matches exactly.</description>\n<content>Partial solutions that treated the game as Nim-like used a generic criterion that doesn’t follow from the actual move options. Always verify that the game’s state transitions correspond to the assumptions behind any imported theory before using its winning condition.</content>\n</memory>\n\n<memory>\n<title>Use a verification step for any proposed winning characterization</title>\n<description>Any derived criterion should be sanity-checked against the terminal rule and turn alternation.</description>\n<content>If a proposed condition implies an outcome pattern that conflicts with the “last move wins” terminal behavior, it is likely incorrect. A quick cross-check on small totals (or reasoning from forced game length) can invalidate wrong relationships early.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nAlice and Bob are playing a turn-based game on a circular field surrounded by flowers. The circle represents the field, and there are x flowers in the clockwise direction between Alice and Bob, and y flowers in the anti-clockwise direction between them.\nThe game proceeds as follows:\n\nAlice takes the first turn.\nIn each turn, a player must choose either the clockwise or anti-clockwise direction and pick one flower from that side.\nAt the end of the turn, if there are no flowers left at all, the current player captures their opponent and wins the game.\n\nGiven two integers, n and m, the task is to compute the number of possible pairs (x, y) that satisfy the conditions:\n\nAlice must win the game according to the described rules.\nThe number of flowers x in the clockwise direction must be in the range [1,n].\nThe number of flowers y in the anti-clockwise direction must be in the range [1,m].\n\nReturn the number of possible pairs (x, y) that satisfy the conditions mentioned in the statement.\n \nExample 1:\n\nInput: n = 3, m = 2\nOutput: 3\nExplanation: The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1).\n\nExample 2:\n\nInput: n = 1, m = 1\nOutput: 0\nExplanation: No pairs satisfy the conditions described in the statement.\n\n \nConstraints:\n\n1 <= n, m <= 10^5\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x flowers on clockwise side, y on anticlockwise side.\n        # Players start with Alice. On each move, a player removes exactly one flower\n        # from either side. The player to make the total number of flowers reach 0\n        # (i.e., remove the last flower) wins.\n        #\n        # Total moves = x + y, so Alice wins iff (x + y) is odd.\n        #\n        # Count pairs (x,y) with:\n        # 1 <= x <= n, 1 <= y <= m, and x+y is odd.\n        #\n        # Parity: x+y odd <=> x and y have opposite parity.\n        # Number of odd choices for x times even choices for y plus\n        # even choices for x times odd choices for y.\n        def count_odd(k: int) -> int:\n            return (k + 1) // 2\n\n        def count_even(k: int) -> int:\n            return k // 2\n\n        ox, ex = count_odd(n), count_even(n)\n        oy, ey = count_odd(m), count_even(m)\n\n        return ox * ey + ex * oy\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In this game, after k moves total, if all flowers are gone,\n        # the player who just moved wins. So Alice wins iff she can\n        # make the total number of flowers (x+y) be odd (so Alice makes\n        # the last move; Bob would otherwise).\n        #\n        # For any (x, y) with x in [1..n], y in [1..m],\n        # Alice wins iff x + y is odd  <=>  x and y have opposite parity.\n        #\n        # Count odd/even x and y, then sum opposite-parity products.\n        if n <= 0 or m <= 0:\n            return 0\n\n        x_odd = (n + 1) // 2\n        x_even = n // 2\n        y_odd = (m + 1) // 2\n        y_even = m // 2\n\n        return x_odd * y_even + x_even * y_odd\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # If Alice can empty the entire pile on her turn, then after every pair of moves\n        # (Alice then Bob) the number of remaining flowers decreases by 2k.\n        #\n        # With x clockwise and y anti-clockwise between them:\n        # - On each move, a player picks 1 flower from either side, so the total decreases by 1.\n        # - Alice wins iff she can make the total reach 0 exactly on her own move,\n        #   assuming optimal play (worst-case for Alice).\n        #\n        # This reduces to: Alice wins iff |x - y| > 0 and the larger pile size is odd,\n        # which yields x != y and max(x,y) is odd.\n        #\n        # Count pairs (x,y) with:\n        #   1 <= x <= n, 1 <= y <= m\n        #   x != y\n        #   max(x,y) odd\n        #\n        # We count all pairs where max(x,y) is odd, then subtract pairs where x==y and that value is odd.\n        \n        def count_max_odd(N, M):\n            # Count pairs (x in [1..N], y in [1..M]) where max(x,y) is odd.\n            # Let odd t = 1,3,5,...\n            # For each odd t:\n            # - If t <= N: x=t, y in [1..min(M, t)] contributes min(M,t)\n            # - If t <= M: y=t, x in [1..min(N, t)] contributes min(N,t)\n            # But pairs where x=t and y=t are counted twice, so subtract once per t where t is feasible in both.\n            #\n            # Easier: use inclusion/exclusion with exact-max approach:\n            # max is odd <=> (x <= t and y <= t) but not both <= t-1; that's equivalent to:\n            # number of pairs with max <= t minus max <= t-1.\n            # Then sum over odd t with t odd.\n            #\n            # We'll compute directly:\n            # Let F(t)=#pairs with max(x,y) <= t = t*t if t<=min(N,M),\n            # else if t<=max(N,M): depends.\n            # More robust: sum exact-max using regions.\n            \n            # We'll use a direct counting over odd t:\n            ans = 0\n            maxv = max(N, M)\n            # Number of odd values t in [1..maxv]\n            t = 1\n            while t <= maxv:\n                # add pairs where max(x,y) == t and t odd\n                # max==t means (x==t and y<=t) OR (y==t and x<=t) minus (x==t and y==t) counted twice -> subtract once\n                # Also need x<=N, y<=M.\n                if t <= N:\n                    ans += min(M, t)  # x=t, y in [1..min(M,t)]\n                if t <= M:\n                    ans += min(N, t)  # y=t, x in [1..min(N,t)]\n                if t <= N and t <= M:\n                    ans -= 1           # subtract the (t,t) double count\n                t += 2\n            return ans\n\n        total_max_odd = count_max_odd(n, m)\n\n        # subtract pairs with x==y and odd (since those have x=y -> Alice doesn't win)\n        k = min(n, m)\n        # count odd numbers in [1..k]\n        odd_eq = (k + 1) // 2\n\n        return total_max_odd - odd_eq\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins iff at the start she can force the game to end on her move.\n        # For this impartial “take-from one side” game, the winning positions\n        # are exactly those where the total remaining flowers (x+y) is odd.\n        #\n        # Given x in [1..n], y in [1..m], count pairs with x+y odd.\n        if n < 1 or m < 1:\n            return 0\n\n        # Count odd/even numbers in ranges\n        def count_odd(k: int) -> int:\n            # odds in 1..k\n            return (k + 1) // 2\n\n        odd_x = count_odd(n)\n        even_x = n - odd_x\n        odd_y = count_odd(m)\n        even_y = m - odd_y\n\n        # x+y odd <=> (x odd, y even) or (x even, y odd)\n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers, y be anti-clockwise flowers.\n        # Players alternate choosing from one side; if after a move no flowers remain,\n        # the current player wins by capturing opponent.\n        #\n        # Total moves = x + y. Alice wins iff she makes the last move, i.e. (x+y) is odd.\n        # With x in [1..n] and y in [1..m], count pairs where x+y is odd.\n        #\n        # x+y is odd <=> x and y have different parity.\n        # So answer = (#odd x)*(#even y) + (#even x)*(#odd y).\n        \n        def count_odd(t: int) -> int:\n            return (t + 1) // 2\n        \n        def count_even(t: int) -> int:\n            return t // 2\n        \n        odd_x = count_odd(n)\n        even_x = count_even(n)\n        odd_y = count_odd(m)\n        even_y = count_even(m)\n        \n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Alice wins iff x != y.\n        # Because on each move a player takes one from the chosen side;\n        # game ends when both sides are empty (only possible after exactly x+y moves).\n        # If x == y, the two players can mirror moves and the first player does not win\n        # under the \"opponent is captured when no flowers left at all\" rule.\n        # For x != y, one side runs out earlier and the current player who empties\n        # the last flower will be Alice when she starts.\n        # Thus valid (x,y) are all pairs with x in [1,n], y in [1,m] except x==y.\n        total = n * m\n        same = min(n, m)\n        return total - same\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Let x be clockwise flowers and y be anti-clockwise flowers (both > 0).\n        # On each move, a player removes exactly one flower from one side.\n        # If after your move both become 0, you win immediately.\n        #\n        # Total moves until both are removed is x+y.\n        # Winner is determined by parity:\n        # - If x+y is odd, the player who moves last wins -> Alice wins.\n        # - If x+y is even, Bob moves last -> Alice loses.\n        #\n        # So we need count of pairs (x,y) with:\n        #   1<=x<=n, 1<=y<=m, and (x+y) is odd.\n        # For (x+y) odd: parities of x and y must be different.\n        #\n        # Count odd/even numbers in [1..n] and [1..m], then combine.\n        \n        def count_parity(t):\n            # returns (odd_count, even_count) in [1..t]\n            odd = (t + 1) // 2\n            even = t // 2\n            return odd, even\n\n        ox, ex = count_parity(n)\n        oy, ey = count_parity(m)\n\n        # x odd with y even, or x even with y odd\n        return ox * ey + ex * oy\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # For given x (clockwise) and y (anticlockwise), Alice starts.\n        # Each move removes exactly one flower from one chosen side.\n        #\n        # The current player wins when the board becomes empty after their move.\n        # This is exactly the normal play of removing all stones one by one:\n        # total moves = x + y. Alice wins iff (x + y) is odd.\n        #\n        # Count pairs (x, y) with:\n        #   1 <= x <= n, 1 <= y <= m, and (x + y) is odd.\n        #\n        # That happens iff x and y have opposite parity.\n        # So answer = (#odd x)* (#even y) + (#even x)*(#odd y)\n        def count_odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def count_evens(k: int) -> int:\n            return k // 2\n\n        odd_x = count_odds(n)\n        even_x = count_evens(n)\n        odd_y = count_odds(m)\n        even_y = count_evens(m)\n\n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game is equivalent to: there are x items on one side and y on the other.\n        # Players alternately remove exactly one item from one of the two sides.\n        #\n        # Current player wins iff after their move the opponent has no move, i.e.\n        # the total items remaining become 0 right after their move.\n        # That means total number of moves T = x+y must be odd (Alice removes last).\n        #\n        # Given x in [1,n], y in [1,m], count pairs with x+y odd.\n        # For any fixed x, parity of y must be opposite to x.\n        # Count evens/odds in ranges and multiply appropriately.\n        \n        def count_parity(L: int):\n            # returns (count_odd, count_even) in [1..L]\n            odd = (L + 1) // 2\n            even = L // 2\n            return odd, even\n        \n        x_odd, x_even = count_parity(n)\n        y_odd, y_even = count_parity(m)\n        \n        # x+y odd  <=> (x odd and y even) OR (x even and y odd)\n        return x_odd * y_even + x_even * y_odd\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # In the game, Alice and Bob alternately remove exactly one flower from either side.\n        # Alice wins iff at the moment a player takes a flower, the remaining flowers total becomes 0,\n        # i.e., the player makes the last move.\n        #\n        # Total flowers = x + y. Since Alice starts, Alice wins iff (x + y) is odd.\n        #\n        # Count pairs (x, y) with:\n        #   x in [1, n], y in [1, m], and x + y is odd.\n        # Parity condition means x and y have opposite parity.\n        \n        def count_odds(k: int) -> int:\n            return (k + 1) // 2\n        \n        def count_evens(k: int) -> int:\n            return k // 2\n        \n        ox, ex = count_odds(n), count_evens(n)\n        oy, ey = count_odds(m), count_evens(m)\n        \n        # Opposite parity pairs\n        return ox * ey + ex * oy\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3279",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 2,
+          "score": 0.42857142857142855,
+          "tier": "partial",
+          "details": {
+            "passed": 6,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "46",
+                "actual": "44",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28858165",
+                "actual": "28855270",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "287818960",
+                "actual": "287809548",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5000000000",
+                "actual": "4999900000",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 5,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "20",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "72",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "46",
+                "actual": "88",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28858165",
+                "actual": "57710541",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "287818960",
+                "actual": "575628508",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1155897950",
+                "actual": "2311770300",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5000000000",
+                "actual": "9999900000",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Reduce the game to an invariant that depends only on move count: For many take-away games, the winner can be determined solely by whether the first player makes the last move.\n     When each move decreases a fixed amount of a global resource by exactly 1, the game length is forced to be the total remaining count. Then the winner is determined by whether that total is odd or even (given who moves first), often eliminating the need for complex strategy analysis.\n  2. Convert strategic conditions into explicit combinatorial criteria: After finding the winning invariant, rewrite it as a concrete condition on the inputs to enable direct counting.\n     Once the winning condition is expressed as something like “parity differs” (or another simple relation), counting pairs becomes a product-sum of counts of allowed categories (e.g., odds vs evens) within each range. This avoids fragile case-based guesses about specific relations between variables.\n  3. Beware of importing the wrong impartial-game model: Don’t apply known game rules (e.g., Nim/XOR) unless the move structure matches exactly.\n     Partial solutions that treated the game as Nim-like used a generic criterion that doesn’t follow from the actual move options. Always verify that the game’s state transitions correspond to the assumptions behind any imported theory before using its winning condition.\n  4. Use a verification step for any proposed winning characterization: Any derived criterion should be sanity-checked against the terminal rule and turn alternation.\n     If a proposed condition implies an outcome pattern that conflicts with the “last move wins” terminal behavior, it is likely incorrect. A quick cross-check on small totals (or reasoning from forced game length) can invalidate wrong relationships early.\n\nApply these insights to the problem below.\n\n### Question:\nAlice and Bob are playing a turn-based game on a circular field surrounded by flowers. The circle represents the field, and there are x flowers in the clockwise direction between Alice and Bob, and y flowers in the anti-clockwise direction between them.\nThe game proceeds as follows:\n\nAlice takes the first turn.\nIn each turn, a player must choose either the clockwise or anti-clockwise direction and pick one flower from that side.\nAt the end of the turn, if there are no flowers left at all, the current player captures their opponent and wins the game.\n\nGiven two integers, n and m, the task is to compute the number of possible pairs (x, y) that satisfy the conditions:\n\nAlice must win the game according to the described rules.\nThe number of flowers x in the clockwise direction must be in the range [1,n].\nThe number of flowers y in the anti-clockwise direction must be in the range [1,m].\n\nReturn the number of possible pairs (x, y) that satisfy the conditions mentioned in the statement.\n \nExample 1:\n\nInput: n = 3, m = 2\nOutput: 3\nExplanation: The following pairs satisfy conditions described in the statement: (1,2), (3,2), (2,1).\n\nExample 2:\n\nInput: n = 1, m = 1\nOutput: 0\nExplanation: No pairs satisfy the conditions described in the statement.\n\n \nConstraints:\n\n1 <= n, m <= 10^5\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Total flowers = x + y. One flower removed per move, so the game\n        # lasts exactly x+y moves and the player who makes the last move wins.\n        # Alice starts, so Alice wins iff (x+y) is odd.\n        #\n        # Count pairs (x,y) with 1<=x<=n, 1<=y<=m and x+y odd.\n        # That means x and y must have opposite parity.\n        #\n        # Let:\n        #   odd_n  = number of odd x in [1..n]\n        #   even_n = number of even x in [1..n]\n        # similarly for m.\n        # Answer = odd_n*even_m + even_n*odd_m.\n        def count_odds(k: int) -> int:\n            # In [1..k], odds are 1,3,5,... => (k+1)//2\n            return (k + 1) // 2\n\n        def count_evens(k: int) -> int:\n            return k // 2\n\n        odd_n = count_odds(n)\n        even_n = count_evens(n)\n        odd_m = count_odds(m)\n        even_m = count_evens(m)\n\n        return odd_n * even_m + even_n * odd_m\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # If x flowers clockwise and y anti-clockwise exist between players:\n        # Each move removes exactly one flower from one side, so total moves = x+y.\n        # The player who makes the last move wins (because after the last removal,\n        # there are no flowers left and the current player captures the opponent).\n        #\n        # Alice starts, so Alice wins iff the number of moves (x+y) is odd.\n        # Count pairs (x,y) with x in [1..n], y in [1..m], and x+y odd.\n        #\n        # x+y odd <=> x and y have opposite parity.\n        # Count odds/evens in each range and multiply-cross.\n\n        def count_odds(k: int) -> int:\n            # odds in [1..k]\n            return (k + 1) // 2\n\n        def count_evens(k: int) -> int:\n            # evens in [1..k]\n            return k // 2\n\n        x_odd = count_odds(n)\n        x_even = count_evens(n)\n        y_odd = count_odds(m)\n        y_even = count_evens(m)\n\n        # Opposite parity pairs: (odd,even) + (even,odd)\n        return x_odd * y_even + x_even * y_odd\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game is equivalent to: there are x + y total moves.\n        # Players alternate taking exactly one flower each move.\n        # Since the player who makes the last move wins, Alice wins iff (x + y) is odd.\n        #\n        # We need count of pairs (x,y) with:\n        # 1<=x<=n, 1<=y<=m, and x+y odd.\n        #\n        # That means x and y have opposite parity.\n        def count_odds(k: int) -> int:\n            return (k + 1) // 2\n\n        def count_evens(k: int) -> int:\n            return k // 2\n\n        x_odd = count_odds(n)\n        x_even = count_evens(n)\n        y_odd = count_odds(m)\n        y_even = count_evens(m)\n\n        # Opposite parity pairs\n        return x_odd * y_even + x_even * y_odd\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Terminal rule: if a player takes the last remaining flower, then\n        # after the turn \"there are no flowers left at all\", so the current player wins.\n        #\n        # Moves: from a state (x, y), a move decreases exactly one of x or y by 1.\n        # So the game always lasts exactly x+y moves, regardless of choices.\n        #\n        # With Alice starting, Alice makes the last move iff (x+y) is odd.\n        # Therefore Alice wins iff x+y is odd.\n        #\n        # Count pairs (x,y) with 1<=x<=n, 1<=y<=m and x+y odd.\n        # That means x and y have opposite parity.\n\n        def count_odds(t: int) -> int:\n            # odds in [1..t]\n            return (t + 1) // 2\n\n        def count_evens(t: int) -> int:\n            return t // 2\n\n        odds_n = count_odds(n)\n        evens_n = count_evens(n)\n        odds_m = count_odds(m)\n        evens_m = count_evens(m)\n\n        # opposite parity: (odd, even) + (even, odd)\n        return odds_n * evens_m + evens_n * odds_m\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game length is forced: each move removes exactly 1 flower.\n        # Total moves = x + y. Alice starts.\n        #\n        # The player who makes the last move wins because after their move\n        # no flowers remain and \"the current player captures their opponent and wins\".\n        #\n        # Therefore Alice wins iff (x + y) is odd.\n        #\n        # Count pairs (x,y) with 1<=x<=n, 1<=y<=m, and x+y odd.\n        # That happens when parities differ.\n        even_x = n // 2\n        odd_x = n - even_x\n        even_y = m // 2\n        odd_y = m - even_y\n        # parities differ: (odd, even) or (even, odd)\n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game is equivalent to:\n        # Players alternately remove exactly one flower from either side (x or y).\n        # Since any move always removes 1 flower, total moves are fixed: x+y.\n        # The player who makes the last move wins, because they leave 0 flowers.\n        # Alice wins iff she makes the last move iff (x+y) is odd.\n        #\n        # Count pairs (x,y) with 1<=x<=n, 1<=y<=m, and x+y odd.\n        # That means exactly one of x,y is odd.\n        def count_odds(t: int) -> int:\n            # odds in [1..t]\n            return (t + 1) // 2\n\n        def count_evens(t: int) -> int:\n            return t // 2\n\n        odd_x = count_odds(n)\n        even_x = count_evens(n)\n        odd_y = count_odds(m)\n        even_y = count_evens(m)\n\n        # x odd, y even OR x even, y odd\n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # For fixed (x, y):\n        # Each move removes exactly one flower from one side, so total flowers = x + y.\n        # The game ends immediately when all flowers are gone: the last mover wins.\n        # Since Alice moves first, Alice wins iff (x + y) is odd.\n        #\n        # Count pairs with 1<=x<=n, 1<=y<=m and x+y odd.\n        # That happens iff x and y have opposite parity.\n        #\n        # Let oN = number of odds in [1..n], eN = number of evens in [1..n].\n        # Then answer = oN*eM + eN*oM.\n        def count_odds(k: int) -> int:\n            # odds in 1..k\n            return (k + 1) // 2\n\n        oN = count_odds(n)\n        oM = count_odds(m)\n        eN = n - oN\n        eM = m - oM\n\n        return oN * eM + eN * oM\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Game ends exactly when all flowers are taken.\n        # Each move removes exactly 1 flower, so total moves = x + y.\n        # First player (Alice) wins iff she makes the last move => (x + y) is odd.\n        # Count pairs (x,y) with x in [1,n], y in [1,m] and x+y odd.\n        # That happens iff x and y have opposite parity.\n        \n        def count_parity_in_1_to_k(k: int):\n            # Number of odds and evens in [1..k]\n            odds = (k + 1) // 2\n            evens = k // 2\n            return odds, evens\n        \n        ox, ex = count_parity_in_1_to_k(n)\n        oy, ey = count_parity_in_1_to_k(m)\n        \n        # opposite parity pairs\n        return ox * ey + ex * oy\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # Total flowers is x+y. Each move removes exactly 1 flower, and game ends\n        # when all flowers are removed; the player who makes the last move wins.\n        # Starting with Alice, Alice wins iff total (x+y) is odd.\n        #\n        # Count pairs (x,y) with 1<=x<=n, 1<=y<=m and x+y is odd.\n        # This happens exactly when x and y have opposite parity.\n        def count_odd(t: int) -> int:\n            return (t + 1) // 2\n\n        def count_even(t: int) -> int:\n            return t // 2\n\n        odd_x = count_odd(n)\n        even_x = count_even(n)\n        odd_y = count_odd(m)\n        even_y = count_even(m)\n\n        # x odd & y even OR x even & y odd\n        return odd_x * even_y + even_x * odd_y\n```",
+        "```python\nclass Solution:\n    def flowerGame(self, n: int, m: int) -> int:\n        # With x flowers clockwise and y anti-clockwise:\n        # Each move removes exactly one flower from exactly one side.\n        # So the total number of moves is fixed: x + y.\n        # The player who makes the last move wins (capturing when no flowers remain).\n        # Alice moves first, so Alice wins iff (x + y) is odd.\n        #\n        # Count pairs (x,y) with 1<=x<=n, 1<=y<=m and x+y odd.\n        # That means one is even and the other is odd.\n        def count_odds(u: int) -> int:\n            return (u + 1) // 2\n\n        def count_evens(u: int) -> int:\n            return u // 2\n\n        odd_x = count_odds(n)\n        even_x = count_evens(n)\n        odd_y = count_odds(m)\n        even_y = count_evens(m)\n\n        return odd_x * even_y + even_x * odd_y\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3279",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3279",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "46",
+                "actual": "46",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28858165",
+                "actual": "28858165",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "287818960",
+                "actual": "287818960",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1155897950",
+                "actual": "1155897950",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5000000000",
+                "actual": "5000000000",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.8,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.19999999999999996
+    }
+  }
+}

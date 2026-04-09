@@ -1,0 +1,3236 @@
+{
+  "problem_id": "2825",
+  "domain": "coding",
+  "problem": {
+    "id": "2825",
+    "domain": "coding",
+    "statement": "Given a 0-indexed string s, repeatedly perform the following operation any number of times:\n\nChoose an index i in the string, and let c be the character in position i. Delete the closest occurrence of c to the left of i (if any) and the closest occurrence of c to the right of i (if any).\n\nYour task is to minimize the length of s by performing the above operation any number of times.\nReturn an integer denoting the length of the minimized string.\n \nExample 1:\n\nInput: s = \"aaabc\"\nOutput: 3\nExplanation: In this example, s is \"aaabc\". We can start by selecting the character 'a' at index 1. We then remove the closest 'a' to the left of index 1, which is at index 0, and the closest 'a' to the right of index 1, which is at index 2. After this operation, the string becomes \"abc\". Any further operation we perform on the string will leave it unchanged. Therefore, the length of the minimized string is 3.\nExample 2:\n\nInput: s = \"cbbd\"\nOutput: 3\nExplanation: For this we can start with character 'b' at index 1. There is no occurrence of 'b' to the left of index 1, but there is one to the right at index 2, so we delete the 'b' at index 2. The string becomes \"cbd\" and further operations will leave it unchanged. Hence, the minimized length is 3. \n\nExample 3:\n\nInput: s = \"dddaaa\"\nOutput: 2\nExplanation: For this, we can start with the character 'd' at index 1. The closest occurrence of a 'd' to its left is at index 0, and the closest occurrence of a 'd' to its right is at index 2. We delete both index 0 and 2, so the string becomes \"daaa\". In the new string, we can select the character 'a' at index 2. The closest occurrence of an 'a' to its left is at index 1, and the closest occurrence of an 'a' to its right is at index 3. We delete both of them, and the string becomes \"da\". We cannot minimize this further, so the minimized length is 2.\n\n \n \nConstraints:\n\n1 <= s.length <= 100\ns contains only lowercase English letters",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"aaabc\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"cbbd\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"dddaaa\"",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"x\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"b\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"m\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"u\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"k\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"sz\"",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ikq\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"zzbk\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"tsnd\"",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"cmcnijzx\"",
+        "output": "7",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"kbsyhdkcbrqdxlliwapqvxinziqwgddllvzwzedlsjxqnomlbkimqsdupgehykjogbjzypcdthtghpoywxhchujfxvnynjnmaayj\"",
+        "output": "26",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"aaaabbbbccccddddeeeeffffgggghhhhiiiijjjjkkkkllllmmmmnnnnooooppppqqqqrrrrssssttttuuuuvvvvwwwwxxxxyyyyzzzz\"",
+        "output": "26",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        ",
+    "metadata": {
+      "func_name": "minimizedStringLength",
+      "question_title": "minimize-string-length",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nGiven a 0-indexed string s, repeatedly perform the following operation any number of times:\n\nChoose an index i in the string, and let c be the character in position i. Delete the closest occurrence of c to the left of i (if any) and the closest occurrence of c to the right of i (if any).\n\nYour task is to minimize the length of s by performing the above operation any number of times.\nReturn an integer denoting the length of the minimized string.\n \nExample 1:\n\nInput: s = \"aaabc\"\nOutput: 3\nExplanation: In this example, s is \"aaabc\". We can start by selecting the character 'a' at index 1. We then remove the closest 'a' to the left of index 1, which is at index 0, and the closest 'a' to the right of index 1, which is at index 2. After this operation, the string becomes \"abc\". Any further operation we perform on the string will leave it unchanged. Therefore, the length of the minimized string is 3.\nExample 2:\n\nInput: s = \"cbbd\"\nOutput: 3\nExplanation: For this we can start with character 'b' at index 1. There is no occurrence of 'b' to the left of index 1, but there is one to the right at index 2, so we delete the 'b' at index 2. The string becomes \"cbd\" and further operations will leave it unchanged. Hence, the minimized length is 3. \n\nExample 3:\n\nInput: s = \"dddaaa\"\nOutput: 2\nExplanation: For this, we can start with the character 'd' at index 1. The closest occurrence of a 'd' to its left is at index 0, and the closest occurrence of a 'd' to its right is at index 2. We delete both index 0 and 2, so the string becomes \"daaa\". In the new string, we can select the character 'a' at index 2. The closest occurrence of an 'a' to its left is at index 1, and the closest occurrence of an 'a' to its right is at index 3. We delete both of them, and the string becomes \"da\". We cannot minimize this further, so the minimized length is 2.\n\n \n \nConstraints:\n\n1 <= s.length <= 100\ns contains only lowercase English letters\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # After choosing an index i with character c and deleting the closest\n        # c on both sides, the remaining characters are exactly those that\n        # can be left \"unpaired\" for some choice. This process is equivalent\n        # to minimizing remaining count per character, which becomes:\n        # - If occurrences count is k:\n        #   we can remove 2 at a time (one from left and one from right of some pivot),\n        #   and at most one of the k can remain if we can make it a pivot.\n        # Hence minimal remaining for character = k % 2.\n        # Total minimized length = sum over characters of (count % 2).\n        counts = {}\n        for ch in s:\n            counts[ch] = counts.get(ch, 0) + 1\n        return sum(v % 2 for v in counts.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Greedy interpretation:\n        # For any chosen character c at position i, the operation deletes at most\n        # one closest c to the left and one closest c to the right of i (in the\n        # current string).\n        #\n        # It can be shown the best you can do for each character c is to reduce\n        # its occurrences by pairing them from both sides around some remaining\n        # \"center\" occurrences; ultimately:\n        # - if count(c) is even -> you can eliminate all but 0 for that char\n        # - if count(c) is odd  -> you can eliminate all but 1 for that char\n        #\n        # Moreover, operations on different characters don't interfere with\n        # this parity outcome for the final length.\n        #\n        # Therefore, minimized length is the number of characters with odd counts.\n        freq = {}\n        for ch in s:\n            freq[ch] = freq.get(ch, 0) + 1\n        return sum(v % 2 for v in freq.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Greedy observation:\n        # For any chosen character occurrence at index i, the operation deletes\n        # the nearest same-char occurrence to the left and to the right (if they exist).\n        #\n        # This effectively allows us to reduce occurrences of each character by pairing\n        # adjacent occurrences and leaving at most one unpaired occurrence per character.\n        #\n        # Therefore, after optimal operations, each distinct character contributes\n        # either 0 (if its count is even) or 1 (if its count is odd) remaining characters.\n        from collections import Counter\n\n        cnt = Counter(s)\n        ans = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                ans += 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key observation:\n        # If we pick an occurrence of character c at position i, we delete at most\n        # one closest c to the left and one closest c to the right.\n        # This only affects occurrences of the same character; other characters shift,\n        # but the relative order and counts per character ultimately determine the result.\n        #\n        # For each character with frequency f:\n        # - Each operation centered on an occurrence can delete up to 2 occurrences of that character.\n        # - The process can be arranged to remove as many as possible, leaving:\n        #       0 if f == 0 (not possible here),\n        #       1 if f is odd,\n        #       2 if f is even and >= 2.\n        #\n        # Therefore minimal total length equals:\n        #   sum over characters of (1 if freq is odd else 2), but 0 for freq==0.\n        # This matches sample behavior (e.g., aaabc: a has freq 3 -> 1, others -> 1 each => 3).\n        from collections import Counter\n\n        cnt = Counter(s)\n        ans = 0\n        for f in cnt.values():\n            if f % 2 == 1:\n                ans += 1\n            else:\n                ans += 2\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        from collections import Counter\n\n        cnt = Counter(s)\n        total = 0\n        # For any character with frequency f:\n        # Each operation can remove up to 2 occurrences of that same character,\n        # by choosing an occurrence and deleting its closest same-char neighbors.\n        # This effectively reduces the count down to f % 2.\n        # Different characters don't interfere across operations; the minimal\n        # remaining length is the sum over characters of f % 2.\n        for f in cnt.values():\n            total += f % 2\n        return total\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n        # Greedy/DP:\n        # For any chosen remaining character positions, operation always removes\n        # one closest equal on left and one on right around some pivot.\n        # The minimized result is equivalent to keeping at most one character from\n        # each \"neighbor-pair block\", which reduces to counting runs.\n        #\n        # Known property for this problem:\n        # The optimal minimized length equals the number of indices i such that\n        # s[i] != s[i-1] and i is in the first occurrence after a different char,\n        # i.e., number of contiguous groups.\n        #\n        # Example: \"aaabc\" -> groups: [\"aaa\",\"b\",\"c\"] => 3\n        # \"cbbd\" -> [\"c\",\"bb\",\"d\"] => 3\n        # \"dddaaa\" -> [\"ddd\",\"aaa\"] => 2\n        #\n        # This matches the operation effect: the only way characters survive are\n        # boundary layers of different runs; inside runs can be collapsed.\n        groups = 1\n        for i in range(1, n):\n            if s[i] != s[i - 1]:\n                groups += 1\n        return groups\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n        # Operation removes two nearest equal characters around a chosen one,\n        # effectively reducing the count of that character by 2.\n        #\n        # For any character with frequency f, its remaining count after any number\n        # of such operations can be only f mod 2 (because we can remove in pairs).\n        # Also, operations on different characters do not interfere since indices\n        # are chosen by character equality.\n        #\n        # Therefore the minimal total length is the sum of parity of each frequency.\n        freq = [0] * 26\n        for ch in s:\n            freq[ord(ch) - 97] += 1\n\n        ans = 0\n        for f in freq:\n            ans += f % 2\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Each operation chooses an occurrence at some index i and deletes\n        # its nearest same characters on both sides (if they exist).\n        # For each character, this effectively pairs up occurrences: every time\n        # you pick one occurrence, you can delete one occurrence to the left and\n        # one to the right (closest). Hence occurrences of the same character\n        # can be removed in pairs; the parity (odd/even) of the count matters.\n        #\n        # Therefore minimal remaining length equals the number of characters\n        # that occur an odd number of times.\n        from collections import Counter\n        cnt = Counter(s)\n        return sum(v % 2 for v in cnt.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n\n        # For a chosen index i, the operation deletes the closest same character\n        # to the left and to the right of i (if they exist).\n        #\n        # Equivalent viewpoint:\n        # If we pick a character occurrence as a \"pivot\" repeatedly, the only\n        # occurrences of the same character that can survive are those that are\n        # not deleted as the closest neighbors of some pivot.\n        #\n        # It turns out the optimal strategy yields:\n        # minimized length = number of distinct adjacent blocks minus\n        # (extra deletable pairs within blocks), which simplifies to:\n        #\n        # Let blocks be maximal runs of equal characters.\n        # For a block of length L:\n        #   - If we choose pivots inside this block, we can delete in pairs,\n        #     leaving either 1 character (if L is odd) or 0 characters (if L is even).\n        # Across different characters/blocks, deletions do not interact with\n        # other characters' nearest-neighbor relationships in a way that\n        # reduces further than this per-block parity.\n        #\n        # Therefore: each run contributes L % 2 to the final length.\n        #\n        # Example checks:\n        # \"aaabc\" -> runs: \"aaa\" (1), \"b\"(1), \"c\"(1) => 3\n        # \"cbbd\"  -> \"c\"(1), \"bb\"(0), \"d\"(1) => 2? but expected 3.\n        #\n        # So the above naive parity-per-run is incorrect because identical letters\n        # can be separated by other letters and still be affected across the string.\n        #\n        # Correct approach:\n        # The minimized length equals the maximum size of a set of indices such that\n        # no two chosen indices are adjacent occurrences of the same character\n        # with respect to the current string under this operation.\n        #\n        # For each character, the operation can delete at most pairs of its\n        # consecutive occurrences (in the original string), leaving\n        # count(char) - 2*k where k is number of deletable pairs.\n        #\n        # Optimal overall strategy can be shown to always allow deleting\n        # floor(count(char)/2)*2 occurrences for each character independently,\n        # leaving count(char) % 2 occurrences for each character.\n        #\n        # Then minimized length is sum over characters of (count(c) % 2).\n        #\n        # Test:\n        # \"aaabc\": counts a=3->1, b=1->1, c=1->1 total=3 ✓\n        # \"cbbd\": counts b=2->0, c=1->1, d=1->1 total=2 (but expected 3) ✗\n        #\n        # Therefore we need the exact known result for this problem:\n        # The minimized length equals the number of characters i such that\n        # s[i] is different from both nearest same-character occurrence neighbors\n        # after optimal deletions; this reduces to:\n        #\n        # Process from left to right, maintain the last seen position for each char.\n        # Greedy: whenever we see a character that has been seen before, it can be\n        # \"paired\" with the previous occurrence, effectively reducing length by 1\n        # (because we can create an operation that removes one of them along with a\n        # third occurrence as needed). The final minimum becomes:\n        #   distinct last-occurrence count parity style:\n        #\n        # Actual simplest correct solution for constraints is dynamic programming on\n        # interval compression for n<=100:\n        #   Consider all indices; dp[l][r] = minimized length for substring s[l:r+1]\n        #   under the same operation restricted inside. We can choose a pivot k inside\n        #   and remove closest same-char on both sides; this resembles removing\n        #   matching ends like \"strange game on a strip\".\n        #\n        # We'll implement an O(n^3) interval DP using character equality transitions:\n        # It matches the known problem \"Minimize String Length\" from LeetCode:\n        # dp[l][r] = min(dp[l+1][r] + 1, min_{k in (l+1..r) with s[k]==s[l]} dp[l+1][k-1] + dp[k][r])\n        #\n        # This DP corresponds to keeping s[l] and removing it together with a later\n        # same character, which is exactly what the operation allows through repeated\n        # deletions.\n        #\n        # Base: dp[i][i]=1\n        # Answer: dp[0][n-1]\n        dp = [[0] * n for _ in range(n)]\n        for i in range(n):\n            dp[i][i] = 1\n\n        for length in range(2, n + 1):\n            for l in range(0, n - length + 1):\n                r = l + length - 1\n                # Option 1: delete s[l] alone (effectively split)\n                best = dp[l + 1][r] + 1\n                # Option 2: match s[l] with s[k] where s[k]==s[l]\n                for k in range(l + 1, r + 1):\n                    if s[k] == s[l]:\n                        # remove middle, then solve from k\n                        mid = dp[l + 1][k - 1] if k - 1 >= l + 1 else 0\n                        best = min(best, mid + dp[k][r])\n                dp[l][r] = best\n\n        return dp[0][n - 1]\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation keeps characters of the chosen index i, but removes\n        # the nearest same-character occurrences to the left/right (if any).\n        # Equivalent optimal strategy:\n        # For each maximal \"group\" of consecutive equal characters, we can\n        # reduce its total contribution to at least 1, and interactions\n        # across groups don't help because deletions only happen for the\n        # same character and always remove neighbors closest to chosen i.\n        #\n        # The resulting minimized length equals:\n        #   number of distinct characters whose occurrences count is odd.\n        #\n        # Proof sketch (standard): choose a character c.\n        # Each operation on an index with char c removes one occurrence on each side\n        # of that chosen occurrence, thus changes the count of c by an even number.\n        # Therefore parity of count of each character is invariant.\n        # We can always reduce each character's count to either 0 (even) or 1 (odd),\n        # by repeatedly choosing an occurrence to remove its nearest neighbors.\n        # Hence minimum total length is sum over characters of (count_c % 2).\n        cnt = {}\n        for ch in s:\n            cnt[ch] = cnt.get(ch, 0) + 1\n        return sum(v % 2 for v in cnt.values())\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2825",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 1,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "40",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "52",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 5,
+          "score": 0.8666666666666667,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "96",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 6,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 7,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 8,
+          "score": 0.9333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 14,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "72",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "partial": [
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # After choosing an index i with character c and deleting the closest\n        # c on both sides, the remaining characters are exactly those that\n        # can be left \"unpaired\" for some choice. This process is equivalent\n        # to minimizing remaining count per character, which becomes:\n        # - If occurrences count is k:\n        #   we can remove 2 at a time (one from left and one from right of some pivot),\n        #   and at most one of the k can remain if we can make it a pivot.\n        # Hence minimal remaining for character = k % 2.\n        # Total minimized length = sum over characters of (count % 2).\n        counts = {}\n        for ch in s:\n            counts[ch] = counts.get(ch, 0) + 1\n        return sum(v % 2 for v in counts.values())\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Greedy interpretation:\n        # For any chosen character c at position i, the operation deletes at most\n        # one closest c to the left and one closest c to the right of i (in the\n        # current string).\n        #\n        # It can be shown the best you can do for each character c is to reduce\n        # its occurrences by pairing them from both sides around some remaining\n        # \"center\" occurrences; ultimately:\n        # - if count(c) is even -> you can eliminate all but 0 for that char\n        # - if count(c) is odd  -> you can eliminate all but 1 for that char\n        #\n        # Moreover, operations on different characters don't interfere with\n        # this parity outcome for the final length.\n        #\n        # Therefore, minimized length is the number of characters with odd counts.\n        freq = {}\n        for ch in s:\n            freq[ch] = freq.get(ch, 0) + 1\n        return sum(v % 2 for v in freq.values())\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Greedy observation:\n        # For any chosen character occurrence at index i, the operation deletes\n        # the nearest same-char occurrence to the left and to the right (if they exist).\n        #\n        # This effectively allows us to reduce occurrences of each character by pairing\n        # adjacent occurrences and leaving at most one unpaired occurrence per character.\n        #\n        # Therefore, after optimal operations, each distinct character contributes\n        # either 0 (if its count is even) or 1 (if its count is odd) remaining characters.\n        from collections import Counter\n\n        cnt = Counter(s)\n        ans = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                ans += 1\n        return ans\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key observation:\n        # If we pick an occurrence of character c at position i, we delete at most\n        # one closest c to the left and one closest c to the right.\n        # This only affects occurrences of the same character; other characters shift,\n        # but the relative order and counts per character ultimately determine the result.\n        #\n        # For each character with frequency f:\n        # - Each operation centered on an occurrence can delete up to 2 occurrences of that character.\n        # - The process can be arranged to remove as many as possible, leaving:\n        #       0 if f == 0 (not possible here),\n        #       1 if f is odd,\n        #       2 if f is even and >= 2.\n        #\n        # Therefore minimal total length equals:\n        #   sum over characters of (1 if freq is odd else 2), but 0 for freq==0.\n        # This matches sample behavior (e.g., aaabc: a has freq 3 -> 1, others -> 1 each => 3).\n        from collections import Counter\n\n        cnt = Counter(s)\n        ans = 0\n        for f in cnt.values():\n            if f % 2 == 1:\n                ans += 1\n            else:\n                ans += 2\n        return ans\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        from collections import Counter\n\n        cnt = Counter(s)\n        total = 0\n        # For any character with frequency f:\n        # Each operation can remove up to 2 occurrences of that same character,\n        # by choosing an occurrence and deleting its closest same-char neighbors.\n        # This effectively reduces the count down to f % 2.\n        # Different characters don't interfere across operations; the minimal\n        # remaining length is the sum over characters of f % 2.\n        for f in cnt.values():\n            total += f % 2\n        return total\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n        # Greedy/DP:\n        # For any chosen remaining character positions, operation always removes\n        # one closest equal on left and one on right around some pivot.\n        # The minimized result is equivalent to keeping at most one character from\n        # each \"neighbor-pair block\", which reduces to counting runs.\n        #\n        # Known property for this problem:\n        # The optimal minimized length equals the number of indices i such that\n        # s[i] != s[i-1] and i is in the first occurrence after a different char,\n        # i.e., number of contiguous groups.\n        #\n        # Example: \"aaabc\" -> groups: [\"aaa\",\"b\",\"c\"] => 3\n        # \"cbbd\" -> [\"c\",\"bb\",\"d\"] => 3\n        # \"dddaaa\" -> [\"ddd\",\"aaa\"] => 2\n        #\n        # This matches the operation effect: the only way characters survive are\n        # boundary layers of different runs; inside runs can be collapsed.\n        groups = 1\n        for i in range(1, n):\n            if s[i] != s[i - 1]:\n                groups += 1\n        return groups\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n        # Operation removes two nearest equal characters around a chosen one,\n        # effectively reducing the count of that character by 2.\n        #\n        # For any character with frequency f, its remaining count after any number\n        # of such operations can be only f mod 2 (because we can remove in pairs).\n        # Also, operations on different characters do not interfere since indices\n        # are chosen by character equality.\n        #\n        # Therefore the minimal total length is the sum of parity of each frequency.\n        freq = [0] * 26\n        for ch in s:\n            freq[ord(ch) - 97] += 1\n\n        ans = 0\n        for f in freq:\n            ans += f % 2\n        return ans\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Each operation chooses an occurrence at some index i and deletes\n        # its nearest same characters on both sides (if they exist).\n        # For each character, this effectively pairs up occurrences: every time\n        # you pick one occurrence, you can delete one occurrence to the left and\n        # one to the right (closest). Hence occurrences of the same character\n        # can be removed in pairs; the parity (odd/even) of the count matters.\n        #\n        # Therefore minimal remaining length equals the number of characters\n        # that occur an odd number of times.\n        from collections import Counter\n        cnt = Counter(s)\n        return sum(v % 2 for v in cnt.values())\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n\n        # For a chosen index i, the operation deletes the closest same character\n        # to the left and to the right of i (if they exist).\n        #\n        # Equivalent viewpoint:\n        # If we pick a character occurrence as a \"pivot\" repeatedly, the only\n        # occurrences of the same character that can survive are those that are\n        # not deleted as the closest neighbors of some pivot.\n        #\n        # It turns out the optimal strategy yields:\n        # minimized length = number of distinct adjacent blocks minus\n        # (extra deletable pairs within blocks), which simplifies to:\n        #\n        # Let blocks be maximal runs of equal characters.\n        # For a block of length L:\n        #   - If we choose pivots inside this block, we can delete in pairs,\n        #     leaving either 1 character (if L is odd) or 0 characters (if L is even).\n        # Across different characters/blocks, deletions do not interact with\n        # other characters' nearest-neighbor relationships in a way that\n        # reduces further than this per-block parity.\n        #\n        # Therefore: each run contributes L % 2 to the final length.\n        #\n        # Example checks:\n        # \"aaabc\" -> runs: \"aaa\" (1), \"b\"(1), \"c\"(1) => 3\n        # \"cbbd\"  -> \"c\"(1), \"bb\"(0), \"d\"(1) => 2? but expected 3.\n        #\n        # So the above naive parity-per-run is incorrect because identical letters\n        # can be separated by other letters and still be affected across the string.\n        #\n        # Correct approach:\n        # The minimized length equals the maximum size of a set of indices such that\n        # no two chosen indices are adjacent occurrences of the same character\n        # with respect to the current string under this operation.\n        #\n        # For each character, the operation can delete at most pairs of its\n        # consecutive occurrences (in the original string), leaving\n        # count(char) - 2*k where k is number of deletable pairs.\n        #\n        # Optimal overall strategy can be shown to always allow deleting\n        # floor(count(char)/2)*2 occurrences for each character independently,\n        # leaving count(char) % 2 occurrences for each character.\n        #\n        # Then minimized length is sum over characters of (count(c) % 2).\n        #\n        # Test:\n        # \"aaabc\": counts a=3->1, b=1->1, c=1->1 total=3 ✓\n        # \"cbbd\": counts b=2->0, c=1->1, d=1->1 total=2 (but expected 3) ✗\n        #\n        # Therefore we need the exact known result for this problem:\n        # The minimized length equals the number of characters i such that\n        # s[i] is different from both nearest same-character occurrence neighbors\n        # after optimal deletions; this reduces to:\n        #\n        # Process from left to right, maintain the last seen position for each char.\n        # Greedy: whenever we see a character that has been seen before, it can be\n        # \"paired\" with the previous occurrence, effectively reducing length by 1\n        # (because we can create an operation that removes one of them along with a\n        # third occurrence as needed). The final minimum becomes:\n        #   distinct last-occurrence count parity style:\n        #\n        # Actual simplest correct solution for constraints is dynamic programming on\n        # interval compression for n<=100:\n        #   Consider all indices; dp[l][r] = minimized length for substring s[l:r+1]\n        #   under the same operation restricted inside. We can choose a pivot k inside\n        #   and remove closest same-char on both sides; this resembles removing\n        #   matching ends like \"strange game on a strip\".\n        #\n        # We'll implement an O(n^3) interval DP using character equality transitions:\n        # It matches the known problem \"Minimize String Length\" from LeetCode:\n        # dp[l][r] = min(dp[l+1][r] + 1, min_{k in (l+1..r) with s[k]==s[l]} dp[l+1][k-1] + dp[k][r])\n        #\n        # This DP corresponds to keeping s[l] and removing it together with a later\n        # same character, which is exactly what the operation allows through repeated\n        # deletions.\n        #\n        # Base: dp[i][i]=1\n        # Answer: dp[0][n-1]\n        dp = [[0] * n for _ in range(n)]\n        for i in range(n):\n            dp[i][i] = 1\n\n        for length in range(2, n + 1):\n            for l in range(0, n - length + 1):\n                r = l + length - 1\n                # Option 1: delete s[l] alone (effectively split)\n                best = dp[l + 1][r] + 1\n                # Option 2: match s[l] with s[k] where s[k]==s[l]\n                for k in range(l + 1, r + 1):\n                    if s[k] == s[l]:\n                        # remove middle, then solve from k\n                        mid = dp[l + 1][k - 1] if k - 1 >= l + 1 else 0\n                        best = min(best, mid + dp[k][r])\n                dp[l][r] = best\n\n        return dp[0][n - 1]\n```",
+          "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation keeps characters of the chosen index i, but removes\n        # the nearest same-character occurrences to the left/right (if any).\n        # Equivalent optimal strategy:\n        # For each maximal \"group\" of consecutive equal characters, we can\n        # reduce its total contribution to at least 1, and interactions\n        # across groups don't help because deletions only happen for the\n        # same character and always remove neighbors closest to chosen i.\n        #\n        # The resulting minimized length equals:\n        #   number of distinct characters whose occurrences count is odd.\n        #\n        # Proof sketch (standard): choose a character c.\n        # Each operation on an index with char c removes one occurrence on each side\n        # of that chosen occurrence, thus changes the count of c by an even number.\n        # Therefore parity of count of each character is invariant.\n        # We can always reduce each character's count to either 0 (even) or 1 (odd),\n        # by repeatedly choosing an occurrence to remove its nearest neighbors.\n        # Hence minimum total length is sum over characters of (count_c % 2).\n        cnt = {}\n        for ch in s:\n            cnt[ch] = cnt.get(ch, 0) + 1\n        return sum(v % 2 for v in cnt.values())\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nGiven a 0-indexed string s, repeatedly perform the following operation any number of times:\n\nChoose an index i in the string, and let c be the character in position i. Delete the closest occurrence of c to the left of i (if any) and the closest occurrence of c to the right of i (if any).\n\nYour task is to minimize the length of s by performing the above operation any number of times.\nReturn an integer denoting the length of the minimized string.\n \nExample 1:\n\nInput: s = \"aaabc\"\nOutput: 3\nExplanation: In this example, s is \"aaabc\". We can start by selecting the character 'a' at index 1. We then remove the closest 'a' to the left of index 1, which is at index 0, and the closest 'a' to the right of index 1, which is at index 2. After this operation, the string becomes \"abc\". Any further operation we perform on the string will leave it unchanged. Therefore, the length of the minimized string is 3.\nExample 2:\n\nInput: s = \"cbbd\"\nOutput: 3\nExplanation: For this we can start with character 'b' at index 1. There is no occurrence of 'b' to the left of index 1, but there is one to the right at index 2, so we delete the 'b' at index 2. The string becomes \"cbd\" and further operations will leave it unchanged. Hence, the minimized length is 3. \n\nExample 3:\n\nInput: s = \"dddaaa\"\nOutput: 2\nExplanation: For this, we can start with the character 'd' at index 1. The closest occurrence of a 'd' to its left is at index 0, and the closest occurrence of a 'd' to its right is at index 2. We delete both index 0 and 2, so the string becomes \"daaa\". In the new string, we can select the character 'a' at index 2. The closest occurrence of an 'a' to its left is at index 1, and the closest occurrence of an 'a' to its right is at index 3. We delete both of them, and the string becomes \"da\". We cannot minimize this further, so the minimized length is 2.\n\n \n \nConstraints:\n\n1 <= s.length <= 100\ns contains only lowercase English letters\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # For each character, if there are k occurrences, you can reduce them to:\n        # 0 if k is even, 1 if k is odd. Other characters are unaffected except\n        # for their relative positions, but the operation can be decomposed by\n        # choosing characters; the optimal outcome equals that parity rule.\n        #\n        # Therefore the final length equals the number of characters that occur\n        # an odd number of times.\n        from collections import Counter\n        cnt = Counter(s)\n        return sum(v % 2 for v in cnt.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # If we pick an index i with character c, we delete the nearest c's on both sides.\n        # This effectively allows us to remove matching pairs of equal characters around a pivot,\n        # but the parity (odd/even count) matters: any operation removes 2 occurrences of the same char.\n        #\n        # Therefore, for each character, we can reduce its occurrences to either 0 (even) or 1 (odd),\n        # and we can achieve this independently for each character.\n        #\n        # Minimal total length equals the number of characters with odd frequency.\n        freq = {}\n        for ch in s:\n            freq[ch] = freq.get(ch, 0) + 1\n\n        odd = 0\n        for v in freq.values():\n            if v % 2 == 1:\n                odd += 1\n        return odd\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key observation:\n        # The operation only deletes occurrences of the SAME character as chosen at index i:\n        # it removes the closest same-character to the left and to the right of i (if they exist).\n        #\n        # For a fixed character c, consider its occurrences in the current string in order.\n        # Each operation centered on one occurrence deletes at most one occurrence on each side,\n        # which reduces the count of c by 2 (never changes parity effect).\n        #\n        # Therefore, for each character, you can reduce its count to either 0 or 1 depending\n        # on whether its occurrences can be paired off; ultimately the minimal remaining amount\n        # per character is count(c) % 2.\n        #\n        # Different characters never delete each other (operation deletes only chosen character),\n        # so the global minimum length is sum over characters of (count(c) % 2).\n        from collections import Counter\n        cnt = Counter(s)\n        return sum(v % 2 for v in cnt.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation only removes characters equal to a chosen character's neighbors.\n        # In effect, for each character, we can delete occurrences in pairs so that:\n        # - if count is even -> all can be removed\n        # - if count is odd  -> one remains\n        # However, deletions from one character do not create new occurrences of that\n        # character, and the process can be arranged to achieve the pairing\n        # behavior independently across characters.\n        #\n        # Therefore, minimal remaining length equals the number of characters\n        # whose frequency in s is odd.\n        freq = [0] * 26\n        for ch in s:\n            freq[ord(ch) - 97] += 1\n        return sum(1 for x in freq if x % 2 == 1)\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key observation:\n        # For each operation, pick a character c at some occurrence.\n        # The operation deletes the nearest same-character occurrence on the left\n        # and on the right (if they exist). This effectively removes one \"pair\"\n        # of equal characters around a chosen occurrence.\n        #\n        # For any fixed character c with count k:\n        # - If k is even, we can delete all k characters (end up with 0).\n        # - If k is odd, we can delete k-1 characters (end up with 1).\n        # Different characters do not interfere, because deletions remove only\n        # occurrences of the selected character.\n        #\n        # Therefore, the minimized length is the number of characters that\n        # appear an odd number of times.\n        from collections import Counter\n\n        cnt = Counter(s)\n        return sum(1 for v in cnt.values() if v % 2 == 1)\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation: pick an index i with char c, then delete nearest c on the left\n        # and nearest c on the right (if they exist). This effectively removes\n        # pairs of equal characters around a chosen occurrence.\n        #\n        # Key observation: For each character c, its occurrences can be paired\n        # and removed via such operations; at most one occurrence of c can remain.\n        # Across different characters, operations don't mix characters, so the\n        # minimum length equals the number of distinct characters.\n        return len(set(s))\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key idea:\n        # After operations, only characters that lie at distances >=2\n        # from the nearest same-letter occurrence can survive.\n        # For each letter, all its occurrences can be paired off by repeatedly\n        # choosing some occurrence and deleting its nearest neighbors of the same letter\n        # on both sides. Unpaired survivors are exactly the parity of the count.\n        #\n        # More concretely: for any fixed character c, the operation only deletes\n        # occurrences of c adjacent (in terms of nearest left/right) to a chosen c.\n        # This acts like removing matched pairs among occurrences of c.\n        # Thus, after maximal operations, survivors of c is count(c) % 2.\n        #\n        # Total minimized length is sum over characters of survivors.\n\n        counts = [0] * 26\n        for ch in s:\n            counts[ord(ch) - 97] += 1\n\n        ans = 0\n        for cnt in counts:\n            ans += cnt % 2\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation deletes at most two occurrences of the same character\n        # (one nearest on the left and one nearest on the right of chosen index).\n        # Equivalent result: for each character, we can reduce its count to\n        # 0 (if even count) or 1 (if odd count). Total minimal length is\n        # the number of characters with odd frequency.\n        from collections import Counter\n        cnt = Counter(s)\n        ans = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                ans += 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # If we pick a character position i, we delete its nearest same-char\n        # occurrences to the left and right (if they exist). This keeps the\n        # chosen occurrence itself and potentially removes up to two neighbors.\n        #\n        # Key observation (known for this problem):\n        # For each character c, its occurrences can be reduced down to at most\n        # one \"surviving parity\" per block of consecutive occurrences.\n        #\n        # More directly: the total minimized length equals the number of\n        # indices i such that s[i] is different from both nearest same-letter\n        # neighbors after optimal deletions, which results in:\n        # minimized length = number of distinct characters plus\n        # number of characters that appear exactly once.\n        #\n        # However, the above isn't correct for all; so we use the correct\n        # derived greedy/counting method:\n        # The final minimal length equals the count of positions i where the\n        # distance between consecutive occurrences of the same character allows\n        # leaving one every time we can pair-delete around a pivot.\n        #\n        # Correct formula for this specific operation:\n        # For each letter c with frequency f, the minimal remaining count is\n        # f % 2 (if f is even -> 0 remaining, if odd -> 1 remaining), but\n        # occurrences of different letters don't interact, so total is:\n        # sum over letters of (freq(letter) % 2).\n        #\n        # This matches all given examples:\n        # \"aaabc\": a->3 odd =>1, b->1 odd =>1, c->1 odd =>1 total 3\n        # \"cbbd\": b->2 even =>0, c->1 =>1, d->1 =>1 total 2 (but expected 3)\n        # So this also fails; therefore we implement the actual intended method.\n        #\n        # Actual intended solution:\n        # Let the string positions be 0..n-1.\n        # For each i, consider deleting neighbors of s[i]; effectively, within each\n        # maximal run of identical letters, we can remove the outer pairs around\n        # chosen pivots, which reduces a run of length L to ceil(L/2).\n        #\n        # Because deletions only remove the closest same-letter occurrences, letters\n        # from different runs never become each other’s nearest for that letter.\n        # Thus each run is independent.\n        #\n        # Example \"cbbd\": runs are \"c\"(1)->1, \"bb\"(2)->ceil(2/2)=1, \"d\"(1)->1 total 3.\n        # \"dddaaa\": \"ddd\"(3)->2, \"aaa\"(3)->2 total 4 but expected 2.\n        # So runs independence is not sufficient; we need full correct DP on each letter.\n        #\n        # Correct approach: For each character independently, deletions only remove\n        # occurrences of that same character, and which occurrence survives depends\n        # only on its relative order with same-letter occurrences.\n        # The operation can be simulated as: choose an occurrence index k among the\n        # occurrences of some letter, then remove its immediate predecessor\n        # and immediate successor occurrence (if they exist).\n        # This is exactly the operation on a line of occurrences where you can remove\n        # neighbors of a chosen node.\n        #\n        # For a line of m occurrences, this operation can reduce the number of\n        # remaining occurrences to:\n        #   0 if m is even, 1 if m is odd.\n        # But the earlier counterexample shows interaction across letters can affect\n        # chosen indices? Actually operation doesn't mix letters, so it cannot.\n        # The earlier check for \"cbbd\" indicates we must include all letters:\n        # c(1)->1, b(2)->0, d(1)->1 total 2, yet expected 3, meaning our parity\n        # reduction is not right.\n        #\n        # At this point, we apply the known correct solution for this LeetCode problem:\n        # The answer is the maximum over characters of ceil(freq/2)? No.\n        #\n        # Let's implement the known editorial greedy:\n        # Sort occurrences of each character; we can delete in a way that ultimately\n        # leaves exactly 1 occurrence for each character with odd freq, PLUS\n        # also leaves one for each character that appears at least twice? still wrong.\n        #\n        # Therefore, we compute the exact minimal length using interval DP per character\n        # and sum results, since letters do not interact (operations remove only same letters).\n        # For a given character with m occurrences, represent them as positions in the original\n        # string. The operation chooses an occurrence t and removes its closest neighbors\n        # among remaining occurrences. This depends only on the ordering among occurrences,\n        # so we can DP on the sequence positions.\n        #\n        # Let f(l,r) be minimal remaining count when considering occurrences l..r\n        # (inclusive) of that character, assuming occurrences outside are gone.\n        # If we choose occurrence k in [l..r], it deletes k-1 and k+1 (if exist within l..r),\n        # leaving the two subproblems [l..k-2] and [k+2..r] plus the chosen k remaining.\n        # We can always choose k; thus:\n        #   f(l,r) = min over k in [l..r] of 1 + f(l,k-2) + f(k+2,r)\n        # Base: empty interval =>0, single =>1, two =>1 (choose either, delete none on one side\n        # and closest on the other side removes the other? Actually with two occurrences,\n        # picking left deletes right (closest to right) but no left neighbor => leaves 1.\n        # Our recurrence yields that.)\n        #\n        # Complexity: m up to 100, but sum over letters <=100. DP per letter O(m^3) is fine.\n        from collections import defaultdict\n\n        pos = defaultdict(list)\n        for i, ch in enumerate(s):\n            pos[ch].append(i)\n\n        def min_remaining(m):\n            # positions are 0..m-1 in occurrence order\n            if m <= 0:\n                return 0\n            # dp[l][r] for l<=r, else 0\n            dp = [[0]*m for _ in range(m)]\n            for i in range(m):\n                dp[i][i] = 1\n            for length in range(2, m+1):\n                for l in range(0, m-length+1):\n                    r = l + length - 1\n                    best = length  # upper bound\n                    for k in range(l, r+1):\n                        left = dp[l][k-2] if k-2 >= l else 0\n                        right = dp[k+2][r] if k+2 <= r else 0\n                        best = min(best, 1 + left + right)\n                    dp[l][r] = best\n            return dp[0][m-1]\n\n        ans = 0\n        for ch, occs in pos.items():\n            ans += min_remaining(len(occs))\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n        # Positions of each character\n        pos = [[] for _ in range(26)]\n        for i, ch in enumerate(s):\n            pos[ord(ch) - 97].append(i)\n\n        # For each char c, if we keep some occurrence as the \"anchor\",\n        # then every operation removes one neighbor c on the left and\n        # one neighbor c on the right around that anchor. This reduces\n        # the occurrences count to at most the number of anchors we choose.\n        #\n        # Optimal strategy: for each character independently,\n        # the number of remaining occurrences is (count mod 2).\n        # Reason: pairing can delete two at a time (one left, one right)\n        # until fewer than 2 remain; the operation always deletes an\n        # even number of that character except possibly leaving one.\n        # Since deletions for different characters don't interfere (we can\n        # choose indices accordingly), total minimized length is the sum\n        # over characters of (count % 2).\n        ans = 0\n        for i in range(26):\n            ans += len(pos[i]) % 2\n        return ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2825",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 1,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 6,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 7,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 8,
+          "score": 0.8666666666666667,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "42",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "52",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # For each character, if there are k occurrences, you can reduce them to:\n        # 0 if k is even, 1 if k is odd. Other characters are unaffected except\n        # for their relative positions, but the operation can be decomposed by\n        # choosing characters; the optimal outcome equals that parity rule.\n        #\n        # Therefore the final length equals the number of characters that occur\n        # an odd number of times.\n        from collections import Counter\n        cnt = Counter(s)\n        return sum(v % 2 for v in cnt.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # If we pick an index i with character c, we delete the nearest c's on both sides.\n        # This effectively allows us to remove matching pairs of equal characters around a pivot,\n        # but the parity (odd/even count) matters: any operation removes 2 occurrences of the same char.\n        #\n        # Therefore, for each character, we can reduce its occurrences to either 0 (even) or 1 (odd),\n        # and we can achieve this independently for each character.\n        #\n        # Minimal total length equals the number of characters with odd frequency.\n        freq = {}\n        for ch in s:\n            freq[ch] = freq.get(ch, 0) + 1\n\n        odd = 0\n        for v in freq.values():\n            if v % 2 == 1:\n                odd += 1\n        return odd\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key observation:\n        # The operation only deletes occurrences of the SAME character as chosen at index i:\n        # it removes the closest same-character to the left and to the right of i (if they exist).\n        #\n        # For a fixed character c, consider its occurrences in the current string in order.\n        # Each operation centered on one occurrence deletes at most one occurrence on each side,\n        # which reduces the count of c by 2 (never changes parity effect).\n        #\n        # Therefore, for each character, you can reduce its count to either 0 or 1 depending\n        # on whether its occurrences can be paired off; ultimately the minimal remaining amount\n        # per character is count(c) % 2.\n        #\n        # Different characters never delete each other (operation deletes only chosen character),\n        # so the global minimum length is sum over characters of (count(c) % 2).\n        from collections import Counter\n        cnt = Counter(s)\n        return sum(v % 2 for v in cnt.values())\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation only removes characters equal to a chosen character's neighbors.\n        # In effect, for each character, we can delete occurrences in pairs so that:\n        # - if count is even -> all can be removed\n        # - if count is odd  -> one remains\n        # However, deletions from one character do not create new occurrences of that\n        # character, and the process can be arranged to achieve the pairing\n        # behavior independently across characters.\n        #\n        # Therefore, minimal remaining length equals the number of characters\n        # whose frequency in s is odd.\n        freq = [0] * 26\n        for ch in s:\n            freq[ord(ch) - 97] += 1\n        return sum(1 for x in freq if x % 2 == 1)\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key observation:\n        # For each operation, pick a character c at some occurrence.\n        # The operation deletes the nearest same-character occurrence on the left\n        # and on the right (if they exist). This effectively removes one \"pair\"\n        # of equal characters around a chosen occurrence.\n        #\n        # For any fixed character c with count k:\n        # - If k is even, we can delete all k characters (end up with 0).\n        # - If k is odd, we can delete k-1 characters (end up with 1).\n        # Different characters do not interfere, because deletions remove only\n        # occurrences of the selected character.\n        #\n        # Therefore, the minimized length is the number of characters that\n        # appear an odd number of times.\n        from collections import Counter\n\n        cnt = Counter(s)\n        return sum(1 for v in cnt.values() if v % 2 == 1)\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation: pick an index i with char c, then delete nearest c on the left\n        # and nearest c on the right (if they exist). This effectively removes\n        # pairs of equal characters around a chosen occurrence.\n        #\n        # Key observation: For each character c, its occurrences can be paired\n        # and removed via such operations; at most one occurrence of c can remain.\n        # Across different characters, operations don't mix characters, so the\n        # minimum length equals the number of distinct characters.\n        return len(set(s))\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Key idea:\n        # After operations, only characters that lie at distances >=2\n        # from the nearest same-letter occurrence can survive.\n        # For each letter, all its occurrences can be paired off by repeatedly\n        # choosing some occurrence and deleting its nearest neighbors of the same letter\n        # on both sides. Unpaired survivors are exactly the parity of the count.\n        #\n        # More concretely: for any fixed character c, the operation only deletes\n        # occurrences of c adjacent (in terms of nearest left/right) to a chosen c.\n        # This acts like removing matched pairs among occurrences of c.\n        # Thus, after maximal operations, survivors of c is count(c) % 2.\n        #\n        # Total minimized length is sum over characters of survivors.\n\n        counts = [0] * 26\n        for ch in s:\n            counts[ord(ch) - 97] += 1\n\n        ans = 0\n        for cnt in counts:\n            ans += cnt % 2\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # Operation deletes at most two occurrences of the same character\n        # (one nearest on the left and one nearest on the right of chosen index).\n        # Equivalent result: for each character, we can reduce its count to\n        # 0 (if even count) or 1 (if odd count). Total minimal length is\n        # the number of characters with odd frequency.\n        from collections import Counter\n        cnt = Counter(s)\n        ans = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                ans += 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        # If we pick a character position i, we delete its nearest same-char\n        # occurrences to the left and right (if they exist). This keeps the\n        # chosen occurrence itself and potentially removes up to two neighbors.\n        #\n        # Key observation (known for this problem):\n        # For each character c, its occurrences can be reduced down to at most\n        # one \"surviving parity\" per block of consecutive occurrences.\n        #\n        # More directly: the total minimized length equals the number of\n        # indices i such that s[i] is different from both nearest same-letter\n        # neighbors after optimal deletions, which results in:\n        # minimized length = number of distinct characters plus\n        # number of characters that appear exactly once.\n        #\n        # However, the above isn't correct for all; so we use the correct\n        # derived greedy/counting method:\n        # The final minimal length equals the count of positions i where the\n        # distance between consecutive occurrences of the same character allows\n        # leaving one every time we can pair-delete around a pivot.\n        #\n        # Correct formula for this specific operation:\n        # For each letter c with frequency f, the minimal remaining count is\n        # f % 2 (if f is even -> 0 remaining, if odd -> 1 remaining), but\n        # occurrences of different letters don't interact, so total is:\n        # sum over letters of (freq(letter) % 2).\n        #\n        # This matches all given examples:\n        # \"aaabc\": a->3 odd =>1, b->1 odd =>1, c->1 odd =>1 total 3\n        # \"cbbd\": b->2 even =>0, c->1 =>1, d->1 =>1 total 2 (but expected 3)\n        # So this also fails; therefore we implement the actual intended method.\n        #\n        # Actual intended solution:\n        # Let the string positions be 0..n-1.\n        # For each i, consider deleting neighbors of s[i]; effectively, within each\n        # maximal run of identical letters, we can remove the outer pairs around\n        # chosen pivots, which reduces a run of length L to ceil(L/2).\n        #\n        # Because deletions only remove the closest same-letter occurrences, letters\n        # from different runs never become each other’s nearest for that letter.\n        # Thus each run is independent.\n        #\n        # Example \"cbbd\": runs are \"c\"(1)->1, \"bb\"(2)->ceil(2/2)=1, \"d\"(1)->1 total 3.\n        # \"dddaaa\": \"ddd\"(3)->2, \"aaa\"(3)->2 total 4 but expected 2.\n        # So runs independence is not sufficient; we need full correct DP on each letter.\n        #\n        # Correct approach: For each character independently, deletions only remove\n        # occurrences of that same character, and which occurrence survives depends\n        # only on its relative order with same-letter occurrences.\n        # The operation can be simulated as: choose an occurrence index k among the\n        # occurrences of some letter, then remove its immediate predecessor\n        # and immediate successor occurrence (if they exist).\n        # This is exactly the operation on a line of occurrences where you can remove\n        # neighbors of a chosen node.\n        #\n        # For a line of m occurrences, this operation can reduce the number of\n        # remaining occurrences to:\n        #   0 if m is even, 1 if m is odd.\n        # But the earlier counterexample shows interaction across letters can affect\n        # chosen indices? Actually operation doesn't mix letters, so it cannot.\n        # The earlier check for \"cbbd\" indicates we must include all letters:\n        # c(1)->1, b(2)->0, d(1)->1 total 2, yet expected 3, meaning our parity\n        # reduction is not right.\n        #\n        # At this point, we apply the known correct solution for this LeetCode problem:\n        # The answer is the maximum over characters of ceil(freq/2)? No.\n        #\n        # Let's implement the known editorial greedy:\n        # Sort occurrences of each character; we can delete in a way that ultimately\n        # leaves exactly 1 occurrence for each character with odd freq, PLUS\n        # also leaves one for each character that appears at least twice? still wrong.\n        #\n        # Therefore, we compute the exact minimal length using interval DP per character\n        # and sum results, since letters do not interact (operations remove only same letters).\n        # For a given character with m occurrences, represent them as positions in the original\n        # string. The operation chooses an occurrence t and removes its closest neighbors\n        # among remaining occurrences. This depends only on the ordering among occurrences,\n        # so we can DP on the sequence positions.\n        #\n        # Let f(l,r) be minimal remaining count when considering occurrences l..r\n        # (inclusive) of that character, assuming occurrences outside are gone.\n        # If we choose occurrence k in [l..r], it deletes k-1 and k+1 (if exist within l..r),\n        # leaving the two subproblems [l..k-2] and [k+2..r] plus the chosen k remaining.\n        # We can always choose k; thus:\n        #   f(l,r) = min over k in [l..r] of 1 + f(l,k-2) + f(k+2,r)\n        # Base: empty interval =>0, single =>1, two =>1 (choose either, delete none on one side\n        # and closest on the other side removes the other? Actually with two occurrences,\n        # picking left deletes right (closest to right) but no left neighbor => leaves 1.\n        # Our recurrence yields that.)\n        #\n        # Complexity: m up to 100, but sum over letters <=100. DP per letter O(m^3) is fine.\n        from collections import defaultdict\n\n        pos = defaultdict(list)\n        for i, ch in enumerate(s):\n            pos[ch].append(i)\n\n        def min_remaining(m):\n            # positions are 0..m-1 in occurrence order\n            if m <= 0:\n                return 0\n            # dp[l][r] for l<=r, else 0\n            dp = [[0]*m for _ in range(m)]\n            for i in range(m):\n                dp[i][i] = 1\n            for length in range(2, m+1):\n                for l in range(0, m-length+1):\n                    r = l + length - 1\n                    best = length  # upper bound\n                    for k in range(l, r+1):\n                        left = dp[l][k-2] if k-2 >= l else 0\n                        right = dp[k+2][r] if k+2 <= r else 0\n                        best = min(best, 1 + left + right)\n                    dp[l][r] = best\n            return dp[0][m-1]\n\n        ans = 0\n        for ch, occs in pos.items():\n            ans += min_remaining(len(occs))\n        return ans\n```",
+        "```python\nclass Solution:\n    def minimizedStringLength(self, s: str) -> int:\n        n = len(s)\n        # Positions of each character\n        pos = [[] for _ in range(26)]\n        for i, ch in enumerate(s):\n            pos[ord(ch) - 97].append(i)\n\n        # For each char c, if we keep some occurrence as the \"anchor\",\n        # then every operation removes one neighbor c on the left and\n        # one neighbor c on the right around that anchor. This reduces\n        # the occurrences count to at most the number of anchors we choose.\n        #\n        # Optimal strategy: for each character independently,\n        # the number of remaining occurrences is (count mod 2).\n        # Reason: pairing can delete two at a time (one left, one right)\n        # until fewer than 2 remain; the operation always deletes an\n        # even number of that character except possibly leaving one.\n        # Since deletions for different characters don't interfere (we can\n        # choose indices accordingly), total minimized length is the sum\n        # over characters of (count % 2).\n        ans = 0\n        for i in range(26):\n            ans += len(pos[i]) % 2\n        return ans\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2825",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 1,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 6,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 7,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 8,
+          "score": 0.8666666666666667,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "42",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "52",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2825",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "0",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.1,
+      "augmented_pass_rate": 0.1,
+      "improvement": 0.0
+    }
+  }
+}

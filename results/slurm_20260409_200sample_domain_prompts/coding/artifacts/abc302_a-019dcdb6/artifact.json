@@ -1,0 +1,3236 @@
+{
+  "problem_id": "abc302_a",
+  "domain": "coding",
+  "problem": {
+    "id": "abc302_a",
+    "domain": "coding",
+    "statement": "There is an enemy with stamina A.  Every time you attack the enemy, its stamina reduces by B.\nAt least how many times do you need to attack the enemy to make its stamina 0 or less?\n\nInput\n\nThe input is given from Standard Input in the following format:\nA B\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- 1 \\le A,B \\le 10^{18}\n- A and B are integers.\n\nSample Input 1\n\n7 3\n\nSample Output 1\n\n3\r\n\nAttacking three times make the enemy's stamina -2.\nAttacking only twice makes the stamina 1, so you need to attack it three times.\n\nSample Input 2\n\n123456789123456789 987654321\n\nSample Output 2\n\n124999999\n\nSample Input 3\n\n999999999999999998 2\n\nSample Output 3\n\n499999999999999999",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "7 3\n",
+        "output": "3\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "123456789123456789 987654321\n",
+        "output": "124999999\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "999999999999999998 2\n",
+        "output": "499999999999999999\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "7270 116\n",
+        "output": "63\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "59977464294637 1862647\n",
+        "output": "32200124\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "11533765830482604 817419533590\n",
+        "output": "14110\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "103838087894477201 4\n",
+        "output": "25959521973619301\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "324013942553097064 767290441\n",
+        "output": "422283304\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "159058673781516990 835315590\n",
+        "output": "190417461\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "238734688664061268 297816499\n",
+        "output": "801616732\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "406777939015149177 2\n",
+        "output": "203388969507574589\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "623064468778408115 5\n",
+        "output": "124612893755681623\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "802035354240686040 925744958032207328\n",
+        "output": "1\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "390896634924972442 366843596946451619\n",
+        "output": "2\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "883473210852275310 58937130685266794\n",
+        "output": "15\n",
+        "testtype": "stdin"
+      }
+    ],
+    "starter_code": null,
+    "metadata": {
+      "func_name": null,
+      "question_title": "Attack",
+      "platform": "atcoder",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nThere is an enemy with stamina A.  Every time you attack the enemy, its stamina reduces by B.\nAt least how many times do you need to attack the enemy to make its stamina 0 or less?\n\nInput\n\nThe input is given from Standard Input in the following format:\nA B\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- 1 \\le A,B \\le 10^{18}\n- A and B are integers.\n\nSample Input 1\n\n7 3\n\nSample Output 1\n\n3\r\n\nAttacking three times make the enemy's stamina -2.\nAttacking only twice makes the stamina 1, so you need to attack it three times.\n\nSample Input 2\n\n123456789123456789 987654321\n\nSample Output 2\n\n124999999\n\nSample Input 3\n\n999999999999999998 2\n\nSample Output 3\n\n499999999999999999\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Minimum x such that A - x*B <= 0  => x >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    ans = (A + B - 1) // B  # ceiling of A/B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n*B >= A\n    n = (A + B - 1) // B\n    print(n)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  -> n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    ans = (A + B - 1) // B  # ceil(A / B)\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Minimum n such that A - n*B <= 0  =>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Minimum x such that A - x*B <= 0  => x >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    ans = (A + B - 1) // B  # ceiling of A/B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n*B >= A\n    n = (A + B - 1) // B\n    print(n)\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  -> n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    ans = (A + B - 1) // B  # ceil(A / B)\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Minimum n such that A - n*B <= 0  =>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nThere is an enemy with stamina A.  Every time you attack the enemy, its stamina reduces by B.\nAt least how many times do you need to attack the enemy to make its stamina 0 or less?\n\nInput\n\nThe input is given from Standard Input in the following format:\nA B\n\nOutput\n\nPrint the answer.\n\nConstraints\n\n\n- 1 \\le A,B \\le 10^{18}\n- A and B are integers.\n\nSample Input 1\n\n7 3\n\nSample Output 1\n\n3\r\n\nAttacking three times make the enemy's stamina -2.\nAttacking only twice makes the stamina 1, so you need to attack it three times.\n\nSample Input 2\n\n123456789123456789 987654321\n\nSample Output 2\n\n124999999\n\nSample Input 3\n\n999999999999999998 2\n\nSample Output 3\n\n499999999999999999\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n*B >= A  => n = ceil(A/B)\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n*B >= A\n    # n = ceil(A / B)\n    n = (A + B - 1) // B\n    print(n)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  <=>  n >= A/B\n    ans = (A + B - 1) // B  # ceil(A/B)\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n >= A/B\n    # So n = ceil(A/B)\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need the smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  <=>  n*B >= A\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n*B >= A  =>  n = ceil(A/B)\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # minimal n such that A - n*B <= 0  <=>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n*B >= A  => n = ceil(A/B)\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n*B >= A\n    # n = ceil(A / B)\n    n = (A + B - 1) // B\n    print(n)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  <=>  n >= A/B\n    ans = (A + B - 1) // B  # ceil(A/B)\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n >= A/B\n    # So n = ceil(A/B)\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need the smallest n such that A - n*B <= 0  => n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  <=>  n*B >= A\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # Need smallest n such that A - n*B <= 0  =>  n*B >= A  =>  n = ceil(A/B)\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef main():\n    A, B = map(int, sys.stdin.readline().split())\n    # minimal n such that A - n*B <= 0  <=>  n >= A/B\n    ans = (A + B - 1) // B\n    print(ans)\n\nif __name__ == \"__main__\":\n    main()\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc302_a",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124999999",
+                "actual": "124999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "499999999999999999",
+                "actual": "499999999999999999",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "63",
+                "actual": "63",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32200124",
+                "actual": "32200124",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14110",
+                "actual": "14110",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25959521973619301",
+                "actual": "25959521973619301",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "422283304",
+                "actual": "422283304",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "190417461",
+                "actual": "190417461",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "801616732",
+                "actual": "801616732",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "203388969507574589",
+                "actual": "203388969507574589",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "124612893755681623",
+                "actual": "124612893755681623",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

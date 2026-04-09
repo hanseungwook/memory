@@ -1,0 +1,3051 @@
+{
+  "problem_id": "2755",
+  "domain": "coding",
+  "problem": {
+    "id": "2755",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed string s and a dictionary of words dictionary. You have to break s into one or more non-overlapping substrings such that each substring is present in dictionary. There may be some extra characters in s which are not present in any of the substrings.\nReturn the minimum number of extra characters left over if you break up s optimally.\n \nExample 1:\n\nInput: s = \"leetscode\", dictionary = [\"leet\",\"code\",\"leetcode\"]\nOutput: 1\nExplanation: We can break s in two substrings: \"leet\" from index 0 to 3 and \"code\" from index 5 to 8. There is only 1 unused character (at index 4), so we return 1.\n\n\nExample 2:\n\nInput: s = \"sayhelloworld\", dictionary = [\"hello\",\"world\"]\nOutput: 3\nExplanation: We can break s in two substrings: \"hello\" from index 3 to 7 and \"world\" from index 8 to 12. The characters at indices 0, 1, 2 are not used in any substring and thus are considered as extra characters. Hence, we return 3.\n\n \nConstraints:\n\n1 <= s.length <= 50\n1 <= dictionary.length <= 50\n1 <= dictionary[i].length <= 50\ndictionary[i] and s consists of only lowercase English letters\ndictionary contains distinct words",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"leetscode\"\n[\"leet\", \"code\", \"leetcode\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"sayhelloworld\"\n[\"hello\", \"world\"]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"d\"\n[\"u\", \"siufp\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"b\"\n[\"fbl\", \"ohtht\", \"imvacly\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"puqlxn\"\n[\"egkxndna\", \"tsqcrfkfp\"]",
+        "output": "6",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"y\"\n[\"td\", \"jbuy\", \"cg\", \"qvq\", \"i\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"efqv\"\n[\"u\", \"jwk\", \"wuic\", \"sn\", \"z\"]",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"mqsuxzkpzu\"\n[\"e\", \"z\", \"lxp\", \"u\", \"komf\"]",
+        "output": "6",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"bhmjkaagpo\"\n[\"lwogxkjwi\", \"dwyyk\", \"ixdoqci\"]",
+        "output": "10",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ciupnp\"\n[\"ucv\", \"form\", \"ltp\", \"vhxl\", \"s\"]",
+        "output": "6",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"jiyoqmm\"\n[\"m\", \"ymf\", \"xhepz\", \"tt\", \"cyi\"]",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"mbj\"\n[\"aqohwcojivnjnznofgulaxiqftihsisnm\", \"itbrxjzo\", \"wiob\", \"oqlnpypnx\", \"ffgojqsmomnfcdtsuoqiylenbejeradapgenpgnstczo\", \"zludwiwcxnsyoaamfrdcildyipdjoraztb\", \"xegguwsldxamckxkpaqw\", \"ctqmyibnclbwpdsftlzudoarlulvwcdvbbd\", \"rgojereilhzxqepvmfrtrwisaoqwjwnsknkcel\", \"evdzvkotezpgyztvrxmvsiyapcayhaddoxnfvcyvsbcxml\", \"mldvpfjipcptrx\", \"vnvyszhssmr\", \"tqghcmpnesxvehhnotemhxkaorksmwdxpbegbmupbvrppfveup\", \"frevdqpwyqqetjcsszbyzmatxsyefcitogxcburqvmeqspsn\", \"glmgzdrpqlyjguqvwbklxaumaqvvz\", \"lebgseljgxekhonifctg\", \"tgtumrjjxyumpq\", \"ipcyjocctgftqxuxmmbwysszstfufegrbkmsywv\", \"cruejdahkjmhrgsglmfrdnnbzzexknlhq\", \"qdpfaletimkozgrurarsodqkknytnospahpykhscmpk\", \"yddbxxvssvckttktwajxcmafbng\", \"yjhrgcyqwywtrblmzdcuqyebsoieirwt\", \"qmvsyuoqpnwrubfipwzjonltempxvdfrnkahxtisfhjs\", \"hdqebxgulymc\", \"csiwkg\", \"zmnstmxqqwyotpwnugqtmrxmlnbzxoiupyckryyhuzynb\", \"ixymvtorvqgmmnstzvosnhaiyhrzy\", \"orqxamcornjurbuaghqlkowcb\", \"dxqsxcwihspcjburmbvjioweypgnukvyoieds\", \"nlsqzqscrrvkmaap\", \"bgmdhjdmgixnpo\", \"hjqayflpwyjotfst\", \"kdbvsrnjrmratcwgwtqoyylwtdvkjfjjdyftvyudyxpcyqj\", \"mkepssstpbzlspwgrglqindkdseqfrssvlmgpbeo\", \"mnolkutldjxkqmhrqgzxkwlhvcgmlxsrvrrqtmhordifwwmbkp\", \"djpad\", \"dpqsvcsxvlemrih\", \"qfvbqfsklcsvsxhfqjbkqxbteltmtofbasqxeopbgnqbywfhen\", \"hfhuij\", \"hmsfhdpoxkkbjovzqkzdtldmwafaencjirlixtb\", \"rtfoe\", \"zdhehucpdgaunwpplulcujqrmakmybhhalaecuy\", \"jpflebnsxlwaf\", \"xzsgwvgadroxonehvydvhxxxfkhmdtcthtmlabnrrjewsjvywv\", \"fkyeseggscxwalnkkiskmuwvkplurtd\", \"umje\", \"jybcfxsfdirehsgjqcuxcqcuimnk\", \"fhwdfmbgkbitzwohgjgunthw\", \"kyaaffmhdltdjsrxrjaisliytt\", \"qjnthwumfajzvayoulaumleljqjmcukezkrwsdhxzjrgfgclgn\"]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"rexdgbldkqagnhjtgqrwucgvpszptdgtpkqxfkx\"\n[\"xmtovslyjgukwdtuzuggxcoeuiubhafs\", \"odzkzxetdwofsdjdrztpoudewvzqnfshshd\", \"mgyvpoqjbarhl\", \"fwfezbjsprkqmhcgtejyswairmxsr\", \"znoomkfmiugmgxeynqyr\", \"rdvwftwwulmwxiqaujvnigpvfotanyavmkzxgvpmlci\", \"tkhlkoinqzhcggtajnvkxclkkunaayemhut\", \"sslgksaadx\", \"elwbfcmblryfbxjhwmjcjakyqxqdnkeaupwqq\", \"nwkxtutpxbtfdjhhuafrhxirshsefroebfrsz\", \"yplgszirpdtggzukhefeuijkskazqzuiptdkxtjwuqfbobft\", \"mpnvlsbgmhymejxqip\", \"ufrnaodzzvsmojambwyqhcrenvmfale\", \"luvtziufzkuyapdxpbdoxqx\", \"vkpuqkiltdzwqihhdqgdkbkkjd\", \"otkatsdljdlvowczmjzsrracmvy\", \"dngvvoosurh\", \"slqwqsxkfhbdquxvxmiyzljhkqfruypldicrvofiyb\", \"vxzffizdrvalasljaflkfmdkyhiujajywdws\", \"ezafkwrpkvicpu\", \"vlprarzfdazofgxxfauzuomwqcdprlscrk\", \"enadudyaphvspklpekuslbiybploolpxctivccmbfjsfswf\", \"wcgereyajkkuxalr\", \"rcaoevngsav\", \"dyhbayuoperlf\", \"ykgjhysjctkatxcusdmlnzlzz\", \"jrwkkqsmgnscsdlajqrisxdijgrhoykhxcimjkiei\", \"bgftkmsxbfaxqptsvbz\", \"apkhgmaatvhzpspnzvfeqjuvjtpbvtte\", \"fsmgmiuhufzohsciugrabeotuqbndpoyjdig\", \"vwkoainmgagcjaip\", \"hywwdhxbqfczlapiqqwykpgzjjcmqnbuqwdnttgigoxr\", \"dwlaixvaqtoqvxv\", \"apgjwazbwcuvzdxrcoiteapteqmuifuvvvsrextwcfsw\", \"gvplskmlmqqbvofflh\", \"tmapjkngifoatrajdubmwbelkyvixhajeflte\", \"igtyzmjeyoi\", \"nsubkohodrzuonguazuzypnvmaxgzccwierloblk\", \"pwdzlljjtreakegjpbtncjasd\", \"jqycmhlxtnjnwmjzipdgcazlcjrxasvzg\", \"dktgxdhcrh\", \"ydeclbniwwmprfzlljnjlsyjmdzwzv\", \"nrfunclxtcwjbhshbeqsqwcnlyksabltwevfxfxdfontgg\", \"gomoigrilblzetisknchnyitqcbgsdvtqu\", \"ppioiihsxvldgetsnxigerxartlefzjsmkxmkuc\", \"wstgocouympxtkvxolavablsqikcaqae\", \"hegxzlopldwjrerbrsyhgortgsekoz\", \"ocwvzahflqh\", \"jydejrjsjidqkolqjddfdkzjatukyxozpmqo\", \"buizauqnmpj\"]",
+        "output": "39",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"frickzggjkpukhvnxcobqspnnaalkjvpnmrhmzikjupzldsxb\"\n[\"gupaoxiattxtctlpcbylcdxfhflzatdmhtcyqzlwop\", \"snuzxkpxvfixrcubmlnjpnhxdeaypnlldwhcynwojktkb\", \"ahugmldkaeqxzdwpblcnbxuxfzrockdqlkepmbivvpwzpsjgj\", \"ssudvtzsdlxgucfc\", \"zlropnfwuk\", \"smalwustqjpmqlrcebiywjybpxvrbbzppudyzsuxy\", \"xhzeprgszlalakhpgheebeffmvbkkovsevdcyrhtoy\", \"enpsvrbpuotowurid\", \"pwtorgnpfzhqfzxebkqjaombegoflxbwapczhjcghn\", \"wthiqdosebpaykuabxjhmwnclpzgrosukgwauyxoncedz\", \"jigfyluhisbpueaazbxzrrmxolqmumnhktwx\", \"fdxtgdgvhkvqeltzmqqammcfkulsmojzmgrjqhmpx\", \"dxvadxnxzkdjwjkbtbspt\", \"ryosapxpctp\", \"shmbxsbkltyjwaijfgbwvwtwwkbqydqoxqgi\", \"ubtpayhxhcfhicwyuovirbeuozgd\", \"zgvkxbmuuxxhyxnolvhvuztzuhjuxofiloyh\", \"qlqukjvcskpmqeelupigsxwxkzoonwkqccodlptrkfqqm\", \"bbxvhxpyckenrwlhixibpibmyopkksnk\", \"argpkriyzjvzngyox\", \"dexpudzesjuhqcqnaeslpbxuazhxbjlgtxzafdmeymbzpt\", \"nvuqxogssdmgmcbzclbjokzpttjksvzegncfrnzcfhbgz\", \"vvtmbekmdngleiw\", \"ooghwbrmvmjwuizyxvj\", \"qhscxnolzy\", \"dlwxogcqcjpgclyosimrqylswba\", \"vldjsyvdxfyxbcjarutybsxupefivdjmzfbie\", \"sdmndfatewuxaktpdsgqnjhlmruszmjgivbmfv\", \"aaupkerrjuuezwwzwdliphyfkdipxpjpwqdlxncbxenffg\", \"hdhgqqkqresuedcwszuxaiinxxw\", \"vphmkpcdmefnczzmdhcvuxfoaitry\", \"hwiaqevofxxpxmodbmltidvvfsqnwfqalnhlsknasrym\", \"mjydjuaujfdcaobyzwzpcicdxeytbgtetzl\", \"garglglzpjidikygnyyjzcquzp\", \"wjkcpztilehufvwvoypfbrlatldogbzmhmfwgibcen\", \"btkhsivugkhfkwqeekwunfqqzjfhmcuwwx\", \"ahozkbyayeuuwxjjxpnjvltytwkatgquvaugcutqeaysnwov\", \"sxgukbovzenlgszpxeadvaxf\", \"msfihwysgviyutuib\", \"bvkwjwlnsmabgercvii\", \"bbgudafmuckeqyawmjwadnfzoe\", \"lbamkrhpkqutpe\", \"ccepppktrnvpuwxoyxckxosoh\", \"uvrtzyqdgemtkvnvzubsrfhwjifxzzzmnccpmxfxrznkfi\", \"rndozlawndnxjunbwivvagzpiqvzijvkic\", \"mfkdbikynmidqgdingxfvgbzdjspq\"]",
+        "output": "49",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        ",
+    "metadata": {
+      "func_name": "minExtraChar",
+      "question_title": "extra-characters-in-a-string",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed string s and a dictionary of words dictionary. You have to break s into one or more non-overlapping substrings such that each substring is present in dictionary. There may be some extra characters in s which are not present in any of the substrings.\nReturn the minimum number of extra characters left over if you break up s optimally.\n \nExample 1:\n\nInput: s = \"leetscode\", dictionary = [\"leet\",\"code\",\"leetcode\"]\nOutput: 1\nExplanation: We can break s in two substrings: \"leet\" from index 0 to 3 and \"code\" from index 5 to 8. There is only 1 unused character (at index 4), so we return 1.\n\n\nExample 2:\n\nInput: s = \"sayhelloworld\", dictionary = [\"hello\",\"world\"]\nOutput: 3\nExplanation: We can break s in two substrings: \"hello\" from index 3 to 7 and \"world\" from index 8 to 12. The characters at indices 0, 1, 2 are not used in any substring and thus are considered as extra characters. Hence, we return 3.\n\n \nConstraints:\n\n1 <= s.length <= 50\n1 <= dictionary.length <= 50\n1 <= dictionary[i].length <= 50\ndictionary[i] and s consists of only lowercase English letters\ndictionary contains distinct words\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        # dp[i] = min extra chars in s[i:]\n        n = len(s)\n        word_set = set(dictionary)\n\n        # Precompute max word length to limit checks\n        max_len = 0\n        for w in dictionary:\n            if len(w) > max_len:\n                max_len = len(w)\n\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            # Check lengths up to max_len (or remaining length)\n            limit = min(max_len, n - i)\n            for L in range(1, limit + 1):\n                if s[i:i+L] in word_set:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # lengths of words to limit checks\n        lengths = set(len(w) for w in word_set)\n\n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i == n:\n                return 0\n\n            # Option 1: treat s[i] as extra\n            best = 1 + dp(i + 1)\n\n            # Option 2: match any dictionary word starting at i\n            for L in lengths:\n                if i + L <= n and s[i:i+L] in word_set:\n                    best = min(best, dp(i + L))\n\n            return best\n\n        return dp(0)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Try all possible word lengths starting at i\n            # (dictionary words length <= 50, s length <= 50)\n            for w in word_set:\n                L = len(w)\n                if i + L <= n and s[i:i+L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra chars in s[i:] (from i to end)\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute which dictionary words match starting at each index\n        matches = [[] for _ in range(n)]\n        max_len = 0\n        for w in word_set:\n            max_len = max(max_len, len(w))\n        for i in range(n):\n            # try all possible word lengths\n            for L in range(1, max_len + 1):\n                if i + L <= n and s[i:i+L] in word_set:\n                    matches[i].append(L)\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any word that matches starting at i\n            for L in matches[i]:\n                best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word that matches starting at i\n            # Since constraints are small, we can brute lengths\n            for w in word_set:\n                L = len(w)\n                if i + L <= n and s[i:i+L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n        \n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i == n:\n                return 0\n            \n            # Option 1: treat s[i] as extra\n            best = 1 + dp(i + 1)\n            \n            # Option 2: match any dictionary word starting at i\n            for w in wordset:\n                if s.startswith(w, i):\n                    best = min(best, dp(i + len(w)))\n            \n            return best\n        \n        return dp(0)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute maximum word length to limit checks\n        max_len = 0\n        for w in dictionary:\n            max_len = max(max_len, len(w))\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: skip s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            # Only need to consider lengths up to max_len\n            upper = min(n, i + max_len)\n            for j in range(i + 1, upper + 1):\n                if s[i:j] in word_set:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        dict_set = set(dictionary)\n\n        # dp[i] = minimum extra chars in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            for j in range(i + 1, n + 1):\n                if s[i:j] in dict_set:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            for w in wordset:\n                L = len(w)\n                if i + L <= n and s[i:i+L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        word_set = set(dictionary)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Build dp from end to start\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take a word starting at i (if any)\n            # Only need to check up to maximum dictionary word length\n            for w in dictionary:\n                # Small n (<=50), brute checking is fine\n                L = len(w)\n                if i + L <= n and s.startswith(w, i):\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2755",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        # dp[i] = min extra chars in s[i:]\n        n = len(s)\n        word_set = set(dictionary)\n\n        # Precompute max word length to limit checks\n        max_len = 0\n        for w in dictionary:\n            if len(w) > max_len:\n                max_len = len(w)\n\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            # Check lengths up to max_len (or remaining length)\n            limit = min(max_len, n - i)\n            for L in range(1, limit + 1):\n                if s[i:i+L] in word_set:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # lengths of words to limit checks\n        lengths = set(len(w) for w in word_set)\n\n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i == n:\n                return 0\n\n            # Option 1: treat s[i] as extra\n            best = 1 + dp(i + 1)\n\n            # Option 2: match any dictionary word starting at i\n            for L in lengths:\n                if i + L <= n and s[i:i+L] in word_set:\n                    best = min(best, dp(i + L))\n\n            return best\n\n        return dp(0)\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Try all possible word lengths starting at i\n            # (dictionary words length <= 50, s length <= 50)\n            for w in word_set:\n                L = len(w)\n                if i + L <= n and s[i:i+L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra chars in s[i:] (from i to end)\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute which dictionary words match starting at each index\n        matches = [[] for _ in range(n)]\n        max_len = 0\n        for w in word_set:\n            max_len = max(max_len, len(w))\n        for i in range(n):\n            # try all possible word lengths\n            for L in range(1, max_len + 1):\n                if i + L <= n and s[i:i+L] in word_set:\n                    matches[i].append(L)\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any word that matches starting at i\n            for L in matches[i]:\n                best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word that matches starting at i\n            # Since constraints are small, we can brute lengths\n            for w in word_set:\n                L = len(w)\n                if i + L <= n and s[i:i+L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n        \n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i == n:\n                return 0\n            \n            # Option 1: treat s[i] as extra\n            best = 1 + dp(i + 1)\n            \n            # Option 2: match any dictionary word starting at i\n            for w in wordset:\n                if s.startswith(w, i):\n                    best = min(best, dp(i + len(w)))\n            \n            return best\n        \n        return dp(0)\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute maximum word length to limit checks\n        max_len = 0\n        for w in dictionary:\n            max_len = max(max_len, len(w))\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: skip s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            # Only need to consider lengths up to max_len\n            upper = min(n, i + max_len)\n            for j in range(i + 1, upper + 1):\n                if s[i:j] in word_set:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        dict_set = set(dictionary)\n\n        # dp[i] = minimum extra chars in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            for j in range(i + 1, n + 1):\n                if s[i:j] in dict_set:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            for w in wordset:\n                L = len(w)\n                if i + L <= n and s[i:i+L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        word_set = set(dictionary)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Build dp from end to start\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take a word starting at i (if any)\n            # Only need to check up to maximum dictionary word length\n            for w in dictionary:\n                # Small n (<=50), brute checking is fine\n                L = len(w)\n                if i + L <= n and s.startswith(w, i):\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed string s and a dictionary of words dictionary. You have to break s into one or more non-overlapping substrings such that each substring is present in dictionary. There may be some extra characters in s which are not present in any of the substrings.\nReturn the minimum number of extra characters left over if you break up s optimally.\n \nExample 1:\n\nInput: s = \"leetscode\", dictionary = [\"leet\",\"code\",\"leetcode\"]\nOutput: 1\nExplanation: We can break s in two substrings: \"leet\" from index 0 to 3 and \"code\" from index 5 to 8. There is only 1 unused character (at index 4), so we return 1.\n\n\nExample 2:\n\nInput: s = \"sayhelloworld\", dictionary = [\"hello\",\"world\"]\nOutput: 3\nExplanation: We can break s in two substrings: \"hello\" from index 3 to 7 and \"world\" from index 8 to 12. The characters at indices 0, 1, 2 are not used in any substring and thus are considered as extra characters. Hence, we return 3.\n\n \nConstraints:\n\n1 <= s.length <= 50\n1 <= dictionary.length <= 50\n1 <= dictionary[i].length <= 50\ndictionary[i] and s consists of only lowercase English letters\ndictionary contains distinct words\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n        max_len = max((len(w) for w in word_set), default=0)\n\n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i == n:\n                return 0\n\n            # Option 1: treat s[i] as extra\n            best = 1 + dp(i + 1)\n\n            # Option 2: use any dictionary word starting at i\n            for L in range(1, max_len + 1):\n                if i + L <= n and s[i:i+L] in word_set:\n                    best = min(best, dp(i + L))\n\n            return best\n\n        return dp(0)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            for w in word_set:\n                L = len(w)\n                if i + L <= n and s[i:i + L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra chars in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option: leave s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Try all word lengths that could match\n            for w in dictionary:\n                L = len(w)\n                j = i + L\n                if j <= n and s[i:j] == w:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        word_set = set(dictionary)\n        max_len = 0\n        for w in dictionary:\n            max_len = max(max_len, len(w))\n\n        # dp[i] = minimum extra chars in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n        for i in range(n - 1, -1, -1):\n            # Option 1: leave s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            # Only check up to max_len to stay efficient\n            upper = min(n, i + max_len)\n            for j in range(i + 1, upper + 1):\n                if s[i:j] in word_set:\n                    best = min(best, dp[j])\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute max word length to limit checks\n        max_len = max((len(w) for w in dictionary), default=0)\n\n        for i in range(n - 1, -1, -1):\n            # Option: treat s[i] as an extra character\n            best = 1 + dp[i + 1]\n\n            # Option: match any dictionary word starting at i\n            # Check all possible lengths up to max_len\n            end_limit = min(n, i + max_len)\n            for j in range(i + 1, end_limit + 1):\n                if s[i:j] in wordset:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        # Convert dictionary to a set for O(1) membership checks\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters for suffix s[i:]\n        # We'll compute dp from right to left.\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra character\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            # Try all possible lengths; n <= 50 so this is fine.\n            for wlen in range(1, 51):\n                j = i + wlen\n                if j > n:\n                    break\n                if s[i:j] in word_set:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute possible word lengths to limit checks\n        lens = sorted({len(w) for w in word_set})\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            for L in lens:\n                if i + L <= n and s[i:i+L] in word_set:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        dict_set = set(dictionary)\n\n        # dp[i] = min extra chars in suffix s[i:]\n        n = len(s)\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            # Lengths are <= 50, so brute force is fine.\n            for w in dict_set:\n                L = len(w)\n                if i + L <= n and s[i:i + L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        # Using DP: dp[i] = min extra chars in suffix starting at i\n        # dp[n] = 0\n        dp = [0] * (n + 1)\n        dict_set = set(dictionary)\n\n        # Precompute word lengths to limit checks\n        lens = set(len(w) for w in dict_set if len(w) <= n)\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            for L in lens:\n                if i + L <= n and s[i:i + L] in dict_set:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        max_len = max((len(w) for w in dictionary), default=0)\n        n = len(s)\n\n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i >= n:\n                return 0\n            # Option 1: take s[i] as extra\n            best = 1 + dp(i + 1)\n\n            # Option 2: match a dictionary word starting at i\n            end_limit = min(n, i + max_len)\n            for j in range(i + 1, end_limit + 1):\n                if s[i:j] in wordset:\n                    best = min(best, dp(j))\n            return best\n\n        return dp(0)\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2755",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n        max_len = max((len(w) for w in word_set), default=0)\n\n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i == n:\n                return 0\n\n            # Option 1: treat s[i] as extra\n            best = 1 + dp(i + 1)\n\n            # Option 2: use any dictionary word starting at i\n            for L in range(1, max_len + 1):\n                if i + L <= n and s[i:i+L] in word_set:\n                    best = min(best, dp(i + L))\n\n            return best\n\n        return dp(0)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            for w in word_set:\n                L = len(w)\n                if i + L <= n and s[i:i + L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra chars in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option: leave s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Try all word lengths that could match\n            for w in dictionary:\n                L = len(w)\n                j = i + L\n                if j <= n and s[i:j] == w:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        word_set = set(dictionary)\n        max_len = 0\n        for w in dictionary:\n            max_len = max(max_len, len(w))\n\n        # dp[i] = minimum extra chars in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n        for i in range(n - 1, -1, -1):\n            # Option 1: leave s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            # Only check up to max_len to stay efficient\n            upper = min(n, i + max_len)\n            for j in range(i + 1, upper + 1):\n                if s[i:j] in word_set:\n                    best = min(best, dp[j])\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute max word length to limit checks\n        max_len = max((len(w) for w in dictionary), default=0)\n\n        for i in range(n - 1, -1, -1):\n            # Option: treat s[i] as an extra character\n            best = 1 + dp[i + 1]\n\n            # Option: match any dictionary word starting at i\n            # Check all possible lengths up to max_len\n            end_limit = min(n, i + max_len)\n            for j in range(i + 1, end_limit + 1):\n                if s[i:j] in wordset:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        # Convert dictionary to a set for O(1) membership checks\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters for suffix s[i:]\n        # We'll compute dp from right to left.\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra character\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            # Try all possible lengths; n <= 50 so this is fine.\n            for wlen in range(1, 51):\n                j = i + wlen\n                if j > n:\n                    break\n                if s[i:j] in word_set:\n                    best = min(best, dp[j])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        word_set = set(dictionary)\n        n = len(s)\n\n        # dp[i] = minimum extra characters in s[i:]\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        # Precompute possible word lengths to limit checks\n        lens = sorted({len(w) for w in word_set})\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: take any dictionary word starting at i\n            for L in lens:\n                if i + L <= n and s[i:i+L] in word_set:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        dict_set = set(dictionary)\n\n        # dp[i] = min extra chars in suffix s[i:]\n        n = len(s)\n        dp = [0] * (n + 1)\n        dp[n] = 0\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            # Lengths are <= 50, so brute force is fine.\n            for w in dict_set:\n                L = len(w)\n                if i + L <= n and s[i:i + L] == w:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        n = len(s)\n        # Using DP: dp[i] = min extra chars in suffix starting at i\n        # dp[n] = 0\n        dp = [0] * (n + 1)\n        dict_set = set(dictionary)\n\n        # Precompute word lengths to limit checks\n        lens = set(len(w) for w in dict_set if len(w) <= n)\n\n        for i in range(n - 1, -1, -1):\n            # Option 1: treat s[i] as extra\n            best = 1 + dp[i + 1]\n\n            # Option 2: match any dictionary word starting at i\n            for L in lens:\n                if i + L <= n and s[i:i + L] in dict_set:\n                    best = min(best, dp[i + L])\n\n            dp[i] = best\n\n        return dp[0]\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def minExtraChar(self, s: str, dictionary: List[str]) -> int:\n        wordset = set(dictionary)\n        max_len = max((len(w) for w in dictionary), default=0)\n        n = len(s)\n\n        @lru_cache(None)\n        def dp(i: int) -> int:\n            if i >= n:\n                return 0\n            # Option 1: take s[i] as extra\n            best = 1 + dp(i + 1)\n\n            # Option 2: match a dictionary word starting at i\n            end_limit = min(n, i + max_len)\n            for j in range(i + 1, end_limit + 1):\n                if s[i:j] in wordset:\n                    best = min(best, dp(j))\n            return best\n\n        return dp(0)\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2755",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2755",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "39",
+                "actual": "39",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

@@ -1,0 +1,3080 @@
+{
+  "problem_id": "2886",
+  "domain": "coding",
+  "problem": {
+    "id": "2886",
+    "domain": "coding",
+    "statement": "Your laptop keyboard is faulty, and whenever you type a character 'i' on it, it reverses the string that you have written. Typing other characters works as expected.\nYou are given a 0-indexed string s, and you type each character of s using your faulty keyboard.\nReturn the final string that will be present on your laptop screen.\n \nExample 1:\n\nInput: s = \"string\"\nOutput: \"rtsng\"\nExplanation: \nAfter typing first character, the text on the screen is \"s\".\nAfter the second character, the text is \"st\". \nAfter the third character, the text is \"str\".\nSince the fourth character is an 'i', the text gets reversed and becomes \"rts\".\nAfter the fifth character, the text is \"rtsn\". \nAfter the sixth character, the text is \"rtsng\". \nTherefore, we return \"rtsng\".\n\nExample 2:\n\nInput: s = \"poiinter\"\nOutput: \"ponter\"\nExplanation: \nAfter the first character, the text on the screen is \"p\".\nAfter the second character, the text is \"po\". \nSince the third character you type is an 'i', the text gets reversed and becomes \"op\". \nSince the fourth character you type is an 'i', the text gets reversed and becomes \"po\".\nAfter the fifth character, the text is \"pon\".\nAfter the sixth character, the text is \"pont\". \nAfter the seventh character, the text is \"ponte\". \nAfter the eighth character, the text is \"ponter\". \nTherefore, we return \"ponter\".\n \nConstraints:\n\n1 <= s.length <= 100\ns consists of lowercase English letters.\ns[0] != 'i'",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"string\"",
+        "output": "\"rtsng\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"poiinter\"",
+        "output": "\"ponter\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"gb\"",
+        "output": "\"gb\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ixm\"",
+        "output": "\"xm\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"frz\"",
+        "output": "\"frz\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"rztd\"",
+        "output": "\"rztd\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"fkmf\"",
+        "output": "\"fkmf\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"lezw\"",
+        "output": "\"lezw\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"tlmbi\"",
+        "output": "\"bmlt\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"vqtjkl\"",
+        "output": "\"vqtjkl\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"obscyymb\"",
+        "output": "\"obscyymb\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+        "output": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+        "output": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"iiacyhffiicnxwuvilvlaipirxnruzqcocixlwhiupatairinlkdswifdwpacifiacwihieywjoikiaegpsiiiiizgbqfivpmpimiviiybhguzxqbwhcgdoq\"",
+        "output": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def finalString(self, s: str) -> str:\n        ",
+    "metadata": {
+      "func_name": "finalString",
+      "question_title": "faulty-keyboard",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYour laptop keyboard is faulty, and whenever you type a character 'i' on it, it reverses the string that you have written. Typing other characters works as expected.\nYou are given a 0-indexed string s, and you type each character of s using your faulty keyboard.\nReturn the final string that will be present on your laptop screen.\n \nExample 1:\n\nInput: s = \"string\"\nOutput: \"rtsng\"\nExplanation: \nAfter typing first character, the text on the screen is \"s\".\nAfter the second character, the text is \"st\". \nAfter the third character, the text is \"str\".\nSince the fourth character is an 'i', the text gets reversed and becomes \"rts\".\nAfter the fifth character, the text is \"rtsn\". \nAfter the sixth character, the text is \"rtsng\". \nTherefore, we return \"rtsng\".\n\nExample 2:\n\nInput: s = \"poiinter\"\nOutput: \"ponter\"\nExplanation: \nAfter the first character, the text on the screen is \"p\".\nAfter the second character, the text is \"po\". \nSince the third character you type is an 'i', the text gets reversed and becomes \"op\". \nSince the fourth character you type is an 'i', the text gets reversed and becomes \"po\".\nAfter the fifth character, the text is \"pon\".\nAfter the sixth character, the text is \"pont\". \nAfter the seventh character, the text is \"ponte\". \nAfter the eighth character, the text is \"ponter\". \nTherefore, we return \"ponter\".\n \nConstraints:\n\n1 <= s.length <= 100\ns consists of lowercase English letters.\ns[0] != 'i'\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # We keep two pointers and a direction flag.\n        # When we type 'i', the current built string reverses.\n        l, r = 0, len(s) - 1\n        rev = False  # False: output from l..r, True: output from r..l\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    l += 1\n                else:\n                    r -= 1\n\n        # Remaining characters are those not yet \"removed\" by typing non-'i'\n        if not rev:\n            return s[l:r+1]\n        else:\n            return s[l:r+1][::-1]\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False  # whether current screen is logically reversed\n\n        for ch in s:\n            if ch != 'i':\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n            else:\n                rev = not rev\n\n        # Build result based on final orientation\n        if not rev:\n            return ''.join(left + right[::-1])\n        else:\n            return ''.join(right + left[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # The remaining substring is what ends up on screen\n        base = s[left:right + 1]\n        return base[::-1] if rev else base\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        out = s[left:right + 1]\n        return out[::-1] if rev else out\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        rev = False\n        left, right = 0, len(s) - 1\n\n        while left <= right:\n            if s[left] == 'i':\n                rev = not rev\n                left += 1\n            else:\n                if not rev:\n                    right -= 1\n                    # We'll build result at the end via indices; do nothing now\n                    left += 0  # placeholder to keep logic simple\n                # Instead of complex in-loop construction, we handle after deciding indices\n                break\n\n        # Redo using correct two-pointer approach:\n        rev = False\n        i, j = 0, len(s) - 1\n        out = []\n\n        while i <= j:\n            if s[i] == 'i':\n                rev = not rev\n                i += 1\n            else:\n                if not rev:\n                    out.append(s[i])\n                else:\n                    out.append(s[j])\n                    j -= 1\n                i += 1\n\n        # If rev is True at the end, we've taken from the right in the loop,\n        # so we just need to append remaining non-'i' characters from the right.\n        if rev:\n            while j >= i:\n                if s[j] != 'i':\n                    out.append(s[j])\n                j -= 1\n\n        return ''.join(out)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # Build final string from the remaining substring, respecting direction\n        if not rev:\n            # final content is s[left..right] in order, but note left/right updated only on non-'i'\n            # Easier: collect by simulation result using pointers.\n            # After processing, left/right represent the final kept segment in original coordinates.\n            return s[left:right + 1]\n        else:\n            return s[left:right + 1][::-1]\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False  # whether the current screen is logically reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # When rev is True, chars typed after reversals should appear before\n        # the earlier ones, and the final order reflects the logical direction.\n        return \"\".join(left + (reversed(right) if rev else right))\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []   # characters typed when not reversed\n        right = []  # characters typed while reversed (to be appended later)\n\n        rev = False\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # When reversed, the final order is: right (in reverse entry order) + left\n        return ''.join(left + right[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # If rev is True, characters typed after reversals end up in front in reverse order.\n        return ''.join(left + right[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False  # whether the current buffer should be interpreted reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # Construct result from original string based on how many characters got kept\n        if not rev:\n            return s[:right + 1][left:right + 1] if left <= right else \"\"\n        else:\n            # When rev is True, the remaining characters are taken from left..right but in reverse order\n            return s[left:right + 1][::-1]\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2886",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 1,
+          "score": 0.8571428571428571,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'ngrts'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 2,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 3,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 4,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strg'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'m'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvqodgpchwbqxzughxlwhbyiivrimipmpfdwpacvacwieywjofaegpsqb'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 5,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 6,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "",
+                "error": "Runtime Error: can only concatenate list (not \"list_reverseiterator\") to list"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 7,
+          "score": 0.7142857142857143,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 8,
+          "score": 0.7142857142857143,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 9,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "partial": [
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False  # whether current screen is logically reversed\n\n        for ch in s:\n            if ch != 'i':\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n            else:\n                rev = not rev\n\n        # Build result based on final orientation\n        if not rev:\n            return ''.join(left + right[::-1])\n        else:\n            return ''.join(right + left[::-1])\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        rev = False\n        left, right = 0, len(s) - 1\n\n        while left <= right:\n            if s[left] == 'i':\n                rev = not rev\n                left += 1\n            else:\n                if not rev:\n                    right -= 1\n                    # We'll build result at the end via indices; do nothing now\n                    left += 0  # placeholder to keep logic simple\n                # Instead of complex in-loop construction, we handle after deciding indices\n                break\n\n        # Redo using correct two-pointer approach:\n        rev = False\n        i, j = 0, len(s) - 1\n        out = []\n\n        while i <= j:\n            if s[i] == 'i':\n                rev = not rev\n                i += 1\n            else:\n                if not rev:\n                    out.append(s[i])\n                else:\n                    out.append(s[j])\n                    j -= 1\n                i += 1\n\n        # If rev is True at the end, we've taken from the right in the loop,\n        # so we just need to append remaining non-'i' characters from the right.\n        if rev:\n            while j >= i:\n                if s[j] != 'i':\n                    out.append(s[j])\n                j -= 1\n\n        return ''.join(out)\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []   # characters typed when not reversed\n        right = []  # characters typed while reversed (to be appended later)\n\n        rev = False\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # When reversed, the final order is: right (in reverse entry order) + left\n        return ''.join(left + right[::-1])\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # If rev is True, characters typed after reversals end up in front in reverse order.\n        return ''.join(left + right[::-1])\n```"
+        ],
+        "fail": [
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # We keep two pointers and a direction flag.\n        # When we type 'i', the current built string reverses.\n        l, r = 0, len(s) - 1\n        rev = False  # False: output from l..r, True: output from r..l\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    l += 1\n                else:\n                    r -= 1\n\n        # Remaining characters are those not yet \"removed\" by typing non-'i'\n        if not rev:\n            return s[l:r+1]\n        else:\n            return s[l:r+1][::-1]\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # The remaining substring is what ends up on screen\n        base = s[left:right + 1]\n        return base[::-1] if rev else base\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        out = s[left:right + 1]\n        return out[::-1] if rev else out\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # Build final string from the remaining substring, respecting direction\n        if not rev:\n            # final content is s[left..right] in order, but note left/right updated only on non-'i'\n            # Easier: collect by simulation result using pointers.\n            # After processing, left/right represent the final kept segment in original coordinates.\n            return s[left:right + 1]\n        else:\n            return s[left:right + 1][::-1]\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False  # whether the current screen is logically reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # When rev is True, chars typed after reversals should appear before\n        # the earlier ones, and the final order reflects the logical direction.\n        return \"\".join(left + (reversed(right) if rev else right))\n```",
+          "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False  # whether the current buffer should be interpreted reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # Construct result from original string based on how many characters got kept\n        if not rev:\n            return s[:right + 1][left:right + 1] if left <= right else \"\"\n        else:\n            # When rev is True, the remaining characters are taken from left..right but in reverse order\n            return s[left:right + 1][::-1]\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYour laptop keyboard is faulty, and whenever you type a character 'i' on it, it reverses the string that you have written. Typing other characters works as expected.\nYou are given a 0-indexed string s, and you type each character of s using your faulty keyboard.\nReturn the final string that will be present on your laptop screen.\n \nExample 1:\n\nInput: s = \"string\"\nOutput: \"rtsng\"\nExplanation: \nAfter typing first character, the text on the screen is \"s\".\nAfter the second character, the text is \"st\". \nAfter the third character, the text is \"str\".\nSince the fourth character is an 'i', the text gets reversed and becomes \"rts\".\nAfter the fifth character, the text is \"rtsn\". \nAfter the sixth character, the text is \"rtsng\". \nTherefore, we return \"rtsng\".\n\nExample 2:\n\nInput: s = \"poiinter\"\nOutput: \"ponter\"\nExplanation: \nAfter the first character, the text on the screen is \"p\".\nAfter the second character, the text is \"po\". \nSince the third character you type is an 'i', the text gets reversed and becomes \"op\". \nSince the fourth character you type is an 'i', the text gets reversed and becomes \"po\".\nAfter the fifth character, the text is \"pon\".\nAfter the sixth character, the text is \"pont\". \nAfter the seventh character, the text is \"ponte\". \nAfter the eighth character, the text is \"ponter\". \nTherefore, we return \"ponter\".\n \nConstraints:\n\n1 <= s.length <= 100\ns consists of lowercase English letters.\ns[0] != 'i'\n\n### Solutions\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False  # whether current screen is logically reversed\n\n        for ch in s:\n            if ch != 'i':\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n            else:\n                rev = not rev\n\n        # Build result based on final orientation\n        if not rev:\n            return ''.join(left + right[::-1])\n        else:\n            return ''.join(right + left[::-1])\n```\n\nAttempt 2\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        rev = False\n        left, right = 0, len(s) - 1\n\n        while left <= right:\n            if s[left] == 'i':\n                rev = not rev\n                left += 1\n            else:\n                if not rev:\n                    right -= 1\n                    # We'll build result at the end via indices; do nothing now\n                    left += 0  # placeholder to keep logic simple\n                # Instead of complex in-loop construction, we handle after deciding indices\n                break\n\n        # Redo using correct two-pointer approach:\n        rev = False\n        i, j = 0, len(s) - 1\n        out = []\n\n        while i <= j:\n            if s[i] == 'i':\n                rev = not rev\n                i += 1\n            else:\n                if not rev:\n                    out.append(s[i])\n                else:\n                    out.append(s[j])\n                    j -= 1\n                i += 1\n\n        # If rev is True at the end, we've taken from the right in the loop,\n        # so we just need to append remaining non-'i' characters from the right.\n        if rev:\n            while j >= i:\n                if s[j] != 'i':\n                    out.append(s[j])\n                j -= 1\n\n        return ''.join(out)\n```\n\nAttempt 3\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []   # characters typed when not reversed\n        right = []  # characters typed while reversed (to be appended later)\n\n        rev = False\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # When reversed, the final order is: right (in reverse entry order) + left\n        return ''.join(left + right[::-1])\n```\n\nAttempt 4\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # If rev is True, characters typed after reversals end up in front in reverse order.\n        return ''.join(left + right[::-1])\n```\n\n#### Incorrect\nAttempt 1\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # We keep two pointers and a direction flag.\n        # When we type 'i', the current built string reverses.\n        l, r = 0, len(s) - 1\n        rev = False  # False: output from l..r, True: output from r..l\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    l += 1\n                else:\n                    r -= 1\n\n        # Remaining characters are those not yet \"removed\" by typing non-'i'\n        if not rev:\n            return s[l:r+1]\n        else:\n            return s[l:r+1][::-1]\n```\n\nAttempt 2\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # The remaining substring is what ends up on screen\n        base = s[left:right + 1]\n        return base[::-1] if rev else base\n```\n\nAttempt 3\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        out = s[left:right + 1]\n        return out[::-1] if rev else out\n```\n\nAttempt 4\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # Build final string from the remaining substring, respecting direction\n        if not rev:\n            # final content is s[left..right] in order, but note left/right updated only on non-'i'\n            # Easier: collect by simulation result using pointers.\n            # After processing, left/right represent the final kept segment in original coordinates.\n            return s[left:right + 1]\n        else:\n            return s[left:right + 1][::-1]\n```\n\nAttempt 5\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n        rev = False  # whether the current screen is logically reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # When rev is True, chars typed after reversals should appear before\n        # the earlier ones, and the final order reflects the logical direction.\n        return \"\".join(left + (reversed(right) if rev else right))\n```\n\nAttempt 6\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False  # whether the current buffer should be interpreted reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # Construct result from original string based on how many characters got kept\n        if not rev:\n            return s[:right + 1][left:right + 1] if left <= right else \"\"\n        else:\n            # When rev is True, the remaining characters are taken from left..right but in reverse order\n            return s[left:right + 1][::-1]\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Track Logical Orientation Instead of Reversing Strings",
+          "description": "Represent the state of the buffer using a boolean “orientation” and update how new characters are placed without ever performing full reversals.",
+          "content": "When operations reverse the entire current content, you can avoid costly or error-prone physical reversals by maintaining a direction/orientation flag. Use that flag to decide whether each incoming non-trigger character should be appended to a “front” stream or a “back” stream in a way consistent with the current logical orientation.",
+          "reasoning": "Successful attempts consistently model the effect of each reversal as a “logical orientation” (a flag) and maintain two buckets/streams for non-reversal characters depending on whether they are typed while the buffer is logically normal or reversed. They then reconstruct the final output with the correct combination order (typically one side appended in reverse entry order). Incorrect attempts often tried to infer the final string from a remaining contiguous substring or from pointer updates alone; this fails because reversals change relative order, not just which characters remain. Another failure mode was assuming the final orientation determines whether to reverse at the end when, in fact, the extraction order is more subtle and must be tracked during processing."
+        },
+        {
+          "title": "Use Two-Stream Reconstruction for Reversal-Flip Problems",
+          "description": "If reversals swap the relative order of everything typed so far, store characters in two sequences corresponding to when they were typed under each orientation, then stitch them in the correct order.",
+          "content": "Split collected characters into two lists/streams: those typed while orientation is normal and those typed while it is reversed. After processing all input, reconstruct the final string by concatenating the appropriate stream(s), reversing exactly one side as needed to match the order induced by the flips.",
+          "reasoning": "Successful attempts consistently model the effect of each reversal as a “logical orientation” (a flag) and maintain two buckets/streams for non-reversal characters depending on whether they are typed while the buffer is logically normal or reversed. They then reconstruct the final output with the correct combination order (typically one side appended in reverse entry order). Incorrect attempts often tried to infer the final string from a remaining contiguous substring or from pointer updates alone; this fails because reversals change relative order, not just which characters remain. Another failure mode was assuming the final orientation determines whether to reverse at the end when, in fact, the extraction order is more subtle and must be tracked during processing."
+        },
+        {
+          "title": "Don’t Reduce Order-Complex Operations to a Remaining Substring",
+          "description": "When flips affect relative ordering globally, pointer arithmetic that selects a surviving contiguous segment is usually insufficient.",
+          "content": "Reversing the whole buffer does more than “delete” characters; it permutes their order. Therefore, computing the result as a slice of the original string (plus an optional final reverse) often fails because the kept characters’ relative order depends on intermediate reversal times.",
+          "reasoning": "Successful attempts consistently model the effect of each reversal as a “logical orientation” (a flag) and maintain two buckets/streams for non-reversal characters depending on whether they are typed while the buffer is logically normal or reversed. They then reconstruct the final output with the correct combination order (typically one side appended in reverse entry order). Incorrect attempts often tried to infer the final string from a remaining contiguous substring or from pointer updates alone; this fails because reversals change relative order, not just which characters remain. Another failure mode was assuming the final orientation determines whether to reverse at the end when, in fact, the extraction order is more subtle and must be tracked during processing."
+        },
+        {
+          "title": "Validate End-Stage Direction Assumptions",
+          "description": "Be cautious with “reverse at the end” logic: final orientation alone may not determine where each character lands.",
+          "content": "Even if you know whether the final buffer is logically reversed, each character’s final position depends on the orientation at the moment it was typed. Confirm reconstruction rules (which side comes first and whether one side must be reversed) by reasoning with a small trace, rather than relying solely on the final flag.",
+          "reasoning": "Successful attempts consistently model the effect of each reversal as a “logical orientation” (a flag) and maintain two buckets/streams for non-reversal characters depending on whether they are typed while the buffer is logically normal or reversed. They then reconstruct the final output with the correct combination order (typically one side appended in reverse entry order). Incorrect attempts often tried to infer the final string from a remaining contiguous substring or from pointer updates alone; this fails because reversals change relative order, not just which characters remain. Another failure mode was assuming the final orientation determines whether to reverse at the end when, in fact, the extraction order is more subtle and must be tracked during processing."
+        }
+      ],
+      "raw_response": "<reasoning>\nSuccessful attempts consistently model the effect of each reversal as a “logical orientation” (a flag) and maintain two buckets/streams for non-reversal characters depending on whether they are typed while the buffer is logically normal or reversed. They then reconstruct the final output with the correct combination order (typically one side appended in reverse entry order). Incorrect attempts often tried to infer the final string from a remaining contiguous substring or from pointer updates alone; this fails because reversals change relative order, not just which characters remain. Another failure mode was assuming the final orientation determines whether to reverse at the end when, in fact, the extraction order is more subtle and must be tracked during processing.\n</reasoning>\n\n<memories>\n<memory>\n<title>Track Logical Orientation Instead of Reversing Strings</title>\n<description>Represent the state of the buffer using a boolean “orientation” and update how new characters are placed without ever performing full reversals.</description>\n<content>When operations reverse the entire current content, you can avoid costly or error-prone physical reversals by maintaining a direction/orientation flag. Use that flag to decide whether each incoming non-trigger character should be appended to a “front” stream or a “back” stream in a way consistent with the current logical orientation.</content>\n</memory>\n\n<memory>\n<title>Use Two-Stream Reconstruction for Reversal-Flip Problems</title>\n<description>If reversals swap the relative order of everything typed so far, store characters in two sequences corresponding to when they were typed under each orientation, then stitch them in the correct order.</description>\n<content>Split collected characters into two lists/streams: those typed while orientation is normal and those typed while it is reversed. After processing all input, reconstruct the final string by concatenating the appropriate stream(s), reversing exactly one side as needed to match the order induced by the flips.</content>\n</memory>\n\n<memory>\n<title>Don’t Reduce Order-Complex Operations to a Remaining Substring</title>\n<description>When flips affect relative ordering globally, pointer arithmetic that selects a surviving contiguous segment is usually insufficient.</description>\n<content>Reversing the whole buffer does more than “delete” characters; it permutes their order. Therefore, computing the result as a slice of the original string (plus an optional final reverse) often fails because the kept characters’ relative order depends on intermediate reversal times.</content>\n</memory>\n\n<memory>\n<title>Validate End-Stage Direction Assumptions</title>\n<description>Be cautious with “reverse at the end” logic: final orientation alone may not determine where each character lands.</description>\n<content>Even if you know whether the final buffer is logically reversed, each character’s final position depends on the orientation at the moment it was typed. Confirm reconstruction rules (which side comes first and whether one side must be reversed) by reasoning with a small trace, rather than relying solely on the final flag.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYour laptop keyboard is faulty, and whenever you type a character 'i' on it, it reverses the string that you have written. Typing other characters works as expected.\nYou are given a 0-indexed string s, and you type each character of s using your faulty keyboard.\nReturn the final string that will be present on your laptop screen.\n \nExample 1:\n\nInput: s = \"string\"\nOutput: \"rtsng\"\nExplanation: \nAfter typing first character, the text on the screen is \"s\".\nAfter the second character, the text is \"st\". \nAfter the third character, the text is \"str\".\nSince the fourth character is an 'i', the text gets reversed and becomes \"rts\".\nAfter the fifth character, the text is \"rtsn\". \nAfter the sixth character, the text is \"rtsng\". \nTherefore, we return \"rtsng\".\n\nExample 2:\n\nInput: s = \"poiinter\"\nOutput: \"ponter\"\nExplanation: \nAfter the first character, the text on the screen is \"p\".\nAfter the second character, the text is \"po\". \nSince the third character you type is an 'i', the text gets reversed and becomes \"op\". \nSince the fourth character you type is an 'i', the text gets reversed and becomes \"po\".\nAfter the fifth character, the text is \"pon\".\nAfter the sixth character, the text is \"pont\". \nAfter the seventh character, the text is \"ponte\". \nAfter the eighth character, the text is \"ponter\". \nTherefore, we return \"ponter\".\n \nConstraints:\n\n1 <= s.length <= 100\ns consists of lowercase English letters.\ns[0] != 'i'\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Build the final string using a deque-like approach with two pointers.\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # If we've \"reversed\" an odd number of times, the kept segment order is reversed.\n        result = s[left:right + 1]\n        return result[::-1] if rev else result\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = []\n        right = []\n\n        # i never appears at the start (guaranteed), but we handle generally anyway.\n        for ch in s:\n            if ch == 'i':\n                # Reverse current screen; effect can be simulated by swapping where new\n                # characters go.\n                left, right = right, left\n            else:\n                if not left and not right:\n                    # When screen is empty, just place it to the left side.\n                    left.append(ch)\n                else:\n                    if s[:s.index(ch)] and False:\n                        pass\n                # If we're in normal orientation, we append to the right side.\n                # If reversed, characters should accumulate on the left side.\n                if len(left) == 0 and len(right) == 0:\n                    # unreachable with given constraints but kept safe\n                    right.append(ch)\n                else:\n                    # Determine orientation by whether current \"screen\" is represented as:\n                    # final = left + reversed(right) with a flip flag.\n                    # We'll track orientation by whether we swapped upon 'i':\n                    # Instead of a flip flag, infer it by the invariant:\n                    # We'll maintain flip flag separately for clarity.\n                    pass\n\n        # The above got messy; use the simpler correct approach below.\n        # Re-implement cleanly with a flip flag.\n        left = []\n        right = []\n        rev = False\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left.append(ch)   # stays on the right end of the final string\n                else:\n                    right.append(ch)  # will be placed on the left side (via accumulation)\n\n        # When rev is False: final is left + reversed(right) where right was built in order.\n        # When rev is True: our construction still works with same formula.\n        return ''.join(left + right[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # We maintain two pointers and a direction.\n        l, r = 0, len(s) - 1\n        left_to_right = True\n\n        while l <= r:\n            if s[l] != 'i':  # typing from current side without reversing\n                if left_to_right:\n                    l += 1\n                else:\n                    r -= 1\n            else:\n                # typing 'i' reverses the current string\n                left_to_right = not left_to_right\n                if left_to_right:\n                    # reversal means we will consume from the left side next\n                    l += 1\n                else:\n                    # reversal means we will consume from the right side next\n                    r -= 1\n\n        # Build answer by actually simulating output order:\n        # A simpler correct approach:\n        l, r = 0, len(s) - 1\n        left_to_right = True\n        out = []\n        while l <= r:\n            if s[l] == 'i':\n                left_to_right = not left_to_right\n                l += 1\n            elif left_to_right:\n                out.append(s[l])\n                l += 1\n            else:\n                out.append(s[r])\n                r -= 1\n        return ''.join(out)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        if not rev:\n            return s[:left]\n        return s[right + 1:][::-1]\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        front = []\n        back = []\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    front.append(ch)\n                else:\n                    back.append(ch)\n\n        # back were appended while reversed; they should be placed before front and in reverse order\n        return ''.join(front) + ''.join(reversed(back)) if not rev else ''.join(reversed(back)) + ''.join(front)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        res = []\n        i = left\n        j = right\n        if not rev:\n            # Not reversed at end: take remaining from left to right (in original order)\n            for k in range(left, right + 1):\n                res.append(s[k])\n        else:\n            # Reversed at end: take remaining from right to left\n            for k in range(right, left - 1, -1):\n                res.append(s[k])\n\n        return \"\".join(res)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Build result by tracking direction (normal/reversed) without\n        # repeatedly reversing the whole string.\n        left, right = 0, len(s) - 1\n        forward = True\n\n        for ch in s:\n            if ch != 'i':\n                if forward:\n                    left += 1\n                else:\n                    right -= 1\n            else:\n                forward = not forward\n\n        # Reconstruct the final string by applying the determined direction changes.\n        # Equivalent simpler method:\n        # Use two pointers approach based on standard stack/deque behavior.\n        from collections import deque\n        dq = deque()\n        rev = False\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    dq.append(ch)\n                else:\n                    dq.appendleft(ch)\n        return \"\".join(dq)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        res = s[left:right + 1]\n        return res[::-1] if rev else res\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left, right = 0, len(s) - 1\n        rev = False  # whether the current buffer is logically reversed\n\n        while left <= right:\n            if s[left] == 'i':\n                # typing 'i' reverses the whole current string, which is equivalent\n                # to toggling the direction\n                rev = not rev\n                left += 1\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # The above loop moved pointers based on reverse toggles.\n        # Construct the final result based on remaining content.\n        # Equivalent cleaner approach: simulate using two pointers directly.\n        # Re-run with correct reconstruction.\n        left, right = 0, len(s) - 1\n        rev = False\n        out = []\n\n        while left <= right:\n            if s[left] == 'i':\n                rev = not rev\n                left += 1\n            else:\n                if not rev:\n                    out.append(s[left])\n                    left += 1\n                else:\n                    out.append(s[right])\n                    right -= 1\n\n        return ''.join(out)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        left = 0\n        right = len(s) - 1\n        rev = False  # whether the current screen text is reversed\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    left += 1\n                else:\n                    right -= 1\n\n        # After processing, the remaining substring represents the final content\n        if not rev:\n            return s[left:right + 1]\n        else:\n            return s[left:right + 1][::-1]\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2886",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 1,
+          "score": 0.7142857142857143,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 2,
+          "score": 0.6428571428571429,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvqodgchwbqxzughbyiivimipmpvifqbgziiiiispgeaikiojwyeihiwcaificapwdfiwsdklniriatapuihwlxicocqzurnxripialvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 3,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 7,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'gn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'poiint'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'iiacyhffiicnxwuvilvlaipirxnruzqcocixlwhiupatairinlkdswifdw'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 4,
+          "score": 0.7142857142857143,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'gnstr'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 5,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 6,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'gnstr'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 7,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 8,
+          "score": 0.6428571428571429,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaiaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvqodgchwbqxzughbyiivimipmpvifqbgziiiiispgeaikiojwyeihiwcaificapwdfiwsdklniriatapuihwlxicocqzurnxripialvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 9,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"ponter\"",
+                "actual": "'er'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"gb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"frz\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"rztd\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"fkmf\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"lezw\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"vqtjkl\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"obscyymb\"",
+                "actual": "''",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'i'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'ai'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'pacifiacwihieywjoikiaegpsiii'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Track Logical Orientation Instead of Reversing Strings: Represent the state of the buffer using a boolean “orientation” and update how new characters are placed without ever performing full reversals.\n     When operations reverse the entire current content, you can avoid costly or error-prone physical reversals by maintaining a direction/orientation flag. Use that flag to decide whether each incoming non-trigger character should be appended to a “front” stream or a “back” stream in a way consistent with the current logical orientation.\n  2. Use Two-Stream Reconstruction for Reversal-Flip Problems: If reversals swap the relative order of everything typed so far, store characters in two sequences corresponding to when they were typed under each orientation, then stitch them in the correct order.\n     Split collected characters into two lists/streams: those typed while orientation is normal and those typed while it is reversed. After processing all input, reconstruct the final string by concatenating the appropriate stream(s), reversing exactly one side as needed to match the order induced by the flips.\n  3. Don’t Reduce Order-Complex Operations to a Remaining Substring: When flips affect relative ordering globally, pointer arithmetic that selects a surviving contiguous segment is usually insufficient.\n     Reversing the whole buffer does more than “delete” characters; it permutes their order. Therefore, computing the result as a slice of the original string (plus an optional final reverse) often fails because the kept characters’ relative order depends on intermediate reversal times.\n  4. Validate End-Stage Direction Assumptions: Be cautious with “reverse at the end” logic: final orientation alone may not determine where each character lands.\n     Even if you know whether the final buffer is logically reversed, each character’s final position depends on the orientation at the moment it was typed. Confirm reconstruction rules (which side comes first and whether one side must be reversed) by reasoning with a small trace, rather than relying solely on the final flag.\n\nApply these insights to the problem below.\n\n### Question:\nYour laptop keyboard is faulty, and whenever you type a character 'i' on it, it reverses the string that you have written. Typing other characters works as expected.\nYou are given a 0-indexed string s, and you type each character of s using your faulty keyboard.\nReturn the final string that will be present on your laptop screen.\n \nExample 1:\n\nInput: s = \"string\"\nOutput: \"rtsng\"\nExplanation: \nAfter typing first character, the text on the screen is \"s\".\nAfter the second character, the text is \"st\". \nAfter the third character, the text is \"str\".\nSince the fourth character is an 'i', the text gets reversed and becomes \"rts\".\nAfter the fifth character, the text is \"rtsn\". \nAfter the sixth character, the text is \"rtsng\". \nTherefore, we return \"rtsng\".\n\nExample 2:\n\nInput: s = \"poiinter\"\nOutput: \"ponter\"\nExplanation: \nAfter the first character, the text on the screen is \"p\".\nAfter the second character, the text is \"po\". \nSince the third character you type is an 'i', the text gets reversed and becomes \"op\". \nSince the fourth character you type is an 'i', the text gets reversed and becomes \"po\".\nAfter the fifth character, the text is \"pon\".\nAfter the sixth character, the text is \"pont\". \nAfter the seventh character, the text is \"ponte\". \nAfter the eighth character, the text is \"ponter\". \nTherefore, we return \"ponter\".\n \nConstraints:\n\n1 <= s.length <= 100\ns consists of lowercase English letters.\ns[0] != 'i'\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Two-stream reconstruction with logical orientation\n        # orientation = False => current buffer order is as stored\n        # orientation = True  => current buffer is logically reversed\n        left = []   # characters typed when orientation is normal\n        right = []  # characters typed when orientation is reversed\n\n        orientation = False\n        for ch in s:\n            if ch == 'i':\n                orientation = not orientation\n            else:\n                if not orientation:\n                    left.append(ch)\n                else:\n                    right.append(ch)\n\n        # If orientation is normal at the end:\n        #   buffer = left + reverse(right)\n        # If orientation is reversed at the end:\n        #   buffer = right + reverse(left)\n        if not orientation:\n            return ''.join(left + right[::-1])\n        else:\n            return ''.join(right + left[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Maintain logical orientation instead of reversing the whole buffer.\n        # When 'i' appears, the current buffer is reversed => toggle orientation.\n        # For non-'i' characters:\n        #   if orientation is normal, append to the \"normal\" end;\n        #   if orientation is reversed, append to the \"reversed\" end\n        # We then reconstruct as: normal + reverse(reversed_side)\n        normal = []\n        reversed_side = []\n        orient_reversed = False  # False => normal, True => logically reversed\n\n        for ch in s:\n            if ch == 'i':\n                orient_reversed = not orient_reversed\n            else:\n                if not orient_reversed:\n                    normal.append(ch)\n                else:\n                    reversed_side.append(ch)\n\n        # Reconstruct final text.\n        # Characters added while reversed were in the opposite end when toggles happened,\n        # so they appear reversed in the final string.\n        return ''.join(normal + reversed_side[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # orientation=False -> normal, True -> logically reversed\n        # We avoid physically reversing by collecting into two streams.\n        front = []  # characters that end up on the \"front\" side in final order\n        back = []   # characters that end up on the \"back\" side in final order\n        ori = False\n\n        for ch in s:\n            if ch == 'i':\n                ori = not ori\n            else:\n                if not ori:\n                    front.append(ch)\n                else:\n                    back.append(ch)\n\n        # When orientation is reversed, the relative order of 'back' characters\n        # is flipped compared to their typing sequence.\n        if not ori:\n            return ''.join(front + back[::-1])\n        else:\n            # Final orientation reversed: front also needs to be flipped relative to back stitching.\n            return ''.join(back + front[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # orientation = False means current buffer reads left-to-right as built,\n        # orientation = True means it is logically reversed.\n        orientation = False\n        front = []  # characters that belong on the \"front\" side under current flips\n        back = []   # characters that belong on the \"back\" side under current flips\n\n        for ch in s:\n            if ch == 'i':\n                orientation = not orientation\n            else:\n                if not orientation:\n                    # Normal: append to the right end -> goes to back stream\n                    back.append(ch)\n                else:\n                    # Reversed: append to the right end of reversed buffer -> becomes\n                    # a character that should be placed at the left end of final string\n                    front.append(ch)\n\n        # Final string: front (in insertion order) + reversed(back)? Let's reason:\n        # When orientation is reversed, characters typed go to front in order typed,\n        # but they end up on the left side of the final string in the same order\n        # they were typed. Characters typed during normal orientation stay on right\n        # side, but their relative order is reversed only if we flipped odd times.\n        #\n        # The correct reconstruction for this two-stream approach:\n        # - Characters typed while orientation is False appear in normal order at the end.\n        # - Characters typed while orientation is True appear in reverse order at the start.\n        #\n        # With the way we appended:\n        #   front collects chars typed while reversed, in typing order.\n        #   These end up reversed in the final left portion.\n        #   back collects chars typed while normal, in typing order, and end up as-is on right.\n        #\n        # Therefore: final = reversed(front) + back, but note we used 'front.append' when reversed,\n        # so left portion should be reverse(front).\n        return ''.join(reversed(front)) + ''.join(back)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # orientation == False means current logical buffer is in normal order.\n        # orientation == True means it is logically reversed.\n        orientation = False\n\n        front = []  # characters that end up at the \"front\" of logical buffer\n        back = []   # characters that end up at the \"back\" of logical buffer\n\n        for ch in s:\n            if ch == 'i':\n                orientation = not orientation\n            else:\n                # We can't physically reverse; instead we place where it would appear\n                # in the logically-oriented buffer.\n                if not orientation:\n                    # append to the right end of logical string\n                    back.append(ch)\n                else:\n                    # logically reversed: adding a char appends to the left end\n                    front.append(ch)\n\n        # If logical string is not reversed, order is front + back,\n        # but 'front' was collected in reverse-taking manner.\n        # When orientation is True, the logical order becomes reverse(front) + reverse(back)? Let's derive:\n        # With our placement:\n        # - When orientation==True at insertion time, the char is added to the left end,\n        #   and front collects them in that time order; thus final left segment is reverse(front).\n        #\n        # The global final order is:\n        #   not orientation: (reverse(front) + back)\n        #   orientation:     (front + reverse(back))\n        if not orientation:\n            return ''.join(reversed(front)) + ''.join(back)\n        else:\n            return ''.join(front) + ''.join(reversed(back))\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Keep characters typed while orientation is normal in two lists.\n        # Each 'i' flips the orientation (logical reversal of the whole buffer).\n        front = []  # characters that end up on the \"front\" side under current flips\n        back = []   # characters that end up on the \"back\" side under current flips\n        rev = False  # False => normal orientation, True => reversed orientation\n\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    front.append(ch)\n                else:\n                    # When reversed, newly typed chars appear at the logical front.\n                    back.append(ch)\n\n        # Reconstruction:\n        # - front is in the order typed under normal orientation\n        # - back is in the order typed under reversed orientation, but those chars\n        #   are effectively reversed relative to their typing order.\n        return \"\".join(front + back[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # orientation == False => current logical text is in normal order\n        # orientation == True  => current logical text is reversed\n        orientation = False\n\n        front = []  # will hold characters that end up at the \"front\" in final order\n        back = []   # will hold characters that end up at the \"back\"  in final order\n\n        for ch in s:\n            if ch == 'i':\n                orientation = not orientation\n            else:\n                if not orientation:\n                    front.append(ch)\n                else:\n                    back.append(ch)\n\n        # Characters collected in different orientation buckets need stitching.\n        # When orientation is False: front + reverse(back)\n        # When orientation is True : back + reverse(front)\n        if not orientation:\n            return \"\".join(front + back[::-1])\n        else:\n            return \"\".join(back + front[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Maintain a logical orientation:\n        # - orientation = False: screen text is built left-to-right\n        # - orientation = True : screen text is built right-to-left (i triggers flip)\n        orientation_reversed = False\n\n        # Build two parts without ever reversing the whole content:\n        # normal_front : characters that should end up on the \"front\" when orientation is False\n        # normal_back  : characters that should end up on the \"back\"  when orientation is False\n        # When orientation flips, we conceptually swap roles, so we can always append to the correct stream.\n        front = []\n        back = []\n\n        for ch in s:\n            if ch == 'i':\n                # flip orientation\n                orientation_reversed = not orientation_reversed\n            else:\n                # Place character depending on current logical orientation.\n                # If not reversed, next character goes to the end.\n                # If reversed, next character goes to the front.\n                if not orientation_reversed:\n                    back.append(ch)\n                else:\n                    front.append(ch)\n\n        # If orientation is not reversed, final is front + back (front holds characters inserted at front,\n        # which were collected in reverse order of insertion under reversed orientation).\n        # If orientation is reversed, final is front + back as well, but \"front\" was collected while reversed\n        # (which corresponds to reversed order), so we need to reverse it.\n        #\n        # More directly:\n        # - Characters added to front while reversed are appended in insertion order, but their final order\n        #   is opposite, so we reverse front at end.\n        # - back is appended in correct final order.\n        return ''.join(reversed(front) if front else []) + ''.join(back)\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # orientation: whether the logical buffer is currently normal (False)\n        # or reversed (True). We avoid physically reversing on each 'i'.\n        orientation_reversed = False\n\n        # Two streams: characters appended when orientation was normal vs reversed.\n        # At the end, we combine them into the correct logical order.\n        normal = []\n        reversed_stream = []\n\n        for ch in s:\n            if ch == 'i':\n                orientation_reversed = not orientation_reversed\n            else:\n                if not orientation_reversed:\n                    normal.append(ch)\n                else:\n                    reversed_stream.append(ch)\n\n        # If orientation is normal at the end, normal is in correct order,\n        # and reversed_stream needs to be reversed to match global ordering.\n        if not orientation_reversed:\n            return ''.join(normal) + ''.join(reversed_stream[::-1])\n        # If orientation is reversed at the end, reversed_stream is in correct order,\n        # and normal needs to be reversed.\n        return ''.join(reversed_stream) + ''.join(normal[::-1])\n```",
+        "```python\nclass Solution:\n    def finalString(self, s: str) -> str:\n        # Maintain logical orientation without ever reversing the whole buffer.\n        # When we type an 'i', the relative order of everything typed so far is flipped.\n        # Store characters into two lists depending on orientation at typing time,\n        # then reconstruct at the end.\n        normal = []   # chars typed when orientation is not reversed\n        reversed_side = []  # chars typed when orientation is reversed\n\n        rev = False\n        for ch in s:\n            if ch == 'i':\n                rev = not rev\n            else:\n                if not rev:\n                    normal.append(ch)\n                else:\n                    reversed_side.append(ch)\n\n        # If final orientation is normal, final string is normal + reverse(reversed_side)\n        # If final orientation is reversed, final string is reverse(normal) + reversed_side\n        if not rev:\n            reversed_side.reverse()\n            return \"\".join(normal + reversed_side)\n        else:\n            normal.reverse()\n            return \"\".join(normal + reversed_side)\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2886",
+          "generation_index": 0,
+          "score": 0.8571428571428571,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'ngrts'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 1,
+          "score": 0.7142857142857143,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 2,
+          "score": 0.8571428571428571,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'ngrts'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 3,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'gnstr'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 4,
+          "score": 0.9285714285714286,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'ngrts'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 5,
+          "score": 0.7142857142857143,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'strgn'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 6,
+          "score": 0.8571428571428571,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'ngrts'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 7,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'gnstr'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"xm\"",
+                "actual": "'mx'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"bmlt\"",
+                "actual": "'tlmb'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 8,
+          "score": 0.8571428571428571,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"rtsng\"",
+                "actual": "'ngrts'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2886",
+          "generation_index": 9,
+          "score": 0.9285714285714286,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"rtsng\"",
+                "actual": "'rtsng'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"ponter\"",
+                "actual": "'ponter'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"gb\"",
+                "actual": "'gb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"xm\"",
+                "actual": "'xm'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"frz\"",
+                "actual": "'frz'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"rztd\"",
+                "actual": "'rztd'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"fkmf\"",
+                "actual": "'fkmf'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"lezw\"",
+                "actual": "'lezw'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"bmlt\"",
+                "actual": "'bmlt'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"vqtjkl\"",
+                "actual": "'vqtjkl'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"obscyymb\"",
+                "actual": "'obscyymb'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"",
+                "actual": "'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"mfqbgzkhfwsdklnatapucocqzurnxralvlacyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoq\"",
+                "actual": "'acyhffcnxwuvpxlwhrfdwpacacweywjoaegpsvpmpvybhguzxqbwhcgdoqmfqbgzkhfwsdklnatapucocqzurnxralvl'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.0,
+      "augmented_pass_rate": 0.0,
+      "improvement": 0.0
+    }
+  }
+}

@@ -1,0 +1,3074 @@
+{
+  "problem_id": "3206",
+  "domain": "coding",
+  "problem": {
+    "id": "3206",
+    "domain": "coding",
+    "statement": "You are given two 0-indexed integer arrays nums1 and nums2 of sizes n and m, respectively.\nConsider calculating the following values:\n\nThe number of indices i such that 0 <= i < n and nums1[i] occurs at least once in nums2.\nThe number of indices i such that 0 <= i < m and nums2[i] occurs at least once in nums1.\n\nReturn an integer array answer of size 2 containing the two values in the above order.\n \nExample 1:\n\nInput: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]\nOutput: [3,4]\nExplanation: We calculate the values as follows:\n- The elements at indices 1, 2, and 3 in nums1 occur at least once in nums2. So the first value is 3.\n- The elements at indices 0, 1, 3, and 4 in nums2 occur at least once in nums1. So the second value is 4.\n\nExample 2:\n\nInput: nums1 = [3,4,2,3], nums2 = [1,5]\nOutput: [0,0]\nExplanation: There are no common elements between the two arrays, so the two values will be 0.\n\n \nConstraints:\n\nn == nums1.length\nm == nums2.length\n1 <= n, m <= 100\n1 <= nums1[i], nums2[i] <= 100",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[4, 3, 2, 3, 1]\n[2, 2, 5, 2, 3, 6]",
+        "output": "[3, 4]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 4, 2, 3]\n[1, 5]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[4]\n[10]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[78]\n[84]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[31]\n[42]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[65]\n[20]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[100]\n[100]",
+        "output": "[1, 1]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[17, 15, 20]\n[4]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 15, 20]\n[2, 19]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[16, 5, 1, 7, 3, 16, 10, 16, 9]\n[4, 7, 14, 8, 11]",
+        "output": "[1, 1]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[25, 31, 37, 22, 1, 69, 32, 68, 69, 13, 89, 31, 93, 26, 2, 29, 61, 34, 58, 5, 74, 46, 56, 67, 69, 38, 50, 65, 31, 65, 80, 86, 29, 95, 37, 43, 1, 29, 32, 57, 95, 49, 3, 32, 52, 2, 57, 98, 97, 87, 18, 96, 10, 62, 70, 9, 27, 57, 44, 47, 8, 1, 69, 55, 32, 80, 4, 93, 76, 96, 29, 38, 14, 86, 22, 6, 49, 98, 71, 30, 93, 4, 68, 61, 35, 45, 21, 62, 56, 77, 69, 50, 8, 15, 18, 29, 23, 9, 41, 59]\n[72, 83, 99, 41, 59, 58, 49, 25, 69, 11, 5, 72, 38, 22, 56, 53, 88, 18, 91, 50, 52, 41, 59, 100, 42, 64, 74, 89, 30, 66, 7, 17, 2, 52, 60, 87, 17, 25, 57, 51, 54, 69, 84, 9, 23, 25, 23, 18, 77, 15, 11, 74, 51, 38, 98, 99, 53, 36, 66, 78, 16, 51, 67, 82, 17, 80, 19, 18, 59, 38, 90, 37, 72, 27, 61, 23, 80, 16, 76, 13, 95, 74, 37, 33, 83, 70, 51, 12, 35, 2, 80, 57, 52, 56, 63, 31, 72, 31, 71, 75]",
+        "output": "[57, 59]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]\n[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]",
+        "output": "[100, 100]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[53, 36, 98, 64, 28, 82, 7, 73, 52, 20, 33, 93, 96, 25, 4, 62, 40, 49, 20, 59, 56, 67, 91, 57, 93, 52, 39, 77, 22, 17, 62, 98, 95, 1, 39, 45, 36, 94, 93, 29, 37, 19, 23, 13, 66, 98, 1, 19, 28, 53, 83, 74, 70, 34, 77, 68, 22, 52, 23, 89, 43, 73, 86, 87, 95, 33, 40, 22, 49, 27, 10, 80, 94, 19, 59, 87, 59, 51, 5, 42, 100, 19, 86, 60, 46, 81, 79, 5, 40, 23, 12, 25, 95, 17, 18, 14, 54, 43, 92, 74]\n[53, 84, 31, 91, 86, 42, 10, 26, 40, 32, 54, 46, 69, 29, 32, 38, 96, 18, 85, 92, 78, 79, 43, 26, 88, 74, 31, 26, 77, 88, 44, 86, 96, 2, 72, 18, 68, 50, 31, 11, 77, 28, 51, 95, 24, 85, 55, 70, 34, 32, 88, 90, 2, 2, 39, 77, 38, 70, 39, 36, 86, 19, 60, 28, 16, 8, 53, 87, 66, 13, 67, 29, 54, 80, 25, 21, 58, 42, 70, 62, 43, 63, 85, 37, 37, 84, 63, 44, 91, 100, 65, 4, 22, 90, 16, 45, 62, 29, 36, 71]",
+        "output": "[58, 58]",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]\n[100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100]",
+        "output": "[0, 0]",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        ",
+    "metadata": {
+      "func_name": "findIntersectionValues",
+      "question_title": "find-common-elements-between-two-arrays",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given two 0-indexed integer arrays nums1 and nums2 of sizes n and m, respectively.\nConsider calculating the following values:\n\nThe number of indices i such that 0 <= i < n and nums1[i] occurs at least once in nums2.\nThe number of indices i such that 0 <= i < m and nums2[i] occurs at least once in nums1.\n\nReturn an integer array answer of size 2 containing the two values in the above order.\n \nExample 1:\n\nInput: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]\nOutput: [3,4]\nExplanation: We calculate the values as follows:\n- The elements at indices 1, 2, and 3 in nums1 occur at least once in nums2. So the first value is 3.\n- The elements at indices 0, 1, 3, and 4 in nums2 occur at least once in nums1. So the second value is 4.\n\nExample 2:\n\nInput: nums1 = [3,4,2,3], nums2 = [1,5]\nOutput: [0,0]\nExplanation: There are no common elements between the two arrays, so the two values will be 0.\n\n \nConstraints:\n\nn == nums1.length\nm == nums2.length\n1 <= n, m <= 100\n1 <= nums1[i], nums2[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = sum(1 for x in nums1 if x in set2)\n        common2 = sum(1 for x in nums2 if x in set1)\n\n        return [common1, common2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common_from_nums1 = sum(1 for x in nums1 if x in set2)\n        common_from_nums2 = sum(1 for x in nums2 if x in set1)\n\n        # The problem asks counts of indices i (not distinct values), so the above is correct.\n        return [common_from_nums1, common_from_nums2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common_in_1 = sum(1 for x in set1 if x in set2)\n        common_in_2 = sum(1 for x in set2 if x in set1)\n\n        return [common_in_1, common_in_2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        # Count unique elements in each set that appear in the other set\n        common_with_2 = sum(1 for x in set1 if x in set2)\n        common_with_1 = sum(1 for x in set2 if x in set1)\n\n        return [common_with_2, common_with_1]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common = set1 & set2\n        a = sum(1 for x in set1 if x in common)\n        b = sum(1 for x in set2 if x in common)\n\n        return [a, b]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        s1 = set(nums1)\n        s2 = set(nums2)\n\n        # Count unique elements from nums1 that appear in nums2\n        count1 = sum(1 for x in s1 if x in s2)\n        # Count unique elements from nums2 that appear in nums1\n        count2 = sum(1 for x in s2 if x in s1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = sum(1 for x in set1 if x in set2)  # elements in nums1 that appear in nums2\n        common2 = sum(1 for x in set2 if x in set1)  # elements in nums2 that appear in nums1\n\n        return [common1, common2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3206",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 2,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 3,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 4,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 5,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 7,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 8,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 9,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = sum(1 for x in nums1 if x in set2)\n        common2 = sum(1 for x in nums2 if x in set1)\n\n        return [common1, common2]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common_from_nums1 = sum(1 for x in nums1 if x in set2)\n        common_from_nums2 = sum(1 for x in nums2 if x in set1)\n\n        # The problem asks counts of indices i (not distinct values), so the above is correct.\n        return [common_from_nums1, common_from_nums2]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common_in_1 = sum(1 for x in set1 if x in set2)\n        common_in_2 = sum(1 for x in set2 if x in set1)\n\n        return [common_in_1, common_in_2]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        # Count unique elements in each set that appear in the other set\n        common_with_2 = sum(1 for x in set1 if x in set2)\n        common_with_1 = sum(1 for x in set2 if x in set1)\n\n        return [common_with_2, common_with_1]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common = set1 & set2\n        a = sum(1 for x in set1 if x in common)\n        b = sum(1 for x in set2 if x in common)\n\n        return [a, b]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        s1 = set(nums1)\n        s2 = set(nums2)\n\n        # Count unique elements from nums1 that appear in nums2\n        count1 = sum(1 for x in s1 if x in s2)\n        # Count unique elements from nums2 that appear in nums1\n        count2 = sum(1 for x in s2 if x in s1)\n\n        return [count1, count2]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = sum(1 for x in set1 if x in set2)  # elements in nums1 that appear in nums2\n        common2 = sum(1 for x in set2 if x in set1)  # elements in nums2 that appear in nums1\n\n        return [common1, common2]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given two 0-indexed integer arrays nums1 and nums2 of sizes n and m, respectively.\nConsider calculating the following values:\n\nThe number of indices i such that 0 <= i < n and nums1[i] occurs at least once in nums2.\nThe number of indices i such that 0 <= i < m and nums2[i] occurs at least once in nums1.\n\nReturn an integer array answer of size 2 containing the two values in the above order.\n \nExample 1:\n\nInput: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]\nOutput: [3,4]\nExplanation: We calculate the values as follows:\n- The elements at indices 1, 2, and 3 in nums1 occur at least once in nums2. So the first value is 3.\n- The elements at indices 0, 1, 3, and 4 in nums2 occur at least once in nums1. So the second value is 4.\n\nExample 2:\n\nInput: nums1 = [3,4,2,3], nums2 = [1,5]\nOutput: [0,0]\nExplanation: There are no common elements between the two arrays, so the two values will be 0.\n\n \nConstraints:\n\nn == nums1.length\nm == nums2.length\n1 <= n, m <= 100\n1 <= nums1[i], nums2[i] <= 100\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = sum(1 for x in nums1 if x in set2)\n        common2 = sum(1 for x in nums2 if x in set1)\n\n        return [common1, common2]\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common_from_nums1 = sum(1 for x in nums1 if x in set2)\n        common_from_nums2 = sum(1 for x in nums2 if x in set1)\n\n        # The problem asks counts of indices i (not distinct values), so the above is correct.\n        return [common_from_nums1, common_from_nums2]\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common_in_1 = sum(1 for x in set1 if x in set2)\n        common_in_2 = sum(1 for x in set2 if x in set1)\n\n        return [common_in_1, common_in_2]\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        # Count unique elements in each set that appear in the other set\n        common_with_2 = sum(1 for x in set1 if x in set2)\n        common_with_1 = sum(1 for x in set2 if x in set1)\n\n        return [common_with_2, common_with_1]\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common = set1 & set2\n        a = sum(1 for x in set1 if x in common)\n        b = sum(1 for x in set2 if x in common)\n\n        return [a, b]\n```\n\nAttempt 5\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        s1 = set(nums1)\n        s2 = set(nums2)\n\n        # Count unique elements from nums1 that appear in nums2\n        count1 = sum(1 for x in s1 if x in s2)\n        # Count unique elements from nums2 that appear in nums1\n        count2 = sum(1 for x in s2 if x in s1)\n\n        return [count1, count2]\n```\n\nAttempt 6\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = sum(1 for x in set1 if x in set2)  # elements in nums1 that appear in nums2\n        common2 = sum(1 for x in set2 if x in set1)  # elements in nums2 that appear in nums1\n\n        return [common1, common2]\n```\n\nAttempt 7\n```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Match the Counting Unit to the Problem Statement",
+          "description": "Ensure you count exactly what the question asks (indices/occurrences vs distinct values), since sets can silently change the counting unit.",
+          "content": "When the task asks for “number of indices i such that …”, iterate over the original arrays and count per position. Using set iteration typically counts distinct values, which will undercount relative to index-based requirements.",
+          "reasoning": "The successful approaches built membership sets for fast lookups, then counted indices (not distinct values) by iterating over the original arrays. The partially correct approaches reused sets but mistakenly counted unique intersection elements (set iteration) rather than occurrences at indices, which changes the required totals. This highlights the need to match the problem’s unit of counting (indices vs distinct values) to the data structure and iteration choice, and to use a verification pass when switching between “set-based” and “index-based” perspectives."
+        },
+        {
+          "title": "Use Sets for Membership, Not for the Final Count",
+          "description": "Sets are great for O(1) membership checks, but they should not replace the iteration domain required for the final tally.",
+          "content": "A common correct pattern is: build a set for fast “does this value appear in the other array?” checks, then sum over the original array elements/indices to accumulate the required count.",
+          "reasoning": "The successful approaches built membership sets for fast lookups, then counted indices (not distinct values) by iterating over the original arrays. The partially correct approaches reused sets but mistakenly counted unique intersection elements (set iteration) rather than occurrences at indices, which changes the required totals. This highlights the need to match the problem’s unit of counting (indices vs distinct values) to the data structure and iteration choice, and to use a verification pass when switching between “set-based” and “index-based” perspectives."
+        },
+        {
+          "title": "Validate Solutions Against the “Distinct vs Duplicate” Distinction",
+          "description": "Whenever a solution involves converting arrays to sets, explicitly re-check whether duplicates must be counted.",
+          "content": "If your intermediate representation removes duplicates, add a quick reasoning check: does the output depend on multiplicity? If yes, keep duplicates in the iteration (or use frequency-aware structures) instead of counting over unique sets.",
+          "reasoning": "The successful approaches built membership sets for fast lookups, then counted indices (not distinct values) by iterating over the original arrays. The partially correct approaches reused sets but mistakenly counted unique intersection elements (set iteration) rather than occurrences at indices, which changes the required totals. This highlights the need to match the problem’s unit of counting (indices vs distinct values) to the data structure and iteration choice, and to use a verification pass when switching between “set-based” and “index-based” perspectives."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful approaches built membership sets for fast lookups, then counted indices (not distinct values) by iterating over the original arrays. The partially correct approaches reused sets but mistakenly counted unique intersection elements (set iteration) rather than occurrences at indices, which changes the required totals. This highlights the need to match the problem’s unit of counting (indices vs distinct values) to the data structure and iteration choice, and to use a verification pass when switching between “set-based” and “index-based” perspectives.\n</reasoning>\n\n<memories>\n  <memory>\n    <title>Match the Counting Unit to the Problem Statement</title>\n    <description>Ensure you count exactly what the question asks (indices/occurrences vs distinct values), since sets can silently change the counting unit.</description>\n    <content>When the task asks for “number of indices i such that …”, iterate over the original arrays and count per position. Using set iteration typically counts distinct values, which will undercount relative to index-based requirements.</content>\n  </memory>\n  <memory>\n    <title>Use Sets for Membership, Not for the Final Count</title>\n    <description>Sets are great for O(1) membership checks, but they should not replace the iteration domain required for the final tally.</description>\n    <content>A common correct pattern is: build a set for fast “does this value appear in the other array?” checks, then sum over the original array elements/indices to accumulate the required count.</content>\n  </memory>\n  <memory>\n    <title>Validate Solutions Against the “Distinct vs Duplicate” Distinction</title>\n    <description>Whenever a solution involves converting arrays to sets, explicitly re-check whether duplicates must be counted.</description>\n    <content>If your intermediate representation removes duplicates, add a quick reasoning check: does the output depend on multiplicity? If yes, keep duplicates in the iteration (or use frequency-aware structures) instead of counting over unique sets.</content>\n  </memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given two 0-indexed integer arrays nums1 and nums2 of sizes n and m, respectively.\nConsider calculating the following values:\n\nThe number of indices i such that 0 <= i < n and nums1[i] occurs at least once in nums2.\nThe number of indices i such that 0 <= i < m and nums2[i] occurs at least once in nums1.\n\nReturn an integer array answer of size 2 containing the two values in the above order.\n \nExample 1:\n\nInput: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]\nOutput: [3,4]\nExplanation: We calculate the values as follows:\n- The elements at indices 1, 2, and 3 in nums1 occur at least once in nums2. So the first value is 3.\n- The elements at indices 0, 1, 3, and 4 in nums2 occur at least once in nums1. So the second value is 4.\n\nExample 2:\n\nInput: nums1 = [3,4,2,3], nums2 = [1,5]\nOutput: [0,0]\nExplanation: There are no common elements between the two arrays, so the two values will be 0.\n\n \nConstraints:\n\nn == nums1.length\nm == nums2.length\n1 <= n, m <= 100\n1 <= nums1[i], nums2[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        cnt1 = sum(1 for x in set1 if x in set2)\n        cnt2 = sum(1 for x in set2 if x in set1)\n\n        return [cnt1, cnt2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in nums1 if x in set2)  # i in nums1 whose value appears in nums2\n        count2 = sum(1 for x in nums2 if x in set1)  # i in nums2 whose value appears in nums1\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        s1 = set(nums1)\n        s2 = set(nums2)\n\n        common1 = sum(1 for x in nums1 if x in s2)\n        common2 = sum(1 for x in nums2 if x in s1)\n\n        return [common1, common2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        ans1 = sum(1 for x in nums1 if x in set2)\n        ans2 = sum(1 for x in nums2 if x in set1)\n\n        return [ans1, ans2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        count1 = sum(1 for x in set1 if x in set2)\n        count2 = sum(1 for x in set2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set1 = set(nums1)\n        set2 = set(nums2)\n\n        common1 = 0\n        for x in nums1:\n            if x in set2:\n                common1 += 1  # counts indices in nums1 (with duplicates) as required\n\n        common2 = 0\n        for x in nums2:\n            if x in set1:\n                common2 += 1  # counts indices in nums2 (with duplicates) as required\n\n        return [common1, common2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        s1 = set(nums1)\n        s2 = set(nums2)\n\n        count1 = sum(1 for x in s1 if x in s2)\n        count2 = sum(1 for x in s2 if x in s1)\n\n        return [count1, count2]\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3206",
+          "generation_index": 0,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 5,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 6,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 7,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 9,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[3, 4]",
+                "actual": "[2, 2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[57, 59]",
+                "actual": "[36, 36]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[58, 58]",
+                "actual": "[38, 38]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Match the Counting Unit to the Problem Statement: Ensure you count exactly what the question asks (indices/occurrences vs distinct values), since sets can silently change the counting unit.\n     When the task asks for “number of indices i such that …”, iterate over the original arrays and count per position. Using set iteration typically counts distinct values, which will undercount relative to index-based requirements.\n  2. Use Sets for Membership, Not for the Final Count: Sets are great for O(1) membership checks, but they should not replace the iteration domain required for the final tally.\n     A common correct pattern is: build a set for fast “does this value appear in the other array?” checks, then sum over the original array elements/indices to accumulate the required count.\n  3. Validate Solutions Against the “Distinct vs Duplicate” Distinction: Whenever a solution involves converting arrays to sets, explicitly re-check whether duplicates must be counted.\n     If your intermediate representation removes duplicates, add a quick reasoning check: does the output depend on multiplicity? If yes, keep duplicates in the iteration (or use frequency-aware structures) instead of counting over unique sets.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given two 0-indexed integer arrays nums1 and nums2 of sizes n and m, respectively.\nConsider calculating the following values:\n\nThe number of indices i such that 0 <= i < n and nums1[i] occurs at least once in nums2.\nThe number of indices i such that 0 <= i < m and nums2[i] occurs at least once in nums1.\n\nReturn an integer array answer of size 2 containing the two values in the above order.\n \nExample 1:\n\nInput: nums1 = [4,3,2,3,1], nums2 = [2,2,5,2,3,6]\nOutput: [3,4]\nExplanation: We calculate the values as follows:\n- The elements at indices 1, 2, and 3 in nums1 occur at least once in nums2. So the first value is 3.\n- The elements at indices 0, 1, 3, and 4 in nums2 occur at least once in nums1. So the second value is 4.\n\nExample 2:\n\nInput: nums1 = [3,4,2,3], nums2 = [1,5]\nOutput: [0,0]\nExplanation: There are no common elements between the two arrays, so the two values will be 0.\n\n \nConstraints:\n\nn == nums1.length\nm == nums2.length\n1 <= n, m <= 100\n1 <= nums1[i], nums2[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        s2 = set(nums2)\n        s1 = set(nums1)\n\n        count1 = 0\n        for x in nums1:\n            if x in s2:\n                count1 += 1\n\n        count2 = 0\n        for x in nums2:\n            if x in s1:\n                count2 += 1\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        count1 = 0\n        for x in nums1:\n            if x in set2:\n                count1 += 1\n\n        count2 = 0\n        for x in nums2:\n            if x in set1:\n                count2 += 1\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        cnt1 = sum(1 for x in nums1 if x in set2)\n        cnt2 = sum(1 for x in nums2 if x in set1)\n\n        return [cnt1, cnt2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        # Fast membership checks\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        # Count indices (i positions) based on element occurrence in the other array\n        count1 = sum(1 for x in nums1 if x in set2)\n        count2 = sum(1 for x in nums2 if x in set1)\n\n        return [count1, count2]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def findIntersectionValues(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        set2 = set(nums2)\n        set1 = set(nums1)\n\n        # Count indices in nums1 whose value appears at least once in nums2\n        c1 = sum(1 for x in nums1 if x in set2)\n        # Count indices in nums2 whose value appears at least once in nums1\n        c2 = sum(1 for x in nums2 if x in set1)\n\n        return [c1, c2]\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3206",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3206",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[3, 4]",
+                "actual": "[3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[1, 1]",
+                "actual": "[1, 1]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[57, 59]",
+                "actual": "[57, 59]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[100, 100]",
+                "actual": "[100, 100]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[58, 58]",
+                "actual": "[58, 58]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[0, 0]",
+                "actual": "[0, 0]",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.5,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.5
+    }
+  }
+}

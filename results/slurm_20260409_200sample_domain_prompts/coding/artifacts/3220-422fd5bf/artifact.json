@@ -1,0 +1,3051 @@
+{
+  "problem_id": "3220",
+  "domain": "coding",
+  "problem": {
+    "id": "3220",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed integer array batteryPercentages having length n, denoting the battery percentages of n 0-indexed devices.\nYour task is to test each device i in order from 0 to n - 1, by performing the following test operations:\n\nIf batteryPercentages[i] is greater than 0:\n\n\t\nIncrement the count of tested devices.\nDecrease the battery percentage of all devices with indices j in the range [i + 1, n - 1] by 1, ensuring their battery percentage never goes below 0, i.e, batteryPercentages[j] = max(0, batteryPercentages[j] - 1).\nMove to the next device.\n\n\nOtherwise, move to the next device without performing any test.\n\nReturn an integer denoting the number of devices that will be tested after performing the test operations in order.\n \nExample 1:\n\nInput: batteryPercentages = [1,1,2,1,3]\nOutput: 3\nExplanation: Performing the test operations in order starting from device 0:\nAt device 0, batteryPercentages[0] > 0, so there is now 1 tested device, and batteryPercentages becomes [1,0,1,0,2].\nAt device 1, batteryPercentages[1] == 0, so we move to the next device without testing.\nAt device 2, batteryPercentages[2] > 0, so there are now 2 tested devices, and batteryPercentages becomes [1,0,1,0,1].\nAt device 3, batteryPercentages[3] == 0, so we move to the next device without testing.\nAt device 4, batteryPercentages[4] > 0, so there are now 3 tested devices, and batteryPercentages stays the same.\nSo, the answer is 3.\n\nExample 2:\n\nInput: batteryPercentages = [0,1,2]\nOutput: 2\nExplanation: Performing the test operations in order starting from device 0:\nAt device 0, batteryPercentages[0] == 0, so we move to the next device without testing.\nAt device 1, batteryPercentages[1] > 0, so there is now 1 tested device, and batteryPercentages becomes [0,1,1].\nAt device 2, batteryPercentages[2] > 0, so there are now 2 tested devices, and batteryPercentages stays the same.\nSo, the answer is 2.\n\n \nConstraints:\n\n1 <= n == batteryPercentages.length <= 100 \n0 <= batteryPercentages[i] <= 100",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[1, 1, 2, 1, 3]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[0, 1, 2]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[30, 5, 0, 65, 50, 3, 60, 6, 50, 99]",
+        "output": "8",
+        "testtype": "functional"
+      },
+      {
+        "input": "[49, 31, 0, 82, 3, 22, 43, 94, 5, 84]",
+        "output": "7",
+        "testtype": "functional"
+      },
+      {
+        "input": "[24, 38, 94, 44, 0, 51, 91, 6, 25, 37]",
+        "output": "8",
+        "testtype": "functional"
+      },
+      {
+        "input": "[91, 85, 78, 49, 35, 43, 3, 1, 28, 61, 62, 9, 92, 55, 25, 15, 76, 1, 25, 62, 75, 33, 79]",
+        "output": "19",
+        "testtype": "functional"
+      },
+      {
+        "input": "[66, 49, 87, 49, 14, 89, 22, 7, 55, 16, 7, 70, 85, 88, 73, 0, 72, 88, 42, 98, 87, 90, 31, 9, 31, 15]",
+        "output": "21",
+        "testtype": "functional"
+      },
+      {
+        "input": "[53, 38, 65, 100, 44, 65, 94, 22, 59, 5, 81, 61, 79, 6, 7, 95, 7, 35, 18, 37, 65, 94, 9, 5, 58, 79, 60, 87, 0, 78, 7]",
+        "output": "23",
+        "testtype": "functional"
+      },
+      {
+        "input": "[70, 18, 56, 17, 16, 49, 52, 35, 47, 17, 29, 70, 51, 55, 80, 63, 43, 5, 43, 36, 0, 97, 82, 99, 46, 48, 7, 31, 57, 31, 89, 23]",
+        "output": "28",
+        "testtype": "functional"
+      },
+      {
+        "input": "[76, 62, 100, 57, 5, 16, 32, 10, 81, 80, 24, 64, 18, 22, 4, 89, 57, 47, 18, 3, 100, 69, 94, 80, 86, 4, 41, 11, 18, 91, 66, 51, 16, 19, 64, 46, 45]",
+        "output": "30",
+        "testtype": "functional"
+      },
+      {
+        "input": "[94, 84, 94, 28, 53, 26, 99, 79, 73, 10, 3, 76, 100, 41, 82, 33, 69, 47, 43, 98, 79, 89, 99, 10, 94, 32, 14, 85, 89, 42, 88, 5, 35, 91, 9, 51, 17, 0, 56, 5, 90, 100, 96, 23, 14, 54, 98, 78, 35, 60, 64, 45, 89, 4, 18, 43, 86, 4, 47, 53, 97, 7, 51, 8, 3, 89, 38, 39, 86, 72, 37, 30, 69, 54, 49, 64, 38, 19, 18, 29, 43, 99, 10, 5, 100, 66, 88, 22, 42, 25, 38, 69, 68, 48, 1, 95, 1, 59]",
+        "output": "61",
+        "testtype": "functional"
+      },
+      {
+        "input": "[71, 75, 35, 78, 75, 14, 11, 10, 7, 94, 43, 34, 62, 15, 74, 34, 4, 98, 88, 9, 89, 57, 97, 47, 79, 36, 59, 35, 13, 90, 1, 73, 28, 90, 44, 26, 60, 49, 91, 96, 94, 26, 1, 8, 6, 1, 47, 90, 37, 54, 56, 71, 87, 12, 71, 98, 47, 90, 76, 100, 93, 78, 31, 58, 76, 92, 56, 44, 66, 14, 1, 77, 19, 15, 42, 49, 62, 14, 46, 37, 52, 27, 37, 80, 30, 28, 0, 26, 11, 5, 82, 26, 54, 9, 45, 2, 97, 92, 28, 96]",
+        "output": "61",
+        "testtype": "functional"
+      },
+      {
+        "input": "[64, 79, 59, 61, 36, 9, 5, 68, 24, 91, 61, 98, 86, 69, 56, 34, 72, 13, 79, 67, 64, 45, 48, 57, 91, 96, 20, 64, 21, 96, 39, 19, 59, 28, 27, 1, 40, 63, 37, 52, 97, 23, 78, 89, 20, 70, 88, 5, 58, 48, 55, 27, 3, 81, 31, 3, 62, 80, 29, 14, 73, 73, 81, 43, 68, 81, 3, 95, 48, 44, 8, 50, 6, 64, 77, 46, 43, 25, 8, 97, 70, 13, 64, 16, 84, 20, 82, 5, 13, 100, 69, 45, 33, 35, 82, 88, 29, 49, 28, 73]",
+        "output": "62",
+        "testtype": "functional"
+      },
+      {
+        "input": "[70, 16, 69, 39, 51, 52, 48, 62, 46, 88, 36, 22, 87, 58, 45, 77, 44, 66, 57, 67, 74, 85, 2, 80, 56, 21, 21, 80, 21, 16, 26, 32, 59, 5, 23, 99, 38, 27, 24, 69, 61, 19, 89, 36, 42, 92, 59, 37, 9, 47, 3, 10, 1, 91, 69, 0, 21, 5, 60, 85, 11, 64, 3, 31, 97, 98, 51, 49, 96, 74, 54, 11, 63, 96, 99, 79, 52, 42, 63, 38, 85, 82, 10, 35, 72, 16, 9, 26, 81, 61, 63, 35, 53, 13, 92, 7, 59, 57, 64, 81]",
+        "output": "64",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "countTestedDevices",
+      "question_title": "count-tested-devices-after-test-operations",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed integer array batteryPercentages having length n, denoting the battery percentages of n 0-indexed devices.\nYour task is to test each device i in order from 0 to n - 1, by performing the following test operations:\n\nIf batteryPercentages[i] is greater than 0:\n\n\t\nIncrement the count of tested devices.\nDecrease the battery percentage of all devices with indices j in the range [i + 1, n - 1] by 1, ensuring their battery percentage never goes below 0, i.e, batteryPercentages[j] = max(0, batteryPercentages[j] - 1).\nMove to the next device.\n\n\nOtherwise, move to the next device without performing any test.\n\nReturn an integer denoting the number of devices that will be tested after performing the test operations in order.\n \nExample 1:\n\nInput: batteryPercentages = [1,1,2,1,3]\nOutput: 3\nExplanation: Performing the test operations in order starting from device 0:\nAt device 0, batteryPercentages[0] > 0, so there is now 1 tested device, and batteryPercentages becomes [1,0,1,0,2].\nAt device 1, batteryPercentages[1] == 0, so we move to the next device without testing.\nAt device 2, batteryPercentages[2] > 0, so there are now 2 tested devices, and batteryPercentages becomes [1,0,1,0,1].\nAt device 3, batteryPercentages[3] == 0, so we move to the next device without testing.\nAt device 4, batteryPercentages[4] > 0, so there are now 3 tested devices, and batteryPercentages stays the same.\nSo, the answer is 3.\n\nExample 2:\n\nInput: batteryPercentages = [0,1,2]\nOutput: 2\nExplanation: Performing the test operations in order starting from device 0:\nAt device 0, batteryPercentages[0] == 0, so we move to the next device without testing.\nAt device 1, batteryPercentages[1] > 0, so there is now 1 tested device, and batteryPercentages becomes [0,1,1].\nAt device 2, batteryPercentages[2] > 0, so there are now 2 tested devices, and batteryPercentages stays the same.\nSo, the answer is 2.\n\n \nConstraints:\n\n1 <= n == batteryPercentages.length <= 100 \n0 <= batteryPercentages[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        # Process devices left to right.\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all later devices by 1, but not below 0.\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Iterate devices in order, simulating the effect using a decrement counter.\n        # dec[i] represents how many \"previous tests\" have decremented device i.\n        dec = 0\n        active_decrements = [0] * (n + 1)  # difference array for decrements\n\n        for i in range(n):\n            dec += active_decrements[i]  # net decrements affecting device i\n\n            # Effective battery after prior decrements\n            effective = batteryPercentages[i] - dec\n\n            if effective > 0:\n                tested += 1\n                # This test decrements all j in [i+1, n-1] by 1 (i.e., devices after i)\n                # Apply via difference array: add at i+1, remove at n\n                if i + 1 <= n - 1:\n                    active_decrements[i + 1] += 1\n                    active_decrements[n] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all following devices by 1, not going below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Naive simulation with bounds is fine (n <= 100, values <= 100)\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        # work on the array as described\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n        \n        # brute force simulate as constraints are small (n <= 100, values <= 100)\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n        \n        # We simulate efficiently using a suffix decrement \"effect\"\n        # so we don't update all j in [i+1..n-1] each time.\n        dec = [0] * (n + 1)  # difference array for how much decrement applies at i\n        active_dec = 0\n        \n        for i in range(n):\n            active_dec += dec[i]\n            effective = batteryPercentages[i] - active_dec\n            \n            if effective > 0:\n                tested += 1\n                # This test will decrement all future devices by 1 (not below 0 handled by effective>0)\n                active_dec += 1\n                dec[i + 1] -= 1  # cancel at i+1? We'll handle via diff carefully below.\n                # The above is incorrect; do proper range update via diff:\n                # Apply +1 decrement effect to [i+1, n-1].\n                dec[i + 1] += 1\n                dec[n] -= 1\n        \n        # The diff update above was added after already changing active_dec; fix by restarting logic.\n        # We'll implement correctly with a second pass to avoid confusion.\n        tested = 0\n        dec = [0] * (n + 1)\n        active_dec = 0\n        \n        for i in range(n):\n            active_dec += dec[i]\n            effective = batteryPercentages[i] - active_dec\n            \n            if effective > 0:\n                tested += 1\n                # decrement indices i+1..n-1 by 1\n                if i + 1 < n:\n                    dec[i + 1] += 1\n                    dec[n] -= 1\n        \n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n        \n        # For each device i, if its current value > 0, test it and\n        # decrement all following devices by 1 (not below 0).\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Apply the effect to all later devices\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        \n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        dec = 0  # how much cumulative decrement applies to current index\n\n        for i, b in enumerate(batteryPercentages):\n            current = b - dec\n            if current > 0:\n                tested += 1\n                dec += 1  # testing device i decrements all later devices by 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        ans = 0\n        extra = 0  # total decrements applied to current index from previous tests\n\n        # Process left to right. A device i is testable if after all previous decrements\n        # its effective battery is > 0.\n        for i, b in enumerate(batteryPercentages):\n            effective = b - extra\n            if effective > 0:\n                ans += 1\n                # This test decreases all later devices by 1 (not below 0).\n                # extra counts decrements; clamping to 0 is naturally handled by effective>0 checks.\n                extra += 1\n\n        return ans\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3220",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        # Process devices left to right.\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all later devices by 1, but not below 0.\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Iterate devices in order, simulating the effect using a decrement counter.\n        # dec[i] represents how many \"previous tests\" have decremented device i.\n        dec = 0\n        active_decrements = [0] * (n + 1)  # difference array for decrements\n\n        for i in range(n):\n            dec += active_decrements[i]  # net decrements affecting device i\n\n            # Effective battery after prior decrements\n            effective = batteryPercentages[i] - dec\n\n            if effective > 0:\n                tested += 1\n                # This test decrements all j in [i+1, n-1] by 1 (i.e., devices after i)\n                # Apply via difference array: add at i+1, remove at n\n                if i + 1 <= n - 1:\n                    active_decrements[i + 1] += 1\n                    active_decrements[n] -= 1\n\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all following devices by 1, not going below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Naive simulation with bounds is fine (n <= 100, values <= 100)\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        # work on the array as described\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n        \n        # brute force simulate as constraints are small (n <= 100, values <= 100)\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n        \n        # We simulate efficiently using a suffix decrement \"effect\"\n        # so we don't update all j in [i+1..n-1] each time.\n        dec = [0] * (n + 1)  # difference array for how much decrement applies at i\n        active_dec = 0\n        \n        for i in range(n):\n            active_dec += dec[i]\n            effective = batteryPercentages[i] - active_dec\n            \n            if effective > 0:\n                tested += 1\n                # This test will decrement all future devices by 1 (not below 0 handled by effective>0)\n                active_dec += 1\n                dec[i + 1] -= 1  # cancel at i+1? We'll handle via diff carefully below.\n                # The above is incorrect; do proper range update via diff:\n                # Apply +1 decrement effect to [i+1, n-1].\n                dec[i + 1] += 1\n                dec[n] -= 1\n        \n        # The diff update above was added after already changing active_dec; fix by restarting logic.\n        # We'll implement correctly with a second pass to avoid confusion.\n        tested = 0\n        dec = [0] * (n + 1)\n        active_dec = 0\n        \n        for i in range(n):\n            active_dec += dec[i]\n            effective = batteryPercentages[i] - active_dec\n            \n            if effective > 0:\n                tested += 1\n                # decrement indices i+1..n-1 by 1\n                if i + 1 < n:\n                    dec[i + 1] += 1\n                    dec[n] -= 1\n        \n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n        \n        # For each device i, if its current value > 0, test it and\n        # decrement all following devices by 1 (not below 0).\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Apply the effect to all later devices\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        \n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        dec = 0  # how much cumulative decrement applies to current index\n\n        for i, b in enumerate(batteryPercentages):\n            current = b - dec\n            if current > 0:\n                tested += 1\n                dec += 1  # testing device i decrements all later devices by 1\n        return tested\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        ans = 0\n        extra = 0  # total decrements applied to current index from previous tests\n\n        # Process left to right. A device i is testable if after all previous decrements\n        # its effective battery is > 0.\n        for i, b in enumerate(batteryPercentages):\n            effective = b - extra\n            if effective > 0:\n                ans += 1\n                # This test decreases all later devices by 1 (not below 0).\n                # extra counts decrements; clamping to 0 is naturally handled by effective>0 checks.\n                extra += 1\n\n        return ans\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed integer array batteryPercentages having length n, denoting the battery percentages of n 0-indexed devices.\nYour task is to test each device i in order from 0 to n - 1, by performing the following test operations:\n\nIf batteryPercentages[i] is greater than 0:\n\n\t\nIncrement the count of tested devices.\nDecrease the battery percentage of all devices with indices j in the range [i + 1, n - 1] by 1, ensuring their battery percentage never goes below 0, i.e, batteryPercentages[j] = max(0, batteryPercentages[j] - 1).\nMove to the next device.\n\n\nOtherwise, move to the next device without performing any test.\n\nReturn an integer denoting the number of devices that will be tested after performing the test operations in order.\n \nExample 1:\n\nInput: batteryPercentages = [1,1,2,1,3]\nOutput: 3\nExplanation: Performing the test operations in order starting from device 0:\nAt device 0, batteryPercentages[0] > 0, so there is now 1 tested device, and batteryPercentages becomes [1,0,1,0,2].\nAt device 1, batteryPercentages[1] == 0, so we move to the next device without testing.\nAt device 2, batteryPercentages[2] > 0, so there are now 2 tested devices, and batteryPercentages becomes [1,0,1,0,1].\nAt device 3, batteryPercentages[3] == 0, so we move to the next device without testing.\nAt device 4, batteryPercentages[4] > 0, so there are now 3 tested devices, and batteryPercentages stays the same.\nSo, the answer is 3.\n\nExample 2:\n\nInput: batteryPercentages = [0,1,2]\nOutput: 2\nExplanation: Performing the test operations in order starting from device 0:\nAt device 0, batteryPercentages[0] == 0, so we move to the next device without testing.\nAt device 1, batteryPercentages[1] > 0, so there is now 1 tested device, and batteryPercentages becomes [0,1,1].\nAt device 2, batteryPercentages[2] > 0, so there are now 2 tested devices, and batteryPercentages stays the same.\nSo, the answer is 2.\n\n \nConstraints:\n\n1 <= n == batteryPercentages.length <= 100 \n0 <= batteryPercentages[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        # Use a \"decrement effect\" counter instead of updating all later indices each time.\n        # When we test device i (if its current effective value > 0), it causes\n        # a -1 effect on all later devices, but never below 0.\n        n = len(batteryPercentages)\n        \n        active_dec = 0  # total decrement currently affecting position i\n        tested = 0\n        \n        # For each i, effective battery = batteryPercentages[i] - active_dec\n        # When we add a test at i, active_dec increases by 1 for the remaining suffix.\n        # Since only decrements occur and active_dec only changes by +1, we can cap effective values at 0.\n        # No need for per-index removal because each test affects all future indices indefinitely.\n        for i in range(n):\n            effective = batteryPercentages[i] - active_dec\n            if effective > 0:\n                tested += 1\n                active_dec += 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Efficient approach:\n        # For each i, we need to know how many prior tests decremented it.\n        # Maintain a running decrement value via a difference array.\n        diff = [0] * (n + 1)\n        dec = 0\n\n        for i in range(n):\n            dec += diff[i]\n            effective = batteryPercentages[i] - dec\n\n            if effective > 0:\n                tested += 1\n                # This test will decrement devices in [i+1, n-1] by 1, capped at 0.\n                # We model decrements; capping happens naturally because we only test if\n                # effective > 0, and later effective will reflect decrements.\n                if i + 1 < n:\n                    diff[i + 1] += 1\n                    diff[n] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        # n <= 100, so straightforward simulation with O(n^2) is fine.\n        n = len(batteryPercentages)\n        ans = 0\n\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                ans += 1\n                # Decrease all later devices by 1, not below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Each time we test at i, it reduces all later j>i by 1 (not below 0).\n        # We can simulate the effect using a running \"decrement budget\".\n        # Let dec be how many times we've tested devices with index < current i,\n        # so each device's effective value is batteryPercentages[i] - dec.\n        dec = 0\n\n        for i in range(n):\n            effective = batteryPercentages[i] - dec\n            if effective > 0:\n                tested += 1\n                # This test will decrease all future devices by 1, meaning dec increases by 1.\n                # But if a future device was already at 0, the max(0, ...) rule prevents negatives.\n                # Using effective > 0 ensures we only add dec when it still has positive capacity.\n                dec += 1\n            # else: do nothing, but dec remains (future decrements still apply)\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n        dec = [0] * (n + 1)  # difference array for how many decrements affect each position\n\n        cur_dec = 0  # current decrement value at index i\n        for i in range(n):\n            cur_dec += dec[i]  # apply scheduled decrements\n\n            effective = batteryPercentages[i] - cur_dec\n            if effective > 0:\n                tested += 1\n                # this test decrements all j in [i+1, n-1] by 1 (clamped at 0),\n                # which can be modeled as adding +1 decrement to range [i+1, n-1].\n                if i + 1 < n:\n                    cur_dec += 1         # decrement takes effect immediately at i+1,\n                    dec[i + 1] += 1\n                    dec[n] -= 1\n                # Note: clamping at 0 is naturally handled because we only test when\n                # effective > 0, and further decrements beyond zero do not change the outcome.\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        # Use an auxiliary array to apply the \"decrease by 1 for suffix starting at i+1\"\n        # via difference + prefix (lazy propagation), avoiding O(n^2).\n        diff = [0] * (n + 1)\n        dec = 0  # current cumulative decrement affecting position i\n\n        for i in range(n):\n            dec += diff[i]\n            current = batteryPercentages[i] - dec\n            if current > 0:\n                tested += 1\n                # Decrease all j in [i+1, n-1] by 1 (i.e., add -1 to suffix)\n                if i + 1 < n:\n                    diff[i + 1] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        ans = 0\n        dec = 0  # total decrements applied to the current index from previous tests\n\n        for i, b in enumerate(batteryPercentages):\n            # Effective battery at i after prior decrements, but never below 0\n            effective = b - dec\n            if effective > 0:\n                ans += 1\n                # Testing device i decreases all later devices by 1, so record it in dec\n                dec += 1\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all following devices by 1, not below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n        \n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all later devices by 1 but not below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        # Count devices that can still be \"active\" when reached.\n        # Each time we successfully test a device i, all later devices effectively\n        # lose 1 battery (not below 0). Instead of updating all later indices,\n        # keep track of how many successful tests have happened so far.\n        tested = 0\n        dec = 0  # total decrements applied to current index due to earlier tests\n\n        for x in batteryPercentages:\n            # After dec decrements, effective battery is max(0, x - dec)\n            if x - dec > 0:\n                tested += 1\n                dec += 1\n            # else do nothing\n        return tested\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3220",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 4,
+          "score": 0.14285714285714285,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "19",
+                "actual": "17",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "21",
+                "actual": "18",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "23",
+                "actual": "22",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28",
+                "actual": "25",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "30",
+                "actual": "24",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "41",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "44",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "62",
+                "actual": "43",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "64",
+                "actual": "42",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 5,
+          "score": 0.07142857142857142,
+          "tier": "partial",
+          "details": {
+            "passed": 1,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "19",
+                "actual": "23",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "21",
+                "actual": "26",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "23",
+                "actual": "31",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28",
+                "actual": "32",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "30",
+                "actual": "37",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "62",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "64",
+                "actual": "100",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        # Use a \"decrement effect\" counter instead of updating all later indices each time.\n        # When we test device i (if its current effective value > 0), it causes\n        # a -1 effect on all later devices, but never below 0.\n        n = len(batteryPercentages)\n        \n        active_dec = 0  # total decrement currently affecting position i\n        tested = 0\n        \n        # For each i, effective battery = batteryPercentages[i] - active_dec\n        # When we add a test at i, active_dec increases by 1 for the remaining suffix.\n        # Since only decrements occur and active_dec only changes by +1, we can cap effective values at 0.\n        # No need for per-index removal because each test affects all future indices indefinitely.\n        for i in range(n):\n            effective = batteryPercentages[i] - active_dec\n            if effective > 0:\n                tested += 1\n                active_dec += 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Efficient approach:\n        # For each i, we need to know how many prior tests decremented it.\n        # Maintain a running decrement value via a difference array.\n        diff = [0] * (n + 1)\n        dec = 0\n\n        for i in range(n):\n            dec += diff[i]\n            effective = batteryPercentages[i] - dec\n\n            if effective > 0:\n                tested += 1\n                # This test will decrement devices in [i+1, n-1] by 1, capped at 0.\n                # We model decrements; capping happens naturally because we only test if\n                # effective > 0, and later effective will reflect decrements.\n                if i + 1 < n:\n                    diff[i + 1] += 1\n                    diff[n] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        # n <= 100, so straightforward simulation with O(n^2) is fine.\n        n = len(batteryPercentages)\n        ans = 0\n\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                ans += 1\n                # Decrease all later devices by 1, not below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        # Each time we test at i, it reduces all later j>i by 1 (not below 0).\n        # We can simulate the effect using a running \"decrement budget\".\n        # Let dec be how many times we've tested devices with index < current i,\n        # so each device's effective value is batteryPercentages[i] - dec.\n        dec = 0\n\n        for i in range(n):\n            effective = batteryPercentages[i] - dec\n            if effective > 0:\n                tested += 1\n                # This test will decrease all future devices by 1, meaning dec increases by 1.\n                # But if a future device was already at 0, the max(0, ...) rule prevents negatives.\n                # Using effective > 0 ensures we only add dec when it still has positive capacity.\n                dec += 1\n            # else: do nothing, but dec remains (future decrements still apply)\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n        dec = [0] * (n + 1)  # difference array for how many decrements affect each position\n\n        cur_dec = 0  # current decrement value at index i\n        for i in range(n):\n            cur_dec += dec[i]  # apply scheduled decrements\n\n            effective = batteryPercentages[i] - cur_dec\n            if effective > 0:\n                tested += 1\n                # this test decrements all j in [i+1, n-1] by 1 (clamped at 0),\n                # which can be modeled as adding +1 decrement to range [i+1, n-1].\n                if i + 1 < n:\n                    cur_dec += 1         # decrement takes effect immediately at i+1,\n                    dec[i + 1] += 1\n                    dec[n] -= 1\n                # Note: clamping at 0 is naturally handled because we only test when\n                # effective > 0, and further decrements beyond zero do not change the outcome.\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        tested = 0\n        n = len(batteryPercentages)\n\n        # Use an auxiliary array to apply the \"decrease by 1 for suffix starting at i+1\"\n        # via difference + prefix (lazy propagation), avoiding O(n^2).\n        diff = [0] * (n + 1)\n        dec = 0  # current cumulative decrement affecting position i\n\n        for i in range(n):\n            dec += diff[i]\n            current = batteryPercentages[i] - dec\n            if current > 0:\n                tested += 1\n                # Decrease all j in [i+1, n-1] by 1 (i.e., add -1 to suffix)\n                if i + 1 < n:\n                    diff[i + 1] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        ans = 0\n        dec = 0  # total decrements applied to the current index from previous tests\n\n        for i, b in enumerate(batteryPercentages):\n            # Effective battery at i after prior decrements, but never below 0\n            effective = b - dec\n            if effective > 0:\n                ans += 1\n                # Testing device i decreases all later devices by 1, so record it in dec\n                dec += 1\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n\n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all following devices by 1, not below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        n = len(batteryPercentages)\n        tested = 0\n        \n        for i in range(n):\n            if batteryPercentages[i] > 0:\n                tested += 1\n                # Decrease all later devices by 1 but not below 0\n                for j in range(i + 1, n):\n                    if batteryPercentages[j] > 0:\n                        batteryPercentages[j] -= 1\n        return tested\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countTestedDevices(self, batteryPercentages: List[int]) -> int:\n        # Count devices that can still be \"active\" when reached.\n        # Each time we successfully test a device i, all later devices effectively\n        # lose 1 battery (not below 0). Instead of updating all later indices,\n        # keep track of how many successful tests have happened so far.\n        tested = 0\n        dec = 0  # total decrements applied to current index due to earlier tests\n\n        for x in batteryPercentages:\n            # After dec decrements, effective battery is max(0, x - dec)\n            if x - dec > 0:\n                tested += 1\n                dec += 1\n            # else do nothing\n        return tested\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3220",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 4,
+          "score": 0.14285714285714285,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "19",
+                "actual": "17",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "21",
+                "actual": "18",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "23",
+                "actual": "22",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28",
+                "actual": "25",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "30",
+                "actual": "24",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "41",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "44",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "62",
+                "actual": "43",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "64",
+                "actual": "42",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 5,
+          "score": 0.07142857142857142,
+          "tier": "partial",
+          "details": {
+            "passed": 1,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "19",
+                "actual": "23",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "21",
+                "actual": "26",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "23",
+                "actual": "31",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "28",
+                "actual": "32",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "30",
+                "actual": "37",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "61",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "62",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "64",
+                "actual": "100",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3220",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "23",
+                "actual": "23",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "28",
+                "actual": "28",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "61",
+                "actual": "61",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "62",
+                "actual": "62",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "64",
+                "actual": "64",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.8,
+      "augmented_pass_rate": 0.8,
+      "improvement": 0.0
+    }
+  }
+}

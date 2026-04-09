@@ -1,0 +1,3051 @@
+{
+  "problem_id": "2756",
+  "domain": "coding",
+  "problem": {
+    "id": "2756",
+    "domain": "coding",
+    "statement": "You are given an integer array prices representing the prices of various chocolates in a store. You are also given a single integer money, which represents your initial amount of money.\nYou must buy exactly two chocolates in such a way that you still have some non-negative leftover money. You would like to minimize the sum of the prices of the two chocolates you buy.\nReturn the amount of money you will have leftover after buying the two chocolates. If there is no way for you to buy two chocolates without ending up in debt, return money. Note that the leftover must be non-negative.\n \nExample 1:\n\nInput: prices = [1,2,2], money = 3\nOutput: 0\nExplanation: Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0.\n\nExample 2:\n\nInput: prices = [3,2,3], money = 3\nOutput: 3\nExplanation: You cannot buy 2 chocolates without going in debt, so we return 3.\n\n \nConstraints:\n\n2 <= prices.length <= 50\n1 <= prices[i] <= 100\n1 <= money <= 100",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[1, 2, 2]\n3",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 2, 3]\n3",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 1]\n1",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 1]\n2",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[16, 2]\n9",
+        "output": "9",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 5]\n14",
+        "output": "7",
+        "testtype": "functional"
+      },
+      {
+        "input": "[14, 5]\n24",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "[6, 30]\n88",
+        "output": "52",
+        "testtype": "functional"
+      },
+      {
+        "input": "[25, 42]\n74",
+        "output": "7",
+        "testtype": "functional"
+      },
+      {
+        "input": "[20, 43]\n85",
+        "output": "22",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 6, 6, 5]\n16",
+        "output": "10",
+        "testtype": "functional"
+      },
+      {
+        "input": "[45, 48, 16, 23, 42, 27, 27, 71, 15, 98, 61, 38, 86, 44, 26, 66, 39, 46, 62, 2, 20, 48, 37, 63, 78, 42, 80, 93, 80, 78, 53, 42, 48, 98, 38, 37, 33, 34, 32, 22, 63, 56, 19, 67, 55, 12, 59, 35, 92]\n95",
+        "output": "81",
+        "testtype": "functional"
+      },
+      {
+        "input": "[35, 14, 6, 5, 17, 35, 54, 34, 65, 80, 83, 59, 48, 69, 75, 39, 16, 92, 84, 37, 88, 55, 3, 92, 20, 16, 19, 62, 31, 98, 95, 7, 42, 3, 40, 91, 97, 92, 97, 49, 90, 65, 18, 13, 92, 65, 32, 86, 49, 71]\n87",
+        "output": "81",
+        "testtype": "functional"
+      },
+      {
+        "input": "[100, 99, 98, 97, 96, 95, 94, 93, 92, 91, 90, 89, 88, 87, 86, 85, 84, 83, 82, 81, 80, 79, 78, 77, 76, 75, 74, 73, 72, 71, 70, 69, 68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54, 53, 52, 51]\n100",
+        "output": "100",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "buyChoco",
+      "question_title": "buy-two-chocolates",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given an integer array prices representing the prices of various chocolates in a store. You are also given a single integer money, which represents your initial amount of money.\nYou must buy exactly two chocolates in such a way that you still have some non-negative leftover money. You would like to minimize the sum of the prices of the two chocolates you buy.\nReturn the amount of money you will have leftover after buying the two chocolates. If there is no way for you to buy two chocolates without ending up in debt, return money. Note that the leftover must be non-negative.\n \nExample 1:\n\nInput: prices = [1,2,2], money = 3\nOutput: 0\nExplanation: Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0.\n\nExample 2:\n\nInput: prices = [3,2,3], money = 3\nOutput: 3\nExplanation: You cannot buy 2 chocolates without going in debt, so we return 3.\n\n \nConstraints:\n\n2 <= prices.length <= 50\n1 <= prices[i] <= 100\n1 <= money <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost <= money:\n            return money - cost\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total <= money:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        a, b = prices[0], prices[1]\n        if a + b > money:\n            return money\n        return money - (a + b)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if money >= total else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        if prices[0] + prices[1] > money:\n            return money\n        return money - (prices[0] + prices[1])\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if total <= money else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if money >= total else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        return money - cost if money >= cost else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost > money:\n            return money\n        return money - cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total <= money:\n            return money - total\n        return money\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2756",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost <= money:\n            return money - cost\n        return money\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total <= money:\n            return money - total\n        return money\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        a, b = prices[0], prices[1]\n        if a + b > money:\n            return money\n        return money - (a + b)\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if money >= total else money\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        if prices[0] + prices[1] > money:\n            return money\n        return money - (prices[0] + prices[1])\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if total <= money else money\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if money >= total else money\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        return money - cost if money >= cost else money\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost > money:\n            return money\n        return money - cost\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total <= money:\n            return money - total\n        return money\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given an integer array prices representing the prices of various chocolates in a store. You are also given a single integer money, which represents your initial amount of money.\nYou must buy exactly two chocolates in such a way that you still have some non-negative leftover money. You would like to minimize the sum of the prices of the two chocolates you buy.\nReturn the amount of money you will have leftover after buying the two chocolates. If there is no way for you to buy two chocolates without ending up in debt, return money. Note that the leftover must be non-negative.\n \nExample 1:\n\nInput: prices = [1,2,2], money = 3\nOutput: 0\nExplanation: Purchase the chocolates priced at 1 and 2 units respectively. You will have 3 - 3 = 0 units of money afterwards. Thus, we return 0.\n\nExample 2:\n\nInput: prices = [3,2,3], money = 3\nOutput: 3\nExplanation: You cannot buy 2 chocolates without going in debt, so we return 3.\n\n \nConstraints:\n\n2 <= prices.length <= 50\n1 <= prices[i] <= 100\n1 <= money <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total <= money:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if money >= total else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total > money:\n            return money\n        return money - total\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total > money:\n            return money\n        return money - total\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if money >= total:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost > money:\n            return money\n        return money - cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost > money:\n            return money\n        return money - cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        # Need to buy exactly two chocolates with minimal total price.\n        total = prices[0] + prices[1]\n        if money >= total:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        # Need exactly two chocolates; choose the two cheapest\n        cost = prices[0] + prices[1]\n        remaining = money - cost\n        return remaining if remaining >= 0 else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        if prices[0] + prices[1] > money:\n            return money\n        return money - (prices[0] + prices[1])\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2756",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total <= money:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        return money - total if money >= total else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total > money:\n            return money\n        return money - total\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if total > money:\n            return money\n        return money - total\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        total = prices[0] + prices[1]\n        if money >= total:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost > money:\n            return money\n        return money - cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        cost = prices[0] + prices[1]\n        if cost > money:\n            return money\n        return money - cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        # Need to buy exactly two chocolates with minimal total price.\n        total = prices[0] + prices[1]\n        if money >= total:\n            return money - total\n        return money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        # Need exactly two chocolates; choose the two cheapest\n        cost = prices[0] + prices[1]\n        remaining = money - cost\n        return remaining if remaining >= 0 else money\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def buyChoco(self, prices: List[int], money: int) -> int:\n        prices.sort()\n        if prices[0] + prices[1] > money:\n            return money\n        return money - (prices[0] + prices[1])\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2756",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2756",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "22",
+                "actual": "22",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "81",
+                "actual": "81",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

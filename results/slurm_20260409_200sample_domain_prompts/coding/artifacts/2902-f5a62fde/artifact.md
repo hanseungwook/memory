@@ -1,0 +1,15233 @@
+# Problem 2902
+
+- Domain: `coding`
+
+## Problem
+
+```text
+You are given a 0-indexed integer array nums. You have to find the maximum sum of a pair of numbers from nums such that the maximum digit in both numbers are equal.
+Return the maximum sum or -1 if no such pair exists.
+ 
+Example 1:
+
+Input: nums = [51,71,17,24,42]
+Output: 88
+Explanation: 
+For i = 1 and j = 2, nums[i] and nums[j] have equal maximum digits with a pair sum of 71 + 17 = 88. 
+For i = 3 and j = 4, nums[i] and nums[j] have equal maximum digits with a pair sum of 24 + 42 = 66.
+It can be shown that there are no other pairs with equal maximum digits, so the answer is 88.
+Example 2:
+
+Input: nums = [1,2,3,4]
+Output: -1
+Explanation: No pair exists in nums with equal maximum digits.
+
+ 
+Constraints:
+
+2 <= nums.length <= 100
+1 <= nums[i] <= 10^4
+```
+
+### Starter Code
+
+```python
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+```
+
+### Test Cases
+
+```json
+[
+  {
+    "input": "[51, 71, 17, 24, 42]",
+    "output": "88",
+    "testtype": "functional"
+  },
+  {
+    "input": "[1, 2, 3, 4]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7, 7]",
+    "output": "14",
+    "testtype": "functional"
+  },
+  {
+    "input": "[99, 9]",
+    "output": "108",
+    "testtype": "functional"
+  },
+  {
+    "input": "[68, 42]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[77, 62]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[54, 98]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[774, 61]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9686, 424]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[95, 55, 47]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[52, 20, 81]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[38, 52, 51]",
+    "output": "103",
+    "testtype": "functional"
+  },
+  {
+    "input": "[58, 53, 23, 18, 66, 78]",
+    "output": "136",
+    "testtype": "functional"
+  },
+  {
+    "input": "[1, 3, 8, 7, 5, 3, 5, 4, 10, 4]",
+    "output": "11",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7, 68, 53, 74, 88, 94, 93, 45]",
+    "output": "187",
+    "testtype": "functional"
+  },
+  {
+    "input": "[19, 31, 35, 8, 64, 61, 49, 50]",
+    "output": "125",
+    "testtype": "functional"
+  },
+  {
+    "input": "[76, 25, 47, 40, 45, 94, 37, 79]",
+    "output": "173",
+    "testtype": "functional"
+  },
+  {
+    "input": "[333, 444, 555, 666, 777, 888, 999]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[63, 57, 35, 18, 60, 17, 54, 14, 33]",
+    "output": "123",
+    "testtype": "functional"
+  },
+  {
+    "input": "[83, 43, 53, 96, 78, 34, 14, 22, 61]",
+    "output": "161",
+    "testtype": "functional"
+  },
+  {
+    "input": "[65, 54, 70, 2, 32, 39, 19, 11, 58, 52]",
+    "output": "106",
+    "testtype": "functional"
+  },
+  {
+    "input": "[59, 76, 67, 68, 2, 45, 69, 76, 59, 69]",
+    "output": "152",
+    "testtype": "functional"
+  },
+  {
+    "input": "[64, 60, 64, 67, 66, 60, 61, 60, 67, 63]",
+    "output": "134",
+    "testtype": "functional"
+  },
+  {
+    "input": "[805, 434, 970, 239, 691, 190, 926, 134, 55, 931]",
+    "output": "1901",
+    "testtype": "functional"
+  },
+  {
+    "input": "[6677, 1580, 4375, 5064, 5977, 5283, 809, 3003, 8784, 2862]",
+    "output": "14067",
+    "testtype": "functional"
+  },
+  {
+    "input": "[346, 588, 316, 875, 533, 705, 479, 852, 112, 836, 977, 757, 454]",
+    "output": "1727",
+    "testtype": "functional"
+  },
+  {
+    "input": "[1000006, 1003, 10000007, 1000000009, 102, 10004, 100005, 100000008]",
+    "output": "-1",
+    "testtype": "functional"
+  },
+  {
+    "input": "[298, 818, 641, 862, 391, 275, 830, 466, 180, 348, 959, 113, 899, 978]",
+    "output": "1937",
+    "testtype": "functional"
+  },
+  {
+    "input": "[56, 15, 53, 15, 49, 57, 11, 44, 56, 11, 53, 44, 18, 57, 42, 42, 18, 49]",
+    "output": "114",
+    "testtype": "functional"
+  },
+  {
+    "input": "[3404, 3670, 1168, 4690, 8753, 4233, 203, 2528, 8159, 1478, 1506, 2387, 9777, 9620]",
+    "output": "19397",
+    "testtype": "functional"
+  },
+  {
+    "input": "[495, 123, 601, 915, 545, 402, 31, 832, 779, 783, 721, 929, 700, 817, 736, 549, 73, 845, 79, 406, 528, 621]",
+    "output": "1844",
+    "testtype": "functional"
+  },
+  {
+    "input": "[319, 643, 665, 876, 204, 308, 96, 502, 841, 204, 487, 863, 410, 511, 433, 53, 815, 991, 318, 420, 353, 151, 417, 886, 809]",
+    "output": "1800",
+    "testtype": "functional"
+  },
+  {
+    "input": "[927, 317, 84, 493, 60, 295, 278, 617, 634, 78, 72, 717, 419, 501, 674, 650, 543, 10, 361, 325, 431, 143, 482, 507, 305, 2, 993, 316]",
+    "output": "1920",
+    "testtype": "functional"
+  },
+  {
+    "input": "[553, 743, 593, 810, 999, 698, 795, 750, 103, 93, 863, 983, 83, 872, 662, 587, 902, 437, 981, 435, 465, 787, 96, 360, 605, 234, 539, 287, 926, 453]",
+    "output": "1982",
+    "testtype": "functional"
+  },
+  {
+    "input": "[142, 161, 186, 340, 438, 652, 879, 210, 971, 34, 323, 483, 838, 601, 321, 817, 590, 804, 418, 362, 682, 522, 780, 201, 681, 341, 268, 621, 72, 150]",
+    "output": "1850",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9, 3, 3, 1, 6, 6, 4, 6, 5, 3, 10, 6, 7, 9, 3, 5, 9, 9, 7, 3, 4, 2, 5, 6, 6, 7, 7, 9, 8, 4, 5, 7, 9, 4, 1, 9, 1, 2, 2, 5, 3, 8, 7, 7, 8, 4, 4, 6, 7, 8]",
+    "output": "18",
+    "testtype": "functional"
+  },
+  {
+    "input": "[288, 872, 964, 214, 167, 397, 633, 692, 675, 934, 775, 456, 8, 508, 454, 433, 460, 990, 87, 350, 814, 970, 294, 584, 533, 529, 35, 29, 371, 528, 691, 64, 588, 944]",
+    "output": "1960",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7514, 8102, 4500, 3948, 1724, 2075, 9048, 6460, 885, 9774, 8904, 8445, 9622, 8905, 7979, 4439, 2211, 7904, 1155, 2438, 9541, 7118, 8164, 6993, 9830, 3388, 5088, 6707, 3873]",
+    "output": "19604",
+    "testtype": "functional"
+  },
+  {
+    "input": "[1247, 887, 6140, 6870, 598, 7761, 4293, 8642, 3351, 1177, 7442, 8529, 3299, 9564, 7165, 7761, 1999, 5011, 9806, 570, 9696, 7417, 6582, 3443, 6980, 128, 377, 7096, 6941, 893]",
+    "output": "19502",
+    "testtype": "functional"
+  },
+  {
+    "input": "[608, 645, 723, 536, 800, 607, 953, 114, 808, 162, 958, 811, 336, 881, 164, 540, 815, 980, 910, 371, 211, 812, 253, 767, 500, 712, 725, 396, 861, 948, 18, 863, 81, 495, 278, 883, 94, 51, 22]",
+    "output": "1938",
+    "testtype": "functional"
+  },
+  {
+    "input": "[45, 89, 72, 32, 58, 24, 94, 60, 82, 95, 14, 93, 18, 71, 83, 35, 42, 97, 6, 25, 97, 69, 92, 7, 18, 60, 31, 49, 88, 56, 32, 66, 100, 63, 31, 49, 94, 94, 41, 49, 29, 76, 12, 77, 2, 78, 74, 99, 82, 9]",
+    "output": "196",
+    "testtype": "functional"
+  },
+  {
+    "input": "[183, 251, 592, 750, 448, 823, 212, 604, 646, 823, 319, 139, 523, 468, 825, 556, 276, 520, 911, 693, 791, 727, 357, 506, 296, 445, 956, 247, 275, 185, 383, 833, 435, 158, 978, 784, 173, 149, 801, 549, 964, 800, 594]",
+    "output": "1942",
+    "testtype": "functional"
+  },
+  {
+    "input": "[547, 203, 162, 31, 550, 102, 954, 573, 772, 715, 807, 151, 155, 710, 593, 463, 954, 521, 311, 984, 679, 267, 412, 584, 591, 751, 767, 479, 340, 53, 145, 4, 554, 78, 376, 952, 829, 632, 912, 334, 989, 14, 418, 286, 841]",
+    "output": "1973",
+    "testtype": "functional"
+  },
+  {
+    "input": "[842, 152, 556, 329, 4, 769, 890, 182, 785, 946, 871, 940, 861, 636, 320, 79, 47, 884, 747, 402, 188, 736, 482, 176, 757, 856, 155, 798, 563, 317, 971, 265, 511, 672, 482, 830, 791, 138, 358, 817, 430, 22, 992, 218, 967]",
+    "output": "1963",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9659, 3350, 5218, 9545, 7173, 4005, 7725, 3041, 4359, 2026, 8342, 7467, 7705, 2638, 8933, 7301, 8501, 7887, 1308, 4105, 5488, 576, 7083, 4668, 3905, 7529, 102, 6699, 5924, 7566, 534, 8137, 1314, 8227, 5319, 8141, 1408, 6914, 1472]",
+    "output": "19204",
+    "testtype": "functional"
+  },
+  {
+    "input": "[878, 681, 789, 254, 351, 457, 89, 952, 229, 239, 495, 422, 116, 573, 558, 232, 954, 832, 338, 345, 200, 421, 906, 295, 167, 123, 589, 287, 313, 742, 441, 26, 718, 605, 210, 17, 625, 866, 436, 994, 256, 51, 789, 381, 739, 832, 40, 885, 408, 667]",
+    "output": "1948",
+    "testtype": "functional"
+  },
+  {
+    "input": "[5373, 4331, 1382, 2007, 7024, 2933, 4525, 7763, 1562, 2620, 2173, 9354, 6691, 5943, 3899, 9313, 8429, 551, 5046, 6627, 9348, 2950, 209, 8498, 745, 5994, 2687, 6797, 6096, 6281, 9336, 9576, 7889, 9061, 888, 6303, 9845, 8368, 8497, 1955, 237, 9540, 6780, 1182, 2820, 5035, 6557, 7270, 6066]",
+    "output": "19421",
+    "testtype": "functional"
+  },
+  {
+    "input": "[6582, 6644, 2204, 8281, 3946, 7653, 104, 5811, 4295, 1422, 9788, 1312, 9259, 77, 7781, 6640, 8142, 899, 8237, 1067, 2878, 8764, 1832, 7656, 8710, 9560, 863, 9993, 4742, 1791, 1424, 3064, 9048, 6424, 587, 150, 1798, 5412, 7663, 5384, 3835, 1655, 7965, 7311, 7528, 3987, 3541, 1368, 3318, 6677]",
+    "output": "19781",
+    "testtype": "functional"
+  },
+  {
+    "input": "[3114, 2352, 8282, 6236, 9189, 2875, 8060, 8333, 5320, 9397, 3089, 3133, 1015, 4646, 9233, 4561, 3916, 5543, 9470, 5423, 6890, 6937, 3289, 5998, 703, 8419, 6563, 5624, 403, 9519, 8671, 6696, 1817, 5866, 5246, 4050, 5231, 9974, 1236, 4341, 8663, 8104, 3360, 1888, 8536, 3405, 1602, 518, 317, 4358]",
+    "output": "19493",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7625, 6830, 5149, 2767, 560, 5954, 9697, 64, 3294, 1566, 7678, 4624, 1629, 6833, 8208, 9393, 2898, 7141, 2292, 1027, 2646, 8216, 8128, 9384, 1205, 630, 1350, 5177, 886, 6633, 7046, 5853, 7879, 8994, 4831, 415, 9557, 7506, 9755, 8682, 7190, 1836, 8692, 3547, 2042, 334, 1892, 1502, 5631, 973, 1507]",
+    "output": "19452",
+    "testtype": "functional"
+  },
+  {
+    "input": "[2, 2, 3, 10, 9, 3, 9, 9, 10, 6, 4, 2, 2, 3, 9, 3, 5, 1, 10, 4, 3, 3, 6, 6, 7, 5, 3, 3, 5, 4, 5, 4, 7, 7, 5, 8, 7, 7, 1, 6, 6, 9, 7, 5, 6, 9, 2, 2, 8, 1, 2, 3, 4, 2, 4, 2, 8, 9, 10, 1, 4, 5, 9, 9, 2, 6, 2, 3, 9, 10, 4, 10, 8, 3, 1, 2, 6, 1, 9, 9, 9, 7, 3, 2, 7, 4, 7, 7, 4, 10, 5, 5, 6, 3, 1, 4, 10, 6, 6, 3]",
+    "output": "20",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9953, 7668, 5718, 3632, 1731, 2021, 866, 6390, 5633, 3384, 3605, 8067, 3309, 3058, 7146, 4305, 3264, 1748, 6708, 6182, 1634, 7456, 5127, 1413, 6085, 7908, 5818, 6400, 3965, 5398, 6850, 4099, 6670, 1058, 3709, 5732, 8909, 1382, 2309, 548, 5367, 8506, 4166, 1397, 3927, 7821, 5082, 9165, 6394, 8640, 817, 6689, 2549, 1511, 1927, 4646]",
+    "output": "19118",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7221, 1341, 3017, 4614, 7237, 8142, 451, 3882, 6257, 3345, 3474, 7257, 1123, 6974, 5961, 1304, 9883, 1470, 4455, 4558, 2603, 8568, 5432, 4485, 8677, 2411, 5402, 824, 4935, 5527, 5107, 1306, 6027, 996, 6450, 3249, 3191, 9657, 8572, 3428, 7664, 6026, 2268, 2081, 184, 981, 7857, 5152, 6357, 4827, 9369, 7239, 5182, 1738, 3060, 2047, 5805]",
+    "output": "19540",
+    "testtype": "functional"
+  },
+  {
+    "input": "[3841, 2819, 7214, 3833, 6177, 3516, 9901, 5497, 6320, 4171, 4395, 7241, 6024, 8999, 466, 2764, 8773, 4964, 8357, 1323, 4530, 9745, 379, 7597, 4809, 543, 6413, 119, 7734, 8461, 2859, 1566, 6115, 1988, 3320, 3919, 2267, 1760, 6349, 2575, 2737, 693, 88, 4181, 4551, 6718, 6134, 3826, 2748, 8269, 7504, 6934, 3171, 3926, 2230, 8216, 1165, 3403, 4277]",
+    "output": "19646",
+    "testtype": "functional"
+  },
+  {
+    "input": "[1557, 4366, 9524, 8374, 1880, 5173, 5869, 1637, 5244, 2243, 276, 1459, 7429, 7679, 6985, 1025, 6438, 8299, 1442, 4450, 2655, 8242, 7065, 9392, 9719, 9239, 5891, 4577, 7194, 7221, 2170, 1370, 3091, 1125, 8728, 3431, 5495, 2769, 4410, 3678, 3780, 6242, 3589, 7969, 3360, 7466, 6348, 301, 9618, 2416, 3013, 464, 8968, 5650, 1858, 2094, 2128, 8519, 2444]",
+    "output": "19337",
+    "testtype": "functional"
+  },
+  {
+    "input": "[4168, 8611, 6845, 863, 4614, 6419, 581, 4625, 3184, 6226, 1371, 3544, 2649, 2168, 6254, 7817, 3790, 5745, 4230, 1733, 939, 6876, 6744, 9103, 6619, 6501, 159, 6606, 8968, 4985, 1272, 9495, 3295, 1455, 4957, 9851, 7023, 4229, 3165, 4753, 1154, 8906, 9849, 933, 8030, 8907, 3521, 1978, 9195, 3096, 5876, 2422, 5359, 5677, 4387, 6406, 8302, 3590, 6833, 8445, 5026, 6730, 9421]",
+    "output": "19700",
+    "testtype": "functional"
+  },
+  {
+    "input": "[26, 48, 36, 96, 76, 40, 83, 95, 12, 62, 49, 56, 80, 93, 89, 53, 96, 7, 28, 69, 92, 80, 95, 69, 37, 92, 13, 35, 93, 7, 12, 49, 26, 98, 72, 31, 98, 39, 13, 69, 38, 84, 41, 53, 9, 11, 59, 99, 66, 18, 96, 71, 72, 42, 89, 54, 78, 4, 76, 91, 13, 37, 13, 100, 67, 9, 34, 39, 81, 86, 46, 24, 99, 52, 29, 78, 90, 44, 39, 21, 5, 83, 37, 70, 11, 13, 70, 42, 58, 60, 3, 61, 79, 51, 73, 50, 35, 81, 21, 54]",
+    "output": "198",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9389, 6226, 540, 4084, 164, 2210, 1423, 5794, 9208, 4029, 7653, 2241, 1348, 3068, 4459, 7040, 6583, 8259, 1015, 3197, 1223, 9602, 6890, 6685, 3258, 2229, 2749, 725, 8551, 6560, 9740, 7624, 6974, 1395, 5731, 3901, 7501, 5201, 2601, 8784, 5516, 6858, 885, 6697, 2457, 4009, 2217, 5476, 6957, 8251, 6905, 7876, 7777, 3487, 834, 2962, 3799, 9611, 1562, 6581, 8097, 3901, 475, 8734, 334, 9845, 9235]",
+    "output": "19585",
+    "testtype": "functional"
+  },
+  {
+    "input": "[2603, 5286, 5917, 6777, 242, 9721, 1967, 6556, 201, 6688, 8782, 5321, 9202, 1935, 7306, 1066, 3648, 4402, 1212, 3, 6167, 5437, 921, 8710, 4884, 9051, 4130, 5019, 9368, 8237, 4359, 4553, 8282, 7447, 7472, 3795, 2520, 4585, 2404, 6698, 5703, 4407, 8247, 3196, 3455, 541, 4178, 7529, 3540, 9060, 8565, 1386, 838, 7184, 5778, 8540, 1007, 68, 2229, 3079, 8295, 5171, 4165, 1139, 5655, 4331, 6136, 402, 7237]",
+    "output": "19089",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9344, 5421, 5727, 9227, 8998, 2964, 3117, 177, 4679, 7369, 9344, 6481, 7184, 697, 9111, 3960, 5338, 6059, 141, 3819, 6703, 1888, 426, 2152, 5616, 3787, 9393, 4683, 4019, 7794, 6869, 30, 6928, 9313, 2462, 508, 1608, 6760, 3341, 4399, 3957, 5622, 8555, 656, 6938, 3851, 2571, 2697, 4936, 5154, 2989, 3779, 4765, 7169, 1161, 1890, 7655, 7418, 7270, 1727, 2318, 877, 8606, 865, 3972, 3694, 8211, 9181, 8408, 4169]",
+    "output": "18737",
+    "testtype": "functional"
+  },
+  {
+    "input": "[728, 375, 9051, 8295, 6313, 2695, 6497, 4522, 4923, 7671, 1089, 6390, 7837, 9154, 7075, 4480, 4178, 4244, 3881, 9941, 4090, 8003, 9326, 7341, 8174, 8247, 4214, 6774, 2880, 3454, 7853, 9518, 2582, 3183, 7874, 4872, 2573, 6493, 1159, 4539, 433, 7048, 1310, 2523, 9376, 3707, 8460, 7982, 4271, 4380, 6747, 8183, 1478, 1914, 8497, 4877, 6480, 5199, 522, 4670, 4872, 5314, 9543, 3306, 8300, 8361, 9444, 3207, 6957, 6259, 8253, 9120, 6991, 7035]",
+    "output": "19484",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7206, 3296, 8995, 9767, 1906, 8501, 9743, 7580, 6568, 9641, 6450, 1001, 6446, 4078, 5706, 2392, 8439, 6434, 1607, 3276, 3321, 8616, 6628, 5720, 2682, 7701, 2663, 1608, 5351, 1505, 7862, 2851, 1303, 7345, 7739, 4688, 6564, 8760, 3332, 3957, 6557, 8206, 7004, 8233, 7393, 5493, 8138, 7325, 2671, 8719, 5164, 3568, 2070, 7987, 2159, 2332, 9122, 2470, 9109, 5810, 2929, 1062, 6881, 8294, 9301, 3750, 2779, 8952, 8811, 7801, 7698, 5840, 5251, 6702, 8039, 9999]",
+    "output": "19766",
+    "testtype": "functional"
+  },
+  {
+    "input": "[5843, 5563, 9942, 8763, 7231, 5053, 1298, 7803, 4563, 5386, 9176, 1747, 4113, 8271, 7042, 9760, 9719, 4310, 3462, 741, 8241, 1672, 5379, 22, 7991, 398, 7973, 9304, 5830, 5156, 6631, 338, 8558, 9112, 8947, 8714, 9379, 9675, 3912, 798, 7147, 5384, 1144, 8126, 7311, 2586, 5989, 1701, 4295, 8433, 1358, 5910, 8649, 3104, 8116, 5793, 8171, 4815, 4546, 4554, 9557, 2344, 2471, 2609, 5685, 4508, 2433, 105, 3236, 8699, 3368, 4318, 3886, 7198, 9400, 2710, 9181, 6445, 9726, 6382]",
+    "output": "19702",
+    "testtype": "functional"
+  },
+  {
+    "input": "[868, 54, 134, 404, 487, 877, 474, 948, 806, 533, 710, 29, 442, 533, 28, 497, 336, 972, 859, 608, 607, 72, 869, 304, 652, 159, 245, 670, 618, 679, 774, 762, 621, 926, 569, 222, 979, 46, 700, 713, 606, 486, 787, 608, 787, 227, 824, 724, 780, 104, 952, 973, 666, 411, 865, 206, 81, 785, 554, 109, 250, 648, 116, 728, 702, 811, 548, 135, 197, 335, 523, 890, 155, 203, 346, 780, 63, 964, 293, 248, 799, 617, 744, 403, 17, 33, 89, 877, 617, 105, 123, 465, 558, 645, 784, 868, 191, 330, 724, 975]",
+    "output": "1954",
+    "testtype": "functional"
+  },
+  {
+    "input": "[2644, 851, 9034, 845, 1389, 2799, 3379, 8449, 5385, 6495, 468, 4086, 9314, 7919, 2872, 8807, 6485, 2753, 4287, 1869, 4956, 7283, 7967, 9072, 5421, 8023, 2756, 6337, 5196, 2732, 1136, 5156, 1310, 4715, 133, 9301, 6318, 2414, 6864, 6751, 8327, 267, 8852, 6247, 8162, 4750, 5540, 8409, 996, 2220, 267, 7217, 7860, 8159, 96, 3, 8994, 3269, 6446, 5296, 2505, 2037, 532, 2071, 4595, 2845, 1431, 5022, 3303, 6013, 865, 7960, 7427, 2205, 8102, 8421, 4270, 9720, 9867, 7222, 8792, 7112, 1891, 8463, 8731]",
+    "output": "19587",
+    "testtype": "functional"
+  },
+  {
+    "input": "[1748, 6146, 6979, 7199, 32, 413, 2733, 5870, 5684, 1892, 6409, 7347, 5117, 398, 3304, 5800, 3088, 2452, 8417, 900, 5567, 4738, 5506, 5639, 6391, 8758, 9220, 3450, 5957, 5979, 92, 8020, 6424, 4343, 5346, 4319, 3743, 6042, 2588, 4706, 5230, 1958, 6649, 2935, 5118, 6461, 1792, 1824, 3525, 1832, 2302, 6377, 568, 4272, 6873, 4474, 9308, 4988, 7595, 7966, 1470, 9246, 1647, 3836, 9020, 3340, 4376, 4450, 9486, 104, 3948, 9598, 8321, 251, 5984, 1651, 4466, 7855, 6435, 9396, 5174, 1071, 3867, 9735, 5164, 707]",
+    "output": "19333",
+    "testtype": "functional"
+  },
+  {
+    "input": "[4299, 3023, 2513, 2284, 6379, 3490, 6102, 4311, 6534, 712, 1170, 532, 8670, 5818, 9632, 7037, 4552, 8556, 3286, 9580, 3536, 4407, 4381, 376, 6285, 6859, 1178, 2356, 4435, 2747, 8061, 9014, 7261, 8067, 6993, 444, 1229, 7047, 6163, 1825, 2931, 3945, 2901, 6360, 1955, 8005, 6613, 1431, 6000, 6966, 5874, 9324, 3877, 6746, 5933, 6812, 6315, 8979, 937, 1896, 4183, 8713, 8996, 9911, 4306, 262, 3035, 2725, 871, 6774, 2177, 6227, 7887, 5283, 9273, 5472, 7336, 8491, 9346, 6308, 2787, 7125, 5736, 4282, 9274, 5943, 5416, 9975]",
+    "output": "19886",
+    "testtype": "functional"
+  },
+  {
+    "input": "[8295, 5463, 8269, 4035, 2443, 1145, 2915, 7476, 87, 6239, 7058, 7978, 3310, 6889, 6811, 7285, 3225, 498, 889, 5469, 6952, 4757, 3521, 7898, 6619, 5501, 9782, 1574, 7095, 350, 645, 6386, 94, 7964, 8271, 5734, 6370, 1556, 128, 5206, 4131, 5709, 4790, 454, 8248, 3453, 3477, 9274, 5401, 9731, 8881, 6946, 6008, 6592, 2875, 6654, 2978, 8074, 8286, 3416, 4916, 6496, 8679, 8465, 5436, 2254, 2109, 9395, 8571, 5739, 6838, 8255, 3116, 5381, 8972, 5454, 3027, 9911, 5965, 5846, 4495, 1924, 4460, 927, 9103, 9990, 9932, 8910, 4589, 1425, 896]",
+    "output": "19922",
+    "testtype": "functional"
+  },
+  {
+    "input": "[9493, 5456, 5081, 8829, 4100, 5680, 4539, 9745, 6576, 1645, 7221, 6395, 2280, 8503, 1805, 8855, 799, 4715, 6501, 8233, 1238, 1606, 6572, 5986, 675, 2558, 5751, 7992, 3053, 5666, 8176, 8112, 7041, 2512, 2951, 5573, 8560, 5342, 2943, 9561, 1037, 2654, 9654, 2218, 1569, 7980, 6830, 7019, 7567, 4367, 530, 4357, 3232, 8893, 6610, 7934, 5377, 2091, 6471, 4394, 635, 2303, 8041, 9771, 2460, 6114, 916, 4847, 7668, 5419, 6607, 7945, 2346, 936, 2829, 801, 2109, 3193, 3675, 8107, 8276, 4193, 4107, 9110, 6569, 2429, 9894, 4095, 6876, 9294, 1108, 5789, 4715, 4683, 7052, 663, 1062, 9047, 5208]",
+    "output": "19665",
+    "testtype": "functional"
+  },
+  {
+    "input": "[7624, 5909, 1015, 1109, 9398, 1982, 6246, 6855, 6273, 1043, 2357, 6566, 4157, 9467, 8756, 7567, 397, 5205, 378, 9594, 1419, 476, 4250, 2082, 7744, 7405, 9764, 3782, 3256, 8670, 3962, 8588, 4224, 6141, 9934, 5073, 2491, 2285, 5145, 8058, 7194, 3099, 1384, 15, 7662, 8132, 2895, 8311, 6871, 903, 6363, 9231, 801, 9311, 7794, 5211, 9502, 7283, 1063, 247, 8519, 7839, 7082, 6428, 801, 4177, 4236, 3222, 406, 2352, 6232, 4986, 3908, 2373, 9410, 4297, 3083, 4237, 8069, 6841, 284, 5257, 4574, 6396, 7728, 986, 5544, 1996, 3818, 6192, 6809, 8633, 2715, 4716, 6616, 3117, 9036, 6616, 6403, 2199]",
+    "output": "19698",
+    "testtype": "functional"
+  },
+  {
+    "input": "[10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000, 10000]",
+    "output": "20000",
+    "testtype": "functional"
+  }
+]
+```
+
+## Generation
+
+### System Prompt
+
+```text
+You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.
+```
+
+### User Prompt
+
+```text
+### Question:
+You are given a 0-indexed integer array nums. You have to find the maximum sum of a pair of numbers from nums such that the maximum digit in both numbers are equal.
+Return the maximum sum or -1 if no such pair exists.
+ 
+Example 1:
+
+Input: nums = [51,71,17,24,42]
+Output: 88
+Explanation: 
+For i = 1 and j = 2, nums[i] and nums[j] have equal maximum digits with a pair sum of 71 + 17 = 88. 
+For i = 3 and j = 4, nums[i] and nums[j] have equal maximum digits with a pair sum of 24 + 42 = 66.
+It can be shown that there are no other pairs with equal maximum digits, so the answer is 88.
+Example 2:
+
+Input: nums = [1,2,3,4]
+Output: -1
+Explanation: No pair exists in nums with equal maximum digits.
+
+ 
+Constraints:
+
+2 <= nums.length <= 100
+1 <= nums[i] <= 10^4
+
+### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.
+```python
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        
+```
+
+### Answer: (use the provided format with backticks)
+```
+
+### Outputs
+
+<details>
+<summary>Generation 1</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each number, bucket it by its maximum digit.
+        # Then track the largest two values in each bucket.
+        best1 = defaultdict(lambda: -1)
+        best2 = defaultdict(lambda: -1)
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in best1:
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 2</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+
+        best_two = defaultdict(lambda: [-1, -1])  # [largest, second_largest]
+        for x in nums:
+            d = max_digit(x)
+            a, b = best_two[d]
+            if x > a:
+                best_two[d] = [x, a]
+            elif x > b:
+                best_two[d][1] = x
+
+        ans = -1
+        for a, b in best_two.values():
+            if b != -1:
+                ans = max(ans, a + b)
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # Group numbers by their maximum digit and keep the best two sums
+        best1 = [-1] * 10  # largest number for each digit
+        best2 = [-1] * 10  # second largest number for each digit
+
+        for x in nums:
+            md = max(map(int, str(x)))
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # group maximum digit value -> top two numbers that have that max digit
+        best = [[] for _ in range(10)]  # indices 0..9 (max digit 0..9, but nums>=1 so 1..9)
+        
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+        
+        for x in nums:
+            d = max_digit(x)
+            arr = best[d]
+            arr.append(x)
+            # keep only the largest two
+            arr.sort(reverse=True)
+            if len(arr) > 2:
+                arr.pop()
+        
+        ans = -1
+        for d in range(10):
+            if len(best[d]) == 2:
+                ans = max(ans, best[d][0] + best[d][1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 5</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # Keep track of the top two numbers for each "max digit" value (0-9)
+        best1 = [-1] * 10  # largest
+        best2 = [-1] * 10  # second largest
+
+        for x in nums:
+            md = max(int(d) for d in str(x))  # maximum digit in x
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for md in range(10):
+            if best2[md] != -1:  # need at least two numbers with same max digit
+                ans = max(ans, best1[md] + best2[md])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 6</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        best = defaultdict(list)  # digit -> top values (up to 2)
+        for x in nums:
+            d = max_digit(x)
+            arr = best[d]
+            arr.append(x)
+            if len(arr) > 2:
+                arr.sort(reverse=True)
+                del arr[2:]  # keep top 2
+
+        ans = -1
+        for d, arr in best.items():
+            if len(arr) >= 2:
+                arr.sort(reverse=True)
+                ans = max(ans, arr[0] + arr[1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 7</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # group: max digit -> list of top two values
+        best = {}  # digit -> [largest, second_largest]
+        
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+        
+        for v in nums:
+            d = max_digit(v)
+            if d not in best:
+                best[d] = [v, -1]
+            else:
+                a, b = best[d]
+                if v > a:
+                    best[d] = [v, a]
+                elif v > b:
+                    best[d][1] = v
+        
+        ans = -1
+        for a, b in best.values():
+            if b != -1:  # have at least two numbers with same max digit
+                ans = max(ans, a + b)
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 8</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each number, compute its maximum digit.
+        # Keep track of the top two numbers for each max digit.
+        best1 = defaultdict(lambda: -1)  # largest
+        best2 = defaultdict(lambda: -1)  # second largest
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in best1:
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 9</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # digit key -> top two largest numbers having that key
+        best = defaultdict(list)  # key -> [largest, second_largest] (stored up to 2)
+
+        for x in nums:
+            m = max(int(d) for d in str(x))
+            arr = best[m]
+            arr.append(x)
+            arr.sort(reverse=True)
+            if len(arr) > 2:
+                arr.pop()
+
+        ans = -1
+        for m, arr in best.items():
+            if len(arr) == 2:
+                ans = max(ans, arr[0] + arr[1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Generation 10</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # key: maximum digit; value: two largest numbers with that max digit
+        best = defaultdict(list)
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            md = max_digit(x)
+            arr = best[md]
+            arr.append(x)
+            arr.sort(reverse=True)
+            if len(arr) > 2:
+                arr.pop()
+
+        ans = -1
+        for md, arr in best.items():
+            if len(arr) == 2:
+                ans = max(ans, arr[0] + arr[1])
+        return ans
+```
+```
+
+</details>
+
+## Scoring
+
+| Generation | Score | Tier |
+| --- | ---: | --- |
+| 0 | 1.0000 | `full` |
+| 1 | 1.0000 | `full` |
+| 2 | 1.0000 | `full` |
+| 3 | 1.0000 | `full` |
+| 4 | 1.0000 | `full` |
+| 5 | 1.0000 | `full` |
+| 6 | 1.0000 | `full` |
+| 7 | 1.0000 | `full` |
+| 8 | 1.0000 | `full` |
+| 9 | 1.0000 | `full` |
+
+<details>
+<summary>Score details for generation 0</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 1</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 2</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 3</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 4</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 5</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 6</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 7</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 8</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 9</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+## Memory
+
+- Skipped: `true`
+- Reason: `insufficient_tiers`
+
+### Grouped Solutions
+
+#### Tier: `full`
+
+<details>
+<summary>full attempt 1</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each number, bucket it by its maximum digit.
+        # Then track the largest two values in each bucket.
+        best1 = defaultdict(lambda: -1)
+        best2 = defaultdict(lambda: -1)
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in best1:
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 2</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+
+        best_two = defaultdict(lambda: [-1, -1])  # [largest, second_largest]
+        for x in nums:
+            d = max_digit(x)
+            a, b = best_two[d]
+            if x > a:
+                best_two[d] = [x, a]
+            elif x > b:
+                best_two[d][1] = x
+
+        ans = -1
+        for a, b in best_two.values():
+            if b != -1:
+                ans = max(ans, a + b)
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # Group numbers by their maximum digit and keep the best two sums
+        best1 = [-1] * 10  # largest number for each digit
+        best2 = [-1] * 10  # second largest number for each digit
+
+        for x in nums:
+            md = max(map(int, str(x)))
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # group maximum digit value -> top two numbers that have that max digit
+        best = [[] for _ in range(10)]  # indices 0..9 (max digit 0..9, but nums>=1 so 1..9)
+        
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+        
+        for x in nums:
+            d = max_digit(x)
+            arr = best[d]
+            arr.append(x)
+            # keep only the largest two
+            arr.sort(reverse=True)
+            if len(arr) > 2:
+                arr.pop()
+        
+        ans = -1
+        for d in range(10):
+            if len(best[d]) == 2:
+                ans = max(ans, best[d][0] + best[d][1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 5</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # Keep track of the top two numbers for each "max digit" value (0-9)
+        best1 = [-1] * 10  # largest
+        best2 = [-1] * 10  # second largest
+
+        for x in nums:
+            md = max(int(d) for d in str(x))  # maximum digit in x
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for md in range(10):
+            if best2[md] != -1:  # need at least two numbers with same max digit
+                ans = max(ans, best1[md] + best2[md])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 6</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        best = defaultdict(list)  # digit -> top values (up to 2)
+        for x in nums:
+            d = max_digit(x)
+            arr = best[d]
+            arr.append(x)
+            if len(arr) > 2:
+                arr.sort(reverse=True)
+                del arr[2:]  # keep top 2
+
+        ans = -1
+        for d, arr in best.items():
+            if len(arr) >= 2:
+                arr.sort(reverse=True)
+                ans = max(ans, arr[0] + arr[1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 7</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # group: max digit -> list of top two values
+        best = {}  # digit -> [largest, second_largest]
+        
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+        
+        for v in nums:
+            d = max_digit(v)
+            if d not in best:
+                best[d] = [v, -1]
+            else:
+                a, b = best[d]
+                if v > a:
+                    best[d] = [v, a]
+                elif v > b:
+                    best[d][1] = v
+        
+        ans = -1
+        for a, b in best.values():
+            if b != -1:  # have at least two numbers with same max digit
+                ans = max(ans, a + b)
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 8</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each number, compute its maximum digit.
+        # Keep track of the top two numbers for each max digit.
+        best1 = defaultdict(lambda: -1)  # largest
+        best2 = defaultdict(lambda: -1)  # second largest
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in best1:
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 9</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # digit key -> top two largest numbers having that key
+        best = defaultdict(list)  # key -> [largest, second_largest] (stored up to 2)
+
+        for x in nums:
+            m = max(int(d) for d in str(x))
+            arr = best[m]
+            arr.append(x)
+            arr.sort(reverse=True)
+            if len(arr) > 2:
+                arr.pop()
+
+        ans = -1
+        for m, arr in best.items():
+            if len(arr) == 2:
+                ans = max(ans, arr[0] + arr[1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 10</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # key: maximum digit; value: two largest numbers with that max digit
+        best = defaultdict(list)
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            md = max_digit(x)
+            arr = best[md]
+            arr.append(x)
+            arr.sort(reverse=True)
+            if len(arr) > 2:
+                arr.pop()
+
+        ans = -1
+        for md, arr in best.items():
+            if len(arr) == 2:
+                ans = max(ans, arr[0] + arr[1])
+        return ans
+```
+```
+
+</details>
+
+## Evaluation
+
+- Baseline pass@1: `0.9000`
+- Augmented pass@1: `0.9000`
+- Improvement: `+0.0000`
+
+- Augmented outputs reused baseline generations because no memory was available.
+
+### Baseline
+
+### System Prompt
+
+```text
+You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.
+```
+
+### User Prompt
+
+```text
+### Question:
+You are given a 0-indexed integer array nums. You have to find the maximum sum of a pair of numbers from nums such that the maximum digit in both numbers are equal.
+Return the maximum sum or -1 if no such pair exists.
+ 
+Example 1:
+
+Input: nums = [51,71,17,24,42]
+Output: 88
+Explanation: 
+For i = 1 and j = 2, nums[i] and nums[j] have equal maximum digits with a pair sum of 71 + 17 = 88. 
+For i = 3 and j = 4, nums[i] and nums[j] have equal maximum digits with a pair sum of 24 + 42 = 66.
+It can be shown that there are no other pairs with equal maximum digits, so the answer is 88.
+Example 2:
+
+Input: nums = [1,2,3,4]
+Output: -1
+Explanation: No pair exists in nums with equal maximum digits.
+
+ 
+Constraints:
+
+2 <= nums.length <= 100
+1 <= nums[i] <= 10^4
+
+### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.
+```python
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        
+```
+
+### Answer: (use the provided format with backticks)
+```
+
+#### Outputs
+
+<details>
+<summary>Baseline generation 1</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+
+        best = defaultdict(list)  # max_digit -> top two values (stored descending)
+        for x in nums:
+            d = max_digit(x)
+            lst = best[d]
+            lst.append(x)
+            lst.sort(reverse=True)
+            if len(lst) > 2:
+                lst.pop()  # keep only top 2
+
+        ans = -1
+        for d, lst in best.items():
+            if len(lst) == 2:
+                ans = max(ans, lst[0] + lst[1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 2</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each number, compute its maximum digit.
+        # For each max digit d, keep the top two numbers with that d.
+        best1 = [-1] * 10  # largest
+        best2 = [-1] * 10  # second largest
+
+        for x in nums:
+            md = max(int(c) for c in str(x))
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:  # means we have at least two numbers
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each possible maximum digit d, keep the two largest numbers
+        # whose maximum digit equals d.
+        best1 = [-1] * 10
+        best2 = [-1] * 10
+
+        for x in nums:
+            # Find maximum digit of x
+            mx = 0
+            while x > 0:
+                mx = max(mx, x % 10)
+                x //= 10
+
+            if x == 0:
+                mx = 0  # not needed given constraints, but harmless
+
+            # Insert x into the top-2 for digit mx
+            if x > best1[mx]:
+                best2[mx] = best1[mx]
+                best1[mx] = x
+            elif x > best2[mx]:
+                best2[mx] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # max_digit -> two largest numbers with that max digit
+        best1 = [-1] * 10
+        best2 = [-1] * 10
+
+        for x in nums:
+            md = max(map(int, str(x)))
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 5</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            # maximum decimal digit of x
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        best = defaultdict(lambda: [-1, -1])  # digit -> top two values
+        ans = -1
+
+        for x in nums:
+            d = max_digit(x)
+            first, second = best[d]
+            if x >= first:
+                second = first
+                first = x
+            elif x > second:
+                second = x
+            best[d] = [first, second]
+            if second != -1:
+                ans = max(ans, first + second)
+
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 6</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        # For each possible max digit d, keep the top two numbers having max digit d
+        best1 = defaultdict(int)   # largest
+        best2 = defaultdict(int)   # second largest
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in best1:
+            if best2[d] != 0:  # at least two numbers
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 7</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        best1 = defaultdict(lambda: -1)  # largest number for each max-digit value
+        best2 = defaultdict(lambda: -1)  # second largest number for each max-digit value
+
+        def max_digit(x: int) -> int:
+            d = 0
+            while x:
+                d = max(d, x % 10)
+                x //= 10
+            return d
+
+        for x in nums:
+            md = max_digit(x)
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for md in best1:
+            if best2[md] != -1:
+                ans = max(ans, best1[md] + best2[md])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 8</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # Group numbers by the maximum digit they contain
+        best1 = [-1] * 10  # largest number for each max digit
+        best2 = [-1] * 10  # second largest number for each max digit
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x > 0:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:  # means we have at least two numbers
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 9</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # max_digit -> top two numbers that share this max digit
+        best1 = {}
+        best2 = {}
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            md = max_digit(x)
+            if md not in best1:
+                best1[md] = x
+                best2[md] = -1
+            else:
+                if x > best1[md]:
+                    best2[md] = best1[md]
+                    best1[md] = x
+                elif x > best2[md]:
+                    best2[md] = x
+
+        ans = -1
+        for md in best1:
+            if best2[md] != -1:
+                ans = max(ans, best1[md] + best2[md])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 10</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+
+        # For each max digit d, store the largest two numbers in that group.
+        best1 = [-1] * 10
+        best2 = [-1] * 10
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+#### Baseline Scores
+
+| Generation | Score | Tier |
+| --- | ---: | --- |
+| 0 | 1.0000 | `full` |
+| 1 | 1.0000 | `full` |
+| 2 | 0.0000 | `fail` |
+| 3 | 1.0000 | `full` |
+| 4 | 1.0000 | `full` |
+| 5 | 1.0000 | `full` |
+| 6 | 1.0000 | `full` |
+| 7 | 1.0000 | `full` |
+| 8 | 1.0000 | `full` |
+| 9 | 1.0000 | `full` |
+
+<details>
+<summary>Score details for generation 0</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 1</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 2</summary>
+
+```json
+{
+  "passed": 0,
+  "total": 71,
+  "cases": [
+    {
+      "passed": false,
+      "expected": "88",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "14",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "108",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "103",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "136",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "11",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "187",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "125",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "173",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "123",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "161",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "106",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "152",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "134",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1901",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "14067",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1727",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1937",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "114",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19397",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1844",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1800",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1920",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1982",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1850",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "18",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1960",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19604",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19502",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1938",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "196",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1942",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1973",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1963",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19204",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1948",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19421",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19781",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19493",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19452",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "20",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19118",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19540",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19646",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19337",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19700",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "198",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19585",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19089",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "18737",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19484",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19766",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19702",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1954",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19587",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19333",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19886",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19922",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19665",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19698",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "20000",
+      "actual": "0",
+      "error": "Wrong Answer"
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 3</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 4</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 5</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 6</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 7</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 8</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 9</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+### Augmented
+
+#### Outputs
+
+<details>
+<summary>Augmented generation 1</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+
+        best = defaultdict(list)  # max_digit -> top two values (stored descending)
+        for x in nums:
+            d = max_digit(x)
+            lst = best[d]
+            lst.append(x)
+            lst.sort(reverse=True)
+            if len(lst) > 2:
+                lst.pop()  # keep only top 2
+
+        ans = -1
+        for d, lst in best.items():
+            if len(lst) == 2:
+                ans = max(ans, lst[0] + lst[1])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 2</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each number, compute its maximum digit.
+        # For each max digit d, keep the top two numbers with that d.
+        best1 = [-1] * 10  # largest
+        best2 = [-1] * 10  # second largest
+
+        for x in nums:
+            md = max(int(c) for c in str(x))
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:  # means we have at least two numbers
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # For each possible maximum digit d, keep the two largest numbers
+        # whose maximum digit equals d.
+        best1 = [-1] * 10
+        best2 = [-1] * 10
+
+        for x in nums:
+            # Find maximum digit of x
+            mx = 0
+            while x > 0:
+                mx = max(mx, x % 10)
+                x //= 10
+
+            if x == 0:
+                mx = 0  # not needed given constraints, but harmless
+
+            # Insert x into the top-2 for digit mx
+            if x > best1[mx]:
+                best2[mx] = best1[mx]
+                best1[mx] = x
+            elif x > best2[mx]:
+                best2[mx] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # max_digit -> two largest numbers with that max digit
+        best1 = [-1] * 10
+        best2 = [-1] * 10
+
+        for x in nums:
+            md = max(map(int, str(x)))
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 5</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            # maximum decimal digit of x
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        best = defaultdict(lambda: [-1, -1])  # digit -> top two values
+        ans = -1
+
+        for x in nums:
+            d = max_digit(x)
+            first, second = best[d]
+            if x >= first:
+                second = first
+                first = x
+            elif x > second:
+                second = x
+            best[d] = [first, second]
+            if second != -1:
+                ans = max(ans, first + second)
+
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 6</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        # For each possible max digit d, keep the top two numbers having max digit d
+        best1 = defaultdict(int)   # largest
+        best2 = defaultdict(int)   # second largest
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in best1:
+            if best2[d] != 0:  # at least two numbers
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 7</summary>
+
+```text
+```python
+from typing import List
+from collections import defaultdict
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        best1 = defaultdict(lambda: -1)  # largest number for each max-digit value
+        best2 = defaultdict(lambda: -1)  # second largest number for each max-digit value
+
+        def max_digit(x: int) -> int:
+            d = 0
+            while x:
+                d = max(d, x % 10)
+                x //= 10
+            return d
+
+        for x in nums:
+            md = max_digit(x)
+            if x > best1[md]:
+                best2[md] = best1[md]
+                best1[md] = x
+            elif x > best2[md]:
+                best2[md] = x
+
+        ans = -1
+        for md in best1:
+            if best2[md] != -1:
+                ans = max(ans, best1[md] + best2[md])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 8</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # Group numbers by the maximum digit they contain
+        best1 = [-1] * 10  # largest number for each max digit
+        best2 = [-1] * 10  # second largest number for each max digit
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x > 0:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:  # means we have at least two numbers
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 9</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        # max_digit -> top two numbers that share this max digit
+        best1 = {}
+        best2 = {}
+
+        def max_digit(x: int) -> int:
+            m = 0
+            while x:
+                m = max(m, x % 10)
+                x //= 10
+            return m
+
+        for x in nums:
+            md = max_digit(x)
+            if md not in best1:
+                best1[md] = x
+                best2[md] = -1
+            else:
+                if x > best1[md]:
+                    best2[md] = best1[md]
+                    best1[md] = x
+                elif x > best2[md]:
+                    best2[md] = x
+
+        ans = -1
+        for md in best1:
+            if best2[md] != -1:
+                ans = max(ans, best1[md] + best2[md])
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 10</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def maxSum(self, nums: List[int]) -> int:
+        def max_digit(x: int) -> int:
+            md = 0
+            while x:
+                md = max(md, x % 10)
+                x //= 10
+            return md
+
+        # For each max digit d, store the largest two numbers in that group.
+        best1 = [-1] * 10
+        best2 = [-1] * 10
+
+        for x in nums:
+            d = max_digit(x)
+            if x > best1[d]:
+                best2[d] = best1[d]
+                best1[d] = x
+            elif x > best2[d]:
+                best2[d] = x
+
+        ans = -1
+        for d in range(10):
+            if best2[d] != -1:
+                ans = max(ans, best1[d] + best2[d])
+        return ans
+```
+```
+
+</details>
+
+#### Augmented Scores
+
+| Generation | Score | Tier |
+| --- | ---: | --- |
+| 0 | 1.0000 | `full` |
+| 1 | 1.0000 | `full` |
+| 2 | 0.0000 | `fail` |
+| 3 | 1.0000 | `full` |
+| 4 | 1.0000 | `full` |
+| 5 | 1.0000 | `full` |
+| 6 | 1.0000 | `full` |
+| 7 | 1.0000 | `full` |
+| 8 | 1.0000 | `full` |
+| 9 | 1.0000 | `full` |
+
+<details>
+<summary>Score details for generation 0</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 1</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 2</summary>
+
+```json
+{
+  "passed": 0,
+  "total": 71,
+  "cases": [
+    {
+      "passed": false,
+      "expected": "88",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "14",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "108",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "103",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "136",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "11",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "187",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "125",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "173",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "123",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "161",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "106",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "152",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "134",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1901",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "14067",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1727",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "-1",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1937",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "114",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19397",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1844",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1800",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1920",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1982",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1850",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "18",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1960",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19604",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19502",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1938",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "196",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1942",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1973",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1963",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19204",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1948",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19421",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19781",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19493",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19452",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "20",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19118",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19540",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19646",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19337",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19700",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "198",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19585",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19089",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "18737",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19484",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19766",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19702",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "1954",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19587",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19333",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19886",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19922",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19665",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "19698",
+      "actual": "0",
+      "error": "Wrong Answer"
+    },
+    {
+      "passed": false,
+      "expected": "20000",
+      "actual": "0",
+      "error": "Wrong Answer"
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 3</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 4</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 5</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 6</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 7</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 8</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 9</summary>
+
+```json
+{
+  "passed": 71,
+  "total": 71,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "88",
+      "actual": "88",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14",
+      "actual": "14",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "108",
+      "actual": "108",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "103",
+      "actual": "103",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "136",
+      "actual": "136",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "11",
+      "actual": "11",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "187",
+      "actual": "187",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "125",
+      "actual": "125",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "173",
+      "actual": "173",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "123",
+      "actual": "123",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "161",
+      "actual": "161",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "106",
+      "actual": "106",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "152",
+      "actual": "152",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "134",
+      "actual": "134",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1901",
+      "actual": "1901",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "14067",
+      "actual": "14067",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1727",
+      "actual": "1727",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "-1",
+      "actual": "-1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1937",
+      "actual": "1937",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "114",
+      "actual": "114",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19397",
+      "actual": "19397",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1844",
+      "actual": "1844",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1800",
+      "actual": "1800",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1920",
+      "actual": "1920",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1982",
+      "actual": "1982",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1850",
+      "actual": "1850",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18",
+      "actual": "18",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1960",
+      "actual": "1960",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19604",
+      "actual": "19604",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19502",
+      "actual": "19502",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1938",
+      "actual": "1938",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "196",
+      "actual": "196",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1942",
+      "actual": "1942",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1973",
+      "actual": "1973",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1963",
+      "actual": "1963",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19204",
+      "actual": "19204",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1948",
+      "actual": "1948",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19421",
+      "actual": "19421",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19781",
+      "actual": "19781",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19493",
+      "actual": "19493",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19452",
+      "actual": "19452",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20",
+      "actual": "20",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19118",
+      "actual": "19118",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19540",
+      "actual": "19540",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19646",
+      "actual": "19646",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19337",
+      "actual": "19337",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19700",
+      "actual": "19700",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "198",
+      "actual": "198",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19585",
+      "actual": "19585",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19089",
+      "actual": "19089",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "18737",
+      "actual": "18737",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19484",
+      "actual": "19484",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19766",
+      "actual": "19766",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19702",
+      "actual": "19702",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1954",
+      "actual": "1954",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19587",
+      "actual": "19587",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19333",
+      "actual": "19333",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19886",
+      "actual": "19886",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19922",
+      "actual": "19922",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19665",
+      "actual": "19665",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "19698",
+      "actual": "19698",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "20000",
+      "actual": "20000",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>

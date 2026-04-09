@@ -1,0 +1,1232 @@
+{
+  "problem_id": "1883_B",
+  "domain": "coding",
+  "problem": {
+    "id": "1883_B",
+    "domain": "coding",
+    "statement": "You are given a string $s$ of length $n$, consisting of lowercase Latin letters, and an integer $k$.\n\nYou need to check if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome. Note that you can reorder the remaining characters in any way.\n\nA palindrome is a string that reads the same forwards and backwards. For example, the strings \"z\", \"aaa\", \"aba\", \"abccba\" are palindromes, while the strings \"codeforces\", \"reality\", \"ab\" are not.\n\nInput\n\nEach test consists of multiple test cases. The first line contains a single integer $t$ ($1 \\leq t \\leq 10^4$) — the number of the test cases. This is followed by their description.\n\nThe first line of each test case contains two integers $n$ and $k$ ($0 \\leq k < n \\leq 10^5$) — the length of the string $s$ and the number of characters to be deleted.\n\nThe second line of each test case contains a string $s$ of length $n$, consisting of lowercase Latin letters.\n\nIt is guaranteed that the sum of $n$ over all test cases does not exceed $2 \\cdot 10^5$.\n\nOutput\n\nFor each test case, output \"YES\" if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome, and \"NO\" otherwise.\n\nYou can output the answer in any case (uppercase or lowercase). For example, the strings \"yEs\", \"yes\", \"Yes\", and \"YES\" will be recognized as positive answers.Sample Input 1:\n14\n\n1 0\n\na\n\n2 0\n\nab\n\n2 1\n\nba\n\n3 1\n\nabb\n\n3 2\n\nabc\n\n6 2\n\nbacacd\n\n6 2\n\nfagbza\n\n6 2\n\nzwaafa\n\n7 2\n\ntaagaak\n\n14 3\n\nttrraakkttoorr\n\n5 3\n\ndebdb\n\n5 4\n\necadc\n\n5 3\n\ndebca\n\n5 3\n\nabaac\n\n\n\nSample Output 1:\n\nYES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES\n\n\nNote\n\nIn the first test case, nothing can be removed, and the string \"a\" is a palindrome.\n\nIn the second test case, nothing can be removed, but the strings \"ab\" and \"ba\" are not palindromes.\n\nIn the third test case, any character can be removed, and the resulting string will be a palindrome.\n\nIn the fourth test case, one occurrence of the character \"a\" can be removed, resulting in the string \"bb\", which is a palindrome.\n\nIn the sixth test case, one occurrence of the characters \"b\" and \"d\" can be removed, resulting in the string \"acac\", which can be rearranged to the string \"acca\".\n\nIn the ninth test case, one occurrence of the characters \"t\" and \"k\" can be removed, resulting in the string \"aagaa\", which is a palindrome.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "14\n1 0\na\n2 0\nab\n2 1\nba\n3 1\nabb\n3 2\nabc\n6 2\nbacacd\n6 2\nfagbza\n6 2\nzwaafa\n7 2\ntaagaak\n14 3\nttrraakkttoorr\n5 3\ndebdb\n5 4\necadc\n5 3\ndebca\n5 3\nabaac\n",
+        "output": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "5\n10 3\naaabbbcccd\n10 1\naaabbccddd\n10 0\naaabbccddd\n10 9\nabcdefghij\n10 2\naabbccddee\n",
+        "output": "YES\nYES\nNO\nYES\nYES",
+        "testtype": "stdin"
+      },
+      {
+        "input": "5\n10 5\naaabbbbccc\n10 5\naaabbbcccc\n10 4\naabbccddeeff\n11 3\naabbccddeeff\n10 8\naaabbbbccc",
+        "output": "YES\nYES\nYES\nYES\nYES",
+        "testtype": "stdin"
+      },
+      {
+        "input": "5\n15 7\naaabbbcccdddeee\n15 8\naaabbccddeeffggh\n17 9\naaabbbcccdddeeeff\n21 10\naabbccddeeffgghhiijj\n20 0\naabbccddeeffgghhiijjkk",
+        "output": "YES\nYES\nYES\nYES\nYES",
+        "testtype": "stdin"
+      }
+    ],
+    "starter_code": null,
+    "metadata": {
+      "func_name": null,
+      "question_title": "B. Chemistry",
+      "platform": "codeforces",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a string $s$ of length $n$, consisting of lowercase Latin letters, and an integer $k$.\n\nYou need to check if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome. Note that you can reorder the remaining characters in any way.\n\nA palindrome is a string that reads the same forwards and backwards. For example, the strings \"z\", \"aaa\", \"aba\", \"abccba\" are palindromes, while the strings \"codeforces\", \"reality\", \"ab\" are not.\n\nInput\n\nEach test consists of multiple test cases. The first line contains a single integer $t$ ($1 \\leq t \\leq 10^4$) — the number of the test cases. This is followed by their description.\n\nThe first line of each test case contains two integers $n$ and $k$ ($0 \\leq k < n \\leq 10^5$) — the length of the string $s$ and the number of characters to be deleted.\n\nThe second line of each test case contains a string $s$ of length $n$, consisting of lowercase Latin letters.\n\nIt is guaranteed that the sum of $n$ over all test cases does not exceed $2 \\cdot 10^5$.\n\nOutput\n\nFor each test case, output \"YES\" if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome, and \"NO\" otherwise.\n\nYou can output the answer in any case (uppercase or lowercase). For example, the strings \"yEs\", \"yes\", \"Yes\", and \"YES\" will be recognized as positive answers.Sample Input 1:\n14\n\n1 0\n\na\n\n2 0\n\nab\n\n2 1\n\nba\n\n3 1\n\nabb\n\n3 2\n\nabc\n\n6 2\n\nbacacd\n\n6 2\n\nfagbza\n\n6 2\n\nzwaafa\n\n7 2\n\ntaagaak\n\n14 3\n\nttrraakkttoorr\n\n5 3\n\ndebdb\n\n5 4\n\necadc\n\n5 3\n\ndebca\n\n5 3\n\nabaac\n\n\n\nSample Output 1:\n\nYES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES\n\n\nNote\n\nIn the first test case, nothing can be removed, and the string \"a\" is a palindrome.\n\nIn the second test case, nothing can be removed, but the strings \"ab\" and \"ba\" are not palindromes.\n\nIn the third test case, any character can be removed, and the resulting string will be a palindrome.\n\nIn the fourth test case, one occurrence of the character \"a\" can be removed, resulting in the string \"bb\", which is a palindrome.\n\nIn the sixth test case, one occurrence of the characters \"b\" and \"d\" can be removed, resulting in the string \"acac\", which can be rearranged to the string \"acca\".\n\nIn the ninth test case, one occurrence of the characters \"t\" and \"k\" can be removed, resulting in the string \"aagaa\", which is a palindrome.\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        m = n - k  # remaining length\n\n        freq = Counter(s)\n        odd = sum(v & 1 for v in freq.values())\n\n        # For a palindrome of length m:\n        # - if m is even => odd must be 0\n        # - if m is odd  => odd must be 1\n        # We can remove exactly k chars, which is equivalent to\n        # choosing some final multiset of size m from original counts.\n        #\n        # Standard greedy feasibility check:\n        # We need minimal number of odd-pair adjustments achievable by deletions.\n        # Each deletion can change parity of at most one character count.\n        #\n        # Known solution:\n        # Let x = odd. If m is even -> need x == 0 mod 2? Actually need x==0 after deletions.\n        # Each deletion reduces odd count by at most 1, but also we must reach size m.\n        # Equivalent approach:\n        # Consider that after deletions, parity can be arranged if we can make\n        # number of odd counts equal to m%2.\n        #\n        # The known CF condition:\n        # - if m is even: we need (odd <= k) and (k-odd)%2==0? Not quite.\n        #\n        # Correct condition for this problem (CF 1705B-ish style) is:\n        # We can always reduce counts to match palindrome iff:\n        #   odd <= k + (n - m) ??? -> since n-m=k.\n        # More directly:\n        # After deleting k chars, remaining counts sum to m.\n        # Let odd0 be number of odd counts in original.\n        # When deleting one char of some letter:\n        #   if that letter count was odd, it becomes even => odd decreases by 1\n        #   else it becomes odd => odd increases by 1\n        # Thus odd changes by ±1 per deletion, so parity of odd changes each deletion.\n        #\n        # We need odd_final = m%2.\n        # Let need = m & 1.\n        # Minimum deletions to fix odd count magnitude:\n        # We can achieve any odd_final with same parity as odd0 + k (because odd changes by ±1 each time)\n        # More simply: odd_final and (odd0 + k) must have same parity.\n        #\n        # Also we cannot reduce odd below 0 and odd_max limited by counts,\n        # but for this problem with k deletions, the only constraints that matter are:\n        #   odd0 <= k + need  and parity matches.\n        #\n        # Derivation:\n        # Each deletion can reduce odd by 1 at best. So to get odd_final (0 or 1),\n        # we need to be able to reduce odd0 down to need.\n        # That requires odd0 - need <= k  (only if odd0 > need).\n        # Parity: since odd changes by ±1 each deletion, odd_final ≡ odd0 + k (mod 2).\n        #\n        # If odd0 <= need, we can always \"waste\" extra deletions without violating parity,\n        # as long as there are enough characters to delete (true).\n        #\n        # Implement:\n        # Check:\n        #   if odd0 > need and odd0 - need > k => NO\n        #   else if (odd0 + k - need) % 2 == 0 => YES\n        #\n        # This matches known accepted logic for this exact problem.\n        odd0 = odd\n        need = m & 1\n        if odd0 > need and odd0 - need > k:\n            out.append(\"NO\")\n        else:\n            out.append(\"YES\" if (odd0 + k - need) % 2 == 0 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        c = Counter(s)\n\n        # Count letters with odd frequency\n        odd = sum(v & 1 for v in c.values())\n\n        # After removing exactly k chars, remaining length is L = n - k\n        L = n - k\n\n        # For a multiset of letters to be permutable into a palindrome:\n        # number of odd counts must be 0 (L even) or 1 (L odd).\n        target_odd = 0 if (L % 2 == 0) else 1\n\n        # Removing one character flips parity of the chosen letter's count,\n        # so it changes odd-count count by exactly ±1.\n        # Therefore parity of (odd - target_odd) matters: odd and target_odd\n        # must have same parity when using k steps.\n        possible = False\n        if k >= 0:\n            d = odd - target_odd\n            # Need to reduce odd to target_odd using k moves, and sign can be either\n            # since odd may be less or greater, but changes are by 1 each move.\n            # Minimal number of moves to reach target_odd is |d|? Not always,\n            # but since we can also increase odd by removing from even-count letters,\n            # we just need:\n            # - k is at least the minimal steps to reach target_odd with correct parity.\n            # Minimal steps is |d| because each move changes odd by 1.\n            if k >= abs(d) and ((k - abs(d)) % 2 == 0):\n                possible = True\n\n        out.append(\"YES\" if possible else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n\n        cnt = Counter(s)\n        odd = sum(v % 2 for v in cnt.values())\n        need_len = n - k  # remaining length\n\n        # If we keep exactly need_len chars, then:\n        # - if need_len is even -> number of odd counts must be 0\n        # - if need_len is odd  -> number of odd counts must be 1\n        target_odd = 0 if need_len % 2 == 0 else 1\n\n        # Removing k chars reduces some counts by 1, which flips parity of that char.\n        # Let x be how many odd-count letters we \"fix\" by removing from them,\n        # and y be how many even-count letters we \"break\" by removing from them.\n        # Then new odd count becomes: odd - x + y = target_odd.\n        # Also x + y equals number of removed chars k (because each removal changes parity of one letter).\n        #\n        # Equivalent feasibility:\n        # 1) new odd parity must match target: odd and target have same parity when k is even? but k always changes\n        #    odd by ±1 each removal so odd change parity equals k mod 2.\n        #    More directly from equation odd - x + y = target and x + y = k:\n        #       odd - (x) + (k - x) = target  => odd + k - 2x = target\n        #       => 2x = odd + k - target, so RHS must be even and x in [0, ?] and integer.\n        #\n        # From 2x equation we need:\n        #   odd + k - target_odd >= 0  (since x>=0)\n        #   odd + k - target_odd <= 2*odd? not required; because x cannot exceed odd.\n        #     since x counts odd letters chosen, x <= odd.\n        # Compute x = (odd + k - target_odd)//2.\n        # Conditions: odd + k - target_odd must be even, x integer, 0<=x<=odd, and remaining possible.\n        #\n        # Additionally, y = k - x must be <= number of even letters.\n        # But if y > (distinct_even_letters), impossible. Yet constraints allow simplified known solution:\n        # We only need to ensure that we can reduce odd to target by spending removals;\n        # breaking parity creates new odds, so the tight condition becomes:\n        #   odd <= k + target_odd and (k - (odd - target_odd)) % 2 == 0 and also (k >= odd - target_odd).\n        #\n        # Use derived x with bounds:\n        rhs = odd + k - target_odd\n        if rhs < 0 or rhs % 2 != 0:\n            out.append(\"NO\")\n            continue\n        x = rhs // 2  # number of removals taken from currently odd-count letters\n        if x > odd:\n            out.append(\"NO\")\n            continue\n        # y removals from even-count letters; must have at least y characters available among even-count letters.\n        # But even-count letters can have multiple occurrences, so availability depends on total even-count letters count.\n        # However any single letter can supply multiple removals, parity flips each time.\n        # The parity-based model above already guarantees feasibility because we can always choose any letter occurrences.\n        # What matters is whether we can perform k removals at all (true since k<n).\n        out.append(\"YES\" if 0 <= x <= odd else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n        freq = Counter(s)\n\n        # After removing exactly k chars, remaining length:\n        m = n - k\n        # For a multiset to be rearranged into a palindrome:\n        # - if m is even: all counts must be even\n        # - if m is odd : exactly one count can be odd\n        odd_cnt = sum(c & 1 for c in freq.values())\n\n        if m % 2 == 0:\n            # need odd_cnt == 0\n            # each deletion flips parity of exactly one character count\n            # Minimum deletions needed to make odd_cnt == 0 is odd_cnt/2.\n            # But deletions count parity constraints mean:\n            # answer is YES iff k >= odd_cnt/2 and (k - odd_cnt/2) is even\n            need = odd_cnt // 2\n            if k >= need and (k - need) % 2 == 0:\n                out.append(\"YES\")\n            else:\n                out.append(\"NO\")\n        else:\n            # need odd_cnt == 1\n            # minimum deletions to end with exactly 1 odd is (odd_cnt - 1)/2\n            need = (odd_cnt - 1) // 2\n            if odd_cnt == 0:\n                # impossible to have odd length palindrome with no odd counts without deletions\n                # but formula still handles via need = -1; handle explicitly:\n                if k >= 0 and (k % 2 == 1):\n                    out.append(\"YES\")\n                else:\n                    out.append(\"NO\")\n            else:\n                if k >= need and (k - need) % 2 == 0:\n                    out.append(\"YES\")\n                else:\n                    out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n\n        cnt = Counter(s)\n        need_total = 0\n        odd_now = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                odd_now += 1\n            need_total += v % 2\n\n        # After removals, remaining length = m = n - k.\n        # A multiset can form a palindrome iff:\n        # - if m is even: all counts even\n        # - if m is odd : exactly one odd count\n        m = n - k\n\n        # Greedy: using parity-change steps.\n        # Removing one char flips parity of that character.\n        # Each removal can change the number of odd counts by +/- 1.\n        # Starting parity count = need_total == odd_now.\n        # We need to reach target odd count: target = 0 (even m) or 1 (odd m).\n        target = 1 if (m % 2 == 1) else 0\n\n        # Minimal removals to fix odd counts:\n        # If odd_now > target, we need to reduce odd count; each removal can reduce by at most 1,\n        # so need_total - target removals at least, but must have same parity feasibility.\n        # Standard condition:\n        # possible iff k >= odd_now - target (when odd_now > target) and\n        # (k - (odd_now - target)) is even; also if odd_now < target, we need increase odds, similarly.\n        if k >= abs(odd_now - target) and (k - abs(odd_now - target)) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef possible_make_palindrome(n, k, s):\n    # Need to delete exactly k => remaining length m = n-k\n    m = n - k\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n\n    # After reordering to form a palindrome:\n    # - if m is even: need 0 odd counts\n    # - if m is odd : need exactly 1 odd count\n    need_odd = 1 if (m % 2 == 1) else 0\n\n    # Each deletion reduces m by 1 and can change parity distribution.\n    # Standard approach (greedy on number of odd letters):\n    # We can choose to remove characters to adjust odd count by +/-.\n    #\n    # Necessary and sufficient condition for original problem:\n    # Let odd be number of letters with odd frequency in s.\n    # We can reach a state with need_odd odds after deleting k chars iff:\n    # - odd and need_odd have same parity relative to k? (since each deletion flips parity of one letter)\n    # - and k is large enough to reduce excess odds.\n    #\n    # Exact condition:\n    # After deletions, odd' must equal need_odd.\n    # Each deletion toggles parity of one letter => odd changes by either +1 or -1,\n    # so odd' differs from odd by at most k and parity matches.\n    if k == 0:\n        return odd == need_odd\n\n    # Parity match condition:\n    # odd' = odd +/- (some number with same parity as k)\n    # So (odd - need_odd) must be even/odd accordingly with k:\n    # odd and need_odd parity must match after k steps => (odd - need_odd) % 2 == k % 2\n    if (odd - need_odd) % 2 != k % 2:\n        return False\n\n    # Need enough deletions to fix excess odds:\n    # If odd > need_odd, we must eliminate (odd - need_odd) odd letters, each elimination needs at least 1 deletion.\n    if odd > need_odd:\n        # Minimal deletions to reduce odd count to need_odd is (odd - need_odd)\n        if k < odd - need_odd:\n            return False\n    # If odd <= need_odd, we can create additional oddities by deletions as long as parity matches,\n    # and k is not too small to reach need_odd (with parity already checked, it suffices).\n    # Also, we must leave non-negative length (already ensured by input).\n    return True\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if possible_make_palindrome(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        cnt = Counter(s)\n        freq_odd = sum(1 for v in cnt.values() if v % 2 == 1)\n\n        m = n - k  # remaining length\n        if m % 2 == 0:\n            # Need 0 odd counts after deletions\n            need = freq_odd // 2\n            out.append(\"YES\" if need <= k // 1 and (k % 2 == 0 or freq_odd == 0) else \"NO\")\n        else:\n            # Need 1 odd count after deletions\n            need = (freq_odd - 1) // 2\n            out.append(\"YES\" if need <= k else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        freq = Counter(s)\n\n        # Total length after deletions\n        m = n - k\n\n        # Count how many characters have odd frequency in the original string\n        odd = sum(1 for v in freq.values() if v % 2 == 1)\n\n        # Needed condition for some subsequence (reordered) to be able to form a palindrome:\n        # - If m is even: all counts must be even => number of odd counts must become 0\n        # - If m is odd : exactly one count must be odd => number of odd counts must become 1\n        target = 1 if (m % 2 == 1) else 0\n\n        # Deleting one character flips parity of that character (odd <-> even),\n        # hence each deletion can change the number of odd frequencies by at most 1.\n        # Minimal deletions required to make odd -> target is:\n        need = abs(odd - target)\n\n        # After we make parity feasible, extra deletions can be used as long as parity matches.\n        # For two additional deletions, we can always adjust by removing two occurrences of the same\n        # parity type without changing feasibility, so the only remaining constraint is:\n        # need <= k and (k - need) is even.\n        if need <= k and (k - need) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it).strip()\n        c = Counter(s)\n\n        remaining_len = n - k\n        # For a multiset to be rearrangeable into a palindrome:\n        # - if remaining_len is even: all counts must be even\n        # - if odd: exactly one count can be odd\n        odd = sum(v & 1 for v in c.values())\n\n        if remaining_len % 2 == 0:\n            # need odd == 0\n            # each removed character flips parity of exactly one letter count\n            # so changing oddness by 1 per removal.\n            # Feasible iff we can make odd = 0 after exactly k removals.\n            out.append(\"YES\" if (odd <= k and (k - odd) % 2 == 0) else \"NO\")\n        else:\n            # need odd == 1\n            out.append(\"YES\" if (odd <= k + 1 and (k - (odd - 1)) % 2 == 0) else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_form_palindrome_by_deleting(s: str, k: int) -> bool:\n    n = len(s)\n    c = Counter(s)\n    # counts after deletions: we choose how many of each char to keep\n    # Condition for rearrangeable palindrome of length m:\n    # - if m is even: all kept counts even\n    # - if m is odd: exactly one kept count odd\n    #\n    # We have to delete exactly k => keep length m = n-k.\n    m = n - k\n\n    odds = sum(v % 2 for v in c.values())  # number of characters with odd frequency initially\n    # Let’s reason with parity changes only.\n    # Deleting one character of a letter flips its parity.\n    # Therefore, each deletion toggles parity of exactly one letter.\n    # We need to reach a state with (m even -> 0 odd) or (m odd -> 1 odd) kept odd letters,\n    # and we must delete exactly k characters.\n\n    if m % 2 == 0:\n        target_odds = 0\n    else:\n        target_odds = 1\n\n    # We need to transform current odd-count set size to target_odds by k deletions.\n    # Deleting one char toggles parity of that char; thus odd-count size changes by:\n    # - if we delete from an odd-count char: odd size decreases by 1 (it becomes even)\n    # - if we delete from an even-count char: odd size increases by 1\n    #\n    # So the parity of (odds - target_odds) indicates whether possible because each deletion\n    # changes odds size by ±1, hence odds_size and k must satisfy:\n    # (odds - target_odds) has same parity as k, and we also cannot exceed reachable bounds.\n    #\n    # Additionally, because each char count can be reduced arbitrarily (within 0..count),\n    # any combination consistent with parity and feasibility of deletions is achievable.\n    #\n    # Bound: minimum deletions needed to reduce number of odd letters to target is:\n    # - if target_odds <= odds: delete at least odds - target_odds chars (from odd letters) to make them even\n    # - if target_odds > odds: delete at least target_odds - odds chars (from even letters) to make them odd\n    # But more precisely, deletions needed must be <= k and parity must match.\n    diff = odds - target_odds\n    if abs(diff) > k:\n        return False\n    # parity check\n    if (k - abs(diff)) % 2 != 0:\n        return False\n\n    return True\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_form_palindrome_by_deleting(s, k) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1883_B",
+          "generation_index": 0,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 1,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 2,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 4,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nNO",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nNO\nNO\nNO\nNO",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nNO\nNO\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 3,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 4,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nNO\nNO\nNO\nNO\nYES\nYES\nNO\nYES\nNO\nNO\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nNO\nNO\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nNO\nYES\nNO\nNO",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nYES\nNO\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 4,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 5,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 6,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES\nYES\nYES\nYES\nYES\nYES\nNO\nYES\nNO\nNO",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nYES\nNO\nYES\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 7,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 8,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 4,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nimport sys\nfrom collections import Counter\n\ndef can_form_palindrome_by_deleting(s: str, k: int) -> bool:\n    n = len(s)\n    c = Counter(s)\n    # counts after deletions: we choose how many of each char to keep\n    # Condition for rearrangeable palindrome of length m:\n    # - if m is even: all kept counts even\n    # - if m is odd: exactly one kept count odd\n    #\n    # We have to delete exactly k => keep length m = n-k.\n    m = n - k\n\n    odds = sum(v % 2 for v in c.values())  # number of characters with odd frequency initially\n    # Let’s reason with parity changes only.\n    # Deleting one character of a letter flips its parity.\n    # Therefore, each deletion toggles parity of exactly one letter.\n    # We need to reach a state with (m even -> 0 odd) or (m odd -> 1 odd) kept odd letters,\n    # and we must delete exactly k characters.\n\n    if m % 2 == 0:\n        target_odds = 0\n    else:\n        target_odds = 1\n\n    # We need to transform current odd-count set size to target_odds by k deletions.\n    # Deleting one char toggles parity of that char; thus odd-count size changes by:\n    # - if we delete from an odd-count char: odd size decreases by 1 (it becomes even)\n    # - if we delete from an even-count char: odd size increases by 1\n    #\n    # So the parity of (odds - target_odds) indicates whether possible because each deletion\n    # changes odds size by ±1, hence odds_size and k must satisfy:\n    # (odds - target_odds) has same parity as k, and we also cannot exceed reachable bounds.\n    #\n    # Additionally, because each char count can be reduced arbitrarily (within 0..count),\n    # any combination consistent with parity and feasibility of deletions is achievable.\n    #\n    # Bound: minimum deletions needed to reduce number of odd letters to target is:\n    # - if target_odds <= odds: delete at least odds - target_odds chars (from odd letters) to make them even\n    # - if target_odds > odds: delete at least target_odds - odds chars (from even letters) to make them odd\n    # But more precisely, deletions needed must be <= k and parity must match.\n    diff = odds - target_odds\n    if abs(diff) > k:\n        return False\n    # parity check\n    if (k - abs(diff)) % 2 != 0:\n        return False\n\n    return True\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_form_palindrome_by_deleting(s, k) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+        ],
+        "partial": [
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        m = n - k  # remaining length\n\n        freq = Counter(s)\n        odd = sum(v & 1 for v in freq.values())\n\n        # For a palindrome of length m:\n        # - if m is even => odd must be 0\n        # - if m is odd  => odd must be 1\n        # We can remove exactly k chars, which is equivalent to\n        # choosing some final multiset of size m from original counts.\n        #\n        # Standard greedy feasibility check:\n        # We need minimal number of odd-pair adjustments achievable by deletions.\n        # Each deletion can change parity of at most one character count.\n        #\n        # Known solution:\n        # Let x = odd. If m is even -> need x == 0 mod 2? Actually need x==0 after deletions.\n        # Each deletion reduces odd count by at most 1, but also we must reach size m.\n        # Equivalent approach:\n        # Consider that after deletions, parity can be arranged if we can make\n        # number of odd counts equal to m%2.\n        #\n        # The known CF condition:\n        # - if m is even: we need (odd <= k) and (k-odd)%2==0? Not quite.\n        #\n        # Correct condition for this problem (CF 1705B-ish style) is:\n        # We can always reduce counts to match palindrome iff:\n        #   odd <= k + (n - m) ??? -> since n-m=k.\n        # More directly:\n        # After deleting k chars, remaining counts sum to m.\n        # Let odd0 be number of odd counts in original.\n        # When deleting one char of some letter:\n        #   if that letter count was odd, it becomes even => odd decreases by 1\n        #   else it becomes odd => odd increases by 1\n        # Thus odd changes by ±1 per deletion, so parity of odd changes each deletion.\n        #\n        # We need odd_final = m%2.\n        # Let need = m & 1.\n        # Minimum deletions to fix odd count magnitude:\n        # We can achieve any odd_final with same parity as odd0 + k (because odd changes by ±1 each time)\n        # More simply: odd_final and (odd0 + k) must have same parity.\n        #\n        # Also we cannot reduce odd below 0 and odd_max limited by counts,\n        # but for this problem with k deletions, the only constraints that matter are:\n        #   odd0 <= k + need  and parity matches.\n        #\n        # Derivation:\n        # Each deletion can reduce odd by 1 at best. So to get odd_final (0 or 1),\n        # we need to be able to reduce odd0 down to need.\n        # That requires odd0 - need <= k  (only if odd0 > need).\n        # Parity: since odd changes by ±1 each deletion, odd_final ≡ odd0 + k (mod 2).\n        #\n        # If odd0 <= need, we can always \"waste\" extra deletions without violating parity,\n        # as long as there are enough characters to delete (true).\n        #\n        # Implement:\n        # Check:\n        #   if odd0 > need and odd0 - need > k => NO\n        #   else if (odd0 + k - need) % 2 == 0 => YES\n        #\n        # This matches known accepted logic for this exact problem.\n        odd0 = odd\n        need = m & 1\n        if odd0 > need and odd0 - need > k:\n            out.append(\"NO\")\n        else:\n            out.append(\"YES\" if (odd0 + k - need) % 2 == 0 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        c = Counter(s)\n\n        # Count letters with odd frequency\n        odd = sum(v & 1 for v in c.values())\n\n        # After removing exactly k chars, remaining length is L = n - k\n        L = n - k\n\n        # For a multiset of letters to be permutable into a palindrome:\n        # number of odd counts must be 0 (L even) or 1 (L odd).\n        target_odd = 0 if (L % 2 == 0) else 1\n\n        # Removing one character flips parity of the chosen letter's count,\n        # so it changes odd-count count by exactly ±1.\n        # Therefore parity of (odd - target_odd) matters: odd and target_odd\n        # must have same parity when using k steps.\n        possible = False\n        if k >= 0:\n            d = odd - target_odd\n            # Need to reduce odd to target_odd using k moves, and sign can be either\n            # since odd may be less or greater, but changes are by 1 each move.\n            # Minimal number of moves to reach target_odd is |d|? Not always,\n            # but since we can also increase odd by removing from even-count letters,\n            # we just need:\n            # - k is at least the minimal steps to reach target_odd with correct parity.\n            # Minimal steps is |d| because each move changes odd by 1.\n            if k >= abs(d) and ((k - abs(d)) % 2 == 0):\n                possible = True\n\n        out.append(\"YES\" if possible else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n\n        cnt = Counter(s)\n        need_total = 0\n        odd_now = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                odd_now += 1\n            need_total += v % 2\n\n        # After removals, remaining length = m = n - k.\n        # A multiset can form a palindrome iff:\n        # - if m is even: all counts even\n        # - if m is odd : exactly one odd count\n        m = n - k\n\n        # Greedy: using parity-change steps.\n        # Removing one char flips parity of that character.\n        # Each removal can change the number of odd counts by +/- 1.\n        # Starting parity count = need_total == odd_now.\n        # We need to reach target odd count: target = 0 (even m) or 1 (odd m).\n        target = 1 if (m % 2 == 1) else 0\n\n        # Minimal removals to fix odd counts:\n        # If odd_now > target, we need to reduce odd count; each removal can reduce by at most 1,\n        # so need_total - target removals at least, but must have same parity feasibility.\n        # Standard condition:\n        # possible iff k >= odd_now - target (when odd_now > target) and\n        # (k - (odd_now - target)) is even; also if odd_now < target, we need increase odds, similarly.\n        if k >= abs(odd_now - target) and (k - abs(odd_now - target)) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef possible_make_palindrome(n, k, s):\n    # Need to delete exactly k => remaining length m = n-k\n    m = n - k\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n\n    # After reordering to form a palindrome:\n    # - if m is even: need 0 odd counts\n    # - if m is odd : need exactly 1 odd count\n    need_odd = 1 if (m % 2 == 1) else 0\n\n    # Each deletion reduces m by 1 and can change parity distribution.\n    # Standard approach (greedy on number of odd letters):\n    # We can choose to remove characters to adjust odd count by +/-.\n    #\n    # Necessary and sufficient condition for original problem:\n    # Let odd be number of letters with odd frequency in s.\n    # We can reach a state with need_odd odds after deleting k chars iff:\n    # - odd and need_odd have same parity relative to k? (since each deletion flips parity of one letter)\n    # - and k is large enough to reduce excess odds.\n    #\n    # Exact condition:\n    # After deletions, odd' must equal need_odd.\n    # Each deletion toggles parity of one letter => odd changes by either +1 or -1,\n    # so odd' differs from odd by at most k and parity matches.\n    if k == 0:\n        return odd == need_odd\n\n    # Parity match condition:\n    # odd' = odd +/- (some number with same parity as k)\n    # So (odd - need_odd) must be even/odd accordingly with k:\n    # odd and need_odd parity must match after k steps => (odd - need_odd) % 2 == k % 2\n    if (odd - need_odd) % 2 != k % 2:\n        return False\n\n    # Need enough deletions to fix excess odds:\n    # If odd > need_odd, we must eliminate (odd - need_odd) odd letters, each elimination needs at least 1 deletion.\n    if odd > need_odd:\n        # Minimal deletions to reduce odd count to need_odd is (odd - need_odd)\n        if k < odd - need_odd:\n            return False\n    # If odd <= need_odd, we can create additional oddities by deletions as long as parity matches,\n    # and k is not too small to reach need_odd (with parity already checked, it suffices).\n    # Also, we must leave non-negative length (already ensured by input).\n    return True\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if possible_make_palindrome(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        cnt = Counter(s)\n        freq_odd = sum(1 for v in cnt.values() if v % 2 == 1)\n\n        m = n - k  # remaining length\n        if m % 2 == 0:\n            # Need 0 odd counts after deletions\n            need = freq_odd // 2\n            out.append(\"YES\" if need <= k // 1 and (k % 2 == 0 or freq_odd == 0) else \"NO\")\n        else:\n            # Need 1 odd count after deletions\n            need = (freq_odd - 1) // 2\n            out.append(\"YES\" if need <= k else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        freq = Counter(s)\n\n        # Total length after deletions\n        m = n - k\n\n        # Count how many characters have odd frequency in the original string\n        odd = sum(1 for v in freq.values() if v % 2 == 1)\n\n        # Needed condition for some subsequence (reordered) to be able to form a palindrome:\n        # - If m is even: all counts must be even => number of odd counts must become 0\n        # - If m is odd : exactly one count must be odd => number of odd counts must become 1\n        target = 1 if (m % 2 == 1) else 0\n\n        # Deleting one character flips parity of that character (odd <-> even),\n        # hence each deletion can change the number of odd frequencies by at most 1.\n        # Minimal deletions required to make odd -> target is:\n        need = abs(odd - target)\n\n        # After we make parity feasible, extra deletions can be used as long as parity matches.\n        # For two additional deletions, we can always adjust by removing two occurrences of the same\n        # parity type without changing feasibility, so the only remaining constraint is:\n        # need <= k and (k - need) is even.\n        if need <= k and (k - need) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it).strip()\n        c = Counter(s)\n\n        remaining_len = n - k\n        # For a multiset to be rearrangeable into a palindrome:\n        # - if remaining_len is even: all counts must be even\n        # - if odd: exactly one count can be odd\n        odd = sum(v & 1 for v in c.values())\n\n        if remaining_len % 2 == 0:\n            # need odd == 0\n            # each removed character flips parity of exactly one letter count\n            # so changing oddness by 1 per removal.\n            # Feasible iff we can make odd = 0 after exactly k removals.\n            out.append(\"YES\" if (odd <= k and (k - odd) % 2 == 0) else \"NO\")\n        else:\n            # need odd == 1\n            out.append(\"YES\" if (odd <= k + 1 and (k - (odd - 1)) % 2 == 0) else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+        ],
+        "fail": [
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n\n        cnt = Counter(s)\n        odd = sum(v % 2 for v in cnt.values())\n        need_len = n - k  # remaining length\n\n        # If we keep exactly need_len chars, then:\n        # - if need_len is even -> number of odd counts must be 0\n        # - if need_len is odd  -> number of odd counts must be 1\n        target_odd = 0 if need_len % 2 == 0 else 1\n\n        # Removing k chars reduces some counts by 1, which flips parity of that char.\n        # Let x be how many odd-count letters we \"fix\" by removing from them,\n        # and y be how many even-count letters we \"break\" by removing from them.\n        # Then new odd count becomes: odd - x + y = target_odd.\n        # Also x + y equals number of removed chars k (because each removal changes parity of one letter).\n        #\n        # Equivalent feasibility:\n        # 1) new odd parity must match target: odd and target have same parity when k is even? but k always changes\n        #    odd by ±1 each removal so odd change parity equals k mod 2.\n        #    More directly from equation odd - x + y = target and x + y = k:\n        #       odd - (x) + (k - x) = target  => odd + k - 2x = target\n        #       => 2x = odd + k - target, so RHS must be even and x in [0, ?] and integer.\n        #\n        # From 2x equation we need:\n        #   odd + k - target_odd >= 0  (since x>=0)\n        #   odd + k - target_odd <= 2*odd? not required; because x cannot exceed odd.\n        #     since x counts odd letters chosen, x <= odd.\n        # Compute x = (odd + k - target_odd)//2.\n        # Conditions: odd + k - target_odd must be even, x integer, 0<=x<=odd, and remaining possible.\n        #\n        # Additionally, y = k - x must be <= number of even letters.\n        # But if y > (distinct_even_letters), impossible. Yet constraints allow simplified known solution:\n        # We only need to ensure that we can reduce odd to target by spending removals;\n        # breaking parity creates new odds, so the tight condition becomes:\n        #   odd <= k + target_odd and (k - (odd - target_odd)) % 2 == 0 and also (k >= odd - target_odd).\n        #\n        # Use derived x with bounds:\n        rhs = odd + k - target_odd\n        if rhs < 0 or rhs % 2 != 0:\n            out.append(\"NO\")\n            continue\n        x = rhs // 2  # number of removals taken from currently odd-count letters\n        if x > odd:\n            out.append(\"NO\")\n            continue\n        # y removals from even-count letters; must have at least y characters available among even-count letters.\n        # But even-count letters can have multiple occurrences, so availability depends on total even-count letters count.\n        # However any single letter can supply multiple removals, parity flips each time.\n        # The parity-based model above already guarantees feasibility because we can always choose any letter occurrences.\n        # What matters is whether we can perform k removals at all (true since k<n).\n        out.append(\"YES\" if 0 <= x <= odd else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n        freq = Counter(s)\n\n        # After removing exactly k chars, remaining length:\n        m = n - k\n        # For a multiset to be rearranged into a palindrome:\n        # - if m is even: all counts must be even\n        # - if m is odd : exactly one count can be odd\n        odd_cnt = sum(c & 1 for c in freq.values())\n\n        if m % 2 == 0:\n            # need odd_cnt == 0\n            # each deletion flips parity of exactly one character count\n            # Minimum deletions needed to make odd_cnt == 0 is odd_cnt/2.\n            # But deletions count parity constraints mean:\n            # answer is YES iff k >= odd_cnt/2 and (k - odd_cnt/2) is even\n            need = odd_cnt // 2\n            if k >= need and (k - need) % 2 == 0:\n                out.append(\"YES\")\n            else:\n                out.append(\"NO\")\n        else:\n            # need odd_cnt == 1\n            # minimum deletions to end with exactly 1 odd is (odd_cnt - 1)/2\n            need = (odd_cnt - 1) // 2\n            if odd_cnt == 0:\n                # impossible to have odd length palindrome with no odd counts without deletions\n                # but formula still handles via need = -1; handle explicitly:\n                if k >= 0 and (k % 2 == 1):\n                    out.append(\"YES\")\n                else:\n                    out.append(\"NO\")\n            else:\n                if k >= need and (k - need) % 2 == 0:\n                    out.append(\"YES\")\n                else:\n                    out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given a string $s$ of length $n$, consisting of lowercase Latin letters, and an integer $k$.\n\nYou need to check if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome. Note that you can reorder the remaining characters in any way.\n\nA palindrome is a string that reads the same forwards and backwards. For example, the strings \"z\", \"aaa\", \"aba\", \"abccba\" are palindromes, while the strings \"codeforces\", \"reality\", \"ab\" are not.\n\nInput\n\nEach test consists of multiple test cases. The first line contains a single integer $t$ ($1 \\leq t \\leq 10^4$) — the number of the test cases. This is followed by their description.\n\nThe first line of each test case contains two integers $n$ and $k$ ($0 \\leq k < n \\leq 10^5$) — the length of the string $s$ and the number of characters to be deleted.\n\nThe second line of each test case contains a string $s$ of length $n$, consisting of lowercase Latin letters.\n\nIt is guaranteed that the sum of $n$ over all test cases does not exceed $2 \\cdot 10^5$.\n\nOutput\n\nFor each test case, output \"YES\" if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome, and \"NO\" otherwise.\n\nYou can output the answer in any case (uppercase or lowercase). For example, the strings \"yEs\", \"yes\", \"Yes\", and \"YES\" will be recognized as positive answers.Sample Input 1:\n14\n\n1 0\n\na\n\n2 0\n\nab\n\n2 1\n\nba\n\n3 1\n\nabb\n\n3 2\n\nabc\n\n6 2\n\nbacacd\n\n6 2\n\nfagbza\n\n6 2\n\nzwaafa\n\n7 2\n\ntaagaak\n\n14 3\n\nttrraakkttoorr\n\n5 3\n\ndebdb\n\n5 4\n\necadc\n\n5 3\n\ndebca\n\n5 3\n\nabaac\n\n\n\nSample Output 1:\n\nYES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES\n\n\nNote\n\nIn the first test case, nothing can be removed, and the string \"a\" is a palindrome.\n\nIn the second test case, nothing can be removed, but the strings \"ab\" and \"ba\" are not palindromes.\n\nIn the third test case, any character can be removed, and the resulting string will be a palindrome.\n\nIn the fourth test case, one occurrence of the character \"a\" can be removed, resulting in the string \"bb\", which is a palindrome.\n\nIn the sixth test case, one occurrence of the characters \"b\" and \"d\" can be removed, resulting in the string \"acac\", which can be rearranged to the string \"acca\".\n\nIn the ninth test case, one occurrence of the characters \"t\" and \"k\" can be removed, resulting in the string \"aagaa\", which is a palindrome.\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nimport sys\nfrom collections import Counter\n\ndef can_form_palindrome_by_deleting(s: str, k: int) -> bool:\n    n = len(s)\n    c = Counter(s)\n    # counts after deletions: we choose how many of each char to keep\n    # Condition for rearrangeable palindrome of length m:\n    # - if m is even: all kept counts even\n    # - if m is odd: exactly one kept count odd\n    #\n    # We have to delete exactly k => keep length m = n-k.\n    m = n - k\n\n    odds = sum(v % 2 for v in c.values())  # number of characters with odd frequency initially\n    # Let’s reason with parity changes only.\n    # Deleting one character of a letter flips its parity.\n    # Therefore, each deletion toggles parity of exactly one letter.\n    # We need to reach a state with (m even -> 0 odd) or (m odd -> 1 odd) kept odd letters,\n    # and we must delete exactly k characters.\n\n    if m % 2 == 0:\n        target_odds = 0\n    else:\n        target_odds = 1\n\n    # We need to transform current odd-count set size to target_odds by k deletions.\n    # Deleting one char toggles parity of that char; thus odd-count size changes by:\n    # - if we delete from an odd-count char: odd size decreases by 1 (it becomes even)\n    # - if we delete from an even-count char: odd size increases by 1\n    #\n    # So the parity of (odds - target_odds) indicates whether possible because each deletion\n    # changes odds size by ±1, hence odds_size and k must satisfy:\n    # (odds - target_odds) has same parity as k, and we also cannot exceed reachable bounds.\n    #\n    # Additionally, because each char count can be reduced arbitrarily (within 0..count),\n    # any combination consistent with parity and feasibility of deletions is achievable.\n    #\n    # Bound: minimum deletions needed to reduce number of odd letters to target is:\n    # - if target_odds <= odds: delete at least odds - target_odds chars (from odd letters) to make them even\n    # - if target_odds > odds: delete at least target_odds - odds chars (from even letters) to make them odd\n    # But more precisely, deletions needed must be <= k and parity must match.\n    diff = odds - target_odds\n    if abs(diff) > k:\n        return False\n    # parity check\n    if (k - abs(diff)) % 2 != 0:\n        return False\n\n    return True\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_form_palindrome_by_deleting(s, k) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n#### Partially Correct\nAttempt 1\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        m = n - k  # remaining length\n\n        freq = Counter(s)\n        odd = sum(v & 1 for v in freq.values())\n\n        # For a palindrome of length m:\n        # - if m is even => odd must be 0\n        # - if m is odd  => odd must be 1\n        # We can remove exactly k chars, which is equivalent to\n        # choosing some final multiset of size m from original counts.\n        #\n        # Standard greedy feasibility check:\n        # We need minimal number of odd-pair adjustments achievable by deletions.\n        # Each deletion can change parity of at most one character count.\n        #\n        # Known solution:\n        # Let x = odd. If m is even -> need x == 0 mod 2? Actually need x==0 after deletions.\n        # Each deletion reduces odd count by at most 1, but also we must reach size m.\n        # Equivalent approach:\n        # Consider that after deletions, parity can be arranged if we can make\n        # number of odd counts equal to m%2.\n        #\n        # The known CF condition:\n        # - if m is even: we need (odd <= k) and (k-odd)%2==0? Not quite.\n        #\n        # Correct condition for this problem (CF 1705B-ish style) is:\n        # We can always reduce counts to match palindrome iff:\n        #   odd <= k + (n - m) ??? -> since n-m=k.\n        # More directly:\n        # After deleting k chars, remaining counts sum to m.\n        # Let odd0 be number of odd counts in original.\n        # When deleting one char of some letter:\n        #   if that letter count was odd, it becomes even => odd decreases by 1\n        #   else it becomes odd => odd increases by 1\n        # Thus odd changes by ±1 per deletion, so parity of odd changes each deletion.\n        #\n        # We need odd_final = m%2.\n        # Let need = m & 1.\n        # Minimum deletions to fix odd count magnitude:\n        # We can achieve any odd_final with same parity as odd0 + k (because odd changes by ±1 each time)\n        # More simply: odd_final and (odd0 + k) must have same parity.\n        #\n        # Also we cannot reduce odd below 0 and odd_max limited by counts,\n        # but for this problem with k deletions, the only constraints that matter are:\n        #   odd0 <= k + need  and parity matches.\n        #\n        # Derivation:\n        # Each deletion can reduce odd by 1 at best. So to get odd_final (0 or 1),\n        # we need to be able to reduce odd0 down to need.\n        # That requires odd0 - need <= k  (only if odd0 > need).\n        # Parity: since odd changes by ±1 each deletion, odd_final ≡ odd0 + k (mod 2).\n        #\n        # If odd0 <= need, we can always \"waste\" extra deletions without violating parity,\n        # as long as there are enough characters to delete (true).\n        #\n        # Implement:\n        # Check:\n        #   if odd0 > need and odd0 - need > k => NO\n        #   else if (odd0 + k - need) % 2 == 0 => YES\n        #\n        # This matches known accepted logic for this exact problem.\n        odd0 = odd\n        need = m & 1\n        if odd0 > need and odd0 - need > k:\n            out.append(\"NO\")\n        else:\n            out.append(\"YES\" if (odd0 + k - need) % 2 == 0 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 2\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        c = Counter(s)\n\n        # Count letters with odd frequency\n        odd = sum(v & 1 for v in c.values())\n\n        # After removing exactly k chars, remaining length is L = n - k\n        L = n - k\n\n        # For a multiset of letters to be permutable into a palindrome:\n        # number of odd counts must be 0 (L even) or 1 (L odd).\n        target_odd = 0 if (L % 2 == 0) else 1\n\n        # Removing one character flips parity of the chosen letter's count,\n        # so it changes odd-count count by exactly ±1.\n        # Therefore parity of (odd - target_odd) matters: odd and target_odd\n        # must have same parity when using k steps.\n        possible = False\n        if k >= 0:\n            d = odd - target_odd\n            # Need to reduce odd to target_odd using k moves, and sign can be either\n            # since odd may be less or greater, but changes are by 1 each move.\n            # Minimal number of moves to reach target_odd is |d|? Not always,\n            # but since we can also increase odd by removing from even-count letters,\n            # we just need:\n            # - k is at least the minimal steps to reach target_odd with correct parity.\n            # Minimal steps is |d| because each move changes odd by 1.\n            if k >= abs(d) and ((k - abs(d)) % 2 == 0):\n                possible = True\n\n        out.append(\"YES\" if possible else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 3\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n\n        cnt = Counter(s)\n        need_total = 0\n        odd_now = 0\n        for v in cnt.values():\n            if v % 2 == 1:\n                odd_now += 1\n            need_total += v % 2\n\n        # After removals, remaining length = m = n - k.\n        # A multiset can form a palindrome iff:\n        # - if m is even: all counts even\n        # - if m is odd : exactly one odd count\n        m = n - k\n\n        # Greedy: using parity-change steps.\n        # Removing one char flips parity of that character.\n        # Each removal can change the number of odd counts by +/- 1.\n        # Starting parity count = need_total == odd_now.\n        # We need to reach target odd count: target = 0 (even m) or 1 (odd m).\n        target = 1 if (m % 2 == 1) else 0\n\n        # Minimal removals to fix odd counts:\n        # If odd_now > target, we need to reduce odd count; each removal can reduce by at most 1,\n        # so need_total - target removals at least, but must have same parity feasibility.\n        # Standard condition:\n        # possible iff k >= odd_now - target (when odd_now > target) and\n        # (k - (odd_now - target)) is even; also if odd_now < target, we need increase odds, similarly.\n        if k >= abs(odd_now - target) and (k - abs(odd_now - target)) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 4\n```python\nimport sys\nfrom collections import Counter\n\ndef possible_make_palindrome(n, k, s):\n    # Need to delete exactly k => remaining length m = n-k\n    m = n - k\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n\n    # After reordering to form a palindrome:\n    # - if m is even: need 0 odd counts\n    # - if m is odd : need exactly 1 odd count\n    need_odd = 1 if (m % 2 == 1) else 0\n\n    # Each deletion reduces m by 1 and can change parity distribution.\n    # Standard approach (greedy on number of odd letters):\n    # We can choose to remove characters to adjust odd count by +/-.\n    #\n    # Necessary and sufficient condition for original problem:\n    # Let odd be number of letters with odd frequency in s.\n    # We can reach a state with need_odd odds after deleting k chars iff:\n    # - odd and need_odd have same parity relative to k? (since each deletion flips parity of one letter)\n    # - and k is large enough to reduce excess odds.\n    #\n    # Exact condition:\n    # After deletions, odd' must equal need_odd.\n    # Each deletion toggles parity of one letter => odd changes by either +1 or -1,\n    # so odd' differs from odd by at most k and parity matches.\n    if k == 0:\n        return odd == need_odd\n\n    # Parity match condition:\n    # odd' = odd +/- (some number with same parity as k)\n    # So (odd - need_odd) must be even/odd accordingly with k:\n    # odd and need_odd parity must match after k steps => (odd - need_odd) % 2 == k % 2\n    if (odd - need_odd) % 2 != k % 2:\n        return False\n\n    # Need enough deletions to fix excess odds:\n    # If odd > need_odd, we must eliminate (odd - need_odd) odd letters, each elimination needs at least 1 deletion.\n    if odd > need_odd:\n        # Minimal deletions to reduce odd count to need_odd is (odd - need_odd)\n        if k < odd - need_odd:\n            return False\n    # If odd <= need_odd, we can create additional oddities by deletions as long as parity matches,\n    # and k is not too small to reach need_odd (with parity already checked, it suffices).\n    # Also, we must leave non-negative length (already ensured by input).\n    return True\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if possible_make_palindrome(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 5\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        cnt = Counter(s)\n        freq_odd = sum(1 for v in cnt.values() if v % 2 == 1)\n\n        m = n - k  # remaining length\n        if m % 2 == 0:\n            # Need 0 odd counts after deletions\n            need = freq_odd // 2\n            out.append(\"YES\" if need <= k // 1 and (k % 2 == 0 or freq_odd == 0) else \"NO\")\n        else:\n            # Need 1 odd count after deletions\n            need = (freq_odd - 1) // 2\n            out.append(\"YES\" if need <= k else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 6\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        freq = Counter(s)\n\n        # Total length after deletions\n        m = n - k\n\n        # Count how many characters have odd frequency in the original string\n        odd = sum(1 for v in freq.values() if v % 2 == 1)\n\n        # Needed condition for some subsequence (reordered) to be able to form a palindrome:\n        # - If m is even: all counts must be even => number of odd counts must become 0\n        # - If m is odd : exactly one count must be odd => number of odd counts must become 1\n        target = 1 if (m % 2 == 1) else 0\n\n        # Deleting one character flips parity of that character (odd <-> even),\n        # hence each deletion can change the number of odd frequencies by at most 1.\n        # Minimal deletions required to make odd -> target is:\n        need = abs(odd - target)\n\n        # After we make parity feasible, extra deletions can be used as long as parity matches.\n        # For two additional deletions, we can always adjust by removing two occurrences of the same\n        # parity type without changing feasibility, so the only remaining constraint is:\n        # need <= k and (k - need) is even.\n        if need <= k and (k - need) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 7\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it).strip()\n        c = Counter(s)\n\n        remaining_len = n - k\n        # For a multiset to be rearrangeable into a palindrome:\n        # - if remaining_len is even: all counts must be even\n        # - if odd: exactly one count can be odd\n        odd = sum(v & 1 for v in c.values())\n\n        if remaining_len % 2 == 0:\n            # need odd == 0\n            # each removed character flips parity of exactly one letter count\n            # so changing oddness by 1 per removal.\n            # Feasible iff we can make odd = 0 after exactly k removals.\n            out.append(\"YES\" if (odd <= k and (k - odd) % 2 == 0) else \"NO\")\n        else:\n            # need odd == 1\n            out.append(\"YES\" if (odd <= k + 1 and (k - (odd - 1)) % 2 == 0) else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n#### Incorrect\nAttempt 1\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n\n        cnt = Counter(s)\n        odd = sum(v % 2 for v in cnt.values())\n        need_len = n - k  # remaining length\n\n        # If we keep exactly need_len chars, then:\n        # - if need_len is even -> number of odd counts must be 0\n        # - if need_len is odd  -> number of odd counts must be 1\n        target_odd = 0 if need_len % 2 == 0 else 1\n\n        # Removing k chars reduces some counts by 1, which flips parity of that char.\n        # Let x be how many odd-count letters we \"fix\" by removing from them,\n        # and y be how many even-count letters we \"break\" by removing from them.\n        # Then new odd count becomes: odd - x + y = target_odd.\n        # Also x + y equals number of removed chars k (because each removal changes parity of one letter).\n        #\n        # Equivalent feasibility:\n        # 1) new odd parity must match target: odd and target have same parity when k is even? but k always changes\n        #    odd by ±1 each removal so odd change parity equals k mod 2.\n        #    More directly from equation odd - x + y = target and x + y = k:\n        #       odd - (x) + (k - x) = target  => odd + k - 2x = target\n        #       => 2x = odd + k - target, so RHS must be even and x in [0, ?] and integer.\n        #\n        # From 2x equation we need:\n        #   odd + k - target_odd >= 0  (since x>=0)\n        #   odd + k - target_odd <= 2*odd? not required; because x cannot exceed odd.\n        #     since x counts odd letters chosen, x <= odd.\n        # Compute x = (odd + k - target_odd)//2.\n        # Conditions: odd + k - target_odd must be even, x integer, 0<=x<=odd, and remaining possible.\n        #\n        # Additionally, y = k - x must be <= number of even letters.\n        # But if y > (distinct_even_letters), impossible. Yet constraints allow simplified known solution:\n        # We only need to ensure that we can reduce odd to target by spending removals;\n        # breaking parity creates new odds, so the tight condition becomes:\n        #   odd <= k + target_odd and (k - (odd - target_odd)) % 2 == 0 and also (k >= odd - target_odd).\n        #\n        # Use derived x with bounds:\n        rhs = odd + k - target_odd\n        if rhs < 0 or rhs % 2 != 0:\n            out.append(\"NO\")\n            continue\n        x = rhs // 2  # number of removals taken from currently odd-count letters\n        if x > odd:\n            out.append(\"NO\")\n            continue\n        # y removals from even-count letters; must have at least y characters available among even-count letters.\n        # But even-count letters can have multiple occurrences, so availability depends on total even-count letters count.\n        # However any single letter can supply multiple removals, parity flips each time.\n        # The parity-based model above already guarantees feasibility because we can always choose any letter occurrences.\n        # What matters is whether we can perform k removals at all (true since k<n).\n        out.append(\"YES\" if 0 <= x <= odd else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 2\n```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n        freq = Counter(s)\n\n        # After removing exactly k chars, remaining length:\n        m = n - k\n        # For a multiset to be rearranged into a palindrome:\n        # - if m is even: all counts must be even\n        # - if m is odd : exactly one count can be odd\n        odd_cnt = sum(c & 1 for c in freq.values())\n\n        if m % 2 == 0:\n            # need odd_cnt == 0\n            # each deletion flips parity of exactly one character count\n            # Minimum deletions needed to make odd_cnt == 0 is odd_cnt/2.\n            # But deletions count parity constraints mean:\n            # answer is YES iff k >= odd_cnt/2 and (k - odd_cnt/2) is even\n            need = odd_cnt // 2\n            if k >= need and (k - need) % 2 == 0:\n                out.append(\"YES\")\n            else:\n                out.append(\"NO\")\n        else:\n            # need odd_cnt == 1\n            # minimum deletions to end with exactly 1 odd is (odd_cnt - 1)/2\n            need = (odd_cnt - 1) // 2\n            if odd_cnt == 0:\n                # impossible to have odd length palindrome with no odd counts without deletions\n                # but formula still handles via need = -1; handle explicitly:\n                if k >= 0 and (k % 2 == 1):\n                    out.append(\"YES\")\n                else:\n                    out.append(\"NO\")\n            else:\n                if k >= need and (k - need) % 2 == 0:\n                    out.append(\"YES\")\n                else:\n                    out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Parity-Only Palindrome Feasibility",
+          "description": "When rearrangement is allowed, reduce palindrome requirements to constraints on how many character counts are odd.",
+          "content": "For any multiset of letters, it can be permuted into a palindrome iff the number of odd-frequency letters is 0 (even length) or 1 (odd length). This lets you ignore character identities and work only with the odd-count count, turning the problem into a parity/state-transition check.",
+          "reasoning": "Successful attempts consistently modeled the problem at the level of parity of character frequencies rather than exact counts, because rearranging allows any multiset arrangement. The key invariant is: deleting one character toggles the parity of exactly one letter’s frequency, so the number of odd-frequency letters changes by ±1 per deletion, and its parity relative to the number of deletions is fixed. Incorrect attempts often used incomplete or overconfident “bounds” (e.g., claiming parity conditions alone guarantee feasibility, or using formulas that mishandled the required number of odd counts for even/odd remaining length, especially by assuming minimum “odd adjustments” equals a simple absolute difference without careful parity of the surplus deletions)."
+        },
+        {
+          "title": "Deletion as a Parity-Toggle Transition",
+          "description": "Model each deletion as toggling exactly one letter’s frequency parity, hence changing the odd-count count by ±1.",
+          "content": "Since removing one occurrence flips the parity of that letter’s frequency, the “number of odd-frequency letters” changes by exactly 1 in magnitude per deletion. Therefore, reachability to a target odd-count depends on (a) whether the target is within distance k and (b) parity compatibility of the remaining “slack” deletions.",
+          "reasoning": "Successful attempts consistently modeled the problem at the level of parity of character frequencies rather than exact counts, because rearranging allows any multiset arrangement. The key invariant is: deleting one character toggles the parity of exactly one letter’s frequency, so the number of odd-frequency letters changes by ±1 per deletion, and its parity relative to the number of deletions is fixed. Incorrect attempts often used incomplete or overconfident “bounds” (e.g., claiming parity conditions alone guarantee feasibility, or using formulas that mishandled the required number of odd counts for even/odd remaining length, especially by assuming minimum “odd adjustments” equals a simple absolute difference without careful parity of the surplus deletions)."
+        },
+        {
+          "title": "Distance + Same-Parity Check for Reachability",
+          "description": "To decide if a state can be reached in exactly k parity-flip steps, require both |delta| ≤ k and (k − |delta|) even.",
+          "content": "When each step changes a quantity by ±1, then after k steps the quantity must differ from the start by an integer with the same parity as k; equivalently (k − required_change) must be even. This pattern generalizes to many “±1 per move” reachability problems on integer-valued invariants.",
+          "reasoning": "Successful attempts consistently modeled the problem at the level of parity of character frequencies rather than exact counts, because rearranging allows any multiset arrangement. The key invariant is: deleting one character toggles the parity of exactly one letter’s frequency, so the number of odd-frequency letters changes by ±1 per deletion, and its parity relative to the number of deletions is fixed. Incorrect attempts often used incomplete or overconfident “bounds” (e.g., claiming parity conditions alone guarantee feasibility, or using formulas that mishandled the required number of odd counts for even/odd remaining length, especially by assuming minimum “odd adjustments” equals a simple absolute difference without careful parity of the surplus deletions)."
+        },
+        {
+          "title": "Separate Necessity From Sufficiency Carefully",
+          "description": "Do not assume parity conditions alone guarantee feasibility unless the state-transition model proves sufficiency.",
+          "content": "Some incorrect solutions effectively treated a derived equation or parity constraint as automatically satisfiable, but missed that additional constraints (like correct target odd-count for even/odd remaining length, or parity of slack deletions) can make the transition impossible. Always verify both minimal-step feasibility and parity compatibility with the exact “in k moves” requirement.",
+          "reasoning": "Successful attempts consistently modeled the problem at the level of parity of character frequencies rather than exact counts, because rearranging allows any multiset arrangement. The key invariant is: deleting one character toggles the parity of exactly one letter’s frequency, so the number of odd-frequency letters changes by ±1 per deletion, and its parity relative to the number of deletions is fixed. Incorrect attempts often used incomplete or overconfident “bounds” (e.g., claiming parity conditions alone guarantee feasibility, or using formulas that mishandled the required number of odd counts for even/odd remaining length, especially by assuming minimum “odd adjustments” equals a simple absolute difference without careful parity of the surplus deletions)."
+        }
+      ],
+      "raw_response": "<reasoning>\nSuccessful attempts consistently modeled the problem at the level of parity of character frequencies rather than exact counts, because rearranging allows any multiset arrangement. The key invariant is: deleting one character toggles the parity of exactly one letter’s frequency, so the number of odd-frequency letters changes by ±1 per deletion, and its parity relative to the number of deletions is fixed. Incorrect attempts often used incomplete or overconfident “bounds” (e.g., claiming parity conditions alone guarantee feasibility, or using formulas that mishandled the required number of odd counts for even/odd remaining length, especially by assuming minimum “odd adjustments” equals a simple absolute difference without careful parity of the surplus deletions).\n</reasoning>\n\n<memories>\n<memory>\n<title>Parity-Only Palindrome Feasibility</title>\n<description>When rearrangement is allowed, reduce palindrome requirements to constraints on how many character counts are odd.</description>\n<content>For any multiset of letters, it can be permuted into a palindrome iff the number of odd-frequency letters is 0 (even length) or 1 (odd length). This lets you ignore character identities and work only with the odd-count count, turning the problem into a parity/state-transition check.</content>\n</memory>\n\n<memory>\n<title>Deletion as a Parity-Toggle Transition</title>\n<description>Model each deletion as toggling exactly one letter’s frequency parity, hence changing the odd-count count by ±1.</description>\n<content>Since removing one occurrence flips the parity of that letter’s frequency, the “number of odd-frequency letters” changes by exactly 1 in magnitude per deletion. Therefore, reachability to a target odd-count depends on (a) whether the target is within distance k and (b) parity compatibility of the remaining “slack” deletions.</content>\n</memory>\n\n<memory>\n<title>Distance + Same-Parity Check for Reachability</title>\n<description>To decide if a state can be reached in exactly k parity-flip steps, require both |delta| ≤ k and (k − |delta|) even.</description>\n<content>When each step changes a quantity by ±1, then after k steps the quantity must differ from the start by an integer with the same parity as k; equivalently (k − required_change) must be even. This pattern generalizes to many “±1 per move” reachability problems on integer-valued invariants.</content>\n</memory>\n\n<memory>\n<title>Separate Necessity From Sufficiency Carefully</title>\n<description>Do not assume parity conditions alone guarantee feasibility unless the state-transition model proves sufficiency.</description>\n<content>Some incorrect solutions effectively treated a derived equation or parity constraint as automatically satisfiable, but missed that additional constraints (like correct target odd-count for even/odd remaining length, or parity of slack deletions) can make the transition impossible. Always verify both minimal-step feasibility and parity compatibility with the exact “in k moves” requirement.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a string $s$ of length $n$, consisting of lowercase Latin letters, and an integer $k$.\n\nYou need to check if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome. Note that you can reorder the remaining characters in any way.\n\nA palindrome is a string that reads the same forwards and backwards. For example, the strings \"z\", \"aaa\", \"aba\", \"abccba\" are palindromes, while the strings \"codeforces\", \"reality\", \"ab\" are not.\n\nInput\n\nEach test consists of multiple test cases. The first line contains a single integer $t$ ($1 \\leq t \\leq 10^4$) — the number of the test cases. This is followed by their description.\n\nThe first line of each test case contains two integers $n$ and $k$ ($0 \\leq k < n \\leq 10^5$) — the length of the string $s$ and the number of characters to be deleted.\n\nThe second line of each test case contains a string $s$ of length $n$, consisting of lowercase Latin letters.\n\nIt is guaranteed that the sum of $n$ over all test cases does not exceed $2 \\cdot 10^5$.\n\nOutput\n\nFor each test case, output \"YES\" if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome, and \"NO\" otherwise.\n\nYou can output the answer in any case (uppercase or lowercase). For example, the strings \"yEs\", \"yes\", \"Yes\", and \"YES\" will be recognized as positive answers.Sample Input 1:\n14\n\n1 0\n\na\n\n2 0\n\nab\n\n2 1\n\nba\n\n3 1\n\nabb\n\n3 2\n\nabc\n\n6 2\n\nbacacd\n\n6 2\n\nfagbza\n\n6 2\n\nzwaafa\n\n7 2\n\ntaagaak\n\n14 3\n\nttrraakkttoorr\n\n5 3\n\ndebdb\n\n5 4\n\necadc\n\n5 3\n\ndebca\n\n5 3\n\nabaac\n\n\n\nSample Output 1:\n\nYES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES\n\n\nNote\n\nIn the first test case, nothing can be removed, and the string \"a\" is a palindrome.\n\nIn the second test case, nothing can be removed, but the strings \"ab\" and \"ba\" are not palindromes.\n\nIn the third test case, any character can be removed, and the resulting string will be a palindrome.\n\nIn the fourth test case, one occurrence of the character \"a\" can be removed, resulting in the string \"bb\", which is a palindrome.\n\nIn the sixth test case, one occurrence of the characters \"b\" and \"d\" can be removed, resulting in the string \"acac\", which can be rearranged to the string \"acca\".\n\nIn the ninth test case, one occurrence of the characters \"t\" and \"k\" can be removed, resulting in the string \"aagaa\", which is a palindrome.\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_form_palindrome_after_removals(s: str, k: int) -> bool:\n    n = len(s)\n    # Remaining length after removals\n    m = n - k\n    cnt = Counter(s)\n    odds = sum(v % 2 for v in cnt.values())\n\n    # For a string to be rearrangeable into a palindrome:\n    # - If m is even -> odds must become 0\n    # - If m is odd  -> odds must become 1\n    target_odds = 0 if m % 2 == 0 else 1\n\n    # We can change parity of a character count by removing 1 from it.\n    # Each removed character toggles odd/even status of its letter count,\n    # effectively changing \"odds\" by ±1.\n    # Removing k characters means we can perform exactly k parity toggles,\n    # so odds can move from initial odds to target_odds iff:\n    #   - target_odds is reachable within k toggles\n    #   - parity of (odds - target_odds) matches parity of k\n    diff = odds - target_odds\n    if diff < 0:\n        # Can't reduce odds below 0; but parity toggles could increase it.\n        # Still, reachability is governed by ability to adjust within k.\n        # The condition below already handles reachability for all cases,\n        # so keep it consistent by not special-casing beyond formula.\n        pass\n\n    return (abs(odds - target_odds) <= k) and ((k - abs(odds - target_odds)) % 2 == 0)\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_form_palindrome_after_removals(s, k) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_after_removals(n, k, s):\n    # Remaining length\n    m = n - k\n    # Palindrome condition by multiset: at most one odd count if m is odd,\n    # exactly 0 odd counts if m is even.\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n\n    if m % 2 == 0:\n        # Need to make all counts even => odd must be <= k (each removal can reduce odd by at most 1)\n        return odd <= k and (k - odd) % 2 == 0\n    else:\n        # Need exactly one odd => can aim to leave odd' = 1\n        # Achievable iff odd can be reduced to 1 using k removals:\n        # each removal reduces odd by at most 1, and parity of (k - (odd-1)) must be even\n        return odd >= 1 and (odd - 1) <= k and (k - (odd - 1)) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out_lines = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out_lines.append(\"YES\" if can_make_palindrome_after_removals(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out_lines))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        cnt = Counter(s)\n        odd = sum(v % 2 for v in cnt.values())\n\n        # We will keep m = n-k characters.\n        # A multiset can form a palindrome iff the number of odd counts is <= 1 when m is odd,\n        # or == 0 when m is even.\n        m = n - k\n        if m % 2 == 0:\n            # need all pairs: odd must become 0\n            # each removed char can reduce odd by at most 1.\n            out.append(\"YES\" if k >= odd else \"NO\")\n        else:\n            # need exactly one odd\n            # if odd==0, we must create one odd by removing a char (possible iff k>=1)\n            # generally, we can reduce odd to 1 by removals; need k >= odd-1\n            if odd == 0:\n                out.append(\"YES\" if k >= 1 else \"NO\")\n            else:\n                out.append(\"YES\" if k >= odd - 1 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        cnt = Counter(s)\n        odd = sum(v % 2 for v in cnt.values())\n        m = n - k  # length after deletions\n\n        # For a multiset of characters to be rearrangeable into a palindrome:\n        # - if length is even: number of odd-count letters must be 0\n        # - if length is odd: number of odd-count letters must be 1\n        target_odd = 0 if (m % 2 == 0) else 1\n\n        # Each deletion changes parity of exactly one character count by 1,\n        # so it flips whether that character is odd/even => odd-count count changes by +-1.\n        # Therefore, it's possible iff we can move odd to target_odd in exactly k steps,\n        # respecting parity of the number of odd changes:\n        # odd and target_odd must have same parity after k flips, and we must have enough steps.\n        if odd <= m and ((odd - target_odd) % 2 == 0) and abs(odd - target_odd) <= k:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_by_deleting(n, k, s):\n    cnt = Counter(s)\n    # If we keep m characters, then:\n    # - if m is even: all remaining counts must be even\n    # - if m is odd: exactly one remaining count must be odd\n    # Deleting characters changes counts; equivalently we need to check\n    # whether we can delete exactly k such that number of odd counts becomes\n    # 0 (even m) or 1 (odd m).\n    m = n - k\n\n    odd = sum(v % 2 for v in cnt.values())\n\n    # Each deletion flips parity of that character's count.\n    # To reduce number of odd counts from odd to target (0 or 1),\n    # we need parity flips count feasibility.\n    # For any odd-count character, deleting one occurrence toggles it.\n    # Standard condition:\n    # - If m is even: need to make odd -> 0\n    # - If m is odd : need to make odd -> 1\n    # It is always possible if k is at least the minimum required deletions\n    # and k has the right parity relative to that minimum.\n    target = 0 if m % 2 == 0 else 1\n\n    # minimum deletions to reach target parity count:\n    # If current odd count is odd, each deletion can change odd count by ±1.\n    # The best we can do to reach target is to reduce odd down to target.\n    # Minimum deletions:\n    # - if odd >= target: (odd - target)\n    # - else: (target - odd) but since target can be 0/1, this becomes impossible?\n    # Actually odd cannot exceed 26 but logic still holds with parity constraints.\n    if odd == target:\n        return True if k >= 0 else False\n\n    if odd > target:\n        need = odd - target\n    else:\n        need = target - odd\n\n    # Need deletions at least need, and (k - need) must be even because each\n    # extra pair of deletions can keep palindrome possibility.\n    if k < need:\n        return False\n    return (k - need) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_make_palindrome_by_deleting(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        need_len = n - k\n\n        cnt = Counter(s)\n        odds = sum(v % 2 for v in cnt.values())\n\n        # After removing k chars, parity requirements:\n        # - If need_len is even: number of odd counts must be 0\n        # - If need_len is odd: number of odd counts must be 1\n        # Removing one character flips parity of that letter, thus changes odds by ±1.\n        # Minimal removals to reach required odd parity:\n        if need_len % 2 == 0:\n            required_odds = 0\n        else:\n            required_odds = 1\n\n        # We can change odds by at most 1 per removed char, and each removal flips parity.\n        # Condition becomes:\n        # 1) odds can be reduced to required_odds using k steps: k >= (odds - required_odds) if odds > required_odds\n        # 2) parity of (k - (odds - required_odds)) doesn't matter? Actually each operation flips parity,\n        #    so the parity of odds changes with k. Equivalent check:\n        #    (odds % 2) after k removals: odds' = odds +/- k mod 2, but odds' parity = odds parity XOR (k mod 2).\n        #    For reaching required_odds, need (odds % 2) XOR (k % 2) == (required_odds % 2).\n        #    Since required_odds is 0 or 1, this simplifies.\n        #\n        # Minimal feasibility with these two constraints:\n        # Let d = odds - required_odds. We can reduce odds only; if odds <= required_odds, we may need to increase odds.\n        # General solution: compute minimal k needed to make required_odds while possible.\n        # A known clean approach:\n        # - If need_len is even: need to make all counts even. Each removal can fix at most one odd => need odd <= k*?:\n        #   exact minimal k is odds (to eliminate odds one by one) but when counts allow, formula works with parity check.\n        #\n        # We'll use robust known condition for CF problem 1705B? (Actually \"Make it Palindrome (rearrangement)\"):\n        # Minimal deletions:\n        #   If need_len is even: minimal deletions = odds/?? Let's derive:\n        # To get all even counts, we must remove odd number of occurrences from each odd letter so its parity flips to even.\n        # That needs at least 1 deletion per odd letter => at least odds deletions. And we need same parity feasibility for leftovers.\n        # Similarly, for odd length (one odd allowed), we need (odds-1) deletions if odds>=1.\n        #\n        # Additional deletions beyond the minimum can be done in pairs (delete two same-letter occurrences) without changing parity,\n        # so only need check that remaining deletions are even.\n        if required_odds == 0:\n            if odds > k:\n                out.append(\"NO\")\n                continue\n            # After removing odds chars to fix parities, remaining deletions (k - odds) must be even\n            out.append(\"YES\" if (k - odds) % 2 == 0 else \"NO\")\n        else:  # required_odds == 1\n            if odds == 0:\n                # Need to create one odd: requires 1 deletion\n                out.append(\"YES\" if k >= 1 and (k - 1) % 2 == 0 else \"NO\")\n            else:\n                # Remove odds-1 to reduce odds to 1\n                if odds - 1 > k:\n                    out.append(\"NO\")\n                    continue\n                out.append(\"YES\" if (k - (odds - 1)) % 2 == 0 else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n\n        # Remaining length after deletions\n        m = n - k\n\n        freq = Counter(s)\n\n        # How many characters have odd frequency initially?\n        odd = sum(1 for c in freq.values() if c % 2 == 1)\n\n        # In a multiset of size m to be rearranged into a palindrome:\n        # - if m is even: odd must be 0\n        # - if m is odd : odd must be 1\n        # Removing one character changes parity of counts:\n        # Each deletion reduces total length by 1 and can change odd count by either ±1.\n        #\n        # Equivalent condition from known solution:\n        # Let x = odd - (m % 2) must be non-negative and have same parity as k,\n        # and also k >= x // 2? Let's do correct, simple reasoning:\n        #\n        # We can decide on deletions affecting parity. The number of odd-count letters\n        # in the remaining string must be exactly m%2.\n        #\n        # Each removed character toggles parity of exactly one letter, so odd changes by 1.\n        # Therefore, after k deletions, odd' = odd + delta where delta has same parity as k.\n        # We need odd' == m%2.\n        #\n        # So m%2 and odd must be congruent mod 2 after k deletions:\n        # odd + k ≡ m%2 (mod 2)  <=>  odd ≡ m%2 (mod 2) because k flips parity? Actually each deletion changes odd parity,\n        # so odd' parity = odd parity XOR (k mod 2). Hence:\n        # odd' %2 = odd%2 XOR (k%2).\n        # We want odd' %2 = (m%2).\n        # That gives odd%2 XOR k%2 == m%2.\n        #\n        # Additionally odd' can't be negative; but the distance |odd - m%2| must be <= k\n        # since each deletion can change odd by at most 1. With odd changing by ±1 each step,\n        # reaching a target requires k >= |odd - target|.\n        #\n        target = m & 1\n\n        if k >= abs(odd - target) and ((odd ^ k) & 1) == target:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef can_form_palindrome_after_deletions(s: str, k: int) -> bool:\n    # Condition for multiset to be rearrangeable into a palindrome:\n    # number of chars with odd frequency <= 1 (if final length odd) else == 0.\n    # Here final length m = n-k. But we can delete any k chars.\n    # Equivalent check using how many odd counts we can fix by deleting.\n    from collections import Counter\n    freq = Counter(s)\n    odd = sum(v % 2 for v in freq.values())\n\n    n = len(s)\n    m = n - k\n\n    # We can change parity of a letter's count by deleting one occurrence of it.\n    # Each deletion flips odd/even status for that letter.\n    # To reduce odd to 0 or 1, we need at least:\n    # - If m is even: need odd == 0 after deletions -> target odd parity 0\n    # - If m is odd : need odd == 1 after deletions -> target odd parity 1\n    target = 0 if (m % 2 == 0) else 1\n\n    # If odd already less than or equal to (target and parity constraints) we still need deletions exactly k.\n    # Minimal deletions to make odd == target:\n    # Each deletion can decrease odd by 1 (flip an odd count to even) if we delete from an odd-count letter,\n    # or increase odd by 1 (if we delete from an even-count letter).\n    # The best-case (minimal) operations:\n    # - If odd > target: we can delete from odd letters to reduce odd.\n    #   Need (odd - target) deletions, since each reduces odd by 1.\n    # - If odd == target: need 0 deletions to satisfy palindrome condition.\n    # - If odd < target: impossible because odd cannot become bigger to exceed by only deletions from odd? Actually\n    #   deleting can increase odd, so odd < target can be fixed too, but with parity considerations.\n    #\n    # However, there is known simple rule for this CF problem:\n    # Let odd be initial odd count. We need to be able to spend k deletions so that\n    # after deletions, odd' <= 1 with parity matching m.\n    #\n    # Minimal deletions to reach some feasible state:\n    # If m is even => need odd' = 0, so odd must be even; and we must be able to delete all but even parity.\n    # General check:\n    # - We can always delete two characters of the same letter without changing odd count parity.\n    # - Deleting one character flips odd count by +/-1.\n    #\n    # Derived condition (standard):\n    # If k is enough to make the number of odd frequencies not exceed m%2:\n    # i.e., after deleting, odd' must be <= 1 and parity must fit length:\n    # achievable iff:\n    #   odd <= k + (m%2)  and (k - (odd - (m%2))) is even when odd >= m%2 else parity works out.\n    #\n    # We'll implement robust approach by considering minimal deletions to get odd' == target.\n    if odd > target:\n        need = odd - target\n        if k < need:\n            return False\n        # Remaining deletions can be used in pairs to keep palindrome condition\n        # (because deleting two characters can keep odd count unchanged).\n        return (k - need) % 2 == 0\n    else:\n        # odd <= target. Need to increase odd to target by deleting from even-count letters.\n        # Each such deletion increases odd by 1, minimal deletions = target - odd.\n        need = target - odd\n        if k < need:\n            return False\n        # Remaining deletions in pairs still can be used without affecting feasibility.\n        return (k - need) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_form_palindrome_after_deletions(s, k) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n        cnt = Counter(s)\n\n        m = n - k  # remaining length\n        odd = sum(1 for v in cnt.values() if v % 2 == 1)\n\n        if m % 2 == 0:\n            # Need 0 odds. Each deletion changes parity of exactly one character count.\n            # Minimal deletions to make odd==0:\n            #   - if odd already 0: need 0\n            #   - otherwise: deleting one from an odd count makes it even, decreases odd by 1,\n            #     but deleting from odd decreases odd by 1, and deleting from even increases odd by 1.\n            # Here, greedy-known condition for this CF problem:\n            #   possible iff k >= odd and (k - odd) is even.\n            out.append(\"YES\" if k >= odd and (k - odd) % 2 == 0 else \"NO\")\n        else:\n            # Need exactly 1 odd\n            out.append(\"YES\" if k >= odd - 1 and (k - (odd - 1)) % 2 == 0 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_form_palindrome_after_deleting_exact_k(n, k, s):\n    # Remaining length must be even/odd accordingly; palindrome condition:\n    # - if remaining length is even: all counts even\n    # - if odd: exactly one count odd\n    m = n - k\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n\n    # Each deletion flips parity of exactly one character count,\n    # so it changes the number of odd-count letters by either +1 or -1.\n    # Feasibility reduces to: we must reach:\n    #   target odd count = 0 if m even else 1\n    target = 0 if m % 2 == 0 else 1\n\n    # We can delete any k characters; consider we start with \"odd\" and need \"target\".\n    # Let d = |odd - target|. Each deletion can change odd by 1 (mod 2),\n    # so parity constraint: (odd - target) mod 2 must match k mod 2,\n    # and also d <= k (can't make enough adjustments).\n    d = abs(odd - target)\n    return d <= k and ((k - d) % 2 == 0)\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_form_palindrome_after_deleting_exact_k(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1883_B",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 4,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 1,
+          "score": 0.25,
+          "tier": "partial",
+          "details": {
+            "passed": 1,
+            "total": 4,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nNO\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 4,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 3,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 4,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nNO\nNO\nNO\nYES\nNO\nNO\nYES\nNO\nNO\nNO\nNO\nNO",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "NO\nNO\nNO\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nNO\nYES\nYES\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "NO\nNO\nNO\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 4,
+          "score": 0.75,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 5,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 6,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 4,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 8,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 9,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Parity-Only Palindrome Feasibility: When rearrangement is allowed, reduce palindrome requirements to constraints on how many character counts are odd.\n     For any multiset of letters, it can be permuted into a palindrome iff the number of odd-frequency letters is 0 (even length) or 1 (odd length). This lets you ignore character identities and work only with the odd-count count, turning the problem into a parity/state-transition check.\n  2. Deletion as a Parity-Toggle Transition: Model each deletion as toggling exactly one letter’s frequency parity, hence changing the odd-count count by ±1.\n     Since removing one occurrence flips the parity of that letter’s frequency, the “number of odd-frequency letters” changes by exactly 1 in magnitude per deletion. Therefore, reachability to a target odd-count depends on (a) whether the target is within distance k and (b) parity compatibility of the remaining “slack” deletions.\n  3. Distance + Same-Parity Check for Reachability: To decide if a state can be reached in exactly k parity-flip steps, require both |delta| ≤ k and (k − |delta|) even.\n     When each step changes a quantity by ±1, then after k steps the quantity must differ from the start by an integer with the same parity as k; equivalently (k − required_change) must be even. This pattern generalizes to many “±1 per move” reachability problems on integer-valued invariants.\n  4. Separate Necessity From Sufficiency Carefully: Do not assume parity conditions alone guarantee feasibility unless the state-transition model proves sufficiency.\n     Some incorrect solutions effectively treated a derived equation or parity constraint as automatically satisfiable, but missed that additional constraints (like correct target odd-count for even/odd remaining length, or parity of slack deletions) can make the transition impossible. Always verify both minimal-step feasibility and parity compatibility with the exact “in k moves” requirement.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given a string $s$ of length $n$, consisting of lowercase Latin letters, and an integer $k$.\n\nYou need to check if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome. Note that you can reorder the remaining characters in any way.\n\nA palindrome is a string that reads the same forwards and backwards. For example, the strings \"z\", \"aaa\", \"aba\", \"abccba\" are palindromes, while the strings \"codeforces\", \"reality\", \"ab\" are not.\n\nInput\n\nEach test consists of multiple test cases. The first line contains a single integer $t$ ($1 \\leq t \\leq 10^4$) — the number of the test cases. This is followed by their description.\n\nThe first line of each test case contains two integers $n$ and $k$ ($0 \\leq k < n \\leq 10^5$) — the length of the string $s$ and the number of characters to be deleted.\n\nThe second line of each test case contains a string $s$ of length $n$, consisting of lowercase Latin letters.\n\nIt is guaranteed that the sum of $n$ over all test cases does not exceed $2 \\cdot 10^5$.\n\nOutput\n\nFor each test case, output \"YES\" if it is possible to remove exactly $k$ characters from the string $s$ in such a way that the remaining characters can be rearranged to form a palindrome, and \"NO\" otherwise.\n\nYou can output the answer in any case (uppercase or lowercase). For example, the strings \"yEs\", \"yes\", \"Yes\", and \"YES\" will be recognized as positive answers.Sample Input 1:\n14\n\n1 0\n\na\n\n2 0\n\nab\n\n2 1\n\nba\n\n3 1\n\nabb\n\n3 2\n\nabc\n\n6 2\n\nbacacd\n\n6 2\n\nfagbza\n\n6 2\n\nzwaafa\n\n7 2\n\ntaagaak\n\n14 3\n\nttrraakkttoorr\n\n5 3\n\ndebdb\n\n5 4\n\necadc\n\n5 3\n\ndebca\n\n5 3\n\nabaac\n\n\n\nSample Output 1:\n\nYES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES\n\n\nNote\n\nIn the first test case, nothing can be removed, and the string \"a\" is a palindrome.\n\nIn the second test case, nothing can be removed, but the strings \"ab\" and \"ba\" are not palindromes.\n\nIn the third test case, any character can be removed, and the resulting string will be a palindrome.\n\nIn the fourth test case, one occurrence of the character \"a\" can be removed, resulting in the string \"bb\", which is a palindrome.\n\nIn the sixth test case, one occurrence of the characters \"b\" and \"d\" can be removed, resulting in the string \"acac\", which can be rearranged to the string \"acca\".\n\nIn the ninth test case, one occurrence of the characters \"t\" and \"k\" can be removed, resulting in the string \"aagaa\", which is a palindrome.\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n\n        cnt = [0]*26\n        for ch in s:\n            cnt[ord(ch)-97] += 1\n        odd = sum(1 for x in cnt if x % 2 == 1)\n\n        m = n - k  # remaining length\n        # A multiset can be permuted into a palindrome iff:\n        # odd == 0 when m even, odd == 1 when m odd.\n        target = 0 if (m % 2 == 0) else 1\n\n        # Each deletion flips parity of exactly one letter count,\n        # so the number of odd-count letters changes by exactly ±1 per deletion.\n        # After k steps, odd' must satisfy:\n        #   |odd - target| <= k  and (k - |odd-target|) is even\n        d = abs(odd - target)\n        if d <= k and (k - d) % 2 == 0:\n            out.append(\"YES\")\n        else:\n            out.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_by_deleting_k(n, k, s):\n    cnt = Counter(s)\n    odd0 = sum(v % 2 for v in cnt.values())\n\n    # remaining length L = n-k\n    L = n - k\n\n    # For a multiset to be rearrangeable into a palindrome:\n    # odd count must be 0 if L even, else 1.\n    target = 0 if (L % 2 == 0) else 1\n\n    # Each deletion flips parity of exactly one letter count -> odd-count changes by ±1 each step.\n    # After k deletions, odd count can be target iff:\n    #   1) |odd0 - target| <= k\n    #   2) (k - |odd0 - target|) is even  (parity of reachable values matches)\n    d = abs(odd0 - target)\n    return d <= k and (k - d) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_make_palindrome_by_deleting_k(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_by_deleting_k(n, k, s):\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n\n    m = n - k  # remaining length\n    # A multiset can be permuted into a palindrome iff:\n    # odd_count == 0 when length even, odd_count == 1 when length odd.\n    target = 0 if m % 2 == 0 else 1\n\n    # Each deletion toggles parity of exactly one letter,\n    # thus changes odd_count by +/- 1.\n    # So after k deletions, odd can become target iff:\n    # 1) |odd - target| <= k\n    # 2) (k - (odd - target) ) is even in absolute sense => (k - |odd-target|) even\n    delta = abs(odd - target)\n    if delta > k:\n        return False\n    return (k - delta) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_make_palindrome_by_deleting_k(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_after_deleting_k(n, k, s):\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())\n    rem = n - k  # length after deletions\n\n    # If remaining length rem is even => need odd-frequency count = 0\n    # If remaining length rem is odd  => need odd-frequency count = 1\n    target = 0 if rem % 2 == 0 else 1\n\n    # Each deletion flips parity of exactly one letter => odd count changes by ±1 per deletion\n    # After k deletions, odd' must satisfy:\n    # 1) |odd - target| <= k\n    # 2) (k - |odd-target|) even   (same parity of number of steps)\n    d = abs(odd - target)\n    if d > k:\n        return False\n    return (k - d) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_make_palindrome_after_deleting_k(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef possible(n, k, s):\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())  # number of odd-frequency letters in s\n\n    m = n - k  # length after deletions\n\n    # For a multiset to be rearrangeable into a palindrome:\n    # - if length is even -> odd must be 0\n    # - if length is odd  -> odd must be 1\n    target = 0 if m % 2 == 0 else 1\n\n    # Each deletion flips parity of exactly one letter => odd changes by exactly ±1 per deletion.\n    # So after k steps, we need odd' = target and parity compatibility:\n    # target - odd must have same parity as k (because odd changes by ±1 each step).\n    delta = abs(odd - target)\n    return delta <= k and (k - delta) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if possible(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef can_make_palindrome_by_deleting_k(n, k, s):\n    # Count odd-frequency letters in original string\n    freq = [0] * 26\n    for ch in s:\n        freq[ord(ch) - 97] += 1\n    odd = sum(1 for c in freq if c % 2 == 1)\n\n    # After deleting k chars, remaining length is L = n-k.\n    # For a multiset to be rearrangeable into a palindrome:\n    # - if L is even -> odd must be 0\n    # - if L is odd  -> odd must be 1\n    target = (n - k) & 1  # 0 if even length, 1 if odd length\n\n    # Each deletion flips parity of exactly one letter, hence changes \"odd\" by ±1.\n    # So after k steps, parity of (odd - target) must match parity of k:\n    #   (k - abs(odd-target)) must be even, and abs(odd-target) <= k.\n    d = abs(odd - target)\n    return d <= k and (k - d) % 2 == 0\n\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n        out.append(\"YES\" if can_make_palindrome_by_deleting_k(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_by_deleting_k(n, k, s):\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())  # number of letters with odd frequency\n\n    # After deleting exactly k characters:\n    # Each deletion flips parity of exactly one letter count => odd changes by exactly ±1.\n    # So odd' must satisfy: |odd' - odd| <= k and (k - |odd' - odd|) is even.\n    m = n - k  # remaining length\n\n    # For a multiset to be rearrangeable into a palindrome:\n    # - if m is even -> odd' must be 0\n    # - if m is odd  -> odd' must be 1\n    target = 0 if m % 2 == 0 else 1\n\n    diff = abs(odd - target)\n    if diff > k:\n        return False\n    # Need parity compatibility with exactly k steps of ±1 changes\n    return (k - diff) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx+1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_make_palindrome_by_deleting_k(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef can_make_palindrome_after_k_deletions(n, k, s):\n    cnt = [0]*26\n    for ch in s:\n        cnt[ord(ch)-97] += 1\n    odd = sum(1 for x in cnt if x % 2 == 1)  # number of odd-frequency letters in original string\n\n    m = n - k  # remaining length\n    # For rearrangement into a palindrome:\n    # m even -> odd must be 0\n    # m odd  -> odd must be 1\n    target = 0 if m % 2 == 0 else 1\n\n    # Each deletion flips parity of exactly one letter -> odd changes by ±1.\n    # After k deletions, we need odd == target.\n    delta = target - odd\n    if abs(delta) > k:\n        return False\n    # parity of (odd + k) == target? equivalently (k - abs(delta)) even\n    if (k - abs(delta)) % 2 != 0:\n        return False\n    return True\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it)); k = int(next(it))\n        s = next(it)\n        out.append(\"YES\" if can_make_palindrome_after_k_deletions(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_after_deletions(n, k, s):\n    cnt = Counter(s)\n    odd = sum(v & 1 for v in cnt.values())  # number of letters with odd frequency\n\n    m = n - k  # length after deletions\n    # A multiset can form a palindrome iff number of odd counts is 0 (even length) or 1 (odd length)\n    target = 0 if (m % 2 == 0) else 1\n\n    # Each deletion flips parity of exactly one character frequency,\n    # so the number of odd-count letters changes by exactly ±1 per deletion.\n    # After k deletions, we need to reach exactly target odd count.\n    delta = target - odd\n    if abs(delta) > k:\n        return False\n    # After k steps changing by ±1, parity of (odd -> target) must match:\n    # (k - abs(delta)) must be even.\n    return (k - abs(delta)) % 2 == 0\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    idx = 1\n    out = []\n    for _ in range(t):\n        n = int(data[idx]); k = int(data[idx + 1]); idx += 2\n        s = data[idx]; idx += 1\n        out.append(\"YES\" if can_make_palindrome_after_deletions(n, k, s) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\nfrom collections import Counter\n\ndef can_make_palindrome_after_k_deletions(s: str, k: int) -> bool:\n    cnt = Counter(s)\n    odd = sum(v % 2 for v in cnt.values())  # odd-frequency letters count\n\n    # After deleting k characters, remaining length L = n-k.\n    # A multiset can be permuted into a palindrome iff:\n    #   odd' == 0 (L even) or odd' == 1 (L odd)\n    # Each deletion flips parity of exactly one letter => odd changes by ±1 per deletion.\n    # Therefore after k steps, odd' must be reachable from odd with:\n    #   |odd' - odd| <= k and (k - |odd' - odd|) even\n    # Additionally, odd' must be 0 or 1 depending on parity of L.\n    # Also impossible if k is not consistent with achievable odd' due to parity of odd changes (handled by above condition).\n\n    # target odd count:\n    # if (n-k) is even => target 0 else 1\n    # We'll determine target using current odd isn't enough; need n from caller.\n    # So let caller pass k and compute target outside? We'll compute here using len(s).\n    n = len(s)\n    target = 0 if (n - k) % 2 == 0 else 1\n\n    diff = abs(target - odd)\n    if diff > k:\n        return False\n    return (k - diff) % 2 == 0\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    out = []\n    for _ in range(t):\n        n = int(next(it))\n        k = int(next(it))\n        s = next(it)\n        out.append(\"YES\" if can_make_palindrome_after_k_deletions(s, k) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1883_B",
+          "generation_index": 0,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 1,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 2,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 3,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 4,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 5,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 6,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 7,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 8,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 2,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nNO\nYES\nNO\nYES",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1883_B",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 4,
+            "total": 4,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "actual": "YES\nNO\nYES\nYES\nYES\nYES\nNO\nNO\nYES\nYES\nYES\nYES\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nNO\nYES\nYES",
+                "actual": "YES\nYES\nNO\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.3,
+      "augmented_pass_rate": 0.1,
+      "improvement": -0.19999999999999998
+    }
+  }
+}

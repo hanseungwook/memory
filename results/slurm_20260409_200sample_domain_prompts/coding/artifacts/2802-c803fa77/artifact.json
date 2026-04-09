@@ -1,0 +1,3086 @@
+{
+  "problem_id": "2802",
+  "domain": "coding",
+  "problem": {
+    "id": "2802",
+    "domain": "coding",
+    "statement": "Given a positive integer n, return the punishment number of n.\nThe punishment number of n is defined as the sum of the squares of all integers i such that:\n\n1 <= i <= n\nThe decimal representation of i * i can be partitioned into contiguous substrings such that the sum of the integer values of these substrings equals i.\n\n \nExample 1:\n\nInput: n = 10\nOutput: 182\nExplanation: There are exactly 3 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1\n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1.\n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0.\nHence, the punishment number of 10 is 1 + 81 + 100 = 182\n\nExample 2:\n\nInput: n = 37\nOutput: 1478\nExplanation: There are exactly 4 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1. \n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1. \n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0. \n- 36 since 36 * 36 = 1296 and 1296 can be partitioned into 1 + 29 + 6.\nHence, the punishment number of 37 is 1 + 81 + 100 + 1296 = 1478\n\n \nConstraints:\n\n1 <= n <= 1000",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "10",
+        "output": "182",
+        "testtype": "functional"
+      },
+      {
+        "input": "37",
+        "output": "1478",
+        "testtype": "functional"
+      },
+      {
+        "input": "7",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "1",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "3",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "27",
+        "output": "182",
+        "testtype": "functional"
+      },
+      {
+        "input": "31",
+        "output": "182",
+        "testtype": "functional"
+      },
+      {
+        "input": "17",
+        "output": "182",
+        "testtype": "functional"
+      },
+      {
+        "input": "14",
+        "output": "182",
+        "testtype": "functional"
+      },
+      {
+        "input": "75",
+        "output": "6528",
+        "testtype": "functional"
+      },
+      {
+        "input": "948",
+        "output": "5915179",
+        "testtype": "functional"
+      },
+      {
+        "input": "879",
+        "output": "3353149",
+        "testtype": "functional"
+      },
+      {
+        "input": "898",
+        "output": "3353149",
+        "testtype": "functional"
+      },
+      {
+        "input": "661",
+        "output": "1204515",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def punishmentNumber(self, n: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "punishmentNumber",
+      "question_title": "find-the-punishment-number-of-an-integer",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nGiven a positive integer n, return the punishment number of n.\nThe punishment number of n is defined as the sum of the squares of all integers i such that:\n\n1 <= i <= n\nThe decimal representation of i * i can be partitioned into contiguous substrings such that the sum of the integer values of these substrings equals i.\n\n \nExample 1:\n\nInput: n = 10\nOutput: 182\nExplanation: There are exactly 3 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1\n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1.\n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0.\nHence, the punishment number of 10 is 1 + 81 + 100 = 182\n\nExample 2:\n\nInput: n = 37\nOutput: 1478\nExplanation: There are exactly 4 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1. \n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1. \n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0. \n- 36 since 36 * 36 = 1296 and 1296 can be partitioned into 1 + 29 + 6.\nHence, the punishment number of 37 is 1 + 81 + 100 + 1296 = 1478\n\n \nConstraints:\n\n1 <= n <= 1000\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(i: int) -> bool:\n            s = str(i * i)\n            target = i\n\n            # backtrack over substrings; dp[pos] = set of reachable sums from pos\n            memo = {}\n\n            def dfs(pos: int, acc: int) -> bool:\n                if acc > target:\n                    return False\n                if pos == len(s):\n                    return acc == target\n                key = (pos, acc)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for end in range(pos, len(s)):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    if dfs(end + 1, acc + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            if can_partition(i):\n                ans += i * i\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n\n            # memo[pos][sum] is too large; instead memo by (pos, current_sum)\n            memo = {}\n\n            def dfs(pos: int, total: int) -> bool:\n                if total > target:\n                    return False\n                if pos == m:\n                    return total == target\n                key = (pos, total)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    if dfs(i + 1, total + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        # Backtracking: check if s can be partitioned into parts summing to target\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n\n            # memo index + remaining target\n            memo = set()\n\n            def dfs(idx: int, remaining: int) -> bool:\n                if remaining < 0:\n                    return False\n                if idx == m:\n                    return remaining == 0\n                key = (idx, remaining)\n                if key in memo:\n                    return False\n\n                val = 0\n                for j in range(idx, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, remaining - val):\n                        return True\n\n                memo.add(key)\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num: int, target: int) -> bool:\n            s = str(num)\n            m = len(s)\n\n            # dp[pos][sum] = possible to reach `sum` using partitions up to pos\n            # sum range is at most target, and target <= 1000.\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for pos in range(m):\n                if not dp[pos]:\n                    continue\n                for cur_sum in dp[pos]:\n                    if cur_sum > target:\n                        continue\n                    val = 0\n                    for j in range(pos, m):\n                        val = val * 10 + (ord(s[j]) - 48)\n                        new_sum = cur_sum + val\n                        if new_sum > target:\n                            break\n                        dp[j + 1].add(new_sum)\n\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num_str: str, target: int) -> bool:\n            # dp[pos] = set of possible sums achievable from num_str[pos:]\n            # We use recursion with memoization: (pos, current_sum) isn't ideal;\n            # instead track remaining target.\n            from functools import lru_cache\n\n            m = len(num_str)\n\n            @lru_cache(None)\n            def dfs(pos: int, remaining: int) -> bool:\n                if pos == m:\n                    return remaining == 0\n                if remaining < 0:\n                    return False\n                val = 0\n                for end in range(pos, m):\n                    val = val * 10 + (ord(num_str[end]) - 48)\n                    # Take substring num_str[pos:end+1] with value val\n                    if dfs(end + 1, remaining - val):\n                        return True\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # dp[i] = set of possible sums using prefix s[:i]\n            # But for efficiency, use DFS with memoization.\n            m = len(s)\n            memo = set()\n\n            def dfs(pos: int, total: int) -> bool:\n                if total == target and pos == m:\n                    return True\n                if pos == m:\n                    return False\n                key = (pos, total)\n                if key in memo:\n                    return False\n                memo.add(key)\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    # Prune if total already exceeds target (all numbers are non-negative)\n                    if total + val > target:\n                        break\n                    if dfs(i + 1, total + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # dp[i] = set of sums achievable using a partition of s[:i]\n            # We'll do DFS with memoization for efficiency.\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(idx: int, curr_sum: int) -> bool:\n                if idx == len(s):\n                    return curr_sum == target\n                if curr_sum > target:\n                    return False\n                val = 0\n                for j in range(idx, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, curr_sum + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(square: int, target: int) -> bool:\n            s = str(square)\n\n            # dp[pos] = set of achievable sums using s[:pos]\n            # Start with sum 0 at pos 0.\n            reachable = {0}\n            for i in range(len(s)):\n                new_reach = set()\n                for sm in reachable:\n                    val = 0\n                    # extend substring s[i:j]\n                    for j in range(i, len(s)):\n                        val = val * 10 + (ord(s[j]) - 48)\n                        ns = sm + val\n                        if ns == target:\n                            # If we've consumed the entire string and hit target, success.\n                            if j == len(s) - 1:\n                                return True\n                        if ns < target:\n                            new_reach.add(ns)\n                reachable = new_reach\n                if not reachable:\n                    return False\n\n            return target in reachable\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_to_sum(s: str, target: int) -> bool:\n            # dp[pos] = whether we can reach sum `curr` at position pos.\n            # We'll instead do DFS with memo: (idx, curr_sum)\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(idx: int, curr_sum: int) -> bool:\n                if idx == len(s):\n                    return curr_sum == target\n                if curr_sum > target:\n                    return False\n                val = 0\n                for j in range(idx, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if curr_sum + val > target:\n                        break\n                    if dfs(j + 1, curr_sum + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition_to_sum(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(square: int, target: int) -> bool:\n            s = str(square)\n            m = len(s)\n\n            # dp[pos][sum] -> reachable\n            # sum can be at most target (pruning with > target)\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for pos in range(m):\n                if not dp[pos]:\n                    continue\n                for cur_sum in dp[pos]:\n                    if cur_sum > target:\n                        continue\n                    val = 0\n                    for end in range(pos + 1, m + 1):\n                        val = val * 10 + (ord(s[end - 1]) - 48)\n                        new_sum = cur_sum + val\n                        if new_sum > target:\n                            break\n                        dp[end].add(new_sum)\n\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2802",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 7,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1478",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "6528",
+                "actual": "16113",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5915179",
+                "actual": "48483334",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3353149",
+                "actual": "38520210",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3353149",
+                "actual": "40889508",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1204515",
+                "actual": "12256695",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(i: int) -> bool:\n            s = str(i * i)\n            target = i\n\n            # backtrack over substrings; dp[pos] = set of reachable sums from pos\n            memo = {}\n\n            def dfs(pos: int, acc: int) -> bool:\n                if acc > target:\n                    return False\n                if pos == len(s):\n                    return acc == target\n                key = (pos, acc)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for end in range(pos, len(s)):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    if dfs(end + 1, acc + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            if can_partition(i):\n                ans += i * i\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n\n            # memo[pos][sum] is too large; instead memo by (pos, current_sum)\n            memo = {}\n\n            def dfs(pos: int, total: int) -> bool:\n                if total > target:\n                    return False\n                if pos == m:\n                    return total == target\n                key = (pos, total)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    if dfs(i + 1, total + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        # Backtracking: check if s can be partitioned into parts summing to target\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n\n            # memo index + remaining target\n            memo = set()\n\n            def dfs(idx: int, remaining: int) -> bool:\n                if remaining < 0:\n                    return False\n                if idx == m:\n                    return remaining == 0\n                key = (idx, remaining)\n                if key in memo:\n                    return False\n\n                val = 0\n                for j in range(idx, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, remaining - val):\n                        return True\n\n                memo.add(key)\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num: int, target: int) -> bool:\n            s = str(num)\n            m = len(s)\n\n            # dp[pos][sum] = possible to reach `sum` using partitions up to pos\n            # sum range is at most target, and target <= 1000.\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for pos in range(m):\n                if not dp[pos]:\n                    continue\n                for cur_sum in dp[pos]:\n                    if cur_sum > target:\n                        continue\n                    val = 0\n                    for j in range(pos, m):\n                        val = val * 10 + (ord(s[j]) - 48)\n                        new_sum = cur_sum + val\n                        if new_sum > target:\n                            break\n                        dp[j + 1].add(new_sum)\n\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num_str: str, target: int) -> bool:\n            # dp[pos] = set of possible sums achievable from num_str[pos:]\n            # We use recursion with memoization: (pos, current_sum) isn't ideal;\n            # instead track remaining target.\n            from functools import lru_cache\n\n            m = len(num_str)\n\n            @lru_cache(None)\n            def dfs(pos: int, remaining: int) -> bool:\n                if pos == m:\n                    return remaining == 0\n                if remaining < 0:\n                    return False\n                val = 0\n                for end in range(pos, m):\n                    val = val * 10 + (ord(num_str[end]) - 48)\n                    # Take substring num_str[pos:end+1] with value val\n                    if dfs(end + 1, remaining - val):\n                        return True\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # dp[i] = set of possible sums using prefix s[:i]\n            # But for efficiency, use DFS with memoization.\n            m = len(s)\n            memo = set()\n\n            def dfs(pos: int, total: int) -> bool:\n                if total == target and pos == m:\n                    return True\n                if pos == m:\n                    return False\n                key = (pos, total)\n                if key in memo:\n                    return False\n                memo.add(key)\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    # Prune if total already exceeds target (all numbers are non-negative)\n                    if total + val > target:\n                        break\n                    if dfs(i + 1, total + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # dp[i] = set of sums achievable using a partition of s[:i]\n            # We'll do DFS with memoization for efficiency.\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(idx: int, curr_sum: int) -> bool:\n                if idx == len(s):\n                    return curr_sum == target\n                if curr_sum > target:\n                    return False\n                val = 0\n                for j in range(idx, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, curr_sum + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_to_sum(s: str, target: int) -> bool:\n            # dp[pos] = whether we can reach sum `curr` at position pos.\n            # We'll instead do DFS with memo: (idx, curr_sum)\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(idx: int, curr_sum: int) -> bool:\n                if idx == len(s):\n                    return curr_sum == target\n                if curr_sum > target:\n                    return False\n                val = 0\n                for j in range(idx, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if curr_sum + val > target:\n                        break\n                    if dfs(j + 1, curr_sum + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition_to_sum(str(sq), i):\n                ans += sq\n        return ans\n```",
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(square: int, target: int) -> bool:\n            s = str(square)\n            m = len(s)\n\n            # dp[pos][sum] -> reachable\n            # sum can be at most target (pruning with > target)\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for pos in range(m):\n                if not dp[pos]:\n                    continue\n                for cur_sum in dp[pos]:\n                    if cur_sum > target:\n                        continue\n                    val = 0\n                    for end in range(pos + 1, m + 1):\n                        val = val * 10 + (ord(s[end - 1]) - 48)\n                        new_sum = cur_sum + val\n                        if new_sum > target:\n                            break\n                        dp[end].add(new_sum)\n\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```"
+        ],
+        "partial": [
+          "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(square: int, target: int) -> bool:\n            s = str(square)\n\n            # dp[pos] = set of achievable sums using s[:pos]\n            # Start with sum 0 at pos 0.\n            reachable = {0}\n            for i in range(len(s)):\n                new_reach = set()\n                for sm in reachable:\n                    val = 0\n                    # extend substring s[i:j]\n                    for j in range(i, len(s)):\n                        val = val * 10 + (ord(s[j]) - 48)\n                        ns = sm + val\n                        if ns == target:\n                            # If we've consumed the entire string and hit target, success.\n                            if j == len(s) - 1:\n                                return True\n                        if ns < target:\n                            new_reach.add(ns)\n                reachable = new_reach\n                if not reachable:\n                    return False\n\n            return target in reachable\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nGiven a positive integer n, return the punishment number of n.\nThe punishment number of n is defined as the sum of the squares of all integers i such that:\n\n1 <= i <= n\nThe decimal representation of i * i can be partitioned into contiguous substrings such that the sum of the integer values of these substrings equals i.\n\n \nExample 1:\n\nInput: n = 10\nOutput: 182\nExplanation: There are exactly 3 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1\n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1.\n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0.\nHence, the punishment number of 10 is 1 + 81 + 100 = 182\n\nExample 2:\n\nInput: n = 37\nOutput: 1478\nExplanation: There are exactly 4 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1. \n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1. \n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0. \n- 36 since 36 * 36 = 1296 and 1296 can be partitioned into 1 + 29 + 6.\nHence, the punishment number of 37 is 1 + 81 + 100 + 1296 = 1478\n\n \nConstraints:\n\n1 <= n <= 1000\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(i: int) -> bool:\n            s = str(i * i)\n            target = i\n\n            # backtrack over substrings; dp[pos] = set of reachable sums from pos\n            memo = {}\n\n            def dfs(pos: int, acc: int) -> bool:\n                if acc > target:\n                    return False\n                if pos == len(s):\n                    return acc == target\n                key = (pos, acc)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for end in range(pos, len(s)):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    if dfs(end + 1, acc + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            if can_partition(i):\n                ans += i * i\n        return ans\n```\n\nAttempt 2\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n\n            # memo[pos][sum] is too large; instead memo by (pos, current_sum)\n            memo = {}\n\n            def dfs(pos: int, total: int) -> bool:\n                if total > target:\n                    return False\n                if pos == m:\n                    return total == target\n                key = (pos, total)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    if dfs(i + 1, total + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```\n\nAttempt 3\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        # Backtracking: check if s can be partitioned into parts summing to target\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n\n            # memo index + remaining target\n            memo = set()\n\n            def dfs(idx: int, remaining: int) -> bool:\n                if remaining < 0:\n                    return False\n                if idx == m:\n                    return remaining == 0\n                key = (idx, remaining)\n                if key in memo:\n                    return False\n\n                val = 0\n                for j in range(idx, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, remaining - val):\n                        return True\n\n                memo.add(key)\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```\n\nAttempt 4\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num: int, target: int) -> bool:\n            s = str(num)\n            m = len(s)\n\n            # dp[pos][sum] = possible to reach `sum` using partitions up to pos\n            # sum range is at most target, and target <= 1000.\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for pos in range(m):\n                if not dp[pos]:\n                    continue\n                for cur_sum in dp[pos]:\n                    if cur_sum > target:\n                        continue\n                    val = 0\n                    for j in range(pos, m):\n                        val = val * 10 + (ord(s[j]) - 48)\n                        new_sum = cur_sum + val\n                        if new_sum > target:\n                            break\n                        dp[j + 1].add(new_sum)\n\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```\n\nAttempt 5\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num_str: str, target: int) -> bool:\n            # dp[pos] = set of possible sums achievable from num_str[pos:]\n            # We use recursion with memoization: (pos, current_sum) isn't ideal;\n            # instead track remaining target.\n            from functools import lru_cache\n\n            m = len(num_str)\n\n            @lru_cache(None)\n            def dfs(pos: int, remaining: int) -> bool:\n                if pos == m:\n                    return remaining == 0\n                if remaining < 0:\n                    return False\n                val = 0\n                for end in range(pos, m):\n                    val = val * 10 + (ord(num_str[end]) - 48)\n                    # Take substring num_str[pos:end+1] with value val\n                    if dfs(end + 1, remaining - val):\n                        return True\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```\n\nAttempt 6\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # dp[i] = set of possible sums using prefix s[:i]\n            # But for efficiency, use DFS with memoization.\n            m = len(s)\n            memo = set()\n\n            def dfs(pos: int, total: int) -> bool:\n                if total == target and pos == m:\n                    return True\n                if pos == m:\n                    return False\n                key = (pos, total)\n                if key in memo:\n                    return False\n                memo.add(key)\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    # Prune if total already exceeds target (all numbers are non-negative)\n                    if total + val > target:\n                        break\n                    if dfs(i + 1, total + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```\n\nAttempt 7\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # dp[i] = set of sums achievable using a partition of s[:i]\n            # We'll do DFS with memoization for efficiency.\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(idx: int, curr_sum: int) -> bool:\n                if idx == len(s):\n                    return curr_sum == target\n                if curr_sum > target:\n                    return False\n                val = 0\n                for j in range(idx, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, curr_sum + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```\n\nAttempt 8\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_to_sum(s: str, target: int) -> bool:\n            # dp[pos] = whether we can reach sum `curr` at position pos.\n            # We'll instead do DFS with memo: (idx, curr_sum)\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(idx: int, curr_sum: int) -> bool:\n                if idx == len(s):\n                    return curr_sum == target\n                if curr_sum > target:\n                    return False\n                val = 0\n                for j in range(idx, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if curr_sum + val > target:\n                        break\n                    if dfs(j + 1, curr_sum + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition_to_sum(str(sq), i):\n                ans += sq\n        return ans\n```\n\nAttempt 9\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(square: int, target: int) -> bool:\n            s = str(square)\n            m = len(s)\n\n            # dp[pos][sum] -> reachable\n            # sum can be at most target (pruning with > target)\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for pos in range(m):\n                if not dp[pos]:\n                    continue\n                for cur_sum in dp[pos]:\n                    if cur_sum > target:\n                        continue\n                    val = 0\n                    for end in range(pos + 1, m + 1):\n                        val = val * 10 + (ord(s[end - 1]) - 48)\n                        new_sum = cur_sum + val\n                        if new_sum > target:\n                            break\n                        dp[end].add(new_sum)\n\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```\n\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(square: int, target: int) -> bool:\n            s = str(square)\n\n            # dp[pos] = set of achievable sums using s[:pos]\n            # Start with sum 0 at pos 0.\n            reachable = {0}\n            for i in range(len(s)):\n                new_reach = set()\n                for sm in reachable:\n                    val = 0\n                    # extend substring s[i:j]\n                    for j in range(i, len(s)):\n                        val = val * 10 + (ord(s[j]) - 48)\n                        ns = sm + val\n                        if ns == target:\n                            # If we've consumed the entire string and hit target, success.\n                            if j == len(s) - 1:\n                                return True\n                        if ns < target:\n                            new_reach.add(ns)\n                reachable = new_reach\n                if not reachable:\n                    return False\n\n            return target in reachable\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Constraint-first reachability modeling",
+          "description": "Reformulate the partition condition as a reachability/Dynamic Programming problem over string positions and partial sums.",
+          "content": "When a requirement is “split into contiguous pieces whose numeric values sum to a target,” represent progress by the current position in the string and the accumulated (or remaining) sum. This yields a clear transition rule for extending the next substring and a precise success criterion when you’ve consumed the entire string.",
+          "reasoning": "The successful attempts share a clear pattern: they formalize “can the square’s decimal string be split into contiguous substrings summing to the target” as a reachability problem over positions and partial sums, then use pruning/memoization to ensure correctness and efficiency. Failures (partially correct) come from inadequate state handling—e.g., only tracking a one-pass set of reachable sums without correctly capturing all valid partitions across positions, or prematurely concluding based on local conditions (such as hitting the target before consuming the full string) without an invariant that guarantees global correctness. Another distinguishing factor is avoiding incorrect memo keys: some versions correctly cache by (index, current sum) or (index, remaining) and ensure they represent the full relevant future state; less reliable approaches can miss valid paths or waste computation that leads to timeouts (even if conceptually right)."
+        },
+        {
+          "title": "Use the smallest correct state for memo/DP",
+          "description": "Cache or DP only on the minimal information that determines all future possibilities (e.g., index + accumulated sum or index + remaining sum).",
+          "content": "Correct solutions use memoization keys that capture exactly the part of the history that affects future feasibility. If the chosen state omits a necessary component (like whether you’ve actually advanced the partition boundary correctly), you can get subtle false negatives/positives.",
+          "reasoning": "The successful attempts share a clear pattern: they formalize “can the square’s decimal string be split into contiguous substrings summing to the target” as a reachability problem over positions and partial sums, then use pruning/memoization to ensure correctness and efficiency. Failures (partially correct) come from inadequate state handling—e.g., only tracking a one-pass set of reachable sums without correctly capturing all valid partitions across positions, or prematurely concluding based on local conditions (such as hitting the target before consuming the full string) without an invariant that guarantees global correctness. Another distinguishing factor is avoiding incorrect memo keys: some versions correctly cache by (index, current sum) or (index, remaining) and ensure they represent the full relevant future state; less reliable approaches can miss valid paths or waste computation that leads to timeouts (even if conceptually right)."
+        },
+        {
+          "title": "Prune using monotonic bounds with verification",
+          "description": "Prune branches early using monotonic constraints (such as partial sums exceeding the target when all values are non-negative), but always verify at the terminal condition.",
+          "content": "Because substring values are non-negative, “current sum > target” (or “remaining < 0”) safely rules out further extensions. However, don’t accept early hits unless your terminal condition also confirms the entire string was partitioned.",
+          "reasoning": "The successful attempts share a clear pattern: they formalize “can the square’s decimal string be split into contiguous substrings summing to the target” as a reachability problem over positions and partial sums, then use pruning/memoization to ensure correctness and efficiency. Failures (partially correct) come from inadequate state handling—e.g., only tracking a one-pass set of reachable sums without correctly capturing all valid partitions across positions, or prematurely concluding based on local conditions (such as hitting the target before consuming the full string) without an invariant that guarantees global correctness. Another distinguishing factor is avoiding incorrect memo keys: some versions correctly cache by (index, current sum) or (index, remaining) and ensure they represent the full relevant future state; less reliable approaches can miss valid paths or waste computation that leads to timeouts (even if conceptually right)."
+        },
+        {
+          "title": "Prefer iterative DP sets or DFS memo; avoid inconsistent incremental checks",
+          "description": "Choose either a consistent iterative DP update or a fully memoized DFS; mixing ad-hoc checks can break correctness.",
+          "content": "Successful attempts consistently update reachability for every next boundary, either via dp[pos] sets or recursive transitions with memoization. A partially correct approach often fails by updating reachable information without fully aligning it to partition boundaries or by returning true based on an incomplete consumption criterion.",
+          "reasoning": "The successful attempts share a clear pattern: they formalize “can the square’s decimal string be split into contiguous substrings summing to the target” as a reachability problem over positions and partial sums, then use pruning/memoization to ensure correctness and efficiency. Failures (partially correct) come from inadequate state handling—e.g., only tracking a one-pass set of reachable sums without correctly capturing all valid partitions across positions, or prematurely concluding based on local conditions (such as hitting the target before consuming the full string) without an invariant that guarantees global correctness. Another distinguishing factor is avoiding incorrect memo keys: some versions correctly cache by (index, current sum) or (index, remaining) and ensure they represent the full relevant future state; less reliable approaches can miss valid paths or waste computation that leads to timeouts (even if conceptually right)."
+        },
+        {
+          "title": "Always construct numbers incrementally from substrings",
+          "description": "Compute substring numeric values by incremental digit accumulation to make transitions correct and efficient.",
+          "content": "When iterating over end positions, update the current substring value as val = val*10 + digit, so every transition uses the correct integer interpretation of the chosen contiguous slice. This prevents errors that arise from recomputing substrings incorrectly or inconsistently.",
+          "reasoning": "The successful attempts share a clear pattern: they formalize “can the square’s decimal string be split into contiguous substrings summing to the target” as a reachability problem over positions and partial sums, then use pruning/memoization to ensure correctness and efficiency. Failures (partially correct) come from inadequate state handling—e.g., only tracking a one-pass set of reachable sums without correctly capturing all valid partitions across positions, or prematurely concluding based on local conditions (such as hitting the target before consuming the full string) without an invariant that guarantees global correctness. Another distinguishing factor is avoiding incorrect memo keys: some versions correctly cache by (index, current sum) or (index, remaining) and ensure they represent the full relevant future state; less reliable approaches can miss valid paths or waste computation that leads to timeouts (even if conceptually right)."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful attempts share a clear pattern: they formalize “can the square’s decimal string be split into contiguous substrings summing to the target” as a reachability problem over positions and partial sums, then use pruning/memoization to ensure correctness and efficiency. Failures (partially correct) come from inadequate state handling—e.g., only tracking a one-pass set of reachable sums without correctly capturing all valid partitions across positions, or prematurely concluding based on local conditions (such as hitting the target before consuming the full string) without an invariant that guarantees global correctness. Another distinguishing factor is avoiding incorrect memo keys: some versions correctly cache by (index, current sum) or (index, remaining) and ensure they represent the full relevant future state; less reliable approaches can miss valid paths or waste computation that leads to timeouts (even if conceptually right).\n</reasoning>\n\n<memories>\n<memory>\n<title>Constraint-first reachability modeling</title>\n<description>Reformulate the partition condition as a reachability/Dynamic Programming problem over string positions and partial sums.</description>\n<content>When a requirement is “split into contiguous pieces whose numeric values sum to a target,” represent progress by the current position in the string and the accumulated (or remaining) sum. This yields a clear transition rule for extending the next substring and a precise success criterion when you’ve consumed the entire string.</content>\n</memory>\n\n<memory>\n<title>Use the smallest correct state for memo/DP</title>\n<description>Cache or DP only on the minimal information that determines all future possibilities (e.g., index + accumulated sum or index + remaining sum).</description>\n<content>Correct solutions use memoization keys that capture exactly the part of the history that affects future feasibility. If the chosen state omits a necessary component (like whether you’ve actually advanced the partition boundary correctly), you can get subtle false negatives/positives.</content>\n</memory>\n\n<memory>\n<title>Prune using monotonic bounds with verification</title>\n<description>Prune branches early using monotonic constraints (such as partial sums exceeding the target when all values are non-negative), but always verify at the terminal condition.</description>\n<content>Because substring values are non-negative, “current sum > target” (or “remaining < 0”) safely rules out further extensions. However, don’t accept early hits unless your terminal condition also confirms the entire string was partitioned.</content>\n</memory>\n\n<memory>\n<title>Prefer iterative DP sets or DFS memo; avoid inconsistent incremental checks</title>\n<description>Choose either a consistent iterative DP update or a fully memoized DFS; mixing ad-hoc checks can break correctness.</description>\n<content>Successful attempts consistently update reachability for every next boundary, either via dp[pos] sets or recursive transitions with memoization. A partially correct approach often fails by updating reachable information without fully aligning it to partition boundaries or by returning true based on an incomplete consumption criterion.</content>\n</memory>\n\n<memory>\n<title>Always construct numbers incrementally from substrings</title>\n<description>Compute substring numeric values by incremental digit accumulation to make transitions correct and efficient.</description>\n<content>When iterating over end positions, update the current substring value as val = val*10 + digit, so every transition uses the correct integer interpretation of the chosen contiguous slice. This prevents errors that arise from recomputing substrings incorrectly or inconsistently.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nGiven a positive integer n, return the punishment number of n.\nThe punishment number of n is defined as the sum of the squares of all integers i such that:\n\n1 <= i <= n\nThe decimal representation of i * i can be partitioned into contiguous substrings such that the sum of the integer values of these substrings equals i.\n\n \nExample 1:\n\nInput: n = 10\nOutput: 182\nExplanation: There are exactly 3 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1\n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1.\n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0.\nHence, the punishment number of 10 is 1 + 81 + 100 = 182\n\nExample 2:\n\nInput: n = 37\nOutput: 1478\nExplanation: There are exactly 4 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1. \n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1. \n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0. \n- 36 since 36 * 36 = 1296 and 1296 can be partitioned into 1 + 29 + 6.\nHence, the punishment number of 37 is 1 + 81 + 100 + 1296 = 1478\n\n \nConstraints:\n\n1 <= n <= 1000\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # backtrack over contiguous substrings whose integer sum == target\n            L = len(s)\n\n            # memo: (pos, curr_sum) -> possible\n            memo = set()\n\n            def dfs(pos: int, curr: int) -> bool:\n                if curr == target and pos == L:\n                    return True\n                if pos == L or curr > target:\n                    return False\n                key = (pos, curr)\n                if key in memo:\n                    return False\n                # Try all next cuts\n                num = 0\n                for i in range(pos, L):\n                    num = num * 10 + (ord(s[i]) - 48)\n                    if curr + num > target:\n                        break\n                    if dfs(i + 1, curr + num):\n                        return True\n                memo.add(key)\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # Backtracking: split s into contiguous parts whose integer sum == target\n            m = len(s)\n            memo = {}  # (pos, curr_sum) -> bool\n\n            def dfs(pos: int, curr_sum: int) -> bool:\n                if curr_sum > target:\n                    return False\n                if pos == m:\n                    return curr_sum == target\n                key = (pos, curr_sum)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for end in range(pos, m):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    # pruning: since all parts are non-negative, don't explore beyond target\n                    if curr_sum + val <= target and dfs(end + 1, curr_sum + val):\n                        memo[key] = True\n                        return True\n\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def is_partitionable(s: str, target: int) -> bool:\n            # DFS over partitions of s, accumulating sum; must reach target exactly\n            m = len(s)\n            # dp[pos][sum] could work, but target varies per i; use memo for speed\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(pos: int, acc: int) -> bool:\n                if pos == m:\n                    return acc == target\n                if acc > target:\n                    return False\n                val = 0\n                for j in range(pos, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, acc + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if is_partitionable(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # Backtracking: split s into contiguous parts whose integer sum == target\n            m = len(s)\n\n            def dfs(idx: int, acc: int) -> bool:\n                if idx == m:\n                    return acc == target\n                if acc > target:  # all parts are non-negative\n                    return False\n                val = 0\n                for j in range(idx, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, acc + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # Backtracking over all contiguous partitions of s\n            m = len(s)\n\n            def dfs(pos: int, total: int) -> bool:\n                if pos == m:\n                    return total == target\n\n                num = 0\n                for i in range(pos, m):\n                    num = num * 10 + (ord(s[i]) - 48)\n                    if total + num > target:\n                        break\n                    if dfs(i + 1, total + num):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num: int, target: int) -> bool:\n            s = str(num)\n            m = len(s)\n            # dp[idx] = set of achievable sums using prefix s[:idx]\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for i in range(m):\n                if not dp[i]:\n                    continue\n                val = 0\n                for j in range(i, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    for prev_sum in dp[i]:\n                        new_sum = prev_sum + val\n                        if new_sum == target:\n                            return True\n                        if new_sum < target:\n                            dp[j + 1].add(new_sum)\n            return False\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(sq, i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # backtrack over partitions of s; sum parts == target\n            m = len(s)\n            memo = {}\n\n            def dfs(idx: int, total: int) -> bool:\n                if total == target and idx == m:\n                    return True\n                if idx == m or total > target:\n                    return False\n                key = (idx, total)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for j in range(idx, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if total + val <= target and dfs(j + 1, total + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        # Check if we can partition the decimal representation of x*x\n        # into contiguous substrings that sum to x.\n        def is_valid(x: int) -> bool:\n            s = str(x * x)\n            target = x\n            m = len(s)\n\n            # dp[pos] = set of possible sums achievable using substrings up to pos\n            # Start with empty prefix at sum 0.\n            dp = [set() for _ in range(m + 1)]\n            dp[0].add(0)\n\n            for i in range(m):\n                if not dp[i]:\n                    continue\n                # Extend substring s[i:j]\n                val = 0\n                for j in range(i, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    for sm in dp[i]:\n                        ns = sm + val\n                        if ns <= target:\n                            dp[j + 1].add(ns)\n            return target in dp[m]\n\n        ans = 0\n        for i in range(1, n + 1):\n            if is_valid(i):\n                ans += i * i\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num: str, target: int) -> bool:\n            m = len(num)\n\n            # dp[pos] = set of reachable sums using substrings up to pos\n            # Use a boolean DP with memoization for pruning.\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(pos: int, s: int) -> bool:\n                if s == target and pos == m:\n                    return True\n                if pos == m:\n                    return False\n                if s > target:\n                    return False\n\n                val = 0\n                for i in range(pos, m):\n                    val = val * 10 + (ord(num[i]) - 48)\n                    if dfs(i + 1, s + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # backtrack over all contiguous partitions of s\n            m = len(s)\n\n            def dfs(idx: int, total: int) -> bool:\n                if idx == m:\n                    return total == target\n                # prune: if we've exceeded target already, can't recover\n                if total > target:\n                    return False\n\n                val = 0\n                for j in range(idx, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, total + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2802",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 5,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1478",
+                "actual": "2847",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "6528",
+                "actual": "7897",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5915179",
+                "actual": "7749169",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3353149",
+                "actual": "4348083",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3353149",
+                "actual": "4348083",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1204515",
+                "actual": "1581653",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Constraint-first reachability modeling: Reformulate the partition condition as a reachability/Dynamic Programming problem over string positions and partial sums.\n     When a requirement is “split into contiguous pieces whose numeric values sum to a target,” represent progress by the current position in the string and the accumulated (or remaining) sum. This yields a clear transition rule for extending the next substring and a precise success criterion when you’ve consumed the entire string.\n  2. Use the smallest correct state for memo/DP: Cache or DP only on the minimal information that determines all future possibilities (e.g., index + accumulated sum or index + remaining sum).\n     Correct solutions use memoization keys that capture exactly the part of the history that affects future feasibility. If the chosen state omits a necessary component (like whether you’ve actually advanced the partition boundary correctly), you can get subtle false negatives/positives.\n  3. Prune using monotonic bounds with verification: Prune branches early using monotonic constraints (such as partial sums exceeding the target when all values are non-negative), but always verify at the terminal condition.\n     Because substring values are non-negative, “current sum > target” (or “remaining < 0”) safely rules out further extensions. However, don’t accept early hits unless your terminal condition also confirms the entire string was partitioned.\n  4. Prefer iterative DP sets or DFS memo; avoid inconsistent incremental checks: Choose either a consistent iterative DP update or a fully memoized DFS; mixing ad-hoc checks can break correctness.\n     Successful attempts consistently update reachability for every next boundary, either via dp[pos] sets or recursive transitions with memoization. A partially correct approach often fails by updating reachable information without fully aligning it to partition boundaries or by returning true based on an incomplete consumption criterion.\n  5. Always construct numbers incrementally from substrings: Compute substring numeric values by incremental digit accumulation to make transitions correct and efficient.\n     When iterating over end positions, update the current substring value as val = val*10 + digit, so every transition uses the correct integer interpretation of the chosen contiguous slice. This prevents errors that arise from recomputing substrings incorrectly or inconsistently.\n\nApply these insights to the problem below.\n\n### Question:\nGiven a positive integer n, return the punishment number of n.\nThe punishment number of n is defined as the sum of the squares of all integers i such that:\n\n1 <= i <= n\nThe decimal representation of i * i can be partitioned into contiguous substrings such that the sum of the integer values of these substrings equals i.\n\n \nExample 1:\n\nInput: n = 10\nOutput: 182\nExplanation: There are exactly 3 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1\n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1.\n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0.\nHence, the punishment number of 10 is 1 + 81 + 100 = 182\n\nExample 2:\n\nInput: n = 37\nOutput: 1478\nExplanation: There are exactly 4 integers i that satisfy the conditions in the statement:\n- 1 since 1 * 1 = 1. \n- 9 since 9 * 9 = 81 and 81 can be partitioned into 8 + 1. \n- 10 since 10 * 10 = 100 and 100 can be partitioned into 10 + 0. \n- 36 since 36 * 36 = 1296 and 1296 can be partitioned into 1 + 29 + 6.\nHence, the punishment number of 37 is 1 + 81 + 100 + 1296 = 1478\n\n \nConstraints:\n\n1 <= n <= 1000\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(num_str: str, target: int) -> bool:\n            # DFS with memo: state is (index, remaining_sum)\n            # numbers from substrings are non-negative, so remaining_sum < 0 can be pruned.\n            memo = set()\n\n            def dfs(i: int, rem: int) -> bool:\n                if rem < 0:\n                    return False\n                if i == len(num_str):\n                    return rem == 0\n                key = (i, rem)\n                if key in memo:\n                    return False\n\n                val = 0\n                for j in range(i, len(num_str)):\n                    val = val * 10 + (ord(num_str[j]) - 48)\n                    if val > rem and val > 0:\n                        # since all following substrings add more non-negative value,\n                        # exceeding rem at any point means no further extension can work\n                        break\n                    if dfs(j + 1, rem - val):\n                        return True\n\n                memo.add(key)\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_square(i: int) -> bool:\n            s = str(i * i)\n            m = len(s)\n\n            # dfs(pos, remaining): can we split s[pos:] into parts summing to remaining?\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(pos: int, remaining: int) -> bool:\n                if pos == m:\n                    return remaining == 0\n                if remaining < 0:\n                    return False\n\n                val = 0\n                for end in range(pos, m):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    if val > remaining:  # all values are non-negative\n                        break\n                    if dfs(end + 1, remaining - val):\n                        return True\n                return False\n\n            return dfs(0, i)\n\n        ans = 0\n        for i in range(1, n + 1):\n            if can_partition_square(i):\n                ans += i * i\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_square(s: str, target: int) -> bool:\n            # DFS with memo: index in string + remaining sum to match\n            from functools import lru_cache\n\n            m = len(s)\n\n            @lru_cache(None)\n            def dfs(i: int, rem: int) -> bool:\n                if i == m:\n                    return rem == 0\n                if rem < 0:\n                    return False\n\n                val = 0\n                # build next substring incrementally\n                for j in range(i, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if val > rem:  # since all non-negative, safe prune\n                        break\n                    if dfs(j + 1, rem - val):\n                        return True\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            s = str(sq)\n            if can_partition_square(s, i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_sum(s: str, target: int) -> bool:\n            m = len(s)\n\n            # DFS with memo: index in s + remaining sum to reach target\n            from functools import lru_cache\n\n            @lru_cache(None)\n            def dfs(i: int, rem: int) -> bool:\n                if rem < 0:\n                    return False\n                if i == m:\n                    return rem == 0\n\n                val = 0\n                # build next substring incrementally\n                for j in range(i, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if val > rem:  # values are non-negative; safe pruning\n                        break\n                    if dfs(j + 1, rem - val):\n                        return True\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition_sum(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # DFS over string positions with remaining sum.\n            # substring values are non-negative, so if remaining < 0 it's impossible.\n            memo = {}\n\n            def dfs(i: int, remaining: int) -> bool:\n                if remaining < 0:\n                    return False\n                if i == len(s):\n                    return remaining == 0\n                key = (i, remaining)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                # Build next number incrementally from s[i:j]\n                for j in range(i, len(s)):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if val > remaining:\n                        break  # all numbers are non-negative and val only increases with longer j\n                    if dfs(j + 1, remaining - val):\n                        memo[key] = True\n                        return True\n\n                memo[key] = False\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_square(s: str, target: int) -> bool:\n            # DFS with memo: (pos, current_sum) => whether we can partition s[pos:]\n            # to make total target. substring values are non-negative.\n            memo = set()\n\n            def dfs(pos: int, curr: int) -> bool:\n                if curr == target:\n                    # Must consume entire string to count as a valid partition\n                    return pos == len(s)\n                if pos == len(s) or curr > target:\n                    return False\n                key = (pos, curr)\n                if key in memo:\n                    return False\n                memo.add(key)\n\n                val = 0\n                for i in range(pos, len(s)):\n                    val = val * 10 + (ord(s[i]) - 48)\n                    if curr + val > target:\n                        break  # safe pruning since val is non-negative\n                    if dfs(i + 1, curr + val):\n                        return True\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition_square(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            # DFS with memo: position in string + remaining sum\n            # Substrings are interpreted as non-negative integers (including leading zeros).\n            m = len(s)\n            memo = set()\n\n            def dfs(i: int, rem: int) -> bool:\n                if rem < 0:\n                    return False\n                if i == m:\n                    return rem == 0\n                key = (i, rem)\n                if key in memo:\n                    return False\n                val = 0\n                for j in range(i, m):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if dfs(j + 1, rem - val):\n                        return True\n                memo.add(key)\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition_to_sum(s: str, target: int) -> bool:\n            # DFS with memo: (pos, curr_sum) where curr_sum is sum built so far\n            # All values are non-negative, so if curr_sum > target, fail.\n            memo = {}\n\n            def dfs(pos: int, curr_sum: int) -> bool:\n                if curr_sum > target:\n                    return False\n                if pos == len(s):\n                    return curr_sum == target\n                key = (pos, curr_sum)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for end in range(pos, len(s)):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    if dfs(end + 1, curr_sum + val):\n                        memo[key] = True\n                        return True\n                memo[key] = False\n                return False\n\n            return dfs(0, 0)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition_to_sum(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        from functools import lru_cache\n\n        def can_partition(s: str, target: int) -> bool:\n            L = len(s)\n\n            @lru_cache(None)\n            def dfs(i: int, remaining: int) -> bool:\n                if remaining < 0:\n                    return False\n                if i == L:\n                    return remaining == 0\n\n                val = 0\n                # choose next substring s[i:j] and subtract its value from remaining\n                for j in range(i, L):\n                    val = val * 10 + (ord(s[j]) - 48)\n                    if val > remaining:  # all non-negative, so further j only increases val\n                        break\n                    if dfs(j + 1, remaining - val):\n                        return True\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```",
+        "```python\nclass Solution:\n    def punishmentNumber(self, n: int) -> int:\n        def can_partition(s: str, target: int) -> bool:\n            m = len(s)\n            # memo: (pos, remaining_sum) -> bool\n            memo = {}\n\n            def dfs(pos: int, remaining: int) -> bool:\n                if pos == m:\n                    return remaining == 0\n                if remaining < 0:\n                    return False\n                key = (pos, remaining)\n                if key in memo:\n                    return memo[key]\n\n                val = 0\n                for end in range(pos, m):\n                    val = val * 10 + (ord(s[end]) - 48)\n                    if val > remaining:\n                        break  # numbers are non-negative; further extension only increases\n                    if dfs(end + 1, remaining - val):\n                        memo[key] = True\n                        return True\n\n                memo[key] = False\n                return False\n\n            return dfs(0, target)\n\n        ans = 0\n        for i in range(1, n + 1):\n            sq = i * i\n            if can_partition(str(sq), i):\n                ans += sq\n        return ans\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2802",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 5,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1478",
+                "actual": "1378",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "182",
+                "actual": "82",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "6528",
+                "actual": "6428",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5915179",
+                "actual": "5768179",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3353149",
+                "actual": "3206149",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3353149",
+                "actual": "3206149",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1204515",
+                "actual": "1057515",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2802",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1478",
+                "actual": "1478",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "182",
+                "actual": "182",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6528",
+                "actual": "6528",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5915179",
+                "actual": "5915179",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3353149",
+                "actual": "3353149",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1204515",
+                "actual": "1204515",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.9,
+      "augmented_pass_rate": 0.9,
+      "improvement": 0.0
+    }
+  }
+}

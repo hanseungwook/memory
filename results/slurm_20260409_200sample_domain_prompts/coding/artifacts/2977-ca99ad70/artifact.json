@@ -1,0 +1,3051 @@
+{
+  "problem_id": "2977",
+  "domain": "coding",
+  "problem": {
+    "id": "2977",
+    "domain": "coding",
+    "statement": "Given an array of strings words and a string s, determine if s is an acronym of words.\nThe string s is considered an acronym of words if it can be formed by concatenating the first character of each string in words in order. For example, \"ab\" can be formed from [\"apple\", \"banana\"], but it can't be formed from [\"bear\", \"aardvark\"].\nReturn true if s is an acronym of words, and false otherwise. \n \nExample 1:\n\nInput: words = [\"alice\",\"bob\",\"charlie\"], s = \"abc\"\nOutput: true\nExplanation: The first character in the words \"alice\", \"bob\", and \"charlie\" are 'a', 'b', and 'c', respectively. Hence, s = \"abc\" is the acronym. \n\nExample 2:\n\nInput: words = [\"an\",\"apple\"], s = \"a\"\nOutput: false\nExplanation: The first character in the words \"an\" and \"apple\" are 'a' and 'a', respectively. \nThe acronym formed by concatenating these characters is \"aa\". \nHence, s = \"a\" is not the acronym.\n\nExample 3:\n\nInput: words = [\"never\",\"gonna\",\"give\",\"up\",\"on\",\"you\"], s = \"ngguoy\"\nOutput: true\nExplanation: By concatenating the first character of the words in the array, we get the string \"ngguoy\". \nHence, s = \"ngguoy\" is the acronym.\n\n \nConstraints:\n\n1 <= words.length <= 100\n1 <= words[i].length <= 10\n1 <= s.length <= 100\nwords[i] and s consist of lowercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[\"alice\", \"bob\", \"charlie\"]\n\"abc\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"an\", \"apple\"]\n\"a\"",
+        "output": "false",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"never\", \"gonna\", \"give\", \"up\", \"on\", \"you\"]\n\"ngguoy\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"q\", \"i\"]\n\"qi\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"qon\", \"sp\"]\n\"qs\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"looo\", \"lib\"]\n\"ll\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"zzsncl\", \"ircu\"]\n\"zi\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"cheau\", \"evx\", \"cnwu\"]\n\"cec\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"b\", \"f\", \"m\", \"u\", \"z\"]\n\"bfmu\"",
+        "output": "false",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"b\", \"f\", \"m\", \"u\", \"z\"]\n\"bfmuz\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"b\", \"f\", \"m\", \"u\", \"z\"]\n\"bfmuzw\"",
+        "output": "false",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"tvbbgq\", \"ux\", \"lfdfngisl\", \"ruy\", \"vidbkpvjpy\", \"qrsx\", \"gxcwevwgy\", \"x\", \"lyeotetxq\", \"vpcq\", \"bvmzqenun\", \"jfxokngwtz\", \"ffpuym\", \"fajwsusx\", \"jaysrtasma\", \"xagrqtt\", \"gnzslncc\", \"uqhlam\", \"otzjxxsyz\", \"vtqidnaf\", \"cofkavh\", \"txcwwgls\", \"ynfdeeoimr\", \"oyfibhjj\", \"wenj\", \"rehum\", \"wnxnmvolce\", \"uhyj\", \"o\", \"dxvhcanz\", \"oam\", \"thi\", \"auprczizcl\", \"clyupbf\", \"kihzhl\", \"yiitmjtixp\", \"uqc\", \"ebmq\", \"ofegzbwmr\", \"dfcfkafvbd\", \"mxpl\", \"gcljpq\", \"qojrqspzz\", \"umyebtpujn\", \"kqnwruu\", \"i\", \"ginzwfjv\", \"mtz\", \"nzvixo\", \"wsswiqpn\", \"kduypsrg\", \"itij\", \"yqert\", \"ypogwyhe\", \"nx\", \"gswjnmkf\", \"eccok\", \"mfd\", \"eopnkhxsx\", \"kinalmlw\", \"ttk\", \"gdpgtuibsg\", \"lhzaaldj\", \"ydnzglx\", \"ljpexsumf\", \"cyj\", \"gezbaj\", \"xbkholkox\", \"ofviemw\", \"lopzfhvjs\", \"sre\", \"tmdt\", \"hm\", \"asesje\", \"xtwwviaokq\", \"tumwcdkw\", \"ulyw\", \"huwe\", \"wzipwfy\", \"krbj\", \"xzfxk\", \"t\", \"pvgib\", \"cgqtdi\", \"wapwhpjkgt\", \"owww\", \"jjfztv\", \"sg\", \"jax\", \"zqzwlc\", \"ngrorz\", \"sdywc\", \"qmbsc\", \"m\", \"zgwgmrqju\", \"uv\", \"yumciyu\"]\n\"tulrvqgxlvbjffjxguovctyowrwuodotackyueodmgqukigmnwkiyyngemektglylcgxolsthaxtuhwkxtpcwojsjznsqmzuy\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"cmzpchoax\", \"mi\", \"mywpdctxt\", \"eebls\", \"khvpgxtm\", \"qjxgje\", \"mvfjyyoi\", \"y\", \"gx\", \"vkuf\", \"htditnk\", \"cccqcoapvi\", \"ydkhyaqld\", \"pmaykizv\", \"tkrqkrx\", \"nhddljoeqp\", \"b\", \"xkimftdurl\", \"w\", \"si\", \"uoaduw\", \"ptzl\", \"rwdafa\", \"k\", \"l\", \"yrlwexiq\", \"wtccrpr\", \"hhfdhjw\", \"dvznp\", \"gegmtjalk\", \"czhcbktsrx\", \"qletzj\", \"gv\", \"lp\", \"aklqjnusty\", \"slfmataxc\", \"iojsoene\", \"aek\", \"pklvxdt\", \"zefzugvk\", \"zqxbv\", \"soupshatxg\", \"nfa\", \"zv\", \"hvlnryr\", \"gzpkmfmdd\", \"l\", \"srfysgqa\", \"wfydsebgh\", \"agird\", \"eq\", \"qr\", \"nbmlho\", \"oizxtiotq\", \"ylne\", \"svcelnvq\", \"qq\", \"fqm\", \"od\", \"tz\", \"ivjkatda\", \"ffkcv\", \"ogsxavouhu\", \"wbzfduw\", \"mgligrt\", \"umufk\", \"hkokess\", \"njoxcscr\", \"ek\", \"xtdy\", \"hvudz\", \"iy\", \"rvd\", \"uygt\", \"yzrxptcjbw\", \"gjcadnvx\", \"mctltcsxbx\", \"fafkww\", \"lresn\", \"ojpf\", \"gylpbpfbkh\", \"v\", \"kkhws\", \"gzcyji\", \"affu\", \"zvxzcoy\", \"qoyjdyzcme\", \"yyzqyjdx\", \"rh\", \"otajm\", \"gdoluj\", \"jbxz\", \"nckxuhmpsk\", \"jk\", \"nho\", \"qtmqqu\", \"blay\", \"cfxtnef\", \"uyokotnox\", \"zbuseswizr\"]\n\"cmmekqmygvhcyptnbxwsuprklywhdgcqglasiapzzsnzhglswaeqnoysqfotifowmuhnexhiruygmflogvkgazqyrogjnjnqbcuz\"",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"pamsj\", \"gbewekudq\", \"gvlqgv\", \"pmdcth\", \"sdxndwvu\", \"tqdpqo\", \"dwdqp\", \"nvboj\", \"gjxwwzbx\", \"hvtydem\", \"ubamf\", \"ursumenl\", \"lesvluxkmo\", \"sqjwnqvdq\", \"rmzcyazrph\", \"ppftmgy\", \"wtmsrlsr\", \"njcvk\", \"ujmuipakzv\", \"pozuojhtx\", \"ctfvlb\", \"cpmxlbdkax\", \"dwquuh\", \"tfznka\", \"iumiy\", \"aakwpshvmv\", \"azhbunudps\", \"korzn\", \"odppxwbu\", \"zvsxhfa\", \"gmfdjqlenm\", \"crbom\", \"mqnlr\", \"wuowb\", \"wudqp\", \"xuwnn\", \"vzqlp\", \"jscqpjy\", \"yddoph\", \"nqnjguca\", \"dzmuq\", \"bawgpoajd\", \"fomoz\", \"jqaqikna\", \"klxrou\", \"desylynnk\", \"ousss\", \"lxvetgccp\", \"sxbxxnwym\", \"yzmoek\", \"xegdyko\", \"lngsdcve\", \"adbgm\", \"cqcjxl\", \"bntwsdnvkg\", \"hgoegvl\", \"lcxekv\", \"gdchf\", \"samtyooqo\", \"aflupilbr\", \"wlcdri\", \"isnpnouh\", \"agvavymppd\", \"iviglwwue\", \"ovjgz\", \"rawuckbqv\", \"zdrxiggyd\", \"gpjwu\", \"jfshaoj\", \"rwjpefy\", \"tkfqmb\", \"dugjqt\", \"vmzigqe\", \"zglvibyedr\", \"yhpix\", \"tgzkqd\", \"qpltgqalu\", \"ikxrotqcz\", \"mayjrl\", \"yyjli\", \"ywebg\", \"rhubbljkgz\", \"mbwupkkfjn\", \"ffkpyxa\", \"jlxzjn\", \"oezpkzvffx\", \"ibfbombwbx\", \"krzfvns\", \"twtuu\", \"rrvcxc\", \"lmwgo\", \"hcnuu\", \"jqvwp\"]\n\"pggpstdnghuulsrpwnupccdtiaakozgcmwwxvjyndbfjkdolsyxlacbhlgsawiaiorzgjrtdvzytqimyyrmfjoiktrlhj\"",
+        "output": "true",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        ",
+    "metadata": {
+      "func_name": "isAcronym",
+      "question_title": "check-if-a-string-is-an-acronym-of-words",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nGiven an array of strings words and a string s, determine if s is an acronym of words.\nThe string s is considered an acronym of words if it can be formed by concatenating the first character of each string in words in order. For example, \"ab\" can be formed from [\"apple\", \"banana\"], but it can't be formed from [\"bear\", \"aardvark\"].\nReturn true if s is an acronym of words, and false otherwise. \n \nExample 1:\n\nInput: words = [\"alice\",\"bob\",\"charlie\"], s = \"abc\"\nOutput: true\nExplanation: The first character in the words \"alice\", \"bob\", and \"charlie\" are 'a', 'b', and 'c', respectively. Hence, s = \"abc\" is the acronym. \n\nExample 2:\n\nInput: words = [\"an\",\"apple\"], s = \"a\"\nOutput: false\nExplanation: The first character in the words \"an\" and \"apple\" are 'a' and 'a', respectively. \nThe acronym formed by concatenating these characters is \"aa\". \nHence, s = \"a\" is not the acronym.\n\nExample 3:\n\nInput: words = [\"never\",\"gonna\",\"give\",\"up\",\"on\",\"you\"], s = \"ngguoy\"\nOutput: true\nExplanation: By concatenating the first character of the words in the array, we get the string \"ngguoy\". \nHence, s = \"ngguoy\" is the acronym.\n\n \nConstraints:\n\n1 <= words.length <= 100\n1 <= words[i].length <= 10\n1 <= s.length <= 100\nwords[i] and s consist of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        \n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        # Length must match the number of words (one character per word)\n        if len(words) != len(s):\n            return False\n        # Check each character against the first letter of the corresponding word\n        for word, ch in zip(words, s):\n            if word[0] != ch:\n                return False\n        return True\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2977",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        \n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        # Length must match the number of words (one character per word)\n        if len(words) != len(s):\n            return False\n        # Check each character against the first letter of the corresponding word\n        for word, ch in zip(words, s):\n            if word[0] != ch:\n                return False\n        return True\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nGiven an array of strings words and a string s, determine if s is an acronym of words.\nThe string s is considered an acronym of words if it can be formed by concatenating the first character of each string in words in order. For example, \"ab\" can be formed from [\"apple\", \"banana\"], but it can't be formed from [\"bear\", \"aardvark\"].\nReturn true if s is an acronym of words, and false otherwise. \n \nExample 1:\n\nInput: words = [\"alice\",\"bob\",\"charlie\"], s = \"abc\"\nOutput: true\nExplanation: The first character in the words \"alice\", \"bob\", and \"charlie\" are 'a', 'b', and 'c', respectively. Hence, s = \"abc\" is the acronym. \n\nExample 2:\n\nInput: words = [\"an\",\"apple\"], s = \"a\"\nOutput: false\nExplanation: The first character in the words \"an\" and \"apple\" are 'a' and 'a', respectively. \nThe acronym formed by concatenating these characters is \"aa\". \nHence, s = \"a\" is not the acronym.\n\nExample 3:\n\nInput: words = [\"never\",\"gonna\",\"give\",\"up\",\"on\",\"you\"], s = \"ngguoy\"\nOutput: true\nExplanation: By concatenating the first character of the words in the array, we get the string \"ngguoy\". \nHence, s = \"ngguoy\" is the acronym.\n\n \nConstraints:\n\n1 <= words.length <= 100\n1 <= words[i].length <= 10\n1 <= s.length <= 100\nwords[i] and s consist of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        acronym = ''.join(word[0] for word in words)\n        return acronym == s\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        # s must have exactly one character per word\n        if len(s) != len(words):\n            return False\n        # Check concatenation of first characters\n        for i, w in enumerate(words):\n            if s[i] != w[0]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        # s must match the concatenation of the first char of each word\n        if len(s) != len(words):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        return ''.join(word[0] for word in words) == s\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2977",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        acronym = ''.join(word[0] for word in words)\n        return acronym == s\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        # s must have exactly one character per word\n        if len(s) != len(words):\n            return False\n        # Check concatenation of first characters\n        for i, w in enumerate(words):\n            if s[i] != w[0]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(s) != len(words):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        # s must match the concatenation of the first char of each word\n        if len(s) != len(words):\n            return False\n        for w, ch in zip(words, s):\n            if w[0] != ch:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        for i, w in enumerate(words):\n            if w[0] != s[i]:\n                return False\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def isAcronym(self, words: List[str], s: str) -> bool:\n        if len(words) != len(s):\n            return False\n        return ''.join(word[0] for word in words) == s\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2977",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2977",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

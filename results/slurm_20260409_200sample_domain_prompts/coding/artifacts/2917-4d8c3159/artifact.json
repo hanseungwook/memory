@@ -1,0 +1,3051 @@
+{
+  "problem_id": "2917",
+  "domain": "coding",
+  "problem": {
+    "id": "2917",
+    "domain": "coding",
+    "statement": "Given a 0-indexed integer array nums of length n and an integer target, return the number of pairs (i, j) where 0 <= i < j < n and nums[i] + nums[j] < target.\n \nExample 1:\n\nInput: nums = [-1,1,2,3,1], target = 2\nOutput: 3\nExplanation: There are 3 pairs of indices that satisfy the conditions in the statement:\n- (0, 1) since 0 < 1 and nums[0] + nums[1] = 0 < target\n- (0, 2) since 0 < 2 and nums[0] + nums[2] = 1 < target \n- (0, 4) since 0 < 4 and nums[0] + nums[4] = 0 < target\nNote that (0, 3) is not counted since nums[0] + nums[3] is not strictly less than the target.\n\nExample 2:\n\nInput: nums = [-6,2,5,-2,-7,-1,3], target = -2\nOutput: 10\nExplanation: There are 10 pairs of indices that satisfy the conditions in the statement:\n- (0, 1) since 0 < 1 and nums[0] + nums[1] = -4 < target\n- (0, 3) since 0 < 3 and nums[0] + nums[3] = -8 < target\n- (0, 4) since 0 < 4 and nums[0] + nums[4] = -13 < target\n- (0, 5) since 0 < 5 and nums[0] + nums[5] = -7 < target\n- (0, 6) since 0 < 6 and nums[0] + nums[6] = -3 < target\n- (1, 4) since 1 < 4 and nums[1] + nums[4] = -5 < target\n- (3, 4) since 3 < 4 and nums[3] + nums[4] = -9 < target\n- (3, 5) since 3 < 5 and nums[3] + nums[5] = -3 < target\n- (4, 5) since 4 < 5 and nums[4] + nums[5] = -8 < target\n- (4, 6) since 4 < 6 and nums[4] + nums[6] = -4 < target\n\n \nConstraints:\n\n1 <= nums.length == n <= 50\n-50 <= nums[i], target <= 50",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[-1, 1, 2, 3, 1]\n2",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-6, 2, 5, -2, -7, -1, 3]\n-2",
+        "output": "10",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 4]\n1",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-20]\n-35",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[27, 44]\n3",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-5, -2]\n-1",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-4, 9]\n-36",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[8, -4, -9, 5, 10]\n0",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-1, 3, -10, 3, -7]\n-3",
+        "output": "7",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-1, -8, -1, -10, -5, -10, 7]\n-19",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-4, -1, 3, -2, -2, 5, -2, -5, -5, 1]\n6",
+        "output": "43",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-5, 1, -5, -10, 3, 3, 4, -7, -2, -8]\n-27",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15, -15]\n-30",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[-50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50]\n-100",
+        "output": "0",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "countPairs",
+      "question_title": "count-pairs-whose-sum-is-less-than-target",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nGiven a 0-indexed integer array nums of length n and an integer target, return the number of pairs (i, j) where 0 <= i < j < n and nums[i] + nums[j] < target.\n \nExample 1:\n\nInput: nums = [-1,1,2,3,1], target = 2\nOutput: 3\nExplanation: There are 3 pairs of indices that satisfy the conditions in the statement:\n- (0, 1) since 0 < 1 and nums[0] + nums[1] = 0 < target\n- (0, 2) since 0 < 2 and nums[0] + nums[2] = 1 < target \n- (0, 4) since 0 < 4 and nums[0] + nums[4] = 0 < target\nNote that (0, 3) is not counted since nums[0] + nums[3] is not strictly less than the target.\n\nExample 2:\n\nInput: nums = [-6,2,5,-2,-7,-1,3], target = -2\nOutput: 10\nExplanation: There are 10 pairs of indices that satisfy the conditions in the statement:\n- (0, 1) since 0 < 1 and nums[0] + nums[1] = -4 < target\n- (0, 3) since 0 < 3 and nums[0] + nums[3] = -8 < target\n- (0, 4) since 0 < 4 and nums[0] + nums[4] = -13 < target\n- (0, 5) since 0 < 5 and nums[0] + nums[5] = -7 < target\n- (0, 6) since 0 < 6 and nums[0] + nums[6] = -3 < target\n- (1, 4) since 1 < 4 and nums[1] + nums[4] = -5 < target\n- (3, 4) since 3 < 4 and nums[3] + nums[4] = -9 < target\n- (3, 5) since 3 < 5 and nums[3] + nums[5] = -3 < target\n- (4, 5) since 4 < 5 and nums[4] + nums[5] = -8 < target\n- (4, 6) since 4 < 6 and nums[4] + nums[6] = -4 < target\n\n \nConstraints:\n\n1 <= nums.length == n <= 50\n-50 <= nums[i], target <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        # Brute force over all pairs (n <= 50)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Sort and use two pointers to count pairs with sum < target\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        j = n - 1\n\n        for i in range(n):\n            # Move j left while sum >= target\n            if j <= i:\n                j = i  # keep invariant j > i when possible\n            while j > i and nums[i] + nums[j] >= target:\n                j -= 1\n            # Now all indices k in (i, j] satisfy nums[i] + nums[k] < target\n            ans += max(0, j - i)\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force with n <= 50 is sufficient\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        j = 1\n        # For each i, find the largest r such that nums[i] + nums[r] < target,\n        # with r < i is allowed only when counting pairs (l, r) with l < r.\n        # Standard approach: for fixed j as right index, count valid i < j.\n        # We'll use two-pointer with right pointer.\n        j = 1\n        for j in range(1, n):\n            # Count how many i in [0, j-1] satisfy nums[i] < target - nums[j]\n            # Since nums is sorted, use binary search via two pointers:\n            # We'll maintain i pointer for first index not satisfying inequality.\n            pass\n        # Implement using binary search for clarity (n <= 50).\n        import bisect\n        for j in range(1, n):\n            # need nums[i] + nums[j] < target  => nums[i] < target - nums[j]\n            limit = target - nums[j]\n            i_count = bisect.bisect_left(nums, limit, 0, j)  # indices < j and nums[i] < limit\n            ans += i_count\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force with n <= 50 is sufficient: O(n^2)\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # nums[i] + nums[j] < target for 0 <= i < j < n\n        # Use sorting + two pointers: for each i as left pointer,\n        # find how many right pointers j > i satisfy nums[i] + nums[j] < target.\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        right = n - 1\n\n        for i in range(n):\n            # ensure j starts at least i+1; maintain right as the last index\n            # such that nums[i] + nums[right] < target\n            while right > i and nums[i] + nums[right] >= target:\n                right -= 1\n            if right <= i:\n                break\n            ans += (right - i)\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Sort and use two pointers to count pairs with sum < target\n        nums.sort()\n        n = len(nums)\n        res = 0\n\n        # For each j as the right index, count i < j such that nums[i] < target - nums[j]\n        # Because the array is sorted, we can binary-search the first index that fails.\n        import bisect\n        for j in range(n):\n            limit = target - nums[j]\n            # number of i in [0, j) with nums[i] < limit\n            res += bisect.bisect_left(nums, limit, 0, j)\n\n        return res\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force is fine: n <= 50 => at most 1225 pairs\n        res = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    res += 1\n        return res\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        nums.sort()\n        ans = 0\n\n        # For each i, count j > i such that nums[i] + nums[j] < target\n        j = n - 1\n        for i in range(n):\n            # Move j left while condition fails\n            while i < j and nums[i] + nums[j] >= target:\n                j -= 1\n            if j <= i:\n                break\n            ans += (j - i)\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ans = 0\n        n = len(nums)\n        nums_sorted = sorted(nums)\n\n        # For each i, find how many j > i satisfy nums[i] + nums[j] < target.\n        for i in range(n):\n            # Need nums[i] + nums[j] < target  => nums[j] < target - nums[i]\n            limit = target - nums_sorted[i]\n            # First index where nums_sorted[idx] >= limit\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums_sorted[mid] < limit:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            # All indices in [i+1, lo) are valid\n            ans += lo - (i + 1)\n\n        return ans\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2917",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        # Brute force over all pairs (n <= 50)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Sort and use two pointers to count pairs with sum < target\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        j = n - 1\n\n        for i in range(n):\n            # Move j left while sum >= target\n            if j <= i:\n                j = i  # keep invariant j > i when possible\n            while j > i and nums[i] + nums[j] >= target:\n                j -= 1\n            # Now all indices k in (i, j] satisfy nums[i] + nums[k] < target\n            ans += max(0, j - i)\n\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force with n <= 50 is sufficient\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        j = 1\n        # For each i, find the largest r such that nums[i] + nums[r] < target,\n        # with r < i is allowed only when counting pairs (l, r) with l < r.\n        # Standard approach: for fixed j as right index, count valid i < j.\n        # We'll use two-pointer with right pointer.\n        j = 1\n        for j in range(1, n):\n            # Count how many i in [0, j-1] satisfy nums[i] < target - nums[j]\n            # Since nums is sorted, use binary search via two pointers:\n            # We'll maintain i pointer for first index not satisfying inequality.\n            pass\n        # Implement using binary search for clarity (n <= 50).\n        import bisect\n        for j in range(1, n):\n            # need nums[i] + nums[j] < target  => nums[i] < target - nums[j]\n            limit = target - nums[j]\n            i_count = bisect.bisect_left(nums, limit, 0, j)  # indices < j and nums[i] < limit\n            ans += i_count\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force with n <= 50 is sufficient: O(n^2)\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # nums[i] + nums[j] < target for 0 <= i < j < n\n        # Use sorting + two pointers: for each i as left pointer,\n        # find how many right pointers j > i satisfy nums[i] + nums[j] < target.\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        right = n - 1\n\n        for i in range(n):\n            # ensure j starts at least i+1; maintain right as the last index\n            # such that nums[i] + nums[right] < target\n            while right > i and nums[i] + nums[right] >= target:\n                right -= 1\n            if right <= i:\n                break\n            ans += (right - i)\n\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Sort and use two pointers to count pairs with sum < target\n        nums.sort()\n        n = len(nums)\n        res = 0\n\n        # For each j as the right index, count i < j such that nums[i] < target - nums[j]\n        # Because the array is sorted, we can binary-search the first index that fails.\n        import bisect\n        for j in range(n):\n            limit = target - nums[j]\n            # number of i in [0, j) with nums[i] < limit\n            res += bisect.bisect_left(nums, limit, 0, j)\n\n        return res\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force is fine: n <= 50 => at most 1225 pairs\n        res = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    res += 1\n        return res\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        nums.sort()\n        ans = 0\n\n        # For each i, count j > i such that nums[i] + nums[j] < target\n        j = n - 1\n        for i in range(n):\n            # Move j left while condition fails\n            while i < j and nums[i] + nums[j] >= target:\n                j -= 1\n            if j <= i:\n                break\n            ans += (j - i)\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ans = 0\n        n = len(nums)\n        nums_sorted = sorted(nums)\n\n        # For each i, find how many j > i satisfy nums[i] + nums[j] < target.\n        for i in range(n):\n            # Need nums[i] + nums[j] < target  => nums[j] < target - nums[i]\n            limit = target - nums_sorted[i]\n            # First index where nums_sorted[idx] >= limit\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums_sorted[mid] < limit:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            # All indices in [i+1, lo) are valid\n            ans += lo - (i + 1)\n\n        return ans\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nGiven a 0-indexed integer array nums of length n and an integer target, return the number of pairs (i, j) where 0 <= i < j < n and nums[i] + nums[j] < target.\n \nExample 1:\n\nInput: nums = [-1,1,2,3,1], target = 2\nOutput: 3\nExplanation: There are 3 pairs of indices that satisfy the conditions in the statement:\n- (0, 1) since 0 < 1 and nums[0] + nums[1] = 0 < target\n- (0, 2) since 0 < 2 and nums[0] + nums[2] = 1 < target \n- (0, 4) since 0 < 4 and nums[0] + nums[4] = 0 < target\nNote that (0, 3) is not counted since nums[0] + nums[3] is not strictly less than the target.\n\nExample 2:\n\nInput: nums = [-6,2,5,-2,-7,-1,3], target = -2\nOutput: 10\nExplanation: There are 10 pairs of indices that satisfy the conditions in the statement:\n- (0, 1) since 0 < 1 and nums[0] + nums[1] = -4 < target\n- (0, 3) since 0 < 3 and nums[0] + nums[3] = -8 < target\n- (0, 4) since 0 < 4 and nums[0] + nums[4] = -13 < target\n- (0, 5) since 0 < 5 and nums[0] + nums[5] = -7 < target\n- (0, 6) since 0 < 6 and nums[0] + nums[6] = -3 < target\n- (1, 4) since 1 < 4 and nums[1] + nums[4] = -5 < target\n- (3, 4) since 3 < 4 and nums[3] + nums[4] = -9 < target\n- (3, 5) since 3 < 5 and nums[3] + nums[5] = -3 < target\n- (4, 5) since 4 < 5 and nums[4] + nums[5] = -8 < target\n- (4, 6) since 4 < 6 and nums[4] + nums[6] = -4 < target\n\n \nConstraints:\n\n1 <= nums.length == n <= 50\n-50 <= nums[i], target <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ans = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        nums_sorted = sorted(nums)\n        # For each i, find how many j>i satisfy nums[i] + nums[j] < target.\n        # Since nums_sorted is ascending, for a fixed i we can binary search the\n        # first index where the condition fails.\n        import bisect\n        for i in range(n):\n            limit = target - nums_sorted[i]\n            # We need nums_sorted[j] < limit, with j > i\n            idx = bisect.bisect_left(nums_sorted, limit, i + 1, n)\n            ans += idx - (i + 1)\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        left = 0\n\n        for i in range(n):\n            # We want pairs (i, j) with i < j and nums[i] + nums[j] < target\n            # For a fixed i, find the first index j where condition fails;\n            # all j in [i+1, j-1] will satisfy.\n            # Use binary search on range (i+1 .. n-1).\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[i] + nums[mid] < target:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            # lo is the first index where condition is false, so valid count:\n            ans += lo - (i + 1)\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force is fine for n <= 50\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n\n        # For each i, find number of j>i with nums[i] + nums[j] < target\n        # Since array is sorted, for fixed i, the valid j form a prefix starting\n        # from i+1 up to some boundary.\n        j_start = 1\n        for i in range(n):\n            # Ensure j is at least i+1\n            if j_start < i + 1:\n                j_start = i + 1\n\n            # Move j_end to the last valid index for this i:\n            # nums[i] + nums[j_end] < target\n            j_end = n\n            # Binary search for first index where condition fails: nums[i] + nums[j] >= target\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[i] + nums[mid] < target:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            # 'lo' is the first failing index, so valid indices are [i+1, lo-1]\n            ans += max(0, lo - (i + 1))\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Since n <= 50, O(n^2) is sufficient.\n        ans = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ans = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n\n        # For each j, count i < j with nums[i] + nums[j] < target\n        for j in range(n):\n            need = target - nums[j]\n            # number of i in [0..j-1] with nums[i] < need\n            # since nums is sorted, lower_bound on need gives first index >= need\n            lo, hi = 0, j\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[mid] < need:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            ans += lo\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        nums.sort()\n        \n        # For each i, count j > i such that nums[i] + nums[j] < target\n        for i in range(n):\n            # need nums[j] < target - nums[i]\n            limit = target - nums[i]\n            \n            # first index j where nums[j] >= limit (in range [i+1, n))\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[mid] >= limit:\n                    hi = mid\n                else:\n                    lo = mid + 1\n            \n            # all indices in [i+1, lo) satisfy the condition\n            ans += lo - (i + 1)\n        \n        return ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2917",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ans = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        nums_sorted = sorted(nums)\n        # For each i, find how many j>i satisfy nums[i] + nums[j] < target.\n        # Since nums_sorted is ascending, for a fixed i we can binary search the\n        # first index where the condition fails.\n        import bisect\n        for i in range(n):\n            limit = target - nums_sorted[i]\n            # We need nums_sorted[j] < limit, with j > i\n            idx = bisect.bisect_left(nums_sorted, limit, i + 1, n)\n            ans += idx - (i + 1)\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n        left = 0\n\n        for i in range(n):\n            # We want pairs (i, j) with i < j and nums[i] + nums[j] < target\n            # For a fixed i, find the first index j where condition fails;\n            # all j in [i+1, j-1] will satisfy.\n            # Use binary search on range (i+1 .. n-1).\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[i] + nums[mid] < target:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            # lo is the first index where condition is false, so valid count:\n            ans += lo - (i + 1)\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Brute force is fine for n <= 50\n        n = len(nums)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n\n        # For each i, find number of j>i with nums[i] + nums[j] < target\n        # Since array is sorted, for fixed i, the valid j form a prefix starting\n        # from i+1 up to some boundary.\n        j_start = 1\n        for i in range(n):\n            # Ensure j is at least i+1\n            if j_start < i + 1:\n                j_start = i + 1\n\n            # Move j_end to the last valid index for this i:\n            # nums[i] + nums[j_end] < target\n            j_end = n\n            # Binary search for first index where condition fails: nums[i] + nums[j] >= target\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[i] + nums[mid] < target:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            # 'lo' is the first failing index, so valid indices are [i+1, lo-1]\n            ans += max(0, lo - (i + 1))\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        # Since n <= 50, O(n^2) is sufficient.\n        ans = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        ans = 0\n        n = len(nums)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if nums[i] + nums[j] < target:\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        nums.sort()\n        n = len(nums)\n        ans = 0\n\n        # For each j, count i < j with nums[i] + nums[j] < target\n        for j in range(n):\n            need = target - nums[j]\n            # number of i in [0..j-1] with nums[i] < need\n            # since nums is sorted, lower_bound on need gives first index >= need\n            lo, hi = 0, j\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[mid] < need:\n                    lo = mid + 1\n                else:\n                    hi = mid\n            ans += lo\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPairs(self, nums: List[int], target: int) -> int:\n        n = len(nums)\n        ans = 0\n        nums.sort()\n        \n        # For each i, count j > i such that nums[i] + nums[j] < target\n        for i in range(n):\n            # need nums[j] < target - nums[i]\n            limit = target - nums[i]\n            \n            # first index j where nums[j] >= limit (in range [i+1, n))\n            lo, hi = i + 1, n\n            while lo < hi:\n                mid = (lo + hi) // 2\n                if nums[mid] >= limit:\n                    hi = mid\n                else:\n                    lo = mid + 1\n            \n            # all indices in [i+1, lo) satisfy the condition\n            ans += lo - (i + 1)\n        \n        return ans\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2917",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2917",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "43",
+                "actual": "43",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

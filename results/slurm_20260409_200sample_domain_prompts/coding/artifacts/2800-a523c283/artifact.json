@@ -1,0 +1,3051 @@
+{
+  "problem_id": "2800",
+  "domain": "coding",
+  "problem": {
+    "id": "2800",
+    "domain": "coding",
+    "statement": "You are given a string s consisting only of uppercase English letters.\nYou can apply some operations to this string where, in one operation, you can remove any occurrence of one of the substrings \"AB\" or \"CD\" from s.\nReturn the minimum possible length of the resulting string that you can obtain.\nNote that the string concatenates after removing the substring and could produce new \"AB\" or \"CD\" substrings.\n \nExample 1:\n\nInput: s = \"ABFCACDB\"\nOutput: 2\nExplanation: We can do the following operations:\n- Remove the substring \"ABFCACDB\", so s = \"FCACDB\".\n- Remove the substring \"FCACDB\", so s = \"FCAB\".\n- Remove the substring \"FCAB\", so s = \"FC\".\nSo the resulting length of the string is 2.\nIt can be shown that it is the minimum length that we can obtain.\nExample 2:\n\nInput: s = \"ACBBD\"\nOutput: 5\nExplanation: We cannot do any operations on the string so the length remains the same.\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists only of uppercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"ABFCACDB\"",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ACBBD\"",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"B\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"F\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"C\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"E\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"G\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ABC\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"BBC\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"CCAA\"",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ABCDABCD\"",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ACCBDDDBBACCACBCBBACC\"",
+        "output": "21",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCDABCD\"",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"GKLUQTVRWNPSLJBXHNHKNWOGKIYQFUEAYGXWZURCTJLUVQJFIOLIYQVIIKKSTOKDQMIWQBUCEOCQYEGNIVRORJLZJUUUXTPVUUPG\"",
+        "output": "100",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def minLength(self, s: str) -> int:\n        ",
+    "metadata": {
+      "func_name": "minLength",
+      "question_title": "minimum-string-length-after-removing-substrings",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a string s consisting only of uppercase English letters.\nYou can apply some operations to this string where, in one operation, you can remove any occurrence of one of the substrings \"AB\" or \"CD\" from s.\nReturn the minimum possible length of the resulting string that you can obtain.\nNote that the string concatenates after removing the substring and could produce new \"AB\" or \"CD\" substrings.\n \nExample 1:\n\nInput: s = \"ABFCACDB\"\nOutput: 2\nExplanation: We can do the following operations:\n- Remove the substring \"ABFCACDB\", so s = \"FCACDB\".\n- Remove the substring \"FCACDB\", so s = \"FCAB\".\n- Remove the substring \"FCAB\", so s = \"FC\".\nSo the resulting length of the string is 2.\nIt can be shown that it is the minimum length that we can obtain.\nExample 2:\n\nInput: s = \"ACBBD\"\nOutput: 5\nExplanation: We cannot do any operations on the string so the length remains the same.\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists only of uppercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Only \"AB\" and \"CD\" removals are allowed.\n        # Greedy with stack works:\n        # - When we see \"...A\" followed by \"B\", they cancel.\n        # - When we see \"...C\" followed by \"D\", they cancel.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Use a stack to cancel removable patterns \"AB\" and \"CD\" as they appear.\n        # When a char causes the top+current to form \"AB\" or \"CD\", remove them.\n        stack = []\n        for ch in s:\n            if stack and ((stack[-1] == 'A' and ch == 'B') or (stack[-1] == 'C' and ch == 'D')):\n                stack.pop()\n            else:\n                stack.append(ch)\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Only \"AB\" and \"CD\" deletions are allowed.\n        # Greedy stack works: whenever we see \"...AB\" or \"...CD\", we can delete it.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2:\n                if st[-2] == 'A' and st[-1] == 'B':\n                    st.pop()\n                    st.pop()\n                elif st[-2] == 'C' and st[-1] == 'D':\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy/stack solution:\n        # Only \"AB\" and \"CD\" can be removed, and deletions may create new ones,\n        # which the stack naturally handles.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                if stack[-2] == 'A' and stack[-1] == 'B':\n                    stack.pop()\n                    stack.pop()\n                elif stack[-2] == 'C' and stack[-1] == 'D':\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Removing \"AB\" and \"CD\" only affects the boundary around those patterns.\n        # We can simulate greedily using a stack:\n        # whenever the top ends with 'A' and current is 'B' => remove \"AB\"\n        # whenever the top ends with 'C' and current is 'D' => remove \"CD\"\n        stack = []\n        for ch in s:\n            if stack and ((stack[-1] == 'A' and ch == 'B') or (stack[-1] == 'C' and ch == 'D')):\n                stack.pop()  # remove the matched pair\n            else:\n                stack.append(ch)\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack approach:\n        # Remove \"AB\" and \"CD\" whenever they appear (with newly formed adjacency),\n        # which is equivalent to repeatedly canceling them in a stack.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack removal works because only the adjacent pairs \"AB\" and \"CD\"\n        # can be removed, and new pairs can only form at the join point.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            # remove any newly formed \"AB\" or \"CD\" at the end\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack simulation:\n        # Remove \"AB\" or \"CD\" whenever they appear as adjacent characters.\n        st = []\n        for ch in s:\n            st.append(ch)\n            # Check the last two characters for removable patterns\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedily cancel patterns using a stack.\n        # When we see 'B' after 'A' on stack => remove \"AB\"\n        # When we see 'D' after 'C' on stack => remove \"CD\"\n        st = []\n        for ch in s:\n            if st and ((st[-1] == 'A' and ch == 'B') or (st[-1] == 'C' and ch == 'D')):\n                st.pop()\n            else:\n                st.append(ch)\n        return len(st)\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2800",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Only \"AB\" and \"CD\" removals are allowed.\n        # Greedy with stack works:\n        # - When we see \"...A\" followed by \"B\", they cancel.\n        # - When we see \"...C\" followed by \"D\", they cancel.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Use a stack to cancel removable patterns \"AB\" and \"CD\" as they appear.\n        # When a char causes the top+current to form \"AB\" or \"CD\", remove them.\n        stack = []\n        for ch in s:\n            if stack and ((stack[-1] == 'A' and ch == 'B') or (stack[-1] == 'C' and ch == 'D')):\n                stack.pop()\n            else:\n                stack.append(ch)\n        return len(stack)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Only \"AB\" and \"CD\" deletions are allowed.\n        # Greedy stack works: whenever we see \"...AB\" or \"...CD\", we can delete it.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2:\n                if st[-2] == 'A' and st[-1] == 'B':\n                    st.pop()\n                    st.pop()\n                elif st[-2] == 'C' and st[-1] == 'D':\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy/stack solution:\n        # Only \"AB\" and \"CD\" can be removed, and deletions may create new ones,\n        # which the stack naturally handles.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                if stack[-2] == 'A' and stack[-1] == 'B':\n                    stack.pop()\n                    stack.pop()\n                elif stack[-2] == 'C' and stack[-1] == 'D':\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Removing \"AB\" and \"CD\" only affects the boundary around those patterns.\n        # We can simulate greedily using a stack:\n        # whenever the top ends with 'A' and current is 'B' => remove \"AB\"\n        # whenever the top ends with 'C' and current is 'D' => remove \"CD\"\n        stack = []\n        for ch in s:\n            if stack and ((stack[-1] == 'A' and ch == 'B') or (stack[-1] == 'C' and ch == 'D')):\n                stack.pop()  # remove the matched pair\n            else:\n                stack.append(ch)\n        return len(stack)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack approach:\n        # Remove \"AB\" and \"CD\" whenever they appear (with newly formed adjacency),\n        # which is equivalent to repeatedly canceling them in a stack.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack removal works because only the adjacent pairs \"AB\" and \"CD\"\n        # can be removed, and new pairs can only form at the join point.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            # remove any newly formed \"AB\" or \"CD\" at the end\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack simulation:\n        # Remove \"AB\" or \"CD\" whenever they appear as adjacent characters.\n        st = []\n        for ch in s:\n            st.append(ch)\n            # Check the last two characters for removable patterns\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+          "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedily cancel patterns using a stack.\n        # When we see 'B' after 'A' on stack => remove \"AB\"\n        # When we see 'D' after 'C' on stack => remove \"CD\"\n        st = []\n        for ch in s:\n            if st and ((st[-1] == 'A' and ch == 'B') or (st[-1] == 'C' and ch == 'D')):\n                st.pop()\n            else:\n                st.append(ch)\n        return len(st)\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a string s consisting only of uppercase English letters.\nYou can apply some operations to this string where, in one operation, you can remove any occurrence of one of the substrings \"AB\" or \"CD\" from s.\nReturn the minimum possible length of the resulting string that you can obtain.\nNote that the string concatenates after removing the substring and could produce new \"AB\" or \"CD\" substrings.\n \nExample 1:\n\nInput: s = \"ABFCACDB\"\nOutput: 2\nExplanation: We can do the following operations:\n- Remove the substring \"ABFCACDB\", so s = \"FCACDB\".\n- Remove the substring \"FCACDB\", so s = \"FCAB\".\n- Remove the substring \"FCAB\", so s = \"FC\".\nSo the resulting length of the string is 2.\nIt can be shown that it is the minimum length that we can obtain.\nExample 2:\n\nInput: s = \"ACBBD\"\nOutput: 5\nExplanation: We cannot do any operations on the string so the length remains the same.\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists only of uppercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Reduce by removing adjacent \"AB\" or \"CD\" whenever they appear.\n        # Use a stack to simulate deletions while allowing new occurrences to form.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack simulation:\n        # Remove \"AB\" and \"CD\" whenever they appear as adjacent characters.\n        # This is optimal because the only reductions depend purely on adjacency.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Reduce by removing \"AB\" or \"CD\" whenever they occur.\n        # Greedy using a stack works:\n        # - if top of stack and current char form \"AB\" => cancel them\n        # - if top and current form \"CD\" => cancel them\n        st = []\n        for ch in s:\n            if st:\n                top = st[-1]\n                if (top == 'A' and ch == 'B') or (top == 'C' and ch == 'D'):\n                    st.pop()\n                    continue\n            st.append(ch)\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedily remove only \"AB\" and \"CD\" as soon as they appear.\n        # With a stack, when the newly formed adjacent pair is \"AB\" or \"CD\",\n        # we pop to reflect removing that substring.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            while len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n                else:\n                    break\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack solution for removing \"AB\" and \"CD\" repeatedly.\n        st = []\n        for ch in s:\n            if st and ((st[-1] == 'A' and ch == 'B') or (st[-1] == 'C' and ch == 'D')):\n                st.pop()\n            else:\n                st.append(ch)\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Reduce by repeatedly removing \"AB\" and \"CD\" as they appear.\n        # Using a stack works because removals only depend on local adjacency\n        # and new \"AB\"/\"CD\" can only form at the join after popping.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if a == 'A' and b == 'B':\n                    stack.pop()\n                    stack.pop()\n                elif a == 'C' and b == 'D':\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            # If the last two characters form \"AB\" or \"CD\", remove them\n            if len(stack) >= 2:\n                if stack[-2] == 'A' and stack[-1] == 'B':\n                    stack.pop()\n                    stack.pop()\n                elif stack[-2] == 'C' and stack[-1] == 'D':\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # We can view this as repeatedly removing \"AB\" or \"CD\".\n        # Greedy works by using a stack: when the top of stack + current char\n        # forms \"AB\" or \"CD\", we remove them (cancel).\n        st = []\n        for ch in s:\n            if st:\n                pair = st[-1] + ch\n                if pair == \"AB\" or pair == \"CD\":\n                    st.pop()\n                    continue\n            st.append(ch)\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack removal:\n        # Whenever we see \"AB\" or \"CD\" as a contiguous suffix of the current stack,\n        # we can remove it. This yields the minimum possible final length.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2 and ((st[-2] == 'A' and st[-1] == 'B') or (st[-2] == 'C' and st[-1] == 'D')):\n                st.pop()\n                st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy/DP with stack:\n        # If we can remove \"AB\" or \"CD\", we effectively want to keep only\n        # characters that cannot be paired in those specific patterns.\n        # Standard approach: process left to right, using a stack of kept chars.\n        st = []\n        for ch in s:\n            st.append(ch)\n            # If the last two chars form \"AB\" or \"CD\", remove them.\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2800",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Reduce by removing adjacent \"AB\" or \"CD\" whenever they appear.\n        # Use a stack to simulate deletions while allowing new occurrences to form.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack simulation:\n        # Remove \"AB\" and \"CD\" whenever they appear as adjacent characters.\n        # This is optimal because the only reductions depend purely on adjacency.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Reduce by removing \"AB\" or \"CD\" whenever they occur.\n        # Greedy using a stack works:\n        # - if top of stack and current char form \"AB\" => cancel them\n        # - if top and current form \"CD\" => cancel them\n        st = []\n        for ch in s:\n            if st:\n                top = st[-1]\n                if (top == 'A' and ch == 'B') or (top == 'C' and ch == 'D'):\n                    st.pop()\n                    continue\n            st.append(ch)\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedily remove only \"AB\" and \"CD\" as soon as they appear.\n        # With a stack, when the newly formed adjacent pair is \"AB\" or \"CD\",\n        # we pop to reflect removing that substring.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            while len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    stack.pop()\n                    stack.pop()\n                else:\n                    break\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack solution for removing \"AB\" and \"CD\" repeatedly.\n        st = []\n        for ch in s:\n            if st and ((st[-1] == 'A' and ch == 'B') or (st[-1] == 'C' and ch == 'D')):\n                st.pop()\n            else:\n                st.append(ch)\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Reduce by repeatedly removing \"AB\" and \"CD\" as they appear.\n        # Using a stack works because removals only depend on local adjacency\n        # and new \"AB\"/\"CD\" can only form at the join after popping.\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            if len(stack) >= 2:\n                a, b = stack[-2], stack[-1]\n                if a == 'A' and b == 'B':\n                    stack.pop()\n                    stack.pop()\n                elif a == 'C' and b == 'D':\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        stack = []\n        for ch in s:\n            stack.append(ch)\n            # If the last two characters form \"AB\" or \"CD\", remove them\n            if len(stack) >= 2:\n                if stack[-2] == 'A' and stack[-1] == 'B':\n                    stack.pop()\n                    stack.pop()\n                elif stack[-2] == 'C' and stack[-1] == 'D':\n                    stack.pop()\n                    stack.pop()\n        return len(stack)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # We can view this as repeatedly removing \"AB\" or \"CD\".\n        # Greedy works by using a stack: when the top of stack + current char\n        # forms \"AB\" or \"CD\", we remove them (cancel).\n        st = []\n        for ch in s:\n            if st:\n                pair = st[-1] + ch\n                if pair == \"AB\" or pair == \"CD\":\n                    st.pop()\n                    continue\n            st.append(ch)\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy stack removal:\n        # Whenever we see \"AB\" or \"CD\" as a contiguous suffix of the current stack,\n        # we can remove it. This yields the minimum possible final length.\n        st = []\n        for ch in s:\n            st.append(ch)\n            if len(st) >= 2 and ((st[-2] == 'A' and st[-1] == 'B') or (st[-2] == 'C' and st[-1] == 'D')):\n                st.pop()\n                st.pop()\n        return len(st)\n```",
+        "```python\nclass Solution:\n    def minLength(self, s: str) -> int:\n        # Greedy/DP with stack:\n        # If we can remove \"AB\" or \"CD\", we effectively want to keep only\n        # characters that cannot be paired in those specific patterns.\n        # Standard approach: process left to right, using a stack of kept chars.\n        st = []\n        for ch in s:\n            st.append(ch)\n            # If the last two chars form \"AB\" or \"CD\", remove them.\n            if len(st) >= 2:\n                a, b = st[-2], st[-1]\n                if (a == 'A' and b == 'B') or (a == 'C' and b == 'D'):\n                    st.pop()\n                    st.pop()\n        return len(st)\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2800",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2800",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "21",
+                "actual": "21",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

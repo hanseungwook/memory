@@ -1,0 +1,3074 @@
+{
+  "problem_id": "2791",
+  "domain": "coding",
+  "problem": {
+    "id": "2791",
+    "domain": "coding",
+    "statement": "There are n friends that are playing a game. The friends are sitting in a circle and are numbered from 1 to n in clockwise order. More formally, moving clockwise from the i^th friend brings you to the (i+1)^th friend for 1 <= i < n, and moving clockwise from the n^th friend brings you to the 1^st friend.\nThe rules of the game are as follows:\n1^st friend receives the ball.\n\nAfter that, 1^st friend passes it to the friend who is k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 2 * k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 3 * k steps away from them in the clockwise direction, and so on and so forth.\n\nIn other words, on the i^th turn, the friend holding the ball should pass it to the friend who is i * k steps away from them in the clockwise direction.\nThe game is finished when some friend receives the ball for the second time.\nThe losers of the game are friends who did not receive the ball in the entire game.\nGiven the number of friends, n, and an integer k, return the array answer, which contains the losers of the game in the ascending order.\n \nExample 1:\n\nInput: n = 5, k = 2\nOutput: [4,5]\nExplanation: The game goes as follows:\n1) Start at 1^st friend and pass the ball to the friend who is 2 steps away from them - 3^rd friend.\n2) 3^rd friend passes the ball to the friend who is 4 steps away from them - 2^nd friend.\n3) 2^nd friend passes the ball to the friend who is 6 steps away from them  - 3^rd friend.\n4) The game ends as 3^rd friend receives the ball for the second time.\n\nExample 2:\n\nInput: n = 4, k = 4\nOutput: [2,3,4]\nExplanation: The game goes as follows:\n1) Start at the 1^st friend and pass the ball to the friend who is 4 steps away from them - 1^st friend.\n2) The game ends as 1^st friend receives the ball for the second time.\n\n \nConstraints:\n\n1 <= k <= n <= 50",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "5\n2",
+        "output": "[4, 5]",
+        "testtype": "functional"
+      },
+      {
+        "input": "4\n4",
+        "output": "[2, 3, 4]",
+        "testtype": "functional"
+      },
+      {
+        "input": "4\n3",
+        "output": "[]",
+        "testtype": "functional"
+      },
+      {
+        "input": "2\n1",
+        "output": "[]",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n1",
+        "output": "[]",
+        "testtype": "functional"
+      },
+      {
+        "input": "4\n1",
+        "output": "[]",
+        "testtype": "functional"
+      },
+      {
+        "input": "3\n1",
+        "output": "[3]",
+        "testtype": "functional"
+      },
+      {
+        "input": "3\n3",
+        "output": "[2, 3]",
+        "testtype": "functional"
+      },
+      {
+        "input": "6\n4",
+        "output": "[2, 3, 4, 6]",
+        "testtype": "functional"
+      },
+      {
+        "input": "33\n9",
+        "output": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+        "testtype": "functional"
+      },
+      {
+        "input": "50\n1",
+        "output": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+        "testtype": "functional"
+      },
+      {
+        "input": "49\n35",
+        "output": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+        "testtype": "functional"
+      },
+      {
+        "input": "50\n25",
+        "output": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+        "testtype": "functional"
+      },
+      {
+        "input": "50\n50",
+        "output": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        ",
+    "metadata": {
+      "func_name": "circularGameLosers",
+      "question_title": "find-the-losers-of-the-circular-game",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nThere are n friends that are playing a game. The friends are sitting in a circle and are numbered from 1 to n in clockwise order. More formally, moving clockwise from the i^th friend brings you to the (i+1)^th friend for 1 <= i < n, and moving clockwise from the n^th friend brings you to the 1^st friend.\nThe rules of the game are as follows:\n1^st friend receives the ball.\n\nAfter that, 1^st friend passes it to the friend who is k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 2 * k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 3 * k steps away from them in the clockwise direction, and so on and so forth.\n\nIn other words, on the i^th turn, the friend holding the ball should pass it to the friend who is i * k steps away from them in the clockwise direction.\nThe game is finished when some friend receives the ball for the second time.\nThe losers of the game are friends who did not receive the ball in the entire game.\nGiven the number of friends, n, and an integer k, return the array answer, which contains the losers of the game in the ascending order.\n \nExample 1:\n\nInput: n = 5, k = 2\nOutput: [4,5]\nExplanation: The game goes as follows:\n1) Start at 1^st friend and pass the ball to the friend who is 2 steps away from them - 3^rd friend.\n2) 3^rd friend passes the ball to the friend who is 4 steps away from them - 2^nd friend.\n3) 2^nd friend passes the ball to the friend who is 6 steps away from them  - 3^rd friend.\n4) The game ends as 3^rd friend receives the ball for the second time.\n\nExample 2:\n\nInput: n = 4, k = 4\nOutput: [2,3,4]\nExplanation: The game goes as follows:\n1) Start at the 1^st friend and pass the ball to the friend who is 4 steps away from them - 1^st friend.\n2) The game ends as 1^st friend receives the ball for the second time.\n\n \nConstraints:\n\n1 <= k <= n <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Use modular arithmetic to simulate visited holders.\n        # But we can do it efficiently by finding the cycle in positions.\n        visited = set()\n        order_seen = set()\n\n        cur = 0  # 0-based index for friend 1\n        step = k\n        t = 1\n        while cur not in visited:\n            visited.add(cur)\n            order_seen.add(cur)\n            # Next position: add (t*k) steps from current (t starts at 1)\n            cur = (cur + t * step) % n\n            t += 1\n\n        # Players who never received the ball are the losers.\n        # Since the first repeat indicates we've looped over all \"winners\"\n        # (the game stops at the second time someone receives the ball),\n        # the repeated position is in visited already; thus winners are visited.\n        losers = [i + 1 for i in range(n) if i not in visited]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Each move from i to i + t*k (mod n), where t increases each turn.\n        # The ball revisits a position when cumulative steps match modulo n.\n        # This results in a cycle length equal to n / gcd(n, k).\n        # Only friends in the cycle ever receive the ball; others are losers.\n        import math\n\n        g = math.gcd(n, k)\n        winners = set()\n        # Starting from friend 1, the set of receivers corresponds to:\n        # positions after t steps: 1 + (t(t+1)/2)*k (mod n)\n        # But winners are exactly those reachable before repetition, which count is n/g.\n        # Those reachable correspond to indices 1, 1+g, 1+2g, ... in 1-based numbering.\n        for i in range(n // g):\n            winners.add(1 + i * g)\n\n        losers = [i for i in range(1, n + 1) if i not in winners]\n        return losers\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball visits friends according to step sizes:\n        # positions: 1, 1+k, 1+3k, 1+6k, ... (mod n)\n        # This results in visiting exactly the subgroup generated by k (mod n).\n        # Hence the game ends when a visited position repeats; losers are those\n        # not in the visited set. Count of visited friends is n / gcd(n, k).\n        g = math.gcd(n, k)\n        m = n // g  # number of friends who receive the ball at least once\n\n        # Visited friends are: 1, 1+g, 1+2g, ..., 1+(m-1)g (mod n)\n        visited = set(((1 + i * g - 1) % n) + 1 for i in range(m))\n\n        return [i for i in range(1, n + 1) if i not in visited]\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Let step = k mod n. After t moves, position = 1 + sum_{i=1..t} (i*k)\n        # = 1 + k * t(t+1)/2 (mod n). The ball repeats when this sequence cycles.\n        # The set of friends who ever receive the ball has size equal to the\n        # length of the cycle in this modular progression, which is n / gcd(n, k)\n        # (equivalently, some standard derivation for this problem variant).\n        step_gcd = math.gcd(n, k)\n        m = n // step_gcd  # number of distinct receivers (including initial)\n        \n        # The receivers are every (k mod n)th friend starting from 1 in a cycle;\n        # losers are the rest.\n        # Since n <= 50, simplest: simulate using visited until repeat.\n        visited = [False] * n\n        pos = 0  # 0-based, start at friend 1\n        t = 1\n        while not visited[pos]:\n            visited[pos] = True\n            pos = (pos + t * k) % n\n            t += 1\n        \n        # Losers are those who never received the ball\n        return [i + 1 for i, v in enumerate(visited) if not v]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Simulation is fine for n <= 50, but we can do it deterministically:\n        # The ball holder sequence is periodic; we track visited holders.\n        visited = [False] * (n + 1)  # 1..n\n        pos = 1\n        step = 1\n        visited[pos] = True\n\n        while True:\n            # Move i*k steps clockwise each turn, where current turn is step (1-based).\n            pos = (pos + (step * k)) % n\n            if pos == 0:\n                pos = n\n\n            if visited[pos]:\n                break\n            visited[pos] = True\n            step += 1\n\n        # Losers are those who never received the ball\n        return [i for i in range(1, n + 1) if not visited[i]]\n```",
+        "```python\nfrom typing import List\nfrom math import gcd\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        step = k\n        # Let g be gcd(n, k). The ball visits exactly n/g distinct friends.\n        g = gcd(n, step)\n        visited = set()\n        for i in range(n // g):\n            # Position after i turns starting from friend 1:\n            # 1 -> 1 + (1*k + 2*k + ... + i*k) = 1 + k * i*(i+1)/2\n            pos = (1 + (step * i * (i + 1) // 2)) % n\n            if pos == 0:\n                pos = n\n            visited.add(pos)\n\n        losers = [i for i in range(1, n + 1) if i not in visited]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # When holding the ball at step i (0-indexed), the position advances by (i+1)*k.\n        # Mod n, the sequence is: pos_j = 1 + k * (1+2+...+j) = 1 + k * T_j  (mod n).\n        # The game ends when a position repeats, i.e., when the sequence has a cycle.\n        #\n        # A known result for this problem: the set of losers are exactly those positions\n        # not reachable from 1 under steps of size k in terms of gcd.\n        # Equivalent characterization: winners form a single arithmetic progression\n        # modulo n with step size k; the number of winners is n / gcd(n, k).\n        #\n        # Losers are all friends not in winners set, in ascending order.\n        import math\n\n        g = math.gcd(n, k)\n        winners = set()\n        step = k % n\n        pos = 0  # 0-based, starting at friend 1\n        for _ in range(n // g):\n            winners.add(pos)\n            pos = (pos + step) % n\n\n        # losers are those indices (0-based) not in winners\n        losers = [i + 1 for i in range(n) if i not in winners]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball moves by i*k (mod n) at the i-th step.\n        # Positions that ever receive the ball are exactly multiples of gcd(n, k) away from 0.\n        # The game repeats when a position is reached twice; those are exactly the visited positions.\n        d = __import__(\"math\").gcd(n, k)\n        losers = []\n        # Convert to 1-based indexing:\n        # visited positions are: 1, 1+d, 1+2d, ... (mod n). Others are losers.\n        for person in range(1, n + 1):\n            if (person - 1) % d != 0:\n                losers.append(person)\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Starting at friend 1, on turn i we move i*k steps clockwise.\n        # Total positions visited are: 1 + k * (1 + 2 + ... + t) = 1 + k*t*(t+1)/2 (mod n)\n        # The game ends when a position repeats. The visited set corresponds to residues of\n        # k * triangular numbers; equivalently the process cycles with step based on gcd.\n        #\n        # It can be shown that the set of friends who ever receive the ball are exactly the\n        # positions congruent to 1 modulo gcd(n, k). Thus losers are the rest.\n        g = __import__(\"math\").gcd(n, k)\n        step = g\n        losers = [i for i in range(1, n + 1) if (i - 1) % step != 0]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # simulate in terms of visited receivers\n        visited = [False] * n\n        cur = 0  # 0-based index for friend 1\n        step = k % n\n\n        # mark the starting friend as having received once\n        visited[cur] = True\n\n        # on turn i, move i*k steps; equivalently total movement after t turns:\n        # cur = sum_{i=1..t} (i*k) mod n = t*(t+1)/2 * k mod n\n        # We'll just simulate receivers until a repeat occurs.\n        while True:\n            # Next receiver index after i turns depends on i; easiest is iterative:\n            # maintain increment multiplier using turn count.\n            # We'll keep a running total of movement.\n            break\n\n        # Proper simulation with running total movement\n        visited = [False] * n\n        cur = 0\n        visited[cur] = True\n        total_move = 0\n        i = 1  # turn count\n\n        while True:\n            total_move = (total_move + i * step) % n\n            cur = total_move\n            if visited[cur]:\n                break\n            visited[cur] = True\n            i += 1\n\n        losers = [idx + 1 for idx, ok in enumerate(visited) if not ok]\n        return losers\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2791",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 1,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 2,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 5,
+          "score": 0.9285714285714286,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 13, 14, 15, 18, 19, 20, 23, 24, 25, 28, 30, 33, 34, 35, 38, 39, 40, 43, 44, 45, 48, 49, 50]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 6,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 7,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 8,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Use modular arithmetic to simulate visited holders.\n        # But we can do it efficiently by finding the cycle in positions.\n        visited = set()\n        order_seen = set()\n\n        cur = 0  # 0-based index for friend 1\n        step = k\n        t = 1\n        while cur not in visited:\n            visited.add(cur)\n            order_seen.add(cur)\n            # Next position: add (t*k) steps from current (t starts at 1)\n            cur = (cur + t * step) % n\n            t += 1\n\n        # Players who never received the ball are the losers.\n        # Since the first repeat indicates we've looped over all \"winners\"\n        # (the game stops at the second time someone receives the ball),\n        # the repeated position is in visited already; thus winners are visited.\n        losers = [i + 1 for i in range(n) if i not in visited]\n        return losers\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Let step = k mod n. After t moves, position = 1 + sum_{i=1..t} (i*k)\n        # = 1 + k * t(t+1)/2 (mod n). The ball repeats when this sequence cycles.\n        # The set of friends who ever receive the ball has size equal to the\n        # length of the cycle in this modular progression, which is n / gcd(n, k)\n        # (equivalently, some standard derivation for this problem variant).\n        step_gcd = math.gcd(n, k)\n        m = n // step_gcd  # number of distinct receivers (including initial)\n        \n        # The receivers are every (k mod n)th friend starting from 1 in a cycle;\n        # losers are the rest.\n        # Since n <= 50, simplest: simulate using visited until repeat.\n        visited = [False] * n\n        pos = 0  # 0-based, start at friend 1\n        t = 1\n        while not visited[pos]:\n            visited[pos] = True\n            pos = (pos + t * k) % n\n            t += 1\n        \n        # Losers are those who never received the ball\n        return [i + 1 for i, v in enumerate(visited) if not v]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Simulation is fine for n <= 50, but we can do it deterministically:\n        # The ball holder sequence is periodic; we track visited holders.\n        visited = [False] * (n + 1)  # 1..n\n        pos = 1\n        step = 1\n        visited[pos] = True\n\n        while True:\n            # Move i*k steps clockwise each turn, where current turn is step (1-based).\n            pos = (pos + (step * k)) % n\n            if pos == 0:\n                pos = n\n\n            if visited[pos]:\n                break\n            visited[pos] = True\n            step += 1\n\n        # Losers are those who never received the ball\n        return [i for i in range(1, n + 1) if not visited[i]]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # simulate in terms of visited receivers\n        visited = [False] * n\n        cur = 0  # 0-based index for friend 1\n        step = k % n\n\n        # mark the starting friend as having received once\n        visited[cur] = True\n\n        # on turn i, move i*k steps; equivalently total movement after t turns:\n        # cur = sum_{i=1..t} (i*k) mod n = t*(t+1)/2 * k mod n\n        # We'll just simulate receivers until a repeat occurs.\n        while True:\n            # Next receiver index after i turns depends on i; easiest is iterative:\n            # maintain increment multiplier using turn count.\n            # We'll keep a running total of movement.\n            break\n\n        # Proper simulation with running total movement\n        visited = [False] * n\n        cur = 0\n        visited[cur] = True\n        total_move = 0\n        i = 1  # turn count\n\n        while True:\n            total_move = (total_move + i * step) % n\n            cur = total_move\n            if visited[cur]:\n                break\n            visited[cur] = True\n            i += 1\n\n        losers = [idx + 1 for idx, ok in enumerate(visited) if not ok]\n        return losers\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Each move from i to i + t*k (mod n), where t increases each turn.\n        # The ball revisits a position when cumulative steps match modulo n.\n        # This results in a cycle length equal to n / gcd(n, k).\n        # Only friends in the cycle ever receive the ball; others are losers.\n        import math\n\n        g = math.gcd(n, k)\n        winners = set()\n        # Starting from friend 1, the set of receivers corresponds to:\n        # positions after t steps: 1 + (t(t+1)/2)*k (mod n)\n        # But winners are exactly those reachable before repetition, which count is n/g.\n        # Those reachable correspond to indices 1, 1+g, 1+2g, ... in 1-based numbering.\n        for i in range(n // g):\n            winners.add(1 + i * g)\n\n        losers = [i for i in range(1, n + 1) if i not in winners]\n        return losers\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball visits friends according to step sizes:\n        # positions: 1, 1+k, 1+3k, 1+6k, ... (mod n)\n        # This results in visiting exactly the subgroup generated by k (mod n).\n        # Hence the game ends when a visited position repeats; losers are those\n        # not in the visited set. Count of visited friends is n / gcd(n, k).\n        g = math.gcd(n, k)\n        m = n // g  # number of friends who receive the ball at least once\n\n        # Visited friends are: 1, 1+g, 1+2g, ..., 1+(m-1)g (mod n)\n        visited = set(((1 + i * g - 1) % n) + 1 for i in range(m))\n\n        return [i for i in range(1, n + 1) if i not in visited]\n```",
+          "```python\nfrom typing import List\nfrom math import gcd\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        step = k\n        # Let g be gcd(n, k). The ball visits exactly n/g distinct friends.\n        g = gcd(n, step)\n        visited = set()\n        for i in range(n // g):\n            # Position after i turns starting from friend 1:\n            # 1 -> 1 + (1*k + 2*k + ... + i*k) = 1 + k * i*(i+1)/2\n            pos = (1 + (step * i * (i + 1) // 2)) % n\n            if pos == 0:\n                pos = n\n            visited.add(pos)\n\n        losers = [i for i in range(1, n + 1) if i not in visited]\n        return losers\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # When holding the ball at step i (0-indexed), the position advances by (i+1)*k.\n        # Mod n, the sequence is: pos_j = 1 + k * (1+2+...+j) = 1 + k * T_j  (mod n).\n        # The game ends when a position repeats, i.e., when the sequence has a cycle.\n        #\n        # A known result for this problem: the set of losers are exactly those positions\n        # not reachable from 1 under steps of size k in terms of gcd.\n        # Equivalent characterization: winners form a single arithmetic progression\n        # modulo n with step size k; the number of winners is n / gcd(n, k).\n        #\n        # Losers are all friends not in winners set, in ascending order.\n        import math\n\n        g = math.gcd(n, k)\n        winners = set()\n        step = k % n\n        pos = 0  # 0-based, starting at friend 1\n        for _ in range(n // g):\n            winners.add(pos)\n            pos = (pos + step) % n\n\n        # losers are those indices (0-based) not in winners\n        losers = [i + 1 for i in range(n) if i not in winners]\n        return losers\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball moves by i*k (mod n) at the i-th step.\n        # Positions that ever receive the ball are exactly multiples of gcd(n, k) away from 0.\n        # The game repeats when a position is reached twice; those are exactly the visited positions.\n        d = __import__(\"math\").gcd(n, k)\n        losers = []\n        # Convert to 1-based indexing:\n        # visited positions are: 1, 1+d, 1+2d, ... (mod n). Others are losers.\n        for person in range(1, n + 1):\n            if (person - 1) % d != 0:\n                losers.append(person)\n        return losers\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Starting at friend 1, on turn i we move i*k steps clockwise.\n        # Total positions visited are: 1 + k * (1 + 2 + ... + t) = 1 + k*t*(t+1)/2 (mod n)\n        # The game ends when a position repeats. The visited set corresponds to residues of\n        # k * triangular numbers; equivalently the process cycles with step based on gcd.\n        #\n        # It can be shown that the set of friends who ever receive the ball are exactly the\n        # positions congruent to 1 modulo gcd(n, k). Thus losers are the rest.\n        g = __import__(\"math\").gcd(n, k)\n        step = g\n        losers = [i for i in range(1, n + 1) if (i - 1) % step != 0]\n        return losers\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nThere are n friends that are playing a game. The friends are sitting in a circle and are numbered from 1 to n in clockwise order. More formally, moving clockwise from the i^th friend brings you to the (i+1)^th friend for 1 <= i < n, and moving clockwise from the n^th friend brings you to the 1^st friend.\nThe rules of the game are as follows:\n1^st friend receives the ball.\n\nAfter that, 1^st friend passes it to the friend who is k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 2 * k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 3 * k steps away from them in the clockwise direction, and so on and so forth.\n\nIn other words, on the i^th turn, the friend holding the ball should pass it to the friend who is i * k steps away from them in the clockwise direction.\nThe game is finished when some friend receives the ball for the second time.\nThe losers of the game are friends who did not receive the ball in the entire game.\nGiven the number of friends, n, and an integer k, return the array answer, which contains the losers of the game in the ascending order.\n \nExample 1:\n\nInput: n = 5, k = 2\nOutput: [4,5]\nExplanation: The game goes as follows:\n1) Start at 1^st friend and pass the ball to the friend who is 2 steps away from them - 3^rd friend.\n2) 3^rd friend passes the ball to the friend who is 4 steps away from them - 2^nd friend.\n3) 2^nd friend passes the ball to the friend who is 6 steps away from them  - 3^rd friend.\n4) The game ends as 3^rd friend receives the ball for the second time.\n\nExample 2:\n\nInput: n = 4, k = 4\nOutput: [2,3,4]\nExplanation: The game goes as follows:\n1) Start at the 1^st friend and pass the ball to the friend who is 4 steps away from them - 1^st friend.\n2) The game ends as 1^st friend receives the ball for the second time.\n\n \nConstraints:\n\n1 <= k <= n <= 50\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Use modular arithmetic to simulate visited holders.\n        # But we can do it efficiently by finding the cycle in positions.\n        visited = set()\n        order_seen = set()\n\n        cur = 0  # 0-based index for friend 1\n        step = k\n        t = 1\n        while cur not in visited:\n            visited.add(cur)\n            order_seen.add(cur)\n            # Next position: add (t*k) steps from current (t starts at 1)\n            cur = (cur + t * step) % n\n            t += 1\n\n        # Players who never received the ball are the losers.\n        # Since the first repeat indicates we've looped over all \"winners\"\n        # (the game stops at the second time someone receives the ball),\n        # the repeated position is in visited already; thus winners are visited.\n        losers = [i + 1 for i in range(n) if i not in visited]\n        return losers\n```\n\nAttempt 2\n```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Let step = k mod n. After t moves, position = 1 + sum_{i=1..t} (i*k)\n        # = 1 + k * t(t+1)/2 (mod n). The ball repeats when this sequence cycles.\n        # The set of friends who ever receive the ball has size equal to the\n        # length of the cycle in this modular progression, which is n / gcd(n, k)\n        # (equivalently, some standard derivation for this problem variant).\n        step_gcd = math.gcd(n, k)\n        m = n // step_gcd  # number of distinct receivers (including initial)\n        \n        # The receivers are every (k mod n)th friend starting from 1 in a cycle;\n        # losers are the rest.\n        # Since n <= 50, simplest: simulate using visited until repeat.\n        visited = [False] * n\n        pos = 0  # 0-based, start at friend 1\n        t = 1\n        while not visited[pos]:\n            visited[pos] = True\n            pos = (pos + t * k) % n\n            t += 1\n        \n        # Losers are those who never received the ball\n        return [i + 1 for i, v in enumerate(visited) if not v]\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Simulation is fine for n <= 50, but we can do it deterministically:\n        # The ball holder sequence is periodic; we track visited holders.\n        visited = [False] * (n + 1)  # 1..n\n        pos = 1\n        step = 1\n        visited[pos] = True\n\n        while True:\n            # Move i*k steps clockwise each turn, where current turn is step (1-based).\n            pos = (pos + (step * k)) % n\n            if pos == 0:\n                pos = n\n\n            if visited[pos]:\n                break\n            visited[pos] = True\n            step += 1\n\n        # Losers are those who never received the ball\n        return [i for i in range(1, n + 1) if not visited[i]]\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # simulate in terms of visited receivers\n        visited = [False] * n\n        cur = 0  # 0-based index for friend 1\n        step = k % n\n\n        # mark the starting friend as having received once\n        visited[cur] = True\n\n        # on turn i, move i*k steps; equivalently total movement after t turns:\n        # cur = sum_{i=1..t} (i*k) mod n = t*(t+1)/2 * k mod n\n        # We'll just simulate receivers until a repeat occurs.\n        while True:\n            # Next receiver index after i turns depends on i; easiest is iterative:\n            # maintain increment multiplier using turn count.\n            # We'll keep a running total of movement.\n            break\n\n        # Proper simulation with running total movement\n        visited = [False] * n\n        cur = 0\n        visited[cur] = True\n        total_move = 0\n        i = 1  # turn count\n\n        while True:\n            total_move = (total_move + i * step) % n\n            cur = total_move\n            if visited[cur]:\n                break\n            visited[cur] = True\n            i += 1\n\n        losers = [idx + 1 for idx, ok in enumerate(visited) if not ok]\n        return losers\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Each move from i to i + t*k (mod n), where t increases each turn.\n        # The ball revisits a position when cumulative steps match modulo n.\n        # This results in a cycle length equal to n / gcd(n, k).\n        # Only friends in the cycle ever receive the ball; others are losers.\n        import math\n\n        g = math.gcd(n, k)\n        winners = set()\n        # Starting from friend 1, the set of receivers corresponds to:\n        # positions after t steps: 1 + (t(t+1)/2)*k (mod n)\n        # But winners are exactly those reachable before repetition, which count is n/g.\n        # Those reachable correspond to indices 1, 1+g, 1+2g, ... in 1-based numbering.\n        for i in range(n // g):\n            winners.add(1 + i * g)\n\n        losers = [i for i in range(1, n + 1) if i not in winners]\n        return losers\n```\n\nAttempt 2\n```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball visits friends according to step sizes:\n        # positions: 1, 1+k, 1+3k, 1+6k, ... (mod n)\n        # This results in visiting exactly the subgroup generated by k (mod n).\n        # Hence the game ends when a visited position repeats; losers are those\n        # not in the visited set. Count of visited friends is n / gcd(n, k).\n        g = math.gcd(n, k)\n        m = n // g  # number of friends who receive the ball at least once\n\n        # Visited friends are: 1, 1+g, 1+2g, ..., 1+(m-1)g (mod n)\n        visited = set(((1 + i * g - 1) % n) + 1 for i in range(m))\n\n        return [i for i in range(1, n + 1) if i not in visited]\n```\n\nAttempt 3\n```python\nfrom typing import List\nfrom math import gcd\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        step = k\n        # Let g be gcd(n, k). The ball visits exactly n/g distinct friends.\n        g = gcd(n, step)\n        visited = set()\n        for i in range(n // g):\n            # Position after i turns starting from friend 1:\n            # 1 -> 1 + (1*k + 2*k + ... + i*k) = 1 + k * i*(i+1)/2\n            pos = (1 + (step * i * (i + 1) // 2)) % n\n            if pos == 0:\n                pos = n\n            visited.add(pos)\n\n        losers = [i for i in range(1, n + 1) if i not in visited]\n        return losers\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # When holding the ball at step i (0-indexed), the position advances by (i+1)*k.\n        # Mod n, the sequence is: pos_j = 1 + k * (1+2+...+j) = 1 + k * T_j  (mod n).\n        # The game ends when a position repeats, i.e., when the sequence has a cycle.\n        #\n        # A known result for this problem: the set of losers are exactly those positions\n        # not reachable from 1 under steps of size k in terms of gcd.\n        # Equivalent characterization: winners form a single arithmetic progression\n        # modulo n with step size k; the number of winners is n / gcd(n, k).\n        #\n        # Losers are all friends not in winners set, in ascending order.\n        import math\n\n        g = math.gcd(n, k)\n        winners = set()\n        step = k % n\n        pos = 0  # 0-based, starting at friend 1\n        for _ in range(n // g):\n            winners.add(pos)\n            pos = (pos + step) % n\n\n        # losers are those indices (0-based) not in winners\n        losers = [i + 1 for i in range(n) if i not in winners]\n        return losers\n```\n\nAttempt 5\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball moves by i*k (mod n) at the i-th step.\n        # Positions that ever receive the ball are exactly multiples of gcd(n, k) away from 0.\n        # The game repeats when a position is reached twice; those are exactly the visited positions.\n        d = __import__(\"math\").gcd(n, k)\n        losers = []\n        # Convert to 1-based indexing:\n        # visited positions are: 1, 1+d, 1+2d, ... (mod n). Others are losers.\n        for person in range(1, n + 1):\n            if (person - 1) % d != 0:\n                losers.append(person)\n        return losers\n```\n\nAttempt 6\n```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Starting at friend 1, on turn i we move i*k steps clockwise.\n        # Total positions visited are: 1 + k * (1 + 2 + ... + t) = 1 + k*t*(t+1)/2 (mod n)\n        # The game ends when a position repeats. The visited set corresponds to residues of\n        # k * triangular numbers; equivalently the process cycles with step based on gcd.\n        #\n        # It can be shown that the set of friends who ever receive the ball are exactly the\n        # positions congruent to 1 modulo gcd(n, k). Thus losers are the rest.\n        g = __import__(\"math\").gcd(n, k)\n        step = g\n        losers = [i for i in range(1, n + 1) if (i - 1) % step != 0]\n        return losers\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Invariant-First Simulation for Repeat-Stopping Processes",
+          "description": "When the game ends at the first repeat of a state (e.g., ball holder), track visited states directly to guarantee correctness.",
+          "content": "Reformulate the process as a deterministic state transition (current holder → next holder) and maintain a visited set/array. Terminate immediately upon encountering a previously visited holder, since the problem’s stopping condition is exactly that repeat.",
+          "reasoning": "The successful attempts mostly used direct simulation with a “visited positions” invariant, correctly matching the rule that the stopping condition is a repeat (second time someone receives). They avoided relying on an unverified number-theory characterization for the winner set. In contrast, several partially-correct attempts jumped to a gcd/arithmetic-progression characterization without fully validating it against the actual “increasing step size by turn” dynamics (triangular-number/accumulated movement), leading to incorrect winner sets for some cases. The key distinction is whether the method maintains a correct invariant tied to the game’s stopping condition (repeat of holders) rather than an overgeneralized closed form."
+        },
+        {
+          "title": "Validate Any Closed-Form Claim Against the Actual Transition Rule",
+          "description": "If you derive winners/losers via gcd or group structure, explicitly verify the derivation against the true transition (including changing step sizes).",
+          "content": "It’s easy to guess a gcd-based orbit for problems with constant step size, but here the step depends on the turn, so the closed form must incorporate accumulated movement (often leading to triangular-number effects modulo n). Before trusting a formula, test it by reasoning from the exact recurrence or running a small verification simulation.",
+          "reasoning": "The successful attempts mostly used direct simulation with a “visited positions” invariant, correctly matching the rule that the stopping condition is a repeat (second time someone receives). They avoided relying on an unverified number-theory characterization for the winner set. In contrast, several partially-correct attempts jumped to a gcd/arithmetic-progression characterization without fully validating it against the actual “increasing step size by turn” dynamics (triangular-number/accumulated movement), leading to incorrect winner sets for some cases. The key distinction is whether the method maintains a correct invariant tied to the game’s stopping condition (repeat of holders) rather than an overgeneralized closed form."
+        },
+        {
+          "title": "Choose a Representation That Matches What You Need to Output",
+          "description": "Maintain the set of receivers/holders rather than indirectly reasoning about counts, so you can output losers in sorted order reliably.",
+          "content": "Instead of inferring which participants are winners, record which indices are ever reached. This directly yields the losers as the complement and naturally supports returning the answer in ascending order.",
+          "reasoning": "The successful attempts mostly used direct simulation with a “visited positions” invariant, correctly matching the rule that the stopping condition is a repeat (second time someone receives). They avoided relying on an unverified number-theory characterization for the winner set. In contrast, several partially-correct attempts jumped to a gcd/arithmetic-progression characterization without fully validating it against the actual “increasing step size by turn” dynamics (triangular-number/accumulated movement), leading to incorrect winner sets for some cases. The key distinction is whether the method maintains a correct invariant tied to the game’s stopping condition (repeat of holders) rather than an overgeneralized closed form."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful attempts mostly used direct simulation with a “visited positions” invariant, correctly matching the rule that the stopping condition is a repeat (second time someone receives). They avoided relying on an unverified number-theory characterization for the winner set. In contrast, several partially-correct attempts jumped to a gcd/arithmetic-progression characterization without fully validating it against the actual “increasing step size by turn” dynamics (triangular-number/accumulated movement), leading to incorrect winner sets for some cases. The key distinction is whether the method maintains a correct invariant tied to the game’s stopping condition (repeat of holders) rather than an overgeneralized closed form.\n</reasoning>\n\n<memories>\n  <memory>\n    <title>Invariant-First Simulation for Repeat-Stopping Processes</title>\n    <description>When the game ends at the first repeat of a state (e.g., ball holder), track visited states directly to guarantee correctness.</description>\n    <content>Reformulate the process as a deterministic state transition (current holder → next holder) and maintain a visited set/array. Terminate immediately upon encountering a previously visited holder, since the problem’s stopping condition is exactly that repeat.</content>\n  </memory>\n\n  <memory>\n    <title>Validate Any Closed-Form Claim Against the Actual Transition Rule</title>\n    <description>If you derive winners/losers via gcd or group structure, explicitly verify the derivation against the true transition (including changing step sizes).</description>\n    <content>It’s easy to guess a gcd-based orbit for problems with constant step size, but here the step depends on the turn, so the closed form must incorporate accumulated movement (often leading to triangular-number effects modulo n). Before trusting a formula, test it by reasoning from the exact recurrence or running a small verification simulation.</content>\n  </memory>\n\n  <memory>\n    <title>Choose a Representation That Matches What You Need to Output</title>\n    <description>Maintain the set of receivers/holders rather than indirectly reasoning about counts, so you can output losers in sorted order reliably.</description>\n    <content>Instead of inferring which participants are winners, record which indices are ever reached. This directly yields the losers as the complement and naturally supports returning the answer in ascending order.</content>\n  </memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nThere are n friends that are playing a game. The friends are sitting in a circle and are numbered from 1 to n in clockwise order. More formally, moving clockwise from the i^th friend brings you to the (i+1)^th friend for 1 <= i < n, and moving clockwise from the n^th friend brings you to the 1^st friend.\nThe rules of the game are as follows:\n1^st friend receives the ball.\n\nAfter that, 1^st friend passes it to the friend who is k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 2 * k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 3 * k steps away from them in the clockwise direction, and so on and so forth.\n\nIn other words, on the i^th turn, the friend holding the ball should pass it to the friend who is i * k steps away from them in the clockwise direction.\nThe game is finished when some friend receives the ball for the second time.\nThe losers of the game are friends who did not receive the ball in the entire game.\nGiven the number of friends, n, and an integer k, return the array answer, which contains the losers of the game in the ascending order.\n \nExample 1:\n\nInput: n = 5, k = 2\nOutput: [4,5]\nExplanation: The game goes as follows:\n1) Start at 1^st friend and pass the ball to the friend who is 2 steps away from them - 3^rd friend.\n2) 3^rd friend passes the ball to the friend who is 4 steps away from them - 2^nd friend.\n3) 2^nd friend passes the ball to the friend who is 6 steps away from them  - 3^rd friend.\n4) The game ends as 3^rd friend receives the ball for the second time.\n\nExample 2:\n\nInput: n = 4, k = 4\nOutput: [2,3,4]\nExplanation: The game goes as follows:\n1) Start at the 1^st friend and pass the ball to the friend who is 4 steps away from them - 1^st friend.\n2) The game ends as 1^st friend receives the ball for the second time.\n\n \nConstraints:\n\n1 <= k <= n <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # On turn i, the ball moves by i*k steps.\n        # After t steps, total move is k*(1+2+...+t) = k*t*(t+1)/2.\n        # Game ends when some friend receives the ball the second time.\n        # The set of visited friends forms a cycle whose size is n / gcd(n, k).\n        # Losers are the unvisited friends => count is n - cycle_size.\n        g = math.gcd(n, k)\n        step = n // g  # visited friends are 1, 1+step, 1+2*step, ...\n\n        losers = []\n        for friend in range(1, n + 1):\n            # visited iff (friend - 1) is divisible by step\n            if (friend - 1) % step != 0:\n                losers.append(friend)\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The sequence of ball holders advances by k, then 2k, ... modulo n.\n        # Net position after i-th move (from start at 1) is:\n        # 1 + k*(1 + 2 + ... + i) = 1 + k*i*(i+1)/2 (mod n).\n        # The game ends when a friend repeats (i.e., sequence in mod n cycles).\n        # It can be shown the set of visited friends has size n / gcd(n, k),\n        # and the number of \"losers\" equals n - n/gcd(n, k).\n        g = __import__(\"math\").gcd(n, k)\n        visited = n // g\n\n        # The starting friend is 1 (index 0 internally). The visited friends are:\n        # positions 0, step, 2*step, ... where step = g (in 0-based indexing)\n        # because the move pattern ultimately hits exactly those residues.\n        step = g\n        is_winner = [False] * n\n        for t in range(visited):\n            is_winner[(t * step) % n] = True\n\n        # Losers: those who never received the ball\n        losers = [i + 1 for i in range(n) if not is_winner[i]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # After each step i, position advances by i*k (mod n).\n        # The sequence of positions returns to a previous player at the smallest i\n        # such that i(i+1)/2 * k is 0 (mod n).\n        # The number of distinct players visited equals n / gcd(n, k).\n        # Losers are the unvisited players.\n        g = 1\n        # compute gcd(n, k) without importing math for simplicity\n        a, b = n, k\n        while b:\n            a, b = b, a % b\n        g = a  # gcd(n, k)\n        visited_count = n // g\n\n        # The starting player is 1. The visited players are multiples of g in the\n        # modular step pattern; easiest: simulate indices visited by following\n        # the actual rule until repeat.\n        seen = set()\n        pos = 1  # player labels are 1..n\n        i = 1\n        step = 1\n        while pos not in seen:\n            seen.add(pos)\n            step = (step + k * i) % n  # but this would be cumulative; instead do simulation below\n            i += 1\n            # We'll redo simulation properly:\n            break\n\n        # Correct simulation of the game:\n        seen = set()\n        pos = 1\n        i = 1\n        while pos not in seen:\n            seen.add(pos)\n            pos = ((pos - 1 + i * k) % n) + 1\n            i += 1\n\n        losers = [p for p in range(1, n + 1) if p not in seen]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball moves from start to positions:\n        # 1 -> 1+k -> 1+3k -> 1+6k -> ... (increments are 1*k, 2*k, 3*k, ...)\n        # The sequence of positions modulo n repeats when a position is visited twice.\n        # This happens when we reach a position whose index is congruent to 1 modulo\n        # the group size defined by gcd(n, k).\n        #\n        # Known result: all winners are exactly the first \"m\" positions in the same cycle,\n        # where m = n / gcd(n, k). Losers are the remaining numbers (1-indexed).\n        g = __import__(\"math\").gcd(n, k)\n        cycle_len = n // g\n\n        winners = set()\n        for i in range(cycle_len):\n            winners.add(1 + i * g)\n\n        losers = [x for x in range(1, n + 1) if x not in winners]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball is passed with step sizes k, 2k, 3k, ...\n        # This sequence of positions forms a cycle in terms of modulo n.\n        # Winners are exactly the positions visited before repeating, which count is:\n        # cycle_length = n / gcd(n, k)\n        # All other friends are losers.\n        \n        import math\n        g = math.gcd(n, k)\n        cycle_len = n // g\n\n        winners = set()\n        pos = 0  # 0-based position of the ball holder (starts at friend 1)\n        for _ in range(cycle_len):\n            winners.add(pos)\n            # next position: move (current_turn * k) steps, where turn starts at 1\n            # If we are at turn t holder, next move is t*k, so position update:\n            # pos = (pos + t*k) % n\n            # Here iteration index i represents turn = i+1\n            # Since this loop already runs cycle_len times, we update at end.\n            # We'll compute increment using (i+1) each time by tracking via loop index.\n            # To keep it simple, we re-implement with an index.\n        \n        winners.clear()\n        pos = 0\n        for t in range(1, cycle_len + 1):\n            winners.add(pos)\n            pos = (pos + t * k) % n\n\n        losers = [i + 1 for i in range(n) if i not in winners]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # The ball's holder after t steps forms a sequence modulo n.\n        # It repeats when t*k ≡ 0 (mod n), so the cycle length is n / gcd(n, k).\n        # Losers are those not in that cycle.\n        import math\n\n        g = math.gcd(n, k)\n        cycle_len = n // g\n\n        # Positions visited starting from 1:\n        # holder at step t is (1 + t*k) mod n, using 1-based friend numbers.\n        visited = set()\n        cur = 0  # 0-based index for friend 1\n        visited.add(cur)\n        for _ in range(1, cycle_len):\n            cur = (cur + k) % n\n            visited.add(cur)\n\n        # Losers are 1-based indices not visited\n        losers = [i + 1 for i in range(n) if i not in visited]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # After t moves, the ball is at position: t*(t+1)/2 * k (mod n) relative to friend 1.\n        # The game ends when a position repeats. In this process, the set of visited\n        # friends corresponds to multiples of gcd(n, k) (in a suitable step size graph).\n        # The standard result: the losers are those not in the cycle reachable from 1,\n        # which are all friends except {1 + i*(g) mod n}, where g = gcd(n, k).\n        import math\n\n        g = math.gcd(n, k)\n\n        losers = []\n        for friend in range(1, n + 1):\n            # Winner set size is n/g; winners are congruent to 1 modulo g (1-indexed circle)\n            if (friend - 1) % g != 0:\n                losers.append(friend)\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Positions visited by the ball starting from friend 1:\n        # after t turns, friend index advances by (1+2+...+t)*k = t(t+1)/2 * k (mod n)\n        # The game ends when a position repeats; all others are losers.\n        visited = [False] * (n + 1)  # 1..n\n        cur = 1\n        step = k % n\n        visited[cur] = True\n\n        turn = 1\n        while True:\n            # Move i*k steps on i-th turn\n            # current move uses multiplier = turn\n            # cur = (cur + turn*k) mod n\n            cur = ((cur - 1 + turn * step) % n) + 1\n            if visited[cur]:\n                break\n            visited[cur] = True\n            turn += 1\n\n        losers = [i for i in range(1, n + 1) if not visited[i]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Track which friends ever receive the ball.\n        # The ball moves by i*k steps on the i-th pass:\n        # receiver after t moves is 1 + k * (1 + 2 + ... + t) = 1 + k * t(t+1)/2 (mod n)\n        # This induces a cycle whose set of reachable nodes has size n / gcd(n, k).\n        # Those reachable are the winners; losers are the rest.\n        g = __import__(\"math\").gcd(n, k)\n        winners = set()\n        # Winners are exactly positions reachable by repeatedly adding k mod n\n        # (equivalently those whose index i satisfies (i-1) * inv? but easier by simulation of cycle length n/g)\n        # We can generate winners by starting at 1 and adding k each time:\n        # In this game, the set of recipients equals {1 + m*k (mod n)} for m=0..n/g-1.\n        cur = 0  # 0-based index for friend 1\n        for _ in range(n // g):\n            winners.add(cur)\n            cur = (cur + k) % n\n\n        losers = [i + 1 for i in range(n) if i not in winners]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        visited = [False] * n          # visited[i] == has friend (i+1) received the ball?\n        second_time = [False] * n      # optional: not needed, but keeps clarity\n\n        pos = 0  # 0-based index for friend 1\n        visited_count = 0\n        step = 1\n        while not second_time[pos]:\n            if visited[pos]:\n                second_time[pos] = True\n                break\n            visited[pos] = True\n            visited_count += 1\n            pos = (pos + step * k) % n\n            step += 1\n\n        losers = [i + 1 for i in range(n) if not visited[i]]\n        return losers\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2791",
+          "generation_index": 0,
+          "score": 0.07142857142857142,
+          "tier": "partial",
+          "details": {
+            "passed": 1,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[2, 3, 4, 5]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[]",
+                "actual": "[2, 3, 4]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[]",
+                "actual": "[2]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[]",
+                "actual": "[2, 3, 4]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[2, 3]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 5, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 1,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 3,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 4,
+          "score": 0.9285714285714286,
+          "tier": "partial",
+          "details": {
+            "passed": 13,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 13, 14, 15, 18, 19, 20, 23, 24, 25, 28, 30, 33, 34, 35, 38, 39, 40, 43, 44, 45, 48, 49, 50]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 5,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 6,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 8,
+          "score": 0.5714285714285714,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "[4, 5]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[3]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 4, 6]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 8, 9, 11, 12, 14, 15, 17, 18, 20, 21, 23, 24, 26, 27, 29, 30, 32, 33]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49]",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Invariant-First Simulation for Repeat-Stopping Processes: When the game ends at the first repeat of a state (e.g., ball holder), track visited states directly to guarantee correctness.\n     Reformulate the process as a deterministic state transition (current holder → next holder) and maintain a visited set/array. Terminate immediately upon encountering a previously visited holder, since the problem’s stopping condition is exactly that repeat.\n  2. Validate Any Closed-Form Claim Against the Actual Transition Rule: If you derive winners/losers via gcd or group structure, explicitly verify the derivation against the true transition (including changing step sizes).\n     It’s easy to guess a gcd-based orbit for problems with constant step size, but here the step depends on the turn, so the closed form must incorporate accumulated movement (often leading to triangular-number effects modulo n). Before trusting a formula, test it by reasoning from the exact recurrence or running a small verification simulation.\n  3. Choose a Representation That Matches What You Need to Output: Maintain the set of receivers/holders rather than indirectly reasoning about counts, so you can output losers in sorted order reliably.\n     Instead of inferring which participants are winners, record which indices are ever reached. This directly yields the losers as the complement and naturally supports returning the answer in ascending order.\n\nApply these insights to the problem below.\n\n### Question:\nThere are n friends that are playing a game. The friends are sitting in a circle and are numbered from 1 to n in clockwise order. More formally, moving clockwise from the i^th friend brings you to the (i+1)^th friend for 1 <= i < n, and moving clockwise from the n^th friend brings you to the 1^st friend.\nThe rules of the game are as follows:\n1^st friend receives the ball.\n\nAfter that, 1^st friend passes it to the friend who is k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 2 * k steps away from them in the clockwise direction.\nAfter that, the friend who receives the ball should pass it to the friend who is 3 * k steps away from them in the clockwise direction, and so on and so forth.\n\nIn other words, on the i^th turn, the friend holding the ball should pass it to the friend who is i * k steps away from them in the clockwise direction.\nThe game is finished when some friend receives the ball for the second time.\nThe losers of the game are friends who did not receive the ball in the entire game.\nGiven the number of friends, n, and an integer k, return the array answer, which contains the losers of the game in the ascending order.\n \nExample 1:\n\nInput: n = 5, k = 2\nOutput: [4,5]\nExplanation: The game goes as follows:\n1) Start at 1^st friend and pass the ball to the friend who is 2 steps away from them - 3^rd friend.\n2) 3^rd friend passes the ball to the friend who is 4 steps away from them - 2^nd friend.\n3) 2^nd friend passes the ball to the friend who is 6 steps away from them  - 3^rd friend.\n4) The game ends as 3^rd friend receives the ball for the second time.\n\nExample 2:\n\nInput: n = 4, k = 4\nOutput: [2,3,4]\nExplanation: The game goes as follows:\n1) Start at the 1^st friend and pass the ball to the friend who is 4 steps away from them - 1^st friend.\n2) The game ends as 1^st friend receives the ball for the second time.\n\n \nConstraints:\n\n1 <= k <= n <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # holders/receivers are deterministic: current holder -> next holder\n        # step size on i-th turn is i*k, so we can simulate by turn count.\n        visited = [False] * n  # visited[friend_index]\n        \n        current = 0  # friend 1 in 0-based indexing\n        turn = 1\n        visited[current] = True\n        \n        while True:\n            # pass i*k steps clockwise\n            current = (current + (turn * k)) % n\n            if visited[current]:  # second time received => stop\n                break\n            visited[current] = True\n            turn += 1\n\n        losers = [i + 1 for i, v in enumerate(visited) if not v]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Deterministic state transition: holder -> next holder\n        # Stop when a holder repeats.\n        visited = [False] * n  # visited[i] => friend (i+1) has received ball\n        cur = 0  # friend 1 in 0-based\n        step_mult = 1\n\n        while not visited[cur]:\n            visited[cur] = True\n            cur = (cur + step_mult * k) % n\n            step_mult += 1\n\n        # Losers are those never visited.\n        return [i + 1 for i in range(n) if not visited[i]]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Deterministic transition: holder t passes to holder (t + i*k) mod n (0-indexed),\n        # where i is the 1-based turn count after the start.\n        # Stop when a holder repeats.\n        seen = [False] * n\n\n        cur = 0  # 0 represents friend 1\n        seen[cur] = True\n\n        step_mult = 1  # i in the statement\n        i = 1\n        while True:\n            cur = (cur + i * k) % n\n            if seen[cur]:\n                break\n            seen[cur] = True\n            i += 1\n\n        losers = [idx + 1 for idx in range(n) if not seen[idx]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        visited = [False] * n\n        cur = 0  # 0-based index for friend 1\n        visited[cur] = True\n\n        step = 1\n        while True:\n            cur = (cur + step * k) % n\n            if visited[cur]:\n                break\n            visited[cur] = True\n            step += 1\n\n        losers = [i + 1 for i in range(n) if not visited[i]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # visited[i] indicates whether friend (i+1) has received the ball\n        visited = [False] * n\n        cur = 0  # 0-based index for friend 1\n        step_mult = 1  # i * k where i starts at 1 on the first move\n\n        while not visited[cur]:\n            visited[cur] = True\n            cur = (cur + step_mult * k) % n\n            step_mult += 1\n\n        # Losers are those never visited\n        return [i + 1 for i in range(n) if not visited[i]]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Track states by current holder (ball position). The game stops\n        # at the first repeat of a holder.\n        visited = [False] * (n + 1)  # 1..n\n        order_seen = [0] * (n + 1)\n\n        cur = 1\n        visited[cur] = True\n        step = 1\n\n        while True:\n            # move i*k steps clockwise where i is the current turn index (step)\n            cur = (cur - 1 + (step * k) % n) % n + 1\n            if visited[cur]:\n                break\n            visited[cur] = True\n            step += 1\n\n        losers = [i for i in range(1, n + 1) if not visited[i]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Deterministic state transition: holder -> next holder.\n        # Stop exactly when a holder is seen for the 2nd time.\n        visited = [False] * n\n        holder = 0  # 1st friend (0-indexed)\n        turn = 1\n\n        while not visited[holder]:\n            visited[holder] = True\n            # On turn t, pass i*k steps; here i == turn.\n            holder = (holder + (turn * k) % n) % n\n            turn += 1\n\n        # Losers are those never visited.\n        return [i + 1 for i in range(n) if not visited[i]]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        visited = [False] * n  # visited[i] => friend (i+1) has received the ball\n        cur = 0  # 0-based index for friend 1\n        visited[cur] = True\n\n        step_mul = 1\n        while True:\n            nxt = (cur + step_mul * k) % n\n            if visited[nxt]:  # game ends when someone receives the ball second time\n                break\n            visited[nxt] = True\n            cur = nxt\n            step_mul += 1\n\n        losers = [i + 1 for i in range(n) if not visited[i]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Deterministic transition: on i-th move (1-indexed), holder x passes to\n        # x + i*k (clockwise), modulo n.\n        #\n        # Game stops when a holder repeats (i.e., receives the ball for the 2nd time).\n        visited = [False] * n  # visited[i] means friend (i+1) has received the ball\n        cur = 0  # friend 1 (0-based)\n        visited[cur] = True\n\n        step_mul = 1\n        while True:\n            cur = (cur + step_mul * k) % n\n            if visited[cur]:\n                break\n            visited[cur] = True\n            step_mul += 1\n\n        losers = [i + 1 for i in range(n) if not visited[i]]\n        return losers\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def circularGameLosers(self, n: int, k: int) -> List[int]:\n        # Deterministic simulation: state is \"current holder\".\n        # Stop exactly when a holder repeats.\n        visited = [False] * (n + 1)  # 1..n\n        order = []  # holders in the order we visit (optional, but clarifies intent)\n\n        cur = 1\n        step_mult = 1\n\n        while not visited[cur]:\n            visited[cur] = True\n            order.append(cur)\n\n            # next holder after i-th turn: move i*k steps clockwise\n            # Using 0-based arithmetic then back to 1-based.\n            cur0 = cur - 1\n            nxt0 = (cur0 + (step_mult * k)) % n\n            cur = nxt0 + 1\n            step_mult += 1\n\n        # losers are those never visited\n        losers = [i for i in range(1, n + 1) if not visited[i]]\n        return losers\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2791",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2791",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "[4, 5]",
+                "actual": "[4, 5]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4]",
+                "actual": "[2, 3, 4]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[]",
+                "actual": "[]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3]",
+                "actual": "[3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3]",
+                "actual": "[2, 3]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 6]",
+                "actual": "[2, 3, 4, 6]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "actual": "[2, 3, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 23, 24, 26, 27, 29, 30, 31, 32, 33]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "actual": "[3, 5, 8, 9, 10, 12, 13, 14, 15, 18, 19, 20, 21, 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 45, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "actual": "[2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "actual": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50]",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.3,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.7
+    }
+  }
+}

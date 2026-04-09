@@ -1,0 +1,3236 @@
+{
+  "problem_id": "3267",
+  "domain": "coding",
+  "problem": {
+    "id": "3267",
+    "domain": "coding",
+    "statement": "You are given a string s that consists of lowercase English letters.\nA string is called special if it is made up of only a single character. For example, the string \"abc\" is not special, whereas the strings \"ddd\", \"zz\", and \"f\" are special.\nReturn the length of the longest special substring of s which occurs at least thrice, or -1 if no special substring occurs at least thrice.\nA substring is a contiguous non-empty sequence of characters within a string.\n \nExample 1:\n\nInput: s = \"aaaa\"\nOutput: 2\nExplanation: The longest special substring which occurs thrice is \"aa\": substrings \"aaaa\", \"aaaa\", and \"aaaa\".\nIt can be shown that the maximum length achievable is 2.\n\nExample 2:\n\nInput: s = \"abcdef\"\nOutput: -1\nExplanation: There exists no special substring which occurs at least thrice. Hence return -1.\n\nExample 3:\n\nInput: s = \"abcaba\"\nOutput: 1\nExplanation: The longest special substring which occurs thrice is \"a\": substrings \"abcaba\", \"abcaba\", and \"abcaba\".\nIt can be shown that the maximum length achievable is 1.\n\n \nConstraints:\n\n3 <= s.length <= 50\ns consists of only lowercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"aaaa\"",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"abcdef\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"abcaba\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"vvv\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ttt\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"yww\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"azd\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"tbr\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"ltac\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"fxdz\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"tgvjv\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"wqtaxohmdjrcykeeaxpbtavzjdpe\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"grnnnnnnnnnnnnnnnnnnndywsdesevvtmjhmrnnnnnnnnnnapz\"",
+        "output": "17",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeedxdyvleqlmialrknr\"",
+        "output": "31",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"dzllllllllllllllllllllqordklowgscjqzjuoecfgrruwecw\"",
+        "output": "18",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def maximumLength(self, s: str) -> int:\n        ",
+    "metadata": {
+      "func_name": "maximumLength",
+      "question_title": "find-longest-special-substring-that-occurs-thrice-i",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a string s that consists of lowercase English letters.\nA string is called special if it is made up of only a single character. For example, the string \"abc\" is not special, whereas the strings \"ddd\", \"zz\", and \"f\" are special.\nReturn the length of the longest special substring of s which occurs at least thrice, or -1 if no special substring occurs at least thrice.\nA substring is a contiguous non-empty sequence of characters within a string.\n \nExample 1:\n\nInput: s = \"aaaa\"\nOutput: 2\nExplanation: The longest special substring which occurs thrice is \"aa\": substrings \"aaaa\", \"aaaa\", and \"aaaa\".\nIt can be shown that the maximum length achievable is 2.\n\nExample 2:\n\nInput: s = \"abcdef\"\nOutput: -1\nExplanation: There exists no special substring which occurs at least thrice. Hence return -1.\n\nExample 3:\n\nInput: s = \"abcaba\"\nOutput: 1\nExplanation: The longest special substring which occurs thrice is \"a\": substrings \"abcaba\", \"abcaba\", and \"abcaba\".\nIt can be shown that the maximum length achievable is 1.\n\n \nConstraints:\n\n3 <= s.length <= 50\ns consists of only lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count maximum occurrences for each character length.\n        # Since s length <= 50 and special substrings are just repeated single characters,\n        # we can brute over possible lengths for each char.\n        n = len(s)\n        best = -1\n\n        for ch in set(s):\n            # Gather run lengths of this character in s\n            run_lengths = []\n            i = 0\n            while i < n:\n                if s[i] == ch:\n                    j = i\n                    while j < n and s[j] == ch:\n                        j += 1\n                    run_lengths.append(j - i)\n                    i = j\n                else:\n                    i += 1\n\n            # For a given length L, total number of occurrences of ch repeated L times\n            # is sum over runs of max(0, run_len - L + 1). Need >= 3.\n            # L cannot exceed max run length.\n            max_run = max(run_lengths) if run_lengths else 0\n\n            for L in range(1, max_run + 1):\n                cnt = 0\n                for r in run_lengths:\n                    if r >= L:\n                        cnt += r - L + 1\n                    if cnt >= 3:\n                        break\n                if cnt >= 3:\n                    best = max(best, L)\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Binary-search on length L; check if any single-character substring of length L\n        # occurs at least 3 times (as contiguous blocks).\n        n = len(s)\n\n        # Precompute runs: (char, start, end_inclusive)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # For a run of length len_run, how many substrings of length L consisting of the run's char?\n        # For L <= len_run: occurrences = len_run - L + 1, else 0.\n        def can(L: int) -> bool:\n            if L <= 0:\n                return True\n            cnt = [0] * 26\n            for ch, length in runs:\n                if length >= L:\n                    occurrences = length - L + 1\n                    cnt[ord(ch) - 97] += occurrences\n                    if cnt[ord(ch) - 97] >= 3:\n                        return True\n            return False\n\n        # Maximum possible L is n, but practically <= n//? still safe to bound by n.\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans if ans != 0 else -1\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each character at each possible run length.\n        # A special substring is just one character repeated k times: \"c\"*k.\n        # It occurs (as a substring) as many times as there are positions where a run of c's\n        # has length >= k. For a run of length L, number of substrings \"c\"*k inside it is (L-k+1).\n        n = len(s)\n        best = -1\n\n        for ch in set(s):\n            runs = []\n            i = 0\n            while i < n:\n                if s[i] != ch:\n                    i += 1\n                    continue\n                j = i\n                while j < n and s[j] == ch:\n                    j += 1\n                runs.append(j - i)\n                i = j\n\n            # For each k, total occurrences is sum over runs of max(0, L-k+1).\n            # We need the maximum k such that total >= 3.\n            maxL = max(runs) if runs else 0\n            # Small constraints (n<=50) -> brute force k is fine.\n            for k in range(1, maxL + 1):\n                total = 0\n                for L in runs:\n                    if L >= k:\n                        total += (L - k + 1)\n                    if total >= 3:  # early stop\n                        break\n                if total >= 3:\n                    if k > best:\n                        best = k\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of runs of each character\n        # For a special substring of length L consisting of char c to occur >= 3 times,\n        # we need at least three positions of length-L windows inside occurrences.\n        # In a run of length r, number of substrings of length L for that char is:\n        #   max(0, r - L + 1)\n        # We can binary search L and check feasibility.\n        \n        n = len(s)\n        runs = {}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            ch = s[i]\n            runs[ch] = runs.get(ch, []) + [j - i]\n            i = j\n\n        def can(L: int) -> bool:\n            if L == 0:\n                return True\n            for ch_runs in runs.values():\n                total = 0\n                for r in ch_runs:\n                    if r >= L:\n                        total += r - L + 1\n                        if total >= 3:\n                            return True\n            return False\n\n        # Max possible L is n\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # For any special substring, it is just one character repeated.\n        # If a character c appears in maximal consecutive block length L,\n        # then it contributes substrings of length k (1<=k<=L).\n        # Count how many times each length k appears for that character across all blocks:\n        # occurrences for length k is sum over blocks of max(0, block_len - k + 1).\n        # We need the maximum k such that some character has occurrences >= 3.\n        \n        n = len(s)\n        blocks = []  # list of (char, block_length)\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            blocks.append((s[i], j - i))\n            i = j\n\n        # Maximum possible length is max block length, <= n.\n        best = -1\n        # We can compute for each character separately, since only 26 letters.\n        for ch in range(26):\n            c = chr(ord('a') + ch)\n            lens = [L for (cc, L) in blocks if cc == c]\n            if not lens:\n                continue\n\n            # For k from 1..maxLen, count occurrences:\n            # occ(k) = sum(max(0, L - k + 1))\n            maxLen = max(lens)\n            # We can cap early: if total occurrences for k=1 < 3 => answer can't be >1.\n            for k in range(1, maxLen + 1):\n                occ = 0\n                for L in lens:\n                    if L >= k:\n                        occ += L - k + 1\n                        if occ >= 3:\n                            best = max(best, k)\n                            break\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # For a special substring, it is some character c repeated L times: c^L.\n        # Any occurrence is fully contained within a maximal run of c's.\n        # If the maximum run lengths for c are r1 >= r2 >= r3 ...\n        # then the count of occurrences of c^L is:\n        # sum over runs max(0, run_len - L + 1) >= 3\n        # We can binary search the answer length for each L, but since |s|<=50,\n        # brute over L and counts is simplest.\n\n        n = len(s)\n        # Collect run lengths for each character\n        run_lens = [[] for _ in range(26)]\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            run_lens[ord(s[i]) - 97].append(j - i)\n            i = j\n\n        def exists(L: int) -> bool:\n            if L <= 0:\n                return True\n            total_needed = 3\n            for ch in range(26):\n                cnt = 0\n                for r in run_lens[ch]:\n                    if r >= L:\n                        cnt += r - L + 1\n                        if cnt >= total_needed:\n                            return True\n            return False\n\n        # Maximum possible length is at most max run length\n        max_run = max((max(lst) for lst in run_lens if lst), default=0)\n        ans = -1\n        # L from high to low; small constraints allow O(26 * runs * n)\n        for L in range(max_run, 0, -1):\n            if exists(L):\n                ans = L\n                break\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count consecutive occurrences for each character\n        n = len(s)\n        runs = [0] * 26\n        # We need lengths of substrings made of a single repeated char.\n        # For each char, collect all run lengths where it appears contiguously.\n        char_runs = [[] for _ in range(26)]\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            k = ord(s[i]) - 97\n            char_runs[k].append(j - i)\n            i = j\n\n        def can(L: int) -> bool:\n            # Check if there exists a special substring of length L\n            # that appears at least 3 times in total (across all positions).\n            if L <= 0:\n                return True\n            for c in range(26):\n                total = 0\n                for r in char_runs[c]:\n                    if r >= L:\n                        # In a run of length r, number of occurrences of length-L\n                        # special substring = r-L+1\n                        total += (r - L + 1)\n                    if total >= 3:\n                        return True\n            return False\n\n        # Binary search maximum L\n        lo, hi = 1, n // 3 + 1  # upper bound small enough; safe for this problem\n        # Actually maximum special substring length can't exceed n//3? Not necessarily\n        # if overlaps allowed, but since we need 3 occurrences of length L,\n        # in same run length r gives (r-L+1) >= 3 => L <= r-2 <= n-2.\n        # Still, we'll just binary search up to n.\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count maximum length L such that some character c has at least\n        # three substrings of length L all equal to c repeated L times.\n        #\n        # For each character with total run length = len_run, number of\n        # substrings of length L within that run is max(0, len_run - L + 1).\n        # If there are multiple runs, we sum counts across runs (since\n        # identical single-character substrings from different positions\n        # still count as occurrences).\n        #\n        # Then check if any character reaches >= 3 occurrences.\n        def feasible(L: int) -> bool:\n            if L == 0:\n                return True\n            # For each char, total occurrences of substring of length L\n            # consisting only of that char.\n            occ = [0] * 26\n            n = len(s)\n\n            i = 0\n            while i < n:\n                j = i\n                while j < n and s[j] == s[i]:\n                    j += 1\n                run_len = j - i\n                if run_len >= L:\n                    occ[ord(s[i]) - 97] += run_len - L + 1\n                    if occ[ord(s[i]) - 97] >= 3:\n                        return True\n                i = j\n            return False\n\n        lo, hi = 1, len(s)  # search length\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if feasible(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # count total length of each run of identical chars\n        n = len(s)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append(j - i)\n            i = j\n\n        # For any special substring consisting of char c and length L:\n        # it occurs as many times as sum over runs of c of max(0, run_len - L + 1).\n        # Since s length <= 50, we can brute L from 1..n/?? and check counts.\n        # The alphabet size is small; but easiest is enumerate L descending and check.\n        best = -1\n        for L in range(n, 0, -1):\n            # compute occurrences for each character for this L\n            occ = [0] * 26\n            idx = 0\n            while idx < n:\n                ch = s[idx]\n                j = idx\n                while j < n and s[j] == ch:\n                    j += 1\n                run_len = j - idx\n                if run_len >= L:\n                    occ[ord(ch) - 97] += run_len - L + 1\n                idx = j\n\n            if any(x >= 3 for x in occ):\n                best = L\n                break\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each character as a \"special substring\"\n        # i.e., any substring consisting of only that one character.\n        # A character run of length L contributes:\n        # lengths 1..L each occur (L - len + 1) times, all within the run.\n        # If total across all runs for a given length is >= 3, it's valid.\n        n = len(s)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        best = -1\n        for ch in set(s):\n            # collect run lengths for this character\n            Ls = [L for c, L in runs if c == ch]\n            if not Ls:\n                continue\n\n            # We only need lengths up to max run length (<= 50)\n            maxL = max(Ls)\n            cnt = [0] * (maxL + 1)  # cnt[len] = total occurrences of special substrings of that length\n            for L in Ls:\n                for length in range(1, L + 1):\n                    cnt[length] += (L - length + 1)\n\n            # find largest length with cnt[len] >= 3\n            for length in range(maxL, 0, -1):\n                if cnt[length] >= 3:\n                    if length > best:\n                        best = length\n                    break\n\n        return best\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3267",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count maximum occurrences for each character length.\n        # Since s length <= 50 and special substrings are just repeated single characters,\n        # we can brute over possible lengths for each char.\n        n = len(s)\n        best = -1\n\n        for ch in set(s):\n            # Gather run lengths of this character in s\n            run_lengths = []\n            i = 0\n            while i < n:\n                if s[i] == ch:\n                    j = i\n                    while j < n and s[j] == ch:\n                        j += 1\n                    run_lengths.append(j - i)\n                    i = j\n                else:\n                    i += 1\n\n            # For a given length L, total number of occurrences of ch repeated L times\n            # is sum over runs of max(0, run_len - L + 1). Need >= 3.\n            # L cannot exceed max run length.\n            max_run = max(run_lengths) if run_lengths else 0\n\n            for L in range(1, max_run + 1):\n                cnt = 0\n                for r in run_lengths:\n                    if r >= L:\n                        cnt += r - L + 1\n                    if cnt >= 3:\n                        break\n                if cnt >= 3:\n                    best = max(best, L)\n\n        return best\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Binary-search on length L; check if any single-character substring of length L\n        # occurs at least 3 times (as contiguous blocks).\n        n = len(s)\n\n        # Precompute runs: (char, start, end_inclusive)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # For a run of length len_run, how many substrings of length L consisting of the run's char?\n        # For L <= len_run: occurrences = len_run - L + 1, else 0.\n        def can(L: int) -> bool:\n            if L <= 0:\n                return True\n            cnt = [0] * 26\n            for ch, length in runs:\n                if length >= L:\n                    occurrences = length - L + 1\n                    cnt[ord(ch) - 97] += occurrences\n                    if cnt[ord(ch) - 97] >= 3:\n                        return True\n            return False\n\n        # Maximum possible L is n, but practically <= n//? still safe to bound by n.\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans if ans != 0 else -1\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each character at each possible run length.\n        # A special substring is just one character repeated k times: \"c\"*k.\n        # It occurs (as a substring) as many times as there are positions where a run of c's\n        # has length >= k. For a run of length L, number of substrings \"c\"*k inside it is (L-k+1).\n        n = len(s)\n        best = -1\n\n        for ch in set(s):\n            runs = []\n            i = 0\n            while i < n:\n                if s[i] != ch:\n                    i += 1\n                    continue\n                j = i\n                while j < n and s[j] == ch:\n                    j += 1\n                runs.append(j - i)\n                i = j\n\n            # For each k, total occurrences is sum over runs of max(0, L-k+1).\n            # We need the maximum k such that total >= 3.\n            maxL = max(runs) if runs else 0\n            # Small constraints (n<=50) -> brute force k is fine.\n            for k in range(1, maxL + 1):\n                total = 0\n                for L in runs:\n                    if L >= k:\n                        total += (L - k + 1)\n                    if total >= 3:  # early stop\n                        break\n                if total >= 3:\n                    if k > best:\n                        best = k\n\n        return best\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of runs of each character\n        # For a special substring of length L consisting of char c to occur >= 3 times,\n        # we need at least three positions of length-L windows inside occurrences.\n        # In a run of length r, number of substrings of length L for that char is:\n        #   max(0, r - L + 1)\n        # We can binary search L and check feasibility.\n        \n        n = len(s)\n        runs = {}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            ch = s[i]\n            runs[ch] = runs.get(ch, []) + [j - i]\n            i = j\n\n        def can(L: int) -> bool:\n            if L == 0:\n                return True\n            for ch_runs in runs.values():\n                total = 0\n                for r in ch_runs:\n                    if r >= L:\n                        total += r - L + 1\n                        if total >= 3:\n                            return True\n            return False\n\n        # Max possible L is n\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # For any special substring, it is just one character repeated.\n        # If a character c appears in maximal consecutive block length L,\n        # then it contributes substrings of length k (1<=k<=L).\n        # Count how many times each length k appears for that character across all blocks:\n        # occurrences for length k is sum over blocks of max(0, block_len - k + 1).\n        # We need the maximum k such that some character has occurrences >= 3.\n        \n        n = len(s)\n        blocks = []  # list of (char, block_length)\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            blocks.append((s[i], j - i))\n            i = j\n\n        # Maximum possible length is max block length, <= n.\n        best = -1\n        # We can compute for each character separately, since only 26 letters.\n        for ch in range(26):\n            c = chr(ord('a') + ch)\n            lens = [L for (cc, L) in blocks if cc == c]\n            if not lens:\n                continue\n\n            # For k from 1..maxLen, count occurrences:\n            # occ(k) = sum(max(0, L - k + 1))\n            maxLen = max(lens)\n            # We can cap early: if total occurrences for k=1 < 3 => answer can't be >1.\n            for k in range(1, maxLen + 1):\n                occ = 0\n                for L in lens:\n                    if L >= k:\n                        occ += L - k + 1\n                        if occ >= 3:\n                            best = max(best, k)\n                            break\n\n        return best\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # For a special substring, it is some character c repeated L times: c^L.\n        # Any occurrence is fully contained within a maximal run of c's.\n        # If the maximum run lengths for c are r1 >= r2 >= r3 ...\n        # then the count of occurrences of c^L is:\n        # sum over runs max(0, run_len - L + 1) >= 3\n        # We can binary search the answer length for each L, but since |s|<=50,\n        # brute over L and counts is simplest.\n\n        n = len(s)\n        # Collect run lengths for each character\n        run_lens = [[] for _ in range(26)]\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            run_lens[ord(s[i]) - 97].append(j - i)\n            i = j\n\n        def exists(L: int) -> bool:\n            if L <= 0:\n                return True\n            total_needed = 3\n            for ch in range(26):\n                cnt = 0\n                for r in run_lens[ch]:\n                    if r >= L:\n                        cnt += r - L + 1\n                        if cnt >= total_needed:\n                            return True\n            return False\n\n        # Maximum possible length is at most max run length\n        max_run = max((max(lst) for lst in run_lens if lst), default=0)\n        ans = -1\n        # L from high to low; small constraints allow O(26 * runs * n)\n        for L in range(max_run, 0, -1):\n            if exists(L):\n                ans = L\n                break\n        return ans\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count consecutive occurrences for each character\n        n = len(s)\n        runs = [0] * 26\n        # We need lengths of substrings made of a single repeated char.\n        # For each char, collect all run lengths where it appears contiguously.\n        char_runs = [[] for _ in range(26)]\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            k = ord(s[i]) - 97\n            char_runs[k].append(j - i)\n            i = j\n\n        def can(L: int) -> bool:\n            # Check if there exists a special substring of length L\n            # that appears at least 3 times in total (across all positions).\n            if L <= 0:\n                return True\n            for c in range(26):\n                total = 0\n                for r in char_runs[c]:\n                    if r >= L:\n                        # In a run of length r, number of occurrences of length-L\n                        # special substring = r-L+1\n                        total += (r - L + 1)\n                    if total >= 3:\n                        return True\n            return False\n\n        # Binary search maximum L\n        lo, hi = 1, n // 3 + 1  # upper bound small enough; safe for this problem\n        # Actually maximum special substring length can't exceed n//3? Not necessarily\n        # if overlaps allowed, but since we need 3 occurrences of length L,\n        # in same run length r gives (r-L+1) >= 3 => L <= r-2 <= n-2.\n        # Still, we'll just binary search up to n.\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count maximum length L such that some character c has at least\n        # three substrings of length L all equal to c repeated L times.\n        #\n        # For each character with total run length = len_run, number of\n        # substrings of length L within that run is max(0, len_run - L + 1).\n        # If there are multiple runs, we sum counts across runs (since\n        # identical single-character substrings from different positions\n        # still count as occurrences).\n        #\n        # Then check if any character reaches >= 3 occurrences.\n        def feasible(L: int) -> bool:\n            if L == 0:\n                return True\n            # For each char, total occurrences of substring of length L\n            # consisting only of that char.\n            occ = [0] * 26\n            n = len(s)\n\n            i = 0\n            while i < n:\n                j = i\n                while j < n and s[j] == s[i]:\n                    j += 1\n                run_len = j - i\n                if run_len >= L:\n                    occ[ord(s[i]) - 97] += run_len - L + 1\n                    if occ[ord(s[i]) - 97] >= 3:\n                        return True\n                i = j\n            return False\n\n        lo, hi = 1, len(s)  # search length\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if feasible(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # count total length of each run of identical chars\n        n = len(s)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append(j - i)\n            i = j\n\n        # For any special substring consisting of char c and length L:\n        # it occurs as many times as sum over runs of c of max(0, run_len - L + 1).\n        # Since s length <= 50, we can brute L from 1..n/?? and check counts.\n        # The alphabet size is small; but easiest is enumerate L descending and check.\n        best = -1\n        for L in range(n, 0, -1):\n            # compute occurrences for each character for this L\n            occ = [0] * 26\n            idx = 0\n            while idx < n:\n                ch = s[idx]\n                j = idx\n                while j < n and s[j] == ch:\n                    j += 1\n                run_len = j - idx\n                if run_len >= L:\n                    occ[ord(ch) - 97] += run_len - L + 1\n                idx = j\n\n            if any(x >= 3 for x in occ):\n                best = L\n                break\n\n        return best\n```",
+          "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each character as a \"special substring\"\n        # i.e., any substring consisting of only that one character.\n        # A character run of length L contributes:\n        # lengths 1..L each occur (L - len + 1) times, all within the run.\n        # If total across all runs for a given length is >= 3, it's valid.\n        n = len(s)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        best = -1\n        for ch in set(s):\n            # collect run lengths for this character\n            Ls = [L for c, L in runs if c == ch]\n            if not Ls:\n                continue\n\n            # We only need lengths up to max run length (<= 50)\n            maxL = max(Ls)\n            cnt = [0] * (maxL + 1)  # cnt[len] = total occurrences of special substrings of that length\n            for L in Ls:\n                for length in range(1, L + 1):\n                    cnt[length] += (L - length + 1)\n\n            # find largest length with cnt[len] >= 3\n            for length in range(maxL, 0, -1):\n                if cnt[length] >= 3:\n                    if length > best:\n                        best = length\n                    break\n\n        return best\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a string s that consists of lowercase English letters.\nA string is called special if it is made up of only a single character. For example, the string \"abc\" is not special, whereas the strings \"ddd\", \"zz\", and \"f\" are special.\nReturn the length of the longest special substring of s which occurs at least thrice, or -1 if no special substring occurs at least thrice.\nA substring is a contiguous non-empty sequence of characters within a string.\n \nExample 1:\n\nInput: s = \"aaaa\"\nOutput: 2\nExplanation: The longest special substring which occurs thrice is \"aa\": substrings \"aaaa\", \"aaaa\", and \"aaaa\".\nIt can be shown that the maximum length achievable is 2.\n\nExample 2:\n\nInput: s = \"abcdef\"\nOutput: -1\nExplanation: There exists no special substring which occurs at least thrice. Hence return -1.\n\nExample 3:\n\nInput: s = \"abcaba\"\nOutput: 1\nExplanation: The longest special substring which occurs thrice is \"a\": substrings \"abcaba\", \"abcaba\", and \"abcaba\".\nIt can be shown that the maximum length achievable is 1.\n\n \nConstraints:\n\n3 <= s.length <= 50\ns consists of only lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        n = len(s)\n        # Binary search on length L: check if some special substring of length L\n        # (i.e., all same char) appears at least 3 times.\n        def can(L: int) -> bool:\n            if L == 0:\n                return True\n            cnt = [0] * 26  # total number of occurrences (with overlap) of runs' length-L substrings per char\n            i = 0\n            while i < n:\n                j = i\n                while j < n and s[j] == s[i]:\n                    j += 1\n                run_len = j - i\n                if run_len >= L:\n                    # In a run of length run_len, number of length-L substrings all equal to that char:\n                    # (run_len - L + 1)\n                    cnt[ord(s[i]) - 97] += run_len - L + 1\n                i = j\n\n            # Need any char whose special substring count >= 3\n            return any(x >= 3 for x in cnt)\n\n        lo, hi = 1, n // 3 * 3  # upper bound can be n//3 in general, but n<=50 so safe\n        # More precise hi: maximum run length, but not necessary.\n        hi = n  # we'll binary search up to n; can() will handle too-large L\n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Collect lengths of each maximal run of identical characters.\n        # Any special substring is just c repeated k times; it can occur\n        # within runs of c. For a run length L, the substring length k\n        # appears (L - k + 1) times within that run.\n        from collections import Counter\n\n        n = len(s)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # For each character, gather run lengths.\n        by_char = {}\n        for ch, L in runs:\n            by_char.setdefault(ch, []).append(L)\n\n        def feasible(k: int) -> bool:\n            # Check if there exists any character c such that its special substring\n            # of length k appears at least 3 times in the whole string.\n            for ch, lens in by_char.items():\n                total = 0\n                for L in lens:\n                    if L >= k:\n                        total += L - k + 1\n                    if total >= 3:\n                        return True\n            return False\n\n        # Maximum possible k is bounded by n//3? Not strictly, but n <= 50.\n        # We can safely binary search from 1..n.\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if feasible(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        from collections import Counter\n\n        # Count frequency of each character\n        n = len(s)\n        cnt = Counter(s)\n\n        # For a special substring of length L using character c:\n        # we need at least 3 occurrences (i.e., L is contained in at least 3 windows\n        # of consecutive c's). If a block has length b, it contributes\n        # (b - L + 1) occurrences of length-L all-c substrings when b >= L.\n        #\n        # Since s.length <= 50 and alphabet size small, we can brute L from high to low,\n        # and check feasibility.\n        max_possible = 0\n        for b in cnt.values():\n            max_possible = max(max_possible, b)\n\n        # Collect lengths of consecutive character blocks for each character\n        blocks = {ch: [] for ch in cnt}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            blocks[s[i]].append(j - i)\n            i = j\n\n        def feasible(L: int) -> bool:\n            if L == 0:\n                return True\n            for ch, blist in blocks.items():\n                occ = 0\n                for b in blist:\n                    if b >= L:\n                        occ += b - L + 1\n                        if occ >= 3:\n                            return True\n            return False\n\n        for L in range(max_possible, 0, -1):\n            if feasible(L):\n                return L\n        return -1\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Need longest special substring (single char repeated) that occurs at least 3 times.\n        # For each character c with run lengths L1, L2, ..., occurrences of substring c^k is:\n        # sum over runs of max(0, Li - k + 1). We need max k such that this >= 3.\n        n = len(s)\n\n        # Collect run lengths for each character\n        run_lengths = {chr(ord('a') + i): [] for i in range(26)}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            run_lengths[s[i]].append(j - i)\n            i = j\n\n        def can(k: int) -> bool:\n            if k <= 0:\n                return True\n            total_needed = 3\n            for c in range(26):\n                ch = chr(ord('a') + c)\n                cnt = 0\n                for L in run_lengths[ch]:\n                    if L >= k:\n                        cnt += L - k + 1\n                        if cnt >= total_needed:\n                            return True\n            return False\n\n        # Binary search maximum k in [1, n] (actually <= n//1 but safe)\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Find, for each character, the maximum number of occurrences possible for\n        # any special substring of that character with a given length.\n        # A special substring is just repeated same character, so special substrings\n        # are \"c\"*k for some k and some character c.\n        n = len(s)\n        best = -1\n\n        # Gather lengths of maximal runs for each character.\n        runs = {}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            ch = s[i]\n            run_len = j - i\n            runs.setdefault(ch, []).append(run_len)\n            i = j\n\n        # For each possible k, check if any character has at least three substrings of\n        # \"ch\"*k across all runs. In a run of length L, it contributes:\n        # count = max(0, L - k + 1) occurrences of \"ch\"*k.\n        for ch, lens in runs.items():\n            # Upper bound for k is the max run length.\n            maxL = max(lens)\n            for k in range(1, maxL + 1):\n                total = 0\n                for L in lens:\n                    if L >= k:\n                        total += L - k + 1\n                    if total >= 3:\n                        break\n                if total >= 3:\n                    best = max(best, k)\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each \"special substring\" = a run of one character.\n        n = len(s)\n        best = -1\n        freq = {chr(ord('a') + i): [0] * (n + 1) for i in range(26)}\n\n        # For each character, we only need to consider lengths of substrings within runs.\n        i = 0\n        while i < n:\n            ch = s[i]\n            j = i\n            while j < n and s[j] == ch:\n                j += 1\n            run_len = j - i\n\n            # For every length L <= run_len, this run contributes (run_len - L + 1) substrings of length L.\n            # We'll update freq[ch][L] by that amount.\n            # Complexity: sum of run_len over all runs = n, but updating all L per run costs O(n^2) worst-case,\n            # still fine for n <= 50.\n            for L in range(1, run_len + 1):\n                freq[ch][L] += run_len - L + 1\n\n            i = j\n\n        # Find the largest L such that some character has at least 3 occurrences.\n        for ch_i in range(26):\n            ch = chr(ord('a') + ch_i)\n            for L in range(n, 0, -1):\n                if freq[ch][L] >= 3:\n                    best = max(best, L)\n                    break  # since L decreases, first hit is the largest for this ch\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # For a special substring (single repeated char) of length L to occur\n        # at least three times in s, it's enough to consider the runs of each char.\n        # If a run has length len_run, then it contains (len_run - L + 1) occurrences\n        # of that special substring, for L <= len_run.\n        #\n        # We need the maximum L such that total occurrences across runs >= 3.\n        n = len(s)\n        best = -1\n\n        # Group by character runs\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # Maximum possible L is at most n, but with n <= 50 it's fine.\n        # We'll binary search L and check each char? Actually we can just check\n        # L from high to low and compute occurrences.\n        for L in range(n, 0, -1):\n            total = 0\n            for ch, run_len in runs:\n                if run_len >= L:\n                    total += (run_len - L + 1)\n                    if total >= 3:\n                        # But that counts occurrences of potentially different chars.\n                        # We must ensure they come from the same single-character substring.\n                        # So we need per-character totals.\n                        pass\n            # Rework properly below (per character totals).\n            # We'll break from the loop only when correct.\n            totals = [0] * 26\n            for ch, run_len in runs:\n                if run_len >= L:\n                    totals[ord(ch) - 97] += (run_len - L + 1)\n            if max(totals) >= 3:\n                best = L\n                break\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each character as a contiguous \"special substring\"\n        # i.e., for a character c, any special substring is \"c\"*k for some k<=maxRunLen(c).\n        # Such a substring occurs at least thrice iff total number of length-k substrings\n        # from all runs is >= 3.\n        from collections import defaultdict\n\n        runs = defaultdict(list)  # char -> list of run lengths\n        n = len(s)\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs[s[i]].append(j - i)\n            i = j\n\n        def can(L: int) -> bool:\n            if L <= 0:\n                return True\n            for ch, lens in runs.items():\n                total = 0\n                for rl in lens:\n                    if rl >= L:\n                        # In a run of length rl, number of substrings \"ch\"*L is rl-L+1\n                        total += rl - L + 1\n                    if total >= 3:\n                        return True\n            return False\n\n        # Binary search the maximum L\n        lo, hi = 1, max((max(v) for v in runs.values()), default=0)\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of every special substring (i.e., a character repeated k times).\n        # A special substring is fully defined by (char, length k).\n        n = len(s)\n        runs = []\n        # Compute run lengths for each maximal block of identical chars\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # For each block length L, it contributes (L - k + 1) occurrences of char^k for k<=L.\n        # We only care whether total occurrences >= 3.\n        max_run = max(L for _, L in runs)\n        total = [[0] * (max_run + 1) for _ in range(26)]  # total[c][k]\n\n        for ch, L in runs:\n            idx = ord(ch) - ord('a')\n            for k in range(1, L + 1):\n                total[idx][k] += L - k + 1\n\n        # Find maximum k such that any char has occurrences >=3\n        ans = -1\n        for k in range(max_run, 0, -1):\n            for c in range(26):\n                if total[c][k] >= 3:\n                    return k\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        n = len(s)\n\n        # Count occurrences of each character's consecutive run lengths\n        # For a given length L of a special substring \"c\"*L, it occurs at least:\n        # sum over runs of floor(run_len / L).\n        # We want the maximum L such that for some c, that sum >= 3.\n        #\n        # Since n <= 50, we can brute L from n down to 1 and check efficiently.\n        for L in range(n, 0, -1):\n            possible = False\n            for ch in range(26):\n                c = chr(ord('a') + ch)\n                cnt = 0\n                i = 0\n                while i < n:\n                    if s[i] != c:\n                        i += 1\n                        continue\n                    j = i\n                    while j < n and s[j] == c:\n                        j += 1\n                    run_len = j - i\n                    cnt += run_len // L\n                    if cnt >= 3:\n                        possible = True\n                        break\n                    i = j\n                if possible:\n                    return L\n        return -1\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3267",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 9,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "17",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "31",
+                "actual": "11",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "18",
+                "actual": "6",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        n = len(s)\n        # Binary search on length L: check if some special substring of length L\n        # (i.e., all same char) appears at least 3 times.\n        def can(L: int) -> bool:\n            if L == 0:\n                return True\n            cnt = [0] * 26  # total number of occurrences (with overlap) of runs' length-L substrings per char\n            i = 0\n            while i < n:\n                j = i\n                while j < n and s[j] == s[i]:\n                    j += 1\n                run_len = j - i\n                if run_len >= L:\n                    # In a run of length run_len, number of length-L substrings all equal to that char:\n                    # (run_len - L + 1)\n                    cnt[ord(s[i]) - 97] += run_len - L + 1\n                i = j\n\n            # Need any char whose special substring count >= 3\n            return any(x >= 3 for x in cnt)\n\n        lo, hi = 1, n // 3 * 3  # upper bound can be n//3 in general, but n<=50 so safe\n        # More precise hi: maximum run length, but not necessary.\n        hi = n  # we'll binary search up to n; can() will handle too-large L\n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Collect lengths of each maximal run of identical characters.\n        # Any special substring is just c repeated k times; it can occur\n        # within runs of c. For a run length L, the substring length k\n        # appears (L - k + 1) times within that run.\n        from collections import Counter\n\n        n = len(s)\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # For each character, gather run lengths.\n        by_char = {}\n        for ch, L in runs:\n            by_char.setdefault(ch, []).append(L)\n\n        def feasible(k: int) -> bool:\n            # Check if there exists any character c such that its special substring\n            # of length k appears at least 3 times in the whole string.\n            for ch, lens in by_char.items():\n                total = 0\n                for L in lens:\n                    if L >= k:\n                        total += L - k + 1\n                    if total >= 3:\n                        return True\n            return False\n\n        # Maximum possible k is bounded by n//3? Not strictly, but n <= 50.\n        # We can safely binary search from 1..n.\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if feasible(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        from collections import Counter\n\n        # Count frequency of each character\n        n = len(s)\n        cnt = Counter(s)\n\n        # For a special substring of length L using character c:\n        # we need at least 3 occurrences (i.e., L is contained in at least 3 windows\n        # of consecutive c's). If a block has length b, it contributes\n        # (b - L + 1) occurrences of length-L all-c substrings when b >= L.\n        #\n        # Since s.length <= 50 and alphabet size small, we can brute L from high to low,\n        # and check feasibility.\n        max_possible = 0\n        for b in cnt.values():\n            max_possible = max(max_possible, b)\n\n        # Collect lengths of consecutive character blocks for each character\n        blocks = {ch: [] for ch in cnt}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            blocks[s[i]].append(j - i)\n            i = j\n\n        def feasible(L: int) -> bool:\n            if L == 0:\n                return True\n            for ch, blist in blocks.items():\n                occ = 0\n                for b in blist:\n                    if b >= L:\n                        occ += b - L + 1\n                        if occ >= 3:\n                            return True\n            return False\n\n        for L in range(max_possible, 0, -1):\n            if feasible(L):\n                return L\n        return -1\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Need longest special substring (single char repeated) that occurs at least 3 times.\n        # For each character c with run lengths L1, L2, ..., occurrences of substring c^k is:\n        # sum over runs of max(0, Li - k + 1). We need max k such that this >= 3.\n        n = len(s)\n\n        # Collect run lengths for each character\n        run_lengths = {chr(ord('a') + i): [] for i in range(26)}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            run_lengths[s[i]].append(j - i)\n            i = j\n\n        def can(k: int) -> bool:\n            if k <= 0:\n                return True\n            total_needed = 3\n            for c in range(26):\n                ch = chr(ord('a') + c)\n                cnt = 0\n                for L in run_lengths[ch]:\n                    if L >= k:\n                        cnt += L - k + 1\n                        if cnt >= total_needed:\n                            return True\n            return False\n\n        # Binary search maximum k in [1, n] (actually <= n//1 but safe)\n        lo, hi = 1, n\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Find, for each character, the maximum number of occurrences possible for\n        # any special substring of that character with a given length.\n        # A special substring is just repeated same character, so special substrings\n        # are \"c\"*k for some k and some character c.\n        n = len(s)\n        best = -1\n\n        # Gather lengths of maximal runs for each character.\n        runs = {}\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            ch = s[i]\n            run_len = j - i\n            runs.setdefault(ch, []).append(run_len)\n            i = j\n\n        # For each possible k, check if any character has at least three substrings of\n        # \"ch\"*k across all runs. In a run of length L, it contributes:\n        # count = max(0, L - k + 1) occurrences of \"ch\"*k.\n        for ch, lens in runs.items():\n            # Upper bound for k is the max run length.\n            maxL = max(lens)\n            for k in range(1, maxL + 1):\n                total = 0\n                for L in lens:\n                    if L >= k:\n                        total += L - k + 1\n                    if total >= 3:\n                        break\n                if total >= 3:\n                    best = max(best, k)\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each \"special substring\" = a run of one character.\n        n = len(s)\n        best = -1\n        freq = {chr(ord('a') + i): [0] * (n + 1) for i in range(26)}\n\n        # For each character, we only need to consider lengths of substrings within runs.\n        i = 0\n        while i < n:\n            ch = s[i]\n            j = i\n            while j < n and s[j] == ch:\n                j += 1\n            run_len = j - i\n\n            # For every length L <= run_len, this run contributes (run_len - L + 1) substrings of length L.\n            # We'll update freq[ch][L] by that amount.\n            # Complexity: sum of run_len over all runs = n, but updating all L per run costs O(n^2) worst-case,\n            # still fine for n <= 50.\n            for L in range(1, run_len + 1):\n                freq[ch][L] += run_len - L + 1\n\n            i = j\n\n        # Find the largest L such that some character has at least 3 occurrences.\n        for ch_i in range(26):\n            ch = chr(ord('a') + ch_i)\n            for L in range(n, 0, -1):\n                if freq[ch][L] >= 3:\n                    best = max(best, L)\n                    break  # since L decreases, first hit is the largest for this ch\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # For a special substring (single repeated char) of length L to occur\n        # at least three times in s, it's enough to consider the runs of each char.\n        # If a run has length len_run, then it contains (len_run - L + 1) occurrences\n        # of that special substring, for L <= len_run.\n        #\n        # We need the maximum L such that total occurrences across runs >= 3.\n        n = len(s)\n        best = -1\n\n        # Group by character runs\n        runs = []\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # Maximum possible L is at most n, but with n <= 50 it's fine.\n        # We'll binary search L and check each char? Actually we can just check\n        # L from high to low and compute occurrences.\n        for L in range(n, 0, -1):\n            total = 0\n            for ch, run_len in runs:\n                if run_len >= L:\n                    total += (run_len - L + 1)\n                    if total >= 3:\n                        # But that counts occurrences of potentially different chars.\n                        # We must ensure they come from the same single-character substring.\n                        # So we need per-character totals.\n                        pass\n            # Rework properly below (per character totals).\n            # We'll break from the loop only when correct.\n            totals = [0] * 26\n            for ch, run_len in runs:\n                if run_len >= L:\n                    totals[ord(ch) - 97] += (run_len - L + 1)\n            if max(totals) >= 3:\n                best = L\n                break\n\n        return best\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of each character as a contiguous \"special substring\"\n        # i.e., for a character c, any special substring is \"c\"*k for some k<=maxRunLen(c).\n        # Such a substring occurs at least thrice iff total number of length-k substrings\n        # from all runs is >= 3.\n        from collections import defaultdict\n\n        runs = defaultdict(list)  # char -> list of run lengths\n        n = len(s)\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs[s[i]].append(j - i)\n            i = j\n\n        def can(L: int) -> bool:\n            if L <= 0:\n                return True\n            for ch, lens in runs.items():\n                total = 0\n                for rl in lens:\n                    if rl >= L:\n                        # In a run of length rl, number of substrings \"ch\"*L is rl-L+1\n                        total += rl - L + 1\n                    if total >= 3:\n                        return True\n            return False\n\n        # Binary search the maximum L\n        lo, hi = 1, max((max(v) for v in runs.values()), default=0)\n        ans = -1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if can(mid):\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        # Count occurrences of every special substring (i.e., a character repeated k times).\n        # A special substring is fully defined by (char, length k).\n        n = len(s)\n        runs = []\n        # Compute run lengths for each maximal block of identical chars\n        i = 0\n        while i < n:\n            j = i\n            while j < n and s[j] == s[i]:\n                j += 1\n            runs.append((s[i], j - i))\n            i = j\n\n        # For each block length L, it contributes (L - k + 1) occurrences of char^k for k<=L.\n        # We only care whether total occurrences >= 3.\n        max_run = max(L for _, L in runs)\n        total = [[0] * (max_run + 1) for _ in range(26)]  # total[c][k]\n\n        for ch, L in runs:\n            idx = ord(ch) - ord('a')\n            for k in range(1, L + 1):\n                total[idx][k] += L - k + 1\n\n        # Find maximum k such that any char has occurrences >=3\n        ans = -1\n        for k in range(max_run, 0, -1):\n            for c in range(26):\n                if total[c][k] >= 3:\n                    return k\n        return ans\n```",
+        "```python\nclass Solution:\n    def maximumLength(self, s: str) -> int:\n        n = len(s)\n\n        # Count occurrences of each character's consecutive run lengths\n        # For a given length L of a special substring \"c\"*L, it occurs at least:\n        # sum over runs of floor(run_len / L).\n        # We want the maximum L such that for some c, that sum >= 3.\n        #\n        # Since n <= 50, we can brute L from n down to 1 and check efficiently.\n        for L in range(n, 0, -1):\n            possible = False\n            for ch in range(26):\n                c = chr(ord('a') + ch)\n                cnt = 0\n                i = 0\n                while i < n:\n                    if s[i] != c:\n                        i += 1\n                        continue\n                    j = i\n                    while j < n and s[j] == c:\n                        j += 1\n                    run_len = j - i\n                    cnt += run_len // L\n                    if cnt >= 3:\n                        possible = True\n                        break\n                    i = j\n                if possible:\n                    return L\n        return -1\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3267",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "17",
+                "actual": "17",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "31",
+                "actual": "31",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "18",
+                "actual": "18",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3267",
+          "generation_index": 9,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "17",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "31",
+                "actual": "11",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "18",
+                "actual": "6",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.9,
+      "augmented_pass_rate": 0.9,
+      "improvement": 0.0
+    }
+  }
+}

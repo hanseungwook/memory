@@ -1,0 +1,3236 @@
+{
+  "problem_id": "3291",
+  "domain": "coding",
+  "problem": {
+    "id": "3291",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed array of positive integers nums.\nIn one operation, you can swap any two adjacent elements if they have the same number of set bits. You are allowed to do this operation any number of times (including zero).\nReturn true if you can sort the array, else return false.\n \nExample 1:\n\nInput: nums = [8,4,2,30,15]\nOutput: true\nExplanation: Let's look at the binary representation of every element. The numbers 2, 4, and 8 have one set bit each with binary representation \"10\", \"100\", and \"1000\" respectively. The numbers 15 and 30 have four set bits each with binary representation \"1111\" and \"11110\".\nWe can sort the array using 4 operations:\n- Swap nums[0] with nums[1]. This operation is valid because 8 and 4 have one set bit each. The array becomes [4,8,2,30,15].\n- Swap nums[1] with nums[2]. This operation is valid because 8 and 2 have one set bit each. The array becomes [4,2,8,30,15].\n- Swap nums[0] with nums[1]. This operation is valid because 4 and 2 have one set bit each. The array becomes [2,4,8,30,15].\n- Swap nums[3] with nums[4]. This operation is valid because 30 and 15 have four set bits each. The array becomes [2,4,8,15,30].\nThe array has become sorted, hence we return true.\nNote that there may be other sequences of operations which also sort the array.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: true\nExplanation: The array is already sorted, hence we return true.\n\nExample 3:\n\nInput: nums = [3,16,8,4,2]\nOutput: false\nExplanation: It can be shown that it is not possible to sort the input array using any number of operations.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 2^8",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[8, 4, 2, 30, 15]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3, 4, 5]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 16, 8, 4, 2]",
+        "output": "false",
+        "testtype": "functional"
+      },
+      {
+        "input": "[29]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[14]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[34]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[99]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[206]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[159]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[249]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[6, 31]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[47, 247]",
+        "output": "true",
+        "testtype": "functional"
+      },
+      {
+        "input": "[9, 148, 121]",
+        "output": "false",
+        "testtype": "functional"
+      },
+      {
+        "input": "[73786976294838206463, 4294967295, 1048575, 4194303, 281474976710655, 75557863725914323419135, 3, 36028797018963967, 1180591620717411303423, 17179869183, 140737488355327, 511, 604462909807314587353087, 34359738367, 137438953471, 39614081257132168796771975167, 134217727, 309485009821345068724781055, 562949953421311, 1073741823, 1, 9007199254740991, 16383, 9444732965739290427391, 151115727451828646838271, 2361183241434822606847, 2305843009213693951, 77371252455336267181195263, 8388607, 31, 2199023255551, 4095, 4835703278458516698824703, 33554431, 4611686018427387903, 4951760157141521099596496895, 36893488147419103231, 131071, 2047, 274877906943, 68719476735, 79228162514264337593543950335, 262143, 618970019642690137449562111, 2417851639229258349412351, 4722366482869645213695, 524287, 9903520314283042199192993791, 2251799813685247, 144115188075855871, 147573952589676412927, 1023, 576460752303423487, 2097151, 8191, 9671406556917033397649407, 1208925819614629174706175, 15, 590295810358705651711, 70368744177663, 536870911, 4503599627370495, 32767, 65535, 35184372088831, 255, 72057594037927935, 18889465931478580854783, 63, 1267650600228229401496703205375, 1099511627775, 9223372036854775807, 295147905179352825855, 2147483647, 268435455, 8796093022207, 1152921504606846975, 316912650057057350374175801343, 633825300114114700748351602687, 18446744073709551615, 7, 18014398509481983, 8589934591, 16777215, 158456325028528675187087900671, 302231454903657293676543, 154742504910672534362390527, 2475880078570760549798248447, 549755813887, 1237940039285380274899124223, 37778931862957161709567, 19807040628566084398385987583, 127, 19342813113834066795298815, 17592186044415, 38685626227668133590597631, 4398046511103, 67108863, 288230376151711743, 1125899906842623]",
+        "output": "false",
+        "testtype": "functional"
+      },
+      {
+        "input": "[158456325028528675187087900671, 72057594037927935, 2417851639229258349412351, 9007199254740991, 2147483647, 1, 288230376151711743, 19807040628566084398385987583, 9671406556917033397649407, 633825300114114700748351602687, 590295810358705651711, 7, 268435455, 35184372088831, 75557863725914323419135, 536870911, 4835703278458516698824703, 4503599627370495, 4095, 17179869183, 1208925819614629174706175, 524287, 34359738367, 8796093022207, 131071, 2047, 9903520314283042199192993791, 33554431, 1237940039285380274899124223, 281474976710655, 2475880078570760549798248447, 2097151, 19342813113834066795298815, 262143, 4722366482869645213695, 4194303, 1152921504606846975, 309485009821345068724781055, 18889465931478580854783, 63, 302231454903657293676543, 295147905179352825855, 562949953421311, 127, 144115188075855871, 67108863, 255, 39614081257132168796771975167, 549755813887, 4398046511103, 31, 147573952589676412927, 1180591620717411303423, 32767, 511, 576460752303423487, 151115727451828646838271, 73786976294838206463, 4611686018427387903, 68719476735, 1267650600228229401496703205375, 18014398509481983, 2361183241434822606847, 9444732965739290427391, 140737488355327, 15, 16777215, 2251799813685247, 16383, 1099511627775, 9223372036854775807, 154742504910672534362390527, 37778931862957161709567, 65535, 134217727, 4294967295, 604462909807314587353087, 4951760157141521099596496895, 2305843009213693951, 36893488147419103231, 79228162514264337593543950335, 8191, 8589934591, 1125899906842623, 618970019642690137449562111, 316912650057057350374175801343, 36028797018963967, 274877906943, 77371252455336267181195263, 137438953471, 18446744073709551615, 3, 70368744177663, 1073741823, 17592186044415, 1048575, 2199023255551, 1023, 8388607, 38685626227668133590597631]",
+        "output": "false",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        ",
+    "metadata": {
+      "func_name": "canSortArray",
+      "question_title": "find-if-array-can-be-sorted",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed array of positive integers nums.\nIn one operation, you can swap any two adjacent elements if they have the same number of set bits. You are allowed to do this operation any number of times (including zero).\nReturn true if you can sort the array, else return false.\n \nExample 1:\n\nInput: nums = [8,4,2,30,15]\nOutput: true\nExplanation: Let's look at the binary representation of every element. The numbers 2, 4, and 8 have one set bit each with binary representation \"10\", \"100\", and \"1000\" respectively. The numbers 15 and 30 have four set bits each with binary representation \"1111\" and \"11110\".\nWe can sort the array using 4 operations:\n- Swap nums[0] with nums[1]. This operation is valid because 8 and 4 have one set bit each. The array becomes [4,8,2,30,15].\n- Swap nums[1] with nums[2]. This operation is valid because 8 and 2 have one set bit each. The array becomes [4,2,8,30,15].\n- Swap nums[0] with nums[1]. This operation is valid because 4 and 2 have one set bit each. The array becomes [2,4,8,30,15].\n- Swap nums[3] with nums[4]. This operation is valid because 30 and 15 have four set bits each. The array becomes [2,4,8,15,30].\nThe array has become sorted, hence we return true.\nNote that there may be other sequences of operations which also sort the array.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: true\nExplanation: The array is already sorted, hence we return true.\n\nExample 3:\n\nInput: nums = [3,16,8,4,2]\nOutput: false\nExplanation: It can be shown that it is not possible to sort the input array using any number of operations.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 2^8\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Any elements with the same popcount can be permuted among themselves\n        # within maximal contiguous blocks of that popcount (since swaps only occur\n        # between adjacent elements with equal popcount).\n        n = len(nums)\n        pop = [x.bit_count() for x in nums]\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n\n            # Sort both corresponding segments and compare\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only swap with adjacent elements having the same popcount.\n        # Therefore, within each maximal contiguous block of equal popcount,\n        # the multiset can be permuted arbitrarily, but elements cannot cross\n        # blocks of different popcount.\n        #\n        # A necessary and sufficient condition for sortability is that for every\n        # index i, the value that should be at i in the globally sorted array\n        # has the same popcount as nums[i]'s block allows, and the multiset of\n        # each popcount block matches.\n\n        target = sorted(nums)\n        n = len(nums)\n\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # The block [i, j) can be rearranged arbitrarily.\n            # So target[i:j] must be a permutation of nums[i:j].\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Key idea:\n        # You may swap adjacent elements only if they have the same popcount.\n        # Therefore, within the array positions, elements can only permute\n        # among indices that are occupied by the same popcount in the initial array.\n        # Between different popcount groups, their relative order is fixed.\n        n = len(nums)\n        orig = nums[:]\n        target = sorted(nums)\n\n        # Assign each element a popcount group id based on its initial popcount.\n        # Two elements can cross only if they are in the same popcount class at the moment,\n        # which boils down to preserving the popcount sequence between \"movable segments\".\n        # A simpler equivalent check:\n        # Iterate through original and target simultaneously and ensure that whenever\n        # elements differ, their popcounts in original can account for the needed positions.\n        # Another standard approach:\n        # Scan original: build contiguous \"blocks\" separated by popcount changes.\n        # Inside each block, elements can be sorted arbitrarily (by adjacent swaps among\n        # identical popcount elements), but blocks cannot exchange with each other.\n        #\n        # The needed condition becomes: sorting each block and comparing to target.\n\n        def pc(x: int) -> int:\n            return x.bit_count()\n\n        i = 0\n        while i < n:\n            j = i\n            p = pc(nums[i])\n            while j < n and pc(nums[j]) == p:\n                j += 1\n            # Block is [i, j)\n            block_sorted = sorted(nums[i:j])\n            if block_sorted != target[i:j]:\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # If two numbers can be swapped across a boundary, they must have the same\n        # popcount. Adjacent swaps imply that elements with the same popcount can\n        # permute among positions that are connected via these boundaries.\n        #\n        # For this problem, the array can be sorted iff, when we look at each\n        # popcount group in their original order, it matches the popcount group\n        # distribution required by the sorted array.\n        #\n        # Equivalent criterion:\n        # Let popcount(x) = number of set bits.\n        # Partition nums into maximal contiguous segments where popcount is constant.\n        # Within each such segment, those elements can be reordered arbitrarily,\n        # but elements cannot cross into other segments (because a crossing would\n        # require swapping across a boundary with different popcounts).\n        #\n        # So sorting is possible iff each segment's multiset equals the multiset\n        # at the corresponding positions in the fully sorted array.\n        \n        def pc(x: int) -> int:\n            return x.bit_count()\n\n        target = sorted(nums)\n\n        n = len(nums)\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pc(nums[j]) == pc(nums[i]):\n                j += 1\n\n            # nums[i:j] must match target[i:j] as multisets\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        # Sort each position based on whether elements with the same popcount\n        # can be permuted within their maximal contiguous blocks.\n        pop = [x.bit_count() for x in nums]\n\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n\n            # Within nums[i:j], we can rearrange elements only among positions\n            # whose popcount equals pop[i] (i.e., within the same contiguous segment).\n            # So the multiset of values in this segment must match the multiset\n            # of values from the sorted array at the same indices.\n            if sorted(nums[i:j]) != sorted_nums[i:j]:\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        # Count set bits for each element\n        bits = [x.bit_count() for x in nums]\n\n        # We can only swap adjacent elements if they have the same set-bit count.\n        # Therefore, indices with the same contiguous \"bitcount block\" are permutable\n        # within that block, but elements from different bitcount values cannot cross.\n        #\n        # A practical way: simulate sorting feasibility by comparing each\n        # element's position in the array after sorting with what it can reach.\n        # Elements can be rearranged within maximal contiguous segments of equal bitcount.\n        original = nums[:]\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and bits[j] == bits[i]:\n                j += 1\n            # segment [i, j) has same bitcount, thus multiset of values in segment\n            # must match multiset of values in target segment\n            if sorted(original[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        bits = [x.bit_count() for x in nums]\n        target = sorted(nums)\n\n        # Group positions by their set-bit count. Within each group,\n        # elements can be rearranged arbitrarily because adjacent swaps\n        # are allowed wherever neighboring elements share the same set-bit count.\n        # Therefore, for each set-bit count value b, the multiset of values\n        # in nums at positions with bits==b must match the multiset in target.\n        multiset_src = defaultdict(list)\n        multiset_tgt = defaultdict(list)\n\n        for i in range(n):\n            multiset_src[bits[i]].append(nums[i])\n            multiset_tgt[bits[i]].append(target[i])\n\n        for b in multiset_src:\n            multiset_src[b].sort()\n            multiset_tgt[b].sort()\n            if multiset_src[b] != multiset_tgt[b]:\n                return False\n\n        # Also handle b's that appear only in target (rare but safe)\n        for b in multiset_tgt:\n            if b not in multiset_src:\n                if multiset_tgt[b]:\n                    return False\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n\n        # Key idea:\n        # Adjacent elements can be swapped iff they have the same popcount.\n        # Therefore, elements with the same popcount can permute within their\n        # current contiguous \"blocks\" (maximal segments where all have same popcount).\n        # Sorting is possible iff for every index in the sorted array, the element\n        # at that index comes from a reachable position with the same popcount block.\n        pop = [x.bit_count() for x in nums]\n        target = sorted(nums)\n        tpop = [x.bit_count() for x in target]\n\n        # Build popcount-blocks for the original array: for each block of equal popcount,\n        # record the multiset of values that appear in that block.\n        block_id = [-1] * n\n        blocks = []  # list of deques/multisets corresponding to blocks\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n            # block nums[i:j] can only be permuted internally\n            blocks.append(sorted(nums[i:j]))\n            # assign ids\n            for k in range(i, j):\n                block_id[k] = len(blocks) - 1\n            i = j\n\n        # But in the sorted array, indices with the same popcount must be filled\n        # using values from original blocks that are allowed to reach those indices.\n        #\n        # Key simplification for this specific problem:\n        # Since we can only swap within equal-popcount contiguous blocks,\n        # the multiset of values with a given popcount at positions belonging to a\n        # particular original block must match the multiset of values that need to\n        # occupy those positions in the sorted array.\n        #\n        # We'll simulate this by scanning indices from left to right:\n        # For each original block, compare against the corresponding segment in target\n        # determined by contiguity of popcounts after sorting.\n        #\n        # Equivalent, simpler criterion used in standard solutions:\n        # For each contiguous segment of original array where popcount is constant,\n        # the sorted version must have the same multiset values for those positions,\n        # and those positions will necessarily be filled with the same popcount values\n        # (otherwise impossible). This works because popcount pattern across positions\n        # can only change at boundaries where swapping across different popcounts is impossible.\n\n        # Compute popcount segments for original and target; their segment boundaries must align\n        # when considering popcount-only moves.\n        # More direct method: build segments of indices where popcount is constant\n        # in original; for each such segment [l,r), the multiset of values in nums[l:r]\n        # must equal multiset of target[l:r].\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n            if tpop[i] != pop[i]:\n                return False\n            # popcount at each position in segment must match sorted's popcount\n            for k in range(i, j):\n                if tpop[k] != pop[i]:\n                    return False\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only swap with adjacent elements that have the same popcount.\n        # Therefore, within each maximal contiguous block where popcount is constant,\n        # their relative multiset positions are preserved, and elements cannot cross\n        # block boundaries with different popcount.\n        n = len(nums)\n        pc = [x.bit_count() for x in nums]\n\n        # Compute target sorted array and compare block-by-block.\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pc[j] == pc[i]:\n                j += 1\n\n            # In original block [i, j), only elements with popcount pc[i] reside.\n            # They can be permuted arbitrarily within the block, so the block\n            # in the sorted array must contain the same multiset.\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements with the same popcount can be permuted arbitrarily within\n        # their original contiguous blocks (since adjacent swaps connect them).\n        #\n        # Therefore, for each maximal contiguous segment in the original array\n        # where all elements have the same popcount, the multiset of values in\n        # that segment must match the multiset of values that occupy the same\n        # indices in the sorted array.\n        \n        sorted_nums = sorted(nums)\n        n = len(nums)\n\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # Compare multisets of the segment with corresponding segment in sorted array\n            if sorted(nums[i:j]) != sorted(sorted_nums[i:j]):\n                return False\n\n            i = j\n\n        return True\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3291",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Any elements with the same popcount can be permuted among themselves\n        # within maximal contiguous blocks of that popcount (since swaps only occur\n        # between adjacent elements with equal popcount).\n        n = len(nums)\n        pop = [x.bit_count() for x in nums]\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n\n            # Sort both corresponding segments and compare\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only swap with adjacent elements having the same popcount.\n        # Therefore, within each maximal contiguous block of equal popcount,\n        # the multiset can be permuted arbitrarily, but elements cannot cross\n        # blocks of different popcount.\n        #\n        # A necessary and sufficient condition for sortability is that for every\n        # index i, the value that should be at i in the globally sorted array\n        # has the same popcount as nums[i]'s block allows, and the multiset of\n        # each popcount block matches.\n\n        target = sorted(nums)\n        n = len(nums)\n\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # The block [i, j) can be rearranged arbitrarily.\n            # So target[i:j] must be a permutation of nums[i:j].\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Key idea:\n        # You may swap adjacent elements only if they have the same popcount.\n        # Therefore, within the array positions, elements can only permute\n        # among indices that are occupied by the same popcount in the initial array.\n        # Between different popcount groups, their relative order is fixed.\n        n = len(nums)\n        orig = nums[:]\n        target = sorted(nums)\n\n        # Assign each element a popcount group id based on its initial popcount.\n        # Two elements can cross only if they are in the same popcount class at the moment,\n        # which boils down to preserving the popcount sequence between \"movable segments\".\n        # A simpler equivalent check:\n        # Iterate through original and target simultaneously and ensure that whenever\n        # elements differ, their popcounts in original can account for the needed positions.\n        # Another standard approach:\n        # Scan original: build contiguous \"blocks\" separated by popcount changes.\n        # Inside each block, elements can be sorted arbitrarily (by adjacent swaps among\n        # identical popcount elements), but blocks cannot exchange with each other.\n        #\n        # The needed condition becomes: sorting each block and comparing to target.\n\n        def pc(x: int) -> int:\n            return x.bit_count()\n\n        i = 0\n        while i < n:\n            j = i\n            p = pc(nums[i])\n            while j < n and pc(nums[j]) == p:\n                j += 1\n            # Block is [i, j)\n            block_sorted = sorted(nums[i:j])\n            if block_sorted != target[i:j]:\n                return False\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # If two numbers can be swapped across a boundary, they must have the same\n        # popcount. Adjacent swaps imply that elements with the same popcount can\n        # permute among positions that are connected via these boundaries.\n        #\n        # For this problem, the array can be sorted iff, when we look at each\n        # popcount group in their original order, it matches the popcount group\n        # distribution required by the sorted array.\n        #\n        # Equivalent criterion:\n        # Let popcount(x) = number of set bits.\n        # Partition nums into maximal contiguous segments where popcount is constant.\n        # Within each such segment, those elements can be reordered arbitrarily,\n        # but elements cannot cross into other segments (because a crossing would\n        # require swapping across a boundary with different popcounts).\n        #\n        # So sorting is possible iff each segment's multiset equals the multiset\n        # at the corresponding positions in the fully sorted array.\n        \n        def pc(x: int) -> int:\n            return x.bit_count()\n\n        target = sorted(nums)\n\n        n = len(nums)\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pc(nums[j]) == pc(nums[i]):\n                j += 1\n\n            # nums[i:j] must match target[i:j] as multisets\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        # Sort each position based on whether elements with the same popcount\n        # can be permuted within their maximal contiguous blocks.\n        pop = [x.bit_count() for x in nums]\n\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n\n            # Within nums[i:j], we can rearrange elements only among positions\n            # whose popcount equals pop[i] (i.e., within the same contiguous segment).\n            # So the multiset of values in this segment must match the multiset\n            # of values from the sorted array at the same indices.\n            if sorted(nums[i:j]) != sorted_nums[i:j]:\n                return False\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        # Count set bits for each element\n        bits = [x.bit_count() for x in nums]\n\n        # We can only swap adjacent elements if they have the same set-bit count.\n        # Therefore, indices with the same contiguous \"bitcount block\" are permutable\n        # within that block, but elements from different bitcount values cannot cross.\n        #\n        # A practical way: simulate sorting feasibility by comparing each\n        # element's position in the array after sorting with what it can reach.\n        # Elements can be rearranged within maximal contiguous segments of equal bitcount.\n        original = nums[:]\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and bits[j] == bits[i]:\n                j += 1\n            # segment [i, j) has same bitcount, thus multiset of values in segment\n            # must match multiset of values in target segment\n            if sorted(original[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        bits = [x.bit_count() for x in nums]\n        target = sorted(nums)\n\n        # Group positions by their set-bit count. Within each group,\n        # elements can be rearranged arbitrarily because adjacent swaps\n        # are allowed wherever neighboring elements share the same set-bit count.\n        # Therefore, for each set-bit count value b, the multiset of values\n        # in nums at positions with bits==b must match the multiset in target.\n        multiset_src = defaultdict(list)\n        multiset_tgt = defaultdict(list)\n\n        for i in range(n):\n            multiset_src[bits[i]].append(nums[i])\n            multiset_tgt[bits[i]].append(target[i])\n\n        for b in multiset_src:\n            multiset_src[b].sort()\n            multiset_tgt[b].sort()\n            if multiset_src[b] != multiset_tgt[b]:\n                return False\n\n        # Also handle b's that appear only in target (rare but safe)\n        for b in multiset_tgt:\n            if b not in multiset_src:\n                if multiset_tgt[b]:\n                    return False\n\n        return True\n```",
+          "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n\n        # Key idea:\n        # Adjacent elements can be swapped iff they have the same popcount.\n        # Therefore, elements with the same popcount can permute within their\n        # current contiguous \"blocks\" (maximal segments where all have same popcount).\n        # Sorting is possible iff for every index in the sorted array, the element\n        # at that index comes from a reachable position with the same popcount block.\n        pop = [x.bit_count() for x in nums]\n        target = sorted(nums)\n        tpop = [x.bit_count() for x in target]\n\n        # Build popcount-blocks for the original array: for each block of equal popcount,\n        # record the multiset of values that appear in that block.\n        block_id = [-1] * n\n        blocks = []  # list of deques/multisets corresponding to blocks\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n            # block nums[i:j] can only be permuted internally\n            blocks.append(sorted(nums[i:j]))\n            # assign ids\n            for k in range(i, j):\n                block_id[k] = len(blocks) - 1\n            i = j\n\n        # But in the sorted array, indices with the same popcount must be filled\n        # using values from original blocks that are allowed to reach those indices.\n        #\n        # Key simplification for this specific problem:\n        # Since we can only swap within equal-popcount contiguous blocks,\n        # the multiset of values with a given popcount at positions belonging to a\n        # particular original block must match the multiset of values that need to\n        # occupy those positions in the sorted array.\n        #\n        # We'll simulate this by scanning indices from left to right:\n        # For each original block, compare against the corresponding segment in target\n        # determined by contiguity of popcounts after sorting.\n        #\n        # Equivalent, simpler criterion used in standard solutions:\n        # For each contiguous segment of original array where popcount is constant,\n        # the sorted version must have the same multiset values for those positions,\n        # and those positions will necessarily be filled with the same popcount values\n        # (otherwise impossible). This works because popcount pattern across positions\n        # can only change at boundaries where swapping across different popcounts is impossible.\n\n        # Compute popcount segments for original and target; their segment boundaries must align\n        # when considering popcount-only moves.\n        # More direct method: build segments of indices where popcount is constant\n        # in original; for each such segment [l,r), the multiset of values in nums[l:r]\n        # must equal multiset of target[l:r].\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n            if tpop[i] != pop[i]:\n                return False\n            # popcount at each position in segment must match sorted's popcount\n            for k in range(i, j):\n                if tpop[k] != pop[i]:\n                    return False\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only swap with adjacent elements that have the same popcount.\n        # Therefore, within each maximal contiguous block where popcount is constant,\n        # their relative multiset positions are preserved, and elements cannot cross\n        # block boundaries with different popcount.\n        n = len(nums)\n        pc = [x.bit_count() for x in nums]\n\n        # Compute target sorted array and compare block-by-block.\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pc[j] == pc[i]:\n                j += 1\n\n            # In original block [i, j), only elements with popcount pc[i] reside.\n            # They can be permuted arbitrarily within the block, so the block\n            # in the sorted array must contain the same multiset.\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements with the same popcount can be permuted arbitrarily within\n        # their original contiguous blocks (since adjacent swaps connect them).\n        #\n        # Therefore, for each maximal contiguous segment in the original array\n        # where all elements have the same popcount, the multiset of values in\n        # that segment must match the multiset of values that occupy the same\n        # indices in the sorted array.\n        \n        sorted_nums = sorted(nums)\n        n = len(nums)\n\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # Compare multisets of the segment with corresponding segment in sorted array\n            if sorted(nums[i:j]) != sorted(sorted_nums[i:j]):\n                return False\n\n            i = j\n\n        return True\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed array of positive integers nums.\nIn one operation, you can swap any two adjacent elements if they have the same number of set bits. You are allowed to do this operation any number of times (including zero).\nReturn true if you can sort the array, else return false.\n \nExample 1:\n\nInput: nums = [8,4,2,30,15]\nOutput: true\nExplanation: Let's look at the binary representation of every element. The numbers 2, 4, and 8 have one set bit each with binary representation \"10\", \"100\", and \"1000\" respectively. The numbers 15 and 30 have four set bits each with binary representation \"1111\" and \"11110\".\nWe can sort the array using 4 operations:\n- Swap nums[0] with nums[1]. This operation is valid because 8 and 4 have one set bit each. The array becomes [4,8,2,30,15].\n- Swap nums[1] with nums[2]. This operation is valid because 8 and 2 have one set bit each. The array becomes [4,2,8,30,15].\n- Swap nums[0] with nums[1]. This operation is valid because 4 and 2 have one set bit each. The array becomes [2,4,8,30,15].\n- Swap nums[3] with nums[4]. This operation is valid because 30 and 15 have four set bits each. The array becomes [2,4,8,15,30].\nThe array has become sorted, hence we return true.\nNote that there may be other sequences of operations which also sort the array.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: true\nExplanation: The array is already sorted, hence we return true.\n\nExample 3:\n\nInput: nums = [3,16,8,4,2]\nOutput: false\nExplanation: It can be shown that it is not possible to sort the input array using any number of operations.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 2^8\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        target = sorted(nums)\n\n        # In this problem, adjacent swaps are allowed only when the two numbers\n        # have the same popcount. That means elements can only permute within\n        # each maximal contiguous block of equal popcount.\n        # Therefore, after sorting, each block must match the multiset/order\n        # possible within that popcount block.\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # nums[i:j] is a block with fixed popcount; it can be rearranged\n            # arbitrarily within the block, but cannot exchange elements with\n            # other blocks (different popcount).\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nimport bisect\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        \"\"\"\n        Adjacent swaps are allowed only between elements with the same popcount.\n        This means elements can only permute within maximal contiguous blocks\n        where all elements have the same popcount value.\n        \"\"\"\n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            k = nums[i].bit_count()\n            while j < n and nums[j].bit_count() == k:\n                j += 1\n\n            # Within [i, j), multiset of values is invariant, and the order\n            # can be rearranged to match sorted_nums[i:j] iff they have the same multiset.\n            seg_a = nums[i:j]\n            seg_b = sorted_nums[i:j]\n            seg_a.sort()\n            if seg_a != sorted(seg_b):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # In any operation, adjacent elements can be swapped iff they have the same\n        # number of set bits. This means elements can only permute within blocks\n        # defined by consecutive equal popcount values in the original array.\n        n = len(nums)\n\n        pop = [x.bit_count() for x in nums]\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n\n            # Elements in positions [i, j) must be the same multiset as in the target,\n            # because within the block we can arbitrarily reorder (via adjacent swaps).\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Adjacent swaps are allowed only between elements with the same popcount.\n        # Therefore, elements with different popcount cannot cross each other.\n        # Within each maximal contiguous segment of equal popcount, we can permute arbitrarily.\n        # So the final array is possible iff for every index i, the set of elements available\n        # at i (from the segment with same popcount) matches the sorted array.\n        \n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            pc = nums[i].bit_count()\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # We can sort/persist this segment internally.\n            segment = nums[i:j]\n            segment_sorted = sorted(segment)\n\n            # Compare with corresponding part in global sorted array.\n            for k in range(i, j):\n                if segment_sorted[k - i] != sorted_nums[k]:\n                    return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only move by adjacent swaps within contiguous\n        # blocks where all elements have the same popcount.\n        n = len(nums)\n\n        # Determine the \"original blocks\" based on popcount.\n        pop = [x.bit_count() for x in nums]\n        blocks = []  # list of (start, end) inclusive range indices per block\n        start = 0\n        for i in range(1, n):\n            if pop[i] != pop[i - 1]:\n                blocks.append((start, i - 1))\n                start = i\n        blocks.append((start, n - 1))\n\n        # Sort each block independently (since swaps are only possible inside a block).\n        res = nums[:]\n        for l, r in blocks:\n            segment = res[l:r+1]\n            segment.sort()\n            res[l:r+1] = segment\n\n        # If fully sorted matches the globally sorted array, then it's sortable.\n        return res == sorted(nums)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can be swapped only with adjacent elements\n        # that have the same number of set bits.\n        # This means that within each \"set-bits group\" segment,\n        # relative order can be permuted arbitrarily, but elements\n        # from different set-bits values cannot cross.\n        n = len(nums)\n        setbits = [x.bit_count() for x in nums]\n\n        sorted_nums = sorted(nums)\n        i = 0\n        while i < n:\n            sb = setbits[i]\n            j = i\n            while j < n and setbits[j] == sb:\n                j += 1\n\n            # For this segment, only elements with the same set-bits\n            # can occupy the positions i..j-1.\n            # Their multiset must match between current and target.\n            if sorted(set(nums[i:j])) != sorted(set(sorted_nums[i:j])):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements with the same popcount can be freely permuted among themselves\n        # via adjacent swaps; elements with different popcounts cannot cross.\n        def popcount(x: int) -> int:\n            return x.bit_count()\n\n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            pc = popcount(nums[i])\n            while j < n and popcount(nums[j]) == pc:\n                j += 1\n\n            # In the sorted array, those positions [i, j) must contain exactly\n            # the same multiset of elements with popcount == pc.\n            # Since only within this popcount-block we can permute,\n            # the sorted values at those indices must match as multisets.\n            left_multiset = sorted(nums[i:j])\n            right_multiset = sorted(sorted_nums[i:j])\n\n            if left_multiset != right_multiset:\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can be permuted arbitrarily only within contiguous blocks\n        # where all elements have the same popcount, because swaps are allowed\n        # only between adjacent elements with equal popcount.\n        def popcount(x: int) -> int:\n            return x.bit_count()\n\n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            pc = popcount(nums[i])\n            while j < n and popcount(nums[j]) == pc:\n                j += 1\n\n            # In this block [i, j), multiset of values is fixed.\n            # For sorting to be possible, the target sorted block must match\n            # as a multiset with the current block.\n            if sorted(nums[i:j]) != sorted(sorted_nums[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only move within contiguous groups of equal popcount,\n        # because adjacent swaps require equal popcount and swaps preserve\n        # the multiset of popcounts in each \"reachable segment\".\n        def popcount(x: int) -> int:\n            return x.bit_count()\n\n        n = len(nums)\n        a = nums[:]  # original\n\n        # Build target (sorted) array\n        b = sorted(nums)\n\n        # Collect indices where values differ in terms of popcount boundaries:\n        # More directly: compare how popcount-multisets match between original\n        # and sorted within each maximal block of equal popcount in original.\n        visited = [False] * n\n\n        # Simpler correct approach:\n        # For each maximal contiguous segment in the original array with the same popcount,\n        # the segment can be permuted arbitrarily within itself by adjacent swaps,\n        # but cannot cross into other segments. Therefore, after sorting,\n        # the values that land in that segment must be exactly the same multiset.\n        i = 0\n        while i < n:\n            j = i\n            c = popcount(a[i])\n            while j < n and popcount(a[j]) == c:\n                j += 1\n\n            # multiset in original segment vs multiset in same index range of sorted array\n            if sorted(a[i:j]) != sorted(b[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only swap with adjacent elements that have the same popcount.\n        # Therefore, within each contiguous block of equal popcount, the multiset is fixed,\n        # but within that block we can permute arbitrarily by adjacent swaps.\n        n = len(nums)\n\n        # Build the sorted target\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # Collect multisets in this popcount block in both arrays\n            block_current = sorted(nums[i:j])\n            block_target = sorted(sorted_nums[i:j])\n\n            if block_current != block_target:\n                return False\n            i = j\n\n        return True\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3291",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        n = len(nums)\n        target = sorted(nums)\n\n        # In this problem, adjacent swaps are allowed only when the two numbers\n        # have the same popcount. That means elements can only permute within\n        # each maximal contiguous block of equal popcount.\n        # Therefore, after sorting, each block must match the multiset/order\n        # possible within that popcount block.\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # nums[i:j] is a block with fixed popcount; it can be rearranged\n            # arbitrarily within the block, but cannot exchange elements with\n            # other blocks (different popcount).\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nimport bisect\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        \"\"\"\n        Adjacent swaps are allowed only between elements with the same popcount.\n        This means elements can only permute within maximal contiguous blocks\n        where all elements have the same popcount value.\n        \"\"\"\n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            k = nums[i].bit_count()\n            while j < n and nums[j].bit_count() == k:\n                j += 1\n\n            # Within [i, j), multiset of values is invariant, and the order\n            # can be rearranged to match sorted_nums[i:j] iff they have the same multiset.\n            seg_a = nums[i:j]\n            seg_b = sorted_nums[i:j]\n            seg_a.sort()\n            if seg_a != sorted(seg_b):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # In any operation, adjacent elements can be swapped iff they have the same\n        # number of set bits. This means elements can only permute within blocks\n        # defined by consecutive equal popcount values in the original array.\n        n = len(nums)\n\n        pop = [x.bit_count() for x in nums]\n        target = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            while j < n and pop[j] == pop[i]:\n                j += 1\n\n            # Elements in positions [i, j) must be the same multiset as in the target,\n            # because within the block we can arbitrarily reorder (via adjacent swaps).\n            if sorted(nums[i:j]) != sorted(target[i:j]):\n                return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Adjacent swaps are allowed only between elements with the same popcount.\n        # Therefore, elements with different popcount cannot cross each other.\n        # Within each maximal contiguous segment of equal popcount, we can permute arbitrarily.\n        # So the final array is possible iff for every index i, the set of elements available\n        # at i (from the segment with same popcount) matches the sorted array.\n        \n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            pc = nums[i].bit_count()\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # We can sort/persist this segment internally.\n            segment = nums[i:j]\n            segment_sorted = sorted(segment)\n\n            # Compare with corresponding part in global sorted array.\n            for k in range(i, j):\n                if segment_sorted[k - i] != sorted_nums[k]:\n                    return False\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only move by adjacent swaps within contiguous\n        # blocks where all elements have the same popcount.\n        n = len(nums)\n\n        # Determine the \"original blocks\" based on popcount.\n        pop = [x.bit_count() for x in nums]\n        blocks = []  # list of (start, end) inclusive range indices per block\n        start = 0\n        for i in range(1, n):\n            if pop[i] != pop[i - 1]:\n                blocks.append((start, i - 1))\n                start = i\n        blocks.append((start, n - 1))\n\n        # Sort each block independently (since swaps are only possible inside a block).\n        res = nums[:]\n        for l, r in blocks:\n            segment = res[l:r+1]\n            segment.sort()\n            res[l:r+1] = segment\n\n        # If fully sorted matches the globally sorted array, then it's sortable.\n        return res == sorted(nums)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can be swapped only with adjacent elements\n        # that have the same number of set bits.\n        # This means that within each \"set-bits group\" segment,\n        # relative order can be permuted arbitrarily, but elements\n        # from different set-bits values cannot cross.\n        n = len(nums)\n        setbits = [x.bit_count() for x in nums]\n\n        sorted_nums = sorted(nums)\n        i = 0\n        while i < n:\n            sb = setbits[i]\n            j = i\n            while j < n and setbits[j] == sb:\n                j += 1\n\n            # For this segment, only elements with the same set-bits\n            # can occupy the positions i..j-1.\n            # Their multiset must match between current and target.\n            if sorted(set(nums[i:j])) != sorted(set(sorted_nums[i:j])):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements with the same popcount can be freely permuted among themselves\n        # via adjacent swaps; elements with different popcounts cannot cross.\n        def popcount(x: int) -> int:\n            return x.bit_count()\n\n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            pc = popcount(nums[i])\n            while j < n and popcount(nums[j]) == pc:\n                j += 1\n\n            # In the sorted array, those positions [i, j) must contain exactly\n            # the same multiset of elements with popcount == pc.\n            # Since only within this popcount-block we can permute,\n            # the sorted values at those indices must match as multisets.\n            left_multiset = sorted(nums[i:j])\n            right_multiset = sorted(sorted_nums[i:j])\n\n            if left_multiset != right_multiset:\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can be permuted arbitrarily only within contiguous blocks\n        # where all elements have the same popcount, because swaps are allowed\n        # only between adjacent elements with equal popcount.\n        def popcount(x: int) -> int:\n            return x.bit_count()\n\n        n = len(nums)\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            j = i\n            pc = popcount(nums[i])\n            while j < n and popcount(nums[j]) == pc:\n                j += 1\n\n            # In this block [i, j), multiset of values is fixed.\n            # For sorting to be possible, the target sorted block must match\n            # as a multiset with the current block.\n            if sorted(nums[i:j]) != sorted(sorted_nums[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\nfrom collections import defaultdict\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only move within contiguous groups of equal popcount,\n        # because adjacent swaps require equal popcount and swaps preserve\n        # the multiset of popcounts in each \"reachable segment\".\n        def popcount(x: int) -> int:\n            return x.bit_count()\n\n        n = len(nums)\n        a = nums[:]  # original\n\n        # Build target (sorted) array\n        b = sorted(nums)\n\n        # Collect indices where values differ in terms of popcount boundaries:\n        # More directly: compare how popcount-multisets match between original\n        # and sorted within each maximal block of equal popcount in original.\n        visited = [False] * n\n\n        # Simpler correct approach:\n        # For each maximal contiguous segment in the original array with the same popcount,\n        # the segment can be permuted arbitrarily within itself by adjacent swaps,\n        # but cannot cross into other segments. Therefore, after sorting,\n        # the values that land in that segment must be exactly the same multiset.\n        i = 0\n        while i < n:\n            j = i\n            c = popcount(a[i])\n            while j < n and popcount(a[j]) == c:\n                j += 1\n\n            # multiset in original segment vs multiset in same index range of sorted array\n            if sorted(a[i:j]) != sorted(b[i:j]):\n                return False\n\n            i = j\n\n        return True\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def canSortArray(self, nums: List[int]) -> bool:\n        # Elements can only swap with adjacent elements that have the same popcount.\n        # Therefore, within each contiguous block of equal popcount, the multiset is fixed,\n        # but within that block we can permute arbitrarily by adjacent swaps.\n        n = len(nums)\n\n        # Build the sorted target\n        sorted_nums = sorted(nums)\n\n        i = 0\n        while i < n:\n            pc = nums[i].bit_count()\n            j = i\n            while j < n and nums[j].bit_count() == pc:\n                j += 1\n\n            # Collect multisets in this popcount block in both arrays\n            block_current = sorted(nums[i:j])\n            block_target = sorted(sorted_nums[i:j])\n\n            if block_current != block_target:\n                return False\n            i = j\n\n        return True\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3291",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3291",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "true",
+                "actual": "True",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "false",
+                "actual": "False",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

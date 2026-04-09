@@ -1,0 +1,3236 @@
+{
+  "problem_id": "3297",
+  "domain": "coding",
+  "problem": {
+    "id": "3297",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed string word and an integer k.\nAt every second, you must perform the following operations:\n\nRemove the first k characters of word.\nAdd any k characters to the end of word.\n\nNote that you do not necessarily need to add the same characters that you removed. However, you must perform both operations at every second.\nReturn the minimum time greater than zero required for word to revert to its initial state.\n \nExample 1:\n\nInput: word = \"abacaba\", k = 3\nOutput: 2\nExplanation: At the 1st second, we remove characters \"aba\" from the prefix of word, and add characters \"bac\" to the end of word. Thus, word becomes equal to \"cababac\".\nAt the 2nd second, we remove characters \"cab\" from the prefix of word, and add \"aba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state.\nIt can be shown that 2 seconds is the minimum time greater than zero required for word to revert to its initial state.\n\nExample 2:\n\nInput: word = \"abacaba\", k = 4\nOutput: 1\nExplanation: At the 1st second, we remove characters \"abac\" from the prefix of word, and add characters \"caba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state.\nIt can be shown that 1 second is the minimum time greater than zero required for word to revert to its initial state.\n\nExample 3:\n\nInput: word = \"abcbabcd\", k = 2\nOutput: 4\nExplanation: At every second, we will remove the first 2 characters of word, and add the same characters to the end of word.\nAfter 4 seconds, word becomes equal to \"abcbabcd\" and reverts to its initial state.\nIt can be shown that 4 seconds is the minimum time greater than zero required for word to revert to its initial state.\n\n \nConstraints:\n\n1 <= word.length <= 50 \n1 <= k <= word.length\nword consists only of lowercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"abacaba\"\n3",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"abacaba\"\n4",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"abcbabcd\"\n2",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"g\"\n1",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"uw\"\n1",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"zk\"\n1",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"zk\"\n2",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"yea\"\n2",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"tqk\"\n1",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"wcp\"\n1",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"jmoz\"\n3",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"qsgyt\"\n1",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv\"\n15",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"banmdhxjedvjflpvhnoqsmikwdllsnqskkgrjwwsjjxeglvhrq\"\n25",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"awzowpopxvslnxixfddcffolqdeppqakwjhfpppgbgidmyqnne\"\n44",
+        "output": "2",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "minimumTimeToInitialState",
+      "question_title": "minimum-time-to-revert-word-to-initial-state-i",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed string word and an integer k.\nAt every second, you must perform the following operations:\n\nRemove the first k characters of word.\nAdd any k characters to the end of word.\n\nNote that you do not necessarily need to add the same characters that you removed. However, you must perform both operations at every second.\nReturn the minimum time greater than zero required for word to revert to its initial state.\n \nExample 1:\n\nInput: word = \"abacaba\", k = 3\nOutput: 2\nExplanation: At the 1st second, we remove characters \"aba\" from the prefix of word, and add characters \"bac\" to the end of word. Thus, word becomes equal to \"cababac\".\nAt the 2nd second, we remove characters \"cab\" from the prefix of word, and add \"aba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state.\nIt can be shown that 2 seconds is the minimum time greater than zero required for word to revert to its initial state.\n\nExample 2:\n\nInput: word = \"abacaba\", k = 4\nOutput: 1\nExplanation: At the 1st second, we remove characters \"abac\" from the prefix of word, and add characters \"caba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state.\nIt can be shown that 1 second is the minimum time greater than zero required for word to revert to its initial state.\n\nExample 3:\n\nInput: word = \"abcbabcd\", k = 2\nOutput: 4\nExplanation: At every second, we will remove the first 2 characters of word, and add the same characters to the end of word.\nAfter 4 seconds, word becomes equal to \"abcbabcd\" and reverts to its initial state.\nIt can be shown that 4 seconds is the minimum time greater than zero required for word to revert to its initial state.\n\n \nConstraints:\n\n1 <= word.length <= 50 \n1 <= k <= word.length\nword consists only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # After 1 second: remove first k, append k. Equivalent to shifting the\n        # word left by k positions. For the word to match the original after t\n        # seconds, the removed/kept alignment must match. This depends only on\n        # the indices modulo n and on the fact that k-chunks are removed.\n        #\n        # Observation: After t seconds, we have removed t*k characters in total\n        # (mod n). For the current word to equal the original, it must hold that:\n        # word[i] == word[(i + t*k) % n] for all i in the resulting alignment.\n        #\n        # Minimal t > 0 such that word equals word shifted by (t*k) mod n.\n        # Since n <= 50, brute force over t is fine.\n        for t in range(1, n + 1):\n            shift = (t * k) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        # Should always find by pigeonhole within n steps.\n        return n\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # After t seconds, the prefix removed each time shifts the remaining\n        # left by k*t positions, i.e. the state depends only on rotation by k*t mod n.\n        # We can choose what to append, so we only need the earliest t>0 such that\n        # the required suffix equals the prefix, which is equivalent to:\n        # word[i] == word[(i + k*t) % n] for all i.\n        # This is exactly when word is periodic under shift s = k*t (mod n).\n        #\n        # Let d = gcd(n, k). Then k*t mod n only attains multiples of d,\n        # and the possible distinct shifts correspond to t modulo n/d.\n        # We brute-force t from 1..n/d to find the minimum satisfying the equality.\n        import math\n\n        step = math.gcd(n, k)\n        m = n // step  # number of distinct shifts generated by k*t mod n\n\n        for t in range(1, m + 1):\n            s = (k * t) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + s) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        # The problem guarantees there will be a time; at worst m works.\n        return m\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, we have removed first t*k characters\n        # (wrapping around modulo n) and we need the whole string to match again.\n        # This is equivalent to finding smallest t>0 such that:\n        #   word[(t*k + i) % n] == word[i] for all i\n        # which means shifting by t*k positions leaves the string unchanged.\n        shift = k % n\n        for t in range(1, n + 1):\n            if (t * shift) % n == 0:\n                # shift by multiple of n => identical; minimal such t is answer\n                return t\n            ok = True\n            s = (t * k) % n\n            for i in range(n):\n                if word[(s + i) % n] != word[i]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return n  # fallback (should never hit due to constraints)\n\n# Note: The above loop checks for smallest t>0 by direct comparison.\n# Complexity: O(n^2) with n<=50, easily fits.\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After one operation, the string is effectively left-rotated by k\n        # (because removing first k chars shifts remaining prefix forward)\n        # and then right k chars are appended. To return to the initial word\n        # after t operations, the effect on positions must match, which reduces\n        # to finding the smallest t>0 such that rotation by (t*k) modulo n\n        # maps the string to itself. This happens exactly when the shift is a\n        # multiple of the minimal rotation period dividing n.\n        #\n        # The shift after t operations is (t*k) % n. We need this shift s\n        # to satisfy word == word[s:] + word[:s] which is equivalent to s\n        # being a period of the string.\n        #\n        # Compute minimal period p of word (smallest p>0 with word[i]==word[i+p]\n        # for all i<n-p). Then valid rotation shifts are multiples of p.\n        # Need smallest t>0 with (t*k) % n == 0 mod p, i.e. (t*k) ≡ 0 (mod p).\n        # But rotations that equal original are exactly shifts s that are\n        # multiples of p. Since s=(t*k)%n, it's enough to find minimal t\n        # such that (t*k) % n is multiple of p.\n        #\n        # Equivalent and simpler: the process returns to original iff\n        # the set of indices is consistent; it turns out the answer is:\n        # smallest positive t such that (t*k) % n == 0 when considering\n        # the string's rotation period. This can be found using gcd.\n        #\n        # Actually we can avoid period reasoning by brute forcing candidate shifts\n        # among at most n/g where g=gcd(n,k): only those shifts can occur.\n        g = __import__(\"math\").gcd(n, k)\n\n        # Possible shifts after t operations are multiples of g modulo n.\n        # i.e., (t*k) % n cycles with length n/g.\n        # We test t from 1 upward until we find a shift that makes the rotation\n        # equal to original. This is fast since n<=50.\n        for t in range(1, n // g + 1):\n            s = (t * k) % n\n            if word == word[s:] + word[:s]:\n                return t\n        return n // g  # should always have a solution\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, the first t*k characters are removed in chunks.\n        # Net effect: word must be equal to original, which means that for all i:\n        # word[(t*k + i) % n] == word[i]\n        # => the rotation by (t*k) mod n must leave the string unchanged.\n        shift_unit = k % n\n        # Find smallest positive t such that (t*k) % n is a period that keeps word unchanged.\n        # This is equivalent to finding smallest positive t where rotation by d repeats:\n        # d = (t*k) % n, and d must satisfy rotation invariance.\n        for t in range(1, n + 1):\n            d = (t * k) % n\n            ok = True\n            for i in range(n):\n                if word[(d + i) % n] != word[i]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return -1  # Should never happen with given constraints\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After each second: remove first k chars => left shift by k.\n        # Repeating t times means the resulting string starts at index (t*k)%n.\n        # Since we can choose what to append, we can force the string to match\n        # the original iff the last n - t*k characters (mod n) can match the prefix,\n        # which reduces to: word must be periodic with shift (t*k mod n).\n        #\n        # Therefore minimum t>0 such that word[j] == word[(j+t*k) % n] for all j.\n        # Equivalent: the string equals its rotation by r = (t*k) % n.\n        #\n        # We can just test rotations for all t in 1..n because n<=50.\n        for t in range(1, n + 1):\n            r = (t * k) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + r) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return n  # fallback (should never be reached with constraints)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After each operation:\n        # remove prefix of length k, then append any k chars.\n        # For the final string to match the initial one, the segment that remains\n        # must align, which implies that after t seconds, the overlap length is n - (t*k).\n        # The constraint for being able to revert is equivalent to:\n        # word[i] == word[(i + t*k) % n] for all i where alignment holds, i.e. when t*k causes\n        # a rotation on the original string by t*k positions.\n        #\n        # Therefore, we need the smallest t>0 such that rotation by t*k returns to original,\n        # which is the smallest t where (t*k) mod n == 0.\n        # That t is n / gcd(n, k).\n        import math\n        return n // math.gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # We look for the smallest t>0 such that word after t seconds can equal original.\n        # After one second, the first k are removed; net effect is a left shift by k,\n        # but we may append any k chars. For reverting to the initial state, the\n        # required characters for positions that were shifted must match.\n        #\n        # After t seconds, the prefix segment of length (n - t*k) must align with\n        # the original suffix starting at t*k. That means:\n        # word[i] == word[i + t*k] for all i in [0, n - t*k - 1]\n        #\n        # This is equivalent to requiring that the suffix of length n - t*k starting\n        # at t*k equals the original prefix of that length.\n        #\n        # We can brute force t because n <= 50.\n        max_t = n // k  # after this, remaining length is 0 or negative\n        for t in range(1, max_t + 1):\n            shift = t * k\n            if shift >= n:\n                return t  # remaining length 0 => always possible to revert\n            # compare prefix length n-shift with word[shift:]\n            if word[:n - shift] == word[shift:]:\n                return t\n\n        return max_t  # should always return earlier\n\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If k == n, word becomes empty then we can add any n chars back in one step,\n        # so we can revert immediately in 1 second.\n        if k == n:\n            return 1\n\n        # After t seconds, the length returned is n, but characters have shifted:\n        # the last n - k*t positions come from original prefix positions.\n        #\n        # Let m = smallest t>0 such that the substring that stays aligned\n        # equals the corresponding substring of the original word.\n        #\n        # Equivalent characterization:\n        # We need word to match itself after shifting by (t*k) modulo n,\n        # but only the positions that are \"overwritten\" by the move pattern.\n        #\n        # For this specific problem, the correct condition boils down to finding\n        # the smallest positive t such that the suffix of length n - (t*k mod n)\n        # matches the corresponding prefix after rotation by (t*k mod n).\n        #\n        # This can be expressed using Z/function on doubled string with offsets.\n        # Given n<=50, we can simply simulate rotations and check in O(n^3) safely.\n        #\n        # For each t>=1, rotation shift = (t*k) % n.\n        # The word after t operations can be made equal to initial iff\n        # the overlapping part of original under that shift can be preserved.\n        # This happens exactly when for all i where character is forced\n        # (i < n - shift), word[i] == word[i+shift] (with shift = (t*k)%n).\n        #\n        # We then choose minimal t>0 satisfying that property.\n        for t in range(1, n + 1):\n            shift = (t * k) % n\n            if shift == 0:\n                return t\n            ok = True\n            # Positions forced to match are those that come from original without change\n            # in the overlap: i in [0, n-shift)\n            for i in range(n - shift):\n                if word[i] != word[i + shift]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        return n  # should never reach due to constraints\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # Each second removes k prefix chars, and appends k chars.\n        # After t seconds, the prefix removed corresponds to a length (t*k) segment.\n        # The word matches the initial word iff there is some rotation back to self:\n        # i.e., word equals its rotation by (t*k) mod n.\n        shift = k % n\n        if shift == 0:\n            return 1  # always reverts in 1 step (remove whole blocks)\n\n        rotated = word\n        for t in range(1, n + 1):\n            # rotation by t*k positions to the left:\n            rotated = rotated[shift:] + rotated[:shift]\n            if rotated == word:\n                return t\n\n        # Given constraints, it must revert by some t <= n\n        return n\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3297",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 1,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 5,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 6,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 7,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 8,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "partial": [
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # After 1 second: remove first k, append k. Equivalent to shifting the\n        # word left by k positions. For the word to match the original after t\n        # seconds, the removed/kept alignment must match. This depends only on\n        # the indices modulo n and on the fact that k-chunks are removed.\n        #\n        # Observation: After t seconds, we have removed t*k characters in total\n        # (mod n). For the current word to equal the original, it must hold that:\n        # word[i] == word[(i + t*k) % n] for all i in the resulting alignment.\n        #\n        # Minimal t > 0 such that word equals word shifted by (t*k) mod n.\n        # Since n <= 50, brute force over t is fine.\n        for t in range(1, n + 1):\n            shift = (t * k) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        # Should always find by pigeonhole within n steps.\n        return n\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # After t seconds, the prefix removed each time shifts the remaining\n        # left by k*t positions, i.e. the state depends only on rotation by k*t mod n.\n        # We can choose what to append, so we only need the earliest t>0 such that\n        # the required suffix equals the prefix, which is equivalent to:\n        # word[i] == word[(i + k*t) % n] for all i.\n        # This is exactly when word is periodic under shift s = k*t (mod n).\n        #\n        # Let d = gcd(n, k). Then k*t mod n only attains multiples of d,\n        # and the possible distinct shifts correspond to t modulo n/d.\n        # We brute-force t from 1..n/d to find the minimum satisfying the equality.\n        import math\n\n        step = math.gcd(n, k)\n        m = n // step  # number of distinct shifts generated by k*t mod n\n\n        for t in range(1, m + 1):\n            s = (k * t) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + s) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        # The problem guarantees there will be a time; at worst m works.\n        return m\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, we have removed first t*k characters\n        # (wrapping around modulo n) and we need the whole string to match again.\n        # This is equivalent to finding smallest t>0 such that:\n        #   word[(t*k + i) % n] == word[i] for all i\n        # which means shifting by t*k positions leaves the string unchanged.\n        shift = k % n\n        for t in range(1, n + 1):\n            if (t * shift) % n == 0:\n                # shift by multiple of n => identical; minimal such t is answer\n                return t\n            ok = True\n            s = (t * k) % n\n            for i in range(n):\n                if word[(s + i) % n] != word[i]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return n  # fallback (should never hit due to constraints)\n\n# Note: The above loop checks for smallest t>0 by direct comparison.\n# Complexity: O(n^2) with n<=50, easily fits.\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After one operation, the string is effectively left-rotated by k\n        # (because removing first k chars shifts remaining prefix forward)\n        # and then right k chars are appended. To return to the initial word\n        # after t operations, the effect on positions must match, which reduces\n        # to finding the smallest t>0 such that rotation by (t*k) modulo n\n        # maps the string to itself. This happens exactly when the shift is a\n        # multiple of the minimal rotation period dividing n.\n        #\n        # The shift after t operations is (t*k) % n. We need this shift s\n        # to satisfy word == word[s:] + word[:s] which is equivalent to s\n        # being a period of the string.\n        #\n        # Compute minimal period p of word (smallest p>0 with word[i]==word[i+p]\n        # for all i<n-p). Then valid rotation shifts are multiples of p.\n        # Need smallest t>0 with (t*k) % n == 0 mod p, i.e. (t*k) ≡ 0 (mod p).\n        # But rotations that equal original are exactly shifts s that are\n        # multiples of p. Since s=(t*k)%n, it's enough to find minimal t\n        # such that (t*k) % n is multiple of p.\n        #\n        # Equivalent and simpler: the process returns to original iff\n        # the set of indices is consistent; it turns out the answer is:\n        # smallest positive t such that (t*k) % n == 0 when considering\n        # the string's rotation period. This can be found using gcd.\n        #\n        # Actually we can avoid period reasoning by brute forcing candidate shifts\n        # among at most n/g where g=gcd(n,k): only those shifts can occur.\n        g = __import__(\"math\").gcd(n, k)\n\n        # Possible shifts after t operations are multiples of g modulo n.\n        # i.e., (t*k) % n cycles with length n/g.\n        # We test t from 1 upward until we find a shift that makes the rotation\n        # equal to original. This is fast since n<=50.\n        for t in range(1, n // g + 1):\n            s = (t * k) % n\n            if word == word[s:] + word[:s]:\n                return t\n        return n // g  # should always have a solution\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, the first t*k characters are removed in chunks.\n        # Net effect: word must be equal to original, which means that for all i:\n        # word[(t*k + i) % n] == word[i]\n        # => the rotation by (t*k) mod n must leave the string unchanged.\n        shift_unit = k % n\n        # Find smallest positive t such that (t*k) % n is a period that keeps word unchanged.\n        # This is equivalent to finding smallest positive t where rotation by d repeats:\n        # d = (t*k) % n, and d must satisfy rotation invariance.\n        for t in range(1, n + 1):\n            d = (t * k) % n\n            ok = True\n            for i in range(n):\n                if word[(d + i) % n] != word[i]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return -1  # Should never happen with given constraints\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After each second: remove first k chars => left shift by k.\n        # Repeating t times means the resulting string starts at index (t*k)%n.\n        # Since we can choose what to append, we can force the string to match\n        # the original iff the last n - t*k characters (mod n) can match the prefix,\n        # which reduces to: word must be periodic with shift (t*k mod n).\n        #\n        # Therefore minimum t>0 such that word[j] == word[(j+t*k) % n] for all j.\n        # Equivalent: the string equals its rotation by r = (t*k) % n.\n        #\n        # We can just test rotations for all t in 1..n because n<=50.\n        for t in range(1, n + 1):\n            r = (t * k) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + r) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return n  # fallback (should never be reached with constraints)\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After each operation:\n        # remove prefix of length k, then append any k chars.\n        # For the final string to match the initial one, the segment that remains\n        # must align, which implies that after t seconds, the overlap length is n - (t*k).\n        # The constraint for being able to revert is equivalent to:\n        # word[i] == word[(i + t*k) % n] for all i where alignment holds, i.e. when t*k causes\n        # a rotation on the original string by t*k positions.\n        #\n        # Therefore, we need the smallest t>0 such that rotation by t*k returns to original,\n        # which is the smallest t where (t*k) mod n == 0.\n        # That t is n / gcd(n, k).\n        import math\n        return n // math.gcd(n, k)\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # We look for the smallest t>0 such that word after t seconds can equal original.\n        # After one second, the first k are removed; net effect is a left shift by k,\n        # but we may append any k chars. For reverting to the initial state, the\n        # required characters for positions that were shifted must match.\n        #\n        # After t seconds, the prefix segment of length (n - t*k) must align with\n        # the original suffix starting at t*k. That means:\n        # word[i] == word[i + t*k] for all i in [0, n - t*k - 1]\n        #\n        # This is equivalent to requiring that the suffix of length n - t*k starting\n        # at t*k equals the original prefix of that length.\n        #\n        # We can brute force t because n <= 50.\n        max_t = n // k  # after this, remaining length is 0 or negative\n        for t in range(1, max_t + 1):\n            shift = t * k\n            if shift >= n:\n                return t  # remaining length 0 => always possible to revert\n            # compare prefix length n-shift with word[shift:]\n            if word[:n - shift] == word[shift:]:\n                return t\n\n        return max_t  # should always return earlier\n\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If k == n, word becomes empty then we can add any n chars back in one step,\n        # so we can revert immediately in 1 second.\n        if k == n:\n            return 1\n\n        # After t seconds, the length returned is n, but characters have shifted:\n        # the last n - k*t positions come from original prefix positions.\n        #\n        # Let m = smallest t>0 such that the substring that stays aligned\n        # equals the corresponding substring of the original word.\n        #\n        # Equivalent characterization:\n        # We need word to match itself after shifting by (t*k) modulo n,\n        # but only the positions that are \"overwritten\" by the move pattern.\n        #\n        # For this specific problem, the correct condition boils down to finding\n        # the smallest positive t such that the suffix of length n - (t*k mod n)\n        # matches the corresponding prefix after rotation by (t*k mod n).\n        #\n        # This can be expressed using Z/function on doubled string with offsets.\n        # Given n<=50, we can simply simulate rotations and check in O(n^3) safely.\n        #\n        # For each t>=1, rotation shift = (t*k) % n.\n        # The word after t operations can be made equal to initial iff\n        # the overlapping part of original under that shift can be preserved.\n        # This happens exactly when for all i where character is forced\n        # (i < n - shift), word[i] == word[i+shift] (with shift = (t*k)%n).\n        #\n        # We then choose minimal t>0 satisfying that property.\n        for t in range(1, n + 1):\n            shift = (t * k) % n\n            if shift == 0:\n                return t\n            ok = True\n            # Positions forced to match are those that come from original without change\n            # in the overlap: i in [0, n-shift)\n            for i in range(n - shift):\n                if word[i] != word[i + shift]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        return n  # should never reach due to constraints\n```",
+          "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # Each second removes k prefix chars, and appends k chars.\n        # After t seconds, the prefix removed corresponds to a length (t*k) segment.\n        # The word matches the initial word iff there is some rotation back to self:\n        # i.e., word equals its rotation by (t*k) mod n.\n        shift = k % n\n        if shift == 0:\n            return 1  # always reverts in 1 step (remove whole blocks)\n\n        rotated = word\n        for t in range(1, n + 1):\n            # rotation by t*k positions to the left:\n            rotated = rotated[shift:] + rotated[:shift]\n            if rotated == word:\n                return t\n\n        # Given constraints, it must revert by some t <= n\n        return n\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed string word and an integer k.\nAt every second, you must perform the following operations:\n\nRemove the first k characters of word.\nAdd any k characters to the end of word.\n\nNote that you do not necessarily need to add the same characters that you removed. However, you must perform both operations at every second.\nReturn the minimum time greater than zero required for word to revert to its initial state.\n \nExample 1:\n\nInput: word = \"abacaba\", k = 3\nOutput: 2\nExplanation: At the 1st second, we remove characters \"aba\" from the prefix of word, and add characters \"bac\" to the end of word. Thus, word becomes equal to \"cababac\".\nAt the 2nd second, we remove characters \"cab\" from the prefix of word, and add \"aba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state.\nIt can be shown that 2 seconds is the minimum time greater than zero required for word to revert to its initial state.\n\nExample 2:\n\nInput: word = \"abacaba\", k = 4\nOutput: 1\nExplanation: At the 1st second, we remove characters \"abac\" from the prefix of word, and add characters \"caba\" to the end of word. Thus, word becomes equal to \"abacaba\" and reverts to its initial state.\nIt can be shown that 1 second is the minimum time greater than zero required for word to revert to its initial state.\n\nExample 3:\n\nInput: word = \"abcbabcd\", k = 2\nOutput: 4\nExplanation: At every second, we will remove the first 2 characters of word, and add the same characters to the end of word.\nAfter 4 seconds, word becomes equal to \"abcbabcd\" and reverts to its initial state.\nIt can be shown that 4 seconds is the minimum time greater than zero required for word to revert to its initial state.\n\n \nConstraints:\n\n1 <= word.length <= 50 \n1 <= k <= word.length\nword consists only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # We are applying a cyclic transformation of blocks.\n        # After t seconds, the word equals the initial word iff the suffix\n        # that stays matches the corresponding prefix, which reduces to:\n        # word[ t*k : ] == word[ : n - t*k ]  (when t*k < n), and if t*k == n\n        # the shift matches by construction.\n        # The minimum t>0 is the smallest such that t*k is a multiple of the\n        # \"block period\" implied by k-shifts.\n        #\n        # Equivalent and simpler known approach:\n        # Let m be number of possible full k-block steps: n//gcd(n,k) gives cycle length.\n        # But we must ensure we can align by choosing added blocks appropriately.\n        # The correct answer is the smallest t>0 where the rotation by t*k positions\n        # leaves word unchanged, i.e. word is invariant under that rotation.\n        #\n        # Rotation by s = t*k:\n        # word == word[s:] + word[:s]  => for all i: word[i] == word[(i+s)%n]\n        # This is true iff s is a period in the cyclic sense.\n        #\n        # So compute smallest t>0 such that s=t*k is a cyclic period:\n        # word[i] == word[(i+s)%n] for all i.\n        #\n        # Since n<=50 we can brute t up to cycle length.\n\n        def is_rotation_invariant(s: int) -> bool:\n            for i in range(n):\n                if word[i] != word[(i + s) % n]:\n                    return False\n            return True\n\n        max_steps = n  # safe bound with n<=50\n        for t in range(1, max_steps + 1):\n            s = (t * k) % n\n            if is_rotation_invariant(s):\n                return t\n\n        # Problem guarantees a solution exists (at worst, cycle length).\n        return max_steps\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # After t seconds, the first t*k characters have been removed and\n        # the same amount has been appended. This means we just need to\n        # find the smallest t>0 such that the last (n - t*k) part aligns\n        # with the corresponding prefix of the original word.\n        #\n        # Equivalent condition:\n        # Let shift = t*k. We need word[shift:] == word[:n-shift] (for shift < n).\n        # For shift == n, it always matches (whole word rotated away).\n        for t in range(1, n // k + 2):\n            shift = t * k\n            if shift >= n:\n                # If shift == n, word always returns after this many seconds.\n                # (shift > n isn't possible as first operation removes only k each second;\n                # for safety we stop at the minimal feasible t above.)\n                if shift == n:\n                    return t\n                continue\n            if word[shift:] == word[: n - shift]:\n                return t\n\n        # Fallback (should not be reached due to constraints)\n        return -1\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, we will have removed the first t*k characters (mod n)\n        # and appended k each time; equivalently, word will be \"rotated\" by t*k\n        # with some freedom in choosing appended characters.\n        #\n        # Reverting to the initial state in the minimum positive time is possible\n        # iff the suffix after t*k removal matches the corresponding prefix of the\n        # original word at the wrap-around position. This is equivalent to:\n        # for some t>0 such that (t*k) % n = r, the last (n-r) chars of word\n        # equal the first (n-r) chars of word? More directly, we can check\n        # equality of the word with its rotation by r.\n        #\n        # In this problem the best we can do is find the smallest positive t\n        # such that rotating word left by t*k gives the same word.\n        # Then we can choose added blocks to realize it.\n        #\n        # Such t corresponds to smallest positive shift s = t*k (mod n) where\n        # rotation by s leaves word unchanged. Rotation invariance can be\n        # checked using the fact that for a shift s to be a period, all positions\n        # match: word[i] == word[(i+s) % n].\n        \n        def is_rotation_same(shift: int) -> bool:\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    return False\n            return True\n\n        # Try all candidate shifts induced by t = 1..n (t*k mod n repeats with period n/g)\n        # We search by time t increasing to guarantee minimum.\n        seen = set()\n        for t in range(1, n + 1):\n            s = (t * k) % n\n            if s in seen:\n                continue\n            seen.add(s)\n            if is_rotation_same(s):\n                return t\n        # The constraints guarantee a solution exists (at worst, t = n).\n        return n\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        target = word\n\n        # After each second, the string shifts left by k positions.\n        # Any such operation is equivalent to a left-rotation by k on the sequence of\n        # blocks; the word returns exactly when the total shift is a multiple of n,\n        # but it may happen earlier due to matching under block-structure constraints.\n        # For this problem, the minimal time > 0 equals the smallest t such that:\n        #   target[i] == target[(i + t*k) % n] for all i in [0..n-1]\n        # i.e., target equals itself after rotation by t*k.\n        step = k % n\n        for t in range(1, n + 1):\n            shift = (t * step) % n\n            ok = True\n            for i in range(n):\n                if target[i] != target[(i + shift) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        # Fallback (should never happen because t=n always works when shift==0)\n        return n\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, the first t*k characters are moved out in blocks.\n        # The only way to get the original string back is that the string\n        # \"matches itself\" under a cyclic shift by t*k, but the shift can\n        # only be applied within the same k-blocking structure.\n        #\n        # Key observation for this problem:\n        # Look for the smallest positive t such that removing k*t characters\n        # from the prefix and appending k*t (any choice) can restore the\n        # original word. This reduces to requiring that for all i,\n        # word[i] == word[(i + (t*k) % n)].\n        #\n        # However, because operations always remove/add in chunks of size k,\n        # the effective alignment is constrained to indices congruent modulo k.\n        # Thus we only need to find, for each residue class r in [0, k-1],\n        # the smallest shift multiple of k that makes that subsequence periodic.\n        #\n        # Let m = n / g where g = gcd(n, k). Shifting by k changes positions\n        # within each residue class by a fixed step along the cycle of length m.\n        #\n        # We can brute force t from 1..m and check if the whole string matches\n        # the required cyclic shift.\n        import math\n\n        g = math.gcd(n, k)\n        m = n // g\n        step = (k % n)\n\n        for t in range(1, m + 1):\n            shift = (t * step) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return m\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If k == n, we remove all characters each time and can add them back immediately.\n        # Minimum positive time is 1.\n        if k == n:\n            return 1\n\n        # After t seconds, the effective remaining prefix starts at index (t*k) % n,\n        # and the whole string matches the original iff word[t*k % n:] + word[:t*k % n] == word\n        # which is equivalent to a cyclic shift by s = (t*k) % n returning to the same string.\n        s = k % n\n        target_index = s\n\n        # We need smallest t > 0 such that (t*k) % n == 0 (i.e., cycle length of step k mod n)\n        # because only then the cyclic shift is by 0.\n        # The problem constraints guarantee feasibility; minimal time > 0 is the order of k mod n,\n        # which equals n / gcd(n, k).\n        from math import gcd\n        return n // gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If k == n, we remove the whole string and can add anything back.\n        # Minimum time > 0 to return to original is always 1.\n        if k == n:\n            return 1\n\n        # After t seconds, the prefix removed is k*t characters.\n        # The remaining characters start at index (k*t) % n within the original rotation.\n        # We need the string to be exactly the original again, which happens\n        # when rotation by (k*t) positions matches the original.\n        # That reduces to finding the smallest t>0 such that (k*t) % n == 0.\n        # Answer = n / gcd(n, k)\n        import math\n        return n // math.gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If we consider the initial word w[0..n-1], after t seconds:\n        # The prefix of length n - (t*k) (mod n) aligns with suffix/prefix shifts.\n        # The operation is equivalent to a cyclic left shift by t*k (mod n).\n        # We want the minimum t > 0 such that word == word shifted by t*k (mod n),\n        # i.e., word has period d = gcd(n, k) and the shift aligns when t*k is a multiple of n.\n        # Minimal positive t satisfying t*k ≡ 0 (mod n) is n / gcd(n, k).\n        from math import gcd\n        return n // gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # We remove k from front and append k at back each second.\n        # After t seconds, positions 0..n-k*t-1 come from original positions t*k..,\n        # so for the string to match original, the suffix/prefix overlap must align:\n        # original[i] == original[i + (t*k)] for all i such that i + t*k < n.\n        # This is equivalent to finding smallest t>0 such that\n        # word is periodic with period d = t*k on the range where it compares.\n        #\n        # We can simulate check by comparing word[0:n-d] with word[d:n].\n        # Note: t can be at most n//gcd(n,k); but brute t is fine for n<=50.\n        max_t = n  # safe upper bound\n        for t in range(1, max_t + 1):\n            d = (t * k) % n  # effectively shift by d due to cyclic movement after full wraps\n            if d == 0:\n                # if d==0 then the shift is full-cycle, always possible\n                return t\n            # Need equality under cyclic shift by d:\n            # Since we can choose appended characters arbitrarily, the only constraint\n            # is that the remaining prefix after each second matches what would be\n            # there under that cyclic shift. This reduces to requiring word[i]==word[(i+d)%n].\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + d) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        # Should never reach here because eventually d=0 for some t\n        return max_t\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, we've removed t*k prefix chars, so the remaining\n        # prefix segment corresponds to word[t*k : t*k + n - t*k] which must\n        # align with the original word for the whole string to match.\n        # This requires that some t>=1 satisfies:\n        # for i in [0..n-1], word[i] == word[(t*k + i) % n]\n        # i.e., word equals a rotation by shift = (t*k mod n).\n        # We need the smallest positive t such that shift generates a rotation\n        # that leaves the string unchanged; equivalently, shift is a period.\n        \n        # Compute minimal positive shift s (1..n-1) such that rotating by s returns the word.\n        # This is the standard \"smallest rotation\" problem via period.\n        # Let s be a rotation shift. Then for all i, word[i] == word[(i+s) % n].\n        # This is equivalent to requiring that word is periodic with period d = gcd(n, s),\n        # but we can just directly test candidate shifts derived from multiples of k.\n        \n        def same_rotation(shift: int) -> bool:\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    return False\n            return True\n\n        # The shift after t seconds is (t*k) % n.\n        # We need smallest t>0 where this shift is a \"symmetry\" rotation.\n        # t is at most n because shifts repeat with period n/gcd(n,k) in t.\n        max_t = n // __import__(\"math\").gcd(n, k)\n        for t in range(1, max_t + 1):\n            if same_rotation((t * k) % n):\n                return t\n        return max_t\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3297",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 1,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 5,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 6,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 7,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 8,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # We are applying a cyclic transformation of blocks.\n        # After t seconds, the word equals the initial word iff the suffix\n        # that stays matches the corresponding prefix, which reduces to:\n        # word[ t*k : ] == word[ : n - t*k ]  (when t*k < n), and if t*k == n\n        # the shift matches by construction.\n        # The minimum t>0 is the smallest such that t*k is a multiple of the\n        # \"block period\" implied by k-shifts.\n        #\n        # Equivalent and simpler known approach:\n        # Let m be number of possible full k-block steps: n//gcd(n,k) gives cycle length.\n        # But we must ensure we can align by choosing added blocks appropriately.\n        # The correct answer is the smallest t>0 where the rotation by t*k positions\n        # leaves word unchanged, i.e. word is invariant under that rotation.\n        #\n        # Rotation by s = t*k:\n        # word == word[s:] + word[:s]  => for all i: word[i] == word[(i+s)%n]\n        # This is true iff s is a period in the cyclic sense.\n        #\n        # So compute smallest t>0 such that s=t*k is a cyclic period:\n        # word[i] == word[(i+s)%n] for all i.\n        #\n        # Since n<=50 we can brute t up to cycle length.\n\n        def is_rotation_invariant(s: int) -> bool:\n            for i in range(n):\n                if word[i] != word[(i + s) % n]:\n                    return False\n            return True\n\n        max_steps = n  # safe bound with n<=50\n        for t in range(1, max_steps + 1):\n            s = (t * k) % n\n            if is_rotation_invariant(s):\n                return t\n\n        # Problem guarantees a solution exists (at worst, cycle length).\n        return max_steps\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # After t seconds, the first t*k characters have been removed and\n        # the same amount has been appended. This means we just need to\n        # find the smallest t>0 such that the last (n - t*k) part aligns\n        # with the corresponding prefix of the original word.\n        #\n        # Equivalent condition:\n        # Let shift = t*k. We need word[shift:] == word[:n-shift] (for shift < n).\n        # For shift == n, it always matches (whole word rotated away).\n        for t in range(1, n // k + 2):\n            shift = t * k\n            if shift >= n:\n                # If shift == n, word always returns after this many seconds.\n                # (shift > n isn't possible as first operation removes only k each second;\n                # for safety we stop at the minimal feasible t above.)\n                if shift == n:\n                    return t\n                continue\n            if word[shift:] == word[: n - shift]:\n                return t\n\n        # Fallback (should not be reached due to constraints)\n        return -1\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, we will have removed the first t*k characters (mod n)\n        # and appended k each time; equivalently, word will be \"rotated\" by t*k\n        # with some freedom in choosing appended characters.\n        #\n        # Reverting to the initial state in the minimum positive time is possible\n        # iff the suffix after t*k removal matches the corresponding prefix of the\n        # original word at the wrap-around position. This is equivalent to:\n        # for some t>0 such that (t*k) % n = r, the last (n-r) chars of word\n        # equal the first (n-r) chars of word? More directly, we can check\n        # equality of the word with its rotation by r.\n        #\n        # In this problem the best we can do is find the smallest positive t\n        # such that rotating word left by t*k gives the same word.\n        # Then we can choose added blocks to realize it.\n        #\n        # Such t corresponds to smallest positive shift s = t*k (mod n) where\n        # rotation by s leaves word unchanged. Rotation invariance can be\n        # checked using the fact that for a shift s to be a period, all positions\n        # match: word[i] == word[(i+s) % n].\n        \n        def is_rotation_same(shift: int) -> bool:\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    return False\n            return True\n\n        # Try all candidate shifts induced by t = 1..n (t*k mod n repeats with period n/g)\n        # We search by time t increasing to guarantee minimum.\n        seen = set()\n        for t in range(1, n + 1):\n            s = (t * k) % n\n            if s in seen:\n                continue\n            seen.add(s)\n            if is_rotation_same(s):\n                return t\n        # The constraints guarantee a solution exists (at worst, t = n).\n        return n\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        target = word\n\n        # After each second, the string shifts left by k positions.\n        # Any such operation is equivalent to a left-rotation by k on the sequence of\n        # blocks; the word returns exactly when the total shift is a multiple of n,\n        # but it may happen earlier due to matching under block-structure constraints.\n        # For this problem, the minimal time > 0 equals the smallest t such that:\n        #   target[i] == target[(i + t*k) % n] for all i in [0..n-1]\n        # i.e., target equals itself after rotation by t*k.\n        step = k % n\n        for t in range(1, n + 1):\n            shift = (t * step) % n\n            ok = True\n            for i in range(n):\n                if target[i] != target[(i + shift) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n\n        # Fallback (should never happen because t=n always works when shift==0)\n        return n\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, the first t*k characters are moved out in blocks.\n        # The only way to get the original string back is that the string\n        # \"matches itself\" under a cyclic shift by t*k, but the shift can\n        # only be applied within the same k-blocking structure.\n        #\n        # Key observation for this problem:\n        # Look for the smallest positive t such that removing k*t characters\n        # from the prefix and appending k*t (any choice) can restore the\n        # original word. This reduces to requiring that for all i,\n        # word[i] == word[(i + (t*k) % n)].\n        #\n        # However, because operations always remove/add in chunks of size k,\n        # the effective alignment is constrained to indices congruent modulo k.\n        # Thus we only need to find, for each residue class r in [0, k-1],\n        # the smallest shift multiple of k that makes that subsequence periodic.\n        #\n        # Let m = n / g where g = gcd(n, k). Shifting by k changes positions\n        # within each residue class by a fixed step along the cycle of length m.\n        #\n        # We can brute force t from 1..m and check if the whole string matches\n        # the required cyclic shift.\n        import math\n\n        g = math.gcd(n, k)\n        m = n // g\n        step = (k % n)\n\n        for t in range(1, m + 1):\n            shift = (t * step) % n\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        return m\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If k == n, we remove all characters each time and can add them back immediately.\n        # Minimum positive time is 1.\n        if k == n:\n            return 1\n\n        # After t seconds, the effective remaining prefix starts at index (t*k) % n,\n        # and the whole string matches the original iff word[t*k % n:] + word[:t*k % n] == word\n        # which is equivalent to a cyclic shift by s = (t*k) % n returning to the same string.\n        s = k % n\n        target_index = s\n\n        # We need smallest t > 0 such that (t*k) % n == 0 (i.e., cycle length of step k mod n)\n        # because only then the cyclic shift is by 0.\n        # The problem constraints guarantee feasibility; minimal time > 0 is the order of k mod n,\n        # which equals n / gcd(n, k).\n        from math import gcd\n        return n // gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If k == n, we remove the whole string and can add anything back.\n        # Minimum time > 0 to return to original is always 1.\n        if k == n:\n            return 1\n\n        # After t seconds, the prefix removed is k*t characters.\n        # The remaining characters start at index (k*t) % n within the original rotation.\n        # We need the string to be exactly the original again, which happens\n        # when rotation by (k*t) positions matches the original.\n        # That reduces to finding the smallest t>0 such that (k*t) % n == 0.\n        # Answer = n / gcd(n, k)\n        import math\n        return n // math.gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n\n        # If we consider the initial word w[0..n-1], after t seconds:\n        # The prefix of length n - (t*k) (mod n) aligns with suffix/prefix shifts.\n        # The operation is equivalent to a cyclic left shift by t*k (mod n).\n        # We want the minimum t > 0 such that word == word shifted by t*k (mod n),\n        # i.e., word has period d = gcd(n, k) and the shift aligns when t*k is a multiple of n.\n        # Minimal positive t satisfying t*k ≡ 0 (mod n) is n / gcd(n, k).\n        from math import gcd\n        return n // gcd(n, k)\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # We remove k from front and append k at back each second.\n        # After t seconds, positions 0..n-k*t-1 come from original positions t*k..,\n        # so for the string to match original, the suffix/prefix overlap must align:\n        # original[i] == original[i + (t*k)] for all i such that i + t*k < n.\n        # This is equivalent to finding smallest t>0 such that\n        # word is periodic with period d = t*k on the range where it compares.\n        #\n        # We can simulate check by comparing word[0:n-d] with word[d:n].\n        # Note: t can be at most n//gcd(n,k); but brute t is fine for n<=50.\n        max_t = n  # safe upper bound\n        for t in range(1, max_t + 1):\n            d = (t * k) % n  # effectively shift by d due to cyclic movement after full wraps\n            if d == 0:\n                # if d==0 then the shift is full-cycle, always possible\n                return t\n            # Need equality under cyclic shift by d:\n            # Since we can choose appended characters arbitrarily, the only constraint\n            # is that the remaining prefix after each second matches what would be\n            # there under that cyclic shift. This reduces to requiring word[i]==word[(i+d)%n].\n            ok = True\n            for i in range(n):\n                if word[i] != word[(i + d) % n]:\n                    ok = False\n                    break\n            if ok:\n                return t\n        # Should never reach here because eventually d=0 for some t\n        return max_t\n```",
+        "```python\nclass Solution:\n    def minimumTimeToInitialState(self, word: str, k: int) -> int:\n        n = len(word)\n        # After t seconds, we've removed t*k prefix chars, so the remaining\n        # prefix segment corresponds to word[t*k : t*k + n - t*k] which must\n        # align with the original word for the whole string to match.\n        # This requires that some t>=1 satisfies:\n        # for i in [0..n-1], word[i] == word[(t*k + i) % n]\n        # i.e., word equals a rotation by shift = (t*k mod n).\n        # We need the smallest positive t such that shift generates a rotation\n        # that leaves the string unchanged; equivalently, shift is a period.\n        \n        # Compute minimal positive shift s (1..n-1) such that rotating by s returns the word.\n        # This is the standard \"smallest rotation\" problem via period.\n        # Let s be a rotation shift. Then for all i, word[i] == word[(i+s) % n].\n        # This is equivalent to requiring that word is periodic with period d = gcd(n, s),\n        # but we can just directly test candidate shifts derived from multiples of k.\n        \n        def same_rotation(shift: int) -> bool:\n            for i in range(n):\n                if word[i] != word[(i + shift) % n]:\n                    return False\n            return True\n\n        # The shift after t seconds is (t*k) % n.\n        # We need smallest t>0 where this shift is a \"symmetry\" rotation.\n        # t is at most n because shifts repeat with period n/gcd(n,k) in t.\n        max_t = n // __import__(\"math\").gcd(n, k)\n        for t in range(1, max_t + 1):\n            if same_rotation((t * k) % n):\n                return t\n        return max_t\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3297",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 1,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 5,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 6,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 7,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 8,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3297",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "25",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.0,
+      "augmented_pass_rate": 0.0,
+      "improvement": 0.0
+    }
+  }
+}

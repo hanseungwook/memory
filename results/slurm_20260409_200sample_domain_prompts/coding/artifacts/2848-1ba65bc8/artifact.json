@@ -1,0 +1,3051 @@
+{
+  "problem_id": "2848",
+  "domain": "coding",
+  "problem": {
+    "id": "2848",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed integer array nums containing n distinct positive integers. A permutation of nums is called special if:\n\nFor all indexes 0 <= i < n - 1, either nums[i] % nums[i+1] == 0 or nums[i+1] % nums[i] == 0.\n\nReturn the total number of special permutations. As the answer could be large, return it modulo 10^9 + 7.\n \nExample 1:\n\nInput: nums = [2,3,6]\nOutput: 2\nExplanation: [3,6,2] and [2,6,3] are the two special permutations of nums.\n\nExample 2:\n\nInput: nums = [1,4,3]\nOutput: 2\nExplanation: [3,1,4] and [4,1,3] are the two special permutations of nums.\n\n \nConstraints:\n\n2 <= nums.length <= 14\n1 <= nums[i] <= 10^9",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[2, 3, 6]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 4, 3]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 6]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 9]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[9, 3]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[8, 2]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 4]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 19]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[10, 4, 3]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[14, 7, 8]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[296573006, 843224034, 611728152, 710630427, 167640710, 512370634, 670120901, 726495939, 771393204, 404562485, 406564308, 199755311, 985371443, 874785529]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[862055003, 862055004, 862055005, 862055006, 862055007, 862055008, 862055009, 862055010, 862055011, 862055012, 862055013, 862055014, 862055015, 862055016]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[100000007, 200000014, 300000021, 400000028, 500000035, 600000042, 700000049, 800000056, 900000063, 1000000070, 1100000077, 1200000084, 1300000091, 1400000098]",
+        "output": "0",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "specialPerm",
+      "question_title": "special-permutations",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed integer array nums containing n distinct positive integers. A permutation of nums is called special if:\n\nFor all indexes 0 <= i < n - 1, either nums[i] % nums[i+1] == 0 or nums[i+1] % nums[i] == 0.\n\nReturn the total number of special permutations. As the answer could be large, return it modulo 10^9 + 7.\n \nExample 1:\n\nInput: nums = [2,3,6]\nOutput: 2\nExplanation: [3,6,2] and [2,6,3] are the two special permutations of nums.\n\nExample 2:\n\nInput: nums = [1,4,3]\nOutput: 2\nExplanation: [3,1,4] and [4,1,3] are the two special permutations of nums.\n\n \nConstraints:\n\n2 <= nums.length <= 14\n1 <= nums[i] <= 10^9\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Build adjacency: i -> j if nums[i] can be next to nums[j] in either direction condition\n        # Condition: nums[i] % nums[j] == 0 OR nums[j] % nums[i] == 0\n        adj = [[False]*n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i][j] = True\n        \n        # dp[mask][last] = number of ways to build permutation using indices in mask ending at last\n        # We'll compute via memoized recursion to keep code compact.\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << n) - 1:\n                return 1\n            res = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and adj[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n        \n        # Start from each index as the first element\n        ans = 0\n        for i in range(n):\n            ans = (ans + dp(1 << i, i)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: i -> j allowed if nums[i] divides nums[j] or vice versa\n        adj = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i].append(j)\n\n        size = 1 << n\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # number of ways to build a valid special permutation using exactly\n            # elements in mask, ending with index last\n            if mask == (1 << last):\n                return 1\n            prev_mask = mask ^ (1 << last)\n            total = 0\n            # previous element must be prev with edge prev -> last\n            for prev in range(n):\n                if (prev_mask >> prev) & 1:\n                    # check compatibility between prev and last\n                    a, b = nums[prev], nums[last]\n                    if a % b == 0 or b % a == 0:\n                        total += dp(prev_mask, prev)\n            return total % MOD\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        nums.sort()\n\n        # Precompute adjacency: can go i -> j if divisible either way\n        adj = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # number of special permutations that use exactly elements in mask,\n            # ending at index last\n            if mask == (1 << last):\n                return 1\n            total = 0\n            prev_mask = mask ^ (1 << last)\n            for prev in range(n):\n                if prev_mask & (1 << prev) and adj[prev][last]:\n                    total = (total + dp(prev_mask, prev)) % MOD\n            return total\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute compatibility: edge i -> j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i == j:\n                    continue\n                a, b = nums[i], nums[j]\n                ok[i][j] = (a % b == 0) or (b % a == 0)\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"Number of ways to form permutation of elements in 'mask'\n               ending with index 'last'.\"\"\"\n            if mask == (1 << last):\n                return 1\n            prev_mask = mask ^ (1 << last)\n            ans = 0\n            # try all possible previous indices k\n            for k in range(n):\n                if (prev_mask >> k) & 1 and ok[k][last]:\n                    ans += dp(prev_mask, k)\n            return ans % MOD\n\n        full = (1 << n) - 1\n        res = 0\n        for last in range(n):\n            res += dp(full, last)\n        return res % MOD\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Build adjacency: i -> j if nums[i] divides nums[j] or nums[j] divides nums[i]\n        adj = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i == j:\n                    continue\n                a, b = nums[i], nums[j]\n                if a % b == 0 or b % a == 0:\n                    adj[i].append(j)\n        \n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"\n            Number of ways to build a special permutation using exactly the elements in `mask`,\n            ending at index `last`.\n            \"\"\"\n            if mask & (mask - 1) == 0:  # only one bit set\n                return 1\n            prev_mask = mask ^ (1 << last)\n            res = 0\n            # previous index must connect to `last`\n            for p in adj[last]:\n                if prev_mask & (1 << p):\n                    res += dp(prev_mask, p)\n            return res % MOD\n        \n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute valid adjacency: i -> j if nums[i] divides nums[j] or vice versa\n        adj = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # Number of ways to build a special permutation using elements in mask\n            # and ending with index 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if not (mask & (1 << nxt)) and adj[last][nxt]:\n                    ans += dp(mask | (1 << nxt), nxt)\n                    if ans >= MOD:\n                        ans %= MOD\n            return ans % MOD\n\n        total = 0\n        for start in range(n):\n            total += dp(1 << start, start)\n            total %= MOD\n        return total\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Precompute compatibility: i -> j allowed if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n        \n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and ok[last][nxt]:\n                    ans = (ans + dp(mask | (1 << nxt), nxt)) % MOD\n            return ans\n        \n        total = 0\n        for start in range(n):\n            total = (total + dp(1 << start, start)) % MOD\n        return total\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        nums.sort()\n        \n        # adj[i] contains all j != i such that nums[i] can be adjacent to nums[j]\n        # (i.e., either nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0).\n        adj = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i].append(j)\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"Number of ways to build a special permutation using exactly indices in mask,\n            ending at position 'last' (where last is one of the chosen indices).\"\"\"\n            if mask == (1 << n) - 1:\n                return 1\n            total = 0\n            for nxt in adj[last]:\n                if not (mask & (1 << nxt)):\n                    total = (total + dp(mask | (1 << nxt), nxt)) % MOD\n            return total\n\n        ans = 0\n        for i in range(n):\n            ans = (ans + dp(1 << i, i)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        a = nums\n\n        # adjacency: can i be followed by j?\n        can = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    x, y = a[i], a[j]\n                    can[i][j] = (x % y == 0) or (y % x == 0)\n\n        # dp[mask][last] = ways to build permutation using indices in mask ending at last\n        # Use top-down memoization for efficiency.\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << last):\n                return 1\n            prev_mask = mask ^ (1 << last)\n            total = 0\n            # try all prev indices\n            m = prev_mask\n            while m:\n                i = (m & -m).bit_length() - 1\n                if can[i][last]:\n                    total += dp(prev_mask, i)\n                total %= MOD\n                m &= m - 1\n            return total\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: ok[i][j] means nums[i] can be followed by nums[j]\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        full = (1 << n) - 1\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == full:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if ok[last][nxt]:\n                    ans = (ans + dp(mask | (1 << nxt), nxt)) % MOD\n            return ans\n\n        res = 0\n        for i in range(n):\n            res = (res + dp(1 << i, i)) % MOD\n        return res\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2848",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Build adjacency: i -> j if nums[i] can be next to nums[j] in either direction condition\n        # Condition: nums[i] % nums[j] == 0 OR nums[j] % nums[i] == 0\n        adj = [[False]*n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i][j] = True\n        \n        # dp[mask][last] = number of ways to build permutation using indices in mask ending at last\n        # We'll compute via memoized recursion to keep code compact.\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << n) - 1:\n                return 1\n            res = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and adj[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n        \n        # Start from each index as the first element\n        ans = 0\n        for i in range(n):\n            ans = (ans + dp(1 << i, i)) % MOD\n        return ans\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: i -> j allowed if nums[i] divides nums[j] or vice versa\n        adj = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i].append(j)\n\n        size = 1 << n\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # number of ways to build a valid special permutation using exactly\n            # elements in mask, ending with index last\n            if mask == (1 << last):\n                return 1\n            prev_mask = mask ^ (1 << last)\n            total = 0\n            # previous element must be prev with edge prev -> last\n            for prev in range(n):\n                if (prev_mask >> prev) & 1:\n                    # check compatibility between prev and last\n                    a, b = nums[prev], nums[last]\n                    if a % b == 0 or b % a == 0:\n                        total += dp(prev_mask, prev)\n            return total % MOD\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        nums.sort()\n\n        # Precompute adjacency: can go i -> j if divisible either way\n        adj = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # number of special permutations that use exactly elements in mask,\n            # ending at index last\n            if mask == (1 << last):\n                return 1\n            total = 0\n            prev_mask = mask ^ (1 << last)\n            for prev in range(n):\n                if prev_mask & (1 << prev) and adj[prev][last]:\n                    total = (total + dp(prev_mask, prev)) % MOD\n            return total\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute compatibility: edge i -> j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i == j:\n                    continue\n                a, b = nums[i], nums[j]\n                ok[i][j] = (a % b == 0) or (b % a == 0)\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"Number of ways to form permutation of elements in 'mask'\n               ending with index 'last'.\"\"\"\n            if mask == (1 << last):\n                return 1\n            prev_mask = mask ^ (1 << last)\n            ans = 0\n            # try all possible previous indices k\n            for k in range(n):\n                if (prev_mask >> k) & 1 and ok[k][last]:\n                    ans += dp(prev_mask, k)\n            return ans % MOD\n\n        full = (1 << n) - 1\n        res = 0\n        for last in range(n):\n            res += dp(full, last)\n        return res % MOD\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Build adjacency: i -> j if nums[i] divides nums[j] or nums[j] divides nums[i]\n        adj = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i == j:\n                    continue\n                a, b = nums[i], nums[j]\n                if a % b == 0 or b % a == 0:\n                    adj[i].append(j)\n        \n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"\n            Number of ways to build a special permutation using exactly the elements in `mask`,\n            ending at index `last`.\n            \"\"\"\n            if mask & (mask - 1) == 0:  # only one bit set\n                return 1\n            prev_mask = mask ^ (1 << last)\n            res = 0\n            # previous index must connect to `last`\n            for p in adj[last]:\n                if prev_mask & (1 << p):\n                    res += dp(prev_mask, p)\n            return res % MOD\n        \n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute valid adjacency: i -> j if nums[i] divides nums[j] or vice versa\n        adj = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # Number of ways to build a special permutation using elements in mask\n            # and ending with index 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if not (mask & (1 << nxt)) and adj[last][nxt]:\n                    ans += dp(mask | (1 << nxt), nxt)\n                    if ans >= MOD:\n                        ans %= MOD\n            return ans % MOD\n\n        total = 0\n        for start in range(n):\n            total += dp(1 << start, start)\n            total %= MOD\n        return total\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Precompute compatibility: i -> j allowed if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n        \n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and ok[last][nxt]:\n                    ans = (ans + dp(mask | (1 << nxt), nxt)) % MOD\n            return ans\n        \n        total = 0\n        for start in range(n):\n            total = (total + dp(1 << start, start)) % MOD\n        return total\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        nums.sort()\n        \n        # adj[i] contains all j != i such that nums[i] can be adjacent to nums[j]\n        # (i.e., either nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0).\n        adj = [[] for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        adj[i].append(j)\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"Number of ways to build a special permutation using exactly indices in mask,\n            ending at position 'last' (where last is one of the chosen indices).\"\"\"\n            if mask == (1 << n) - 1:\n                return 1\n            total = 0\n            for nxt in adj[last]:\n                if not (mask & (1 << nxt)):\n                    total = (total + dp(mask | (1 << nxt), nxt)) % MOD\n            return total\n\n        ans = 0\n        for i in range(n):\n            ans = (ans + dp(1 << i, i)) % MOD\n        return ans\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        a = nums\n\n        # adjacency: can i be followed by j?\n        can = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    x, y = a[i], a[j]\n                    can[i][j] = (x % y == 0) or (y % x == 0)\n\n        # dp[mask][last] = ways to build permutation using indices in mask ending at last\n        # Use top-down memoization for efficiency.\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << last):\n                return 1\n            prev_mask = mask ^ (1 << last)\n            total = 0\n            # try all prev indices\n            m = prev_mask\n            while m:\n                i = (m & -m).bit_length() - 1\n                if can[i][last]:\n                    total += dp(prev_mask, i)\n                total %= MOD\n                m &= m - 1\n            return total\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp(full, last)) % MOD\n        return ans\n```",
+          "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: ok[i][j] means nums[i] can be followed by nums[j]\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        full = (1 << n) - 1\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == full:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if ok[last][nxt]:\n                    ans = (ans + dp(mask | (1 << nxt), nxt)) % MOD\n            return ans\n\n        res = 0\n        for i in range(n):\n            res = (res + dp(1 << i, i)) % MOD\n        return res\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed integer array nums containing n distinct positive integers. A permutation of nums is called special if:\n\nFor all indexes 0 <= i < n - 1, either nums[i] % nums[i+1] == 0 or nums[i+1] % nums[i] == 0.\n\nReturn the total number of special permutations. As the answer could be large, return it modulo 10^9 + 7.\n \nExample 1:\n\nInput: nums = [2,3,6]\nOutput: 2\nExplanation: [3,6,2] and [2,6,3] are the two special permutations of nums.\n\nExample 2:\n\nInput: nums = [1,4,3]\nOutput: 2\nExplanation: [3,1,4] and [4,1,3] are the two special permutations of nums.\n\n \nConstraints:\n\n2 <= nums.length <= 14\n1 <= nums[i] <= 10^9\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        nums = list(nums)\n\n        # Precompute adjacency: can go from i to j if divisible either way\n        can = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    can[i][j] = True\n\n        # DP over subsets, last element index\n        # dp[mask][last] = number of ways to build permutation using elements in mask ending at last\n        # We'll implement via recursion + memoization for efficiency/clarity.\n        full_mask = (1 << n) - 1\n\n        @lru_cache(None)\n        def dfs(mask: int, last: int) -> int:\n            if mask == full_mask:\n                return 1\n            total = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if can[last][nxt]:\n                    total += dfs(mask | (1 << nxt), nxt)\n            return total % MOD\n\n        ans = 0\n        for start in range(n):\n            ans += dfs(1 << start, start)\n        return ans % MOD\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # adjacency mask: i -> j allowed if divisible either way\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        # dp[mask][last] = number of ways to build a special permutation\n        # using exactly elements in mask, ending with index last.\n        # We'll implement with memoization over (mask,last).\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if ok[last][nxt]:\n                    ans += dp(mask | (1 << nxt), nxt)\n            return ans % MOD\n\n        res = 0\n        for start in range(n):\n            res = (res + dp(1 << start, start)) % MOD\n        return res\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Build adjacency: i -> j if nums[i] and nums[j] are compatible by divisibility\n        ok = [[False]*n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        # DP over subsets:\n        # dp[mask][last] = number of ways to build a special permutation using elements in mask,\n        # ending at index last.\n        # Use memoized recursion to keep code compact.\n        @lru_cache(None)\n        def dfs(mask: int, last: int) -> int:\n            if mask == (1 << n) - 1:\n                return 1\n            total = 0\n            for nxt in range(n):\n                if not (mask >> nxt) & 1 and ok[last][nxt]:\n                    total += dfs(mask | (1 << nxt), nxt)\n                    if total >= MOD:\n                        total %= MOD\n            return total % MOD\n\n        ans = 0\n        for start in range(n):\n            ans += dfs(1 << start, start)\n            ans %= MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        # Build adjacency: edge i->j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    ok[i][j] = (a % b == 0) or (b % a == 0)\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # number of ways to build a special permutation using indices in mask\n            # ending with 'last' (where last is included in mask)\n            if mask == (1 << n) - 1:\n                return 1\n            res = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and ok[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n\n        ans = 0\n        for start in range(n):\n            ans = (ans + dp(1 << start, start)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: can i be followed by j?\n        can = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        can[i][j] = True\n\n        full_mask = (1 << n) - 1\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == full_mask:\n                return 1\n            res = 0\n            # try next\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if can[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n\n        ans = 0\n        for start in range(n):\n            ans = (ans + dp(1 << start, start)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Edge i->j if nums[i] divides nums[j] or nums[j] divides nums[i]\n        ok = [[False]*n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        # dp[mask][last] = ways to build a special permutation using elements in mask,\n        # ending with index last.\n        size = 1 << n\n        dp = [ [0]*n for _ in range(size) ]\n        \n        for i in range(n):\n            dp[1 << i][i] = 1\n        \n        for mask in range(size):\n            for last in range(n):\n                ways = dp[mask][last]\n                if ways == 0:\n                    continue\n                for nxt in range(n):\n                    if (mask >> nxt) & 1:\n                        continue\n                    if ok[last][nxt]:\n                        dp[mask | (1 << nxt)][nxt] = (dp[mask | (1 << nxt)][nxt] + ways) % MOD\n\n        full = size - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp[full][last]) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Precompute divisibility compatibility\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if not (mask & (1 << nxt)) and ok[last][nxt]:\n                    ans = (ans + dp(mask | (1 << nxt), nxt)) % MOD\n            return ans\n\n        res = 0\n        for i in range(n):\n            res = (res + dp(1 << i, i)) % MOD\n        return res\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        nums_sorted_idx = list(range(n))  # just to be explicit\n\n        # Build compatibility: i -> j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n\n        full_mask = (1 << n) - 1\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"\n            Number of ways to build a special permutation of the subset 'mask'\n            that ends with index 'last'.\n            \"\"\"\n            if mask == (1 << last):\n                return 1\n            ans = 0\n            prev_mask = mask ^ (1 << last)\n            # Try all possible previous indices\n            for prev in range(n):\n                if (prev_mask >> prev) & 1 and ok[prev][last]:\n                    ans = (ans + dp(prev_mask, prev)) % MOD\n            return ans\n\n        res = 0\n        for last in range(n):\n            res = (res + dp(full_mask, last)) % MOD\n        return res\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Precompute adjacency: i -> j if nums[i] and nums[j] are compatible\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            res = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and ok[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n\n        ans = 0\n        for i in range(n):\n            ans = (ans + dp(1 << i, i)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: edge i->j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n\n        # DP over subsets:\n        # dp[mask][last] = number of ways to form permutation using indices in mask ending at last\n        size = 1 << n\n\n        # Using memoized recursion\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << last):\n                return 1\n            res = 0\n            prev_mask = mask ^ (1 << last)\n            # try previous index k\n            m = prev_mask\n            while m:\n                k_bit = m & -m\n                k = (k_bit.bit_length() - 1)\n                if ok[k][last]:\n                    res += dp(prev_mask, k)\n                res %= MOD\n                m -= k_bit\n            return res\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans += dp(full, last)\n            ans %= MOD\n        return ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2848",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        nums = list(nums)\n\n        # Precompute adjacency: can go from i to j if divisible either way\n        can = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    can[i][j] = True\n\n        # DP over subsets, last element index\n        # dp[mask][last] = number of ways to build permutation using elements in mask ending at last\n        # We'll implement via recursion + memoization for efficiency/clarity.\n        full_mask = (1 << n) - 1\n\n        @lru_cache(None)\n        def dfs(mask: int, last: int) -> int:\n            if mask == full_mask:\n                return 1\n            total = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if can[last][nxt]:\n                    total += dfs(mask | (1 << nxt), nxt)\n            return total % MOD\n\n        ans = 0\n        for start in range(n):\n            ans += dfs(1 << start, start)\n        return ans % MOD\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # adjacency mask: i -> j allowed if divisible either way\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        # dp[mask][last] = number of ways to build a special permutation\n        # using exactly elements in mask, ending with index last.\n        # We'll implement with memoization over (mask,last).\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if ok[last][nxt]:\n                    ans += dp(mask | (1 << nxt), nxt)\n            return ans % MOD\n\n        res = 0\n        for start in range(n):\n            res = (res + dp(1 << start, start)) % MOD\n        return res\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Build adjacency: i -> j if nums[i] and nums[j] are compatible by divisibility\n        ok = [[False]*n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        # DP over subsets:\n        # dp[mask][last] = number of ways to build a special permutation using elements in mask,\n        # ending at index last.\n        # Use memoized recursion to keep code compact.\n        @lru_cache(None)\n        def dfs(mask: int, last: int) -> int:\n            if mask == (1 << n) - 1:\n                return 1\n            total = 0\n            for nxt in range(n):\n                if not (mask >> nxt) & 1 and ok[last][nxt]:\n                    total += dfs(mask | (1 << nxt), nxt)\n                    if total >= MOD:\n                        total %= MOD\n            return total % MOD\n\n        ans = 0\n        for start in range(n):\n            ans += dfs(1 << start, start)\n            ans %= MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        # Build adjacency: edge i->j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    ok[i][j] = (a % b == 0) or (b % a == 0)\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # number of ways to build a special permutation using indices in mask\n            # ending with 'last' (where last is included in mask)\n            if mask == (1 << n) - 1:\n                return 1\n            res = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and ok[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n\n        ans = 0\n        for start in range(n):\n            ans = (ans + dp(1 << start, start)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: can i be followed by j?\n        can = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        can[i][j] = True\n\n        full_mask = (1 << n) - 1\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == full_mask:\n                return 1\n            res = 0\n            # try next\n            for nxt in range(n):\n                if (mask >> nxt) & 1:\n                    continue\n                if can[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n\n        ans = 0\n        for start in range(n):\n            ans = (ans + dp(1 << start, start)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n        \n        # Edge i->j if nums[i] divides nums[j] or nums[j] divides nums[i]\n        ok = [[False]*n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        # dp[mask][last] = ways to build a special permutation using elements in mask,\n        # ending with index last.\n        size = 1 << n\n        dp = [ [0]*n for _ in range(size) ]\n        \n        for i in range(n):\n            dp[1 << i][i] = 1\n        \n        for mask in range(size):\n            for last in range(n):\n                ways = dp[mask][last]\n                if ways == 0:\n                    continue\n                for nxt in range(n):\n                    if (mask >> nxt) & 1:\n                        continue\n                    if ok[last][nxt]:\n                        dp[mask | (1 << nxt)][nxt] = (dp[mask | (1 << nxt)][nxt] + ways) % MOD\n\n        full = size - 1\n        ans = 0\n        for last in range(n):\n            ans = (ans + dp[full][last]) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Precompute divisibility compatibility\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j and (nums[i] % nums[j] == 0 or nums[j] % nums[i] == 0):\n                    ok[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            ans = 0\n            for nxt in range(n):\n                if not (mask & (1 << nxt)) and ok[last][nxt]:\n                    ans = (ans + dp(mask | (1 << nxt), nxt)) % MOD\n            return ans\n\n        res = 0\n        for i in range(n):\n            res = (res + dp(1 << i, i)) % MOD\n        return res\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        nums_sorted_idx = list(range(n))  # just to be explicit\n\n        # Build compatibility: i -> j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n\n        full_mask = (1 << n) - 1\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            \"\"\"\n            Number of ways to build a special permutation of the subset 'mask'\n            that ends with index 'last'.\n            \"\"\"\n            if mask == (1 << last):\n                return 1\n            ans = 0\n            prev_mask = mask ^ (1 << last)\n            # Try all possible previous indices\n            for prev in range(n):\n                if (prev_mask >> prev) & 1 and ok[prev][last]:\n                    ans = (ans + dp(prev_mask, prev)) % MOD\n            return ans\n\n        res = 0\n        for last in range(n):\n            res = (res + dp(full_mask, last)) % MOD\n        return res\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Precompute adjacency: i -> j if nums[i] and nums[j] are compatible\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            # mask includes 'last'\n            if mask == (1 << n) - 1:\n                return 1\n            res = 0\n            for nxt in range(n):\n                if (mask >> nxt) & 1 == 0 and ok[last][nxt]:\n                    res = (res + dp(mask | (1 << nxt), nxt)) % MOD\n            return res\n\n        ans = 0\n        for i in range(n):\n            ans = (ans + dp(1 << i, i)) % MOD\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom functools import lru_cache\n\nclass Solution:\n    def specialPerm(self, nums: List[int]) -> int:\n        MOD = 10**9 + 7\n        n = len(nums)\n\n        # Precompute adjacency: edge i->j if nums[i] divides nums[j] or vice versa\n        ok = [[False] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                if i != j:\n                    a, b = nums[i], nums[j]\n                    if a % b == 0 or b % a == 0:\n                        ok[i][j] = True\n\n        # DP over subsets:\n        # dp[mask][last] = number of ways to form permutation using indices in mask ending at last\n        size = 1 << n\n\n        # Using memoized recursion\n        @lru_cache(None)\n        def dp(mask: int, last: int) -> int:\n            if mask == (1 << last):\n                return 1\n            res = 0\n            prev_mask = mask ^ (1 << last)\n            # try previous index k\n            m = prev_mask\n            while m:\n                k_bit = m & -m\n                k = (k_bit.bit_length() - 1)\n                if ok[k][last]:\n                    res += dp(prev_mask, k)\n                res %= MOD\n                m -= k_bit\n            return res\n\n        full = (1 << n) - 1\n        ans = 0\n        for last in range(n):\n            ans += dp(full, last)\n            ans %= MOD\n        return ans\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2848",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2848",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

@@ -1,0 +1,3082 @@
+{
+  "problem_id": "3207",
+  "domain": "coding",
+  "problem": {
+    "id": "3207",
+    "domain": "coding",
+    "statement": "You are given three strings s1, s2, and s3. You have to perform the following operation on these three strings as many times as you want.\nIn one operation you can choose one of these three strings such that its length is at least 2 and delete the rightmost character of it.\nReturn the minimum number of operations you need to perform to make the three strings equal if there is a way to make them equal, otherwise, return -1.\n \nExample 1:\n\nInput: s1 = \"abc\", s2 = \"abb\", s3 = \"ab\"\nOutput: 2\nExplanation: Performing operations on s1 and s2 once will lead to three equal strings.\nIt can be shown that there is no way to make them equal with less than two operations.\nExample 2:\n\nInput: s1 = \"dac\", s2 = \"bac\", s3 = \"cac\"\nOutput: -1\nExplanation: Because the leftmost letters of s1 and s2 are not equal, they could not be equal after any number of operations. So the answer is -1.\n\n \nConstraints:\n\n1 <= s1.length, s2.length, s3.length <= 100\ns1, s2 and s3 consist only of lowercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"abc\"\n\"abb\"\n\"ab\"",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"dac\"\n\"bac\"\n\"cac\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"b\"\n\"mmjz\"\n\"kdj\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"afc\"\n\"pqq\"\n\"ar\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"xwkva\"\n\"cll\"\n\"n\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"e\"\n\"fb\"\n\"fwjgomg\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"hzt\"\n\"o\"\n\"yhmcrca\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"vbatarcw\"\n\"tjxg\"\n\"w\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"hsbdv\"\n\"j\"\n\"zctejaje\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"lm\"\n\"qbp\"\n\"jfjcznqwn\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"qweutpu\"\n\"fqkjyzjfz\"\n\"zfbdy\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"lmlhoptjgfccwkgshjqpptemmnfx\"\n\"lmgbkxiezhawibcrfgj\"\n\"lptlxfxshmdkmvzuqhyvr\"",
+        "output": "65",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"tfcizfbwftcknzyuoxpynyidkuaxaodhwythwmtlsyqlodybnjshipdnyhnnfztnrcotvpnugikgdshaocrc\"\n\"tufbiyclkounoajlxkbxqysxtkomwpcwyinqfuuryjhayvizvcetzirhtmmposqimsbpsnqvqephvobuxuagharwbgcrtzqakh\"\n\"qirurybihhcprbjolpuvzsxcpuppmppafipkqkwvybjkifiuxmkkyxnrrxgvbbtil\"",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"hbhniasidxgnygbbtteuchnyouhvvxlxtjmxxxyzjhndhiruqrsydwfbufcjutvpefojrjgrvssgpbvqcms\"\n\"oxgpexzxwekxravgfwucyvxkgblahrjgizqkmhlakzrjtutqjysweersgmseqwmhrkwziosdogvfbcuvtfmizvuhqhgpculcfw\"\n\"ybqmoxugdmqhjxpxhrpilwjabcqsrxuvtiawcbwgzemklaptfmvutklzfknzomuvnpazfhpgeiixqcudneyhfqcftjwhrufa\"",
+        "output": "-1",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        ",
+    "metadata": {
+      "func_name": "findMinimumOperations",
+      "question_title": "make-three-strings-equal",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given three strings s1, s2, and s3. You have to perform the following operation on these three strings as many times as you want.\nIn one operation you can choose one of these three strings such that its length is at least 2 and delete the rightmost character of it.\nReturn the minimum number of operations you need to perform to make the three strings equal if there is a way to make them equal, otherwise, return -1.\n \nExample 1:\n\nInput: s1 = \"abc\", s2 = \"abb\", s3 = \"ab\"\nOutput: 2\nExplanation: Performing operations on s1 and s2 once will lead to three equal strings.\nIt can be shown that there is no way to make them equal with less than two operations.\nExample 2:\n\nInput: s1 = \"dac\", s2 = \"bac\", s3 = \"cac\"\nOutput: -1\nExplanation: Because the leftmost letters of s1 and s2 are not equal, they could not be equal after any number of operations. So the answer is -1.\n\n \nConstraints:\n\n1 <= s1.length, s2.length, s3.length <= 100\ns1, s2 and s3 consist only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final strings must be common\n        # suffixes of all three. If the longest common suffix has length L,\n        # we need to delete (len - L) characters from each string.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        i1, i2, i3 = n1 - 1, n2 - 1, n3 - 1\n\n        common_len = 0\n        while i1 >= 0 and i2 >= 0 and i3 >= 0:\n            if s1[i1] == s2[i2] == s3[i3]:\n                common_len += 1\n                i1 -= 1\n                i2 -= 1\n                i3 -= 1\n            else:\n                break\n\n        if common_len == 0:\n            # No common suffix of length >= 1 => impossible to make equal\n            return -1\n\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the remaining strings must share\n        # the same suffix. Let the common final string be the suffix of all three.\n        # If its length is L, then total operations = (len(s1)-L)+(len(s2)-L)+(len(s3)-L).\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n        \n        # Find the longest L such that last L chars of all three are equal.\n        for L in range(maxL, -1, -1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                # If L == 0, the empty string is always achievable.\n                return (n1 - L) + (n2 - L) + (n3 - L)\n        \n        # This case is practically unreachable because L=0 always matches (empty string).\n        return -1\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1[::-1], s2[::-1], s3[::-1]  # reverse for suffix handling\n        i = j = k = 0\n\n        n1, n2, n3 = len(a), len(b), len(c)\n        # Find the length of the longest common suffix among s1, s2, s3\n        while i < n1 and j < n2 and k < n3 and a[i] == b[j] == c[k]:\n            i += 1\n            j += 1\n            k += 1\n\n        common = i  # i == j == k here due to synchronized increments\n        if common == 0:\n            # no common suffix -> cannot make them equal (first/leftmost mismatch)\n            return -1\n\n        # Need to delete all trailing characters beyond the common suffix\n        return (n1 - common) + (n2 - common) + (n3 - common)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final strings must be a common suffix.\n        # If L is the length of the longest common suffix, we can make all three equal to it.\n        # Minimum operations = (len(s1)-L) + (len(s2)-L) + (len(s3)-L).\n        i, j, k = len(s1) - 1, len(s2) - 1, len(s3) - 1\n        common_len = 0\n\n        while i >= 0 and j >= 0 and k >= 0 and s1[i] == s2[j] == s3[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        if common_len == 0:\n            return -1\n        return (len(s1) - common_len) + (len(s2) - common_len) + (len(s3) - common_len)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so any achievable final equal string\n        # must be a common suffix of s1, s2, and s3.\n        # To minimize operations, keep the longest possible common suffix.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        max_common = min(n1, n2, n3)\n\n        best = 0  # length of longest common suffix\n        for k in range(max_common, -1, -1):\n            if s1[n1 - k:] == s2[n2 - k:] == s3[n3 - k:]:\n                best = k\n                break\n\n        # Operations = total deletions needed to reduce all strings to that suffix\n        if best == 0:\n            # Only possible if all three can be made empty (k=0 is always a suffix),\n            # but operation requires length >= 2; however we can delete repeatedly\n            # down to length 0 (for length 1 we can't delete), so equality at empty\n            # is not always possible. Yet problem statement implies we can perform\n            # \"as many times as you want\" and deletion is only disallowed at length 1.\n            # If best==0, the only common suffix is empty. That is achievable iff\n            # all strings can be reduced to length 0, meaning each length must be even/??.\n            # Let's reason precisely:\n            # We can delete while length >= 2, so for length L:\n            # - if L==1: can't delete -> final length must be 1\n            # - if L>=2: can delete until length becomes 1 or 0? Actually once it hits 1, stop.\n            # Therefore final length cannot be 0. Unless original length is 0 (not allowed).\n            # So best==0 means no non-empty common suffix -> impossible.\n            return -1\n\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1, s2, s3\n\n        # Need some common suffix (because we only delete from the right).\n        # The final strings must be equal to the same suffix present in all three.\n        i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n        common_len = 0\n\n        while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        # If common_len == 0, no character can be common in the rightmost position.\n        # Then it's impossible to make all equal (since left parts would still need\n        # matching suffixes, but even first required char from the right fails).\n        if common_len == 0:\n            return -1\n\n        # To end with the same suffix of length common_len, delete the rest\n        # from each string.\n        return (len(a) - common_len) + (len(b) - common_len) + (len(c) - common_len)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete rightmost characters, so the final equal string must be\n        # a common suffix of all three strings.\n        def common_suffix_length(a: str, b: str, c: str) -> int:\n            i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n            cnt = 0\n            while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n                cnt += 1\n                i -= 1\n                j -= 1\n                k -= 1\n            return cnt\n\n        L = common_suffix_length(s1, s2, s3)\n        if L == 0:\n            return -1\n\n        # Delete (len - L) characters from each string\n        return (len(s1) - L) + (len(s2) - L) + (len(s3) - L)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Let final equal strings be of length L.\n        # Only operation: delete rightmost characters => final strings must be suffixes.\n        # Thus, there exists an L where all three suffixes of length L are identical.\n        # Min operations then is (len(s1)-L) + (len(s2)-L) + (len(s3)-L) = total_len - 3L.\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n        total_len = n1 + n2 + n3\n        \n        # Check from largest possible L downwards to minimize deletions.\n        for L in range(maxL, -1, -1):\n            if s1[-L:] == s2[-L:] == s3[-L:]:\n                return total_len - 3 * L\n        \n        return -1\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # If they can be made equal, it must be by keeping some common suffix\n        # and deleting everything after it in each string (right deletions).\n        a, b, c = s1, s2, s3\n        n1, n2, n3 = len(a), len(b), len(c)\n\n        # Let L be the length of the final equal strings (common suffix length).\n        # We need the maximum possible L such that all last L characters match.\n        maxL = min(n1, n2, n3)\n        L = 0\n        for k in range(1, maxL + 1):\n            if a[-k:] == b[-k:] == c[-k:]:\n                L = k\n            else:\n                break  # once mismatch occurs for some k, larger k will also mismatch\n\n        if L == 0:\n            return -1\n\n        return (n1 - L) + (n2 - L) + (n3 - L)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Find the longest common prefix among s1, s2, s3.\n        # Since we only delete from the right, the final strings must share a common prefix.\n        common_len = 0\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        limit = min(n1, n2, n3)\n        for i in range(limit):\n            if s1[i] == s2[i] == s3[i]:\n                common_len += 1\n            else:\n                break\n\n        if common_len == 0:\n            return -1\n\n        # To make them equal to that common prefix, we must delete the remaining suffixes.\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3207",
+          "generation_index": 0,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 1,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "11",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "13",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "14",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "14",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "21",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "68",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "247",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "277",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 2,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 3,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 4,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 5,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 6,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 7,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 8,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "65",
+                "actual": "65",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Find the longest common prefix among s1, s2, s3.\n        # Since we only delete from the right, the final strings must share a common prefix.\n        common_len = 0\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        limit = min(n1, n2, n3)\n        for i in range(limit):\n            if s1[i] == s2[i] == s3[i]:\n                common_len += 1\n            else:\n                break\n\n        if common_len == 0:\n            return -1\n\n        # To make them equal to that common prefix, we must delete the remaining suffixes.\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```"
+        ],
+        "partial": [
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final strings must be common\n        # suffixes of all three. If the longest common suffix has length L,\n        # we need to delete (len - L) characters from each string.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        i1, i2, i3 = n1 - 1, n2 - 1, n3 - 1\n\n        common_len = 0\n        while i1 >= 0 and i2 >= 0 and i3 >= 0:\n            if s1[i1] == s2[i2] == s3[i3]:\n                common_len += 1\n                i1 -= 1\n                i2 -= 1\n                i3 -= 1\n            else:\n                break\n\n        if common_len == 0:\n            # No common suffix of length >= 1 => impossible to make equal\n            return -1\n\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1[::-1], s2[::-1], s3[::-1]  # reverse for suffix handling\n        i = j = k = 0\n\n        n1, n2, n3 = len(a), len(b), len(c)\n        # Find the length of the longest common suffix among s1, s2, s3\n        while i < n1 and j < n2 and k < n3 and a[i] == b[j] == c[k]:\n            i += 1\n            j += 1\n            k += 1\n\n        common = i  # i == j == k here due to synchronized increments\n        if common == 0:\n            # no common suffix -> cannot make them equal (first/leftmost mismatch)\n            return -1\n\n        # Need to delete all trailing characters beyond the common suffix\n        return (n1 - common) + (n2 - common) + (n3 - common)\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final strings must be a common suffix.\n        # If L is the length of the longest common suffix, we can make all three equal to it.\n        # Minimum operations = (len(s1)-L) + (len(s2)-L) + (len(s3)-L).\n        i, j, k = len(s1) - 1, len(s2) - 1, len(s3) - 1\n        common_len = 0\n\n        while i >= 0 and j >= 0 and k >= 0 and s1[i] == s2[j] == s3[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        if common_len == 0:\n            return -1\n        return (len(s1) - common_len) + (len(s2) - common_len) + (len(s3) - common_len)\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so any achievable final equal string\n        # must be a common suffix of s1, s2, and s3.\n        # To minimize operations, keep the longest possible common suffix.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        max_common = min(n1, n2, n3)\n\n        best = 0  # length of longest common suffix\n        for k in range(max_common, -1, -1):\n            if s1[n1 - k:] == s2[n2 - k:] == s3[n3 - k:]:\n                best = k\n                break\n\n        # Operations = total deletions needed to reduce all strings to that suffix\n        if best == 0:\n            # Only possible if all three can be made empty (k=0 is always a suffix),\n            # but operation requires length >= 2; however we can delete repeatedly\n            # down to length 0 (for length 1 we can't delete), so equality at empty\n            # is not always possible. Yet problem statement implies we can perform\n            # \"as many times as you want\" and deletion is only disallowed at length 1.\n            # If best==0, the only common suffix is empty. That is achievable iff\n            # all strings can be reduced to length 0, meaning each length must be even/??.\n            # Let's reason precisely:\n            # We can delete while length >= 2, so for length L:\n            # - if L==1: can't delete -> final length must be 1\n            # - if L>=2: can delete until length becomes 1 or 0? Actually once it hits 1, stop.\n            # Therefore final length cannot be 0. Unless original length is 0 (not allowed).\n            # So best==0 means no non-empty common suffix -> impossible.\n            return -1\n\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1, s2, s3\n\n        # Need some common suffix (because we only delete from the right).\n        # The final strings must be equal to the same suffix present in all three.\n        i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n        common_len = 0\n\n        while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        # If common_len == 0, no character can be common in the rightmost position.\n        # Then it's impossible to make all equal (since left parts would still need\n        # matching suffixes, but even first required char from the right fails).\n        if common_len == 0:\n            return -1\n\n        # To end with the same suffix of length common_len, delete the rest\n        # from each string.\n        return (len(a) - common_len) + (len(b) - common_len) + (len(c) - common_len)\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete rightmost characters, so the final equal string must be\n        # a common suffix of all three strings.\n        def common_suffix_length(a: str, b: str, c: str) -> int:\n            i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n            cnt = 0\n            while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n                cnt += 1\n                i -= 1\n                j -= 1\n                k -= 1\n            return cnt\n\n        L = common_suffix_length(s1, s2, s3)\n        if L == 0:\n            return -1\n\n        # Delete (len - L) characters from each string\n        return (len(s1) - L) + (len(s2) - L) + (len(s3) - L)\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Let final equal strings be of length L.\n        # Only operation: delete rightmost characters => final strings must be suffixes.\n        # Thus, there exists an L where all three suffixes of length L are identical.\n        # Min operations then is (len(s1)-L) + (len(s2)-L) + (len(s3)-L) = total_len - 3L.\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n        total_len = n1 + n2 + n3\n        \n        # Check from largest possible L downwards to minimize deletions.\n        for L in range(maxL, -1, -1):\n            if s1[-L:] == s2[-L:] == s3[-L:]:\n                return total_len - 3 * L\n        \n        return -1\n```",
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # If they can be made equal, it must be by keeping some common suffix\n        # and deleting everything after it in each string (right deletions).\n        a, b, c = s1, s2, s3\n        n1, n2, n3 = len(a), len(b), len(c)\n\n        # Let L be the length of the final equal strings (common suffix length).\n        # We need the maximum possible L such that all last L characters match.\n        maxL = min(n1, n2, n3)\n        L = 0\n        for k in range(1, maxL + 1):\n            if a[-k:] == b[-k:] == c[-k:]:\n                L = k\n            else:\n                break  # once mismatch occurs for some k, larger k will also mismatch\n\n        if L == 0:\n            return -1\n\n        return (n1 - L) + (n2 - L) + (n3 - L)\n```"
+        ],
+        "fail": [
+          "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the remaining strings must share\n        # the same suffix. Let the common final string be the suffix of all three.\n        # If its length is L, then total operations = (len(s1)-L)+(len(s2)-L)+(len(s3)-L).\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n        \n        # Find the longest L such that last L chars of all three are equal.\n        for L in range(maxL, -1, -1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                # If L == 0, the empty string is always achievable.\n                return (n1 - L) + (n2 - L) + (n3 - L)\n        \n        # This case is practically unreachable because L=0 always matches (empty string).\n        return -1\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given three strings s1, s2, and s3. You have to perform the following operation on these three strings as many times as you want.\nIn one operation you can choose one of these three strings such that its length is at least 2 and delete the rightmost character of it.\nReturn the minimum number of operations you need to perform to make the three strings equal if there is a way to make them equal, otherwise, return -1.\n \nExample 1:\n\nInput: s1 = \"abc\", s2 = \"abb\", s3 = \"ab\"\nOutput: 2\nExplanation: Performing operations on s1 and s2 once will lead to three equal strings.\nIt can be shown that there is no way to make them equal with less than two operations.\nExample 2:\n\nInput: s1 = \"dac\", s2 = \"bac\", s3 = \"cac\"\nOutput: -1\nExplanation: Because the leftmost letters of s1 and s2 are not equal, they could not be equal after any number of operations. So the answer is -1.\n\n \nConstraints:\n\n1 <= s1.length, s2.length, s3.length <= 100\ns1, s2 and s3 consist only of lowercase English letters.\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Find the longest common prefix among s1, s2, s3.\n        # Since we only delete from the right, the final strings must share a common prefix.\n        common_len = 0\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        limit = min(n1, n2, n3)\n        for i in range(limit):\n            if s1[i] == s2[i] == s3[i]:\n                common_len += 1\n            else:\n                break\n\n        if common_len == 0:\n            return -1\n\n        # To make them equal to that common prefix, we must delete the remaining suffixes.\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```\n\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final strings must be common\n        # suffixes of all three. If the longest common suffix has length L,\n        # we need to delete (len - L) characters from each string.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        i1, i2, i3 = n1 - 1, n2 - 1, n3 - 1\n\n        common_len = 0\n        while i1 >= 0 and i2 >= 0 and i3 >= 0:\n            if s1[i1] == s2[i2] == s3[i3]:\n                common_len += 1\n                i1 -= 1\n                i2 -= 1\n                i3 -= 1\n            else:\n                break\n\n        if common_len == 0:\n            # No common suffix of length >= 1 => impossible to make equal\n            return -1\n\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```\n\nAttempt 2\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1[::-1], s2[::-1], s3[::-1]  # reverse for suffix handling\n        i = j = k = 0\n\n        n1, n2, n3 = len(a), len(b), len(c)\n        # Find the length of the longest common suffix among s1, s2, s3\n        while i < n1 and j < n2 and k < n3 and a[i] == b[j] == c[k]:\n            i += 1\n            j += 1\n            k += 1\n\n        common = i  # i == j == k here due to synchronized increments\n        if common == 0:\n            # no common suffix -> cannot make them equal (first/leftmost mismatch)\n            return -1\n\n        # Need to delete all trailing characters beyond the common suffix\n        return (n1 - common) + (n2 - common) + (n3 - common)\n```\n\nAttempt 3\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final strings must be a common suffix.\n        # If L is the length of the longest common suffix, we can make all three equal to it.\n        # Minimum operations = (len(s1)-L) + (len(s2)-L) + (len(s3)-L).\n        i, j, k = len(s1) - 1, len(s2) - 1, len(s3) - 1\n        common_len = 0\n\n        while i >= 0 and j >= 0 and k >= 0 and s1[i] == s2[j] == s3[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        if common_len == 0:\n            return -1\n        return (len(s1) - common_len) + (len(s2) - common_len) + (len(s3) - common_len)\n```\n\nAttempt 4\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so any achievable final equal string\n        # must be a common suffix of s1, s2, and s3.\n        # To minimize operations, keep the longest possible common suffix.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        max_common = min(n1, n2, n3)\n\n        best = 0  # length of longest common suffix\n        for k in range(max_common, -1, -1):\n            if s1[n1 - k:] == s2[n2 - k:] == s3[n3 - k:]:\n                best = k\n                break\n\n        # Operations = total deletions needed to reduce all strings to that suffix\n        if best == 0:\n            # Only possible if all three can be made empty (k=0 is always a suffix),\n            # but operation requires length >= 2; however we can delete repeatedly\n            # down to length 0 (for length 1 we can't delete), so equality at empty\n            # is not always possible. Yet problem statement implies we can perform\n            # \"as many times as you want\" and deletion is only disallowed at length 1.\n            # If best==0, the only common suffix is empty. That is achievable iff\n            # all strings can be reduced to length 0, meaning each length must be even/??.\n            # Let's reason precisely:\n            # We can delete while length >= 2, so for length L:\n            # - if L==1: can't delete -> final length must be 1\n            # - if L>=2: can delete until length becomes 1 or 0? Actually once it hits 1, stop.\n            # Therefore final length cannot be 0. Unless original length is 0 (not allowed).\n            # So best==0 means no non-empty common suffix -> impossible.\n            return -1\n\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```\n\nAttempt 5\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1, s2, s3\n\n        # Need some common suffix (because we only delete from the right).\n        # The final strings must be equal to the same suffix present in all three.\n        i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n        common_len = 0\n\n        while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        # If common_len == 0, no character can be common in the rightmost position.\n        # Then it's impossible to make all equal (since left parts would still need\n        # matching suffixes, but even first required char from the right fails).\n        if common_len == 0:\n            return -1\n\n        # To end with the same suffix of length common_len, delete the rest\n        # from each string.\n        return (len(a) - common_len) + (len(b) - common_len) + (len(c) - common_len)\n```\n\nAttempt 6\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete rightmost characters, so the final equal string must be\n        # a common suffix of all three strings.\n        def common_suffix_length(a: str, b: str, c: str) -> int:\n            i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n            cnt = 0\n            while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n                cnt += 1\n                i -= 1\n                j -= 1\n                k -= 1\n            return cnt\n\n        L = common_suffix_length(s1, s2, s3)\n        if L == 0:\n            return -1\n\n        # Delete (len - L) characters from each string\n        return (len(s1) - L) + (len(s2) - L) + (len(s3) - L)\n```\n\nAttempt 7\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Let final equal strings be of length L.\n        # Only operation: delete rightmost characters => final strings must be suffixes.\n        # Thus, there exists an L where all three suffixes of length L are identical.\n        # Min operations then is (len(s1)-L) + (len(s2)-L) + (len(s3)-L) = total_len - 3L.\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n        total_len = n1 + n2 + n3\n        \n        # Check from largest possible L downwards to minimize deletions.\n        for L in range(maxL, -1, -1):\n            if s1[-L:] == s2[-L:] == s3[-L:]:\n                return total_len - 3 * L\n        \n        return -1\n```\n\nAttempt 8\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # If they can be made equal, it must be by keeping some common suffix\n        # and deleting everything after it in each string (right deletions).\n        a, b, c = s1, s2, s3\n        n1, n2, n3 = len(a), len(b), len(c)\n\n        # Let L be the length of the final equal strings (common suffix length).\n        # We need the maximum possible L such that all last L characters match.\n        maxL = min(n1, n2, n3)\n        L = 0\n        for k in range(1, maxL + 1):\n            if a[-k:] == b[-k:] == c[-k:]:\n                L = k\n            else:\n                break  # once mismatch occurs for some k, larger k will also mismatch\n\n        if L == 0:\n            return -1\n\n        return (n1 - L) + (n2 - L) + (n3 - L)\n```\n\n#### Incorrect\nAttempt 1\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the remaining strings must share\n        # the same suffix. Let the common final string be the suffix of all three.\n        # If its length is L, then total operations = (len(s1)-L)+(len(s2)-L)+(len(s3)-L).\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n        \n        # Find the longest L such that last L chars of all three are equal.\n        for L in range(maxL, -1, -1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                # If L == 0, the empty string is always achievable.\n                return (n1 - L) + (n2 - L) + (n3 - L)\n        \n        # This case is practically unreachable because L=0 always matches (empty string).\n        return -1\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Deletions-Only Direction Implies a Suffix Invariant",
+          "description": "If allowed operations only remove from one end, the remaining content must be a prefix/suffix accordingly.",
+          "content": "When operations constrain where characters can be removed, identify the invariant form of any reachable end state (e.g., only right deletions ⇒ final strings are common suffixes). Use that to reduce the problem to matching a maximal shared segment under the allowed direction.",
+          "reasoning": "The successful solutions all converge on the same core invariant: since deletions can only occur at the right end, any reachable final common string must be a common suffix of all three originals, and achieving equality with minimum deletions means keeping the longest such common suffix. They correctly handle impossibility by requiring the common suffix length to be at least 1 (because the final strings must have at least one character; the delete operation requires length ≥ 2). Unsuccessful attempts fail by either (a) confusing prefix vs suffix direction, (b) mishandling the feasibility condition for L=0/empty outcomes—especially incorrectly assuming empty is always attainable despite operation constraints—or (c) using logic that implies monotonic mismatch behavior without rigorous constraint validation. Overall, the difference is not the implementation style but the correctness of the feasibility model and the constraint that the final equal string must be a non-empty common suffix."
+        },
+        {
+          "title": "Minimize Deletions by Maximizing Kept Matching Segment",
+          "description": "For delete-to-match problems, the minimum operations correspond to keeping the longest feasible shared substring consistent with constraints.",
+          "content": "Once you know the final string must equal some common segment (like a common suffix), the cost becomes the total “removed length.” Therefore, the optimal strategy is to pick the maximum-length feasible common segment and delete the rest from each string.",
+          "reasoning": "The successful solutions all converge on the same core invariant: since deletions can only occur at the right end, any reachable final common string must be a common suffix of all three originals, and achieving equality with minimum deletions means keeping the longest such common suffix. They correctly handle impossibility by requiring the common suffix length to be at least 1 (because the final strings must have at least one character; the delete operation requires length ≥ 2). Unsuccessful attempts fail by either (a) confusing prefix vs suffix direction, (b) mishandling the feasibility condition for L=0/empty outcomes—especially incorrectly assuming empty is always attainable despite operation constraints—or (c) using logic that implies monotonic mismatch behavior without rigorous constraint validation. Overall, the difference is not the implementation style but the correctness of the feasibility model and the constraint that the final equal string must be a non-empty common suffix."
+        },
+        {
+          "title": "Feasibility Checks Must Respect Operation Legality (Non-empty vs Empty)",
+          "description": "Always verify whether boundary cases (like ending with an empty string) are actually reachable given the operation’s length restrictions.",
+          "content": "Incorrect solutions often assume an empty end state is always possible; instead, confirm that the operation can legally reduce strings down to the required final length. If the operation forbids acting when length is too small, then the feasible final length set may exclude empty, making “L=0” an immediate impossibility.",
+          "reasoning": "The successful solutions all converge on the same core invariant: since deletions can only occur at the right end, any reachable final common string must be a common suffix of all three originals, and achieving equality with minimum deletions means keeping the longest such common suffix. They correctly handle impossibility by requiring the common suffix length to be at least 1 (because the final strings must have at least one character; the delete operation requires length ≥ 2). Unsuccessful attempts fail by either (a) confusing prefix vs suffix direction, (b) mishandling the feasibility condition for L=0/empty outcomes—especially incorrectly assuming empty is always attainable despite operation constraints—or (c) using logic that implies monotonic mismatch behavior without rigorous constraint validation. Overall, the difference is not the implementation style but the correctness of the feasibility model and the constraint that the final equal string must be a non-empty common suffix."
+        },
+        {
+          "title": "Prefer Direct Matching from the Constrained End",
+          "description": "Traverse/compare from the constrained end to determine the maximal feasible match length safely.",
+          "content": "Implement the common-segment detection by scanning from the side where characters cannot be reordered (e.g., right-to-left for right deletions). This avoids subtle off-by-one errors and prevents mixing up prefix/suffix logic that can arise when reversing strings or using slicing guesses.",
+          "reasoning": "The successful solutions all converge on the same core invariant: since deletions can only occur at the right end, any reachable final common string must be a common suffix of all three originals, and achieving equality with minimum deletions means keeping the longest such common suffix. They correctly handle impossibility by requiring the common suffix length to be at least 1 (because the final strings must have at least one character; the delete operation requires length ≥ 2). Unsuccessful attempts fail by either (a) confusing prefix vs suffix direction, (b) mishandling the feasibility condition for L=0/empty outcomes—especially incorrectly assuming empty is always attainable despite operation constraints—or (c) using logic that implies monotonic mismatch behavior without rigorous constraint validation. Overall, the difference is not the implementation style but the correctness of the feasibility model and the constraint that the final equal string must be a non-empty common suffix."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful solutions all converge on the same core invariant: since deletions can only occur at the right end, any reachable final common string must be a common suffix of all three originals, and achieving equality with minimum deletions means keeping the longest such common suffix. They correctly handle impossibility by requiring the common suffix length to be at least 1 (because the final strings must have at least one character; the delete operation requires length ≥ 2). Unsuccessful attempts fail by either (a) confusing prefix vs suffix direction, (b) mishandling the feasibility condition for L=0/empty outcomes—especially incorrectly assuming empty is always attainable despite operation constraints—or (c) using logic that implies monotonic mismatch behavior without rigorous constraint validation. Overall, the difference is not the implementation style but the correctness of the feasibility model and the constraint that the final equal string must be a non-empty common suffix.\n</reasoning>\n\n<memories>\n<memory>\n<title>Deletions-Only Direction Implies a Suffix Invariant</title>\n<description>If allowed operations only remove from one end, the remaining content must be a prefix/suffix accordingly.</description>\n<content>When operations constrain where characters can be removed, identify the invariant form of any reachable end state (e.g., only right deletions ⇒ final strings are common suffixes). Use that to reduce the problem to matching a maximal shared segment under the allowed direction.</content>\n</memory>\n\n<memory>\n<title>Minimize Deletions by Maximizing Kept Matching Segment</title>\n<description>For delete-to-match problems, the minimum operations correspond to keeping the longest feasible shared substring consistent with constraints.</description>\n<content>Once you know the final string must equal some common segment (like a common suffix), the cost becomes the total “removed length.” Therefore, the optimal strategy is to pick the maximum-length feasible common segment and delete the rest from each string.</content>\n</memory>\n\n<memory>\n<title>Feasibility Checks Must Respect Operation Legality (Non-empty vs Empty)</title>\n<description>Always verify whether boundary cases (like ending with an empty string) are actually reachable given the operation’s length restrictions.</description>\n<content>Incorrect solutions often assume an empty end state is always possible; instead, confirm that the operation can legally reduce strings down to the required final length. If the operation forbids acting when length is too small, then the feasible final length set may exclude empty, making “L=0” an immediate impossibility.</content>\n</memory>\n\n<memory>\n<title>Prefer Direct Matching from the Constrained End</title>\n<description>Traverse/compare from the constrained end to determine the maximal feasible match length safely.</description>\n<content>Implement the common-segment detection by scanning from the side where characters cannot be reordered (e.g., right-to-left for right deletions). This avoids subtle off-by-one errors and prevents mixing up prefix/suffix logic that can arise when reversing strings or using slicing guesses.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given three strings s1, s2, and s3. You have to perform the following operation on these three strings as many times as you want.\nIn one operation you can choose one of these three strings such that its length is at least 2 and delete the rightmost character of it.\nReturn the minimum number of operations you need to perform to make the three strings equal if there is a way to make them equal, otherwise, return -1.\n \nExample 1:\n\nInput: s1 = \"abc\", s2 = \"abb\", s3 = \"ab\"\nOutput: 2\nExplanation: Performing operations on s1 and s2 once will lead to three equal strings.\nIt can be shown that there is no way to make them equal with less than two operations.\nExample 2:\n\nInput: s1 = \"dac\", s2 = \"bac\", s3 = \"cac\"\nOutput: -1\nExplanation: Because the leftmost letters of s1 and s2 are not equal, they could not be equal after any number of operations. So the answer is -1.\n\n \nConstraints:\n\n1 <= s1.length, s2.length, s3.length <= 100\ns1, s2 and s3 consist only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so all strings must end up sharing\n        # the same common suffix. If no common suffix exists, return -1.\n        # To minimize operations, keep the longest possible common suffix.\n        \n        def common_suffix_length(a: str, b: str, c: str) -> int:\n            i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n            cnt = 0\n            while i >= 0 and j >= 0 and k >= 0:\n                if a[i] == b[j] == c[k]:\n                    cnt += 1\n                    i -= 1\n                    j -= 1\n                    k -= 1\n                else:\n                    break\n            return cnt\n        \n        L = common_suffix_length(s1, s2, s3)\n        if L == 0:\n            return -1\n        \n        # Total deletions needed to keep suffix of length L in each string\n        # are (len - L). Each deletion is one operation.\n        return (len(s1) - L) + (len(s2) - L) + (len(s3) - L)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # If we can make them equal, they must match on some common suffix.\n        # Let L be the common final length; then answer is:\n        # (len(s1)-L) + (len(s2)-L) + (len(s3)-L) = (len1+len2+len3) - 3L\n        # We need the maximum possible L such that the suffixes of all three of length L are equal.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        best_L = 0\n        max_L = min(n1, n2, n3)\n\n        for L in range(1, max_L + 1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best_L = L\n\n        if best_L == 0:\n            return -1  # cannot make them equal (lengths only can be reduced; need at least 1 char common)\n\n        return (n1 + n2 + n3) - 3 * best_L\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete the rightmost characters, so the remaining strings\n        # must all be equal to some common suffix of s1, s2, and s3.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        # Find the longest common suffix\n        i1, i2, i3 = n1 - 1, n2 - 1, n3 - 1\n        common_len = 0\n        while i1 >= 0 and i2 >= 0 and i3 >= 0:\n            if s1[i1] != s2[i2] or s1[i1] != s3[i3]:\n                break\n            common_len += 1\n            i1 -= 1\n            i2 -= 1\n            i3 -= 1\n\n        if common_len == 0:\n            return -1\n\n        # Total deletions needed to reduce each to that suffix.\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # After deletions, final strings must be equal to some suffix of each input.\n        # The maximum common suffix length gives the minimum deletions.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        i1, i2, i3 = n1 - 1, n2 - 1, n3 - 1\n        common = 0\n\n        while i1 >= 0 and i2 >= 0 and i3 >= 0:\n            if s1[i1] == s2[i2] == s3[i3]:\n                common += 1\n                i1 -= 1\n                i2 -= 1\n                i3 -= 1\n            else:\n                break\n\n        # If common == 0, the only possible equal strings would be empty,\n        # which is impossible because we can only delete when length >= 2.\n        if common == 0:\n            return -1\n\n        # Need to delete (len - common) from each string.\n        # Each deletion is allowed as long as we don't delete below length 1.\n        # Since common > 0, remaining length is >= 1, so it's always feasible.\n        return (n1 - common) + (n2 - common) + (n3 - common)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        a, b, c = s1, s2, s3\n        n1, n2, n3 = len(a), len(b), len(c)\n\n        # We can only delete from the right, so the final strings must be common suffixes.\n        # Maximum possible length of equality is the length of the longest common suffix.\n        i, j, k = n1 - 1, n2 - 1, n3 - 1\n        common_len = 0\n        while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n            common_len += 1\n            i -= 1\n            j -= 1\n            k -= 1\n\n        # If no common suffix at all, they can't be made equal (since leftmost must match too).\n        if common_len == 0:\n            return -1\n\n        # Each operation deletes exactly one character from one string (if length >= 2).\n        # Final length is common_len, so total deletions is sum(lengths) - 3*common_len.\n        # But if common_len == 1, we might get stuck because you cannot delete down to length 1\n        # from a length-2 string (since deletion requires length >= 2, length 2 -> 1 is allowed).\n        # Actually length 2 can delete one (length>=2), giving length 1, so it's fine.\n        # Therefore this always works for common_len >= 1.\n        return (n1 - common_len) + (n2 - common_len) + (n3 - common_len)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # If the strings can be made equal by only deleting from the right,\n        # then the resulting common string must be a common prefix of all three.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        limit = min(n1, n2, n3)\n\n        # Find longest common prefix length\n        lcp = 0\n        while lcp < limit and s1[lcp] == s2[lcp] == s3[lcp]:\n            lcp += 1\n\n        if lcp == 0:\n            return -1\n\n        # Delete everything after lcp in each string\n        return (n1 - lcp) + (n2 - lcp) + (n3 - lcp)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Let the final common strings be a common suffix of all three.\n        # If we keep k characters (k>=1) from the right of each string, then\n        # s1[-k:]==s2[-k:]==s3[-k:], and operations needed = (len1-k)+(len2-k)+(len3-k).\n        # We also must be able to delete until length becomes k, but deletions are only allowed\n        # when length>=2. Therefore k cannot be 0, because reaching length 0 would require\n        # deleting when length==1, which is impossible. (All strings lengths >=1 initially.)\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        max_keep = min(n1, n2, n3)\n\n        # Find longest common suffix length >= 1\n        best = 0\n        for k in range(1, max_keep + 1):\n            if s1[n1 - k:] == s2[n2 - k:] == s3[n3 - k:]:\n                best = k\n\n        if best == 0:\n            return -1\n\n        # Minimum operations achieved by keeping the longest common suffix\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so after operations,\n        # all three strings must share the same suffix.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        max_len = min(n1, n2, n3)\n        # Find the longest common suffix among s1, s2, s3\n        common = 0\n        for L in range(1, max_len + 1):\n            if s1[-L:] == s2[-L:] == s3[-L:]:\n                common = L\n\n        if common == 0:\n            return -1\n\n        # Total deletions to make each string exactly that suffix\n        return (n1 - common) + (n2 - common) + (n3 - common)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # After deletions, strings must become identical.\n        # Since we only delete from the right, the final common string must be a suffix of each.\n        # We want the longest possible common suffix to minimize operations.\n        best = 0\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        max_len = min(n1, n2, n3)\n\n        for L in range(1, max_len + 1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best = L\n\n        if best == 0:\n            return -1\n\n        # Operations = (len(s1)-best) + (len(s2)-best) + (len(s3)-best)\n        # But we can delete from a string only if its length is at least 2.\n        # If a string must be reduced to length 1, deletions are still allowed as long as we stop at 1.\n        # If a string must be reduced to length 0, it's impossible since we never allow deleting\n        # the last remaining character (length must be >= 2 to delete one char).\n        #\n        # Therefore, best must be at least 1 (ensured above), and operations formula holds.\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right, so the final common string must be a common suffix.\n        best_len = -1\n\n        # Check all possible suffix lengths (up to the shortest string)\n        max_len = min(len(s1), len(s2), len(s3))\n        for L in range(1, max_len + 1):\n            if s1[-L:] == s2[-L:] == s3[-L:]:\n                best_len = L\n\n        # If no common non-empty suffix exists, it's impossible (since lengths must be >= 1 in final)\n        # Problem statement implies we need make strings equal; empty suffix would require deleting\n        # all characters, but operation forbids deleting when length < 2, so strings can never become empty.\n        if best_len == -1:\n            return -1\n\n        # Minimum operations delete everything except the chosen common suffix\n        return (len(s1) - best_len) + (len(s2) - best_len) + (len(s3) - best_len)\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3207",
+          "generation_index": 0,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 1,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 2,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 3,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 4,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "65",
+                "actual": "65",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 6,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 7,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 8,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 9,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Deletions-Only Direction Implies a Suffix Invariant: If allowed operations only remove from one end, the remaining content must be a prefix/suffix accordingly.\n     When operations constrain where characters can be removed, identify the invariant form of any reachable end state (e.g., only right deletions ⇒ final strings are common suffixes). Use that to reduce the problem to matching a maximal shared segment under the allowed direction.\n  2. Minimize Deletions by Maximizing Kept Matching Segment: For delete-to-match problems, the minimum operations correspond to keeping the longest feasible shared substring consistent with constraints.\n     Once you know the final string must equal some common segment (like a common suffix), the cost becomes the total “removed length.” Therefore, the optimal strategy is to pick the maximum-length feasible common segment and delete the rest from each string.\n  3. Feasibility Checks Must Respect Operation Legality (Non-empty vs Empty): Always verify whether boundary cases (like ending with an empty string) are actually reachable given the operation’s length restrictions.\n     Incorrect solutions often assume an empty end state is always possible; instead, confirm that the operation can legally reduce strings down to the required final length. If the operation forbids acting when length is too small, then the feasible final length set may exclude empty, making “L=0” an immediate impossibility.\n  4. Prefer Direct Matching from the Constrained End: Traverse/compare from the constrained end to determine the maximal feasible match length safely.\n     Implement the common-segment detection by scanning from the side where characters cannot be reordered (e.g., right-to-left for right deletions). This avoids subtle off-by-one errors and prevents mixing up prefix/suffix logic that can arise when reversing strings or using slicing guesses.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given three strings s1, s2, and s3. You have to perform the following operation on these three strings as many times as you want.\nIn one operation you can choose one of these three strings such that its length is at least 2 and delete the rightmost character of it.\nReturn the minimum number of operations you need to perform to make the three strings equal if there is a way to make them equal, otherwise, return -1.\n \nExample 1:\n\nInput: s1 = \"abc\", s2 = \"abb\", s3 = \"ab\"\nOutput: 2\nExplanation: Performing operations on s1 and s2 once will lead to three equal strings.\nIt can be shown that there is no way to make them equal with less than two operations.\nExample 2:\n\nInput: s1 = \"dac\", s2 = \"bac\", s3 = \"cac\"\nOutput: -1\nExplanation: Because the leftmost letters of s1 and s2 are not equal, they could not be equal after any number of operations. So the answer is -1.\n\n \nConstraints:\n\n1 <= s1.length, s2.length, s3.length <= 100\ns1, s2 and s3 consist only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Operation: pick one string with length >= 2 and delete its rightmost char.\n        # Therefore, final strings must be common suffixes of all three.\n        # We need minimum deletions => maximize kept suffix length L,\n        # with the extra constraint that any string can only be reduced to length >= 1\n        # because the operation requires length >= 2 (length 0 is unreachable).\n        \n        # If any pair's leftmost characters already disagree at position 0 for full matching suffix,\n        # it doesn't matter; suffix matching is what matters.\n        \n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        maxL = min(n1, n2, n3)\n\n        best = -1  # maximum feasible common suffix length\n        for L in range(maxL, 0, -1):  # L must be >= 1 (empty suffix unreachable)\n            # Check common suffix of length L\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best = L\n                break\n\n        if best == -1:\n            return -1\n\n        # Minimum operations = deletions needed to keep suffix of length best.\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        # Operation: choose a string with len >= 2 and delete its rightmost char.\n        # Therefore, all reachable final strings must be common SUFFIXes of all three.\n        # Also, lengths can't go below 1 because we can only act when len >= 2.\n        min_len = min(n1, n2, n3)\n\n        # Find the maximum L (1..min_len) such that suffixes of length L are equal.\n        best = 0\n        for L in range(1, min_len + 1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best = L\n\n        if best == 0:\n            return -1\n\n        # Minimum operations = total deletions to keep that longest common suffix,\n        # since any other feasible suffix would require more deletions.\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        # If the strings are to become equal using only \"delete rightmost when length>=2\",\n        # then the final common string must be a common SUFFIX of all three.\n        # Additionally, reaching a final length L is possible only if:\n        # - If L == 0: we would need to delete down to empty, but deletion is forbidden at length 1,\n        #   so length 0 is unreachable.\n        # - Therefore L must be >= 1.\n        max_possible = min(n1, n2, n3)\n\n        # Find maximum L (1..max_possible) such that suffix of length L is equal in all three.\n        best = -1\n        for L in range(1, max_possible + 1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best = L\n\n        if best == -1:\n            return -1\n\n        # Minimum operations = total deletions: (n1-L) + (n2-L) + (n3-L),\n        # because deleting characters from the right independently on each string.\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # We can only delete from the right. Therefore, after any operations,\n        # each string must become a suffix of its original form.\n        # To make all three equal, we need to find a common suffix that can be\n        # kept by deleting the rest. Min ops => keep the longest feasible common suffix.\n\n        def common_suffix_len(a: str, b: str, c: str) -> int:\n            # maximum L such that a[-L:] == b[-L:] == c[-L:]\n            i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n            L = 0\n            while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n                L += 1\n                i -= 1\n                j -= 1\n                k -= 1\n            return L\n\n        # Find the longest common suffix.\n        L = common_suffix_len(s1, s2, s3)\n\n        # We must ensure it's reachable given the operation rule:\n        # each delete operation requires current length >= 2.\n        # If the target length is 0 for some string, we'd need to delete down to empty.\n        # That is only possible when original length >= 2 and (for reaching 0) we can still\n        # perform deletions until length becomes 0. However, once length becomes 1, further\n        # deletion is not allowed. Thus empty is impossible from any string.\n        #\n        # More formally: from length n, deletions can reduce to any length >= 1,\n        # but never to 0 (because deleting requires length >= 2).\n        if L == 0:\n            return -1\n\n        # Keep exactly that common suffix length L in all three.\n        # Minimum operations = (len(s1)-L) + (len(s2)-L) + (len(s3)-L),\n        # because each right deletion removes one character.\n        return (len(s1) - L) + (len(s2) - L) + (len(s3) - L)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        m = min(n1, n2, n3)\n\n        # Operation: for a chosen string, if its length >= 2, delete one char from the right.\n        # Therefore, each string can only be reduced by deleting a suffix, and at any time\n        # we are not allowed to delete when length == 1. Hence length 0 is impossible.\n        #\n        # Let final common string be of length L (1 <= L <= m). Then we must have:\n        # s1[n1-L:] == s2[n2-L:] == s3[n3-L:]\n        #\n        # We maximize L (to minimize deletions):\n        # operations = (n1 - L) + (n2 - L) + (n3 - L) = n1+n2+n3 - 3L.\n\n        # Find the maximum L in [1..m] such that the common suffixes match.\n        bestL = -1\n        for L in range(m, 0, -1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                bestL = L\n                break\n\n        if bestL == -1:\n            return -1\n        return (n1 + n2 + n3) - 3 * bestL\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n        # After any number of deletions from the right, the final strings must be equal\n        # and hence equal to some common suffix of all three.\n        min_ops = float('inf')\n\n        # L = length of the common final string (must be reachable given the rule:\n        # you may delete rightmost char only when current length >= 2).\n        # Starting from length N, you can reduce to length L iff:\n        # - L == N (0 deletions), always OK\n        # - if 0 <= L < N and L >= 1: you can delete exactly N-L times; legality holds\n        #   because when length is k, you can delete while k>=2, i.e., until you reach L.\n        # - if L == 0: requires reducing from N to 0. But deletion is impossible when length==1,\n        #   so you can reach 0 only if N <= 1? Actually with N>=1 and operation requires >=2,\n        #   the best you can do from length 1 is stop at 1. Therefore L==0 is impossible.\n        #\n        # Thus feasible L are only 1..min(n1,n2,n3).\n        maxL = min(n1, n2, n3)\n        for L in range(1, maxL + 1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                ops = (n1 - L) + (n2 - L) + (n3 - L)\n                if ops < min_ops:\n                    min_ops = ops\n\n        return -1 if min_ops == float('inf') else min_ops\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Allowed operation: pick one string with length >= 2 and delete its rightmost char.\n        # Therefore, each string can only be reduced to a (non-empty) suffix of its original string.\n        # We need the three final strings to be equal => they must share a common suffix.\n        # Since empty is impossible: lengths cannot drop below 1.\n        \n        def common_suffix_len(a: str, b: str, c: str) -> int:\n            i, j, k = len(a) - 1, len(b) - 1, len(c) - 1\n            cnt = 0\n            while i >= 0 and j >= 0 and k >= 0 and a[i] == b[j] == c[k]:\n                cnt += 1\n                i -= 1\n                j -= 1\n                k -= 1\n            return cnt\n\n        l = common_suffix_len(s1, s2, s3)\n        if l == 0:\n            return -1\n\n        # Keep the maximum common suffix of length l.\n        # Operations needed are deletions: (len - l) for each string.\n        return (len(s1) - l) + (len(s2) - l) + (len(s3) - l)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        # We can only delete rightmost char when length >= 2.\n        # Therefore, any final string length L must be either:\n        # - L >= 1 (always reachable by deleting until length L), or\n        # - L == 0 (only reachable if original length >= 2, and we can delete down to 0;\n        #          in fact: reachable iff original length >= 2 because we can delete until length 1,\n        #          then one more deletion to 0 is allowed since length at that time is 1? No, operation\n        #          requires length >= 2, so to delete the last char we need length >=2 before deletion.\n        #          That means to reach 0, original length must be exactly 1? Actually impossible.\n        #          Let's reason: when length==1, cannot delete. So minimum reachable length is 1.\n        #          Thus L==0 is unreachable for any string.\n        #\n        # Hence final common string must have length >= 1.\n        #\n        # Also, since we only delete from the right, final strings must be common suffixes\n        # of s1, s2, s3.\n        #\n        # Min operations = (n1-L) + (n2-L) + (n3-L) = (n1+n2+n3) - 3L,\n        # so maximize L among feasible common suffix lengths >= 1.\n\n        max_len = min(n1, n2, n3)\n        best_L = -1\n\n        # Find maximum L such that suffixes of length L are equal and L>=1.\n        for L in range(max_len, 0, -1):\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best_L = L\n                break\n\n        if best_L == -1:\n            return -1\n        return (n1 + n2 + n3) - 3 * best_L\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Operation: choose one string with len >= 2 and delete its rightmost char.\n        # Thus, each string can only be reduced to a suffix (possibly empty is NOT reachable\n        # because length must stay >=1 at all times; you can stop at length 1).\n        # Therefore, the final common string must be a non-empty common suffix of all 3.\n\n        def common_suffix_max_len(a: str, b: str, c: str) -> int:\n            n1, n2, n3 = len(a), len(b), len(c)\n            m = min(n1, n2, n3)\n            # Find the maximum L in [1..m] such that a[-L:] == b[-L:] == c[-L:]\n            # We'll build from the end.\n            L = 0\n            for i in range(1, m + 1):\n                if a[-i] == b[-i] == c[-i]:\n                    L = i\n                else:\n                    break\n            return L\n\n        L = common_suffix_max_len(s1, s2, s3)\n        if L == 0:\n            return -1\n\n        # Keep the longest common suffix of length L, delete everything after it.\n        # Total operations equals deleted characters across all three strings.\n        return (len(s1) - L) + (len(s2) - L) + (len(s3) - L)\n```",
+        "```python\nclass Solution:\n    def findMinimumOperations(self, s1: str, s2: str, s3: str) -> int:\n        # Allowed operation: delete the rightmost character of one string\n        # Therefore, after any operations, all remaining strings must be common suffixes.\n        n1, n2, n3 = len(s1), len(s2), len(s3)\n\n        # Check common suffix by maximal L (length kept) that matches in all three.\n        max_l = min(n1, n2, n3)\n        best = -1\n        for L in range(max_l, -1, -1):\n            # Strings can be reduced down to length L by deleting (len - L) chars.\n            # But operation requires length at least 2 when deleting.\n            # If L == 0: to reduce from length >= 1 down to 0 would require deleting\n            # when current length is 1 (not allowed), so L=0 is impossible.\n            if L == 0:\n                continue\n            if s1[n1 - L:] == s2[n2 - L:] == s3[n3 - L:]:\n                best = L\n                break\n\n        if best == -1:\n            return -1\n\n        # Compute operations = total deletions needed to keep suffix of length best.\n        # Deletions count is (n - best) for each string.\n        return (n1 - best) + (n2 - best) + (n3 - best)\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3207",
+          "generation_index": 0,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 1,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 2,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 3,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 4,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 5,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 6,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 7,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 8,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3207",
+          "generation_index": 9,
+          "score": 0.7857142857142857,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "-1",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "65",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.1,
+      "augmented_pass_rate": 0.0,
+      "improvement": -0.1
+    }
+  }
+}

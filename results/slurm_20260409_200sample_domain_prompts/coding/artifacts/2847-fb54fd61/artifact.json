@@ -1,0 +1,3261 @@
+{
+  "problem_id": "2847",
+  "domain": "coding",
+  "problem": {
+    "id": "2847",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed array words consisting of distinct strings.\nThe string words[i] can be paired with the string words[j] if:\n\nThe string words[i] is equal to the reversed string of words[j].\n0 <= i < j < words.length.\n\nReturn the maximum number of pairs that can be formed from the array words.\nNote that each string can belong in at most one pair.\n \nExample 1:\n\nInput: words = [\"cd\",\"ac\",\"dc\",\"ca\",\"zz\"]\nOutput: 2\nExplanation: In this example, we can form 2 pair of strings in the following way:\n- We pair the 0^th string with the 2^nd string, as the reversed string of word[0] is \"dc\" and is equal to words[2].\n- We pair the 1^st string with the 3^rd string, as the reversed string of word[1] is \"ca\" and is equal to words[3].\nIt can be proven that 2 is the maximum number of pairs that can be formed.\nExample 2:\n\nInput: words = [\"ab\",\"ba\",\"cc\"]\nOutput: 1\nExplanation: In this example, we can form 1 pair of strings in the following way:\n- We pair the 0^th string with the 1^st string, as the reversed string of words[1] is \"ab\" and is equal to words[0].\nIt can be proven that 1 is the maximum number of pairs that can be formed.\n\nExample 3:\n\nInput: words = [\"aa\",\"ab\"]\nOutput: 0\nExplanation: In this example, we are unable to form any pair of strings.\n\n \nConstraints:\n\n1 <= words.length <= 50\nwords[i].length == 2\nwords consists of distinct strings.\nwords[i] contains only lowercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[\"cd\", \"ac\", \"dc\", \"ca\", \"zz\"]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"ab\", \"ba\", \"cc\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"aa\", \"ab\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"ga\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"uw\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"qg\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"zr\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"ku\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"fp\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"us\", \"su\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"gh\", \"hg\", \"kf\", \"fk\"]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"ei\", \"nq\", \"gw\", \"rt\", \"wb\", \"wg\", \"zr\", \"sn\", \"co\", \"oc\", \"qn\", \"uk\", \"ku\", \"tc\", \"ct\", \"df\", \"vb\", \"iy\", \"fd\", \"ns\", \"rz\", \"zv\", \"vz\", \"ip\", \"bw\", \"tr\", \"yi\", \"ie\", \"pi\", \"bv\"]",
+        "output": "15",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"tv\", \"eu\", \"lg\", \"df\", \"pt\", \"cb\", \"ja\", \"by\", \"cw\", \"ut\", \"zt\", \"yn\", \"rh\", \"vs\", \"nj\", \"vn\", \"fl\", \"ln\", \"pe\", \"tk\", \"lq\", \"ug\", \"ab\", \"ex\", \"dt\", \"ee\", \"hm\", \"ce\", \"tm\", \"nu\", \"nr\", \"vc\", \"aw\", \"ti\", \"lk\", \"jc\", \"xi\", \"wm\", \"lt\", \"ih\", \"px\", \"uv\", \"hv\", \"sh\", \"qz\", \"ue\", \"sy\", \"qs\", \"ms\", \"po\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"qg\", \"vw\", \"lu\", \"xm\", \"yt\", \"am\", \"bs\", \"lp\", \"nt\", \"la\", \"rb\", \"tz\", \"bu\", \"op\", \"qt\", \"fi\", \"mj\", \"rw\", \"ud\", \"bb\", \"mh\", \"pq\", \"th\", \"zy\", \"ew\", \"so\", \"ig\", \"zb\", \"hc\", \"ax\", \"fy\", \"ov\", \"ka\", \"kv\", \"eo\", \"hj\", \"hk\", \"rv\", \"xb\", \"ny\", \"hn\", \"sw\", \"gh\", \"xf\", \"ec\", \"jj\", \"ix\", \"rg\", \"jo\", \"ho\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"vz\", \"zv\", \"fn\", \"nf\", \"ic\", \"ci\", \"tb\", \"bt\", \"mx\", \"xm\", \"uk\", \"ku\", \"gt\", \"tg\", \"mq\", \"qm\", \"iv\", \"vi\", \"gi\", \"ig\", \"lp\", \"pl\", \"sy\", \"ys\", \"hn\", \"nh\", \"vf\", \"fv\", \"vj\", \"jv\", \"xd\", \"dx\", \"hf\", \"fh\", \"tk\", \"kt\", \"qe\", \"eq\", \"fz\", \"zf\", \"zi\", \"iz\", \"pb\", \"bp\", \"uc\", \"cu\", \"rn\", \"nr\", \"vx\", \"xv\"]",
+        "output": "25",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        ",
+    "metadata": {
+      "func_name": "maximumNumberOfStringPairs",
+      "question_title": "find-maximum-number-of-string-pairs",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed array words consisting of distinct strings.\nThe string words[i] can be paired with the string words[j] if:\n\nThe string words[i] is equal to the reversed string of words[j].\n0 <= i < j < words.length.\n\nReturn the maximum number of pairs that can be formed from the array words.\nNote that each string can belong in at most one pair.\n \nExample 1:\n\nInput: words = [\"cd\",\"ac\",\"dc\",\"ca\",\"zz\"]\nOutput: 2\nExplanation: In this example, we can form 2 pair of strings in the following way:\n- We pair the 0^th string with the 2^nd string, as the reversed string of word[0] is \"dc\" and is equal to words[2].\n- We pair the 1^st string with the 3^rd string, as the reversed string of word[1] is \"ca\" and is equal to words[3].\nIt can be proven that 2 is the maximum number of pairs that can be formed.\nExample 2:\n\nInput: words = [\"ab\",\"ba\",\"cc\"]\nOutput: 1\nExplanation: In this example, we can form 1 pair of strings in the following way:\n- We pair the 0^th string with the 1^st string, as the reversed string of words[1] is \"ab\" and is equal to words[0].\nIt can be proven that 1 is the maximum number of pairs that can be formed.\n\nExample 3:\n\nInput: words = [\"aa\",\"ab\"]\nOutput: 0\nExplanation: In this example, we are unable to form any pair of strings.\n\n \nConstraints:\n\n1 <= words.length <= 50\nwords[i].length == 2\nwords consists of distinct strings.\nwords[i] contains only lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)      # prevent reuse\n                s.remove(rev)    # also remove the pair partner\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w[::-1] in s:\n                # Ensure each pair is counted once\n                if w < w[::-1]:\n                    pairs += 1\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rw = w[::-1]\n            if rw in s:\n                # ensure we count each pair once\n                # (pair w with rw only when w is \"lexicographically <=\" its reverse)\n                if w <= rw:\n                    pairs += 1\n                    # remove both to prevent reuse\n                    s.remove(w)\n                    s.remove(rw)\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n        \n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                # form a pair between w and rev\n                used.add(w)\n                used.add(rev)\n                pairs += 1\n        \n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s and w < rev:  # count each pair once\n                pairs += 1\n        return pairs\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count how many times each word appears (even though constraints say distinct,\n        # this keeps the logic robust and simple).\n        cnt = Counter(words)\n        pairs = 0\n\n        for w in words:\n            if cnt[w] == 0:\n                continue\n            rw = w[::-1]\n            # If reverse exists and we can consume both, form a pair.\n            if cnt.get(rw, 0) > 0:\n                # Consume one occurrence of each word.\n                # This ensures each string is used at most once.\n                cnt[w] -= 1\n                cnt[rw] -= 1\n                pairs += 1\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)\n                s.remove(rev)\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w[0] != w[1]:  # only need to check non-palindromes\n                rev = w[::-1]\n                if rev in s:\n                    pairs += 1\n                    # Remove both so they can't be reused\n                    s.remove(w)\n                    s.remove(rev)\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rev)\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rw = w[::-1]\n            if rw in s and rw not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rw)\n\n        return pairs\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2847",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 2,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 5,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 6,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 8,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w[::-1] in s:\n                # Ensure each pair is counted once\n                if w < w[::-1]:\n                    pairs += 1\n        return pairs\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s and w < rev:  # count each pair once\n                pairs += 1\n        return pairs\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w[0] != w[1]:  # only need to check non-palindromes\n                rev = w[::-1]\n                if rev in s:\n                    pairs += 1\n                    # Remove both so they can't be reused\n                    s.remove(w)\n                    s.remove(rev)\n        return pairs\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n        \n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                # form a pair between w and rev\n                used.add(w)\n                used.add(rev)\n                pairs += 1\n        \n        return pairs\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count how many times each word appears (even though constraints say distinct,\n        # this keeps the logic robust and simple).\n        cnt = Counter(words)\n        pairs = 0\n\n        for w in words:\n            if cnt[w] == 0:\n                continue\n            rw = w[::-1]\n            # If reverse exists and we can consume both, form a pair.\n            if cnt.get(rw, 0) > 0:\n                # Consume one occurrence of each word.\n                # This ensures each string is used at most once.\n                cnt[w] -= 1\n                cnt[rw] -= 1\n                pairs += 1\n\n        return pairs\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rev)\n        return pairs\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rw = w[::-1]\n            if rw in s and rw not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rw)\n\n        return pairs\n```"
+        ],
+        "fail": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)      # prevent reuse\n                s.remove(rev)    # also remove the pair partner\n        return pairs\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rw = w[::-1]\n            if rw in s:\n                # ensure we count each pair once\n                # (pair w with rw only when w is \"lexicographically <=\" its reverse)\n                if w <= rw:\n                    pairs += 1\n                    # remove both to prevent reuse\n                    s.remove(w)\n                    s.remove(rw)\n        return pairs\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)\n                s.remove(rev)\n        return pairs\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given a 0-indexed array words consisting of distinct strings.\nThe string words[i] can be paired with the string words[j] if:\n\nThe string words[i] is equal to the reversed string of words[j].\n0 <= i < j < words.length.\n\nReturn the maximum number of pairs that can be formed from the array words.\nNote that each string can belong in at most one pair.\n \nExample 1:\n\nInput: words = [\"cd\",\"ac\",\"dc\",\"ca\",\"zz\"]\nOutput: 2\nExplanation: In this example, we can form 2 pair of strings in the following way:\n- We pair the 0^th string with the 2^nd string, as the reversed string of word[0] is \"dc\" and is equal to words[2].\n- We pair the 1^st string with the 3^rd string, as the reversed string of word[1] is \"ca\" and is equal to words[3].\nIt can be proven that 2 is the maximum number of pairs that can be formed.\nExample 2:\n\nInput: words = [\"ab\",\"ba\",\"cc\"]\nOutput: 1\nExplanation: In this example, we can form 1 pair of strings in the following way:\n- We pair the 0^th string with the 1^st string, as the reversed string of words[1] is \"ab\" and is equal to words[0].\nIt can be proven that 1 is the maximum number of pairs that can be formed.\n\nExample 3:\n\nInput: words = [\"aa\",\"ab\"]\nOutput: 0\nExplanation: In this example, we are unable to form any pair of strings.\n\n \nConstraints:\n\n1 <= words.length <= 50\nwords[i].length == 2\nwords consists of distinct strings.\nwords[i] contains only lowercase English letters.\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w[::-1] in s:\n                # Ensure each pair is counted once\n                if w < w[::-1]:\n                    pairs += 1\n        return pairs\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s and w < rev:  # count each pair once\n                pairs += 1\n        return pairs\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w[0] != w[1]:  # only need to check non-palindromes\n                rev = w[::-1]\n                if rev in s:\n                    pairs += 1\n                    # Remove both so they can't be reused\n                    s.remove(w)\n                    s.remove(rev)\n        return pairs\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n        \n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                # form a pair between w and rev\n                used.add(w)\n                used.add(rev)\n                pairs += 1\n        \n        return pairs\n```\n\nAttempt 2\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count how many times each word appears (even though constraints say distinct,\n        # this keeps the logic robust and simple).\n        cnt = Counter(words)\n        pairs = 0\n\n        for w in words:\n            if cnt[w] == 0:\n                continue\n            rw = w[::-1]\n            # If reverse exists and we can consume both, form a pair.\n            if cnt.get(rw, 0) > 0:\n                # Consume one occurrence of each word.\n                # This ensures each string is used at most once.\n                cnt[w] -= 1\n                cnt[rw] -= 1\n                pairs += 1\n\n        return pairs\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rev)\n        return pairs\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rw = w[::-1]\n            if rw in s and rw not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rw)\n\n        return pairs\n```\n\n#### Incorrect\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)      # prevent reuse\n                s.remove(rev)    # also remove the pair partner\n        return pairs\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rw = w[::-1]\n            if rw in s:\n                # ensure we count each pair once\n                # (pair w with rw only when w is \"lexicographically <=\" its reverse)\n                if w <= rw:\n                    pairs += 1\n                    # remove both to prevent reuse\n                    s.remove(w)\n                    s.remove(rw)\n        return pairs\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)\n                s.remove(rev)\n        return pairs\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Enforce “count once” with canonical pairing",
+          "description": "When pairs are symmetric, count each valid pair using a canonical rule so it can’t be discovered twice.",
+          "content": "If objects pair by a reversible relation, define a deterministic way to select exactly one direction (e.g., based on ordering or a canonical representative). Then iterate through all objects and count only when the current object is the chosen representative, ensuring each pair contributes at most once.",
+          "reasoning": "The successful approaches rely on a counting strategy that avoids double-counting and correctly enforces “each string used at most once.” They either (1) count only one representative per reversible pair using an ordering rule, or (2) explicitly track consumption via a “used” set or by removing elements from the remaining pool. The partially correct attempts that “almost” work fail when they don’t fully prevent double counting across the two directed scans of a reversible relationship, or when they rely on insufficiently strict consumption logic. The incorrect attempts show common pitfalls: removing from the pool without guarding against counting the same pair twice (due to encountering both members later), and using a too-permissive counting condition that doesn’t guarantee a pair is counted once."
+        },
+        {
+          "title": "Use state to prevent reuse (consumption or used-tracking)",
+          "description": "To satisfy “each item used at most once,” maintain explicit “available/used” state and update it when forming a pair.",
+          "content": "Greedy pairing is safe when you consistently “consume” both elements of a chosen pair so they cannot be reused later. Implement this either by removing from a mutable pool (set/count map) or by maintaining a separate used set, and always check membership/availability before pairing.",
+          "reasoning": "The successful approaches rely on a counting strategy that avoids double-counting and correctly enforces “each string used at most once.” They either (1) count only one representative per reversible pair using an ordering rule, or (2) explicitly track consumption via a “used” set or by removing elements from the remaining pool. The partially correct attempts that “almost” work fail when they don’t fully prevent double counting across the two directed scans of a reversible relationship, or when they rely on insufficiently strict consumption logic. The incorrect attempts show common pitfalls: removing from the pool without guarding against counting the same pair twice (due to encountering both members later), and using a too-permissive counting condition that doesn’t guarantee a pair is counted once."
+        },
+        {
+          "title": "Validate destructive operations against iteration order",
+          "description": "Any approach that deletes or marks items must be correct under the traversal order; otherwise it will still double-count.",
+          "content": "When you remove elements from a set while iterating over an independent list, you must ensure later iterations won’t form the same logical pair again. Add a guard condition tied to pair uniqueness (canonical representative or used-check), not just existence at time of checking.",
+          "reasoning": "The successful approaches rely on a counting strategy that avoids double-counting and correctly enforces “each string used at most once.” They either (1) count only one representative per reversible pair using an ordering rule, or (2) explicitly track consumption via a “used” set or by removing elements from the remaining pool. The partially correct attempts that “almost” work fail when they don’t fully prevent double counting across the two directed scans of a reversible relationship, or when they rely on insufficiently strict consumption logic. The incorrect attempts show common pitfalls: removing from the pool without guarding against counting the same pair twice (due to encountering both members later), and using a too-permissive counting condition that doesn’t guarantee a pair is counted once."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful approaches rely on a counting strategy that avoids double-counting and correctly enforces “each string used at most once.” They either (1) count only one representative per reversible pair using an ordering rule, or (2) explicitly track consumption via a “used” set or by removing elements from the remaining pool. The partially correct attempts that “almost” work fail when they don’t fully prevent double counting across the two directed scans of a reversible relationship, or when they rely on insufficiently strict consumption logic. The incorrect attempts show common pitfalls: removing from the pool without guarding against counting the same pair twice (due to encountering both members later), and using a too-permissive counting condition that doesn’t guarantee a pair is counted once.\n</reasoning>\n\n<memories>\n<memory>\n<title>Enforce “count once” with canonical pairing</title>\n<description>When pairs are symmetric, count each valid pair using a canonical rule so it can’t be discovered twice.</description>\n<content>If objects pair by a reversible relation, define a deterministic way to select exactly one direction (e.g., based on ordering or a canonical representative). Then iterate through all objects and count only when the current object is the chosen representative, ensuring each pair contributes at most once.</content>\n</memory>\n\n<memory>\n<title>Use state to prevent reuse (consumption or used-tracking)</title>\n<description>To satisfy “each item used at most once,” maintain explicit “available/used” state and update it when forming a pair.</description>\n<content>Greedy pairing is safe when you consistently “consume” both elements of a chosen pair so they cannot be reused later. Implement this either by removing from a mutable pool (set/count map) or by maintaining a separate used set, and always check membership/availability before pairing.</content>\n</memory>\n\n<memory>\n<title>Validate destructive operations against iteration order</title>\n<description>Any approach that deletes or marks items must be correct under the traversal order; otherwise it will still double-count.</description>\n<content>When you remove elements from a set while iterating over an independent list, you must ensure later iterations won’t form the same logical pair again. Add a guard condition tied to pair uniqueness (canonical representative or used-check), not just existence at time of checking.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed array words consisting of distinct strings.\nThe string words[i] can be paired with the string words[j] if:\n\nThe string words[i] is equal to the reversed string of words[j].\n0 <= i < j < words.length.\n\nReturn the maximum number of pairs that can be formed from the array words.\nNote that each string can belong in at most one pair.\n \nExample 1:\n\nInput: words = [\"cd\",\"ac\",\"dc\",\"ca\",\"zz\"]\nOutput: 2\nExplanation: In this example, we can form 2 pair of strings in the following way:\n- We pair the 0^th string with the 2^nd string, as the reversed string of word[0] is \"dc\" and is equal to words[2].\n- We pair the 1^st string with the 3^rd string, as the reversed string of word[1] is \"ca\" and is equal to words[3].\nIt can be proven that 2 is the maximum number of pairs that can be formed.\nExample 2:\n\nInput: words = [\"ab\",\"ba\",\"cc\"]\nOutput: 1\nExplanation: In this example, we can form 1 pair of strings in the following way:\n- We pair the 0^th string with the 1^st string, as the reversed string of words[1] is \"ab\" and is equal to words[0].\nIt can be proven that 1 is the maximum number of pairs that can be formed.\n\nExample 3:\n\nInput: words = [\"aa\",\"ab\"]\nOutput: 0\nExplanation: In this example, we are unable to form any pair of strings.\n\n \nConstraints:\n\n1 <= words.length <= 50\nwords[i].length == 2\nwords consists of distinct strings.\nwords[i] contains only lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Since words[i] are all length 2 and distinct,\n        # we can greedily count how many word's reverse exists and hasn't been used.\n        s = set(words)\n        pairs = 0\n\n        for w in words:\n            if w in s:\n                rev = w[::-1]\n                if rev in s:\n                    pairs += 1\n                    # mark both as used by removing them from the set\n                    s.remove(w)\n                    s.remove(rev)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rw = w[::-1]\n            if rw in s:\n                pairs += 1\n                s.remove(w)\n                s.remove(rw)\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rev)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rev = w[::-1]\n            if rev in s and rev not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rev)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        seen = set(words)\n        pairs = 0\n        used = set()\n\n        for w in words:\n            if w in used:\n                continue\n            rw = w[::-1]\n            if rw in seen and rw not in used:\n                pairs += 1\n                used.add(w)\n                used.add(rw)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        word_set = set(words)\n        pairs = 0\n        for w in words:\n            if w[0] == w[1]:  # \"aa\" type\n                # Only pairable if its reverse exists (itself), but distinct strings imply impossible\n                continue\n            rev = w[1] + w[0]\n            if rev in word_set:\n                pairs += 1\n                # Remove both so each string is used at most once\n                word_set.remove(w)\n                word_set.remove(rev)\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rw = w[::-1]\n            if rw in s:\n                pairs += 1\n                s.remove(w)\n                s.remove(rw)\n        return pairs // 1\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        word_set = set(words)\n        pairs = 0\n        \n        for w in words:\n            rev = w[::-1]\n            if rev in word_set:\n                # Ensure each pair counted once by removing matched strings\n                # (and also handle \"w\" with its reverse).\n                if w < rev:\n                    pairs += 1\n                # If w == rev (e.g., \"aa\"), it can’t form a pair because all strings are distinct\n                # and pairing requires i < j, but only one occurrence exists.\n                # For distinct strings of length 2, such cases contribute 0.\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            # To avoid counting the same pair twice, only count when w <= reversed(w) lexicographically\n            rw = w[::-1]\n            if rw in s and w <= rw:\n                pairs += 1\n        return pairs // 2 if words else 0\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        s = set(words)\n        pairs = 0\n        for w in words:\n            rev = w[::-1]\n            if rev in s:\n                pairs += 1\n                s.remove(w)      # each string used at most once\n                s.remove(rev)\n        return pairs\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2847",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 1,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 4,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 6,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 8,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "12",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 9,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Enforce “count once” with canonical pairing: When pairs are symmetric, count each valid pair using a canonical rule so it can’t be discovered twice.\n     If objects pair by a reversible relation, define a deterministic way to select exactly one direction (e.g., based on ordering or a canonical representative). Then iterate through all objects and count only when the current object is the chosen representative, ensuring each pair contributes at most once.\n  2. Use state to prevent reuse (consumption or used-tracking): To satisfy “each item used at most once,” maintain explicit “available/used” state and update it when forming a pair.\n     Greedy pairing is safe when you consistently “consume” both elements of a chosen pair so they cannot be reused later. Implement this either by removing from a mutable pool (set/count map) or by maintaining a separate used set, and always check membership/availability before pairing.\n  3. Validate destructive operations against iteration order: Any approach that deletes or marks items must be correct under the traversal order; otherwise it will still double-count.\n     When you remove elements from a set while iterating over an independent list, you must ensure later iterations won’t form the same logical pair again. Add a guard condition tied to pair uniqueness (canonical representative or used-check), not just existence at time of checking.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given a 0-indexed array words consisting of distinct strings.\nThe string words[i] can be paired with the string words[j] if:\n\nThe string words[i] is equal to the reversed string of words[j].\n0 <= i < j < words.length.\n\nReturn the maximum number of pairs that can be formed from the array words.\nNote that each string can belong in at most one pair.\n \nExample 1:\n\nInput: words = [\"cd\",\"ac\",\"dc\",\"ca\",\"zz\"]\nOutput: 2\nExplanation: In this example, we can form 2 pair of strings in the following way:\n- We pair the 0^th string with the 2^nd string, as the reversed string of word[0] is \"dc\" and is equal to words[2].\n- We pair the 1^st string with the 3^rd string, as the reversed string of word[1] is \"ca\" and is equal to words[3].\nIt can be proven that 2 is the maximum number of pairs that can be formed.\nExample 2:\n\nInput: words = [\"ab\",\"ba\",\"cc\"]\nOutput: 1\nExplanation: In this example, we can form 1 pair of strings in the following way:\n- We pair the 0^th string with the 1^st string, as the reversed string of words[1] is \"ab\" and is equal to words[0].\nIt can be proven that 1 is the maximum number of pairs that can be formed.\n\nExample 3:\n\nInput: words = [\"aa\",\"ab\"]\nOutput: 0\nExplanation: In this example, we are unable to form any pair of strings.\n\n \nConstraints:\n\n1 <= words.length <= 50\nwords[i].length == 2\nwords consists of distinct strings.\nwords[i] contains only lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count each word; words are distinct but we keep generic count logic.\n        freq = {}\n        for w in words:\n            freq[w] = 1  # distinct\n\n        pairs = 0\n        used = set()  # words already paired/consumed\n\n        for w in words:\n            if w in used:\n                continue\n            rw = w[::-1]\n            # Pair only in the forward direction to avoid double counting:\n            # choose the canonical representative by lexicographic order.\n            if rw in freq and rw not in used and w < rw:\n                used.add(w)\n                used.add(rw)\n                pairs += 1\n\n            # If w == reverse(w) (e.g., \"aa\"), can't form a pair because each string is distinct\n            # and would require two copies of the same string.\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Use a set for O(1) membership checks.\n        remaining = set(words)\n        pairs = 0\n\n        # Canonical “count once” rule:\n        # Only form a pair when we can consume both sides from `remaining`,\n        # and we always start from the element itself (deterministic loop\n        # over the given array ensures no double counting).\n        for w in words:\n            if w not in remaining:\n                continue  # already used in some previous pairing\n            rw = w[::-1]\n            if rw in remaining:\n                pairs += 1\n                remaining.remove(w)\n                remaining.remove(rw)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count each unordered reversible match at most once by consuming both strings.\n        remaining = set(words)\n        pairs = 0\n        for w in words:\n            if w not in remaining:\n                continue  # already used\n            rev = w[::-1]\n            if rev in remaining:\n                remaining.remove(w)\n                remaining.remove(rev)\n                pairs += 1\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count usable pairs by greedily consuming strings from a set\n        # Reverse relation is symmetric; each pair is counted once by always\n        # selecting the \"current\" string if its reverse is still available.\n        remaining = set(words)\n        pairs = 0\n\n        for w in words:\n            rw = w[::-1]\n            if w in remaining and rw in remaining:\n                pairs += 1\n                remaining.remove(w)\n                remaining.remove(rw)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count maximum pairs of (x, reverse(x)) with each word used at most once.\n        remaining = set(words)\n        ans = 0\n\n        # Canonical \"count once\": only form pair when current word equals its own canonical representative.\n        # We choose canonical by lexicographic order between the word and its reverse.\n        for w in words:\n            if w not in remaining:\n                continue\n            rw = w[::-1]\n            if rw in remaining:\n                # ensure each pair counted once\n                if w < rw or w == rw:\n                    remaining.remove(w)\n                    remaining.remove(rw)\n                    ans += 1\n\n        return ans\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Each word appears at most once (per problem statement).\n        # Greedily consume a canonical direction to avoid double counting.\n        remaining = set(words)\n        pairs = 0\n\n        for w in words:\n            r = w[::-1]\n            # Canonical rule: count only when w is the chosen representative\n            # (here: w < reversed(w)), so each logical pair is considered once.\n            if w < r and w in remaining and r in remaining:\n                pairs += 1\n                remaining.remove(w)\n                remaining.remove(r)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count maximum number of disjoint pairs (word, reversed(word))\n        # Each word is distinct, so we can greedily \"consume\" matches using a set.\n        remaining = set(words)\n        pairs = 0\n\n        for w in words:\n            if w not in remaining:\n                continue  # already used in some previous pair\n\n            rw = w[::-1]\n            if rw in remaining:\n                pairs += 1\n                remaining.remove(w)\n                remaining.remove(rw)\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Since words are length-2 and distinct, we can pair greedily using a set.\n        # Ensure each word used at most once by consuming it from the set when paired.\n        remaining = set(words)\n        pairs = 0\n\n        for w in words:\n            if w not in remaining:\n                continue\n            rw = w[::-1]\n            if rw in remaining:\n                remaining.remove(w)\n                remaining.remove(rw)\n                pairs += 1\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Build set for O(1) availability checks\n        remaining = set(words)\n        pairs = 0\n\n        # Canonical pairing: only attempt pairs where current word is\n        # the lexicographically smaller between it and its reverse.\n        for w in words:\n            rw = w[::-1]\n            if w in remaining and rw in remaining:\n                if w <= rw:  # count each pair once\n                    remaining.remove(w)\n                    remaining.remove(rw)\n                    pairs += 1\n\n        return pairs\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maximumNumberOfStringPairs(self, words: List[str]) -> int:\n        # Count maximum disjoint pairs (each word used at most once).\n        # Since words are distinct, we can greedily form pairs by consuming from a set.\n        s = set(words)\n        pairs = 0\n        for w in words:\n            if w in s:\n                rw = w[::-1]\n                if rw in s:\n                    pairs += 1\n                    s.remove(w)\n                    s.remove(rw)\n        return pairs\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2847",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 1,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 2,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 3,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 4,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "15",
+                "actual": "15",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "25",
+                "actual": "25",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 6,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 7,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 8,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2847",
+          "generation_index": 9,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Runtime Error: 'zz'"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "15",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "25",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.2,
+      "augmented_pass_rate": 0.2,
+      "improvement": 0.0
+    }
+  }
+}

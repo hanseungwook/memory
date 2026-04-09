@@ -1,0 +1,3265 @@
+{
+  "problem_id": "3150",
+  "domain": "coding",
+  "problem": {
+    "id": "3150",
+    "domain": "coding",
+    "statement": "You are given a binary string s and a positive integer k.\nA substring of s is beautiful if the number of 1's in it is exactly k.\nLet len be the length of the shortest beautiful substring.\nReturn the lexicographically smallest beautiful substring of string s with length equal to len. If s doesn't contain a beautiful substring, return an empty string.\nA string a is lexicographically larger than a string b (of the same length) if in the first position where a and b differ, a has a character strictly larger than the corresponding character in b.\n\nFor example, \"abcd\" is lexicographically larger than \"abcc\" because the first position they differ is at the fourth character, and d is greater than c.\n\n \nExample 1:\n\nInput: s = \"100011001\", k = 3\nOutput: \"11001\"\nExplanation: There are 7 beautiful substrings in this example:\n1. The substring \"100011001\".\n2. The substring \"100011001\".\n3. The substring \"100011001\".\n4. The substring \"100011001\".\n5. The substring \"100011001\".\n6. The substring \"100011001\".\n7. The substring \"100011001\".\nThe length of the shortest beautiful substring is 5.\nThe lexicographically smallest beautiful substring with length 5 is the substring \"11001\".\n\nExample 2:\n\nInput: s = \"1011\", k = 2\nOutput: \"11\"\nExplanation: There are 3 beautiful substrings in this example:\n1. The substring \"1011\".\n2. The substring \"1011\".\n3. The substring \"1011\".\nThe length of the shortest beautiful substring is 2.\nThe lexicographically smallest beautiful substring with length 2 is the substring \"11\".\n\nExample 3:\n\nInput: s = \"000\", k = 1\nOutput: \"\"\nExplanation: There are no beautiful substrings in this example.\n\n \nConstraints:\n\n1 <= s.length <= 100\n1 <= k <= s.length",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"100011001\"\n3",
+        "output": "\"11001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"1011\"\n2",
+        "output": "\"11\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"000\"\n1",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"10\"\n2",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"011\"\n3",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"0111\"\n4",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"1001\"\n3",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"0001\"\n4",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"00001\"\n5",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"00110\"\n4",
+        "output": "\"\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"011000\"\n1",
+        "output": "\"1\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"11111\"\n5",
+        "output": "\"11111\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"00011100010011000101001100010111000010010000010111000110111001101011111001000110000000101110\"\n36",
+        "output": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"10000011110011001011110000100010100111010011101111011110110101111010111110111001010101001110110\"\n50",
+        "output": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"\n50",
+        "output": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        ",
+    "metadata": {
+      "func_name": "shortestBeautifulSubstring",
+      "question_title": "shortest-and-lexicographically-smallest-beautiful-string",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a binary string s and a positive integer k.\nA substring of s is beautiful if the number of 1's in it is exactly k.\nLet len be the length of the shortest beautiful substring.\nReturn the lexicographically smallest beautiful substring of string s with length equal to len. If s doesn't contain a beautiful substring, return an empty string.\nA string a is lexicographically larger than a string b (of the same length) if in the first position where a and b differ, a has a character strictly larger than the corresponding character in b.\n\nFor example, \"abcd\" is lexicographically larger than \"abcc\" because the first position they differ is at the fourth character, and d is greater than c.\n\n \nExample 1:\n\nInput: s = \"100011001\", k = 3\nOutput: \"11001\"\nExplanation: There are 7 beautiful substrings in this example:\n1. The substring \"100011001\".\n2. The substring \"100011001\".\n3. The substring \"100011001\".\n4. The substring \"100011001\".\n5. The substring \"100011001\".\n6. The substring \"100011001\".\n7. The substring \"100011001\".\nThe length of the shortest beautiful substring is 5.\nThe lexicographically smallest beautiful substring with length 5 is the substring \"11001\".\n\nExample 2:\n\nInput: s = \"1011\", k = 2\nOutput: \"11\"\nExplanation: There are 3 beautiful substrings in this example:\n1. The substring \"1011\".\n2. The substring \"1011\".\n3. The substring \"1011\".\nThe length of the shortest beautiful substring is 2.\nThe lexicographically smallest beautiful substring with length 2 is the substring \"11\".\n\nExample 3:\n\nInput: s = \"000\", k = 1\nOutput: \"\"\nExplanation: There are no beautiful substrings in this example.\n\n \nConstraints:\n\n1 <= s.length <= 100\n1 <= k <= s.length\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any substring with exactly k ones corresponds to a consecutive block of k ones in pos.\n        for start in range(len(pos) - k + 1):\n            left = pos[start]\n            right = pos[start + k - 1]\n            cur_len = right - left + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left:right + 1]\n            elif cur_len == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # If k is 0 (not possible per constraints), we'd handle separately.\n        # Per constraints k >= 1.\n\n        # Find minimal length of substring with exactly k ones and\n        # then lexicographically smallest among those.\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        # If fewer than k ones exist, no beautiful substring.\n        if len(ones_pos) < k:\n            return \"\"\n\n        min_len = 10**9\n        best = None  # store best substring\n\n        # A substring with exactly k ones is determined by choosing\n        # k consecutive ones positions: ones_pos[i ... i+k-1].\n        for i in range(0, len(ones_pos) - k + 1):\n            left_one = ones_pos[i]\n            right_one = ones_pos[i + k - 1]\n            length = right_one - left_one + 1\n\n            if length < min_len:\n                min_len = length\n                # Tentatively set best; exact best substring found below\n                best = s[left_one:right_one + 1]\n            elif length == min_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best:\n                    best = cand\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones_pos) < k:\n            return \"\"\n\n        best_len = 10**9\n        best_sub = \"\"\n\n        # If a substring has exactly k ones, it must span from some i-th 1 to (i+k-1)-th 1\n        # Any such substring minimal length is between those positions.\n        for i in range(len(ones_pos) - k + 1):\n            left = ones_pos[i]\n            right = ones_pos[i + k - 1]\n            curr_len = right - left + 1\n            if curr_len < best_len:\n                best_len = curr_len\n                best_sub = s[left:right + 1]\n            elif curr_len == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [-1] + [i for i, ch in enumerate(s) if ch == '1'] + [n]\n        m = len(ones_pos) - 2  # number of real '1's in s\n\n        if m < k:\n            return \"\"\n\n        best_len = n + 1\n        best_sub = \"\"\n\n        # Consider every window of k consecutive '1' positions.\n        # If the k-th '1' in the window is at ones_pos[i+k-1], then we can choose:\n        # - start = ones_pos[i-1] + 1  (after previous '1' outside window)\n        # - end   = ones_pos[i+k-1]    (at last '1' in window)\n        # This yields the shortest substring with exactly k ones for that window.\n        for i in range(1, m - k + 2):  # i..i+k-1 are indices in the original ones list\n            left_prev_one = ones_pos[i - 1]\n            right_last_one = ones_pos[i + k - 1]\n            cur_len = right_last_one - left_prev_one\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_prev_one + 1: right_last_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_prev_one + 1: right_last_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        # Collect positions of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(ones)\n        if m < k:\n            return \"\"\n\n        best_len = float('inf')\n        best = None\n\n        # Any substring with exactly k ones corresponds to choosing\n        # a block of k consecutive ones: ones[i]..ones[i+k-1]\n        for i in range(0, m - k + 1):\n            left_pos = ones[i]\n            right_pos = ones[i + k - 1]\n            # Minimal-length substring covering exactly these k ones\n            cur_len = right_pos - left_pos + 1\n            if cur_len > best_len:\n                continue\n\n            cur = s[left_pos:right_pos + 1]\n\n            if cur_len < best_len or best is None or cur < best:\n                best_len = cur_len\n                best = cur\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        # If there aren't enough 1s to make exactly k ones, no answer\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_str = \"\"\n\n        # Consider every window of k consecutive '1's.\n        # substring from pos[i]..pos[i+k-1] has exactly k ones and is the shortest\n        # for that fixed set of k consecutive ones.\n        for i in range(len(pos) - k + 1):\n            left = pos[i]\n            right = pos[i + k - 1]\n            curr_len = right - left + 1\n            if curr_len > best_len:\n                continue\n            curr_sub = s[left:right + 1]\n            if curr_len < best_len or (curr_len == best_len and (best_str == \"\" or curr_sub < best_str)):\n                best_len = curr_len\n                best_str = curr_sub\n\n        return best_str\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # Positions of ones\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        # Sliding over groups of exactly k ones:\n        # substring from ones[i] to ones[i+k-1] has exactly k ones,\n        # and its minimal length for that group is fixed by the endpoints.\n        best_len = 10**9\n        best_sub = \"\"\n\n        for i in range(len(ones) - k + 1):\n            l = ones[i]\n            r = ones[i + k - 1]\n            cur_len = r - l + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[l:r + 1]\n            elif cur_len == best_len:\n                cand = s[l:r + 1]\n                if cand < best_sub:  # lexicographically smallest\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones_pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any beautiful substring must include exactly k ones.\n        # For i from 0..m-k, consider substring spanning ones_pos[i]..ones_pos[i+k-1]\n        # Length is determined by the first and last included '1'.\n        m = len(ones_pos)\n        for i in range(m - k + 1):\n            left_one = ones_pos[i]\n            right_one = ones_pos[i + k - 1]\n            cur_len = right_one - left_one + 1\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_one:right_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(pos)\n\n        if k > m:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Consider substrings with exactly k ones.\n        # For i from 0..m-k, substring runs from pos[i]..pos[i+k-1].\n        # Its length is last - first + 1, but to get the shortest length,\n        # we can also extend boundaries only if needed—actually any substring\n        # with exactly these k ones must include between them, so length is fixed.\n        for i in range(0, m - k + 1):\n            L = pos[i]\n            R = pos[i + k - 1]\n            length = R - L + 1\n            sub = s[L:R + 1]\n            if length < best_len or (length == best_len and (sub < best_sub)):\n                best_len = length\n                best_sub = sub\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        # Find minimal window [pos[i-k+1], pos[i]] having exactly k ones.\n        best_len = 10**9\n        candidates = []\n\n        # i is the index in pos of the end (inclusive) of a k-ones window\n        for i in range(k - 1, len(pos)):\n            l_idx = i - k + 1\n            r_idx = i\n            left = pos[l_idx]\n            right = pos[r_idx]\n            cur_len = right - left + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                candidates = [(left, right)]\n            elif cur_len == best_len:\n                candidates.append((left, right))\n\n        # Among candidates with minimal length, pick lexicographically smallest substring.\n        # Since all have same length, direct comparison works.\n        ans = None\n        for left, right in candidates:\n            sub = s[left:right + 1]\n            if ans is None or sub < ans:\n                ans = sub\n        return ans if ans is not None else \"\"\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3150",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"11001\"",
+                "actual": "'100011'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"11\"",
+                "actual": "'011'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'0001110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'11001100101111000010001010011101001110111101111011010111101011111011100101010100111'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any substring with exactly k ones corresponds to a consecutive block of k ones in pos.\n        for start in range(len(pos) - k + 1):\n            left = pos[start]\n            right = pos[start + k - 1]\n            cur_len = right - left + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left:right + 1]\n            elif cur_len == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # If k is 0 (not possible per constraints), we'd handle separately.\n        # Per constraints k >= 1.\n\n        # Find minimal length of substring with exactly k ones and\n        # then lexicographically smallest among those.\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        # If fewer than k ones exist, no beautiful substring.\n        if len(ones_pos) < k:\n            return \"\"\n\n        min_len = 10**9\n        best = None  # store best substring\n\n        # A substring with exactly k ones is determined by choosing\n        # k consecutive ones positions: ones_pos[i ... i+k-1].\n        for i in range(0, len(ones_pos) - k + 1):\n            left_one = ones_pos[i]\n            right_one = ones_pos[i + k - 1]\n            length = right_one - left_one + 1\n\n            if length < min_len:\n                min_len = length\n                # Tentatively set best; exact best substring found below\n                best = s[left_one:right_one + 1]\n            elif length == min_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best:\n                    best = cand\n\n        return best if best is not None else \"\"\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones_pos) < k:\n            return \"\"\n\n        best_len = 10**9\n        best_sub = \"\"\n\n        # If a substring has exactly k ones, it must span from some i-th 1 to (i+k-1)-th 1\n        # Any such substring minimal length is between those positions.\n        for i in range(len(ones_pos) - k + 1):\n            left = ones_pos[i]\n            right = ones_pos[i + k - 1]\n            curr_len = right - left + 1\n            if curr_len < best_len:\n                best_len = curr_len\n                best_sub = s[left:right + 1]\n            elif curr_len == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        # Collect positions of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(ones)\n        if m < k:\n            return \"\"\n\n        best_len = float('inf')\n        best = None\n\n        # Any substring with exactly k ones corresponds to choosing\n        # a block of k consecutive ones: ones[i]..ones[i+k-1]\n        for i in range(0, m - k + 1):\n            left_pos = ones[i]\n            right_pos = ones[i + k - 1]\n            # Minimal-length substring covering exactly these k ones\n            cur_len = right_pos - left_pos + 1\n            if cur_len > best_len:\n                continue\n\n            cur = s[left_pos:right_pos + 1]\n\n            if cur_len < best_len or best is None or cur < best:\n                best_len = cur_len\n                best = cur\n\n        return best if best is not None else \"\"\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        # If there aren't enough 1s to make exactly k ones, no answer\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_str = \"\"\n\n        # Consider every window of k consecutive '1's.\n        # substring from pos[i]..pos[i+k-1] has exactly k ones and is the shortest\n        # for that fixed set of k consecutive ones.\n        for i in range(len(pos) - k + 1):\n            left = pos[i]\n            right = pos[i + k - 1]\n            curr_len = right - left + 1\n            if curr_len > best_len:\n                continue\n            curr_sub = s[left:right + 1]\n            if curr_len < best_len or (curr_len == best_len and (best_str == \"\" or curr_sub < best_str)):\n                best_len = curr_len\n                best_str = curr_sub\n\n        return best_str\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # Positions of ones\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        # Sliding over groups of exactly k ones:\n        # substring from ones[i] to ones[i+k-1] has exactly k ones,\n        # and its minimal length for that group is fixed by the endpoints.\n        best_len = 10**9\n        best_sub = \"\"\n\n        for i in range(len(ones) - k + 1):\n            l = ones[i]\n            r = ones[i + k - 1]\n            cur_len = r - l + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[l:r + 1]\n            elif cur_len == best_len:\n                cand = s[l:r + 1]\n                if cand < best_sub:  # lexicographically smallest\n                    best_sub = cand\n\n        return best_sub\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones_pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any beautiful substring must include exactly k ones.\n        # For i from 0..m-k, consider substring spanning ones_pos[i]..ones_pos[i+k-1]\n        # Length is determined by the first and last included '1'.\n        m = len(ones_pos)\n        for i in range(m - k + 1):\n            left_one = ones_pos[i]\n            right_one = ones_pos[i + k - 1]\n            cur_len = right_one - left_one + 1\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_one:right_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(pos)\n\n        if k > m:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Consider substrings with exactly k ones.\n        # For i from 0..m-k, substring runs from pos[i]..pos[i+k-1].\n        # Its length is last - first + 1, but to get the shortest length,\n        # we can also extend boundaries only if needed—actually any substring\n        # with exactly these k ones must include between them, so length is fixed.\n        for i in range(0, m - k + 1):\n            L = pos[i]\n            R = pos[i + k - 1]\n            length = R - L + 1\n            sub = s[L:R + 1]\n            if length < best_len or (length == best_len and (sub < best_sub)):\n                best_len = length\n                best_sub = sub\n\n        return best_sub\n```",
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        # Find minimal window [pos[i-k+1], pos[i]] having exactly k ones.\n        best_len = 10**9\n        candidates = []\n\n        # i is the index in pos of the end (inclusive) of a k-ones window\n        for i in range(k - 1, len(pos)):\n            l_idx = i - k + 1\n            r_idx = i\n            left = pos[l_idx]\n            right = pos[r_idx]\n            cur_len = right - left + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                candidates = [(left, right)]\n            elif cur_len == best_len:\n                candidates.append((left, right))\n\n        # Among candidates with minimal length, pick lexicographically smallest substring.\n        # Since all have same length, direct comparison works.\n        ans = None\n        for left, right in candidates:\n            sub = s[left:right + 1]\n            if ans is None or sub < ans:\n                ans = sub\n        return ans if ans is not None else \"\"\n```"
+        ],
+        "partial": [
+          "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [-1] + [i for i, ch in enumerate(s) if ch == '1'] + [n]\n        m = len(ones_pos) - 2  # number of real '1's in s\n\n        if m < k:\n            return \"\"\n\n        best_len = n + 1\n        best_sub = \"\"\n\n        # Consider every window of k consecutive '1' positions.\n        # If the k-th '1' in the window is at ones_pos[i+k-1], then we can choose:\n        # - start = ones_pos[i-1] + 1  (after previous '1' outside window)\n        # - end   = ones_pos[i+k-1]    (at last '1' in window)\n        # This yields the shortest substring with exactly k ones for that window.\n        for i in range(1, m - k + 2):  # i..i+k-1 are indices in the original ones list\n            left_prev_one = ones_pos[i - 1]\n            right_last_one = ones_pos[i + k - 1]\n            cur_len = right_last_one - left_prev_one\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_prev_one + 1: right_last_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_prev_one + 1: right_last_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given a binary string s and a positive integer k.\nA substring of s is beautiful if the number of 1's in it is exactly k.\nLet len be the length of the shortest beautiful substring.\nReturn the lexicographically smallest beautiful substring of string s with length equal to len. If s doesn't contain a beautiful substring, return an empty string.\nA string a is lexicographically larger than a string b (of the same length) if in the first position where a and b differ, a has a character strictly larger than the corresponding character in b.\n\nFor example, \"abcd\" is lexicographically larger than \"abcc\" because the first position they differ is at the fourth character, and d is greater than c.\n\n \nExample 1:\n\nInput: s = \"100011001\", k = 3\nOutput: \"11001\"\nExplanation: There are 7 beautiful substrings in this example:\n1. The substring \"100011001\".\n2. The substring \"100011001\".\n3. The substring \"100011001\".\n4. The substring \"100011001\".\n5. The substring \"100011001\".\n6. The substring \"100011001\".\n7. The substring \"100011001\".\nThe length of the shortest beautiful substring is 5.\nThe lexicographically smallest beautiful substring with length 5 is the substring \"11001\".\n\nExample 2:\n\nInput: s = \"1011\", k = 2\nOutput: \"11\"\nExplanation: There are 3 beautiful substrings in this example:\n1. The substring \"1011\".\n2. The substring \"1011\".\n3. The substring \"1011\".\nThe length of the shortest beautiful substring is 2.\nThe lexicographically smallest beautiful substring with length 2 is the substring \"11\".\n\nExample 3:\n\nInput: s = \"000\", k = 1\nOutput: \"\"\nExplanation: There are no beautiful substrings in this example.\n\n \nConstraints:\n\n1 <= s.length <= 100\n1 <= k <= s.length\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any substring with exactly k ones corresponds to a consecutive block of k ones in pos.\n        for start in range(len(pos) - k + 1):\n            left = pos[start]\n            right = pos[start + k - 1]\n            cur_len = right - left + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left:right + 1]\n            elif cur_len == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```\n\nAttempt 2\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # If k is 0 (not possible per constraints), we'd handle separately.\n        # Per constraints k >= 1.\n\n        # Find minimal length of substring with exactly k ones and\n        # then lexicographically smallest among those.\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        # If fewer than k ones exist, no beautiful substring.\n        if len(ones_pos) < k:\n            return \"\"\n\n        min_len = 10**9\n        best = None  # store best substring\n\n        # A substring with exactly k ones is determined by choosing\n        # k consecutive ones positions: ones_pos[i ... i+k-1].\n        for i in range(0, len(ones_pos) - k + 1):\n            left_one = ones_pos[i]\n            right_one = ones_pos[i + k - 1]\n            length = right_one - left_one + 1\n\n            if length < min_len:\n                min_len = length\n                # Tentatively set best; exact best substring found below\n                best = s[left_one:right_one + 1]\n            elif length == min_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best:\n                    best = cand\n\n        return best if best is not None else \"\"\n```\n\nAttempt 3\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones_pos) < k:\n            return \"\"\n\n        best_len = 10**9\n        best_sub = \"\"\n\n        # If a substring has exactly k ones, it must span from some i-th 1 to (i+k-1)-th 1\n        # Any such substring minimal length is between those positions.\n        for i in range(len(ones_pos) - k + 1):\n            left = ones_pos[i]\n            right = ones_pos[i + k - 1]\n            curr_len = right - left + 1\n            if curr_len < best_len:\n                best_len = curr_len\n                best_sub = s[left:right + 1]\n            elif curr_len == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```\n\nAttempt 4\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        # Collect positions of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(ones)\n        if m < k:\n            return \"\"\n\n        best_len = float('inf')\n        best = None\n\n        # Any substring with exactly k ones corresponds to choosing\n        # a block of k consecutive ones: ones[i]..ones[i+k-1]\n        for i in range(0, m - k + 1):\n            left_pos = ones[i]\n            right_pos = ones[i + k - 1]\n            # Minimal-length substring covering exactly these k ones\n            cur_len = right_pos - left_pos + 1\n            if cur_len > best_len:\n                continue\n\n            cur = s[left_pos:right_pos + 1]\n\n            if cur_len < best_len or best is None or cur < best:\n                best_len = cur_len\n                best = cur\n\n        return best if best is not None else \"\"\n```\n\nAttempt 5\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        # If there aren't enough 1s to make exactly k ones, no answer\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_str = \"\"\n\n        # Consider every window of k consecutive '1's.\n        # substring from pos[i]..pos[i+k-1] has exactly k ones and is the shortest\n        # for that fixed set of k consecutive ones.\n        for i in range(len(pos) - k + 1):\n            left = pos[i]\n            right = pos[i + k - 1]\n            curr_len = right - left + 1\n            if curr_len > best_len:\n                continue\n            curr_sub = s[left:right + 1]\n            if curr_len < best_len or (curr_len == best_len and (best_str == \"\" or curr_sub < best_str)):\n                best_len = curr_len\n                best_str = curr_sub\n\n        return best_str\n```\n\nAttempt 6\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # Positions of ones\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        # Sliding over groups of exactly k ones:\n        # substring from ones[i] to ones[i+k-1] has exactly k ones,\n        # and its minimal length for that group is fixed by the endpoints.\n        best_len = 10**9\n        best_sub = \"\"\n\n        for i in range(len(ones) - k + 1):\n            l = ones[i]\n            r = ones[i + k - 1]\n            cur_len = r - l + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[l:r + 1]\n            elif cur_len == best_len:\n                cand = s[l:r + 1]\n                if cand < best_sub:  # lexicographically smallest\n                    best_sub = cand\n\n        return best_sub\n```\n\nAttempt 7\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones_pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any beautiful substring must include exactly k ones.\n        # For i from 0..m-k, consider substring spanning ones_pos[i]..ones_pos[i+k-1]\n        # Length is determined by the first and last included '1'.\n        m = len(ones_pos)\n        for i in range(m - k + 1):\n            left_one = ones_pos[i]\n            right_one = ones_pos[i + k - 1]\n            cur_len = right_one - left_one + 1\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_one:right_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```\n\nAttempt 8\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(pos)\n\n        if k > m:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Consider substrings with exactly k ones.\n        # For i from 0..m-k, substring runs from pos[i]..pos[i+k-1].\n        # Its length is last - first + 1, but to get the shortest length,\n        # we can also extend boundaries only if needed—actually any substring\n        # with exactly these k ones must include between them, so length is fixed.\n        for i in range(0, m - k + 1):\n            L = pos[i]\n            R = pos[i + k - 1]\n            length = R - L + 1\n            sub = s[L:R + 1]\n            if length < best_len or (length == best_len and (sub < best_sub)):\n                best_len = length\n                best_sub = sub\n\n        return best_sub\n```\n\nAttempt 9\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        # Find minimal window [pos[i-k+1], pos[i]] having exactly k ones.\n        best_len = 10**9\n        candidates = []\n\n        # i is the index in pos of the end (inclusive) of a k-ones window\n        for i in range(k - 1, len(pos)):\n            l_idx = i - k + 1\n            r_idx = i\n            left = pos[l_idx]\n            right = pos[r_idx]\n            cur_len = right - left + 1\n            if cur_len < best_len:\n                best_len = cur_len\n                candidates = [(left, right)]\n            elif cur_len == best_len:\n                candidates.append((left, right))\n\n        # Among candidates with minimal length, pick lexicographically smallest substring.\n        # Since all have same length, direct comparison works.\n        ans = None\n        for left, right in candidates:\n            sub = s[left:right + 1]\n            if ans is None or sub < ans:\n                ans = sub\n        return ans if ans is not None else \"\"\n```\n\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_pos = [-1] + [i for i, ch in enumerate(s) if ch == '1'] + [n]\n        m = len(ones_pos) - 2  # number of real '1's in s\n\n        if m < k:\n            return \"\"\n\n        best_len = n + 1\n        best_sub = \"\"\n\n        # Consider every window of k consecutive '1' positions.\n        # If the k-th '1' in the window is at ones_pos[i+k-1], then we can choose:\n        # - start = ones_pos[i-1] + 1  (after previous '1' outside window)\n        # - end   = ones_pos[i+k-1]    (at last '1' in window)\n        # This yields the shortest substring with exactly k ones for that window.\n        for i in range(1, m - k + 2):  # i..i+k-1 are indices in the original ones list\n            left_prev_one = ones_pos[i - 1]\n            right_last_one = ones_pos[i + k - 1]\n            cur_len = right_last_one - left_prev_one\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_prev_one + 1: right_last_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_prev_one + 1: right_last_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Constraint-Driven State Selection (Consecutive Ones Block)",
+          "description": "Reformulate “substring has exactly k marked elements” by mapping it to choosing k consecutive occurrences in a positions list.",
+          "content": "When a substring property depends only on counts of specific symbols, convert the string into a list of indices for that symbol and reason in that index-space. For “exactly k ones,” any valid substring corresponds to selecting k consecutive ones in the occurrence list, because including any other pattern would either miss a needed one or include extra ones.",
+          "reasoning": "All “correct” attempts converge on the same robust reformulation: any substring with exactly k ones is fully characterized by choosing a block of k consecutive one-positions; once that block is chosen, the substring with minimal length spanning those ones is simply from the first to the last of the block. They then compare windows by (1) shortest length first, (2) lexicographic order second. The “partially correct” attempt shows a common pitfall: trying to shrink the substring by using neighbors outside the chosen ones window (sentinel/extra-position tricks), which risks miscomputing the minimal feasible boundaries or incorrectly enforcing “exactly k ones” when extending/contracting. In general, correct solutions avoid speculative boundary adjustments and instead rely on a provable minimal-span property."
+        },
+        {
+          "title": "Minimal Substring via Endpoint Span",
+          "description": "For a fixed set of required occurrences, the shortest substring satisfying the condition is always the span between the first and last required occurrence.",
+          "content": "After choosing the appropriate k occurrences (e.g., k consecutive ones), the substring with minimal length that still contains exactly those required occurrences is determined purely by the first and last indices. Avoid boundary “optimizations” that depend on adjacent outside occurrences unless you can prove they preserve feasibility under the original exact-count constraint.",
+          "reasoning": "All “correct” attempts converge on the same robust reformulation: any substring with exactly k ones is fully characterized by choosing a block of k consecutive one-positions; once that block is chosen, the substring with minimal length spanning those ones is simply from the first to the last of the block. They then compare windows by (1) shortest length first, (2) lexicographic order second. The “partially correct” attempt shows a common pitfall: trying to shrink the substring by using neighbors outside the chosen ones window (sentinel/extra-position tricks), which risks miscomputing the minimal feasible boundaries or incorrectly enforcing “exactly k ones” when extending/contracting. In general, correct solutions avoid speculative boundary adjustments and instead rely on a provable minimal-span property."
+        },
+        {
+          "title": "Two-Level Optimization Order: Length Then Lexicographic",
+          "description": "When asked for the shortest object and then the lexicographically smallest among ties, enforce that ordering explicitly in comparisons.",
+          "content": "Compare candidates using a lexicographic tie-break: first minimize length, and only if lengths match, compare the strings themselves. This prevents subtle mistakes where a lexicographically smaller but longer substring incorrectly replaces a shorter one.",
+          "reasoning": "All “correct” attempts converge on the same robust reformulation: any substring with exactly k ones is fully characterized by choosing a block of k consecutive one-positions; once that block is chosen, the substring with minimal length spanning those ones is simply from the first to the last of the block. They then compare windows by (1) shortest length first, (2) lexicographic order second. The “partially correct” attempt shows a common pitfall: trying to shrink the substring by using neighbors outside the chosen ones window (sentinel/extra-position tricks), which risks miscomputing the minimal feasible boundaries or incorrectly enforcing “exactly k ones” when extending/contracting. In general, correct solutions avoid speculative boundary adjustments and instead rely on a provable minimal-span property."
+        },
+        {
+          "title": "Use Verification-Friendly Invariants, Avoid Boundary Heuristics",
+          "description": "Prefer invariants that are directly implied by the problem constraints; boundary heuristics commonly break the “exactly k” condition.",
+          "content": "Correct approaches rely on an invariant like “exactly k ones ⇔ substring covers exactly the chosen k consecutive one-occurrences.” Partial attempts that manipulate start/end boundaries using sentinel indices or “after previous” logic can silently violate the exact-count requirement, so keep transformations that are provably correct against the original constraint.",
+          "reasoning": "All “correct” attempts converge on the same robust reformulation: any substring with exactly k ones is fully characterized by choosing a block of k consecutive one-positions; once that block is chosen, the substring with minimal length spanning those ones is simply from the first to the last of the block. They then compare windows by (1) shortest length first, (2) lexicographic order second. The “partially correct” attempt shows a common pitfall: trying to shrink the substring by using neighbors outside the chosen ones window (sentinel/extra-position tricks), which risks miscomputing the minimal feasible boundaries or incorrectly enforcing “exactly k ones” when extending/contracting. In general, correct solutions avoid speculative boundary adjustments and instead rely on a provable minimal-span property."
+        }
+      ],
+      "raw_response": "<reasoning>\nAll “correct” attempts converge on the same robust reformulation: any substring with exactly k ones is fully characterized by choosing a block of k consecutive one-positions; once that block is chosen, the substring with minimal length spanning those ones is simply from the first to the last of the block. They then compare windows by (1) shortest length first, (2) lexicographic order second. The “partially correct” attempt shows a common pitfall: trying to shrink the substring by using neighbors outside the chosen ones window (sentinel/extra-position tricks), which risks miscomputing the minimal feasible boundaries or incorrectly enforcing “exactly k ones” when extending/contracting. In general, correct solutions avoid speculative boundary adjustments and instead rely on a provable minimal-span property.\n</reasoning>\n\n<memories>\n<memory>\n<title>Constraint-Driven State Selection (Consecutive Ones Block)</title>\n<description>Reformulate “substring has exactly k marked elements” by mapping it to choosing k consecutive occurrences in a positions list.</description>\n<content>When a substring property depends only on counts of specific symbols, convert the string into a list of indices for that symbol and reason in that index-space. For “exactly k ones,” any valid substring corresponds to selecting k consecutive ones in the occurrence list, because including any other pattern would either miss a needed one or include extra ones.</content>\n</memory>\n\n<memory>\n<title>Minimal Substring via Endpoint Span</title>\n<description>For a fixed set of required occurrences, the shortest substring satisfying the condition is always the span between the first and last required occurrence.</description>\n<content>After choosing the appropriate k occurrences (e.g., k consecutive ones), the substring with minimal length that still contains exactly those required occurrences is determined purely by the first and last indices. Avoid boundary “optimizations” that depend on adjacent outside occurrences unless you can prove they preserve feasibility under the original exact-count constraint.</content>\n</memory>\n\n<memory>\n<title>Two-Level Optimization Order: Length Then Lexicographic</title>\n<description>When asked for the shortest object and then the lexicographically smallest among ties, enforce that ordering explicitly in comparisons.</description>\n<content>Compare candidates using a lexicographic tie-break: first minimize length, and only if lengths match, compare the strings themselves. This prevents subtle mistakes where a lexicographically smaller but longer substring incorrectly replaces a shorter one.</content>\n</memory>\n\n<memory>\n<title>Use Verification-Friendly Invariants, Avoid Boundary Heuristics</title>\n<description>Prefer invariants that are directly implied by the problem constraints; boundary heuristics commonly break the “exactly k” condition.</description>\n<content>Correct approaches rely on an invariant like “exactly k ones ⇔ substring covers exactly the chosen k consecutive one-occurrences.” Partial attempts that manipulate start/end boundaries using sentinel indices or “after previous” logic can silently violate the exact-count requirement, so keep transformations that are provably correct against the original constraint.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a binary string s and a positive integer k.\nA substring of s is beautiful if the number of 1's in it is exactly k.\nLet len be the length of the shortest beautiful substring.\nReturn the lexicographically smallest beautiful substring of string s with length equal to len. If s doesn't contain a beautiful substring, return an empty string.\nA string a is lexicographically larger than a string b (of the same length) if in the first position where a and b differ, a has a character strictly larger than the corresponding character in b.\n\nFor example, \"abcd\" is lexicographically larger than \"abcc\" because the first position they differ is at the fourth character, and d is greater than c.\n\n \nExample 1:\n\nInput: s = \"100011001\", k = 3\nOutput: \"11001\"\nExplanation: There are 7 beautiful substrings in this example:\n1. The substring \"100011001\".\n2. The substring \"100011001\".\n3. The substring \"100011001\".\n4. The substring \"100011001\".\n5. The substring \"100011001\".\n6. The substring \"100011001\".\n7. The substring \"100011001\".\nThe length of the shortest beautiful substring is 5.\nThe lexicographically smallest beautiful substring with length 5 is the substring \"11001\".\n\nExample 2:\n\nInput: s = \"1011\", k = 2\nOutput: \"11\"\nExplanation: There are 3 beautiful substrings in this example:\n1. The substring \"1011\".\n2. The substring \"1011\".\n3. The substring \"1011\".\nThe length of the shortest beautiful substring is 2.\nThe lexicographically smallest beautiful substring with length 2 is the substring \"11\".\n\nExample 3:\n\nInput: s = \"000\", k = 1\nOutput: \"\"\nExplanation: There are no beautiful substrings in this example.\n\n \nConstraints:\n\n1 <= s.length <= 100\n1 <= k <= s.length\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        # Find shortest length among all windows of k ones\n        best_len = n + 1\n        for i in range(len(pos) - k + 1):\n            l = pos[i]\n            r = pos[i + k - 1]\n            best_len = min(best_len, r - l + 1)\n\n        # Among those with best_len, pick lexicographically smallest\n        # If length is minimal, endpoints are exactly at k-th ones boundaries:\n        # start must be some 1 position pos[i], end pos[i+k-1].\n        best_sub = None\n        for i in range(len(pos) - k + 1):\n            l = pos[i]\n            r = pos[i + k - 1]\n            if r - l + 1 == best_len:\n                sub = s[l:r + 1]\n                if best_sub is None or sub < best_sub:\n                    best_sub = sub\n\n        return best_sub if best_sub is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(pos)\n\n        if m < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = None\n\n        # Any substring with exactly k ones is determined by choosing k consecutive ones.\n        for i in range(m - k + 1):\n            left = pos[i]\n            right = pos[i + k - 1]\n            L = right - left + 1\n\n            if L < best_len:\n                best_len = L\n                best_sub = s[left:right + 1]\n            elif L == best_len:\n                cand = s[left:right + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [-1]  # positions of 1s with sentinel for easier prefix math\n        for i, ch in enumerate(s):\n            if ch == '1':\n                pos.append(i)\n        m = len(pos) - 1  # number of 1s\n\n        if k > m:\n            return \"\"\n\n        # For the k ones at indices [i-k+1 .. i] in pos (1-based over ones),\n        # the shortest window is from just after previous 1 to current last 1.\n        # Its length is pos[i] - pos[i-k] (because start = pos[i-k] + 1).\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # i is 1-based index over ones positions stored in pos\n        for i in range(k, m + 1):\n            start_idx = pos[i - k] + 1\n            end_idx = pos[i]  # inclusive\n            curr_len = end_idx - start_idx + 1\n            if curr_len < best_len:\n                best_len = curr_len\n                best_sub = s[start_idx:end_idx + 1]\n            elif curr_len == best_len:\n                cand = s[start_idx:end_idx + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        idx = [i for i, ch in enumerate(s) if ch == '1']\n        if len(idx) < k:\n            return \"\"\n\n        best_len = n + 1\n        best_sub = None\n\n        # Any substring with exactly k ones corresponds to choosing a block\n        # of k consecutive ones in idx; its minimal possible length is then fixed.\n        for start in range(len(idx) - k + 1):\n            left_one = idx[start]\n            right_one = idx[start + k - 1]\n            L = left_one\n            R = right_one\n            cur_len = R - L + 1\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[L:R + 1]\n            elif cur_len == best_len:\n                cand = s[L:R + 1]\n                # lexicographically smallest among same-length candidates\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub if best_sub is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones_positions = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(ones_positions)\n\n        if k > m:\n            return \"\"\n\n        best_len = n + 1\n        best_sub = \"\"\n\n        # Each beautiful substring corresponds to k consecutive 1s:\n        # choose start 1 at ones_positions[i], end 1 at ones_positions[i+k-1]\n        for i in range(m - k + 1):\n            left_one = ones_positions[i]\n            right_one = ones_positions[i + k - 1]\n            cur_len = right_one - left_one + 1\n\n            if cur_len < best_len:\n                best_len = cur_len\n                best_sub = s[left_one:right_one + 1]\n            elif cur_len == best_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(ones)\n        if m < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # A substring with exactly k ones is determined by choosing a window\n        # of k consecutive '1' positions in ones[].\n        for i in range(m - k + 1):\n            left_one = ones[i]\n            right_one = ones[i + k - 1]\n            length = right_one - left_one + 1\n\n            if length < best_len:\n                best_len = length\n                best_sub = s[left_one:right_one + 1]\n            elif length == best_len:\n                cand = s[left_one:right_one + 1]\n                if cand < best_sub:\n                    best_sub = cand\n\n        return best_sub\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        ones = [0] * (n + 1)\n        for i, ch in enumerate(s, 1):\n            ones[i] = ones[i - 1] + (ch == '1')\n\n        # Find all minimal-length beautiful substrings:\n        min_len = float('inf')\n        best = None\n\n        for left in range(n):\n            if s[left] == '0':\n                continue\n            # positions of 1s starting from left\n            # Find the (k-th) 1 within window starting at left:\n            # We can locate by scanning, since n<=100.\n            cnt = 0\n            for right in range(left, n):\n                if s[right] == '1':\n                    cnt += 1\n                if cnt == k:\n                    L = left\n                    R = right\n                    cur_len = R - L + 1\n                    if cur_len < min_len:\n                        min_len = cur_len\n                        best = s[L:R + 1]\n                    elif cur_len == min_len:\n                        cand = s[L:R + 1]\n                        if cand < best:\n                            best = cand\n                    break\n                elif cnt > k:\n                    break\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n\n        # Collect indices of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        # Find minimal length among all windows of k ones\n        # Window from ones[i] to ones[i+k-1] inclusive has length:\n        # len = ones[i+k-1] - ones[i] + 1\n        min_len = float('inf')\n        for i in range(len(ones) - k + 1):\n            cur_len = ones[i + k - 1] - ones[i] + 1\n            if cur_len < min_len:\n                min_len = cur_len\n\n        # Among substrings of that minimal length, return lexicographically smallest.\n        # We only need to consider windows of k ones that produce min_len.\n        best = None\n        for i in range(len(ones) - k + 1):\n            l = ones[i]\n            r = ones[i + k - 1]\n            cur_len = r - l + 1\n            if cur_len == min_len:\n                cand = s[l:r + 1]\n                if best is None or cand < best:\n                    best = cand\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        if k <= 0:\n            return \"\"\n        \n        # positions of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(ones)\n        if m < k:\n            return \"\"\n\n        min_len = n + 1\n        best_start = -1\n\n        # Consider every group of k consecutive '1's.\n        # The shortest substring containing exactly these k ones is\n        # from ones[i] to ones[i+k-1], inclusive.\n        for i in range(m - k + 1):\n            start = ones[i]\n            end = ones[i + k - 1]\n            cur_len = end - start + 1\n            if cur_len < min_len:\n                min_len = cur_len\n                best_start = start\n            elif cur_len == min_len:\n                cand = s[start:end + 1]\n                best = s[best_start:best_start + min_len]\n                if cand < best:\n                    best_start = start\n\n        return s[best_start:best_start + min_len] if best_start != -1 else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        n = len(s)\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n\n        if len(pos) < k:\n            return \"\"\n\n        best_len = float('inf')\n        best_sub = \"\"\n\n        # Any substring with exactly k ones must contain some consecutive block of k ones\n        # from pos[i] ... pos[i+k-1]. Its shortest length for that block is from\n        # the first 1 to the last 1.\n        for i in range(len(pos) - k + 1):\n            L = pos[i]\n            R = pos[i + k - 1]\n            cur_len = R - L + 1\n            if cur_len > best_len:\n                continue\n\n            cur_sub = s[L:R + 1]\n            if cur_len < best_len or cur_sub < best_sub:\n                best_len = cur_len\n                best_sub = cur_sub\n\n        return best_sub\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3150",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "\"11001\"",
+                "actual": "'100011'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"11\"",
+                "actual": "'011'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'0001110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'11001100101111000010001010011101001110111101111011010111101011111011100101010100111'",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Constraint-Driven State Selection (Consecutive Ones Block): Reformulate “substring has exactly k marked elements” by mapping it to choosing k consecutive occurrences in a positions list.\n     When a substring property depends only on counts of specific symbols, convert the string into a list of indices for that symbol and reason in that index-space. For “exactly k ones,” any valid substring corresponds to selecting k consecutive ones in the occurrence list, because including any other pattern would either miss a needed one or include extra ones.\n  2. Minimal Substring via Endpoint Span: For a fixed set of required occurrences, the shortest substring satisfying the condition is always the span between the first and last required occurrence.\n     After choosing the appropriate k occurrences (e.g., k consecutive ones), the substring with minimal length that still contains exactly those required occurrences is determined purely by the first and last indices. Avoid boundary “optimizations” that depend on adjacent outside occurrences unless you can prove they preserve feasibility under the original exact-count constraint.\n  3. Two-Level Optimization Order: Length Then Lexicographic: When asked for the shortest object and then the lexicographically smallest among ties, enforce that ordering explicitly in comparisons.\n     Compare candidates using a lexicographic tie-break: first minimize length, and only if lengths match, compare the strings themselves. This prevents subtle mistakes where a lexicographically smaller but longer substring incorrectly replaces a shorter one.\n  4. Use Verification-Friendly Invariants, Avoid Boundary Heuristics: Prefer invariants that are directly implied by the problem constraints; boundary heuristics commonly break the “exactly k” condition.\n     Correct approaches rely on an invariant like “exactly k ones ⇔ substring covers exactly the chosen k consecutive one-occurrences.” Partial attempts that manipulate start/end boundaries using sentinel indices or “after previous” logic can silently violate the exact-count requirement, so keep transformations that are provably correct against the original constraint.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given a binary string s and a positive integer k.\nA substring of s is beautiful if the number of 1's in it is exactly k.\nLet len be the length of the shortest beautiful substring.\nReturn the lexicographically smallest beautiful substring of string s with length equal to len. If s doesn't contain a beautiful substring, return an empty string.\nA string a is lexicographically larger than a string b (of the same length) if in the first position where a and b differ, a has a character strictly larger than the corresponding character in b.\n\nFor example, \"abcd\" is lexicographically larger than \"abcc\" because the first position they differ is at the fourth character, and d is greater than c.\n\n \nExample 1:\n\nInput: s = \"100011001\", k = 3\nOutput: \"11001\"\nExplanation: There are 7 beautiful substrings in this example:\n1. The substring \"100011001\".\n2. The substring \"100011001\".\n3. The substring \"100011001\".\n4. The substring \"100011001\".\n5. The substring \"100011001\".\n6. The substring \"100011001\".\n7. The substring \"100011001\".\nThe length of the shortest beautiful substring is 5.\nThe lexicographically smallest beautiful substring with length 5 is the substring \"11001\".\n\nExample 2:\n\nInput: s = \"1011\", k = 2\nOutput: \"11\"\nExplanation: There are 3 beautiful substrings in this example:\n1. The substring \"1011\".\n2. The substring \"1011\".\n3. The substring \"1011\".\nThe length of the shortest beautiful substring is 2.\nThe lexicographically smallest beautiful substring with length 2 is the substring \"11\".\n\nExample 3:\n\nInput: s = \"000\", k = 1\nOutput: \"\"\nExplanation: There are no beautiful substrings in this example.\n\n \nConstraints:\n\n1 <= s.length <= 100\n1 <= k <= s.length\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None  # stores best substring with minimal length, then lexicographically smallest\n\n        # Any substring with exactly k ones corresponds to choosing k consecutive ones\n        # at indices ones[i]..ones[i+k-1]; the shortest such substring is their span.\n        for i in range(len(ones) - k + 1):\n            left = ones[i]\n            right = ones[i + k - 1]\n            cand = s[left:right + 1]  # shortest substring spanning exactly those k ones\n            if best is None or len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                best = cand\n\n        return best\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        if len(pos) < k:\n            return \"\"\n\n        best = None\n        n = len(s)\n\n        # Any substring with exactly k ones corresponds to choosing some k\n        # consecutive occurrences in pos; the minimal such substring is the span\n        # from first to last of those k occurrences.\n        for i in range(0, len(pos) - k + 1):\n            L = pos[i]\n            R = pos[i + k - 1]\n            cand = s[L:R + 1]\n            if best is None or len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                best = cand\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None  # (length, substring)\n\n        # Exactly k ones in substring <=> choose k consecutive occurrences in ones\n        # Minimal substring for those occurrences is span [ones[j], ones[j+k-1]].\n        for j in range(len(ones) - k + 1):\n            left = ones[j]\n            right = ones[j + k - 1]\n            cand = s[left:right + 1]\n            clen = len(cand)\n\n            if best is None or clen < best[0] or (clen == best[0] and cand < best[1]):\n                best = (clen, cand)\n\n        return best[1] if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None  # store best substring\n\n        # Any substring with exactly k ones corresponds to choosing k consecutive\n        # ones in the occurrence list; minimal length for that choice is span\n        # between first and last of those k ones.\n        for start in range(0, len(ones) - k + 1):\n            left = ones[start]\n            right = ones[start + k - 1]\n            cand = s[left:right + 1]\n\n            if best is None:\n                best = cand\n            else:\n                # length first, then lexicographic\n                if len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                    best = cand\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None  # store best substring (lexicographically smallest among min-length)\n\n        # Any substring with exactly k ones corresponds to taking k consecutive 1-occurrences.\n        # For a fixed block ones[i..i+k-1], the shortest substring containing exactly those ones\n        # is from ones[i] to ones[i+k-1] inclusive.\n        for start in range(0, len(ones) - k + 1):\n            left = ones[start]\n            right = ones[start + k - 1]\n            cand = s[left:right + 1]\n\n            if best is None:\n                best = cand\n            else:\n                # compare by length then lexicographic\n                if len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                    best = cand\n\n        return best\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        # Collect positions of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None  # store best substring by (length, lex)\n\n        # For exactly k ones, we must choose k consecutive occurrences in ones[]\n        for start in range(0, len(ones) - k + 1):\n            end = start + k - 1\n            L = ones[start]\n            R = ones[end]\n            sub = s[L:R + 1]  # minimal span containing exactly those k ones\n\n            if best is None or len(sub) < len(best) or (len(sub) == len(best) and sub < best):\n                best = sub\n\n        return best\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None  # store best substring of minimal length, then lexicographically smallest\n\n        # Any substring with exactly k ones corresponds to choosing k consecutive 1-occurrences.\n        for i in range(len(ones) - k + 1):\n            left = ones[i]\n            right = ones[i + k - 1]\n            cand = s[left:right + 1]  # minimal span for these exact k ones\n            if best is None or len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                best = cand\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        # Collect positions of '1's\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best_sub = None\n        n_ones = len(ones)\n\n        # Any substring with exactly k ones corresponds to choosing k consecutive\n        # ones occurrences from the list; the minimal length for that choice\n        # is the span between first and last chosen one.\n        for start in range(n_ones - k + 1):\n            left = ones[start]\n            right = ones[start + k - 1]\n            candidate = s[left:right + 1]  # guaranteed to have exactly k ones\n\n            if best_sub is None or len(candidate) < len(best_sub) or (\n                len(candidate) == len(best_sub) and candidate < best_sub\n            ):\n                best_sub = candidate\n\n        return best_sub if best_sub is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        # Collect positions of 1s\n        ones = [i for i, ch in enumerate(s) if ch == '1']\n        if len(ones) < k:\n            return \"\"\n\n        best = None\n        n = len(s)\n\n        # Any substring with exactly k ones corresponds to covering\n        # k consecutive ones in the occurrence list.\n        for i in range(len(ones) - k + 1):\n            left = ones[i]\n            right = ones[i + k - 1]\n            cand = s[left:right + 1]  # minimal span for exactly these k ones\n            # Choose by (length, lexicographic)\n            if best is None:\n                best = cand\n            else:\n                if len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                    best = cand\n\n        return best if best is not None else \"\"\n```",
+        "```python\nclass Solution:\n    def shortestBeautifulSubstring(self, s: str, k: int) -> str:\n        pos = [i for i, ch in enumerate(s) if ch == '1']\n        m = len(pos)\n        if m < k:\n            return \"\"\n\n        best = None  # will store the best substring among minimal-length candidates\n\n        # Any substring with exactly k ones corresponds to choosing k consecutive 1s\n        # (in the occurrence list) and taking the span from first to last chosen 1.\n        for i in range(m - k + 1):\n            left = pos[i]\n            right = pos[i + k - 1]\n            cand = s[left:right + 1]  # minimal length for these chosen k ones\n\n            if best is None:\n                best = cand\n            else:\n                if len(cand) < len(best) or (len(cand) == len(best) and cand < best):\n                    best = cand\n\n        return best\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3150",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3150",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"11001\"",
+                "actual": "'11001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"\"",
+                "actual": "''",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1\"",
+                "actual": "'1'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11111\"",
+                "actual": "'11111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1110001001100010100110001011100001001000001011100011011100110101111100100011\"",
+                "actual": "'1110001001100010100110001011100001001000001011100011011100110101111100100011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1100101111000010001010011101001110111101111011010111101011111011100101010100111011\"",
+                "actual": "'1100101111000010001010011101001110111101111011010111101011111011100101010100111011'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101\"",
+                "actual": "'101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101'",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.9,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.09999999999999998
+    }
+  }
+}

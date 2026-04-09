@@ -1,0 +1,3074 @@
+{
+  "problem_id": "2882",
+  "domain": "coding",
+  "problem": {
+    "id": "2882",
+    "domain": "coding",
+    "statement": "Given two positive integers n and x.\nReturn the number of ways n can be expressed as the sum of the x^th power of unique positive integers, in other words, the number of sets of unique integers [n_1, n_2, ..., n_k] where n = n_1^x + n_2^x + ... + n_k^x.\nSince the result can be very large, return it modulo 10^9 + 7.\nFor example, if n = 160 and x = 3, one way to express n is n = 2^3 + 3^3 + 5^3.\n \nExample 1:\n\nInput: n = 10, x = 2\nOutput: 1\nExplanation: We can express n as the following: n = 3^2 + 1^2 = 10.\nIt can be shown that it is the only way to express 10 as the sum of the 2^nd power of unique integers.\n\nExample 2:\n\nInput: n = 4, x = 1\nOutput: 2\nExplanation: We can express n in the following ways:\n- n = 4^1 = 4.\n- n = 3^1 + 1^1 = 4.\n\n \nConstraints:\n\n1 <= n <= 300\n1 <= x <= 5",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "10\n2",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "4\n1",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n1",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "7\n2",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "4\n3",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n5",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "46\n5",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "72\n5",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "32\n5",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "12\n3",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "14\n3",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "28\n1",
+        "output": "222",
+        "testtype": "functional"
+      },
+      {
+        "input": "185\n1",
+        "output": "193582642",
+        "testtype": "functional"
+      },
+      {
+        "input": "345\n1",
+        "output": "862028426",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "numberOfWays",
+      "question_title": "ways-to-express-an-integer-as-sum-of-powers",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nGiven two positive integers n and x.\nReturn the number of ways n can be expressed as the sum of the x^th power of unique positive integers, in other words, the number of sets of unique integers [n_1, n_2, ..., n_k] where n = n_1^x + n_2^x + ... + n_k^x.\nSince the result can be very large, return it modulo 10^9 + 7.\nFor example, if n = 160 and x = 3, one way to express n is n = 2^3 + 3^3 + 5^3.\n \nExample 1:\n\nInput: n = 10, x = 2\nOutput: 1\nExplanation: We can express n as the following: n = 3^2 + 1^2 = 10.\nIt can be shown that it is the only way to express 10 as the sum of the 2^nd power of unique integers.\n\nExample 2:\n\nInput: n = 4, x = 1\nOutput: 2\nExplanation: We can express n in the following ways:\n- n = 4^1 = 4.\n- n = 3^1 + 1^1 = 4.\n\n \nConstraints:\n\n1 <= n <= 300\n1 <= x <= 5\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all powers i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):  # descending to ensure uniqueness (0/1 subset)\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return (dp[n] - 1) % MOD  # exclude the empty subset; n>=1 so dp[n] already counts only subsets summing to n\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all k^x <= n\n        powers = []\n        k = 1\n        while True:\n            val = k ** x\n            if val > n:\n                break\n            powers.append(val)\n            k += 1\n\n        # dp[s] = ways to form sum s using a subset of unique powers\n        # Iterating powers in descending order ensures each power is used at most once.\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # dp[n] includes empty set only when n=0, but n>=1 so it's fine.\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n        # Generate all positive k such that k^x <= n\n        powers = []\n        k = 1\n        while True:\n            val = k ** x\n            if val > n:\n                break\n            powers.append(val)\n            k += 1\n\n        # Each power can be used at most once (unique integers) => 0/1 knapsack\n        # dp[s] = number of ways to sum to s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Generate all positive i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 subset sum DP: dp[s] = ways to reach sum s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # Exclude the empty set (only matters when n==0, but n>=1 here)\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i**x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 subset sum DP:\n        # dp[s] = number of ways to reach sum s using a subset of unique powers\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            # iterate backwards to keep each power used at most once\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i**x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to make sum s using a subset of powers (unique by construction)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        # For each power, do 0/1 knapsack (each can be used at most once)\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all powers k^x <= n\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # 0/1 knapsack counting: choose each distinct base at most once\n        # dp[s] = number of ways to reach sum s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Precompute powers: p_i = i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # Each representation corresponds to choosing a subset of unique indices\n        # with sum == n. Order doesn't matter, uniqueness ensured by subset DP.\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all possible x-th powers <= n\n        powers = []\n        k = 1\n        while True:\n            p = k**x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to make sum s using some subset of powers\n        # (each power can be used at most once -> subset sum DP)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n] % MOD\n```",
+        "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Unique positive integers => each x-th power can be used at most once.\n        # This becomes a 0/1 subset sum count.\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers processed so far\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set forms sum 0\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2882",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1000000006",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1000000006",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1000000006",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1000000006",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1000000006",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1000000006",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "222",
+                "actual": "221",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "193582642",
+                "actual": "193582641",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "862028426",
+                "actual": "862028425",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all k^x <= n\n        powers = []\n        k = 1\n        while True:\n            val = k ** x\n            if val > n:\n                break\n            powers.append(val)\n            k += 1\n\n        # dp[s] = ways to form sum s using a subset of unique powers\n        # Iterating powers in descending order ensures each power is used at most once.\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # dp[n] includes empty set only when n=0, but n>=1 so it's fine.\n        return dp[n] % MOD\n```",
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n        # Generate all positive k such that k^x <= n\n        powers = []\n        k = 1\n        while True:\n            val = k ** x\n            if val > n:\n                break\n            powers.append(val)\n            k += 1\n\n        # Each power can be used at most once (unique integers) => 0/1 knapsack\n        # dp[s] = number of ways to sum to s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n        return dp[n] % MOD\n```",
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Generate all positive i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 subset sum DP: dp[s] = ways to reach sum s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # Exclude the empty set (only matters when n==0, but n>=1 here)\n        return dp[n] % MOD\n```",
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i**x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 subset sum DP:\n        # dp[s] = number of ways to reach sum s using a subset of unique powers\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            # iterate backwards to keep each power used at most once\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i**x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to make sum s using a subset of powers (unique by construction)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        # For each power, do 0/1 knapsack (each can be used at most once)\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all powers k^x <= n\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # 0/1 knapsack counting: choose each distinct base at most once\n        # dp[s] = number of ways to reach sum s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+          "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Precompute powers: p_i = i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # Each representation corresponds to choosing a subset of unique indices\n        # with sum == n. Order doesn't matter, uniqueness ensured by subset DP.\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all possible x-th powers <= n\n        powers = []\n        k = 1\n        while True:\n            p = k**x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to make sum s using some subset of powers\n        # (each power can be used at most once -> subset sum DP)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n] % MOD\n```",
+          "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Unique positive integers => each x-th power can be used at most once.\n        # This becomes a 0/1 subset sum count.\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers processed so far\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set forms sum 0\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```"
+        ],
+        "fail": [
+          "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all powers i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):  # descending to ensure uniqueness (0/1 subset)\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return (dp[n] - 1) % MOD  # exclude the empty subset; n>=1 so dp[n] already counts only subsets summing to n\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nGiven two positive integers n and x.\nReturn the number of ways n can be expressed as the sum of the x^th power of unique positive integers, in other words, the number of sets of unique integers [n_1, n_2, ..., n_k] where n = n_1^x + n_2^x + ... + n_k^x.\nSince the result can be very large, return it modulo 10^9 + 7.\nFor example, if n = 160 and x = 3, one way to express n is n = 2^3 + 3^3 + 5^3.\n \nExample 1:\n\nInput: n = 10, x = 2\nOutput: 1\nExplanation: We can express n as the following: n = 3^2 + 1^2 = 10.\nIt can be shown that it is the only way to express 10 as the sum of the 2^nd power of unique integers.\n\nExample 2:\n\nInput: n = 4, x = 1\nOutput: 2\nExplanation: We can express n in the following ways:\n- n = 4^1 = 4.\n- n = 3^1 + 1^1 = 4.\n\n \nConstraints:\n\n1 <= n <= 300\n1 <= x <= 5\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all k^x <= n\n        powers = []\n        k = 1\n        while True:\n            val = k ** x\n            if val > n:\n                break\n            powers.append(val)\n            k += 1\n\n        # dp[s] = ways to form sum s using a subset of unique powers\n        # Iterating powers in descending order ensures each power is used at most once.\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # dp[n] includes empty set only when n=0, but n>=1 so it's fine.\n        return dp[n] % MOD\n```\n\nAttempt 2\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n        # Generate all positive k such that k^x <= n\n        powers = []\n        k = 1\n        while True:\n            val = k ** x\n            if val > n:\n                break\n            powers.append(val)\n            k += 1\n\n        # Each power can be used at most once (unique integers) => 0/1 knapsack\n        # dp[s] = number of ways to sum to s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n        return dp[n] % MOD\n```\n\nAttempt 3\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Generate all positive i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 subset sum DP: dp[s] = ways to reach sum s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # Exclude the empty set (only matters when n==0, but n>=1 here)\n        return dp[n] % MOD\n```\n\nAttempt 4\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i**x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 subset sum DP:\n        # dp[s] = number of ways to reach sum s using a subset of unique powers\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            # iterate backwards to keep each power used at most once\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```\n\nAttempt 5\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i**x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to make sum s using a subset of powers (unique by construction)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        # For each power, do 0/1 knapsack (each can be used at most once)\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```\n\nAttempt 6\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all powers k^x <= n\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # 0/1 knapsack counting: choose each distinct base at most once\n        # dp[s] = number of ways to reach sum s\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```\n\nAttempt 7\n```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Precompute powers: p_i = i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # Each representation corresponds to choosing a subset of unique indices\n        # with sum == n. Order doesn't matter, uniqueness ensured by subset DP.\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```\n\nAttempt 8\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all possible x-th powers <= n\n        powers = []\n        k = 1\n        while True:\n            p = k**x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to make sum s using some subset of powers\n        # (each power can be used at most once -> subset sum DP)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n] % MOD\n```\n\nAttempt 9\n```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Unique positive integers => each x-th power can be used at most once.\n        # This becomes a 0/1 subset sum count.\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers processed so far\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set forms sum 0\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```\n\n#### Incorrect\nAttempt 1\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all powers i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):  # descending to ensure uniqueness (0/1 subset)\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return (dp[n] - 1) % MOD  # exclude the empty subset; n>=1 so dp[n] already counts only subsets summing to n\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Constraint-to-Knapsack Modeling",
+          "description": "Rewrite the combinatorics (unique integers, order doesn’t matter) as a subset-selection problem and solve it with 0/1 knapsack DP.",
+          "content": "When elements must be unique and only their sum matters, represent each allowable value as an item and count subsets whose weights sum to the target. A DP where each item is considered once naturally enforces uniqueness and handles order-independence without extra bookkeeping.",
+          "reasoning": "All successful attempts share the same core modeling: map the “sum of unique x-th powers of positive integers” to counting subsets where each power can be used at most once, then solve via 0/1 knapsack (subset-sum counting) DP. They also correctly handle orderlessness by iterating over powers as items and updating DP in a way that prevents reuse. The incorrect attempt fails by applying an unnecessary “subtract the empty subset” correction; while it uses the right DP recurrence, it introduces an unjustified post-processing step that can break correctness even when intuition suggests it “shouldn’t matter.”"
+        },
+        {
+          "title": "Use Item-Processing Order to Enforce Uniqueness",
+          "description": "In 0/1 subset-sum counting, iterate the target sum in descending order for each item to prevent reusing the same item multiple times.",
+          "content": "A standard invariant for 0/1 knapsack DP is that after processing a given item, dp[s] depends only on states from before that item (not multiple usages). Descending iteration over the sum dimension ensures transitions dp[s] ← dp[s] + dp[s−w] don’t chain within the same item.",
+          "reasoning": "All successful attempts share the same core modeling: map the “sum of unique x-th powers of positive integers” to counting subsets where each power can be used at most once, then solve via 0/1 knapsack (subset-sum counting) DP. They also correctly handle orderlessness by iterating over powers as items and updating DP in a way that prevents reuse. The incorrect attempt fails by applying an unnecessary “subtract the empty subset” correction; while it uses the right DP recurrence, it introduces an unjustified post-processing step that can break correctness even when intuition suggests it “shouldn’t matter.”"
+        },
+        {
+          "title": "Avoid Unwarranted Corrections After DP",
+          "description": "Don’t “patch” counts with ad-hoc adjustments unless you can explicitly prove they change exactly the intended cases.",
+          "content": "The incorrect solution modified the DP result by subtracting a term meant to remove the empty subset. Even if the adjustment seems harmless, post-processing is risky—always verify which configurations the DP actually counts for the specific target state before applying subtract/add corrections.",
+          "reasoning": "All successful attempts share the same core modeling: map the “sum of unique x-th powers of positive integers” to counting subsets where each power can be used at most once, then solve via 0/1 knapsack (subset-sum counting) DP. They also correctly handle orderlessness by iterating over powers as items and updating DP in a way that prevents reuse. The incorrect attempt fails by applying an unnecessary “subtract the empty subset” correction; while it uses the right DP recurrence, it introduces an unjustified post-processing step that can break correctness even when intuition suggests it “shouldn’t matter.”"
+        }
+      ],
+      "raw_response": "<reasoning>\nAll successful attempts share the same core modeling: map the “sum of unique x-th powers of positive integers” to counting subsets where each power can be used at most once, then solve via 0/1 knapsack (subset-sum counting) DP. They also correctly handle orderlessness by iterating over powers as items and updating DP in a way that prevents reuse. The incorrect attempt fails by applying an unnecessary “subtract the empty subset” correction; while it uses the right DP recurrence, it introduces an unjustified post-processing step that can break correctness even when intuition suggests it “shouldn’t matter.” \n</reasoning>\n\n<memories>\n<memory>\n<title>Constraint-to-Knapsack Modeling</title>\n<description>Rewrite the combinatorics (unique integers, order doesn’t matter) as a subset-selection problem and solve it with 0/1 knapsack DP.</description>\n<content>When elements must be unique and only their sum matters, represent each allowable value as an item and count subsets whose weights sum to the target. A DP where each item is considered once naturally enforces uniqueness and handles order-independence without extra bookkeeping.</content>\n</memory>\n\n<memory>\n<title>Use Item-Processing Order to Enforce Uniqueness</title>\n<description>In 0/1 subset-sum counting, iterate the target sum in descending order for each item to prevent reusing the same item multiple times.</description>\n<content>A standard invariant for 0/1 knapsack DP is that after processing a given item, dp[s] depends only on states from before that item (not multiple usages). Descending iteration over the sum dimension ensures transitions dp[s] ← dp[s] + dp[s−w] don’t chain within the same item.</content>\n</memory>\n\n<memory>\n<title>Avoid Unwarranted Corrections After DP</title>\n<description>Don’t “patch” counts with ad-hoc adjustments unless you can explicitly prove they change exactly the intended cases.</description>\n<content>The incorrect solution modified the DP result by subtracting a term meant to remove the empty subset. Even if the adjustment seems harmless, post-processing is risky—always verify which configurations the DP actually counts for the specific target state before applying subtract/add corrections.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nGiven two positive integers n and x.\nReturn the number of ways n can be expressed as the sum of the x^th power of unique positive integers, in other words, the number of sets of unique integers [n_1, n_2, ..., n_k] where n = n_1^x + n_2^x + ... + n_k^x.\nSince the result can be very large, return it modulo 10^9 + 7.\nFor example, if n = 160 and x = 3, one way to express n is n = 2^3 + 3^3 + 5^3.\n \nExample 1:\n\nInput: n = 10, x = 2\nOutput: 1\nExplanation: We can express n as the following: n = 3^2 + 1^2 = 10.\nIt can be shown that it is the only way to express 10 as the sum of the 2^nd power of unique integers.\n\nExample 2:\n\nInput: n = 4, x = 1\nOutput: 2\nExplanation: We can express n in the following ways:\n- n = 4^1 = 4.\n- n = 3^1 + 1^1 = 4.\n\n \nConstraints:\n\n1 <= n <= 300\n1 <= x <= 5\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all positive a^x <= n\n        powers = []\n        a = 1\n        while True:\n            p = a**x\n            if p > n:\n                break\n            powers.append(p)\n            a += 1\n\n        # 0/1 knapsack: count subsets summing to each value\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty subset\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all possible x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to form sum s using powers processed so far\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            # Each power can be used at most once (unique integers)\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Precompute all i^x <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # DP: dp[s] = number of ways to form sum s using processed powers,\n        # each power used at most once (unique integers).\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute perfect x-th powers <= n\n        pows = []\n        i = 1\n        while True:\n            v = i ** x\n            if v > n:\n                break\n            pows.append(v)\n            i += 1\n\n        # dp[s] = number of ways to reach sum s using some subset of unique powers\n        # 0/1 knapsack where each power can be used at most once.\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for w in pows:\n            for s in range(n, w - 1, -1):\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Prepare all possible distinct x-th powers <= n\n        powers = []\n        base = 1\n        while True:\n            p = base ** x\n            if p > n:\n                break\n            powers.append(p)\n            base += 1\n\n        # dp[s] = number of ways to form sum s using some subset of powers so far (each at most once)\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # Exclude the empty set (n>=1 so dp[n] already corresponds to non-empty selections)\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all perfect x-th powers <= n\n        powers = []\n        base = 1\n        while True:\n            val = base ** x\n            if val > n:\n                break\n            powers.append(val)\n            base += 1\n\n        # dp[s] = number of ways to form sum s using processed powers,\n        # where each power (i.e., each unique base) can be used at most once.\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            # 0/1 knapsack transition (iterate backwards to enforce uniqueness)\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # Exclude empty set is already handled since n>=1; dp[n] counts non-empty ways too.\n        return dp[n] % MOD\n```",
+        "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Build all possible x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to make sum s using processed powers,\n        # where each power can be used at most once (unique integers)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Generate all possible x-th powers <= n\n        powers = []\n        k = 1\n        while True:\n            p = k ** x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # DP over sums, where each power can be used at most once (unique integers)\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all x-th powers <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to form sum s using each power at most once\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        return dp[n]\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Precompute all k^x <= n\n        powers = []\n        k = 1\n        while True:\n            p = k**x\n            if p > n:\n                break\n            powers.append(p)\n            k += 1\n\n        # dp[s] = number of ways to form sum s using some prefix of unique powers\n        # Classic 0/1 subset-sum counting\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for p in powers:\n            for s in range(n, p - 1, -1):\n                dp[s] = (dp[s] + dp[s - p]) % MOD\n\n        # Exclude the empty set (it would only contribute when n=0, but n>=1)\n        return dp[n] % MOD\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2882",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Constraint-to-Knapsack Modeling: Rewrite the combinatorics (unique integers, order doesn’t matter) as a subset-selection problem and solve it with 0/1 knapsack DP.\n     When elements must be unique and only their sum matters, represent each allowable value as an item and count subsets whose weights sum to the target. A DP where each item is considered once naturally enforces uniqueness and handles order-independence without extra bookkeeping.\n  2. Use Item-Processing Order to Enforce Uniqueness: In 0/1 subset-sum counting, iterate the target sum in descending order for each item to prevent reusing the same item multiple times.\n     A standard invariant for 0/1 knapsack DP is that after processing a given item, dp[s] depends only on states from before that item (not multiple usages). Descending iteration over the sum dimension ensures transitions dp[s] ← dp[s] + dp[s−w] don’t chain within the same item.\n  3. Avoid Unwarranted Corrections After DP: Don’t “patch” counts with ad-hoc adjustments unless you can explicitly prove they change exactly the intended cases.\n     The incorrect solution modified the DP result by subtracting a term meant to remove the empty subset. Even if the adjustment seems harmless, post-processing is risky—always verify which configurations the DP actually counts for the specific target state before applying subtract/add corrections.\n\nApply these insights to the problem below.\n\n### Question:\nGiven two positive integers n and x.\nReturn the number of ways n can be expressed as the sum of the x^th power of unique positive integers, in other words, the number of sets of unique integers [n_1, n_2, ..., n_k] where n = n_1^x + n_2^x + ... + n_k^x.\nSince the result can be very large, return it modulo 10^9 + 7.\nFor example, if n = 160 and x = 3, one way to express n is n = 2^3 + 3^3 + 5^3.\n \nExample 1:\n\nInput: n = 10, x = 2\nOutput: 1\nExplanation: We can express n as the following: n = 3^2 + 1^2 = 10.\nIt can be shown that it is the only way to express 10 as the sum of the 2^nd power of unique integers.\n\nExample 2:\n\nInput: n = 4, x = 1\nOutput: 2\nExplanation: We can express n in the following ways:\n- n = 4^1 = 4.\n- n = 3^1 + 1^1 = 4.\n\n \nConstraints:\n\n1 <= n <= 300\n1 <= x <= 5\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Build all possible x-th powers <= n as 0/1 knapsack \"items\"\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # dp[s] = number of ways to reach sum s using each power at most once\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty subset\n\n        for w in powers:\n            for s in range(n, w - 1, -1):  # descending to enforce uniqueness (0/1)\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Largest base such that base^x <= n\n        limit = 1\n        while (limit + 1) ** x <= n:\n            limit += 1\n\n        # Each allowable value (i^x) is an item for 0/1 knapsack (use at most once).\n        weights = [(i ** x) for i in range(1, limit + 1)]\n\n        # dp[s] = number of ways to reach sum s using processed items\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for w in weights:\n            # Descend to enforce 0/1 (each weight used at most once)\n            for s in range(n, w - 1, -1):\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Build all possible unique x-th power terms <= n\n        items = []\n        k = 1\n        while True:\n            v = k**x\n            if v > n:\n                break\n            items.append(v)\n            k += 1\n\n        # 0/1 knapsack counting: dp[s] = number of ways to reach sum s\n        # using each item at most once (uniqueness, order-independence).\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set\n\n        for w in items:\n            for s in range(n, w - 1, -1):  # descending to enforce 0/1 usage\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        # dp[n] counts all subsets of these unique powers summing to n\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Maximum base whose x-th power <= n\n        max_base = int(n ** (1 / x))\n        # Ensure correctness due to floating error\n        while (max_base + 1) ** x <= n:\n            max_base += 1\n        while max_base ** x > n:\n            max_base -= 1\n\n        # Items are the distinct powers: we can use each at most once\n        powers = [(i ** x) for i in range(1, max_base + 1)]\n        # 0/1 knapsack counting subsets summing to n\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty subset\n\n        for w in powers:\n            # Descending to enforce 0/1 (each power used at most once)\n            for s in range(n, w - 1, -1):\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Build all possible unique values a^x <= n\n        # (unique integers => each item can be used at most once)\n        vals = []\n        a = 1\n        while True:\n            p = a ** x\n            if p > n:\n                break\n            vals.append(p)\n            a += 1\n\n        # 0/1 knapsack counting subsets summing to n\n        # dp[s] = number of ways to reach sum s using processed items\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty subset counts for sum 0\n\n        for w in vals:\n            for s in range(n, w - 1, -1):  # descending to enforce 0/1 (uniqueness)\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        # For n>0, dp[n] excludes empty subset automatically\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Items are i^x for positive integers i, each usable at most once (unique integers).\n        vals = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            vals.append(p)\n            i += 1\n\n        # 0/1 knapsack counting: dp[s] = number of ways to make sum s using processed items.\n        dp = [0] * (n + 1)\n        dp[0] = 1\n        for w in vals:\n            for s in range(n, w - 1, -1):\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        # Exclude empty set; dp[n] already counts only subsets of {1^x,2^x,...} summing to n.\n        return dp[n] % MOD\n```",
+        "```python\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Allowed unique positive integers are those whose x-th power <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 knapsack counting: dp[s] = number of ways to reach sum s\n        # using each power at most once (uniqueness handled naturally).\n        dp = [0] * (n + 1)\n        dp[0] = 1\n\n        for w in powers:\n            for s in range(n, w - 1, -1):  # descending for 0/1 constraint\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n]\n```",
+        "```python\nfrom typing import List\n\nMOD = 10**9 + 7\n\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        # Collect all usable values i^x <= n (unique positive integers)\n        powers: List[int] = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 knapsack counting subsets: dp[s] = #ways to reach sum s\n        # Iterate sums descending to ensure each power is used at most once (uniqueness).\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty subset contributes to sum 0\n\n        for w in powers:\n            for s in range(n, w - 1, -1):\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Generate all possible values i^x that are <= n\n        powers = []\n        i = 1\n        while True:\n            p = i ** x\n            if p > n:\n                break\n            powers.append(p)\n            i += 1\n\n        # 0/1 knapsack counting: dp[s] = #ways to make sum s using distinct powers\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty set contributes to sum 0\n\n        for w in powers:\n            for s in range(n, w - 1, -1):  # descending to enforce uniqueness (0/1)\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n] % MOD\n```",
+        "```python\nclass Solution:\n    def numberOfWays(self, n: int, x: int) -> int:\n        MOD = 10**9 + 7\n\n        # Allowed unique positive integers a such that a^x <= n\n        max_a = 1\n        while pow(max_a, x) <= n:\n            max_a += 1\n        max_a -= 1\n\n        items = [pow(i, x) for i in range(1, max_a + 1)]\n\n        # 0/1 knapsack counting: number of subsets of items summing to n\n        dp = [0] * (n + 1)\n        dp[0] = 1  # empty subset sums to 0\n\n        for w in items:\n            for s in range(n, w - 1, -1):\n                dp[s] = (dp[s] + dp[s - w]) % MOD\n\n        return dp[n] % MOD\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2882",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2882",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "222",
+                "actual": "222",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "193582642",
+                "actual": "193582642",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "862028426",
+                "actual": "862028426",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

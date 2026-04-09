@@ -1,0 +1,3265 @@
+{
+  "problem_id": "3176",
+  "domain": "coding",
+  "problem": {
+    "id": "3176",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed array nums of integers.\nA triplet of indices (i, j, k) is a mountain if:\n\ni < j < k\nnums[i] < nums[j] and nums[k] < nums[j]\n\nReturn the minimum possible sum of a mountain triplet of nums. If no such triplet exists, return -1.\n \nExample 1:\n\nInput: nums = [8,6,1,5,3]\nOutput: 9\nExplanation: Triplet (2, 3, 4) is a mountain triplet of sum 9 since: \n- 2 < 3 < 4\n- nums[2] < nums[3] and nums[4] < nums[3]\nAnd the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.\n\nExample 2:\n\nInput: nums = [5,4,8,7,10,2]\nOutput: 13\nExplanation: Triplet (1, 3, 5) is a mountain triplet of sum 13 since: \n- 1 < 3 < 5\n- nums[1] < nums[3] and nums[5] < nums[3]\nAnd the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.\n\nExample 3:\n\nInput: nums = [6,5,4,3,4,5]\nOutput: -1\nExplanation: It can be shown that there are no mountain triplets in nums.\n\n \nConstraints:\n\n3 <= nums.length <= 50\n1 <= nums[i] <= 50",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[8, 6, 1, 5, 3]",
+        "output": "9",
+        "testtype": "functional"
+      },
+      {
+        "input": "[5, 4, 8, 7, 10, 2]",
+        "output": "13",
+        "testtype": "functional"
+      },
+      {
+        "input": "[6, 5, 4, 3, 4, 5]",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 2, 1]",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3]",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 50, 1]",
+        "output": "52",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 4, 12]",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 44, 12]",
+        "output": "57",
+        "testtype": "functional"
+      },
+      {
+        "input": "[41, 48, 2]",
+        "output": "91",
+        "testtype": "functional"
+      },
+      {
+        "input": "[25, 3, 38]",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[14, 33, 39]",
+        "output": "-1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[11, 37, 44, 48, 12, 25, 8, 21, 11, 45, 28, 48, 20, 1, 9, 12, 10, 23, 20, 29, 18, 4, 28, 16, 31, 37, 39, 40, 45, 28, 10, 16, 4, 47, 50, 35, 50, 8, 48, 28, 39, 16, 30, 17, 50, 47, 35, 45, 35, 32]",
+        "output": "14",
+        "testtype": "functional"
+      },
+      {
+        "input": "[33, 50, 24, 11, 45, 44, 43, 45, 27, 43, 45, 19, 37, 37, 31, 32, 16, 23, 9, 9, 6, 19, 30, 20, 50, 31, 16, 36, 21, 22, 37, 16, 11, 12, 31, 21, 3, 25, 31, 20, 45, 2, 44, 31, 40, 41, 23, 25, 2, 10]",
+        "output": "19",
+        "testtype": "functional"
+      },
+      {
+        "input": "[19, 12, 34, 1, 21, 23, 34, 36, 10, 2, 34, 41, 29, 48, 39, 41, 42, 28, 27, 22, 10, 50, 1, 13, 26, 17, 13, 31, 33, 49, 37, 32, 39, 26, 13, 38, 27, 39, 6, 43, 33, 46, 50, 15, 43, 44, 26, 5, 42, 40]",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "[25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25]",
+        "output": "-1",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "minimumSum",
+      "question_title": "minimum-sum-of-mountain-triplets-i",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed array nums of integers.\nA triplet of indices (i, j, k) is a mountain if:\n\ni < j < k\nnums[i] < nums[j] and nums[k] < nums[j]\n\nReturn the minimum possible sum of a mountain triplet of nums. If no such triplet exists, return -1.\n \nExample 1:\n\nInput: nums = [8,6,1,5,3]\nOutput: 9\nExplanation: Triplet (2, 3, 4) is a mountain triplet of sum 9 since: \n- 2 < 3 < 4\n- nums[2] < nums[3] and nums[4] < nums[3]\nAnd the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.\n\nExample 2:\n\nInput: nums = [5,4,8,7,10,2]\nOutput: 13\nExplanation: Triplet (1, 3, 5) is a mountain triplet of sum 13 since: \n- 1 < 3 < 5\n- nums[1] < nums[3] and nums[5] < nums[3]\nAnd the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.\n\nExample 3:\n\nInput: nums = [6,5,4,3,4,5]\nOutput: -1\nExplanation: It can be shown that there are no mountain triplets in nums.\n\n \nConstraints:\n\n3 <= nums.length <= 50\n1 <= nums[i] <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # min_left[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # min_right[k] = minimum nums[k] for k>j with nums[k] < nums[j]\n        min_left = [INF] * n\n        min_seen = [INF] * 51  # values are in [1..50]\n        \n        for j in range(n):\n            v = nums[j]\n            if v > 1:\n                min_left[j] = min(min_seen[1:v])  # min nums[i] < v\n            min_seen[v] = min(min_seen[v], v)\n\n        min_right = [INF] * n\n        min_seen = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            if v > 1:\n                min_right[j] = min(min_seen[1:v])  # min nums[k] < v to the right\n            min_seen[v] = min(min_seen[v], v)\n\n        for j in range(n):\n            if min_left[j] != INF and min_right[j] != INF:\n                total = min_left[j] + nums[j] + min_right[j]\n                if total < ans:\n                    ans = total\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        left_min = [INF] * n\n        best = INF\n\n        # Precompute left_min\n        for j in range(n):\n            x = nums[j]\n            mn = INF\n            for i in range(j):\n                if nums[i] < x:\n                    mn = min(mn, nums[i])\n            left_min[j] = mn\n\n        # For each middle j, find minimum nums[k] for k>j with nums[k] < nums[j]\n        for j in range(1, n - 1):\n            if left_min[j] == INF:\n                continue\n            x = nums[j]\n            mn_right = INF\n            for k in range(j + 1, n):\n                if nums[k] < x:\n                    mn_right = min(mn_right, nums[k])\n            if mn_right != INF:\n                best = min(best, left_min[j] + x + mn_right)\n\n        return -1 if best == INF else best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # bestL[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        bestL = [INF] * n\n        # bestR[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        bestR = [INF] * n\n\n        # nums[i] are in [1..50], so use Fenwick-like min prefix by value.\n        # For each possible value v, store the minimum seen index/value that equals v.\n        # We can just track minimum numbers by value; then query all < nums[j].\n        maxv = 50\n        min_by_val = [INF] * (maxv + 1)\n\n        # Compute bestL\n        for j in range(n):\n            x = nums[j]\n            # query min_by_val[1..x-1]\n            mn = INF\n            for v in range(1, x):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            bestL[j] = mn\n            if nums[j] < min_by_val[x]:\n                min_by_val[x] = nums[j]\n\n        # Compute bestR (from right)\n        min_by_val = [INF] * (maxv + 1)\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            mn = INF\n            for v in range(1, x):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            bestR[j] = mn\n            if nums[j] < min_by_val[x]:\n                min_by_val[x] = nums[j]\n\n        ans = INF\n        for j in range(n):\n            if bestL[j] < INF and bestR[j] < INF:\n                ans = min(ans, bestL[j] + nums[j] + bestR[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # best_left[v] = minimum value nums[i] with i < j and nums[i] == v\n        best_left = [INF] * 51\n        # We'll scan j from left to right, keeping best_left for nums[i] < nums[j].\n        # For the right side, for each j we need min nums[k] for k > j with nums[k] < nums[j].\n        # Precompute right_min_smaller[j][?] efficiently via suffix minima by value.\n        # Since values are in [1,50], we can compute right_min[v] = minimum nums[k] to the right with nums[k] == v.\n        right_min = [INF] * 51\n\n        # Initialize suffix mins for k > j with j at 1 (we'll update as j moves).\n        # Easier: maintain right_min for indices strictly greater than current j.\n        # Start with last element as part of suffix, then adjust.\n        right_min = [INF] * 51\n        for idx in range(2, n):  # indices > 1\n            right_min[nums[idx]] = min(right_min[nums[idx]], nums[idx])\n\n        def min_suffix_smaller(val: int) -> int:\n            # minimal value among right_min[x] for x < val\n            m = INF\n            # values range 1..50\n            for x in range(1, val):\n                if right_min[x] < m:\n                    m = right_min[x]\n            return m\n\n        # Now iterate j from 1 to n-2\n        for j in range(1, n - 1):\n            vj = nums[j]\n\n            left_smaller = INF\n            for x in range(1, vj):\n                left_smaller = min(left_smaller, best_left[x])\n\n            right_smaller = min_suffix_smaller(vj)\n\n            if left_smaller != INF and right_smaller != INF:\n                ans = min(ans, left_smaller + vj + right_smaller)\n\n            # Move j forward:\n            # Current j becomes part of left for future iterations, and part of suffix for past ones.\n            # Update best_left with nums[j]\n            best_left[vj] = min(best_left[vj], vj)\n\n            # Update suffix minima: remove index j+1? Our suffix currently represents indices > j.\n            # We built initial suffix for j=1 as indices 2..n-1.\n            # Before next iteration (j+1), suffix should represent indices > (j+1), i.e., indices j+2..n-1.\n            # So we need to \"remove\" nums[j+1] from right_min, but we only stored minima by value,\n            # which can't be removed easily.\n            #\n            # Instead, do a value-based DP without removals: precompute for each position j\n            # the minimum value to the right that is < nums[j] using suffix arrays.\n            #\n            # Hence, break and switch to precomputed approach.\n\n        # Recompute properly using precomputed suffix minima by value.\n        # values are small (1..50), so do O(n*50) which is fine for n<=50.\n\n        # left_best_min[v] while scanning\n        ans = INF\n        best_left = [INF] * 51\n\n        # Precompute for each position j:\n        # right_best_smaller[j] = min nums[k] for k>j with nums[k] < nums[j]\n        right_best = [INF] * 51\n        right_best_smaller = [INF] * n\n\n        # Build suffix counts/minima\n        for j in range(n - 2, -1, -1):\n            v = nums[j + 1]\n            right_best[v] = min(right_best[v], v)\n            # query for position j\n            cur = nums[j]\n            m = INF\n            for x in range(1, cur):\n                m = min(m, right_best[x])\n            right_best_smaller[j] = m\n\n        for j in range(1, n - 1):\n            vj = nums[j]\n            left_min = INF\n            for x in range(1, vj):\n                left_min = min(left_min, best_left[x])\n            right_min = right_best_smaller[j]\n            if left_min != INF and right_min != INF:\n                ans = min(ans, left_min + vj + right_min)\n            best_left[vj] = min(best_left[vj], vj)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n\n        # min_left[j] = minimum nums[i] such that i < j and nums[i] < nums[j]\n        min_left = [INF] * n\n        for j in range(n):\n            best = INF\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best = min(best, nums[i])\n            min_left[j] = best\n\n        # min_right[j] = minimum nums[k] such that k > j and nums[k] < nums[j]\n        min_right = [INF] * n\n        for j in range(n - 1, -1, -1):\n            best = INF\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best = min(best, nums[k])\n            min_right[j] = best\n\n        ans = INF\n        for j in range(n):\n            if min_left[j] != INF and min_right[j] != INF:\n                ans = min(ans, min_left[j] + nums[j] + min_right[j])\n\n        return ans if ans != INF else -1\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # left_best[j]: minimum possible nums[i] for i<j with nums[i] < nums[j]\n        # right_best[j]: minimum possible nums[k] for k>j with nums[k] < nums[j]\n        left_best = [INF] * n\n        right_best = [INF] * n\n\n        # Values are in [1..50], so we can use frequency-less min tracking.\n        left_min_by_val = [INF] * 51  # left_min_by_val[v] = min nums[i] encountered with nums[i] == v\n\n        for j in range(n):\n            v = nums[j]\n            # best among values < v\n            best = INF\n            for x in range(1, v):\n                if left_min_by_val[x] < best:\n                    best = left_min_by_val[x]\n            left_best[j] = best\n\n            # update encountered value v\n            if nums[j] < left_min_by_val[v]:\n                left_min_by_val[v] = nums[j]\n\n        right_min_by_val = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            best = INF\n            for x in range(1, v):\n                if right_min_by_val[x] < best:\n                    best = right_min_by_val[x]\n            right_best[j] = best\n\n            if nums[j] < right_min_by_val[v]:\n                right_min_by_val[v] = nums[j]\n\n        for j in range(1, n - 1):\n            if left_best[j] != INF and right_best[j] != INF:\n                ans = min(ans, left_best[j] + nums[j] + right_best[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum nums[i] with i<j and nums[i] < nums[j]\n        left_min = [INF] * n\n        for j in range(n):\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    if nums[i] < left_min[j]:\n                        left_min[j] = nums[i]\n\n        # right_min[j] = minimum nums[k] with k>j and nums[k] < nums[j]\n        right_min = [INF] * n\n        for j in range(n):\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    if nums[k] < right_min[j]:\n                        right_min[j] = nums[k]\n\n        ans = INF\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] in [1..50], we can track minimum value seen for each number.\n        left_best = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            best = min(left_best[1:x]) if x > 1 else INF\n            left_min[j] = best\n            left_best[x] = min(left_best[x], x)\n\n        right_best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            best = min(right_best[1:x]) if x > 1 else INF\n            right_min[j] = best\n            right_best[x] = min(right_best[x], x)\n\n        ans = INF\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        ans = float('inf')\n\n        # Try each position j as the mountain peak.\n        for j in range(1, n - 1):\n            best_left = float('inf')   # min nums[i] with i < j and nums[i] < nums[j]\n            best_right = float('inf')  # min nums[k] with k > j and nums[k] < nums[j]\n\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best_left = min(best_left, nums[i])\n\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best_right = min(best_right, nums[k])\n\n            if best_left != float('inf') and best_right != float('inf'):\n                ans = min(ans, best_left + nums[j] + best_right)\n\n        return -1 if ans == float('inf') else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum value nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum value nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] are in [1..50], we can use prefix/suffix minima by value.\n        # Maintain best[v] = minimum nums[i] seen so far with value exactly v (or at least).\n        # We'll query over values < nums[j].\n        best_left = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            left_best = INF\n            for v in range(1, x):\n                if best_left[v] < left_best:\n                    left_best = best_left[v]\n            left_min[j] = left_best\n            best_left[x] = min(best_left[x], x)\n\n        best_right = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            right_best = INF\n            for v in range(1, x):\n                if best_right[v] < right_best:\n                    right_best = best_right[v]\n            right_min[j] = right_best\n            best_right[x] = min(best_right[x], x)\n\n        ans = INF\n        for j in range(1, n - 1):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3176",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 3,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "52",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "57",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "91",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # min_left[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # min_right[k] = minimum nums[k] for k>j with nums[k] < nums[j]\n        min_left = [INF] * n\n        min_seen = [INF] * 51  # values are in [1..50]\n        \n        for j in range(n):\n            v = nums[j]\n            if v > 1:\n                min_left[j] = min(min_seen[1:v])  # min nums[i] < v\n            min_seen[v] = min(min_seen[v], v)\n\n        min_right = [INF] * n\n        min_seen = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            if v > 1:\n                min_right[j] = min(min_seen[1:v])  # min nums[k] < v to the right\n            min_seen[v] = min(min_seen[v], v)\n\n        for j in range(n):\n            if min_left[j] != INF and min_right[j] != INF:\n                total = min_left[j] + nums[j] + min_right[j]\n                if total < ans:\n                    ans = total\n\n        return -1 if ans == INF else ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        left_min = [INF] * n\n        best = INF\n\n        # Precompute left_min\n        for j in range(n):\n            x = nums[j]\n            mn = INF\n            for i in range(j):\n                if nums[i] < x:\n                    mn = min(mn, nums[i])\n            left_min[j] = mn\n\n        # For each middle j, find minimum nums[k] for k>j with nums[k] < nums[j]\n        for j in range(1, n - 1):\n            if left_min[j] == INF:\n                continue\n            x = nums[j]\n            mn_right = INF\n            for k in range(j + 1, n):\n                if nums[k] < x:\n                    mn_right = min(mn_right, nums[k])\n            if mn_right != INF:\n                best = min(best, left_min[j] + x + mn_right)\n\n        return -1 if best == INF else best\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # bestL[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        bestL = [INF] * n\n        # bestR[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        bestR = [INF] * n\n\n        # nums[i] are in [1..50], so use Fenwick-like min prefix by value.\n        # For each possible value v, store the minimum seen index/value that equals v.\n        # We can just track minimum numbers by value; then query all < nums[j].\n        maxv = 50\n        min_by_val = [INF] * (maxv + 1)\n\n        # Compute bestL\n        for j in range(n):\n            x = nums[j]\n            # query min_by_val[1..x-1]\n            mn = INF\n            for v in range(1, x):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            bestL[j] = mn\n            if nums[j] < min_by_val[x]:\n                min_by_val[x] = nums[j]\n\n        # Compute bestR (from right)\n        min_by_val = [INF] * (maxv + 1)\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            mn = INF\n            for v in range(1, x):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            bestR[j] = mn\n            if nums[j] < min_by_val[x]:\n                min_by_val[x] = nums[j]\n\n        ans = INF\n        for j in range(n):\n            if bestL[j] < INF and bestR[j] < INF:\n                ans = min(ans, bestL[j] + nums[j] + bestR[j])\n\n        return -1 if ans == INF else ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n\n        # min_left[j] = minimum nums[i] such that i < j and nums[i] < nums[j]\n        min_left = [INF] * n\n        for j in range(n):\n            best = INF\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best = min(best, nums[i])\n            min_left[j] = best\n\n        # min_right[j] = minimum nums[k] such that k > j and nums[k] < nums[j]\n        min_right = [INF] * n\n        for j in range(n - 1, -1, -1):\n            best = INF\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best = min(best, nums[k])\n            min_right[j] = best\n\n        ans = INF\n        for j in range(n):\n            if min_left[j] != INF and min_right[j] != INF:\n                ans = min(ans, min_left[j] + nums[j] + min_right[j])\n\n        return ans if ans != INF else -1\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # left_best[j]: minimum possible nums[i] for i<j with nums[i] < nums[j]\n        # right_best[j]: minimum possible nums[k] for k>j with nums[k] < nums[j]\n        left_best = [INF] * n\n        right_best = [INF] * n\n\n        # Values are in [1..50], so we can use frequency-less min tracking.\n        left_min_by_val = [INF] * 51  # left_min_by_val[v] = min nums[i] encountered with nums[i] == v\n\n        for j in range(n):\n            v = nums[j]\n            # best among values < v\n            best = INF\n            for x in range(1, v):\n                if left_min_by_val[x] < best:\n                    best = left_min_by_val[x]\n            left_best[j] = best\n\n            # update encountered value v\n            if nums[j] < left_min_by_val[v]:\n                left_min_by_val[v] = nums[j]\n\n        right_min_by_val = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            best = INF\n            for x in range(1, v):\n                if right_min_by_val[x] < best:\n                    best = right_min_by_val[x]\n            right_best[j] = best\n\n            if nums[j] < right_min_by_val[v]:\n                right_min_by_val[v] = nums[j]\n\n        for j in range(1, n - 1):\n            if left_best[j] != INF and right_best[j] != INF:\n                ans = min(ans, left_best[j] + nums[j] + right_best[j])\n\n        return -1 if ans == INF else ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum nums[i] with i<j and nums[i] < nums[j]\n        left_min = [INF] * n\n        for j in range(n):\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    if nums[i] < left_min[j]:\n                        left_min[j] = nums[i]\n\n        # right_min[j] = minimum nums[k] with k>j and nums[k] < nums[j]\n        right_min = [INF] * n\n        for j in range(n):\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    if nums[k] < right_min[j]:\n                        right_min[j] = nums[k]\n\n        ans = INF\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] in [1..50], we can track minimum value seen for each number.\n        left_best = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            best = min(left_best[1:x]) if x > 1 else INF\n            left_min[j] = best\n            left_best[x] = min(left_best[x], x)\n\n        right_best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            best = min(right_best[1:x]) if x > 1 else INF\n            right_min[j] = best\n            right_best[x] = min(right_best[x], x)\n\n        ans = INF\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        ans = float('inf')\n\n        # Try each position j as the mountain peak.\n        for j in range(1, n - 1):\n            best_left = float('inf')   # min nums[i] with i < j and nums[i] < nums[j]\n            best_right = float('inf')  # min nums[k] with k > j and nums[k] < nums[j]\n\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best_left = min(best_left, nums[i])\n\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best_right = min(best_right, nums[k])\n\n            if best_left != float('inf') and best_right != float('inf'):\n                ans = min(ans, best_left + nums[j] + best_right)\n\n        return -1 if ans == float('inf') else ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum value nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum value nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] are in [1..50], we can use prefix/suffix minima by value.\n        # Maintain best[v] = minimum nums[i] seen so far with value exactly v (or at least).\n        # We'll query over values < nums[j].\n        best_left = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            left_best = INF\n            for v in range(1, x):\n                if best_left[v] < left_best:\n                    left_best = best_left[v]\n            left_min[j] = left_best\n            best_left[x] = min(best_left[x], x)\n\n        best_right = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            right_best = INF\n            for v in range(1, x):\n                if best_right[v] < right_best:\n                    right_best = best_right[v]\n            right_min[j] = right_best\n            best_right[x] = min(best_right[x], x)\n\n        ans = INF\n        for j in range(1, n - 1):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # best_left[v] = minimum value nums[i] with i < j and nums[i] == v\n        best_left = [INF] * 51\n        # We'll scan j from left to right, keeping best_left for nums[i] < nums[j].\n        # For the right side, for each j we need min nums[k] for k > j with nums[k] < nums[j].\n        # Precompute right_min_smaller[j][?] efficiently via suffix minima by value.\n        # Since values are in [1,50], we can compute right_min[v] = minimum nums[k] to the right with nums[k] == v.\n        right_min = [INF] * 51\n\n        # Initialize suffix mins for k > j with j at 1 (we'll update as j moves).\n        # Easier: maintain right_min for indices strictly greater than current j.\n        # Start with last element as part of suffix, then adjust.\n        right_min = [INF] * 51\n        for idx in range(2, n):  # indices > 1\n            right_min[nums[idx]] = min(right_min[nums[idx]], nums[idx])\n\n        def min_suffix_smaller(val: int) -> int:\n            # minimal value among right_min[x] for x < val\n            m = INF\n            # values range 1..50\n            for x in range(1, val):\n                if right_min[x] < m:\n                    m = right_min[x]\n            return m\n\n        # Now iterate j from 1 to n-2\n        for j in range(1, n - 1):\n            vj = nums[j]\n\n            left_smaller = INF\n            for x in range(1, vj):\n                left_smaller = min(left_smaller, best_left[x])\n\n            right_smaller = min_suffix_smaller(vj)\n\n            if left_smaller != INF and right_smaller != INF:\n                ans = min(ans, left_smaller + vj + right_smaller)\n\n            # Move j forward:\n            # Current j becomes part of left for future iterations, and part of suffix for past ones.\n            # Update best_left with nums[j]\n            best_left[vj] = min(best_left[vj], vj)\n\n            # Update suffix minima: remove index j+1? Our suffix currently represents indices > j.\n            # We built initial suffix for j=1 as indices 2..n-1.\n            # Before next iteration (j+1), suffix should represent indices > (j+1), i.e., indices j+2..n-1.\n            # So we need to \"remove\" nums[j+1] from right_min, but we only stored minima by value,\n            # which can't be removed easily.\n            #\n            # Instead, do a value-based DP without removals: precompute for each position j\n            # the minimum value to the right that is < nums[j] using suffix arrays.\n            #\n            # Hence, break and switch to precomputed approach.\n\n        # Recompute properly using precomputed suffix minima by value.\n        # values are small (1..50), so do O(n*50) which is fine for n<=50.\n\n        # left_best_min[v] while scanning\n        ans = INF\n        best_left = [INF] * 51\n\n        # Precompute for each position j:\n        # right_best_smaller[j] = min nums[k] for k>j with nums[k] < nums[j]\n        right_best = [INF] * 51\n        right_best_smaller = [INF] * n\n\n        # Build suffix counts/minima\n        for j in range(n - 2, -1, -1):\n            v = nums[j + 1]\n            right_best[v] = min(right_best[v], v)\n            # query for position j\n            cur = nums[j]\n            m = INF\n            for x in range(1, cur):\n                m = min(m, right_best[x])\n            right_best_smaller[j] = m\n\n        for j in range(1, n - 1):\n            vj = nums[j]\n            left_min = INF\n            for x in range(1, vj):\n                left_min = min(left_min, best_left[x])\n            right_min = right_best_smaller[j]\n            if left_min != INF and right_min != INF:\n                ans = min(ans, left_min + vj + right_min)\n            best_left[vj] = min(best_left[vj], vj)\n\n        return -1 if ans == INF else ans\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given a 0-indexed array nums of integers.\nA triplet of indices (i, j, k) is a mountain if:\n\ni < j < k\nnums[i] < nums[j] and nums[k] < nums[j]\n\nReturn the minimum possible sum of a mountain triplet of nums. If no such triplet exists, return -1.\n \nExample 1:\n\nInput: nums = [8,6,1,5,3]\nOutput: 9\nExplanation: Triplet (2, 3, 4) is a mountain triplet of sum 9 since: \n- 2 < 3 < 4\n- nums[2] < nums[3] and nums[4] < nums[3]\nAnd the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.\n\nExample 2:\n\nInput: nums = [5,4,8,7,10,2]\nOutput: 13\nExplanation: Triplet (1, 3, 5) is a mountain triplet of sum 13 since: \n- 1 < 3 < 5\n- nums[1] < nums[3] and nums[5] < nums[3]\nAnd the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.\n\nExample 3:\n\nInput: nums = [6,5,4,3,4,5]\nOutput: -1\nExplanation: It can be shown that there are no mountain triplets in nums.\n\n \nConstraints:\n\n3 <= nums.length <= 50\n1 <= nums[i] <= 50\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # min_left[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # min_right[k] = minimum nums[k] for k>j with nums[k] < nums[j]\n        min_left = [INF] * n\n        min_seen = [INF] * 51  # values are in [1..50]\n        \n        for j in range(n):\n            v = nums[j]\n            if v > 1:\n                min_left[j] = min(min_seen[1:v])  # min nums[i] < v\n            min_seen[v] = min(min_seen[v], v)\n\n        min_right = [INF] * n\n        min_seen = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            if v > 1:\n                min_right[j] = min(min_seen[1:v])  # min nums[k] < v to the right\n            min_seen[v] = min(min_seen[v], v)\n\n        for j in range(n):\n            if min_left[j] != INF and min_right[j] != INF:\n                total = min_left[j] + nums[j] + min_right[j]\n                if total < ans:\n                    ans = total\n\n        return -1 if ans == INF else ans\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        left_min = [INF] * n\n        best = INF\n\n        # Precompute left_min\n        for j in range(n):\n            x = nums[j]\n            mn = INF\n            for i in range(j):\n                if nums[i] < x:\n                    mn = min(mn, nums[i])\n            left_min[j] = mn\n\n        # For each middle j, find minimum nums[k] for k>j with nums[k] < nums[j]\n        for j in range(1, n - 1):\n            if left_min[j] == INF:\n                continue\n            x = nums[j]\n            mn_right = INF\n            for k in range(j + 1, n):\n                if nums[k] < x:\n                    mn_right = min(mn_right, nums[k])\n            if mn_right != INF:\n                best = min(best, left_min[j] + x + mn_right)\n\n        return -1 if best == INF else best\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # bestL[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        bestL = [INF] * n\n        # bestR[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        bestR = [INF] * n\n\n        # nums[i] are in [1..50], so use Fenwick-like min prefix by value.\n        # For each possible value v, store the minimum seen index/value that equals v.\n        # We can just track minimum numbers by value; then query all < nums[j].\n        maxv = 50\n        min_by_val = [INF] * (maxv + 1)\n\n        # Compute bestL\n        for j in range(n):\n            x = nums[j]\n            # query min_by_val[1..x-1]\n            mn = INF\n            for v in range(1, x):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            bestL[j] = mn\n            if nums[j] < min_by_val[x]:\n                min_by_val[x] = nums[j]\n\n        # Compute bestR (from right)\n        min_by_val = [INF] * (maxv + 1)\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            mn = INF\n            for v in range(1, x):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            bestR[j] = mn\n            if nums[j] < min_by_val[x]:\n                min_by_val[x] = nums[j]\n\n        ans = INF\n        for j in range(n):\n            if bestL[j] < INF and bestR[j] < INF:\n                ans = min(ans, bestL[j] + nums[j] + bestR[j])\n\n        return -1 if ans == INF else ans\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n\n        # min_left[j] = minimum nums[i] such that i < j and nums[i] < nums[j]\n        min_left = [INF] * n\n        for j in range(n):\n            best = INF\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best = min(best, nums[i])\n            min_left[j] = best\n\n        # min_right[j] = minimum nums[k] such that k > j and nums[k] < nums[j]\n        min_right = [INF] * n\n        for j in range(n - 1, -1, -1):\n            best = INF\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best = min(best, nums[k])\n            min_right[j] = best\n\n        ans = INF\n        for j in range(n):\n            if min_left[j] != INF and min_right[j] != INF:\n                ans = min(ans, min_left[j] + nums[j] + min_right[j])\n\n        return ans if ans != INF else -1\n```\n\nAttempt 5\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # left_best[j]: minimum possible nums[i] for i<j with nums[i] < nums[j]\n        # right_best[j]: minimum possible nums[k] for k>j with nums[k] < nums[j]\n        left_best = [INF] * n\n        right_best = [INF] * n\n\n        # Values are in [1..50], so we can use frequency-less min tracking.\n        left_min_by_val = [INF] * 51  # left_min_by_val[v] = min nums[i] encountered with nums[i] == v\n\n        for j in range(n):\n            v = nums[j]\n            # best among values < v\n            best = INF\n            for x in range(1, v):\n                if left_min_by_val[x] < best:\n                    best = left_min_by_val[x]\n            left_best[j] = best\n\n            # update encountered value v\n            if nums[j] < left_min_by_val[v]:\n                left_min_by_val[v] = nums[j]\n\n        right_min_by_val = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            best = INF\n            for x in range(1, v):\n                if right_min_by_val[x] < best:\n                    best = right_min_by_val[x]\n            right_best[j] = best\n\n            if nums[j] < right_min_by_val[v]:\n                right_min_by_val[v] = nums[j]\n\n        for j in range(1, n - 1):\n            if left_best[j] != INF and right_best[j] != INF:\n                ans = min(ans, left_best[j] + nums[j] + right_best[j])\n\n        return -1 if ans == INF else ans\n```\n\nAttempt 6\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum nums[i] with i<j and nums[i] < nums[j]\n        left_min = [INF] * n\n        for j in range(n):\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    if nums[i] < left_min[j]:\n                        left_min[j] = nums[i]\n\n        # right_min[j] = minimum nums[k] with k>j and nums[k] < nums[j]\n        right_min = [INF] * n\n        for j in range(n):\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    if nums[k] < right_min[j]:\n                        right_min[j] = nums[k]\n\n        ans = INF\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```\n\nAttempt 7\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] in [1..50], we can track minimum value seen for each number.\n        left_best = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            best = min(left_best[1:x]) if x > 1 else INF\n            left_min[j] = best\n            left_best[x] = min(left_best[x], x)\n\n        right_best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            best = min(right_best[1:x]) if x > 1 else INF\n            right_min[j] = best\n            right_best[x] = min(right_best[x], x)\n\n        ans = INF\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```\n\nAttempt 8\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        ans = float('inf')\n\n        # Try each position j as the mountain peak.\n        for j in range(1, n - 1):\n            best_left = float('inf')   # min nums[i] with i < j and nums[i] < nums[j]\n            best_right = float('inf')  # min nums[k] with k > j and nums[k] < nums[j]\n\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best_left = min(best_left, nums[i])\n\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best_right = min(best_right, nums[k])\n\n            if best_left != float('inf') and best_right != float('inf'):\n                ans = min(ans, best_left + nums[j] + best_right)\n\n        return -1 if ans == float('inf') else ans\n```\n\nAttempt 9\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left_min[j] = minimum value nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum value nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] are in [1..50], we can use prefix/suffix minima by value.\n        # Maintain best[v] = minimum nums[i] seen so far with value exactly v (or at least).\n        # We'll query over values < nums[j].\n        best_left = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            left_best = INF\n            for v in range(1, x):\n                if best_left[v] < left_best:\n                    left_best = best_left[v]\n            left_min[j] = left_best\n            best_left[x] = min(best_left[x], x)\n\n        best_right = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            right_best = INF\n            for v in range(1, x):\n                if best_right[v] < right_best:\n                    right_best = best_right[v]\n            right_min[j] = right_best\n            best_right[x] = min(best_right[x], x)\n\n        ans = INF\n        for j in range(1, n - 1):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # best_left[v] = minimum value nums[i] with i < j and nums[i] == v\n        best_left = [INF] * 51\n        # We'll scan j from left to right, keeping best_left for nums[i] < nums[j].\n        # For the right side, for each j we need min nums[k] for k > j with nums[k] < nums[j].\n        # Precompute right_min_smaller[j][?] efficiently via suffix minima by value.\n        # Since values are in [1,50], we can compute right_min[v] = minimum nums[k] to the right with nums[k] == v.\n        right_min = [INF] * 51\n\n        # Initialize suffix mins for k > j with j at 1 (we'll update as j moves).\n        # Easier: maintain right_min for indices strictly greater than current j.\n        # Start with last element as part of suffix, then adjust.\n        right_min = [INF] * 51\n        for idx in range(2, n):  # indices > 1\n            right_min[nums[idx]] = min(right_min[nums[idx]], nums[idx])\n\n        def min_suffix_smaller(val: int) -> int:\n            # minimal value among right_min[x] for x < val\n            m = INF\n            # values range 1..50\n            for x in range(1, val):\n                if right_min[x] < m:\n                    m = right_min[x]\n            return m\n\n        # Now iterate j from 1 to n-2\n        for j in range(1, n - 1):\n            vj = nums[j]\n\n            left_smaller = INF\n            for x in range(1, vj):\n                left_smaller = min(left_smaller, best_left[x])\n\n            right_smaller = min_suffix_smaller(vj)\n\n            if left_smaller != INF and right_smaller != INF:\n                ans = min(ans, left_smaller + vj + right_smaller)\n\n            # Move j forward:\n            # Current j becomes part of left for future iterations, and part of suffix for past ones.\n            # Update best_left with nums[j]\n            best_left[vj] = min(best_left[vj], vj)\n\n            # Update suffix minima: remove index j+1? Our suffix currently represents indices > j.\n            # We built initial suffix for j=1 as indices 2..n-1.\n            # Before next iteration (j+1), suffix should represent indices > (j+1), i.e., indices j+2..n-1.\n            # So we need to \"remove\" nums[j+1] from right_min, but we only stored minima by value,\n            # which can't be removed easily.\n            #\n            # Instead, do a value-based DP without removals: precompute for each position j\n            # the minimum value to the right that is < nums[j] using suffix arrays.\n            #\n            # Hence, break and switch to precomputed approach.\n\n        # Recompute properly using precomputed suffix minima by value.\n        # values are small (1..50), so do O(n*50) which is fine for n<=50.\n\n        # left_best_min[v] while scanning\n        ans = INF\n        best_left = [INF] * 51\n\n        # Precompute for each position j:\n        # right_best_smaller[j] = min nums[k] for k>j with nums[k] < nums[j]\n        right_best = [INF] * 51\n        right_best_smaller = [INF] * n\n\n        # Build suffix counts/minima\n        for j in range(n - 2, -1, -1):\n            v = nums[j + 1]\n            right_best[v] = min(right_best[v], v)\n            # query for position j\n            cur = nums[j]\n            m = INF\n            for x in range(1, cur):\n                m = min(m, right_best[x])\n            right_best_smaller[j] = m\n\n        for j in range(1, n - 1):\n            vj = nums[j]\n            left_min = INF\n            for x in range(1, vj):\n                left_min = min(left_min, best_left[x])\n            right_min = right_best_smaller[j]\n            if left_min != INF and right_min != INF:\n                ans = min(ans, left_min + vj + right_min)\n            best_left[vj] = min(best_left[vj], vj)\n\n        return -1 if ans == INF else ans\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Peak-First Decomposition",
+          "description": "Reformulate a constrained triplet search by fixing the “peak” and solving left/right feasibility independently.",
+          "content": "When a condition depends on a middle index with symmetric inequalities (e.g., both sides must be less than the peak), iterate over the middle position and compute the best possible left and right contributions separately. This converts a 3D search into repeated 1D subproblems and makes correctness easier to reason about.",
+          "reasoning": "Successful attempts shared a clean decomposition: choose the peak position and then reduce the mountain condition to independently selecting the minimum feasible left value and minimum feasible right value that are strictly smaller than the peak. They also matched representation to constraints: because values are small and n is small, using value-indexed minima (or simple O(n·V) scans) is safe and avoids missing candidates. Unsuccessful/partially correct attempts typically failed due to an incorrect incremental-maintenance idea—especially around “removing” elements from a suffix structure when the split point moves—leading to stale data that no longer corresponds to the required index ranges. This highlights the importance of either precomputing per-split suffix information or using a data structure that correctly supports deletions (or monotone updates) before relying on it."
+        },
+        {
+          "title": "Use Value-Indexed Minima for Small Domains",
+          "description": "Match your algorithm’s state representation to small numeric bounds by storing minima by value.",
+          "content": "If elements fall within a small range, maintain arrays keyed by value that store the minimum seen number for each value, and query over “all values less than v” to enforce strict inequalities. This avoids complex data structures and reduces the chance of missing candidates compared with ad-hoc bookkeeping.",
+          "reasoning": "Successful attempts shared a clean decomposition: choose the peak position and then reduce the mountain condition to independently selecting the minimum feasible left value and minimum feasible right value that are strictly smaller than the peak. They also matched representation to constraints: because values are small and n is small, using value-indexed minima (or simple O(n·V) scans) is safe and avoids missing candidates. Unsuccessful/partially correct attempts typically failed due to an incorrect incremental-maintenance idea—especially around “removing” elements from a suffix structure when the split point moves—leading to stale data that no longer corresponds to the required index ranges. This highlights the importance of either precomputing per-split suffix information or using a data structure that correctly supports deletions (or monotone updates) before relying on it."
+        },
+        {
+          "title": "Beware of Sliding Split “Removal” Bugs",
+          "description": "Don’t incrementally reuse prefix/suffix aggregates if you can’t correctly “remove” items when the split point moves.",
+          "content": "Partially correct attempts showed that maintaining a suffix structure while shifting the boundary can silently invalidate the index constraint unless deletions are handled exactly. Prefer recomputation/precomputation per boundary, or use a data structure that supports correct updates for the moving window/split.",
+          "reasoning": "Successful attempts shared a clean decomposition: choose the peak position and then reduce the mountain condition to independently selecting the minimum feasible left value and minimum feasible right value that are strictly smaller than the peak. They also matched representation to constraints: because values are small and n is small, using value-indexed minima (or simple O(n·V) scans) is safe and avoids missing candidates. Unsuccessful/partially correct attempts typically failed due to an incorrect incremental-maintenance idea—especially around “removing” elements from a suffix structure when the split point moves—leading to stale data that no longer corresponds to the required index ranges. This highlights the importance of either precomputing per-split suffix information or using a data structure that correctly supports deletions (or monotone updates) before relying on it."
+        },
+        {
+          "title": "Validate Against Original Constraints After Optimizations",
+          "description": "After any optimization (e.g., compressing state or using minima over values), re-check that it still enforces both index-order and strict comparison constraints.",
+          "content": "Even when the computed minima are correct by value, they may correspond to the wrong side of the split if the aggregate is stale. Add a verification mindset: ensure the left candidate index is strictly before the peak and the right candidate index is strictly after the peak, not just that values satisfy the inequality.",
+          "reasoning": "Successful attempts shared a clean decomposition: choose the peak position and then reduce the mountain condition to independently selecting the minimum feasible left value and minimum feasible right value that are strictly smaller than the peak. They also matched representation to constraints: because values are small and n is small, using value-indexed minima (or simple O(n·V) scans) is safe and avoids missing candidates. Unsuccessful/partially correct attempts typically failed due to an incorrect incremental-maintenance idea—especially around “removing” elements from a suffix structure when the split point moves—leading to stale data that no longer corresponds to the required index ranges. This highlights the importance of either precomputing per-split suffix information or using a data structure that correctly supports deletions (or monotone updates) before relying on it."
+        }
+      ],
+      "raw_response": "<reasoning>\nSuccessful attempts shared a clean decomposition: choose the peak position and then reduce the mountain condition to independently selecting the minimum feasible left value and minimum feasible right value that are strictly smaller than the peak. They also matched representation to constraints: because values are small and n is small, using value-indexed minima (or simple O(n·V) scans) is safe and avoids missing candidates. Unsuccessful/partially correct attempts typically failed due to an incorrect incremental-maintenance idea—especially around “removing” elements from a suffix structure when the split point moves—leading to stale data that no longer corresponds to the required index ranges. This highlights the importance of either precomputing per-split suffix information or using a data structure that correctly supports deletions (or monotone updates) before relying on it.\n</reasoning>\n\n<memories>\n<memory>\n<title>Peak-First Decomposition</title>\n<description>Reformulate a constrained triplet search by fixing the “peak” and solving left/right feasibility independently.</description>\n<content>When a condition depends on a middle index with symmetric inequalities (e.g., both sides must be less than the peak), iterate over the middle position and compute the best possible left and right contributions separately. This converts a 3D search into repeated 1D subproblems and makes correctness easier to reason about.</content>\n</memory>\n\n<memory>\n<title>Use Value-Indexed Minima for Small Domains</title>\n<description>Match your algorithm’s state representation to small numeric bounds by storing minima by value.</description>\n<content>If elements fall within a small range, maintain arrays keyed by value that store the minimum seen number for each value, and query over “all values less than v” to enforce strict inequalities. This avoids complex data structures and reduces the chance of missing candidates compared with ad-hoc bookkeeping.</content>\n</memory>\n\n<memory>\n<title>Beware of Sliding Split “Removal” Bugs</title>\n<description>Don’t incrementally reuse prefix/suffix aggregates if you can’t correctly “remove” items when the split point moves.</description>\n<content>Partially correct attempts showed that maintaining a suffix structure while shifting the boundary can silently invalidate the index constraint unless deletions are handled exactly. Prefer recomputation/precomputation per boundary, or use a data structure that supports correct updates for the moving window/split.</content>\n</memory>\n\n<memory>\n<title>Validate Against Original Constraints After Optimizations</title>\n<description>After any optimization (e.g., compressing state or using minima over values), re-check that it still enforces both index-order and strict comparison constraints.</description>\n<content>Even when the computed minima are correct by value, they may correspond to the wrong side of the split if the aggregate is stale. Add a verification mindset: ensure the left candidate index is strictly before the peak and the right candidate index is strictly after the peak, not just that values satisfy the inequality.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed array nums of integers.\nA triplet of indices (i, j, k) is a mountain if:\n\ni < j < k\nnums[i] < nums[j] and nums[k] < nums[j]\n\nReturn the minimum possible sum of a mountain triplet of nums. If no such triplet exists, return -1.\n \nExample 1:\n\nInput: nums = [8,6,1,5,3]\nOutput: 9\nExplanation: Triplet (2, 3, 4) is a mountain triplet of sum 9 since: \n- 2 < 3 < 4\n- nums[2] < nums[3] and nums[4] < nums[3]\nAnd the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.\n\nExample 2:\n\nInput: nums = [5,4,8,7,10,2]\nOutput: 13\nExplanation: Triplet (1, 3, 5) is a mountain triplet of sum 13 since: \n- 1 < 3 < 5\n- nums[1] < nums[3] and nums[5] < nums[3]\nAnd the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.\n\nExample 3:\n\nInput: nums = [6,5,4,3,4,5]\nOutput: -1\nExplanation: It can be shown that there are no mountain triplets in nums.\n\n \nConstraints:\n\n3 <= nums.length <= 50\n1 <= nums[i] <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # left_smaller[j] = min nums[i] with i<j and nums[i] < nums[j]\n        left_smaller = [INF] * n\n        best = [INF] * 51  # values are in [1..50]\n        for j in range(n):\n            v = nums[j]\n            # smallest value among < v\n            mn = INF\n            for x in range(1, v):\n                if best[x] < mn:\n                    mn = best[x]\n            left_smaller[j] = mn\n            best[v] = min(best[v], nums[j])\n\n        # right_smaller[j] = min nums[k] with k>j and nums[k] < nums[j]\n        right_smaller = [INF] * n\n        best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            mn = INF\n            for x in range(1, v):\n                if best[x] < mn:\n                    mn = best[x]\n            right_smaller[j] = mn\n            best[v] = min(best[v], nums[j])\n\n        ans = INF\n        for j in range(n):\n            a = left_smaller[j]\n            c = right_smaller[j]\n            if a != INF and c != INF:\n                s = a + nums[j] + c\n                if s < ans:\n                    ans = s\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # left[j][v] means minimum nums[i] with i<j and nums[i]=v, but since values are 1..50\n        # We'll store minimum value strictly less than nums[j] directly.\n        best_left = [INF] * n   # best_left[j] = min nums[i] for i<j and nums[i] < nums[j]\n        best_right = [INF] * n # best_right[j] = min nums[k] for k>j and nums[k] < nums[j]\n\n        # Values are small (<=50), so we can track minima by value.\n        MAXV = 50\n        min_by_val = [INF] * (MAXV + 1)\n\n        for j in range(n):\n            # compute best_left[j]\n            mj = nums[j]\n            mn = INF\n            for v in range(1, mj):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            best_left[j] = mn\n            # update\n            if nums[j] < min_by_val[nums[j]]:\n                min_by_val[nums[j]] = nums[j]\n\n        min_by_val = [INF] * (MAXV + 1)\n        for j in range(n - 1, -1, -1):\n            mj = nums[j]\n            mn = INF\n            for v in range(1, mj):\n                if min_by_val[v] < mn:\n                    mn = min_by_val[v]\n            best_right[j] = mn\n            if nums[j] < min_by_val[nums[j]]:\n                min_by_val[nums[j]] = nums[j]\n\n        ans = INF\n        for j in range(1, n - 1):\n            if best_left[j] != INF and best_right[j] != INF:\n                s = best_left[j] + nums[j] + best_right[j]\n                if s < ans:\n                    ans = s\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # For each position j, we need:\n        # left: max index i < j with nums[i] < nums[j] and minimal nums[i]\n        # right: min index k > j with nums[k] < nums[j] and minimal nums[k]\n        # But minimizing sum nums[i] + nums[j] + nums[k] for fixed j means:\n        # - choose the smallest possible nums[i] (< nums[j]) among i<j\n        # - choose the smallest possible nums[k] (< nums[j]) among k>j\n        #\n        # We compute minimal value on the left for each threshold, and similarly on the right.\n        # Since nums[i] in [1..50], we can use frequency/min arrays.\n        \n        # left_min_less[v] = minimum nums[i] seen so far (i<current j) with nums[i] < v\n        left_min_less = [INF] * 51\n\n        # Initialize left info as we sweep j from left to right\n        # We'll maintain counts/mins by value, then query min for < v.\n        left_seen_min = [INF] * 51  # left_seen_min[val] = min of val seen\n\n        # Precompute right similarly, then do one pass for j in the middle.\n        right_seen_min = [INF] * 51\n        # Build from right for k > j on demand by precomputing suffix minima by value.\n        # We'll build suffix minima of values for each position:\n        # suffix_min_value_at_pos[pos][val] is too heavy; instead we can maintain array\n        # of minima by value and update as we move j.\n        # We'll start with empty to the right, then update by adding nums[j+1] as j moves.\n\n        # Setup: initially, right side includes indices > 1 (we'll update in loop)\n        # We'll build a suffix structure: right_seen_min for values occurring in indices > current j\n        for v in nums[2:]:\n            if v < right_seen_min[v]:\n                right_seen_min[v] = v\n\n        def query_min_seen_less(seen_min, v):\n            # minimum seen among values < v\n            best = INF\n            # values are small (<=50), so linear scan is fine\n            for x in range(1, v):\n                if seen_min[x] < best:\n                    best = seen_min[x]\n            return best\n\n        # Sweep j from 1 to n-2 (mountain peak must be middle)\n        # We need i<j and k>j\n        for j in range(1, n - 1):\n            # Ensure right structure represents indices k > j\n            # Currently right includes nums[j+1..n-1] because we started with nums[2:]\n            # For j=1 right should include 2..n-1 => correct.\n            # After processing j, we remove nums[j+1] from right by rebuilding isn't easy.\n            # So instead, do it with prefix/suffix preprocessing for simplicity.\n\n            pass\n\n        # The above approach got complicated; use DP-like prefix/suffix minima by value\n        # Precompute for each position j:\n        # left_best[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # right_best[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        # Answer is min over j of nums[j] + left_best[j] + right_best[j].\n        \n        left_best = [INF] * n\n        right_best = [INF] * n\n\n        # Compute left_best\n        seen_min = [INF] * 51\n        for j in range(n):\n            # Query for nums[j]\n            v = nums[j]\n            best = INF\n            for x in range(1, v):\n                if seen_min[x] < best:\n                    best = seen_min[x]\n            if j > 0:\n                left_best[j] = best\n            # Update seen_min with nums[j]\n            if nums[j] < seen_min[nums[j]]:\n                seen_min[nums[j]] = nums[j]\n\n        # Compute right_best\n        seen_min = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            v = nums[j]\n            best = INF\n            for x in range(1, v):\n                if seen_min[x] < best:\n                    best = seen_min[x]\n            if j < n - 1:\n                right_best[j] = best\n            if nums[j] < seen_min[nums[j]]:\n                seen_min[nums[j]] = nums[j]\n\n        for j in range(1, n - 1):\n            if left_best[j] != INF and right_best[j] != INF:\n                s = left_best[j] + nums[j] + right_best[j]\n                if s < ans:\n                    ans = s\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        # right_min[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # nums[i] values are in [1..50], so we can use arrays of size 51\n        best_left = [INF] * 51\n        for j in range(n):\n            x = nums[j]\n            # best_left[t] holds minimum value seen so far with value exactly t\n            # we need minimum among t < x\n            left_min[j] = min(best_left[:x]) if x > 1 else INF\n            # update after computing for current j\n            if nums[j] < best_left[x]:\n                best_left[x] = nums[j]\n\n        best_right = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            right_min[j] = min(best_right[:x]) if x > 1 else INF\n            if nums[j] < best_right[x]:\n                best_right[x] = nums[j]\n\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # For each position j as the peak, we need:\n        # - best left i (<j) with nums[i] < nums[j] having minimum nums[i]\n        # - best right k (>j) with nums[k] < nums[j] having minimum nums[k]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Left: scan j from left to right, maintain minimum value seen for each value threshold.\n        # Since nums[i] in [1..50], we can do O(50*n).\n        best = [INF] * 51  # best[v] = min number seen with value == v\n        for j in range(n):\n            vj = nums[j]\n            # min nums[i] < vj => min over values 1..vj-1\n            if vj > 1:\n                m = min(best[1:vj])\n                left_min[j] = m\n            # update best with nums[j]\n            best[vj] = min(best[vj], nums[j])\n\n        # Right: scan right to left\n        best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            vj = nums[j]\n            if vj > 1:\n                m = min(best[1:vj])\n                right_min[j] = m\n            best[vj] = min(best[vj], nums[j])\n\n        # Try each peak j that can have both sides\n        for j in range(1, n - 1):\n            if left_min[j] < INF and right_min[j] < INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # bestL[j] = minimum nums[i] for i<j with nums[i] < nums[j]\n        bestL = [INF] * n\n        # For each value, keep the minimum index-value seen so far\n        minValSeen = [INF] * 51  # nums[i] in [1..50]\n        for j in range(n):\n            x = nums[j]\n            min_left = min(minValSeen[1:x]) if x > 1 else INF\n            bestL[j] = min_left\n            if nums[j] < minValSeen[x]:\n                minValSeen[x] = nums[j]\n\n        # bestR[j] = minimum nums[k] for k>j with nums[k] < nums[j]\n        bestR = [INF] * n\n        minValSeen = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            min_right = min(minValSeen[1:x]) if x > 1 else INF\n            bestR[j] = min_right\n            if nums[j] < minValSeen[x]:\n                minValSeen[x] = nums[j]\n\n        for j in range(n):\n            if bestL[j] != INF and bestR[j] != INF:\n                ans = min(ans, bestL[j] + nums[j] + bestR[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n\n        # left_min[j] = minimum nums[i] for i<j with nums[i] < nums[j], else INF\n        left_min = [INF] * n\n        for j in range(n):\n            best = INF\n            for i in range(j):\n                if nums[i] < nums[j]:\n                    best = min(best, nums[i])\n            left_min[j] = best\n\n        # right_min[j] = minimum nums[k] for k>j with nums[k] < nums[j], else INF\n        right_min = [INF] * n\n        for j in range(n):\n            best = INF\n            for k in range(j + 1, n):\n                if nums[k] < nums[j]:\n                    best = min(best, nums[k])\n            right_min[j] = best\n\n        ans = INF\n        for j in range(1, n - 1):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # best_left[j] = minimum possible nums[i] for i<j with nums[i] < nums[j]\n        best_left = [INF] * n\n        for j in range(n):\n            bj = nums[j]\n            for i in range(j):\n                if nums[i] < bj:\n                    best_left[j] = min(best_left[j], nums[i])\n\n        # For each possible peak j, find minimum nums[k] for k>j with nums[k] < nums[j]\n        for j in range(1, n - 1):\n            bj = nums[j]\n            left_min = best_left[j]\n            if left_min == INF:\n                continue\n            right_min = INF\n            for k in range(j + 1, n):\n                if nums[k] < bj:\n                    right_min = min(right_min, nums[k])\n            if right_min != INF:\n                ans = min(ans, left_min + bj + right_min)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # left_min[j] = minimum nums[i] with i<j and nums[i] < nums[j]\n        # right_min[j] = minimum nums[k] with k>j and nums[k] < nums[j]\n        left_min = [INF] * n\n        right_min = [INF] * n\n\n        # Since nums[i] in [1..50], we can keep minima per value for speed.\n        # For left_min, we need min value among those < nums[j].\n        left_best = [INF] * 51\n        for j in range(n):\n            val = nums[j]\n            m = INF\n            for x in range(1, val):\n                if left_best[x] < m:\n                    m = left_best[x]\n            left_min[j] = m\n            # Update best for this value\n            if val < left_best[val]:\n                left_best[val] = val\n\n        right_best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            val = nums[j]\n            m = INF\n            for x in range(1, val):\n                if right_best[x] < m:\n                    m = right_best[x]\n            right_min[j] = m\n            if val < right_best[val]:\n                right_best[val] = val\n\n        # Choose middle j, sum of smallest possible left and right under nums[j]\n        for j in range(1, n - 1):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        ans = INF\n\n        # left_min[j] = minimum nums[i] with i < j and nums[i] < nums[j]\n        left_min = [INF] * n\n        best = [INF] * 51  # values are 1..50\n        for j in range(n):\n            left_min[j] = min(best[:nums[j]]) if nums[j] > 1 else INF\n            best[nums[j]] = min(best[nums[j]], nums[j])\n\n        # right_min[k] = minimum nums[k] with k > j and nums[k] < nums[j]\n        right_min = [INF] * n\n        best = [INF] * 51\n        for j in range(n - 1, -1, -1):\n            right_min[j] = min(best[:nums[j]]) if nums[j] > 1 else INF\n            best[nums[j]] = min(best[nums[j]], nums[j])\n\n        for j in range(n):\n            if left_min[j] != INF and right_min[j] != INF:\n                ans = min(ans, left_min[j] + nums[j] + right_min[j])\n\n        return -1 if ans == INF else ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3176",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Peak-First Decomposition: Reformulate a constrained triplet search by fixing the “peak” and solving left/right feasibility independently.\n     When a condition depends on a middle index with symmetric inequalities (e.g., both sides must be less than the peak), iterate over the middle position and compute the best possible left and right contributions separately. This converts a 3D search into repeated 1D subproblems and makes correctness easier to reason about.\n  2. Use Value-Indexed Minima for Small Domains: Match your algorithm’s state representation to small numeric bounds by storing minima by value.\n     If elements fall within a small range, maintain arrays keyed by value that store the minimum seen number for each value, and query over “all values less than v” to enforce strict inequalities. This avoids complex data structures and reduces the chance of missing candidates compared with ad-hoc bookkeeping.\n  3. Beware of Sliding Split “Removal” Bugs: Don’t incrementally reuse prefix/suffix aggregates if you can’t correctly “remove” items when the split point moves.\n     Partially correct attempts showed that maintaining a suffix structure while shifting the boundary can silently invalidate the index constraint unless deletions are handled exactly. Prefer recomputation/precomputation per boundary, or use a data structure that supports correct updates for the moving window/split.\n  4. Validate Against Original Constraints After Optimizations: After any optimization (e.g., compressing state or using minima over values), re-check that it still enforces both index-order and strict comparison constraints.\n     Even when the computed minima are correct by value, they may correspond to the wrong side of the split if the aggregate is stale. Add a verification mindset: ensure the left candidate index is strictly before the peak and the right candidate index is strictly after the peak, not just that values satisfy the inequality.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given a 0-indexed array nums of integers.\nA triplet of indices (i, j, k) is a mountain if:\n\ni < j < k\nnums[i] < nums[j] and nums[k] < nums[j]\n\nReturn the minimum possible sum of a mountain triplet of nums. If no such triplet exists, return -1.\n \nExample 1:\n\nInput: nums = [8,6,1,5,3]\nOutput: 9\nExplanation: Triplet (2, 3, 4) is a mountain triplet of sum 9 since: \n- 2 < 3 < 4\n- nums[2] < nums[3] and nums[4] < nums[3]\nAnd the sum of this triplet is nums[2] + nums[3] + nums[4] = 9. It can be shown that there are no mountain triplets with a sum of less than 9.\n\nExample 2:\n\nInput: nums = [5,4,8,7,10,2]\nOutput: 13\nExplanation: Triplet (1, 3, 5) is a mountain triplet of sum 13 since: \n- 1 < 3 < 5\n- nums[1] < nums[3] and nums[5] < nums[3]\nAnd the sum of this triplet is nums[1] + nums[3] + nums[5] = 13. It can be shown that there are no mountain triplets with a sum of less than 13.\n\nExample 3:\n\nInput: nums = [6,5,4,3,4,5]\nOutput: -1\nExplanation: It can be shown that there are no mountain triplets in nums.\n\n \nConstraints:\n\n3 <= nums.length <= 50\n1 <= nums[i] <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**9\n        # Peak-first decomposition:\n        # Fix j as the mountain peak (the middle index).\n        # Need i<j with nums[i] < nums[j] and k>j with nums[k] < nums[j].\n        # Minimize nums[i] + nums[j] + nums[k] for each j.\n        ans = INF\n\n        for j in range(1, n - 1):\n            peak = nums[j]\n\n            # Left: best (minimum value) nums[i] where i<j and nums[i] < peak\n            left_best = INF\n            for i in range(j):\n                if nums[i] < peak:\n                    if nums[i] < left_best:\n                        left_best = nums[i]\n\n            if left_best == INF:\n                continue\n\n            # Right: best (minimum value) nums[k] where k>j and nums[k] < peak\n            right_best = INF\n            for k in range(j + 1, n):\n                if nums[k] < peak:\n                    if nums[k] < right_best:\n                        right_best = nums[k]\n\n            if right_best == INF:\n                continue\n\n            ans = min(ans, left_best + peak + right_best)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Precompute for each possible peak position j:\n        # bestLeft[j]  = minimal nums[i] with i<j and nums[i] < nums[j]\n        # bestRight[j] = minimal nums[k] with k>j and nums[k] < nums[j]\n        # If either doesn't exist, no mountain with peak j.\n        \n        # Since nums[i] in [1,50], we can store minima by value (insight #2).\n        # For strict inequality nums[x] < peakVal, we need min over values < peakVal.\n        MAXV = 50\n        INF = 10**18\n\n        bestLeft = [INF] * n\n        bestRight = [INF] * n\n\n        # Left side minima\n        min_by_val = [INF] * (MAXV + 1)\n        for j in range(n):\n            peak = nums[j]\n            # query min for values < peak\n            if peak > 1:\n                ml = INF\n                for v in range(1, peak):\n                    if min_by_val[v] < ml:\n                        ml = min_by_val[v]\n                bestLeft[j] = ml\n            # update with current value for future peaks\n            val = nums[j]\n            if nums[j] < min_by_val[val]:\n                min_by_val[val] = nums[j]\n\n        # Right side minima\n        min_by_val = [INF] * (MAXV + 1)\n        for j in range(n - 1, -1, -1):\n            peak = nums[j]\n            if peak > 1:\n                mr = INF\n                for v in range(1, peak):\n                    if min_by_val[v] < mr:\n                        mr = min_by_val[v]\n                bestRight[j] = mr\n            val = nums[j]\n            if nums[j] < min_by_val[val]:\n                min_by_val[val] = nums[j]\n\n        ans = INF\n        # Peak-first decomposition (insight #1):\n        # For each j as the middle index, combine best left and right.\n        for j in range(1, n - 1):\n            if bestLeft[j] != INF and bestRight[j] != INF:\n                s = bestLeft[j] + nums[j] + bestRight[j]\n                if s < ans:\n                    ans = s\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # Values are in [1, 50]\n        MAXV = 50\n\n        # For each possible peak position j, find:\n        # - best (minimum) nums[i] with i<j and nums[i] < nums[j]\n        # - best (minimum) nums[k] with k>j and nums[k] < nums[j]\n        # Then minimize nums[i] + nums[j] + nums[k].\n        # We'll use value-indexed minima for strict inequality by value.\n        for j in range(1, n - 1):\n            peak = nums[j]\n\n            # leftBest = min nums[i] for i<j with nums[i] < peak\n            leftBest = INF\n            leftMinByVal = [INF] * (MAXV + 1)\n            for i in range(j):\n                v = nums[i]\n                if v < peak and v <= MAXV:\n                    leftMinByVal[v] = min(leftMinByVal[v], v)\n\n            # Query over all values < peak\n            for v in range(1, min(peak, MAXV + 1)):\n                leftBest = min(leftBest, leftMinByVal[v])\n\n            if leftBest == INF:\n                continue\n\n            # rightBest = min nums[k] for k>j with nums[k] < peak\n            rightBest = INF\n            rightMinByVal = [INF] * (MAXV + 1)\n            for k in range(j + 1, n):\n                v = nums[k]\n                if v < peak and v <= MAXV:\n                    rightMinByVal[v] = min(rightMinByVal[v], v)\n\n            for v in range(1, min(peak, MAXV + 1)):\n                rightBest = min(rightBest, rightMinByVal[v])\n\n            if rightBest == INF:\n                continue\n\n            ans = min(ans, leftBest + peak + rightBest)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # For each possible peak j, compute the minimum left contribution (i<j, nums[i] < nums[j])\n        # and right contribution (k>j, nums[k] < nums[j]) independently.\n        for j in range(1, n - 1):\n            peak = nums[j]\n\n            best_left = INF\n            best_right = INF\n\n            # Left: i < j and nums[i] < peak\n            for i in range(0, j):\n                if nums[i] < peak:\n                    best_left = min(best_left, nums[i])\n\n            # Right: k > j and nums[k] < peak\n            for k in range(j + 1, n):\n                if nums[k] < peak:\n                    best_right = min(best_right, nums[k])\n\n            if best_left != INF and best_right != INF:\n                ans = min(ans, best_left + peak + best_right)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Precompute best left index value for each peak position:\n        # For each j, we want minimum nums[i] such that i<j and nums[i] < nums[j]\n        left_best = [10**9] * n\n        for j in range(n):\n            best = 10**9\n            threshold = nums[j]\n            for i in range(j):\n                if nums[i] < threshold:\n                    best = min(best, nums[i])\n            left_best[j] = best\n\n        # For each j, want minimum nums[k] such that k>j and nums[k] < nums[j]\n        right_best = [10**9] * n\n        for j in range(n):\n            best = 10**9\n            threshold = nums[j]\n            for k in range(j + 1, n):\n                if nums[k] < threshold:\n                    best = min(best, nums[k])\n            right_best[j] = best\n\n        ans = 10**18\n        for j in range(1, n - 1):\n            if left_best[j] != 10**9 and right_best[j] != 10**9:\n                total = left_best[j] + nums[j] + right_best[j]\n                if total < ans:\n                    ans = total\n\n        return -1 if ans == 10**18 else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # Precompute for each value v (1..50) the minimum pair (value, index)\n        # left_min[val] = smallest nums[i] among i<j with nums[i] == val (track by value)\n        # But since we only need minima by value and strict inequality:\n        # for each j as peak, we need:\n        #  left: smallest nums[i] where i<j and nums[i] < nums[j]\n        #  right: smallest nums[k] where k>j and nums[k] < nums[j]\n        # We'll compute these with suffix minima-by-value and scanning i for prefix.\n        maxv = 50\n\n        # suffix_best[val] = minimum nums[k] among k>j with nums[k] == val\n        suffix_best = [INF] * (maxv + 1)\n\n        # Initialize suffix for j = 0 (i.e., k>0): build from index 1..n-1\n        for k in range(1, n):\n            v = nums[k]\n            suffix_best[v] = min(suffix_best[v], v)\n\n        def best_less_from_suffix(limit: int) -> int:\n            # minimum nums[k] for k>current j with nums[k] < limit\n            best = INF\n            for vv in range(1, limit):\n                if suffix_best[vv] < best:\n                    best = suffix_best[vv]\n            return best\n\n        # prefix_best[val] = whether we've seen value val in i<j; we need min value itself,\n        # so if any exists, minimum candidate value for that val is vv.\n        # Because nums[i] == vv, the min value is vv.\n        prefix_seen = [False] * (maxv + 1)\n\n        for j in range(1, n - 1):  # middle index\n            peak = nums[j]\n\n            # Update prefix structure with i=j-1 element before evaluating this j\n            left_val = nums[j - 1]\n            prefix_seen[left_val] = True\n\n            # Ensure suffix corresponds to k>j.\n            # Currently suffix_best was built for k>0; we must remove nums[j] from suffix as j increases.\n            # Since we update j from left to right, we should \"remove\" nums[j]\" from suffix_best before using it.\n            # For j=1, suffix_best includes indices 1..n-1; we need k>1, so remove nums[1] before query.\n            # We'll handle this by updating/removing at the start of each iteration.\n            # So do removal now:\n            v_to_remove = nums[j]\n            # Remove only if this value contributed; since suffix_best stores just min for that value (=value),\n            # and values are positive, we need to know if any occurrence remains after j.\n            # Given duplicates, we require counts. We'll instead use counts by value.\n            # To keep it simple and safe for small constraints (n<=50, values<=50), we'll rebuild suffix_best via counts once.\n            # But we already started; let's correct with counts approach properly.\n            # We'll implement a correct counts-based suffix in a separate loop below.\n            pass\n\n        # Correct implementation with counts + value-index minima for strict inequality.\n\n        # Build counts for suffix by value for each potential j\n        counts_suffix = [0] * (maxv + 1)\n        for k in range(2, n):\n            counts_suffix[nums[k]] += 1\n\n        def best_less_from_counts(counts: List[int], limit: int) -> int:\n            best = INF\n            for vv in range(1, limit):\n                if counts[vv] > 0:\n                    best = vv  # since value itself is candidate\n                    break\n            return best\n\n        counts_prefix = [0] * (maxv + 1)\n        # j ranges from 1..n-2; prefix includes indices < j, suffix includes indices > j\n        # We'll maintain counts_prefix for indices < j, and counts_suffix for indices > j.\n        for j in range(1, n - 1):\n            # Add index j-1 to prefix\n            counts_prefix[nums[j - 1]] += 1\n            # Remove index j+1 from suffix? We'll manage suffix to be >j:\n            # Initialize suffix as >1 (indices 2..n-1) when j=1. For each step, remove nums[j+1] after it becomes <=j.\n            # We already set suffix counts for indices 2..n-1, which is correct for j=1.\n            # So at each j, suffix counts represent indices > j.\n            peak = nums[j]\n\n            left_best = INF\n            for vv in range(1, peak):\n                if counts_prefix[vv] > 0:\n                    left_best = vv\n                    break\n\n            right_best = INF\n            for vv in range(1, peak):\n                if counts_suffix[vv] > 0:\n                    right_best = vv\n                    break\n\n            if left_best < INF and right_best < INF:\n                ans = min(ans, left_best + peak + right_best)\n\n            # Move to next j: for j+1, suffix should represent indices > (j+1),\n            # so remove nums[j+1+?]. Specifically, when incrementing j -> j+1,\n            # the element at index (j+1) was previously in suffix (since it was > j),\n            # but will no longer be > (j+1). That element is nums[j+1].\n            if j + 1 < n:\n                # currently at j, suffix includes indices > j => includes j+1\n                if j + 1 <= n - 1:\n                    counts_suffix[nums[j + 1]] -= 1\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # Since nums[i] in [1..50], we can keep value-indexed minima.\n        # For each middle index j, we need:\n        #   i < j, nums[i] < nums[j]   (min possible nums[i])\n        #   k > j, nums[k] < nums[j]   (min possible nums[k])\n        # Then candidate sum is nums[i] + nums[j] + nums[k].\n        # Take minimum over all j.\n        for j in range(1, n - 1):\n            peak = nums[j]\n\n            best_left = INF\n            for i in range(0, j):\n                if nums[i] < peak:\n                    if nums[i] < best_left:\n                        best_left = nums[i]\n\n            best_right = INF\n            for k in range(j + 1, n):\n                if nums[k] < peak:\n                    if nums[k] < best_right:\n                        best_right = nums[k]\n\n            if best_left != INF and best_right != INF:\n                ans = min(ans, best_left + peak + best_right)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        ans = INF\n\n        # For each possible middle index j, we need:\n        # i < j with nums[i] < nums[j]\n        # k > j with nums[k] < nums[j]\n        # Minimize nums[i] + nums[j] + nums[k]\n        for j in range(1, n - 1):\n            peak = nums[j]\n\n            # Left: minimum nums[i] among i<j with nums[i] < peak\n            left_min = INF\n            for i in range(j):\n                if nums[i] < peak:\n                    left_min = min(left_min, nums[i])\n\n            # Right: minimum nums[k] among k>j with nums[k] < peak\n            right_min = INF\n            for k in range(j + 1, n):\n                if nums[k] < peak:\n                    right_min = min(right_min, nums[k])\n\n            if left_min != INF and right_min != INF:\n                ans = min(ans, left_min + peak + right_min)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        # Since nums[i] in [1..50], we can store minima indexed by value.\n        MAXV = 50\n\n        ans = INF\n\n        # Fix the peak index j, and compute best i<j with nums[i] < nums[j]\n        # and best k>j with nums[k] < nums[j], then minimize sum.\n        for j in range(1, n - 1):\n            peak = nums[j]\n\n            # min_left[v] = minimum nums[i] among i<j with nums[i]==v\n            min_left = [INF] * (MAXV + 1)\n            for i in range(0, j):\n                v = nums[i]\n                min_left[v] = min(min_left[v], v)\n\n            # best left: minimum value strictly less than peak\n            best_left = INF\n            for v in range(1, peak):\n                if min_left[v] < best_left:\n                    best_left = min_left[v]\n\n            # min_right[v] = minimum nums[k] among k>j with nums[k]==v\n            min_right = [INF] * (MAXV + 1)\n            for k in range(j + 1, n):\n                v = nums[k]\n                min_right[v] = min(min_right[v], v)\n\n            best_right = INF\n            for v in range(1, peak):\n                if min_right[v] < best_right:\n                    best_right = min_right[v]\n\n            if best_left < INF and best_right < INF:\n                ans = min(ans, best_left + peak + best_right)\n\n        return -1 if ans == INF else ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        # values are small: 1..50\n        V = 50\n        INF = 10**9\n        ans = INF\n\n        # left_min[v] = smallest nums[i] seen so far with value == v\n        # But we need strict nums[i] < nums[j], so we will precompute:\n        # bestLeft[j] = min nums[i] for i<j with nums[i] < nums[j]\n        # similarly for right.\n        bestLeft = [INF] * n\n        left_seen = [INF] * (V + 1)\n        for j in range(n):\n            x = nums[j]\n            # compute min among values < x\n            m = INF\n            for val in range(1, x):\n                if left_seen[val] < m:\n                    m = left_seen[val]\n            bestLeft[j] = m\n            # update after querying so i < j\n            if nums[j] < left_seen[nums[j]]:\n                left_seen[nums[j]] = nums[j]\n\n        bestRight = [INF] * n\n        right_seen = [INF] * (V + 1)\n        for j in range(n - 1, -1, -1):\n            x = nums[j]\n            m = INF\n            for val in range(1, x):\n                if right_seen[val] < m:\n                    m = right_seen[val]\n            bestRight[j] = m\n            if nums[j] < right_seen[nums[j]]:\n                right_seen[nums[j]] = nums[j]\n\n        # peak-first: iterate peak position j\n        for j in range(1, n - 1):\n            left = bestLeft[j]\n            right = bestRight[j]\n            if left != INF and right != INF:\n                ans = min(ans, left + nums[j] + right)\n\n        return -1 if ans == INF else ans\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3176",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3176",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "52",
+                "actual": "52",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "57",
+                "actual": "57",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "-1",
+                "actual": "-1",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

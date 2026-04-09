@@ -1,0 +1,3267 @@
+{
+  "problem_id": "2785",
+  "domain": "coding",
+  "problem": {
+    "id": "2785",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed permutation of n integers nums.\nA permutation is called semi-ordered if the first number equals 1 and the last number equals n. You can perform the below operation as many times as you want until you make nums a semi-ordered permutation:\n\nPick two adjacent elements in nums, then swap them.\n\nReturn the minimum number of operations to make nums a semi-ordered permutation.\nA permutation is a sequence of integers from 1 to n of length n containing each number exactly once.\n \nExample 1:\n\nInput: nums = [2,1,4,3]\nOutput: 2\nExplanation: We can make the permutation semi-ordered using these sequence of operations: \n1 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n2 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than two operations that make nums a semi-ordered permutation. \n\nExample 2:\n\nInput: nums = [2,4,1,3]\nOutput: 3\nExplanation: We can make the permutation semi-ordered using these sequence of operations:\n1 - swap i = 1 and j = 2. The permutation becomes [2,1,4,3].\n2 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n3 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than three operations that make nums a semi-ordered permutation.\n\nExample 3:\n\nInput: nums = [1,3,4,2,5]\nOutput: 0\nExplanation: The permutation is already a semi-ordered permutation.\n\n \nConstraints:\n\n2 <= nums.length == n <= 50\n1 <= nums[i] <= 50\nnums is a permutation.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[2, 1, 4, 3]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 4, 1, 3]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 3, 4, 2, 5]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 3, 2]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 1, 2]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 1, 3]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 4, 1, 3]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 3, 2, 4]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 5, 3, 2, 4]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3, 4, 5]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[5, 1, 6, 3, 4, 2]",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 28, 39, 12, 14, 6, 15, 27, 17, 38, 45, 16, 25, 37, 26, 44, 46, 10, 33, 40, 35, 4, 32, 34, 11, 9, 21, 43, 41, 48, 22, 30, 42, 50, 8, 29, 23, 5, 49, 13, 7, 3, 24, 20, 2, 31, 19, 36, 18, 47]",
+        "output": "16",
+        "testtype": "functional"
+      },
+      {
+        "input": "[50, 49, 48, 47, 46, 45, 44, 43, 42, 41, 40, 39, 38, 37, 36, 35, 34, 33, 32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]",
+        "output": "97",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 1]",
+        "output": "49",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "semiOrderedPermutation",
+      "question_title": "semi-ordered-permutation",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed permutation of n integers nums.\nA permutation is called semi-ordered if the first number equals 1 and the last number equals n. You can perform the below operation as many times as you want until you make nums a semi-ordered permutation:\n\nPick two adjacent elements in nums, then swap them.\n\nReturn the minimum number of operations to make nums a semi-ordered permutation.\nA permutation is a sequence of integers from 1 to n of length n containing each number exactly once.\n \nExample 1:\n\nInput: nums = [2,1,4,3]\nOutput: 2\nExplanation: We can make the permutation semi-ordered using these sequence of operations: \n1 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n2 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than two operations that make nums a semi-ordered permutation. \n\nExample 2:\n\nInput: nums = [2,4,1,3]\nOutput: 3\nExplanation: We can make the permutation semi-ordered using these sequence of operations:\n1 - swap i = 1 and j = 2. The permutation becomes [2,1,4,3].\n2 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n3 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than three operations that make nums a semi-ordered permutation.\n\nExample 3:\n\nInput: nums = [1,3,4,2,5]\nOutput: 0\nExplanation: The permutation is already a semi-ordered permutation.\n\n \nConstraints:\n\n2 <= nums.length == n <= 50\n1 <= nums[i] <= 50\nnums is a permutation.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Minimum adjacent swaps to bring 1 to index 0\n        pos1 = nums.index(1)\n        swaps_left = pos1  # moving left by pos1 swaps\n\n        # Minimum adjacent swaps to bring n to index n-1 after moving 1\n        # If 1 is originally to the left of n's position, its movement left shifts n left by 1,\n        # otherwise n's index is unchanged.\n        posn = nums.index(n)\n        if pos1 < posn:\n            posn -= 1\n        swaps_right = (n - 1) - posn\n\n        return swaps_left + swaps_right\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If 1 and n are on the \"correct sides\" already, they can be fixed\n        # without interfering too much; otherwise, operations must include\n        # moving them across each other when necessary.\n        # Since swaps are adjacent, minimum swaps to move an element to a target\n        # position is its distance, but moving one element shifts positions\n        # of others.\n        #\n        # We can reason in terms of relative order:\n        # - We need 1 at index 0 and n at index n-1.\n        # Let i = pos1, j = posn.\n        # If i < j:\n        #   Move 1 left by i swaps -> n stays at index j-i.\n        #   Then move n right to n-1 by (n-1 - (j-i)) swaps.\n        # Else (i > j):\n        #   Move n left by (j to 0?) can't; n needs to go right to n-1.\n        #   But moving 1 left by i swaps will shift n one step left each time\n        #   1 crosses it. Total adjustments lead to:\n        #   First move 1 left by i swaps: n shifts to index j (since 1 crosses it,\n        #   their relative order flips). Equivalent closed-form:\n        #   swaps = i + (n-1 - j) + extra where necessary.\n        #\n        # Known correct simplification for this problem:\n        # Let i = pos1, j = posn.\n        # If i < j:\n        #   answer = i + (n - 1 - j)\n        # Else:\n        #   answer = i + (n - 1 - j) - 1 + 1? (handle crossing)\n        #\n        # More robust approach: simulate with counting swaps required by\n        # greedy fixed-point method without actually building array:\n        # We place 1 to front by swapping adjacent until it reaches index 0.\n        # After that, we place n to end by swapping adjacent until it reaches index n-1.\n        # This counts minimum because swapping adjacent to move an element to target\n        # while fixing others is optimal.\n        arr = nums[:]  # only positions are needed, but n<=50 so fine\n\n        ops = 0\n        # Move 1 to index 0\n        while arr[0] != 1:\n            k = arr.index(1)\n            # swap positions k-1 and k until index 0\n            # Since k is where 1 currently is:\n            # each adjacent swap reduces k by 1\n            while k > 0:\n                arr[k-1], arr[k] = arr[k], arr[k-1]\n                ops += 1\n                k -= 1\n\n        # Move n to index n-1\n        target = n - 1\n        while arr[target] != n:\n            k = arr.index(n)\n            while k < target:\n                arr[k], arr[k+1] = arr[k+1], arr[k]\n                ops += 1\n                k += 1\n\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Minimum swaps to bring 1 to index 0:\n        i1 = nums.index(1)\n        ops = i1  # swapping 1 left one step at a time\n\n        # Minimum swaps to bring n to index n-1.\n        # After moving 1 to the front, the position of n may shift only if n lies left of i1.\n        in_pos = nums.index(n)\n        if in_pos < i1:\n            in_pos += 1  # it shifts right by one when 1 passes it\n\n        ops += (n - 1 - in_pos)  # swapping n right one step at a time\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos = [0] * (n + 1)\n        for i, v in enumerate(nums):\n            pos[v] = i\n\n        # Fix 1 to position 0\n        # Using adjacent swaps, moving element from index a to b costs abs(a-b)\n        ops = abs(pos[1] - 0)\n\n        # After bringing 1 to the front, the relative indices of other elements may shift.\n        # If 1 was to the right, moving it left shifts elements between [0, pos[1]-1] right by 1.\n        # If 1 was to the left, moving it right shifts elements between [pos[1]+1, n-1] left by 1.\n        if pos[1] > 0:\n            # 1 moves left by pos[1]\n            # Only elements originally in [0, pos[1)-1] shift right by 1\n            if pos[n] < pos[1]:\n                ops += 1  # because n's position increases by 1\n        else:\n            # already at front; no shift\n            pass\n\n        # Fix n to position n-1 (count adjacent swaps given updated position)\n        # Updated position of n is pos[n] plus 1 if pos[n] < pos[1] (when pos[1] > 0)\n        new_pos_n = pos[n]\n        if pos[1] > 0 and new_pos_n < pos[1]:\n            new_pos_n += 1\n\n        ops += abs(new_pos_n - (n - 1))\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Minimum adjacent swaps to bring 1 to index 0\n        # and n to index n-1. Moves are independent because we\n        # can always perform swaps in an order that doesn't interfere\n        # with the minimality of each target.\n        ans = 0\n        ans += pos1  # swaps moving 1 left to index 0\n\n        # When moving n to the end, if n is currently left of position of 1,\n        # then after moving 1 left, n's index decreases by 1 (because 1 crosses it).\n        # We account for the effect on the number of swaps needed.\n        if posn < pos1:\n            ans += (n - 1 - (posn)) - 1\n        else:\n            ans += (n - 1 - posn)\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find current positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # We need to bring 1 to index 0 and n to index n-1 using adjacent swaps.\n        # Adjacent swaps distance:\n        moves1 = pos1                          # swaps to move 1 left to index 0\n        movesn = (n - 1) - posn               # swaps to move n right to index n-1\n\n        # If paths overlap (pos1 > posn), moving 1 left crosses n, which forces extra swap.\n        # The overlap distance effectively becomes moves1 + movesn + 1.\n        # This happens when 1 starts to the right of n.\n        if pos1 > posn:\n            return moves1 + movesn + 1\n        return moves1 + movesn\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # positions of value 1 and value n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Bring 1 to index 0 by adjacent swaps\n        # Bringing n to index n-1 by adjacent swaps\n        # Since swaps only move elements within array, we must handle overlap:\n        # If pos1 < posn, moving 1 left shifts indices of elements between,\n        # but n's relative movement count depends on the order.\n        ans = 0\n        if pos1 < posn:\n            # Move 1 to front: pos1 swaps\n            ans += pos1\n            # After moving 1 left by pos1 steps, n shifts left by 1*?:\n            # elements between 0..pos1-1 removed; effectively n index decreases by pos1.\n            ans += (posn - 1) - pos1  # equivalent to (posn - pos1 - 1) + (n-1 - (posn - pos1))\n            # Let's compute directly for clarity:\n            # After moving 1 to 0, n is at index posn - pos1.\n            # Needed swaps to reach n-1 is (n-1) - (posn - pos1)\n            ans = pos1 + ((n - 1) - (posn - pos1))\n        else:\n            # Move n to end first: (n-1 - posn)\n            ans += (n - 1 - posn)\n            # After moving n right by that many steps, 1 index unchanged if 1 is left of n\n            # because 1 lies before posn and n moves right across elements after it.\n            ans += pos1  # bring 1 to front by pos1 swaps\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find current positions of 1 and n\n        pos1 = 0\n        posn = 0\n        for i, v in enumerate(nums):\n            if v == 1:\n                pos1 = i\n            elif v == n:\n                posn = i\n\n        # Minimum adjacent swaps to move 1 to index 0 and n to index n-1.\n        # Moving one may shift the other depending on whether it lies in the moved interval.\n        if pos1 < posn:\n            # Move 1 left to 0: distance pos1\n            # After moving 1 left, n's position decreases by pos1 (it gets shifted left)\n            # Then move n to n-1: remaining distance (n-1 - (posn - pos1))\n            return pos1 + (n - 1 - (posn - pos1))\n        else:\n            # posn < pos1\n            # Move n right to n-1: distance (n-1 - posn)\n            # After moving n right, 1's position increases by (n-1 - posn)\n            # Then move 1 to 0: remaining distance (pos1 + (n-1 - posn))\n            return (n - 1 - posn) + (pos1 + (n - 1 - posn))\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Find positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If we swap adjacent elements, the number of swaps needed\n        # to move an element from i to j is |i-j|.\n        # But moves may overlap; when pos1 < posn, moving 1 right and n left\n        # compete for the same swaps in the interval between them.\n        if pos1 < posn:\n            # Move 1 to the front: pos1 swaps leftwards\n            # Move n to the end: (n-1 - posn) swaps rightwards\n            # Total for disjoint parts minus overlap: when 1 and n cross,\n            # their relative order changes; minimal swaps equals the size\n            # of interval between them.\n            return pos1 + (n - 1 - posn) + (posn - pos1 - 1)\n            # Simplifies to n-2 if already correct order? but keep correct formula.\n        else:\n            # When pos1 > posn, 1 is to the right of n; to get 1 to front and n to end,\n            # they must cross at some point.\n            # Minimal swaps equals number of elements to move for 1 plus for n.\n            return (pos1) + (n - 1 - posn)\n\n        # Note: The above conditional is incorrect due to the overlap logic.\n        # We'll provide the correct implementation below.\n\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Move 1 to index 0, and n to index n-1.\n        # We only need count swaps; with adjacent swaps:\n        # - Swapping 1 left by pos1 steps costs pos1.\n        # - Swapping n right by (n-1-posn) steps costs that.\n        # However, if 1 starts to the left of n, moving them toward their targets\n        # does not require extra beyond these two independent moves.\n        # If 1 is to the right of n, their paths overlap by 1 swap each time they cross,\n        # which is automatically captured by independent counts except for overlap:\n        # the true minimal is:\n        #   if pos1 < posn: (pos1) + (n-1-posn)\n        #   else:          (pos1) + (n-1-posn) - 1\n        # Reason: when pos1 > posn, one swap will move both toward targets while crossing,\n        # reducing total by 1 compared to naive sum.\n        ans = pos1 + (n - 1 - posn)\n        if pos1 > posn:\n            ans -= 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Minimum swaps to bring 1 to index 0 equals its current index,\n        # since adjacent swaps move it one step per operation.\n        pos1 = nums.index(1)\n        ops_left = pos1\n\n        # Minimum swaps to bring n to index n-1.\n        # After moving 1 to the front, relative positions to the right of index 0\n        # are affected only if n lies to the right of 1's original position.\n        posn = nums.index(n)\n        ops_right = (n - 1 - posn)\n        if pos1 < posn:\n            # When 1 moves left, elements between indices [0, pos1-1] are shifted right by 1,\n            # which decreases posn by 1.\n            ops_right = (n - 2 - (posn - 1))  # equivalent to n-1-(posn-1)\n        else:\n            # pos1 > posn: n is left of 1, its index unchanged by moving 1 to the front\n            ops_right = (n - 1 - posn)\n\n        return ops_left + ops_right\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2785",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "16",
+                "actual": "17",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "50",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 3,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "50",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 5,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "99",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "51",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 6,
+          "score": 0.4666666666666667,
+          "tier": "partial",
+          "details": {
+            "passed": 7,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "50",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 7,
+          "score": 0.4666666666666667,
+          "tier": "partial",
+          "details": {
+            "passed": 7,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "147",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "51",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 9,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "50",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If 1 and n are on the \"correct sides\" already, they can be fixed\n        # without interfering too much; otherwise, operations must include\n        # moving them across each other when necessary.\n        # Since swaps are adjacent, minimum swaps to move an element to a target\n        # position is its distance, but moving one element shifts positions\n        # of others.\n        #\n        # We can reason in terms of relative order:\n        # - We need 1 at index 0 and n at index n-1.\n        # Let i = pos1, j = posn.\n        # If i < j:\n        #   Move 1 left by i swaps -> n stays at index j-i.\n        #   Then move n right to n-1 by (n-1 - (j-i)) swaps.\n        # Else (i > j):\n        #   Move n left by (j to 0?) can't; n needs to go right to n-1.\n        #   But moving 1 left by i swaps will shift n one step left each time\n        #   1 crosses it. Total adjustments lead to:\n        #   First move 1 left by i swaps: n shifts to index j (since 1 crosses it,\n        #   their relative order flips). Equivalent closed-form:\n        #   swaps = i + (n-1 - j) + extra where necessary.\n        #\n        # Known correct simplification for this problem:\n        # Let i = pos1, j = posn.\n        # If i < j:\n        #   answer = i + (n - 1 - j)\n        # Else:\n        #   answer = i + (n - 1 - j) - 1 + 1? (handle crossing)\n        #\n        # More robust approach: simulate with counting swaps required by\n        # greedy fixed-point method without actually building array:\n        # We place 1 to front by swapping adjacent until it reaches index 0.\n        # After that, we place n to end by swapping adjacent until it reaches index n-1.\n        # This counts minimum because swapping adjacent to move an element to target\n        # while fixing others is optimal.\n        arr = nums[:]  # only positions are needed, but n<=50 so fine\n\n        ops = 0\n        # Move 1 to index 0\n        while arr[0] != 1:\n            k = arr.index(1)\n            # swap positions k-1 and k until index 0\n            # Since k is where 1 currently is:\n            # each adjacent swap reduces k by 1\n            while k > 0:\n                arr[k-1], arr[k] = arr[k], arr[k-1]\n                ops += 1\n                k -= 1\n\n        # Move n to index n-1\n        target = n - 1\n        while arr[target] != n:\n            k = arr.index(n)\n            while k < target:\n                arr[k], arr[k+1] = arr[k+1], arr[k]\n                ops += 1\n                k += 1\n\n        return ops\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Minimum swaps to bring 1 to index 0:\n        i1 = nums.index(1)\n        ops = i1  # swapping 1 left one step at a time\n\n        # Minimum swaps to bring n to index n-1.\n        # After moving 1 to the front, the position of n may shift only if n lies left of i1.\n        in_pos = nums.index(n)\n        if in_pos < i1:\n            in_pos += 1  # it shifts right by one when 1 passes it\n\n        ops += (n - 1 - in_pos)  # swapping n right one step at a time\n        return ops\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Minimum adjacent swaps to bring 1 to index 0\n        # and n to index n-1. Moves are independent because we\n        # can always perform swaps in an order that doesn't interfere\n        # with the minimality of each target.\n        ans = 0\n        ans += pos1  # swaps moving 1 left to index 0\n\n        # When moving n to the end, if n is currently left of position of 1,\n        # then after moving 1 left, n's index decreases by 1 (because 1 crosses it).\n        # We account for the effect on the number of swaps needed.\n        if posn < pos1:\n            ans += (n - 1 - (posn)) - 1\n        else:\n            ans += (n - 1 - posn)\n\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Find positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If we swap adjacent elements, the number of swaps needed\n        # to move an element from i to j is |i-j|.\n        # But moves may overlap; when pos1 < posn, moving 1 right and n left\n        # compete for the same swaps in the interval between them.\n        if pos1 < posn:\n            # Move 1 to the front: pos1 swaps leftwards\n            # Move n to the end: (n-1 - posn) swaps rightwards\n            # Total for disjoint parts minus overlap: when 1 and n cross,\n            # their relative order changes; minimal swaps equals the size\n            # of interval between them.\n            return pos1 + (n - 1 - posn) + (posn - pos1 - 1)\n            # Simplifies to n-2 if already correct order? but keep correct formula.\n        else:\n            # When pos1 > posn, 1 is to the right of n; to get 1 to front and n to end,\n            # they must cross at some point.\n            # Minimal swaps equals number of elements to move for 1 plus for n.\n            return (pos1) + (n - 1 - posn)\n\n        # Note: The above conditional is incorrect due to the overlap logic.\n        # We'll provide the correct implementation below.\n\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Move 1 to index 0, and n to index n-1.\n        # We only need count swaps; with adjacent swaps:\n        # - Swapping 1 left by pos1 steps costs pos1.\n        # - Swapping n right by (n-1-posn) steps costs that.\n        # However, if 1 starts to the left of n, moving them toward their targets\n        # does not require extra beyond these two independent moves.\n        # If 1 is to the right of n, their paths overlap by 1 swap each time they cross,\n        # which is automatically captured by independent counts except for overlap:\n        # the true minimal is:\n        #   if pos1 < posn: (pos1) + (n-1-posn)\n        #   else:          (pos1) + (n-1-posn) - 1\n        # Reason: when pos1 > posn, one swap will move both toward targets while crossing,\n        # reducing total by 1 compared to naive sum.\n        ans = pos1 + (n - 1 - posn)\n        if pos1 > posn:\n            ans -= 1\n        return ans\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos = [0] * (n + 1)\n        for i, v in enumerate(nums):\n            pos[v] = i\n\n        # Fix 1 to position 0\n        # Using adjacent swaps, moving element from index a to b costs abs(a-b)\n        ops = abs(pos[1] - 0)\n\n        # After bringing 1 to the front, the relative indices of other elements may shift.\n        # If 1 was to the right, moving it left shifts elements between [0, pos[1]-1] right by 1.\n        # If 1 was to the left, moving it right shifts elements between [pos[1]+1, n-1] left by 1.\n        if pos[1] > 0:\n            # 1 moves left by pos[1]\n            # Only elements originally in [0, pos[1)-1] shift right by 1\n            if pos[n] < pos[1]:\n                ops += 1  # because n's position increases by 1\n        else:\n            # already at front; no shift\n            pass\n\n        # Fix n to position n-1 (count adjacent swaps given updated position)\n        # Updated position of n is pos[n] plus 1 if pos[n] < pos[1] (when pos[1] > 0)\n        new_pos_n = pos[n]\n        if pos[1] > 0 and new_pos_n < pos[1]:\n            new_pos_n += 1\n\n        ops += abs(new_pos_n - (n - 1))\n        return ops\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find current positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # We need to bring 1 to index 0 and n to index n-1 using adjacent swaps.\n        # Adjacent swaps distance:\n        moves1 = pos1                          # swaps to move 1 left to index 0\n        movesn = (n - 1) - posn               # swaps to move n right to index n-1\n\n        # If paths overlap (pos1 > posn), moving 1 left crosses n, which forces extra swap.\n        # The overlap distance effectively becomes moves1 + movesn + 1.\n        # This happens when 1 starts to the right of n.\n        if pos1 > posn:\n            return moves1 + movesn + 1\n        return moves1 + movesn\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # positions of value 1 and value n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Bring 1 to index 0 by adjacent swaps\n        # Bringing n to index n-1 by adjacent swaps\n        # Since swaps only move elements within array, we must handle overlap:\n        # If pos1 < posn, moving 1 left shifts indices of elements between,\n        # but n's relative movement count depends on the order.\n        ans = 0\n        if pos1 < posn:\n            # Move 1 to front: pos1 swaps\n            ans += pos1\n            # After moving 1 left by pos1 steps, n shifts left by 1*?:\n            # elements between 0..pos1-1 removed; effectively n index decreases by pos1.\n            ans += (posn - 1) - pos1  # equivalent to (posn - pos1 - 1) + (n-1 - (posn - pos1))\n            # Let's compute directly for clarity:\n            # After moving 1 to 0, n is at index posn - pos1.\n            # Needed swaps to reach n-1 is (n-1) - (posn - pos1)\n            ans = pos1 + ((n - 1) - (posn - pos1))\n        else:\n            # Move n to end first: (n-1 - posn)\n            ans += (n - 1 - posn)\n            # After moving n right by that many steps, 1 index unchanged if 1 is left of n\n            # because 1 lies before posn and n moves right across elements after it.\n            ans += pos1  # bring 1 to front by pos1 swaps\n\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find current positions of 1 and n\n        pos1 = 0\n        posn = 0\n        for i, v in enumerate(nums):\n            if v == 1:\n                pos1 = i\n            elif v == n:\n                posn = i\n\n        # Minimum adjacent swaps to move 1 to index 0 and n to index n-1.\n        # Moving one may shift the other depending on whether it lies in the moved interval.\n        if pos1 < posn:\n            # Move 1 left to 0: distance pos1\n            # After moving 1 left, n's position decreases by pos1 (it gets shifted left)\n            # Then move n to n-1: remaining distance (n-1 - (posn - pos1))\n            return pos1 + (n - 1 - (posn - pos1))\n        else:\n            # posn < pos1\n            # Move n right to n-1: distance (n-1 - posn)\n            # After moving n right, 1's position increases by (n-1 - posn)\n            # Then move 1 to 0: remaining distance (pos1 + (n-1 - posn))\n            return (n - 1 - posn) + (pos1 + (n - 1 - posn))\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Minimum swaps to bring 1 to index 0 equals its current index,\n        # since adjacent swaps move it one step per operation.\n        pos1 = nums.index(1)\n        ops_left = pos1\n\n        # Minimum swaps to bring n to index n-1.\n        # After moving 1 to the front, relative positions to the right of index 0\n        # are affected only if n lies to the right of 1's original position.\n        posn = nums.index(n)\n        ops_right = (n - 1 - posn)\n        if pos1 < posn:\n            # When 1 moves left, elements between indices [0, pos1-1] are shifted right by 1,\n            # which decreases posn by 1.\n            ops_right = (n - 2 - (posn - 1))  # equivalent to n-1-(posn-1)\n        else:\n            # pos1 > posn: n is left of 1, its index unchanged by moving 1 to the front\n            ops_right = (n - 1 - posn)\n\n        return ops_left + ops_right\n```"
+        ],
+        "fail": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Minimum adjacent swaps to bring 1 to index 0\n        pos1 = nums.index(1)\n        swaps_left = pos1  # moving left by pos1 swaps\n\n        # Minimum adjacent swaps to bring n to index n-1 after moving 1\n        # If 1 is originally to the left of n's position, its movement left shifts n left by 1,\n        # otherwise n's index is unchanged.\n        posn = nums.index(n)\n        if pos1 < posn:\n            posn -= 1\n        swaps_right = (n - 1) - posn\n\n        return swaps_left + swaps_right\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given a 0-indexed permutation of n integers nums.\nA permutation is called semi-ordered if the first number equals 1 and the last number equals n. You can perform the below operation as many times as you want until you make nums a semi-ordered permutation:\n\nPick two adjacent elements in nums, then swap them.\n\nReturn the minimum number of operations to make nums a semi-ordered permutation.\nA permutation is a sequence of integers from 1 to n of length n containing each number exactly once.\n \nExample 1:\n\nInput: nums = [2,1,4,3]\nOutput: 2\nExplanation: We can make the permutation semi-ordered using these sequence of operations: \n1 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n2 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than two operations that make nums a semi-ordered permutation. \n\nExample 2:\n\nInput: nums = [2,4,1,3]\nOutput: 3\nExplanation: We can make the permutation semi-ordered using these sequence of operations:\n1 - swap i = 1 and j = 2. The permutation becomes [2,1,4,3].\n2 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n3 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than three operations that make nums a semi-ordered permutation.\n\nExample 3:\n\nInput: nums = [1,3,4,2,5]\nOutput: 0\nExplanation: The permutation is already a semi-ordered permutation.\n\n \nConstraints:\n\n2 <= nums.length == n <= 50\n1 <= nums[i] <= 50\nnums is a permutation.\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If 1 and n are on the \"correct sides\" already, they can be fixed\n        # without interfering too much; otherwise, operations must include\n        # moving them across each other when necessary.\n        # Since swaps are adjacent, minimum swaps to move an element to a target\n        # position is its distance, but moving one element shifts positions\n        # of others.\n        #\n        # We can reason in terms of relative order:\n        # - We need 1 at index 0 and n at index n-1.\n        # Let i = pos1, j = posn.\n        # If i < j:\n        #   Move 1 left by i swaps -> n stays at index j-i.\n        #   Then move n right to n-1 by (n-1 - (j-i)) swaps.\n        # Else (i > j):\n        #   Move n left by (j to 0?) can't; n needs to go right to n-1.\n        #   But moving 1 left by i swaps will shift n one step left each time\n        #   1 crosses it. Total adjustments lead to:\n        #   First move 1 left by i swaps: n shifts to index j (since 1 crosses it,\n        #   their relative order flips). Equivalent closed-form:\n        #   swaps = i + (n-1 - j) + extra where necessary.\n        #\n        # Known correct simplification for this problem:\n        # Let i = pos1, j = posn.\n        # If i < j:\n        #   answer = i + (n - 1 - j)\n        # Else:\n        #   answer = i + (n - 1 - j) - 1 + 1? (handle crossing)\n        #\n        # More robust approach: simulate with counting swaps required by\n        # greedy fixed-point method without actually building array:\n        # We place 1 to front by swapping adjacent until it reaches index 0.\n        # After that, we place n to end by swapping adjacent until it reaches index n-1.\n        # This counts minimum because swapping adjacent to move an element to target\n        # while fixing others is optimal.\n        arr = nums[:]  # only positions are needed, but n<=50 so fine\n\n        ops = 0\n        # Move 1 to index 0\n        while arr[0] != 1:\n            k = arr.index(1)\n            # swap positions k-1 and k until index 0\n            # Since k is where 1 currently is:\n            # each adjacent swap reduces k by 1\n            while k > 0:\n                arr[k-1], arr[k] = arr[k], arr[k-1]\n                ops += 1\n                k -= 1\n\n        # Move n to index n-1\n        target = n - 1\n        while arr[target] != n:\n            k = arr.index(n)\n            while k < target:\n                arr[k], arr[k+1] = arr[k+1], arr[k]\n                ops += 1\n                k += 1\n\n        return ops\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Minimum swaps to bring 1 to index 0:\n        i1 = nums.index(1)\n        ops = i1  # swapping 1 left one step at a time\n\n        # Minimum swaps to bring n to index n-1.\n        # After moving 1 to the front, the position of n may shift only if n lies left of i1.\n        in_pos = nums.index(n)\n        if in_pos < i1:\n            in_pos += 1  # it shifts right by one when 1 passes it\n\n        ops += (n - 1 - in_pos)  # swapping n right one step at a time\n        return ops\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Minimum adjacent swaps to bring 1 to index 0\n        # and n to index n-1. Moves are independent because we\n        # can always perform swaps in an order that doesn't interfere\n        # with the minimality of each target.\n        ans = 0\n        ans += pos1  # swaps moving 1 left to index 0\n\n        # When moving n to the end, if n is currently left of position of 1,\n        # then after moving 1 left, n's index decreases by 1 (because 1 crosses it).\n        # We account for the effect on the number of swaps needed.\n        if posn < pos1:\n            ans += (n - 1 - (posn)) - 1\n        else:\n            ans += (n - 1 - posn)\n\n        return ans\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Find positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If we swap adjacent elements, the number of swaps needed\n        # to move an element from i to j is |i-j|.\n        # But moves may overlap; when pos1 < posn, moving 1 right and n left\n        # compete for the same swaps in the interval between them.\n        if pos1 < posn:\n            # Move 1 to the front: pos1 swaps leftwards\n            # Move n to the end: (n-1 - posn) swaps rightwards\n            # Total for disjoint parts minus overlap: when 1 and n cross,\n            # their relative order changes; minimal swaps equals the size\n            # of interval between them.\n            return pos1 + (n - 1 - posn) + (posn - pos1 - 1)\n            # Simplifies to n-2 if already correct order? but keep correct formula.\n        else:\n            # When pos1 > posn, 1 is to the right of n; to get 1 to front and n to end,\n            # they must cross at some point.\n            # Minimal swaps equals number of elements to move for 1 plus for n.\n            return (pos1) + (n - 1 - posn)\n\n        # Note: The above conditional is incorrect due to the overlap logic.\n        # We'll provide the correct implementation below.\n\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Move 1 to index 0, and n to index n-1.\n        # We only need count swaps; with adjacent swaps:\n        # - Swapping 1 left by pos1 steps costs pos1.\n        # - Swapping n right by (n-1-posn) steps costs that.\n        # However, if 1 starts to the left of n, moving them toward their targets\n        # does not require extra beyond these two independent moves.\n        # If 1 is to the right of n, their paths overlap by 1 swap each time they cross,\n        # which is automatically captured by independent counts except for overlap:\n        # the true minimal is:\n        #   if pos1 < posn: (pos1) + (n-1-posn)\n        #   else:          (pos1) + (n-1-posn) - 1\n        # Reason: when pos1 > posn, one swap will move both toward targets while crossing,\n        # reducing total by 1 compared to naive sum.\n        ans = pos1 + (n - 1 - posn)\n        if pos1 > posn:\n            ans -= 1\n        return ans\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos = [0] * (n + 1)\n        for i, v in enumerate(nums):\n            pos[v] = i\n\n        # Fix 1 to position 0\n        # Using adjacent swaps, moving element from index a to b costs abs(a-b)\n        ops = abs(pos[1] - 0)\n\n        # After bringing 1 to the front, the relative indices of other elements may shift.\n        # If 1 was to the right, moving it left shifts elements between [0, pos[1]-1] right by 1.\n        # If 1 was to the left, moving it right shifts elements between [pos[1]+1, n-1] left by 1.\n        if pos[1] > 0:\n            # 1 moves left by pos[1]\n            # Only elements originally in [0, pos[1)-1] shift right by 1\n            if pos[n] < pos[1]:\n                ops += 1  # because n's position increases by 1\n        else:\n            # already at front; no shift\n            pass\n\n        # Fix n to position n-1 (count adjacent swaps given updated position)\n        # Updated position of n is pos[n] plus 1 if pos[n] < pos[1] (when pos[1] > 0)\n        new_pos_n = pos[n]\n        if pos[1] > 0 and new_pos_n < pos[1]:\n            new_pos_n += 1\n\n        ops += abs(new_pos_n - (n - 1))\n        return ops\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find current positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # We need to bring 1 to index 0 and n to index n-1 using adjacent swaps.\n        # Adjacent swaps distance:\n        moves1 = pos1                          # swaps to move 1 left to index 0\n        movesn = (n - 1) - posn               # swaps to move n right to index n-1\n\n        # If paths overlap (pos1 > posn), moving 1 left crosses n, which forces extra swap.\n        # The overlap distance effectively becomes moves1 + movesn + 1.\n        # This happens when 1 starts to the right of n.\n        if pos1 > posn:\n            return moves1 + movesn + 1\n        return moves1 + movesn\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # positions of value 1 and value n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Bring 1 to index 0 by adjacent swaps\n        # Bringing n to index n-1 by adjacent swaps\n        # Since swaps only move elements within array, we must handle overlap:\n        # If pos1 < posn, moving 1 left shifts indices of elements between,\n        # but n's relative movement count depends on the order.\n        ans = 0\n        if pos1 < posn:\n            # Move 1 to front: pos1 swaps\n            ans += pos1\n            # After moving 1 left by pos1 steps, n shifts left by 1*?:\n            # elements between 0..pos1-1 removed; effectively n index decreases by pos1.\n            ans += (posn - 1) - pos1  # equivalent to (posn - pos1 - 1) + (n-1 - (posn - pos1))\n            # Let's compute directly for clarity:\n            # After moving 1 to 0, n is at index posn - pos1.\n            # Needed swaps to reach n-1 is (n-1) - (posn - pos1)\n            ans = pos1 + ((n - 1) - (posn - pos1))\n        else:\n            # Move n to end first: (n-1 - posn)\n            ans += (n - 1 - posn)\n            # After moving n right by that many steps, 1 index unchanged if 1 is left of n\n            # because 1 lies before posn and n moves right across elements after it.\n            ans += pos1  # bring 1 to front by pos1 swaps\n\n        return ans\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find current positions of 1 and n\n        pos1 = 0\n        posn = 0\n        for i, v in enumerate(nums):\n            if v == 1:\n                pos1 = i\n            elif v == n:\n                posn = i\n\n        # Minimum adjacent swaps to move 1 to index 0 and n to index n-1.\n        # Moving one may shift the other depending on whether it lies in the moved interval.\n        if pos1 < posn:\n            # Move 1 left to 0: distance pos1\n            # After moving 1 left, n's position decreases by pos1 (it gets shifted left)\n            # Then move n to n-1: remaining distance (n-1 - (posn - pos1))\n            return pos1 + (n - 1 - (posn - pos1))\n        else:\n            # posn < pos1\n            # Move n right to n-1: distance (n-1 - posn)\n            # After moving n right, 1's position increases by (n-1 - posn)\n            # Then move 1 to 0: remaining distance (pos1 + (n-1 - posn))\n            return (n - 1 - posn) + (pos1 + (n - 1 - posn))\n```\n\nAttempt 5\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Minimum swaps to bring 1 to index 0 equals its current index,\n        # since adjacent swaps move it one step per operation.\n        pos1 = nums.index(1)\n        ops_left = pos1\n\n        # Minimum swaps to bring n to index n-1.\n        # After moving 1 to the front, relative positions to the right of index 0\n        # are affected only if n lies to the right of 1's original position.\n        posn = nums.index(n)\n        ops_right = (n - 1 - posn)\n        if pos1 < posn:\n            # When 1 moves left, elements between indices [0, pos1-1] are shifted right by 1,\n            # which decreases posn by 1.\n            ops_right = (n - 2 - (posn - 1))  # equivalent to n-1-(posn-1)\n        else:\n            # pos1 > posn: n is left of 1, its index unchanged by moving 1 to the front\n            ops_right = (n - 1 - posn)\n\n        return ops_left + ops_right\n```\n\n#### Incorrect\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Minimum adjacent swaps to bring 1 to index 0\n        pos1 = nums.index(1)\n        swaps_left = pos1  # moving left by pos1 swaps\n\n        # Minimum adjacent swaps to bring n to index n-1 after moving 1\n        # If 1 is originally to the left of n's position, its movement left shifts n left by 1,\n        # otherwise n's index is unchanged.\n        posn = nums.index(n)\n        if pos1 < posn:\n            posn -= 1\n        swaps_right = (n - 1) - posn\n\n        return swaps_left + swaps_right\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Count Adjacent-Swap Distance, Then Fix Overlap via Crossing",
+          "description": "Minimum adjacent swaps to move elements into target positions can be computed by distance, but must be corrected when their movement paths overlap.",
+          "content": "When using adjacent swaps, moving an element to a target index costs the number of positions it passes. If two elements are both being moved, verify whether one move causes the other to shift or whether they must “cross” during the process; this is the only interaction you need to correct, rather than re-deriving from scratch.",
+          "reasoning": "Successful attempts converged on a robust way to count the minimum adjacent swaps needed to place two special elements into fixed target positions, while carefully accounting for how moving one element shifts the other when their movement intervals overlap. The incorrect/partially correct attempts typically failed by (a) assuming the two repositioning steps are always independent, or (b) updating the other element’s position with an incorrect shift amount/sign, or (c) adding an “overlap penalty” without a validated invariant that ties it to the actual crossing behavior. The key distinction is whether the method explicitly models the interaction as “crossing events” under adjacent swaps, then derives the final count from distances plus the single necessary correction."
+        },
+        {
+          "title": "Choose a Composable Strategy: Fix One Element Then the Other",
+          "description": "A correct minimum can often be obtained by fixing one constraint first and then recomputing the second under the resulting state change.",
+          "content": "A reliable pattern is: (1) move the first special element to its required position using adjacent swaps, (2) update the effective position of the second element due to elements shifting in the affected interval, (3) add the adjacent-swaps needed to bring the second to its target. This prevents “double counting” or missing shifts that independent formulas can cause.",
+          "reasoning": "Successful attempts converged on a robust way to count the minimum adjacent swaps needed to place two special elements into fixed target positions, while carefully accounting for how moving one element shifts the other when their movement intervals overlap. The incorrect/partially correct attempts typically failed by (a) assuming the two repositioning steps are always independent, or (b) updating the other element’s position with an incorrect shift amount/sign, or (c) adding an “overlap penalty” without a validated invariant that ties it to the actual crossing behavior. The key distinction is whether the method explicitly models the interaction as “crossing events” under adjacent swaps, then derives the final count from distances plus the single necessary correction."
+        },
+        {
+          "title": "Validate Index-Update Logic with Interval Reasoning",
+          "description": "When one element is moved, the other element’s index changes only if it lies inside the moved segment.",
+          "content": "For any operation that shifts positions (like moving an element left/right via adjacent swaps), the other element’s index changes by a predictable amount only when it is within the indices crossed. If your update rules depend on ordering, express them as “was the other element inside the swap interval?” rather than guessing the sign/magnitude.",
+          "reasoning": "Successful attempts converged on a robust way to count the minimum adjacent swaps needed to place two special elements into fixed target positions, while carefully accounting for how moving one element shifts the other when their movement intervals overlap. The incorrect/partially correct attempts typically failed by (a) assuming the two repositioning steps are always independent, or (b) updating the other element’s position with an incorrect shift amount/sign, or (c) adding an “overlap penalty” without a validated invariant that ties it to the actual crossing behavior. The key distinction is whether the method explicitly models the interaction as “crossing events” under adjacent swaps, then derives the final count from distances plus the single necessary correction."
+        },
+        {
+          "title": "Beware Unjustified “Overlap Penalties”",
+          "description": "If you add a constant or ad-hoc penalty for overlap without proving it matches the actual number of crossings, the result will likely be wrong.",
+          "content": "Overlap between two adjacent-swap sequences matters only through how many times the two tracked elements cross (or equivalently, how their relative order changes). Before applying a correction term, ground it in a precise invariant (relative order/crossings) or simulate the crossing count on the conceptual interval.",
+          "reasoning": "Successful attempts converged on a robust way to count the minimum adjacent swaps needed to place two special elements into fixed target positions, while carefully accounting for how moving one element shifts the other when their movement intervals overlap. The incorrect/partially correct attempts typically failed by (a) assuming the two repositioning steps are always independent, or (b) updating the other element’s position with an incorrect shift amount/sign, or (c) adding an “overlap penalty” without a validated invariant that ties it to the actual crossing behavior. The key distinction is whether the method explicitly models the interaction as “crossing events” under adjacent swaps, then derives the final count from distances plus the single necessary correction."
+        }
+      ],
+      "raw_response": "<reasoning>\nSuccessful attempts converged on a robust way to count the minimum adjacent swaps needed to place two special elements into fixed target positions, while carefully accounting for how moving one element shifts the other when their movement intervals overlap. The incorrect/partially correct attempts typically failed by (a) assuming the two repositioning steps are always independent, or (b) updating the other element’s position with an incorrect shift amount/sign, or (c) adding an “overlap penalty” without a validated invariant that ties it to the actual crossing behavior. The key distinction is whether the method explicitly models the interaction as “crossing events” under adjacent swaps, then derives the final count from distances plus the single necessary correction.\n</reasoning>\n\n<memories>\n<memory>\n<title>Count Adjacent-Swap Distance, Then Fix Overlap via Crossing</title>\n<description>Minimum adjacent swaps to move elements into target positions can be computed by distance, but must be corrected when their movement paths overlap.</description>\n<content>When using adjacent swaps, moving an element to a target index costs the number of positions it passes. If two elements are both being moved, verify whether one move causes the other to shift or whether they must “cross” during the process; this is the only interaction you need to correct, rather than re-deriving from scratch.</content>\n</memory>\n\n<memory>\n<title>Choose a Composable Strategy: Fix One Element Then the Other</title>\n<description>A correct minimum can often be obtained by fixing one constraint first and then recomputing the second under the resulting state change.</description>\n<content>A reliable pattern is: (1) move the first special element to its required position using adjacent swaps, (2) update the effective position of the second element due to elements shifting in the affected interval, (3) add the adjacent-swaps needed to bring the second to its target. This prevents “double counting” or missing shifts that independent formulas can cause.</content>\n</memory>\n\n<memory>\n<title>Validate Index-Update Logic with Interval Reasoning</title>\n<description>When one element is moved, the other element’s index changes only if it lies inside the moved segment.</description>\n<content>For any operation that shifts positions (like moving an element left/right via adjacent swaps), the other element’s index changes by a predictable amount only when it is within the indices crossed. If your update rules depend on ordering, express them as “was the other element inside the swap interval?” rather than guessing the sign/magnitude.</content>\n</memory>\n\n<memory>\n<title>Beware Unjustified “Overlap Penalties”</title>\n<description>If you add a constant or ad-hoc penalty for overlap without proving it matches the actual number of crossings, the result will likely be wrong.</description>\n<content>Overlap between two adjacent-swap sequences matters only through how many times the two tracked elements cross (or equivalently, how their relative order changes). Before applying a correction term, ground it in a precise invariant (relative order/crossings) or simulate the crossing count on the conceptual interval.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed permutation of n integers nums.\nA permutation is called semi-ordered if the first number equals 1 and the last number equals n. You can perform the below operation as many times as you want until you make nums a semi-ordered permutation:\n\nPick two adjacent elements in nums, then swap them.\n\nReturn the minimum number of operations to make nums a semi-ordered permutation.\nA permutation is a sequence of integers from 1 to n of length n containing each number exactly once.\n \nExample 1:\n\nInput: nums = [2,1,4,3]\nOutput: 2\nExplanation: We can make the permutation semi-ordered using these sequence of operations: \n1 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n2 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than two operations that make nums a semi-ordered permutation. \n\nExample 2:\n\nInput: nums = [2,4,1,3]\nOutput: 3\nExplanation: We can make the permutation semi-ordered using these sequence of operations:\n1 - swap i = 1 and j = 2. The permutation becomes [2,1,4,3].\n2 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n3 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than three operations that make nums a semi-ordered permutation.\n\nExample 3:\n\nInput: nums = [1,3,4,2,5]\nOutput: 0\nExplanation: The permutation is already a semi-ordered permutation.\n\n \nConstraints:\n\n2 <= nums.length == n <= 50\n1 <= nums[i] <= 50\nnums is a permutation.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Find positions of 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If 1 is left of n, they can be moved inward independently:\n        # distance to move 1 to index 0 plus distance to move n to index n-1.\n        # Each adjacent swap decreases that distance by exactly 1.\n        # Since swaps are within fixed segment ordering, they don't interfere\n        # when doing the minimal strategy.\n        if pos1 < posn:\n            return pos1 + (n - 1 - posn)\n        \n        # If 1 is to the right of n, moving both to the ends requires them\n        # to \"cross\" each other. The crossing adds 1 extra operation.\n        return pos1 + (n - 1 - posn) + 1\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Number of adjacent swaps to bring 1 to index 0:\n        # moving element left by pos1 positions\n        # Similarly, bring n to index n-1: moving it right by (n-1 - posn)\n        swaps1 = pos1\n        swapsn = (n - 1) - posn\n\n        # But if the paths cross (1 is to the right of n),\n        # the second target position shifts by 1 after moving one element.\n        # Specifically, if pos1 > posn then moving 1 left by swaps1\n        # effectively shifts n one step right relative to the array indices.\n        if pos1 > posn:\n            swapsn += 1\n\n        return swaps1 + swapsn\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Locate 1 and n\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If we treat adjacent swaps as \"bubble\" moves:\n        # - Move 1 to index 0: needs pos1 swaps.\n        # - Move n to index n-1: needs (n-1 - posn) swaps.\n        #\n        # But if pos1 > posn, then moving 1 left will shift the position of n\n        # by 1 for each swap that occurs before n moves. In that case,\n        # total becomes pos1 + (n-1 - posn) + 1? Let's compute precisely.\n        #\n        # Let i=pos1, j=posn.\n        # Final indices must be 0 for 1 and n-1 for n.\n        # Using adjacent swaps, the number of swaps equals:\n        # (i - 0) + ((n-1) - j) + adjustment if the swaps overlap.\n        #\n        # When i < j: moving 1 left doesn't affect n's path -> no adjustment.\n        # When i > j: moving 1 left crosses over n at some point -> n is shifted\n        # by one additional position relative to naive count -> +1 adjustment.\n        #\n        # Thus: base = i + (n-1-j) + (1 if i > j else 0)\n        ans = pos1 + (n - 1 - posn)\n        if pos1 > posn:\n            ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Bring 1 to index 0\n        pos1 = nums.index(1)\n        ops = pos1\n        nums = nums[:]  # not strictly needed, but keeps logic clear\n        while pos1 > 0:\n            nums[pos1], nums[pos1 - 1] = nums[pos1 - 1], nums[pos1]\n            pos1 -= 1\n\n        # Bring n to index n-1 (note: after moving 1, position of n may shift)\n        posn = nums.index(n)\n        ops += (n - 1 - posn)\n        while posn < n - 1:\n            nums[posn], nums[posn + 1] = nums[posn + 1], nums[posn]\n            posn += 1\n\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        if nums[0] == 1 and nums[-1] == n:\n            return 0\n\n        # Positions (0-indexed) of 1 and n\n        i1 = nums.index(1)\n        in_ = nums.index(n)\n\n        # If we bring 1 to the front by adjacent swaps, it takes i1 swaps.\n        # If we bring n to the end by adjacent swaps, it takes (n-1 - in_) swaps.\n        # When their movement ranges overlap, swaps can be shared.\n        # Let the array indices where 1 moves: [0..i1]\n        # and where n moves: [in_..n-1]\n        # Overlap exists when in_ < i1 (i.e., n is left of 1).\n        # Total minimal swaps becomes sum of distances minus 1 share per crossing block.\n        if i1 < in_:\n            # 1 is left of n; their paths don't conflict\n            return i1 + (n - 1 - in_)\n        else:\n            # n is left of 1; they cross during sorting\n            # One swap can contribute to both movements at the crossing\n            return i1 + (n - 1 - in_) - 1\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Positions of 1 and n in the current permutation\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # We need minimal adjacent swaps to move 1 to index 0 and n to index n-1.\n        # Swaps are independent except when their paths cross (affects count by 1).\n        # This is the standard result for two items moving towards their targets\n        # with adjacent swaps.\n        left_steps = pos1  # swaps to bring 1 from pos1 -> 0\n        right_steps = (n - 1) - posn  # swaps to bring n from posn -> n-1\n\n        # If 1 is to the right of n, or equivalently pos1 > posn,\n        # their swap paths cross once; that reduces the total by 1.\n        # (We won't double-count the meeting swap.)\n        cross = 1 if pos1 > posn else 0\n\n        return left_steps + right_steps - cross\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        # positions where each value currently is\n        pos = [0] * (n + 1)\n        for i, v in enumerate(nums):\n            pos[v] = i\n\n        i1 = pos[1]       # current index of 1 (0-based)\n        in_ = pos[n]     # current index of n\n\n        # If 1 is to the right of n, they must cross if both are moved to ends,\n        # costing one extra swap compared to the non-crossing case.\n        if i1 < in_:\n            # Move 1 left to index 0: i1 swaps\n            # Move n right to index n-1: (n-1 - in_) swaps\n            return i1 + (n - 1 - in_)\n        else:\n            # Move 1 left to index 0: i1 swaps\n            # Move n right to index n-1: (n-1 - in_) swaps\n            # Crossing adds 1 swap.\n            return i1 + (n - 1 - in_) + 1\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        ans = 0\n        # Bring 1 to index 0\n        if pos1 > 0:\n            ans += pos1\n        # Bring n to index n-1.\n        # After moving 1 to the front, indices shift if 1 was left of n.\n        if posn < n - 1:\n            # If pos1 < posn, then n's index decreases by pos1 during the swaps of 1 left.\n            posn_after = posn - 1 if pos1 < posn else posn\n            # However, the number of swaps needed depends on the exact final position.\n            # A correct direct formula is:\n            # swaps to move n right by (n-1 - final_index_of_n).\n            final_index_of_n = posn_after  # after the effect of moving 1 to front\n            ans += (n - 1 - final_index_of_n)\n        return ans\n```\n\n",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos = [0] * (n + 1)\n        for i, v in enumerate(nums):\n            pos[v] = i\n\n        # min adjacent swaps to move value x to index target\n        def swaps_to_move(x: int, target: int) -> int:\n            return abs(pos[x] - target)\n\n        ops_first = swaps_to_move(1, 0)          # bring 1 to index 0\n        # After moving 1, its position changes. If  n is fixed, we track overlap cases.\n        # Adjacent swaps preserve relative order of other elements except for the shifted window.\n        # For minimal moves, we can simulate the effect on the position of n.\n        i1 = pos[1]\n        in_ = pos[n]\n        ops_last = None\n\n        if n == 1:\n            ops_last = 0\n        else:\n            # If moving 1 crosses the position of n, n's index shifts by +/-1 accordingly.\n            # When 1 moves from i1 to 0:\n            # - if in_ < i1, then all swaps happen to the left of n => n index unchanged\n            # - if in_ > i1, then swaps cross over positions up to i1 only => n index unchanged\n            # Actually when moving 1 leftwards, it only swaps with elements between target(0) and i1-1,\n            # so it does NOT interact with elements right of i1. Thus n index changes only if n is in that interval.\n            # n index changes if in_ < i1? Wait: moving left crosses indices [0..i1-1]. If n is in there,\n            # its index increases by 1 each time 1 swaps past it (effectively, n shifts right).\n            # So:\n            if in_ < i1:\n                # 1 passes over n, shifting n right by ops_first\n                new_in = in_ + ops_first\n            else:\n                # 1 does not pass over n\n                new_in = in_\n            ops_last = abs(new_in - (n - 1))\n\n        return ops_first + ops_last\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos = [0] * (n + 1)\n        for i, x in enumerate(nums):\n            pos[x] = i\n\n        # If 1 is at index p, moving it to index 0 needs p adjacent swaps.\n        # If n is at index q, moving it to index n-1 needs (n-1 - q) adjacent swaps.\n        #\n        # But if the swap operations overlap (i.e., paths cross), we must avoid double counting.\n        # The overlap happens exactly when 1 starts to the right of n in the array (pos[1] > pos[n]).\n        p, q = pos[1], pos[n]\n\n        ans = p + (n - 1 - q)\n        if p > q:\n            ans -= 1\n        return ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2785",
+          "generation_index": 0,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "99",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "51",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 1,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "99",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "51",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 2,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "99",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "51",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 6,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "99",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "51",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 7,
+          "score": 0.3333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 5,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "16",
+                "actual": "17",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "98",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "50",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 8,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "97",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "49",
+                "actual": "97",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Count Adjacent-Swap Distance, Then Fix Overlap via Crossing: Minimum adjacent swaps to move elements into target positions can be computed by distance, but must be corrected when their movement paths overlap.\n     When using adjacent swaps, moving an element to a target index costs the number of positions it passes. If two elements are both being moved, verify whether one move causes the other to shift or whether they must “cross” during the process; this is the only interaction you need to correct, rather than re-deriving from scratch.\n  2. Choose a Composable Strategy: Fix One Element Then the Other: A correct minimum can often be obtained by fixing one constraint first and then recomputing the second under the resulting state change.\n     A reliable pattern is: (1) move the first special element to its required position using adjacent swaps, (2) update the effective position of the second element due to elements shifting in the affected interval, (3) add the adjacent-swaps needed to bring the second to its target. This prevents “double counting” or missing shifts that independent formulas can cause.\n  3. Validate Index-Update Logic with Interval Reasoning: When one element is moved, the other element’s index changes only if it lies inside the moved segment.\n     For any operation that shifts positions (like moving an element left/right via adjacent swaps), the other element’s index changes by a predictable amount only when it is within the indices crossed. If your update rules depend on ordering, express them as “was the other element inside the swap interval?” rather than guessing the sign/magnitude.\n  4. Beware Unjustified “Overlap Penalties”: If you add a constant or ad-hoc penalty for overlap without proving it matches the actual number of crossings, the result will likely be wrong.\n     Overlap between two adjacent-swap sequences matters only through how many times the two tracked elements cross (or equivalently, how their relative order changes). Before applying a correction term, ground it in a precise invariant (relative order/crossings) or simulate the crossing count on the conceptual interval.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given a 0-indexed permutation of n integers nums.\nA permutation is called semi-ordered if the first number equals 1 and the last number equals n. You can perform the below operation as many times as you want until you make nums a semi-ordered permutation:\n\nPick two adjacent elements in nums, then swap them.\n\nReturn the minimum number of operations to make nums a semi-ordered permutation.\nA permutation is a sequence of integers from 1 to n of length n containing each number exactly once.\n \nExample 1:\n\nInput: nums = [2,1,4,3]\nOutput: 2\nExplanation: We can make the permutation semi-ordered using these sequence of operations: \n1 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n2 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than two operations that make nums a semi-ordered permutation. \n\nExample 2:\n\nInput: nums = [2,4,1,3]\nOutput: 3\nExplanation: We can make the permutation semi-ordered using these sequence of operations:\n1 - swap i = 1 and j = 2. The permutation becomes [2,1,4,3].\n2 - swap i = 0 and j = 1. The permutation becomes [1,2,4,3].\n3 - swap i = 2 and j = 3. The permutation becomes [1,2,3,4].\nIt can be proved that there is no sequence of less than three operations that make nums a semi-ordered permutation.\n\nExample 3:\n\nInput: nums = [1,3,4,2,5]\nOutput: 0\nExplanation: The permutation is already a semi-ordered permutation.\n\n \nConstraints:\n\n2 <= nums.length == n <= 50\n1 <= nums[i] <= 50\nnums is a permutation.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Move 1 to index 0 via adjacent swaps: costs pos1\n        # After moving 1 left, elements originally in [0..pos1-1] shift right by 1,\n        # so if n was among them (i.e., posn < pos1), n's position increases by 1.\n        swaps1 = pos1\n        posn_after = posn + (1 if posn < pos1 else 0)\n\n        # Move n to index n-1 via adjacent swaps: costs (n-1 - posn_after)\n        swapsn = (n - 1) - posn_after\n\n        return swaps1 + swapsn\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Case A: 1 is left of n\n        # Move 1 left to index 0: pos1 swaps.\n        # Then move n right to index n-1. After moving 1, n shifts left by pos1\n        # only if n was to the right of 1 (which it is in this case).\n        if pos1 < posn:\n            # after bringing 1 to front, n's new index becomes posn - pos1\n            return pos1 + (n - 1 - (posn - pos1))\n\n        # Case B: 1 is right of n\n        # Move n right to index n-1: (n-1 - posn) swaps.\n        # Then move 1 left to index 0. After moving n, 1 shifts right by\n        # (n-1-posn) only if 1 was left of n (which it is not; it's right of n),\n        # but since pos1 > posn, 1 is indeed to the right of the moved segment\n        # and will shift right by 0; instead, 1 is within the interval that is\n        # affected by moving n? Let's compute by order/crossing:\n        #\n        # A robust way: adjacent swaps cost equals number of inversions added\n        # required to fix relative order of items. The total minimal operations\n        # equals distance of 1 to front plus distance of n to back minus the\n        # number of times their moves would \"overlap\" (cross) which is exactly\n        # 1 if pos1 > posn (they must cross), else 0.\n        #\n        # But overlap correction for boundary-fixing ends up being:\n        # if pos1 > posn: total = pos1 + (n-1 - posn) - 1\n        # if pos1 < posn: total = pos1 + (n-1 - posn)  (no correction)\n        total = pos1 + (n - 1 - posn)\n        if pos1 > posn:\n            return total - 1\n        else:\n            return total\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If we move 1 to index 0, elements between 0..pos1-1 shift right by 1.\n        # If n lies in that shifted interval, its position increases by 1.\n        left_needed = pos1  # adjacent swaps to bring 1 from pos1 -> 0\n\n        # After moving 1 left to index 0:\n        posn_after = posn + (1 if posn < pos1 else 0)\n\n        # Then move n to index n-1\n        right_needed = (n - 1) - posn_after\n\n        return left_needed + right_needed\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If 1 needs to move left, it takes pos1 swaps.\n        # If n needs to move right, it takes (n-1 - posn) swaps.\n        # If their movements overlap in the sense that 1 must pass over n,\n        # then the swap needed for their relative order is counted twice by the sum,\n        # so we correct by subtracting 1.\n        ans = 0\n        if pos1 != 0:\n            ans += pos1\n        if posn != n - 1:\n            ans += (n - 1 - posn)\n\n        # overlap/crossing correction:\n        # 1 moves left to index 0; it crosses every element originally in [0, pos1-1].\n        # n moves right to index n-1; it crosses every element originally in [posn+1, n-1].\n        # The only potential double-count is when 1 needs to cross n:\n        # that happens exactly when pos1 > posn (since 1 is to the right of n initially).\n        if pos1 > posn:\n            ans -= 1\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Move 1 to index 0 using adjacent swaps.\n        # Cost is exactly how many positions it moves left.\n        ans = pos1\n\n        # After moving 1 to front, elements between [0..pos1-1] shift right by 1.\n        # If n was in that interval, its index increases by 1.\n        if posn < pos1:\n            posn += 1\n\n        # Now move n to index n-1 (rightmost) using adjacent swaps.\n        # Cost is how many positions it moves right.\n        ans += (n - 1 - posn)\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n        \n        # To minimize operations (adjacent swaps):\n        # Move 1 to index 0: cost = pos1\n        # After that, if n is to the left of 1's original position, its index shifts right by 1.\n        cost = pos1\n        if posn < pos1:\n            posn += 1  # n gets shifted right by 1 due to moving 1 left past it\n\n        # Now move n to index n-1 from its updated position.\n        cost += (n - 1 - posn)\n        return cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # If 1 is after n, moving 1 left and n right can cross; account naturally.\n        # Minimum operations to bring element x from index i to target t equals |i - t|,\n        # but with adjacent swaps we must consider crossings between the two tracked elements.\n        # For two elements, the number of adjacent swaps needed to reach both target indices\n        # equals:\n        #   |pos1 - 0| + |posn - (n-1)|  - 1  if their relative order flips during the process.\n        #\n        # The relative order flips iff initially pos1 > posn (1 is to the right of n),\n        # because in the final configuration 1 must be before n.\n        # Then the two elements must cross exactly once, reducing the naive sum by 1.\n        base = abs(pos1 - 0) + abs(posn - (n - 1))\n        if pos1 > posn:\n            base -= 1\n        return base\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Minimum adjacent swaps to place 1 at index 0 and n at index n-1\n        # depends on their relative order; after placing one, the other's\n        # position shifts only if it lies in the moved interval.\n        #\n        # Compute both possible orders (move 1 first or move n first) and take min.\n        def move_first(first_val: int, first_target: int, other_val: int, other_pos: int) -> int:\n            \"\"\"Move first_val from its current position to first_target using adjacent swaps,\n            and compute added cost plus the cost to move other_val to its target after shift.\"\"\"\n            first_pos = nums.index(first_val)\n\n            # Cost to move first to target (adjacent swaps)\n            cost1 = abs(first_pos - first_target)\n\n            # After moving first between min..max (inclusive range swept),\n            # update other's position if it lies inside that interval.\n            l = min(first_pos, first_target)\n            r = max(first_pos, first_target)\n\n            other_pos_after = other_pos\n            if l <= other_pos <= r:\n                # If moving left (first_target < first_pos), elements in [first_target..first_pos-1]\n                # shift right by 1, so other's position increases by 1.\n                # If moving right, elements in [first_pos+1..first_target] shift left by 1,\n                # so other's position decreases by 1.\n                if first_target < first_pos:\n                    other_pos_after = other_pos + 1\n                else:\n                    other_pos_after = other_pos - 1\n\n            # Cost to move other to its target\n            other_target = n - 1 if other_val == n else 0\n            cost2 = abs(other_pos_after - other_target)\n            return cost1 + cost2\n\n        ans = 10**9\n\n        # Order A: move 1 to front first, then move n to end\n        pos_n = posn\n        # If 1 already at front, pos doesn't change; move_first still works.\n        ans = min(ans, move_first(1, 0, n, pos_n))\n\n        # Order B: move n to end first, then move 1 to front\n        pos_1 = pos1\n        ans = min(ans, move_first(n, n - 1, 1, pos_1))\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Minimum adjacent swaps to bring 1 to index 0\n        # (each swap moves 1 left by 1)\n        cost = pos1\n\n        # After moving 1 left across indices [0 .. pos1-1], the element at index n_pos\n        # shifts only if n is in that crossed interval.\n        if posn < pos1:\n            # n is to the left of where 1 starts, so when 1 moves left it doesn't cross n,\n            # but indices of elements to the right of the swapped pair change; net effect:\n            # n's index increases by 1 for each swap where 1 passes indices <= posn-1,\n            # equivalently n index shifts by +1 because 1's path pushes it right when\n            # n lies inside the interval [0 .. pos1-1].\n            posn += 1\n        # If posn > pos1, moving 1 left happens entirely left of n, so n's index is unchanged.\n        # If posn == pos1 can't happen since 1 and n are distinct (n>=2).\n\n        # Now we need to move n to index n-1 via adjacent swaps.\n        # Since adjacent swaps cost = distance to target, and we only care about n's\n        # effective position after the first phase.\n        cost += (n - 1 - posn)\n\n        return cost\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def semiOrderedPermutation(self, nums: List[int]) -> int:\n        n = len(nums)\n        pos1 = nums.index(1)\n        posn = nums.index(n)\n\n        # Move 1 to index 0 by adjacent swaps:\n        # cost = pos1\n        # This shifts elements between [0..pos1] one step right, so n's position changes\n        # iff n was inside that interval.\n        cost1 = pos1\n        new_posn = posn + 1 if posn <= pos1 else posn\n\n        # Now move n to index n-1 (right end) by adjacent swaps:\n        # cost = (n-1) - new_posn\n        costn = (n - 1) - new_posn\n\n        return cost1 + costn\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2785",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 1,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2785",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "16",
+                "actual": "16",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "97",
+                "actual": "97",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.4,
+      "augmented_pass_rate": 0.9,
+      "improvement": 0.5
+    }
+  }
+}

@@ -1,0 +1,3051 @@
+{
+  "problem_id": "3055",
+  "domain": "coding",
+  "problem": {
+    "id": "3055",
+    "domain": "coding",
+    "statement": "You are given a binary string s that contains at least one '1'.\nYou have to rearrange the bits in such a way that the resulting binary number is the maximum odd binary number that can be created from this combination.\nReturn a string representing the maximum odd binary number that can be created from the given combination.\nNote that the resulting string can have leading zeros.\n \nExample 1:\n\nInput: s = \"010\"\nOutput: \"001\"\nExplanation: Because there is just one '1', it must be in the last position. So the answer is \"001\".\n\nExample 2:\n\nInput: s = \"0101\"\nOutput: \"1001\"\nExplanation: One of the '1's must be in the last position. The maximum number that can be made with the remaining digits is \"100\". So the answer is \"1001\".\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists only of '0' and '1'.\ns contains at least one '1'.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"010\"",
+        "output": "\"001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"0101\"",
+        "output": "\"1001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"10\"",
+        "output": "\"01\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"11\"",
+        "output": "\"11\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"01\"",
+        "output": "\"01\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"111\"",
+        "output": "\"111\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"011\"",
+        "output": "\"101\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"001\"",
+        "output": "\"001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"110\"",
+        "output": "\"101\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"1101\"",
+        "output": "\"1101\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"1100\"",
+        "output": "\"1001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"0110011100101100011110011111101011000010001001001111101110011110011110011111011000001000010111001110\"",
+        "output": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"0000111000010111010001100010110000011110001111100110111111010001110110110001100111011000110011110111\"",
+        "output": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"1010000110110001001010110001010111001101110111110101111111100111010110011011010001111111001100001111\"",
+        "output": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ",
+    "metadata": {
+      "func_name": "maximumOddBinaryNumber",
+      "question_title": "maximum-odd-binary-number",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a binary string s that contains at least one '1'.\nYou have to rearrange the bits in such a way that the resulting binary number is the maximum odd binary number that can be created from this combination.\nReturn a string representing the maximum odd binary number that can be created from the given combination.\nNote that the resulting string can have leading zeros.\n \nExample 1:\n\nInput: s = \"010\"\nOutput: \"001\"\nExplanation: Because there is just one '1', it must be in the last position. So the answer is \"001\".\n\nExample 2:\n\nInput: s = \"0101\"\nOutput: \"1001\"\nExplanation: One of the '1's must be in the last position. The maximum number that can be made with the remaining digits is \"100\". So the answer is \"1001\".\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists only of '0' and '1'.\ns contains at least one '1'.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the maximum odd number:\n        # - Last bit must be '1' (odd).\n        # - Put all remaining ones as far left as possible.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To make the number odd, last bit must be '1'.\n        # For maximum value, put remaining (ones-1) ones as early as possible.\n        # Remaining positions (after those ones) are zeros, including possibly leading zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the number to be odd, the last bit must be '1'.\n        # To maximize, put all remaining ones first, then zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'\n        # Maximize the value by placing the remaining (ones-1) ones as early as possible.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # Maximum odd binary number: last bit must be '1'.\n        # Put remaining (ones - 1) ones as early as possible, then zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        # Maximum odd number must end with '1'.\n        # Put remaining ones first, then all zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To be odd, last bit must be '1'\n        # Put remaining ones as early as possible for maximum value.\n        # Remaining part: (ones-1) ones, followed by zeros, then '1'\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the number to be odd, the last bit must be '1'.\n        # To maximize the value, put all remaining (ones-1) ones as early as possible.\n        # Leading zeros are allowed by the problem statement.\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To be odd, the last bit must be '1'.\n        # To maximize the number, put the remaining (ones-1) ones as early as possible.\n        # Leading zeros are allowed, but we want the highest possible prefix.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # For the result to be odd, the last bit must be '1'.\n        # To maximize the binary value, put all remaining '1's (ones-1)\n        # as early as possible, then the zeros.\n        return ('1' * (ones - 1)) + ('0' * zeros) + '1'\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3055",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the maximum odd number:\n        # - Last bit must be '1' (odd).\n        # - Put all remaining ones as far left as possible.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To make the number odd, last bit must be '1'.\n        # For maximum value, put remaining (ones-1) ones as early as possible.\n        # Remaining positions (after those ones) are zeros, including possibly leading zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the number to be odd, the last bit must be '1'.\n        # To maximize, put all remaining ones first, then zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'\n        # Maximize the value by placing the remaining (ones-1) ones as early as possible.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # Maximum odd binary number: last bit must be '1'.\n        # Put remaining (ones - 1) ones as early as possible, then zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        # Maximum odd number must end with '1'.\n        # Put remaining ones first, then all zeros.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To be odd, last bit must be '1'\n        # Put remaining ones as early as possible for maximum value.\n        # Remaining part: (ones-1) ones, followed by zeros, then '1'\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the number to be odd, the last bit must be '1'.\n        # To maximize the value, put all remaining (ones-1) ones as early as possible.\n        # Leading zeros are allowed by the problem statement.\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To be odd, the last bit must be '1'.\n        # To maximize the number, put the remaining (ones-1) ones as early as possible.\n        # Leading zeros are allowed, but we want the highest possible prefix.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+          "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # For the result to be odd, the last bit must be '1'.\n        # To maximize the binary value, put all remaining '1's (ones-1)\n        # as early as possible, then the zeros.\n        return ('1' * (ones - 1)) + ('0' * zeros) + '1'\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a binary string s that contains at least one '1'.\nYou have to rearrange the bits in such a way that the resulting binary number is the maximum odd binary number that can be created from this combination.\nReturn a string representing the maximum odd binary number that can be created from the given combination.\nNote that the resulting string can have leading zeros.\n \nExample 1:\n\nInput: s = \"010\"\nOutput: \"001\"\nExplanation: Because there is just one '1', it must be in the last position. So the answer is \"001\".\n\nExample 2:\n\nInput: s = \"0101\"\nOutput: \"1001\"\nExplanation: One of the '1's must be in the last position. The maximum number that can be made with the remaining digits is \"100\". So the answer is \"1001\".\n\n \nConstraints:\n\n1 <= s.length <= 100\ns consists only of '0' and '1'.\ns contains at least one '1'.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To be odd, the last bit must be '1'.\n        # To be maximum, put (ones-1) ones first, then all zeros, then the last '1'.\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For an odd number, the last bit must be '1'.\n        # To maximize lexicographically (and thus numerically with fixed length),\n        # put all remaining '1's as early as possible.\n        if ones == 1:\n            return \"0\" * zeros + \"1\"\n\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'.\n        # To make it maximum, put all remaining '1's first.\n        # Remaining positions are filled with '0's.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'.\n        # For maximum value: place all remaining (ones-1) '1's as early as possible,\n        # then all '0's, then the last '1'.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # Must be odd => last bit is '1'\n        # Maximize value => put remaining (ones-1) ones as early as possible\n        # Then remaining zeros\n        if ones == 1:\n            return '0' * zeros + '1'\n\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the number to be odd, the last bit must be '1'.\n        # Put the remaining ones as early as possible, then zeros, then the last '1'.\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To be odd, last bit must be '1'.\n        # To maximize the binary value, put all remaining ones as far left as possible.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'.\n        # For maximum value, put all remaining (ones-1) ones as far left as possible.\n        # Leading zeros are allowed, so we just arrange:\n        # [ones-1 times '1'] + [zeros times '0'] + ['1' at end]\n        if ones == 1:\n            return '0' * zeros + '1'\n\n        return ('1' * (ones - 1)) + ('0' * zeros) + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To be odd, last bit must be '1'.\n        # Put remaining ones (ones-1) as early as possible, then zeros.\n        # Any arrangement with same counts yields maximum lexicographic/binary value.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        # To be odd, last bit must be '1'. Put remaining ones as left as possible.\n        zeros = len(s) - ones\n        # Leading zeros are allowed, but we maximize the numeric value:\n        # all remaining (ones-1) ones go to the front.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3055",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n        \n        # To be odd, the last bit must be '1'.\n        # To be maximum, put (ones-1) ones first, then all zeros, then the last '1'.\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For an odd number, the last bit must be '1'.\n        # To maximize lexicographically (and thus numerically with fixed length),\n        # put all remaining '1's as early as possible.\n        if ones == 1:\n            return \"0\" * zeros + \"1\"\n\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'.\n        # To make it maximum, put all remaining '1's first.\n        # Remaining positions are filled with '0's.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'.\n        # For maximum value: place all remaining (ones-1) '1's as early as possible,\n        # then all '0's, then the last '1'.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # Must be odd => last bit is '1'\n        # Maximize value => put remaining (ones-1) ones as early as possible\n        # Then remaining zeros\n        if ones == 1:\n            return '0' * zeros + '1'\n\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # For the number to be odd, the last bit must be '1'.\n        # Put the remaining ones as early as possible, then zeros, then the last '1'.\n        return \"1\" * (ones - 1) + \"0\" * zeros + \"1\"\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To be odd, last bit must be '1'.\n        # To maximize the binary value, put all remaining ones as far left as possible.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To make the number odd, the last bit must be '1'.\n        # For maximum value, put all remaining (ones-1) ones as far left as possible.\n        # Leading zeros are allowed, so we just arrange:\n        # [ones-1 times '1'] + [zeros times '0'] + ['1' at end]\n        if ones == 1:\n            return '0' * zeros + '1'\n\n        return ('1' * (ones - 1)) + ('0' * zeros) + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        zeros = len(s) - ones\n\n        # To be odd, last bit must be '1'.\n        # Put remaining ones (ones-1) as early as possible, then zeros.\n        # Any arrangement with same counts yields maximum lexicographic/binary value.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```",
+        "```python\nclass Solution:\n    def maximumOddBinaryNumber(self, s: str) -> str:\n        ones = s.count('1')\n        # To be odd, last bit must be '1'. Put remaining ones as left as possible.\n        zeros = len(s) - ones\n        # Leading zeros are allowed, but we maximize the numeric value:\n        # all remaining (ones-1) ones go to the front.\n        return '1' * (ones - 1) + '0' * zeros + '1'\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3055",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3055",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"11\"",
+                "actual": "'11'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"01\"",
+                "actual": "'01'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"111\"",
+                "actual": "'111'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"001\"",
+                "actual": "'001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"101\"",
+                "actual": "'101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1101\"",
+                "actual": "'1101'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1001\"",
+                "actual": "'1001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111110000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111100000000000000000000000000000000000000000000001'",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "\"1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001\"",
+                "actual": "'1111111111111111111111111111111111111111111111111111111111000000000000000000000000000000000000000001'",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

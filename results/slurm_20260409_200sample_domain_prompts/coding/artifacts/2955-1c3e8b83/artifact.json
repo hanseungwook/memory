@@ -1,0 +1,3080 @@
+{
+  "problem_id": "2955",
+  "domain": "coding",
+  "problem": {
+    "id": "2955",
+    "domain": "coding",
+    "statement": "Initially, you have a bank account balance of 100 dollars.\nYou are given an integer purchaseAmount representing the amount you will spend on a purchase in dollars.\nAt the store where you will make the purchase, the purchase amount is rounded to the nearest multiple of 10. In other words, you pay a non-negative amount, roundedAmount, such that roundedAmount is a multiple of 10 and abs(roundedAmount - purchaseAmount) is minimized.\nIf there is more than one nearest multiple of 10, the largest multiple is chosen.\nReturn an integer denoting your account balance after making a purchase worth purchaseAmount dollars from the store.\nNote: 0 is considered to be a multiple of 10 in this problem.\n \nExample 1:\n\nInput: purchaseAmount = 9\nOutput: 90\nExplanation: In this example, the nearest multiple of 10 to 9 is 10. Hence, your account balance becomes 100 - 10 = 90.\n\nExample 2:\n\nInput: purchaseAmount = 15\nOutput: 80\nExplanation: In this example, there are two nearest multiples of 10 to 15: 10 and 20. So, the larger multiple, 20, is chosen.\nHence, your account balance becomes 100 - 20 = 80.\n\n \nConstraints:\n\n0 <= purchaseAmount <= 100",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "9",
+        "output": "90",
+        "testtype": "functional"
+      },
+      {
+        "input": "15",
+        "output": "80",
+        "testtype": "functional"
+      },
+      {
+        "input": "7",
+        "output": "90",
+        "testtype": "functional"
+      },
+      {
+        "input": "8",
+        "output": "90",
+        "testtype": "functional"
+      },
+      {
+        "input": "9",
+        "output": "90",
+        "testtype": "functional"
+      },
+      {
+        "input": "6",
+        "output": "90",
+        "testtype": "functional"
+      },
+      {
+        "input": "99",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "98",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "95",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "1",
+        "output": "100",
+        "testtype": "functional"
+      },
+      {
+        "input": "4",
+        "output": "100",
+        "testtype": "functional"
+      },
+      {
+        "input": "30",
+        "output": "70",
+        "testtype": "functional"
+      },
+      {
+        "input": "88",
+        "output": "10",
+        "testtype": "functional"
+      },
+      {
+        "input": "64",
+        "output": "40",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "accountBalanceAfterPurchase",
+      "question_title": "account-balance-after-rounded-purchase",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nInitially, you have a bank account balance of 100 dollars.\nYou are given an integer purchaseAmount representing the amount you will spend on a purchase in dollars.\nAt the store where you will make the purchase, the purchase amount is rounded to the nearest multiple of 10. In other words, you pay a non-negative amount, roundedAmount, such that roundedAmount is a multiple of 10 and abs(roundedAmount - purchaseAmount) is minimized.\nIf there is more than one nearest multiple of 10, the largest multiple is chosen.\nReturn an integer denoting your account balance after making a purchase worth purchaseAmount dollars from the store.\nNote: 0 is considered to be a multiple of 10 in this problem.\n \nExample 1:\n\nInput: purchaseAmount = 9\nOutput: 90\nExplanation: In this example, the nearest multiple of 10 to 9 is 10. Hence, your account balance becomes 100 - 10 = 90.\n\nExample 2:\n\nInput: purchaseAmount = 15\nOutput: 80\nExplanation: In this example, there are two nearest multiples of 10 to 15: 10 and 20. So, the larger multiple, 20, is chosen.\nHence, your account balance becomes 100 - 20 = 80.\n\n \nConstraints:\n\n0 <= purchaseAmount <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # nearest multiple of 10, ties go up\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Determine the nearest multiple of 10 (ties go to the larger multiple).\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiples of 10 are k*10 where k is integer\n        # handle tie by choosing the larger multiple\n        if purchaseAmount % 10 == 0:\n            rounded = purchaseAmount\n        else:\n            lower = (purchaseAmount // 10) * 10\n            upper = lower + 10\n            # distances: tie goes to upper (larger multiple)\n            if purchaseAmount - lower <= upper - purchaseAmount:\n                rounded = upper\n            else:\n                rounded = lower\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # usual nearest rounding\n        # Tie case: when remainder is exactly 5, choose the larger multiple.\n        # The formula above already chooses larger because of +5.\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Candidates are nearest multiples of 10: floor and ceil relative to purchaseAmount\n        lower = (purchaseAmount // 10) * 10\n        upper = lower if purchaseAmount % 10 == 0 else lower + 10\n\n        # Choose the multiple with minimum distance; if tie, choose the larger\n        if abs(upper - purchaseAmount) < abs(lower - purchaseAmount):\n            rounded = upper\n        elif abs(upper - purchaseAmount) > abs(lower - purchaseAmount):\n            rounded = lower\n        else:\n            rounded = max(lower, upper)\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiple of 10; if tie, choose the larger multiple\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tie, choose the larger one.\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        if rounded > purchaseAmount + 5:\n            # Not needed for integer math with (x+5)//10, but kept safe.\n            rounded = (purchaseAmount // 10) * 10\n        # Special handling for exact midpoints like 15 (between 10 and 20):\n        # For purchaseAmount % 10 == 5, formula above already picks the larger.\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tie, choose the larger one\n        remainder = purchaseAmount % 10\n        rounded = purchaseAmount - remainder\n        if remainder > 5:\n            rounded += 10\n        elif remainder == 5:\n            rounded += 10  # tie: choose larger multiple\n        # remainder < 5 => keep rounded as lower multiple\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        roundedAmount = (purchaseAmount // 10) * 10\n        remainder = purchaseAmount % 10\n\n        if remainder < 5:\n            roundedAmount = (purchaseAmount // 10) * 10\n        elif remainder > 5:\n            roundedAmount = (purchaseAmount // 10 + 1) * 10\n        else:\n            # remainder == 5: tie between current multiple and next multiple; choose larger\n            roundedAmount = (purchaseAmount // 10 + 1) * 10\n\n        return 100 - roundedAmount\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "2955",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 3,
+          "score": 0.21428571428571427,
+          "tier": "partial",
+          "details": {
+            "passed": 3,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "90",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "90",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "90",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "90",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "90",
+                "actual": "100",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "0",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "100",
+                "actual": "90",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "100",
+                "actual": "90",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "10",
+                "actual": "20",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "30",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # nearest multiple of 10, ties go up\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Determine the nearest multiple of 10 (ties go to the larger multiple).\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # usual nearest rounding\n        # Tie case: when remainder is exactly 5, choose the larger multiple.\n        # The formula above already chooses larger because of +5.\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Candidates are nearest multiples of 10: floor and ceil relative to purchaseAmount\n        lower = (purchaseAmount // 10) * 10\n        upper = lower if purchaseAmount % 10 == 0 else lower + 10\n\n        # Choose the multiple with minimum distance; if tie, choose the larger\n        if abs(upper - purchaseAmount) < abs(lower - purchaseAmount):\n            rounded = upper\n        elif abs(upper - purchaseAmount) > abs(lower - purchaseAmount):\n            rounded = lower\n        else:\n            rounded = max(lower, upper)\n\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiple of 10; if tie, choose the larger multiple\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tie, choose the larger one.\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        if rounded > purchaseAmount + 5:\n            # Not needed for integer math with (x+5)//10, but kept safe.\n            rounded = (purchaseAmount // 10) * 10\n        # Special handling for exact midpoints like 15 (between 10 and 20):\n        # For purchaseAmount % 10 == 5, formula above already picks the larger.\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tie, choose the larger one\n        remainder = purchaseAmount % 10\n        rounded = purchaseAmount - remainder\n        if remainder > 5:\n            rounded += 10\n        elif remainder == 5:\n            rounded += 10  # tie: choose larger multiple\n        # remainder < 5 => keep rounded as lower multiple\n\n        return 100 - rounded\n```",
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        roundedAmount = (purchaseAmount // 10) * 10\n        remainder = purchaseAmount % 10\n\n        if remainder < 5:\n            roundedAmount = (purchaseAmount // 10) * 10\n        elif remainder > 5:\n            roundedAmount = (purchaseAmount // 10 + 1) * 10\n        else:\n            # remainder == 5: tie between current multiple and next multiple; choose larger\n            roundedAmount = (purchaseAmount // 10 + 1) * 10\n\n        return 100 - roundedAmount\n```"
+        ],
+        "partial": [
+          "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiples of 10 are k*10 where k is integer\n        # handle tie by choosing the larger multiple\n        if purchaseAmount % 10 == 0:\n            rounded = purchaseAmount\n        else:\n            lower = (purchaseAmount // 10) * 10\n            upper = lower + 10\n            # distances: tie goes to upper (larger multiple)\n            if purchaseAmount - lower <= upper - purchaseAmount:\n                rounded = upper\n            else:\n                rounded = lower\n        return 100 - rounded\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nInitially, you have a bank account balance of 100 dollars.\nYou are given an integer purchaseAmount representing the amount you will spend on a purchase in dollars.\nAt the store where you will make the purchase, the purchase amount is rounded to the nearest multiple of 10. In other words, you pay a non-negative amount, roundedAmount, such that roundedAmount is a multiple of 10 and abs(roundedAmount - purchaseAmount) is minimized.\nIf there is more than one nearest multiple of 10, the largest multiple is chosen.\nReturn an integer denoting your account balance after making a purchase worth purchaseAmount dollars from the store.\nNote: 0 is considered to be a multiple of 10 in this problem.\n \nExample 1:\n\nInput: purchaseAmount = 9\nOutput: 90\nExplanation: In this example, the nearest multiple of 10 to 9 is 10. Hence, your account balance becomes 100 - 10 = 90.\n\nExample 2:\n\nInput: purchaseAmount = 15\nOutput: 80\nExplanation: In this example, there are two nearest multiples of 10 to 15: 10 and 20. So, the larger multiple, 20, is chosen.\nHence, your account balance becomes 100 - 20 = 80.\n\n \nConstraints:\n\n0 <= purchaseAmount <= 100\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # nearest multiple of 10, ties go up\n        return 100 - rounded\n```\n\nAttempt 2\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```\n\nAttempt 3\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Determine the nearest multiple of 10 (ties go to the larger multiple).\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```\n\nAttempt 4\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # usual nearest rounding\n        # Tie case: when remainder is exactly 5, choose the larger multiple.\n        # The formula above already chooses larger because of +5.\n        return 100 - rounded\n```\n\nAttempt 5\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Candidates are nearest multiples of 10: floor and ceil relative to purchaseAmount\n        lower = (purchaseAmount // 10) * 10\n        upper = lower if purchaseAmount % 10 == 0 else lower + 10\n\n        # Choose the multiple with minimum distance; if tie, choose the larger\n        if abs(upper - purchaseAmount) < abs(lower - purchaseAmount):\n            rounded = upper\n        elif abs(upper - purchaseAmount) > abs(lower - purchaseAmount):\n            rounded = lower\n        else:\n            rounded = max(lower, upper)\n\n        return 100 - rounded\n```\n\nAttempt 6\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiple of 10; if tie, choose the larger multiple\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```\n\nAttempt 7\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tie, choose the larger one.\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        if rounded > purchaseAmount + 5:\n            # Not needed for integer math with (x+5)//10, but kept safe.\n            rounded = (purchaseAmount // 10) * 10\n        # Special handling for exact midpoints like 15 (between 10 and 20):\n        # For purchaseAmount % 10 == 5, formula above already picks the larger.\n        return 100 - rounded\n```\n\nAttempt 8\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tie, choose the larger one\n        remainder = purchaseAmount % 10\n        rounded = purchaseAmount - remainder\n        if remainder > 5:\n            rounded += 10\n        elif remainder == 5:\n            rounded += 10  # tie: choose larger multiple\n        # remainder < 5 => keep rounded as lower multiple\n\n        return 100 - rounded\n```\n\nAttempt 9\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        roundedAmount = (purchaseAmount // 10) * 10\n        remainder = purchaseAmount % 10\n\n        if remainder < 5:\n            roundedAmount = (purchaseAmount // 10) * 10\n        elif remainder > 5:\n            roundedAmount = (purchaseAmount // 10 + 1) * 10\n        else:\n            # remainder == 5: tie between current multiple and next multiple; choose larger\n            roundedAmount = (purchaseAmount // 10 + 1) * 10\n\n        return 100 - roundedAmount\n```\n\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiples of 10 are k*10 where k is integer\n        # handle tie by choosing the larger multiple\n        if purchaseAmount % 10 == 0:\n            rounded = purchaseAmount\n        else:\n            lower = (purchaseAmount // 10) * 10\n            upper = lower + 10\n            # distances: tie goes to upper (larger multiple)\n            if purchaseAmount - lower <= upper - purchaseAmount:\n                rounded = upper\n            else:\n                rounded = lower\n        return 100 - rounded\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Constraint-first rounding specification",
+          "description": "Translate “nearest with tie-breaking” into an explicit, testable rounding rule before coding.",
+          "content": "Identify the two candidate values (the floor-multiple and the next multiple) and formalize how to choose between them: minimize distance, then apply the tie-breaking rule deterministically. This prevents subtle mistakes when converting descriptive text into integer logic.",
+          "reasoning": "Successful attempts consistently encoded the rounding rule precisely as a deterministic nearest-multiple-of-10 operation, especially handling the tie case by selecting the larger multiple. They mainly used either (1) a compact arithmetic rounding formula that bakes in “ties go up” behavior or (2) an explicit “lower/upper candidates + distance comparison + tie-to-upper” selection. The partially correct attempt likely relied on an inequality with equal-distance cases, but subtle off-by-one or condition branching errors can easily arise when translating distances into integer comparisons. Overall, correctness came from either a verified closed-form rounding expression or a careful candidate-based approach with an explicit tie rule."
+        },
+        {
+          "title": "Bake tie-breaking into the arithmetic",
+          "description": "When possible, use a closed-form rounding expression that inherently implements the tie case.",
+          "content": "For rounding to a base multiple, you can often implement “ties go to the larger candidate” by shifting the value before integer division (e.g., adding half the base with the correct direction). This reduces branching and lowers the risk of incorrect edge-case handling.",
+          "reasoning": "Successful attempts consistently encoded the rounding rule precisely as a deterministic nearest-multiple-of-10 operation, especially handling the tie case by selecting the larger multiple. They mainly used either (1) a compact arithmetic rounding formula that bakes in “ties go up” behavior or (2) an explicit “lower/upper candidates + distance comparison + tie-to-upper” selection. The partially correct attempt likely relied on an inequality with equal-distance cases, but subtle off-by-one or condition branching errors can easily arise when translating distances into integer comparisons. Overall, correctness came from either a verified closed-form rounding expression or a careful candidate-based approach with an explicit tie rule."
+        },
+        {
+          "title": "Prefer candidate-distance selection for correctness",
+          "description": "If a closed form feels risky, compute the lower and upper candidates and compare distances explicitly.",
+          "content": "Construct the two nearest candidates relative to the target, then choose the one with smaller absolute difference; if equal, select the one dictated by the tie rule. This strategy is slower than a formula but is easy to validate against edge cases.",
+          "reasoning": "Successful attempts consistently encoded the rounding rule precisely as a deterministic nearest-multiple-of-10 operation, especially handling the tie case by selecting the larger multiple. They mainly used either (1) a compact arithmetic rounding formula that bakes in “ties go up” behavior or (2) an explicit “lower/upper candidates + distance comparison + tie-to-upper” selection. The partially correct attempt likely relied on an inequality with equal-distance cases, but subtle off-by-one or condition branching errors can easily arise when translating distances into integer comparisons. Overall, correctness came from either a verified closed-form rounding expression or a careful candidate-based approach with an explicit tie rule."
+        },
+        {
+          "title": "Run a mental edge-case audit",
+          "description": "Edge cases often occur at exact midpoints and exact multiples; explicitly verify them.",
+          "content": "After implementing either a formula or branch logic, check scenarios where the value is exactly divisible by the base and where it lands precisely halfway between two multiples. Ensuring these match the specified tie-breaking behavior catches most real failures.",
+          "reasoning": "Successful attempts consistently encoded the rounding rule precisely as a deterministic nearest-multiple-of-10 operation, especially handling the tie case by selecting the larger multiple. They mainly used either (1) a compact arithmetic rounding formula that bakes in “ties go up” behavior or (2) an explicit “lower/upper candidates + distance comparison + tie-to-upper” selection. The partially correct attempt likely relied on an inequality with equal-distance cases, but subtle off-by-one or condition branching errors can easily arise when translating distances into integer comparisons. Overall, correctness came from either a verified closed-form rounding expression or a careful candidate-based approach with an explicit tie rule."
+        }
+      ],
+      "raw_response": "<reasoning>\nSuccessful attempts consistently encoded the rounding rule precisely as a deterministic nearest-multiple-of-10 operation, especially handling the tie case by selecting the larger multiple. They mainly used either (1) a compact arithmetic rounding formula that bakes in “ties go up” behavior or (2) an explicit “lower/upper candidates + distance comparison + tie-to-upper” selection. The partially correct attempt likely relied on an inequality with equal-distance cases, but subtle off-by-one or condition branching errors can easily arise when translating distances into integer comparisons. Overall, correctness came from either a verified closed-form rounding expression or a careful candidate-based approach with an explicit tie rule.\n</reasoning>\n\n<memories>\n<memory>\n<title>Constraint-first rounding specification</title>\n<description>Translate “nearest with tie-breaking” into an explicit, testable rounding rule before coding.</description>\n<content>Identify the two candidate values (the floor-multiple and the next multiple) and formalize how to choose between them: minimize distance, then apply the tie-breaking rule deterministically. This prevents subtle mistakes when converting descriptive text into integer logic.</content>\n</memory>\n\n<memory>\n<title>Bake tie-breaking into the arithmetic</title>\n<description>When possible, use a closed-form rounding expression that inherently implements the tie case.</description>\n<content>For rounding to a base multiple, you can often implement “ties go to the larger candidate” by shifting the value before integer division (e.g., adding half the base with the correct direction). This reduces branching and lowers the risk of incorrect edge-case handling.</content>\n</memory>\n\n<memory>\n<title>Prefer candidate-distance selection for correctness</title>\n<description>If a closed form feels risky, compute the lower and upper candidates and compare distances explicitly.</description>\n<content>Construct the two nearest candidates relative to the target, then choose the one with smaller absolute difference; if equal, select the one dictated by the tie rule. This strategy is slower than a formula but is easy to validate against edge cases.</content>\n</memory>\n\n<memory>\n<title>Run a mental edge-case audit</title>\n<description>Edge cases often occur at exact midpoints and exact multiples; explicitly verify them.</description>\n<content>After implementing either a formula or branch logic, check scenarios where the value is exactly divisible by the base and where it lands precisely halfway between two multiples. Ensuring these match the specified tie-breaking behavior catches most real failures.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nInitially, you have a bank account balance of 100 dollars.\nYou are given an integer purchaseAmount representing the amount you will spend on a purchase in dollars.\nAt the store where you will make the purchase, the purchase amount is rounded to the nearest multiple of 10. In other words, you pay a non-negative amount, roundedAmount, such that roundedAmount is a multiple of 10 and abs(roundedAmount - purchaseAmount) is minimized.\nIf there is more than one nearest multiple of 10, the largest multiple is chosen.\nReturn an integer denoting your account balance after making a purchase worth purchaseAmount dollars from the store.\nNote: 0 is considered to be a multiple of 10 in this problem.\n \nExample 1:\n\nInput: purchaseAmount = 9\nOutput: 90\nExplanation: In this example, the nearest multiple of 10 to 9 is 10. Hence, your account balance becomes 100 - 10 = 90.\n\nExample 2:\n\nInput: purchaseAmount = 15\nOutput: 80\nExplanation: In this example, there are two nearest multiples of 10 to 15: 10 and 20. So, the larger multiple, 20, is chosen.\nHence, your account balance becomes 100 - 20 = 80.\n\n \nConstraints:\n\n0 <= purchaseAmount <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10 to purchaseAmount.\n        # If tie, choose the larger multiple.\n        roundedAmount = ((purchaseAmount + 5) // 10) * 10\n        return 100 - roundedAmount\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = ((purchaseAmount + 5) // 10) * 10  # ties go to the larger multiple\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Round to nearest multiple of 10; if tie, choose the larger multiple.\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = (purchaseAmount + 5) // 10 * 10  # ties go to the larger multiple\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Round to nearest multiple of 10, tie goes to the larger multiple.\n        rounded = ((purchaseAmount + 5) // 10) * 10\n        if purchaseAmount % 10 == 5:\n            rounded = (purchaseAmount // 10 + 1) * 10  # tie -> larger\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10. If tie, choose the larger multiple.\n        a = (purchaseAmount // 10) * 10          # lower multiple of 10\n        b = a + 10                               # upper multiple of 10\n\n        if abs(b - purchaseAmount) <= abs(a - purchaseAmount):\n            roundedAmount = b\n        else:\n            roundedAmount = a\n\n        return 100 - roundedAmount\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Nearest multiple of 10; if tie, choose the larger multiple.\n        lower = (purchaseAmount // 10) * 10\n        upper = lower if purchaseAmount % 10 == 0 else lower + 10\n\n        if purchaseAmount % 10 == 0:\n            rounded = purchaseAmount\n        else:\n            if upper - purchaseAmount <= purchaseAmount - lower:\n                rounded = upper\n            else:\n                rounded = lower\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiple of 10; if tie, choose the larger multiple\n        lower = (purchaseAmount // 10) * 10\n        upper = lower if purchaseAmount % 10 == 0 else lower + 10\n        \n        # if purchaseAmount is exactly between lower and upper, choose upper\n        if abs(upper - purchaseAmount) <= abs(purchaseAmount - lower):\n            rounded = upper\n        else:\n            rounded = lower\n        \n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        rounded = round(purchaseAmount, -1)  # nearest multiple of 10; ties go to larger\n        # Python's round handles .5 ties by choosing the larger magnitude.\n        return 100 - int(rounded)\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10.\n        # If tie, choose the larger multiple.\n        lower = (purchaseAmount // 10) * 10\n        upper = lower + 10\n\n        # Distances to nearest multiples\n        d_lower = purchaseAmount - lower\n        d_upper = upper - purchaseAmount\n\n        rounded = upper if d_upper <= d_lower else lower\n        return 100 - rounded\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "2955",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Constraint-first rounding specification: Translate “nearest with tie-breaking” into an explicit, testable rounding rule before coding.\n     Identify the two candidate values (the floor-multiple and the next multiple) and formalize how to choose between them: minimize distance, then apply the tie-breaking rule deterministically. This prevents subtle mistakes when converting descriptive text into integer logic.\n  2. Bake tie-breaking into the arithmetic: When possible, use a closed-form rounding expression that inherently implements the tie case.\n     For rounding to a base multiple, you can often implement “ties go to the larger candidate” by shifting the value before integer division (e.g., adding half the base with the correct direction). This reduces branching and lowers the risk of incorrect edge-case handling.\n  3. Prefer candidate-distance selection for correctness: If a closed form feels risky, compute the lower and upper candidates and compare distances explicitly.\n     Construct the two nearest candidates relative to the target, then choose the one with smaller absolute difference; if equal, select the one dictated by the tie rule. This strategy is slower than a formula but is easy to validate against edge cases.\n  4. Run a mental edge-case audit: Edge cases often occur at exact midpoints and exact multiples; explicitly verify them.\n     After implementing either a formula or branch logic, check scenarios where the value is exactly divisible by the base and where it lands precisely halfway between two multiples. Ensuring these match the specified tie-breaking behavior catches most real failures.\n\nApply these insights to the problem below.\n\n### Question:\nInitially, you have a bank account balance of 100 dollars.\nYou are given an integer purchaseAmount representing the amount you will spend on a purchase in dollars.\nAt the store where you will make the purchase, the purchase amount is rounded to the nearest multiple of 10. In other words, you pay a non-negative amount, roundedAmount, such that roundedAmount is a multiple of 10 and abs(roundedAmount - purchaseAmount) is minimized.\nIf there is more than one nearest multiple of 10, the largest multiple is chosen.\nReturn an integer denoting your account balance after making a purchase worth purchaseAmount dollars from the store.\nNote: 0 is considered to be a multiple of 10 in this problem.\n \nExample 1:\n\nInput: purchaseAmount = 9\nOutput: 90\nExplanation: In this example, the nearest multiple of 10 to 9 is 10. Hence, your account balance becomes 100 - 10 = 90.\n\nExample 2:\n\nInput: purchaseAmount = 15\nOutput: 80\nExplanation: In this example, there are two nearest multiples of 10 to 15: 10 and 20. So, the larger multiple, 20, is chosen.\nHence, your account balance becomes 100 - 20 = 80.\n\n \nConstraints:\n\n0 <= purchaseAmount <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        base = 10\n\n        # Candidate multiples\n        lower = (purchaseAmount // base) * base\n        upper = lower if purchaseAmount % base == 0 else lower + base\n\n        # Choose the nearest; on tie choose the larger multiple\n        if abs(upper - purchaseAmount) < abs(purchaseAmount - lower):\n            rounded = upper\n        elif abs(upper - purchaseAmount) > abs(purchaseAmount - lower):\n            rounded = lower\n        else:\n            rounded = max(lower, upper)\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find the nearest multiple of 10; if tied, choose the larger multiple.\n        # Candidates: floor to multiple and next multiple.\n        base = 10\n        lower = (purchaseAmount // base) * base\n        upper = lower if purchaseAmount % base == 0 else lower + base\n\n        # If purchaseAmount is exactly between lower and upper, pick upper (largest).\n        if abs(upper - purchaseAmount) <= abs(purchaseAmount - lower):\n            roundedAmount = upper\n        else:\n            roundedAmount = lower\n\n        return 100 - roundedAmount\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        base = 10\n\n        # Find the two candidate multiples of 10 surrounding purchaseAmount\n        down = (purchaseAmount // base) * base\n        up = down if purchaseAmount % base == 0 else down + base\n\n        # Choose nearest; if tie, choose the larger multiple\n        if abs(up - purchaseAmount) < abs(purchaseAmount - down):\n            rounded = up\n        elif abs(up - purchaseAmount) > abs(purchaseAmount - down):\n            rounded = down\n        else:\n            rounded = max(down, up)\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        base = 10\n\n        lower = (purchaseAmount // base) * base\n        upper = lower if purchaseAmount % base == 0 else lower + base\n\n        # If purchaseAmount is exactly on a multiple, lower == upper already.\n        # Otherwise compare distances; if tied, pick the larger multiple (upper).\n        dist_lower = abs(purchaseAmount - lower)\n        dist_upper = abs(upper - purchaseAmount)\n\n        if dist_lower < dist_upper:\n            rounded = lower\n        elif dist_upper < dist_lower:\n            rounded = upper\n        else:\n            rounded = upper  # tie -> larger multiple\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        base = 10\n        # Nearest multiple of 10; tie -> larger multiple.\n        lower = (purchaseAmount // base) * base\n        upper = lower if purchaseAmount % base == 0 else lower + base\n\n        # If exactly at a midpoint (distance equal), pick upper (larger).\n        if abs(upper - purchaseAmount) <= abs(purchaseAmount - lower):\n            roundedAmount = upper\n        else:\n            roundedAmount = lower\n\n        return 100 - roundedAmount\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        base = 10\n        lower = (purchaseAmount // base) * base\n        upper = lower if purchaseAmount % base == 0 else lower + base\n\n        # Choose nearest; if tie, choose larger multiple (upper)\n        if abs(upper - purchaseAmount) < abs(purchaseAmount - lower):\n            rounded = upper\n        elif abs(upper - purchaseAmount) > abs(purchaseAmount - lower):\n            rounded = lower\n        else:\n            rounded = upper  # tie -> larger multiple\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find nearest multiple of 10 with tie going to the larger multiple.\n        base = 10\n\n        lower = (purchaseAmount // base) * base\n        upper = lower if purchaseAmount % base == 0 else lower + base\n\n        # If exactly on a multiple, upper == lower.\n        if upper == lower:\n            rounded = lower\n        else:\n            d_lower = purchaseAmount - lower\n            d_upper = upper - purchaseAmount\n            if d_lower < d_upper:\n                rounded = lower\n            elif d_upper < d_lower:\n                rounded = upper\n            else:\n                # tie -> larger multiple\n                rounded = upper\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # nearest multiple of 10; ties (equal distance) -> choose the larger multiple\n        q, r = divmod(purchaseAmount, 10)  # purchaseAmount = 10*q + r, 0<=r<10\n\n        if r < 5:\n            rounded = 10 * q\n        elif r > 5:\n            rounded = 10 * (q + 1)\n        else:\n            # r == 5 -> exactly halfway: choose the larger multiple\n            rounded = 10 * (q + 1)\n\n        return 100 - rounded\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        # Find nearest multiple of 10 with tie going to the larger multiple\n        lower = (purchaseAmount // 10) * 10\n        upper = lower + 10\n\n        # Distance comparison; tie -> upper\n        if abs(upper - purchaseAmount) <= abs(purchaseAmount - lower):\n            roundedAmount = upper\n        else:\n            roundedAmount = lower\n\n        return 100 - roundedAmount\n```",
+        "```python\nclass Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        base = 10\n\n        # Nearest multiple candidates\n        lower = (purchaseAmount // base) * base\n        upper = lower + base\n\n        # If purchaseAmount is exactly on a multiple, roundedAmount is that multiple\n        if purchaseAmount % base == 0:\n            rounded = purchaseAmount\n        else:\n            # Choose the nearest; if tie, choose the larger multiple (upper)\n            if abs(upper - purchaseAmount) <= abs(purchaseAmount - lower):\n                rounded = upper\n            else:\n                rounded = lower\n\n        return 100 - rounded\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "2955",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "2955",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "80",
+                "actual": "80",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "90",
+                "actual": "90",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "70",
+                "actual": "70",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10",
+                "actual": "10",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

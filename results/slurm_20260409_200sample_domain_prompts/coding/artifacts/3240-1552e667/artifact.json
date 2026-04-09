@@ -1,0 +1,3051 @@
+{
+  "problem_id": "3240",
+  "domain": "coding",
+  "problem": {
+    "id": "3240",
+    "domain": "coding",
+    "statement": "You are given an integer k and an integer x.\nConsider s is the 1-indexed binary representation of an integer num. The price of a number num is the number of i's such that i % x == 0 and s[i] is a set bit.\nReturn the greatest integer num such that the sum of prices of all numbers from 1 to num is less than or equal to k.\nNote:\n\nIn the binary representation of a number set bit is a bit of value 1.\nThe binary representation of a number will be indexed from right to left. For example, if s == 11100, s[4] == 1 and s[2] == 0.\n\n \nExample 1:\n\nInput: k = 9, x = 1\nOutput: 6\nExplanation: The numbers 1, 2, 3, 4, 5, and 6 can be written in binary representation as \"1\", \"10\", \"11\", \"100\", \"101\", and \"110\" respectively.\nSince x is equal to 1, the price of each number is the number of its set bits.\nThe number of set bits in these numbers is 9. So the sum of the prices of the first 6 numbers is 9.\nSo the answer is 6.\nExample 2:\n\nInput: k = 7, x = 2\nOutput: 9\nExplanation: Since x is equal to 2, we should just check even^th bits.\nThe second bit of binary representation of numbers 2 and 3 is a set bit. So the sum of their prices is 2.\nThe second bit of binary representation of numbers 6 and 7 is a set bit. So the sum of their prices is 2.\nThe fourth bit of binary representation of numbers 8 and 9 is a set bit but their second bit is not. So the sum of their prices is 2.\nNumbers 1, 4, and 5 don't have set bits in their even^th bits in their binary representation. So the sum of their prices is 0.\nThe second and the fourth bit of the binary representation of the number 10 are a set bit. So its price is 2.\nThe sum of the prices of the first 9 numbers is 6.\nBecause the sum of the prices of the first 10 numbers is 8, the answer is 9.\n \nConstraints:\n\n1 <= k <= 10^15\n1 <= x <= 8",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "9\n1",
+        "output": "6",
+        "testtype": "functional"
+      },
+      {
+        "input": "7\n2",
+        "output": "9",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n1",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "9\n6",
+        "output": "40",
+        "testtype": "functional"
+      },
+      {
+        "input": "1\n8",
+        "output": "128",
+        "testtype": "functional"
+      },
+      {
+        "input": "31\n2",
+        "output": "30",
+        "testtype": "functional"
+      },
+      {
+        "input": "43\n2",
+        "output": "38",
+        "testtype": "functional"
+      },
+      {
+        "input": "14\n5",
+        "output": "29",
+        "testtype": "functional"
+      },
+      {
+        "input": "76\n3",
+        "output": "91",
+        "testtype": "functional"
+      },
+      {
+        "input": "87\n4",
+        "output": "142",
+        "testtype": "functional"
+      },
+      {
+        "input": "8937465\n8",
+        "output": "8667131",
+        "testtype": "functional"
+      },
+      {
+        "input": "903365861266131\n7",
+        "output": "296431861352328",
+        "testtype": "functional"
+      },
+      {
+        "input": "1000000000000000\n1",
+        "output": "44470852534271",
+        "testtype": "functional"
+      },
+      {
+        "input": "1000000000000000\n8",
+        "output": "343778878348159",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        ",
+    "metadata": {
+      "func_name": "findMaximumNumber",
+      "question_title": "maximum-number-that-sum-of-the-prices-is-less-than-or-equal-to-k",
+      "platform": "leetcode",
+      "difficulty": "medium"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given an integer k and an integer x.\nConsider s is the 1-indexed binary representation of an integer num. The price of a number num is the number of i's such that i % x == 0 and s[i] is a set bit.\nReturn the greatest integer num such that the sum of prices of all numbers from 1 to num is less than or equal to k.\nNote:\n\nIn the binary representation of a number set bit is a bit of value 1.\nThe binary representation of a number will be indexed from right to left. For example, if s == 11100, s[4] == 1 and s[2] == 0.\n\n \nExample 1:\n\nInput: k = 9, x = 1\nOutput: 6\nExplanation: The numbers 1, 2, 3, 4, 5, and 6 can be written in binary representation as \"1\", \"10\", \"11\", \"100\", \"101\", and \"110\" respectively.\nSince x is equal to 1, the price of each number is the number of its set bits.\nThe number of set bits in these numbers is 9. So the sum of the prices of the first 6 numbers is 9.\nSo the answer is 6.\nExample 2:\n\nInput: k = 7, x = 2\nOutput: 9\nExplanation: Since x is equal to 2, we should just check even^th bits.\nThe second bit of binary representation of numbers 2 and 3 is a set bit. So the sum of their prices is 2.\nThe second bit of binary representation of numbers 6 and 7 is a set bit. So the sum of their prices is 2.\nThe fourth bit of binary representation of numbers 8 and 9 is a set bit but their second bit is not. So the sum of their prices is 2.\nNumbers 1, 4, and 5 don't have set bits in their even^th bits in their binary representation. So the sum of their prices is 0.\nThe second and the fourth bit of the binary representation of the number 10 are a set bit. So its price is 2.\nThe sum of the prices of the first 9 numbers is 6.\nBecause the sum of the prices of the first 10 numbers is 8, the answer is 9.\n \nConstraints:\n\n1 <= k <= 10^15\n1 <= x <= 8\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" of all numbers in [0, n] (inclusive).\n        # Price of num = number of positions i (1-indexed from LSB, i % x == 0) that are set in num.\n        # So contribution of each bit position depends only on how many numbers in range have it set.\n        def count_price_upto(n: int) -> int:\n            if n <= 0:\n                return 0\n            total = 0\n            bit = 1  # position index i\n            while (1 << (bit - 1)) <= n:\n                if bit % x == 0:\n                    # Let pos = bit-1 as 0-indexed bit in value.\n                    pos = bit - 1\n                    block = 1 << (pos + 1)\n                    full = (n + 1) // block\n                    rem = (n + 1) % block\n                    ones = full * (1 << pos) + max(0, rem - (1 << pos))\n                    total += ones\n                bit += 1\n            return total\n\n        # Binary search the maximum num such that sum_{1..num} price <= k.\n        # Note count_price_upto(n) computes sum_{0..n}; since num=0 contributes 0, it's same as sum_{1..n}.\n        lo, hi = 1, 1\n        # Find an upper bound\n        while count_price_upto(hi) <= k:\n            hi *= 2\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if count_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Contribution of bit position i (1-indexed from LSB):\n        # bit position i of num is set iff num has that bit = 1.\n        # Among numbers [0..N], count of such occurrences is periodic.\n        def count_set_bits_up_to(N: int, i: int) -> int:\n            # i is 1-indexed; bit value is 2^(i-1)\n            bit = 1 << (i - 1)\n            block = bit << 1\n            full = (N + 1) // block\n            rem = (N + 1) % block\n            # In each full block, bit is set for exactly 'bit' numbers\n            res = full * bit\n            # In remainder, add the overlap where bit would be 1\n            if rem > bit:\n                res += rem - bit\n            return res\n\n        def total_price_up_to(N: int) -> int:\n            # prices are for numbers from 1..N, but counting from 0..N is fine since 0 has no set bits\n            if N <= 0:\n                return 0\n            # x <= 8, so relevant bit positions are i where i % x == 0.\n            # We need enough bit positions to cover N (up to ~60 bits for k<=1e15).\n            max_i = 0\n            tmp = N\n            while tmp > 0:\n                max_i += 1\n                tmp >>= 1\n\n            ans = 0\n            # consider all i in [1..max_i] with i % x == 0\n            for i in range(x, max_i + 1, x):\n                ans += count_set_bits_up_to(N, i)\n                # early stop if already beyond k (avoid overflow/time)\n                if ans > k:\n                    return ans\n            return ans\n\n        # Binary search for maximum num with sum(prices 1..num) <= k\n        lo, hi = 1, 1\n        # Increase hi until condition fails\n        while total_price_up_to(hi) <= k:\n            hi <<= 1\n            # Safety: price grows at least linearly, hi won't need to be huge\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_up_to(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price of num = count of set bits at positions i where i % x == 0\n        # i is 1-indexed from LSB, so position p corresponds to bit (p-1) (0-indexed).\n        # For any prefix [0..N], we can count total contribution of each relevant bit.\n        #\n        # For bit position b (0-indexed), among numbers 0..N, count of set bits at b:\n        #   cycle = 2^(b+1)\n        #   full_cycles = (N+1) // cycle\n        #   rem = (N+1) % cycle\n        #   ones = full_cycles * 2^b + max(0, rem - 2^b)\n        #\n        # Positions p where p % x == 0 => b = p-1.\n        # Sum ones(b) over all such b gives total price sum for numbers 1..N.\n        #\n        # Then binary search maximum N such that sum <= k.\n        MOD_BITS = 0\n        # Max bit needed: N up to about k + ... but safe upper bound uses bit length of k.\n        hi = 1\n        # Increase hi until price_sum(hi) > k\n        # (Need ensure hi includes enough bits; doubling is safe with constraints.)\n        while True:\n            total = 0\n            N = hi\n            m = N + 1\n            # iterate b such that (b+1) % x == 0 and b within bit length of N\n            # We'll just go up to 60 since k<=1e15 -> answer won't need > ~50 bits.\n            for b in range(0, 61):\n                p = b + 1\n                if p % x == 0:\n                    half = 1 << b\n                    cycle = half << 1\n                    full = m // cycle\n                    rem = m % cycle\n                    total += full * half + (rem - half if rem > half else 0)\n            # price sum for 1..hi equals sum over 0..hi (number 0 has no set bits)\n            if total > k:\n                break\n            hi <<= 1\n\n        def price_sum(N: int) -> int:\n            # total price sum for numbers 1..N\n            m = N + 1\n            total = 0\n            for b in range(0, 61):\n                p = b + 1\n                if p % x == 0:\n                    half = 1 << b\n                    cycle = half << 1\n                    full = m // cycle\n                    rem = m % cycle\n                    total += full * half + (rem - half if rem > half else 0)\n            return total\n\n        lo = 1\n        # We already know price_sum(hi) > k; search in [lo, hi-1]\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if price_sum(mid) <= k:\n                lo = mid + 1\n            else:\n                hi = mid\n        return lo - 1\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" from 1..n:\n        # For each 1-indexed bit position i (from right), contribute number of set bits\n        # at that position among [1..n], but only for i % x == 0.\n        def total_price_upto(n: int) -> int:\n            if n <= 0:\n                return 0\n\n            total = 0\n            # n <= ? (not explicitly, but k up to 1e15 and x<=8 => answer fits in < 2^60)\n            # We'll safely iterate up to 0..60 positions (1-indexed => 1..61)\n            # Let pos0 be 0-indexed bit index (LSB=0), then pos1 = pos0+1.\n            for pos0 in range(0, 61):\n                pos1 = pos0 + 1\n                if pos1 % x != 0:\n                    continue\n\n                bit = 1 << pos0\n                period = bit << 1\n\n                full = (n + 1) // period          # complete periods\n                rem = (n + 1) % period           # remaining elements\n\n                cnt = full * bit + max(0, rem - bit)\n                total += cnt\n                if total > k:\n                    # optional early cut-off\n                    return total\n            return total\n\n        # Binary search maximum n such that total_price_upto(n) <= k\n        lo, hi = 1, 1\n        while total_price_upto(hi) <= k:\n            hi <<= 1\n\n        ans = 1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if total_price_upto(mid) <= k:\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" in [1..n]\n        # Price of num = count of 1-bits at positions i where i % x == 0 (1-indexed from LSB).\n        def count_price(n: int) -> int:\n            if n <= 0:\n                return 0\n\n            res = 0\n            # Consider bit positions p (1-indexed from right/LSB) that satisfy p % x == 0.\n            # For each such p, it contributes how many numbers in [1..n] have bit p set.\n            # For bit position p, value is 2^(p-1), let block = 2^p:\n            # In each full block, high half has the bit set => 2^(p-1) numbers.\n            p = x\n            while (1 << (p - 1)) <= n:\n                bit_val = 1 << (p - 1)     # 2^(p-1)\n                block = 1 << p             # 2^p\n                full_blocks = (n + 1) // block\n                rem = (n + 1) % block\n                ones = full_blocks * bit_val + max(0, rem - bit_val)\n                res += ones\n                p += x\n            return res\n\n        # Binary search maximum n with cumulative price <= k\n        lo, hi = 0, (1 << 62)  # safe upper bound since k<=1e15\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if count_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" for all numbers in [1..n]\n        # Price of num = number of set bits at positions i where i % x == 0\n        # Bits are 1-indexed from rightmost (LSB is position 1).\n        #\n        # For a fixed position p (1-indexed), across numbers 0..n:\n        # the count of set bits at that bit is:\n        #   full_cycles = (n+1) // (1<<p)\n        #   rem = (n+1) % (1<<p)\n        #   ones = full_cycles * (1<<(p-1)) + max(0, rem - (1<<(p-1)))\n        #\n        # We sum ones over positions p that satisfy p % x == 0, and p >= 1.\n        def total_price(n: int) -> int:\n            if n <= 0:\n                return 0\n            m = n + 1  # consider numbers 0..n inclusive (n+1 numbers)\n            ans = 0\n            p = x  # first valid position is x (since p % x == 0, p>=1)\n            # positions beyond highest bit of n won't contribute\n            while (1 << (p - 1)) <= n:  # ensure bit value exists within range\n                bit = 1 << p          # period\n                half = 1 << (p - 1)  # number of ones per period\n                full_cycles = m // bit\n                rem = m % bit\n                ones = full_cycles * half + max(0, rem - half)\n                ans += ones\n                p += x\n            return ans\n\n        # Binary search greatest n such that total_price(n) <= k\n        lo, hi = 0, 1\n        while total_price(hi) <= k:\n            hi *= 2\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We need the maximum num such that:\n        # sum_{i=1..num} price(i) <= k\n        # price(n) = count of set bits in positions j where j % x == 0 (1-indexed from LSB).\n        #\n        # For each bit position p (1-indexed), count set bits among numbers 0..num\n        # at that position. Then sum those counts for p multiples of x, for p>=1.\n        #\n        # We binary search on num.\n        # Helper count_set_bits_up_to(num, p) counts set bits at position p in [0..num].\n        # Then total_price(num) sums over p = m*x <= bitlen(num) (and p=bit positions only).\n        def count_set_bits_up_to(num: int, p: int) -> int:\n            # p is 1-indexed from LSB: bit index in zero-based is (p-1)\n            bit = p - 1\n            block = 1 << (bit + 1)  # length of full cycles\n            half = 1 << bit         # within each cycle, this many have the bit set\n            full_cycles = (num + 1) // block\n            rem = (num + 1) % block\n            return full_cycles * half + max(0, rem - half)\n\n        def total_price(num: int) -> int:\n            # prices defined for numbers from 1..num. We'll compute from 0..num;\n            # number 0 has no set bits so it's safe.\n            if num <= 0:\n                return 0\n            # Maximum bit position we need: floor(log2(num))+1, i.e. bitlen\n            bitlen = num.bit_length()\n            total = 0\n            start = x  # first position p such that p % x == 0 is p=x\n            for p in range(start, bitlen + 1, x):\n                total += count_set_bits_up_to(num, p)\n                if total > k:  # small pruning to avoid big sums\n                    return total\n            return total\n\n        lo, hi = 1, 1\n        # Exponential search for an upper bound satisfying price(hi) >= k (or >).\n        # We need largest num with total_price(num) <= k.\n        while total_price(hi) <= k:\n            hi *= 2\n            # k <= 1e15, prices grow roughly like num * (1/x)*popcount density,\n            # hi will not need to be astronomically large.\n            if hi > (1 << 62):  # safety\n                break\n\n        ans = lo\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We count, for each 1-indexed bit position i (from LSB=1),\n        # how many numbers in [1..num] have that bit set.\n        # Contribution (cost) of bit i is included only if i % x == 0.\n        #\n        # We then binary search the maximum num such that total cost <= k.\n        #\n        # For a fixed bit position i (0-based b=i-1):\n        # period = 2^(b+1), half = 2^b\n        # count_ones in [0..num] can be computed, then convert to [1..num] safely.\n        #\n        # Since num can be large, we do everything with integers and\n        # only need up to the highest relevant bit where 2^(b) <= num.\n\n        def ones_upto(num: int, b: int) -> int:\n            \"\"\"Count of numbers t in [0..num] whose b-th bit (0-based) is 1.\"\"\"\n            if num < 0:\n                return 0\n            block = 1 << (b + 1)\n            half = 1 << b\n            full = (num + 1) // block\n            rem = (num + 1) % block\n            return full * half + max(0, rem - half)\n\n        def cost_upto(num: int) -> int:\n            \"\"\"Sum of prices for all numbers from 1..num.\"\"\"\n            if num <= 0:\n                return 0\n            total = 0\n            # Max bit to consider\n            max_b = num.bit_length()  # since b=0..max_b-1 covers bits up to msb\n            for b in range(max_b):\n                i = b + 1  # convert to 1-indexed bit position\n                if i % x != 0:\n                    continue\n                cnt = ones_upto(num, b)\n                # ones_upto counts bit set in [0..num]. For num>=1, 0 contributes 0 anyway\n                # since all bits in 0 are 0.\n                total += cnt\n                if total > k:  # small pruning\n                    return total\n            return total\n\n        # Binary search answer.\n        # Upper bound: in worst case x=1, each number contributes popcount,\n        # cost grows roughly O(num log num); we can safely use a larger bound.\n        # We can upper bound by considering bit position 1 contributes ~num/2,\n        # so cost <= num * bit_count <= 1e15 * 60 ~ 6e16; use 2^50-ish.\n        lo, hi = 0, 1\n        while cost_upto(hi) <= k:\n            hi *= 2\n            # prevent runaway; but constraints make this safe\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if cost_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # price(num): number of set bits at positions i (1-indexed from right)\n        # where i % x == 0.\n        #\n        # For a fixed bit position i, among numbers 1..N, the count of ones in that\n        # position can be computed with standard pattern counting on bit i-1 (0-indexed).\n        #\n        # Sum prices(1..N) = sum over i multiple of x of ones_count_in_bit(i-1, N).\n\n        def ones_in_bit(bit0: int, N: int) -> int:\n            # bit0 is 0-indexed; corresponds to position i = bit0+1 in statement.\n            if N <= 0:\n                return 0\n            cycle = 1 << (bit0 + 1)\n            half = 1 << bit0\n            full = N // cycle\n            rem = N % cycle\n            return full * half + max(0, rem - half + 1)\n\n        def total_price(N: int) -> int:\n            if N <= 0:\n                return 0\n            total = 0\n            # Max bit we might need: N up to answer; safe bound by bit length.\n            max_bit0 = N.bit_length() - 1\n            # Positions i such that i % x == 0  <=> (bit0+1) % x == 0\n            for bit0 in range(max_bit0 + 1):\n                if (bit0 + 1) % x == 0:\n                    total += ones_in_bit(bit0, N)\n                    if total > k:  # early stop\n                        return total\n            return total\n\n        # Binary search for greatest N with total_price(N) <= k\n        # Upper bound: use exponential growth from 1.\n        lo, hi = 0, 1\n        while total_price(hi) <= k:\n            hi *= 2\n\n        while lo + 1 < hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid\n\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price of num counts set bits at positions i (1-indexed from right)\n        # where i % x == 0.\n        # We need largest N such that total price from 1..N <= k.\n\n        # Work with count of set bits at each bit-position among 0..N.\n        # For 1-indexed position p, the corresponding binary bit is at value 2^(p-1).\n        #\n        # Use monotone binary search for maximum N.\n        # For each candidate N, compute total price efficiently by summing\n        # contributions only for positions p where p % x == 0.\n\n        def ones_in_bit(u: int, bit_index: int) -> int:\n            \"\"\"\n            Count of 1s at bit_index (0-based) among numbers in [0, u].\n            \"\"\"\n            if u < 0:\n                return 0\n            period = 1 << (bit_index + 1)\n            half = 1 << bit_index\n            full = (u + 1) // period\n            rem = (u + 1) % period\n            return full * half + max(0, rem - half)\n\n        def total_price(u: int) -> int:\n            # u is inclusive upper bound for numbers [1..u]\n            # We'll compute over [0..u] and subtract contributions of 0 (which is 0 anyway).\n            if u <= 0:\n                return 0\n            ans = 0\n            # positions p are 1-indexed: p % x == 0 => p = m*x\n            # bit_index = p-1 = m*x - 1\n            # Need up to bit where 2^bit_index <= u.\n            # bit_index max floor(log2(u)).\n            max_bit_index = u.bit_length() - 1\n            # minimal p = x => bit_index = x-1\n            start_bit_index = x - 1\n            if start_bit_index > max_bit_index:\n                return 0\n            for bit_index in range(start_bit_index, max_bit_index + 1, x):\n                ans += ones_in_bit(u, bit_index)\n                if ans > k:  # small pruning\n                    return ans\n            return ans\n\n        # Find high bound: total_price grows with N, so doubling until exceed k.\n        lo, hi = 1, 1\n        while total_price(hi) <= k:\n            hi *= 2\n\n        # Now binary search in [lo, hi-1]\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return hi\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3240",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" of all numbers in [0, n] (inclusive).\n        # Price of num = number of positions i (1-indexed from LSB, i % x == 0) that are set in num.\n        # So contribution of each bit position depends only on how many numbers in range have it set.\n        def count_price_upto(n: int) -> int:\n            if n <= 0:\n                return 0\n            total = 0\n            bit = 1  # position index i\n            while (1 << (bit - 1)) <= n:\n                if bit % x == 0:\n                    # Let pos = bit-1 as 0-indexed bit in value.\n                    pos = bit - 1\n                    block = 1 << (pos + 1)\n                    full = (n + 1) // block\n                    rem = (n + 1) % block\n                    ones = full * (1 << pos) + max(0, rem - (1 << pos))\n                    total += ones\n                bit += 1\n            return total\n\n        # Binary search the maximum num such that sum_{1..num} price <= k.\n        # Note count_price_upto(n) computes sum_{0..n}; since num=0 contributes 0, it's same as sum_{1..n}.\n        lo, hi = 1, 1\n        # Find an upper bound\n        while count_price_upto(hi) <= k:\n            hi *= 2\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if count_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Contribution of bit position i (1-indexed from LSB):\n        # bit position i of num is set iff num has that bit = 1.\n        # Among numbers [0..N], count of such occurrences is periodic.\n        def count_set_bits_up_to(N: int, i: int) -> int:\n            # i is 1-indexed; bit value is 2^(i-1)\n            bit = 1 << (i - 1)\n            block = bit << 1\n            full = (N + 1) // block\n            rem = (N + 1) % block\n            # In each full block, bit is set for exactly 'bit' numbers\n            res = full * bit\n            # In remainder, add the overlap where bit would be 1\n            if rem > bit:\n                res += rem - bit\n            return res\n\n        def total_price_up_to(N: int) -> int:\n            # prices are for numbers from 1..N, but counting from 0..N is fine since 0 has no set bits\n            if N <= 0:\n                return 0\n            # x <= 8, so relevant bit positions are i where i % x == 0.\n            # We need enough bit positions to cover N (up to ~60 bits for k<=1e15).\n            max_i = 0\n            tmp = N\n            while tmp > 0:\n                max_i += 1\n                tmp >>= 1\n\n            ans = 0\n            # consider all i in [1..max_i] with i % x == 0\n            for i in range(x, max_i + 1, x):\n                ans += count_set_bits_up_to(N, i)\n                # early stop if already beyond k (avoid overflow/time)\n                if ans > k:\n                    return ans\n            return ans\n\n        # Binary search for maximum num with sum(prices 1..num) <= k\n        lo, hi = 1, 1\n        # Increase hi until condition fails\n        while total_price_up_to(hi) <= k:\n            hi <<= 1\n            # Safety: price grows at least linearly, hi won't need to be huge\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_up_to(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price of num = count of set bits at positions i where i % x == 0\n        # i is 1-indexed from LSB, so position p corresponds to bit (p-1) (0-indexed).\n        # For any prefix [0..N], we can count total contribution of each relevant bit.\n        #\n        # For bit position b (0-indexed), among numbers 0..N, count of set bits at b:\n        #   cycle = 2^(b+1)\n        #   full_cycles = (N+1) // cycle\n        #   rem = (N+1) % cycle\n        #   ones = full_cycles * 2^b + max(0, rem - 2^b)\n        #\n        # Positions p where p % x == 0 => b = p-1.\n        # Sum ones(b) over all such b gives total price sum for numbers 1..N.\n        #\n        # Then binary search maximum N such that sum <= k.\n        MOD_BITS = 0\n        # Max bit needed: N up to about k + ... but safe upper bound uses bit length of k.\n        hi = 1\n        # Increase hi until price_sum(hi) > k\n        # (Need ensure hi includes enough bits; doubling is safe with constraints.)\n        while True:\n            total = 0\n            N = hi\n            m = N + 1\n            # iterate b such that (b+1) % x == 0 and b within bit length of N\n            # We'll just go up to 60 since k<=1e15 -> answer won't need > ~50 bits.\n            for b in range(0, 61):\n                p = b + 1\n                if p % x == 0:\n                    half = 1 << b\n                    cycle = half << 1\n                    full = m // cycle\n                    rem = m % cycle\n                    total += full * half + (rem - half if rem > half else 0)\n            # price sum for 1..hi equals sum over 0..hi (number 0 has no set bits)\n            if total > k:\n                break\n            hi <<= 1\n\n        def price_sum(N: int) -> int:\n            # total price sum for numbers 1..N\n            m = N + 1\n            total = 0\n            for b in range(0, 61):\n                p = b + 1\n                if p % x == 0:\n                    half = 1 << b\n                    cycle = half << 1\n                    full = m // cycle\n                    rem = m % cycle\n                    total += full * half + (rem - half if rem > half else 0)\n            return total\n\n        lo = 1\n        # We already know price_sum(hi) > k; search in [lo, hi-1]\n        while lo < hi:\n            mid = (lo + hi) // 2\n            if price_sum(mid) <= k:\n                lo = mid + 1\n            else:\n                hi = mid\n        return lo - 1\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" from 1..n:\n        # For each 1-indexed bit position i (from right), contribute number of set bits\n        # at that position among [1..n], but only for i % x == 0.\n        def total_price_upto(n: int) -> int:\n            if n <= 0:\n                return 0\n\n            total = 0\n            # n <= ? (not explicitly, but k up to 1e15 and x<=8 => answer fits in < 2^60)\n            # We'll safely iterate up to 0..60 positions (1-indexed => 1..61)\n            # Let pos0 be 0-indexed bit index (LSB=0), then pos1 = pos0+1.\n            for pos0 in range(0, 61):\n                pos1 = pos0 + 1\n                if pos1 % x != 0:\n                    continue\n\n                bit = 1 << pos0\n                period = bit << 1\n\n                full = (n + 1) // period          # complete periods\n                rem = (n + 1) % period           # remaining elements\n\n                cnt = full * bit + max(0, rem - bit)\n                total += cnt\n                if total > k:\n                    # optional early cut-off\n                    return total\n            return total\n\n        # Binary search maximum n such that total_price_upto(n) <= k\n        lo, hi = 1, 1\n        while total_price_upto(hi) <= k:\n            hi <<= 1\n\n        ans = 1\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if total_price_upto(mid) <= k:\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" in [1..n]\n        # Price of num = count of 1-bits at positions i where i % x == 0 (1-indexed from LSB).\n        def count_price(n: int) -> int:\n            if n <= 0:\n                return 0\n\n            res = 0\n            # Consider bit positions p (1-indexed from right/LSB) that satisfy p % x == 0.\n            # For each such p, it contributes how many numbers in [1..n] have bit p set.\n            # For bit position p, value is 2^(p-1), let block = 2^p:\n            # In each full block, high half has the bit set => 2^(p-1) numbers.\n            p = x\n            while (1 << (p - 1)) <= n:\n                bit_val = 1 << (p - 1)     # 2^(p-1)\n                block = 1 << p             # 2^p\n                full_blocks = (n + 1) // block\n                rem = (n + 1) % block\n                ones = full_blocks * bit_val + max(0, rem - bit_val)\n                res += ones\n                p += x\n            return res\n\n        # Binary search maximum n with cumulative price <= k\n        lo, hi = 0, (1 << 62)  # safe upper bound since k<=1e15\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if count_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" for all numbers in [1..n]\n        # Price of num = number of set bits at positions i where i % x == 0\n        # Bits are 1-indexed from rightmost (LSB is position 1).\n        #\n        # For a fixed position p (1-indexed), across numbers 0..n:\n        # the count of set bits at that bit is:\n        #   full_cycles = (n+1) // (1<<p)\n        #   rem = (n+1) % (1<<p)\n        #   ones = full_cycles * (1<<(p-1)) + max(0, rem - (1<<(p-1)))\n        #\n        # We sum ones over positions p that satisfy p % x == 0, and p >= 1.\n        def total_price(n: int) -> int:\n            if n <= 0:\n                return 0\n            m = n + 1  # consider numbers 0..n inclusive (n+1 numbers)\n            ans = 0\n            p = x  # first valid position is x (since p % x == 0, p>=1)\n            # positions beyond highest bit of n won't contribute\n            while (1 << (p - 1)) <= n:  # ensure bit value exists within range\n                bit = 1 << p          # period\n                half = 1 << (p - 1)  # number of ones per period\n                full_cycles = m // bit\n                rem = m % bit\n                ones = full_cycles * half + max(0, rem - half)\n                ans += ones\n                p += x\n            return ans\n\n        # Binary search greatest n such that total_price(n) <= k\n        lo, hi = 0, 1\n        while total_price(hi) <= k:\n            hi *= 2\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We need the maximum num such that:\n        # sum_{i=1..num} price(i) <= k\n        # price(n) = count of set bits in positions j where j % x == 0 (1-indexed from LSB).\n        #\n        # For each bit position p (1-indexed), count set bits among numbers 0..num\n        # at that position. Then sum those counts for p multiples of x, for p>=1.\n        #\n        # We binary search on num.\n        # Helper count_set_bits_up_to(num, p) counts set bits at position p in [0..num].\n        # Then total_price(num) sums over p = m*x <= bitlen(num) (and p=bit positions only).\n        def count_set_bits_up_to(num: int, p: int) -> int:\n            # p is 1-indexed from LSB: bit index in zero-based is (p-1)\n            bit = p - 1\n            block = 1 << (bit + 1)  # length of full cycles\n            half = 1 << bit         # within each cycle, this many have the bit set\n            full_cycles = (num + 1) // block\n            rem = (num + 1) % block\n            return full_cycles * half + max(0, rem - half)\n\n        def total_price(num: int) -> int:\n            # prices defined for numbers from 1..num. We'll compute from 0..num;\n            # number 0 has no set bits so it's safe.\n            if num <= 0:\n                return 0\n            # Maximum bit position we need: floor(log2(num))+1, i.e. bitlen\n            bitlen = num.bit_length()\n            total = 0\n            start = x  # first position p such that p % x == 0 is p=x\n            for p in range(start, bitlen + 1, x):\n                total += count_set_bits_up_to(num, p)\n                if total > k:  # small pruning to avoid big sums\n                    return total\n            return total\n\n        lo, hi = 1, 1\n        # Exponential search for an upper bound satisfying price(hi) >= k (or >).\n        # We need largest num with total_price(num) <= k.\n        while total_price(hi) <= k:\n            hi *= 2\n            # k <= 1e15, prices grow roughly like num * (1/x)*popcount density,\n            # hi will not need to be astronomically large.\n            if hi > (1 << 62):  # safety\n                break\n\n        ans = lo\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                ans = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return ans\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We count, for each 1-indexed bit position i (from LSB=1),\n        # how many numbers in [1..num] have that bit set.\n        # Contribution (cost) of bit i is included only if i % x == 0.\n        #\n        # We then binary search the maximum num such that total cost <= k.\n        #\n        # For a fixed bit position i (0-based b=i-1):\n        # period = 2^(b+1), half = 2^b\n        # count_ones in [0..num] can be computed, then convert to [1..num] safely.\n        #\n        # Since num can be large, we do everything with integers and\n        # only need up to the highest relevant bit where 2^(b) <= num.\n\n        def ones_upto(num: int, b: int) -> int:\n            \"\"\"Count of numbers t in [0..num] whose b-th bit (0-based) is 1.\"\"\"\n            if num < 0:\n                return 0\n            block = 1 << (b + 1)\n            half = 1 << b\n            full = (num + 1) // block\n            rem = (num + 1) % block\n            return full * half + max(0, rem - half)\n\n        def cost_upto(num: int) -> int:\n            \"\"\"Sum of prices for all numbers from 1..num.\"\"\"\n            if num <= 0:\n                return 0\n            total = 0\n            # Max bit to consider\n            max_b = num.bit_length()  # since b=0..max_b-1 covers bits up to msb\n            for b in range(max_b):\n                i = b + 1  # convert to 1-indexed bit position\n                if i % x != 0:\n                    continue\n                cnt = ones_upto(num, b)\n                # ones_upto counts bit set in [0..num]. For num>=1, 0 contributes 0 anyway\n                # since all bits in 0 are 0.\n                total += cnt\n                if total > k:  # small pruning\n                    return total\n            return total\n\n        # Binary search answer.\n        # Upper bound: in worst case x=1, each number contributes popcount,\n        # cost grows roughly O(num log num); we can safely use a larger bound.\n        # We can upper bound by considering bit position 1 contributes ~num/2,\n        # so cost <= num * bit_count <= 1e15 * 60 ~ 6e16; use 2^50-ish.\n        lo, hi = 0, 1\n        while cost_upto(hi) <= k:\n            hi *= 2\n            # prevent runaway; but constraints make this safe\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if cost_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # price(num): number of set bits at positions i (1-indexed from right)\n        # where i % x == 0.\n        #\n        # For a fixed bit position i, among numbers 1..N, the count of ones in that\n        # position can be computed with standard pattern counting on bit i-1 (0-indexed).\n        #\n        # Sum prices(1..N) = sum over i multiple of x of ones_count_in_bit(i-1, N).\n\n        def ones_in_bit(bit0: int, N: int) -> int:\n            # bit0 is 0-indexed; corresponds to position i = bit0+1 in statement.\n            if N <= 0:\n                return 0\n            cycle = 1 << (bit0 + 1)\n            half = 1 << bit0\n            full = N // cycle\n            rem = N % cycle\n            return full * half + max(0, rem - half + 1)\n\n        def total_price(N: int) -> int:\n            if N <= 0:\n                return 0\n            total = 0\n            # Max bit we might need: N up to answer; safe bound by bit length.\n            max_bit0 = N.bit_length() - 1\n            # Positions i such that i % x == 0  <=> (bit0+1) % x == 0\n            for bit0 in range(max_bit0 + 1):\n                if (bit0 + 1) % x == 0:\n                    total += ones_in_bit(bit0, N)\n                    if total > k:  # early stop\n                        return total\n            return total\n\n        # Binary search for greatest N with total_price(N) <= k\n        # Upper bound: use exponential growth from 1.\n        lo, hi = 0, 1\n        while total_price(hi) <= k:\n            hi *= 2\n\n        while lo + 1 < hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid\n\n        return lo\n```",
+          "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price of num counts set bits at positions i (1-indexed from right)\n        # where i % x == 0.\n        # We need largest N such that total price from 1..N <= k.\n\n        # Work with count of set bits at each bit-position among 0..N.\n        # For 1-indexed position p, the corresponding binary bit is at value 2^(p-1).\n        #\n        # Use monotone binary search for maximum N.\n        # For each candidate N, compute total price efficiently by summing\n        # contributions only for positions p where p % x == 0.\n\n        def ones_in_bit(u: int, bit_index: int) -> int:\n            \"\"\"\n            Count of 1s at bit_index (0-based) among numbers in [0, u].\n            \"\"\"\n            if u < 0:\n                return 0\n            period = 1 << (bit_index + 1)\n            half = 1 << bit_index\n            full = (u + 1) // period\n            rem = (u + 1) % period\n            return full * half + max(0, rem - half)\n\n        def total_price(u: int) -> int:\n            # u is inclusive upper bound for numbers [1..u]\n            # We'll compute over [0..u] and subtract contributions of 0 (which is 0 anyway).\n            if u <= 0:\n                return 0\n            ans = 0\n            # positions p are 1-indexed: p % x == 0 => p = m*x\n            # bit_index = p-1 = m*x - 1\n            # Need up to bit where 2^bit_index <= u.\n            # bit_index max floor(log2(u)).\n            max_bit_index = u.bit_length() - 1\n            # minimal p = x => bit_index = x-1\n            start_bit_index = x - 1\n            if start_bit_index > max_bit_index:\n                return 0\n            for bit_index in range(start_bit_index, max_bit_index + 1, x):\n                ans += ones_in_bit(u, bit_index)\n                if ans > k:  # small pruning\n                    return ans\n            return ans\n\n        # Find high bound: total_price grows with N, so doubling until exceed k.\n        lo, hi = 1, 1\n        while total_price(hi) <= k:\n            hi *= 2\n\n        # Now binary search in [lo, hi-1]\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return hi\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given an integer k and an integer x.\nConsider s is the 1-indexed binary representation of an integer num. The price of a number num is the number of i's such that i % x == 0 and s[i] is a set bit.\nReturn the greatest integer num such that the sum of prices of all numbers from 1 to num is less than or equal to k.\nNote:\n\nIn the binary representation of a number set bit is a bit of value 1.\nThe binary representation of a number will be indexed from right to left. For example, if s == 11100, s[4] == 1 and s[2] == 0.\n\n \nExample 1:\n\nInput: k = 9, x = 1\nOutput: 6\nExplanation: The numbers 1, 2, 3, 4, 5, and 6 can be written in binary representation as \"1\", \"10\", \"11\", \"100\", \"101\", and \"110\" respectively.\nSince x is equal to 1, the price of each number is the number of its set bits.\nThe number of set bits in these numbers is 9. So the sum of the prices of the first 6 numbers is 9.\nSo the answer is 6.\nExample 2:\n\nInput: k = 7, x = 2\nOutput: 9\nExplanation: Since x is equal to 2, we should just check even^th bits.\nThe second bit of binary representation of numbers 2 and 3 is a set bit. So the sum of their prices is 2.\nThe second bit of binary representation of numbers 6 and 7 is a set bit. So the sum of their prices is 2.\nThe fourth bit of binary representation of numbers 8 and 9 is a set bit but their second bit is not. So the sum of their prices is 2.\nNumbers 1, 4, and 5 don't have set bits in their even^th bits in their binary representation. So the sum of their prices is 0.\nThe second and the fourth bit of the binary representation of the number 10 are a set bit. So its price is 2.\nThe sum of the prices of the first 9 numbers is 6.\nBecause the sum of the prices of the first 10 numbers is 8, the answer is 9.\n \nConstraints:\n\n1 <= k <= 10^15\n1 <= x <= 8\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" from 1..n.\n        # For each set bit position p (1-indexed from LSB), it contributes 1 to the price\n        # of a number if p % x == 0. So total price is:\n        #   sum_{p multiple of x} (number of integers in [1..n] with bit p set)\n        #\n        # For a given bit position p (1-indexed), let b = p-1 (0-indexed).\n        # Count of numbers t in [0..n] with bit b set equals:\n        #   full_cycles = (n+1) // 2^(b+1), rem = (n+1) % 2^(b+1)\n        #   ones = full_cycles * 2^b + max(0, rem - 2^b)\n        # For [1..n], t=0 has no bits set, so same formula works.\n        def count_price_upto(n: int) -> int:\n            if n <= 0:\n                return 0\n            total = 0\n            # Maximum bit needed: n up to ~1e18 for safety; x<=8 so small anyway.\n            # We'll iterate p where 2^(p-1) <= n.\n            m = n + 1  # for cycle formula\n            p = x  # smallest 1-indexed position with p % x == 0\n            while (1 << (p - 1)) <= n:\n                b = p - 1  # 0-indexed bit\n                block = 1 << (b + 1)\n                half = 1 << b\n                full_cycles = m // block\n                rem = m % block\n                ones = full_cycles * half + (rem - half if rem > half else 0)\n                total += ones\n                # prevent overflow in python not needed, but keep loop efficient\n                p += x\n            return total\n\n        # Binary search maximum n such that total_price <= k.\n        lo, hi = 1, 1\n        # Exponentially grow hi until condition fails\n        while count_price_upto(hi) <= k:\n            hi *= 2\n        # Now answer in [lo, hi-1]\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if count_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price of num = count of set bits at positions i where i % x == 0\n        # Bits are 1-indexed from right (LSB is position 1).\n        #\n        # We need max num such that:\n        #   sum_{t=1..num} price(t) <= k\n        #\n        # We can compute for any N:\n        #   F(N) = total number of set bits among all positions i divisible by x\n        #          across numbers 1..N.\n        #\n        # Let positions be p = m*x (m>=1). For each fixed bit position p,\n        # count set bits at that position across 0..N can be computed by\n        # standard bit counting, then subtract for 0 and ignore position 0.\n        #\n        # We'll then binary search the maximum N with F(N) <= k.\n\n        def count_set_bits_at_pos_upto(N: int, pos: int) -> int:\n            # pos is 1-indexed from right (LSB = 1). We count set bits of that pos\n            # among integers from 0..N inclusive.\n            if N < 0:\n                return 0\n            bit = 1 << (pos - 1)          # value contributed by that bit\n            cycle = bit << 1             # period of pattern\n            full_cycles = (N + 1) // cycle\n            rem = (N + 1) % cycle\n            # In each full cycle, the bit is set for exactly 'bit' numbers.\n            res = full_cycles * bit\n            # In remainder, the bit contributes if rem exceeds the \"set\" segment.\n            if rem > bit:\n                res += rem - bit\n            return res\n\n        def F(N: int) -> int:\n            # total price sum for numbers 1..N\n            if N <= 0:\n                return 0\n            total = 0\n            # Max position we might need: highest bit of N is floor(log2(N))+1.\n            # We can iterate positions that are multiples of x.\n            max_pos = N.bit_length()\n            # For N>=1, we can safely sum positions p=m*x up to <=max_pos.\n            p = x\n            while p <= max_pos:\n                total += count_set_bits_at_pos_upto(N, p)\n                p += x\n            # count_set_bits_at_pos_upto includes number 0, but 0 has all bits 0,\n            # so it doesn't affect. Fine.\n            return total\n\n        # Binary search for maximum N with F(N) <= k.\n        # Upper bound: F grows at least with count of set bits, so we can exponentially\n        # search for a bound.\n        lo, hi = 0, 1\n        while F(hi) <= k:\n            hi *= 2\n            # Safety: constraints guarantee answer fits, but keep it bounded.\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if F(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We need max num such that:\n        # sum_{n=1..num} price(n) <= k\n        # price(n) = count of set bits in positions i where i % x == 0 (1-indexed from LSB).\n        #\n        # For a fixed bit position p (1-indexed), among numbers 0..N inclusive,\n        # count of numbers with bit p set can be computed in O(1) via cycle counting.\n        # Then total contribution to sum of prices over 0..N is sum over such p.\n        #\n        # Finally binary search the largest num in [1, high].\n\n        def count_set_bit_upto(N: int, p: int) -> int:\n            \"\"\"\n            Count of integers in [0..N] whose 1-indexed bit position p is 1.\n            Position p corresponds to bit mask (1<<(p-1)).\n            \"\"\"\n            if N < 0:\n                return 0\n            bit = 1 << (p - 1)\n            cycle = bit << 1  # 2^p\n            full = (N + 1) // cycle\n            rem = (N + 1) % cycle\n            # In each full cycle, the bit is set for 'bit' numbers.\n            # In the remainder, it's set for max(0, rem - bit) numbers.\n            return full * bit + (rem - bit if rem > bit else 0)\n\n        # total price sum for numbers in [1..N]\n        def total_price_upto(N: int) -> int:\n            if N <= 0:\n                return 0\n            total = 0\n            # Need enough bit positions up to N. N can be as large as answer,\n            # and k up to 1e15. With x>=1, prices grow at most like popcount,\n            # so answer won't exceed about 2^50. We'll be safe with 0..60 bits.\n            for p in range(x, 61, x):  # positions where p % x == 0\n                total += count_set_bit_upto(N, p)\n                if total > k:  # small pruning\n                    return total\n            return total\n\n        # Binary search on num.\n        # Find an upper bound.\n        lo, hi = 1, 1\n        while total_price_upto(hi) <= k:\n            hi <<= 1\n            # prevent runaway; 2^60 is far beyond possible given constraints\n            if hi > (1 << 60):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We want the maximum num such that:\n        # sum_{n=1..num} price(n) <= k\n        # price(n) = count of set bits in positions i (1-indexed from right)\n        # where i % x == 0.\n\n        # Let bit position be j (0-indexed from right). Then position index i = j+1.\n        # Condition i % x == 0 => (j+1) % x == 0 => j ≡ x-1 (mod x).\n\n        # For a fixed bit position j, the number of set bits among 0..num\n        # can be computed with standard counting, and for 1..num it’s same\n        # because n=0 has no set bits.\n        #\n        # Count ones in bit j over [0..n] inclusive:\n        # cycle = 1 << (j+1)\n        # full cycles contribute (n+1)//cycle * (1<<j)\n        # remainder contributes max(0, rem - (1<<j))\n        # where rem = (n+1) % cycle\n\n        def ones_upto(n: int, j: int) -> int:\n            # count of set bits in position j (0-indexed) for numbers 0..n\n            if n < 0:\n                return 0\n            block = 1 << (j + 1)\n            half = 1 << j\n            total = n + 1\n            full = total // block\n            rem = total % block\n            return full * half + max(0, rem - half)\n\n        def total_price_upto(n: int) -> int:\n            # sum of prices for numbers 1..n (same as 0..n)\n            if n <= 0:\n                return 0\n            res = 0\n            # Maximum bit index needed up to n; n can be up to ~1e18.\n            # 0-indexed highest bit <= 60 for 1e18, but use 0..62 safely.\n            for j in range(0, 62 + 1):\n                if (j + 1) % x == 0:\n                    res += ones_upto(n, j)\n                    if res > k:  # small pruning to keep binary search fast\n                        return res\n            return res\n\n        # Binary search on answer.\n        # Upper bound: when x=1, price is popcount sum; but still grows\n        # roughly (n log n). With k up to 1e15, n won't exceed ~2e7-1e8.\n        # We'll use a safe exponential search.\n        lo, hi = 0, 1\n        while total_price_upto(hi) <= k:\n            hi *= 2\n            # prevent infinite loop; with constraints should be unnecessary\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Sum of prices from 1..N:\n        # For each position i (1-indexed from LSB), contribution from i is:\n        #   count_ones_in_bit_position(i, N)  where bit position corresponds to value 2^(i-1)\n        # Price counts set bits only when i % x == 0 => i = m*x for m>=1.\n        #\n        # We need maximum N such that total_ones_sum(N) <= k.\n        # Monotonic => binary search.\n\n        def count_ones_in_bit(pos1_indexed: int, N: int) -> int:\n            \"\"\"Number of 1s in bit at 1-indexed position pos1_indexed among numbers 0..N.\"\"\"\n            # bit index in usual 0-indexed: b = pos1_indexed - 1\n            b = pos1_indexed - 1\n            if b < 0 or N < 0:\n                return 0\n            cycle = 1 << (b + 1)\n            half = 1 << b\n            full = (N + 1) // cycle\n            rem = (N + 1) % cycle\n            return full * half + max(0, rem - half)\n\n        def total_price(N: int) -> int:\n            if N <= 0:\n                return 0\n            # Highest needed bit position: floor(log2(N))+1 (1-indexed)\n            # If N < 1 then already handled.\n            max_pos = N.bit_length()\n            total = 0\n            # i = m*x, i <= max_pos\n            i = x\n            while i <= max_pos:\n                total += count_ones_in_bit(i, N)\n                if total > k:  # small pruning\n                    return total\n                i += x\n            return total\n\n        # Binary search on N in [1, high]\n        # Upper bound: in worst case x=1, total_price grows like N*avg popcount (~ N log N)\n        # But k<=1e15; a safe high is 2e6 for x small? not safe.\n        # Use exponential search.\n        lo, hi = 1, 1\n        while total_price(hi) <= k:\n            hi *= 2\n        # Now answer in (lo..hi-1] where total_price <= k\n        while lo + 1 < hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # prices: for each num, count set bits at positions i where i % x == 0\n        # with 1-indexed bits from LSB (rightmost).\n        #\n        # Let f(n) = total price sum over all numbers in [1..n].\n        # We binary search maximum n such that f(n) <= k.\n        #\n        # For each bit position p (1-indexed, LSB=1): it contributes to price\n        # iff p % x == 0. For fixed p, count how many numbers in [0..n]\n        # have that bit set. Then sum over p.\n        #\n        # Count for bit p (0-indexed bit b = p-1):\n        # cycle = 2^(b+1); ones per cycle = 2^b.\n        # total ones from 0..n inclusive:\n        # full_cycles = (n+1) // cycle\n        # rem = (n+1) % cycle\n        # ones = full_cycles * 2^b + max(0, rem - 2^b)\n\n        def total_price(n: int) -> int:\n            if n <= 0:\n                return 0\n            N = n + 1  # count in [0..n]\n            ans = 0\n            # maximum bit needed: up to n ~ ?; k up to 1e15 so n fits within 2^50.\n            # We'll safely check up to 60 bits.\n            for p in range(1, 61):  # 1-indexed bit position\n                if p % x != 0:\n                    continue\n                b = p - 1  # 0-indexed bit\n                pow2b = 1 << b\n                cycle = pow2b << 1  # 2^(b+1)\n                full_cycles = N // cycle\n                rem = N % cycle\n                ones = full_cycles * pow2b\n                if rem > pow2b:\n                    ones += rem - pow2b\n                # ones counts numbers in [0..n] with bit b set.\n                ans += ones\n                # Early stop if already exceeds k in caller? not needed, but could help.\n            return ans\n\n        # binary search for maximum n\n        lo, hi = 0, 1\n        # increase hi until total_price(hi) > k\n        while total_price(hi) <= k:\n            hi <<= 1\n            # prevent infinite loop though constraints make it unnecessary\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # price(num): number of set bits whose 1-indexed position i satisfies i % x == 0\n        # We need max num such that sum(price(1..num)) <= k.\n\n        # Let positions considered be i = x, 2x, 3x, ...\n        # For a fixed bit position i, the number of integers in [1..N] with that bit set\n        # can be computed with standard periodicity on binary bits.\n        # Then total sum is sum over those positions.\n\n        def count_bit_set_up_to(N: int, bitpos_1idx: int) -> int:\n            # bit index in 0-based is b = bitpos_1idx - 1\n            b = bitpos_1idx - 1\n            if b < 0 or N <= 0:\n                return 0\n            cycle = 1 << (b + 1)\n            half = 1 << b\n            full = N // cycle\n            rem = N % cycle\n            # In each full cycle, bit is set for half numbers.\n            res = full * half\n            # In remainder, add extra set bits when rem exceeds half.\n            if rem >= half:\n                res += rem - half + 1  # inclusive\n            return res\n\n        def total_price_up_to(N: int) -> int:\n            if N <= 0:\n                return 0\n            total = 0\n            # Max bit position needed: highest set bit of N.\n            max_bit_1idx = N.bit_length()\n            i = x\n            while i <= max_bit_1idx:\n                total += count_bit_set_up_to(N, i)\n                if total > k:  # small pruning\n                    return total\n                i += x\n            return total\n\n        # Binary search for maximum N with total_price_up_to(N) <= k.\n        lo, hi = 0, 1\n        # Exponentially expand hi until condition fails.\n        while total_price_up_to(hi) <= k:\n            hi *= 2\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_up_to(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price(num) counts set bits at positions i (1-indexed from right)\n        # where i % x == 0.\n        #\n        # Sum of prices from 1..N equals, for each eligible bit position p (p% x==0),\n        # the number of integers in [1..N] that have bit p set.\n        #\n        # For a bit position p (value 2^(p-1)), count_ones(N, p) can be computed by\n        # standard periodicity of binary bits.\n        #\n        # We then binary search the maximum N with total_sum(N) <= k.\n\n        def count_ones_upto(n: int, p: int) -> int:\n            \"\"\"Count of numbers in [1..n] with bit position p set (p is 1-indexed from right).\"\"\"\n            if n <= 0:\n                return 0\n            # bit value:\n            bit = 1 << (p - 1)\n            period = bit << 1  # 2*bit\n            full = n // period\n            rem = n % period\n            # In each full period, bit is set for 'bit' numbers.\n            res = full * bit\n            # Remaining part contributes max(0, rem - bit)\n            if rem > bit:\n                res += rem - bit\n            return res\n\n        def total_sum(n: int) -> int:\n            if n <= 0:\n                return 0\n            total = 0\n            # Maximum relevant p such that 2^(p-1) <= n => p-1 <= floor(log2 n)\n            max_p = n.bit_length()\n            # Only p where p % x == 0\n            p = x  # smallest positive multiple of x\n            while p <= max_p:\n                total += count_ones_upto(n, p)\n                # Early break if already too large\n                if total > k:\n                    return total\n                p += x\n            return total\n\n        # Binary search for maximum N such that total_sum(N) <= k\n        lo, hi = 0, 1\n        while total_sum(hi) <= k:\n            hi <<= 1\n            # Ensure we don't infinite loop; k up to 1e15, answer won't exceed ~2^50.\n            if hi > (1 << 62):\n                break\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_sum(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We need maximum num such that:\n        # sum_{n=1..num} price(n) <= k\n        #\n        # price(n) counts set bits at positions i where i % x == 0\n        # with 1-indexing from right (LSB is position 1).\n        #\n        # For each position p (1-indexed from LSB) with p % x == 0, the contribution to\n        # total price up to num is: count of numbers in [1..num] with bit p set.\n        #\n        # We can compute countBitUpTo(num, p) in O(1) and sum over relevant p.\n        # Then binary search the maximum num.\n        \n        def count_bit_up_to(num: int, p: int) -> int:\n            # Count of integers in [0..num] whose p-th bit is 1 (p is 1-indexed).\n            if num < 0:\n                return 0\n            bit = 1 << (p - 1)          # value of p-th bit\n            block = bit << 1            # period length\n            full = (num + 1) // block\n            rem = (num + 1) % block\n            # In each full block, bit is set for 'bit' consecutive numbers.\n            res = full * bit\n            # In the remainder, add the overlap\n            res += max(0, rem - bit)\n            return res\n\n        def total_price_up_to(num: int) -> int:\n            # Total price from 1..num equals total from 0..num because 0 contributes nothing.\n            if num <= 0:\n                return 0\n            # Highest possible bit position needed\n            max_p = num.bit_length()\n            s = 0\n            # positions p such that p % x == 0\n            # iterate only those\n            p0 = x\n            for p in range(p0, max_p + 1, x):\n                s += count_bit_up_to(num, p)\n                if s > k:  # early exit for speed/overflow safety\n                    return s\n            return s\n\n        # Binary search answer\n        lo, hi = 0, 1\n        # Increase hi until total_price_up_to(hi) > k\n        while total_price_up_to(hi) <= k:\n            hi <<= 1\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_up_to(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # For a bit position i (1-indexed from right), it contributes 1 to the price of\n        # numbers whose i-th bit is 1 and i % x == 0.\n        # So total sum of prices for numbers [1..n] equals:\n        #   sum over i multiple of x of  count_ones_in_position(n, i)\n        #\n        # We can compute count_ones_in_position(n, i) in O(1) using cycles of length 2^i.\n        # Binary search the maximum n such that total <= k.\n        #\n        # n up to 1e15 implies bit length <= 50, so we only need to iterate i up to 60 safely.\n\n        def ones_at_pos(n: int, pos: int) -> int:\n            # pos is 1-indexed from right; i-th bit corresponds to value (1<<(pos-1))\n            if n <= 0:\n                return 0\n            bit = 1 << (pos - 1)\n            cycle = bit << 1  # 2^pos\n            full = (n // cycle) * bit\n            rem = n % cycle\n            extra = rem - bit + 1\n            if extra < 0:\n                extra = 0\n            elif extra > bit:\n                extra = bit\n            return full + extra\n\n        def total_price(n: int) -> int:\n            if n <= 0:\n                return 0\n            res = 0\n            # iterate only positions i such that i % x == 0\n            # pos max needed: while 2^pos <= n gives pos ~ floor(log2(n))+1\n            # add some slack due to arithmetic safety\n            max_pos = 0\n            t = n\n            while t > 0:\n                max_pos += 1\n                t >>= 1\n            max_pos += 2\n            for pos in range(x, max_pos + 1, x):\n                res += ones_at_pos(n, pos)\n                if res > k:  # early stop to avoid large sums\n                    return res\n            return res\n\n        lo, hi = 1, 1\n        # Find an upper bound where total_price(hi) > k\n        while total_price(hi) <= k:\n            hi *= 2\n        # Now binary search in [lo, hi]\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3240",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 7,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "6",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "9",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "41",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "128",
+                "actual": "129",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "30",
+                "actual": "31",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "38",
+                "actual": "39",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "29",
+                "actual": "30",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "91",
+                "actual": "92",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "142",
+                "actual": "143",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8667131",
+                "actual": "8667132",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "296431861352328",
+                "actual": "296431861352329",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "44470852534271",
+                "actual": "44470852534272",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "343778878348159",
+                "actual": "343778878348160",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Count total \"price\" from 1..n.\n        # For each set bit position p (1-indexed from LSB), it contributes 1 to the price\n        # of a number if p % x == 0. So total price is:\n        #   sum_{p multiple of x} (number of integers in [1..n] with bit p set)\n        #\n        # For a given bit position p (1-indexed), let b = p-1 (0-indexed).\n        # Count of numbers t in [0..n] with bit b set equals:\n        #   full_cycles = (n+1) // 2^(b+1), rem = (n+1) % 2^(b+1)\n        #   ones = full_cycles * 2^b + max(0, rem - 2^b)\n        # For [1..n], t=0 has no bits set, so same formula works.\n        def count_price_upto(n: int) -> int:\n            if n <= 0:\n                return 0\n            total = 0\n            # Maximum bit needed: n up to ~1e18 for safety; x<=8 so small anyway.\n            # We'll iterate p where 2^(p-1) <= n.\n            m = n + 1  # for cycle formula\n            p = x  # smallest 1-indexed position with p % x == 0\n            while (1 << (p - 1)) <= n:\n                b = p - 1  # 0-indexed bit\n                block = 1 << (b + 1)\n                half = 1 << b\n                full_cycles = m // block\n                rem = m % block\n                ones = full_cycles * half + (rem - half if rem > half else 0)\n                total += ones\n                # prevent overflow in python not needed, but keep loop efficient\n                p += x\n            return total\n\n        # Binary search maximum n such that total_price <= k.\n        lo, hi = 1, 1\n        # Exponentially grow hi until condition fails\n        while count_price_upto(hi) <= k:\n            hi *= 2\n        # Now answer in [lo, hi-1]\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if count_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price of num = count of set bits at positions i where i % x == 0\n        # Bits are 1-indexed from right (LSB is position 1).\n        #\n        # We need max num such that:\n        #   sum_{t=1..num} price(t) <= k\n        #\n        # We can compute for any N:\n        #   F(N) = total number of set bits among all positions i divisible by x\n        #          across numbers 1..N.\n        #\n        # Let positions be p = m*x (m>=1). For each fixed bit position p,\n        # count set bits at that position across 0..N can be computed by\n        # standard bit counting, then subtract for 0 and ignore position 0.\n        #\n        # We'll then binary search the maximum N with F(N) <= k.\n\n        def count_set_bits_at_pos_upto(N: int, pos: int) -> int:\n            # pos is 1-indexed from right (LSB = 1). We count set bits of that pos\n            # among integers from 0..N inclusive.\n            if N < 0:\n                return 0\n            bit = 1 << (pos - 1)          # value contributed by that bit\n            cycle = bit << 1             # period of pattern\n            full_cycles = (N + 1) // cycle\n            rem = (N + 1) % cycle\n            # In each full cycle, the bit is set for exactly 'bit' numbers.\n            res = full_cycles * bit\n            # In remainder, the bit contributes if rem exceeds the \"set\" segment.\n            if rem > bit:\n                res += rem - bit\n            return res\n\n        def F(N: int) -> int:\n            # total price sum for numbers 1..N\n            if N <= 0:\n                return 0\n            total = 0\n            # Max position we might need: highest bit of N is floor(log2(N))+1.\n            # We can iterate positions that are multiples of x.\n            max_pos = N.bit_length()\n            # For N>=1, we can safely sum positions p=m*x up to <=max_pos.\n            p = x\n            while p <= max_pos:\n                total += count_set_bits_at_pos_upto(N, p)\n                p += x\n            # count_set_bits_at_pos_upto includes number 0, but 0 has all bits 0,\n            # so it doesn't affect. Fine.\n            return total\n\n        # Binary search for maximum N with F(N) <= k.\n        # Upper bound: F grows at least with count of set bits, so we can exponentially\n        # search for a bound.\n        lo, hi = 0, 1\n        while F(hi) <= k:\n            hi *= 2\n            # Safety: constraints guarantee answer fits, but keep it bounded.\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if F(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We need max num such that:\n        # sum_{n=1..num} price(n) <= k\n        # price(n) = count of set bits in positions i where i % x == 0 (1-indexed from LSB).\n        #\n        # For a fixed bit position p (1-indexed), among numbers 0..N inclusive,\n        # count of numbers with bit p set can be computed in O(1) via cycle counting.\n        # Then total contribution to sum of prices over 0..N is sum over such p.\n        #\n        # Finally binary search the largest num in [1, high].\n\n        def count_set_bit_upto(N: int, p: int) -> int:\n            \"\"\"\n            Count of integers in [0..N] whose 1-indexed bit position p is 1.\n            Position p corresponds to bit mask (1<<(p-1)).\n            \"\"\"\n            if N < 0:\n                return 0\n            bit = 1 << (p - 1)\n            cycle = bit << 1  # 2^p\n            full = (N + 1) // cycle\n            rem = (N + 1) % cycle\n            # In each full cycle, the bit is set for 'bit' numbers.\n            # In the remainder, it's set for max(0, rem - bit) numbers.\n            return full * bit + (rem - bit if rem > bit else 0)\n\n        # total price sum for numbers in [1..N]\n        def total_price_upto(N: int) -> int:\n            if N <= 0:\n                return 0\n            total = 0\n            # Need enough bit positions up to N. N can be as large as answer,\n            # and k up to 1e15. With x>=1, prices grow at most like popcount,\n            # so answer won't exceed about 2^50. We'll be safe with 0..60 bits.\n            for p in range(x, 61, x):  # positions where p % x == 0\n                total += count_set_bit_upto(N, p)\n                if total > k:  # small pruning\n                    return total\n            return total\n\n        # Binary search on num.\n        # Find an upper bound.\n        lo, hi = 1, 1\n        while total_price_upto(hi) <= k:\n            hi <<= 1\n            # prevent runaway; 2^60 is far beyond possible given constraints\n            if hi > (1 << 60):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We want the maximum num such that:\n        # sum_{n=1..num} price(n) <= k\n        # price(n) = count of set bits in positions i (1-indexed from right)\n        # where i % x == 0.\n\n        # Let bit position be j (0-indexed from right). Then position index i = j+1.\n        # Condition i % x == 0 => (j+1) % x == 0 => j ≡ x-1 (mod x).\n\n        # For a fixed bit position j, the number of set bits among 0..num\n        # can be computed with standard counting, and for 1..num it’s same\n        # because n=0 has no set bits.\n        #\n        # Count ones in bit j over [0..n] inclusive:\n        # cycle = 1 << (j+1)\n        # full cycles contribute (n+1)//cycle * (1<<j)\n        # remainder contributes max(0, rem - (1<<j))\n        # where rem = (n+1) % cycle\n\n        def ones_upto(n: int, j: int) -> int:\n            # count of set bits in position j (0-indexed) for numbers 0..n\n            if n < 0:\n                return 0\n            block = 1 << (j + 1)\n            half = 1 << j\n            total = n + 1\n            full = total // block\n            rem = total % block\n            return full * half + max(0, rem - half)\n\n        def total_price_upto(n: int) -> int:\n            # sum of prices for numbers 1..n (same as 0..n)\n            if n <= 0:\n                return 0\n            res = 0\n            # Maximum bit index needed up to n; n can be up to ~1e18.\n            # 0-indexed highest bit <= 60 for 1e18, but use 0..62 safely.\n            for j in range(0, 62 + 1):\n                if (j + 1) % x == 0:\n                    res += ones_upto(n, j)\n                    if res > k:  # small pruning to keep binary search fast\n                        return res\n            return res\n\n        # Binary search on answer.\n        # Upper bound: when x=1, price is popcount sum; but still grows\n        # roughly (n log n). With k up to 1e15, n won't exceed ~2e7-1e8.\n        # We'll use a safe exponential search.\n        lo, hi = 0, 1\n        while total_price_upto(hi) <= k:\n            hi *= 2\n            # prevent infinite loop; with constraints should be unnecessary\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_upto(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Sum of prices from 1..N:\n        # For each position i (1-indexed from LSB), contribution from i is:\n        #   count_ones_in_bit_position(i, N)  where bit position corresponds to value 2^(i-1)\n        # Price counts set bits only when i % x == 0 => i = m*x for m>=1.\n        #\n        # We need maximum N such that total_ones_sum(N) <= k.\n        # Monotonic => binary search.\n\n        def count_ones_in_bit(pos1_indexed: int, N: int) -> int:\n            \"\"\"Number of 1s in bit at 1-indexed position pos1_indexed among numbers 0..N.\"\"\"\n            # bit index in usual 0-indexed: b = pos1_indexed - 1\n            b = pos1_indexed - 1\n            if b < 0 or N < 0:\n                return 0\n            cycle = 1 << (b + 1)\n            half = 1 << b\n            full = (N + 1) // cycle\n            rem = (N + 1) % cycle\n            return full * half + max(0, rem - half)\n\n        def total_price(N: int) -> int:\n            if N <= 0:\n                return 0\n            # Highest needed bit position: floor(log2(N))+1 (1-indexed)\n            # If N < 1 then already handled.\n            max_pos = N.bit_length()\n            total = 0\n            # i = m*x, i <= max_pos\n            i = x\n            while i <= max_pos:\n                total += count_ones_in_bit(i, N)\n                if total > k:  # small pruning\n                    return total\n                i += x\n            return total\n\n        # Binary search on N in [1, high]\n        # Upper bound: in worst case x=1, total_price grows like N*avg popcount (~ N log N)\n        # But k<=1e15; a safe high is 2e6 for x small? not safe.\n        # Use exponential search.\n        lo, hi = 1, 1\n        while total_price(hi) <= k:\n            hi *= 2\n        # Now answer in (lo..hi-1] where total_price <= k\n        while lo + 1 < hi:\n            mid = (lo + hi) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # prices: for each num, count set bits at positions i where i % x == 0\n        # with 1-indexed bits from LSB (rightmost).\n        #\n        # Let f(n) = total price sum over all numbers in [1..n].\n        # We binary search maximum n such that f(n) <= k.\n        #\n        # For each bit position p (1-indexed, LSB=1): it contributes to price\n        # iff p % x == 0. For fixed p, count how many numbers in [0..n]\n        # have that bit set. Then sum over p.\n        #\n        # Count for bit p (0-indexed bit b = p-1):\n        # cycle = 2^(b+1); ones per cycle = 2^b.\n        # total ones from 0..n inclusive:\n        # full_cycles = (n+1) // cycle\n        # rem = (n+1) % cycle\n        # ones = full_cycles * 2^b + max(0, rem - 2^b)\n\n        def total_price(n: int) -> int:\n            if n <= 0:\n                return 0\n            N = n + 1  # count in [0..n]\n            ans = 0\n            # maximum bit needed: up to n ~ ?; k up to 1e15 so n fits within 2^50.\n            # We'll safely check up to 60 bits.\n            for p in range(1, 61):  # 1-indexed bit position\n                if p % x != 0:\n                    continue\n                b = p - 1  # 0-indexed bit\n                pow2b = 1 << b\n                cycle = pow2b << 1  # 2^(b+1)\n                full_cycles = N // cycle\n                rem = N % cycle\n                ones = full_cycles * pow2b\n                if rem > pow2b:\n                    ones += rem - pow2b\n                # ones counts numbers in [0..n] with bit b set.\n                ans += ones\n                # Early stop if already exceeds k in caller? not needed, but could help.\n            return ans\n\n        # binary search for maximum n\n        lo, hi = 0, 1\n        # increase hi until total_price(hi) > k\n        while total_price(hi) <= k:\n            hi <<= 1\n            # prevent infinite loop though constraints make it unnecessary\n            if hi > (1 << 62):\n                break\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # price(num): number of set bits whose 1-indexed position i satisfies i % x == 0\n        # We need max num such that sum(price(1..num)) <= k.\n\n        # Let positions considered be i = x, 2x, 3x, ...\n        # For a fixed bit position i, the number of integers in [1..N] with that bit set\n        # can be computed with standard periodicity on binary bits.\n        # Then total sum is sum over those positions.\n\n        def count_bit_set_up_to(N: int, bitpos_1idx: int) -> int:\n            # bit index in 0-based is b = bitpos_1idx - 1\n            b = bitpos_1idx - 1\n            if b < 0 or N <= 0:\n                return 0\n            cycle = 1 << (b + 1)\n            half = 1 << b\n            full = N // cycle\n            rem = N % cycle\n            # In each full cycle, bit is set for half numbers.\n            res = full * half\n            # In remainder, add extra set bits when rem exceeds half.\n            if rem >= half:\n                res += rem - half + 1  # inclusive\n            return res\n\n        def total_price_up_to(N: int) -> int:\n            if N <= 0:\n                return 0\n            total = 0\n            # Max bit position needed: highest set bit of N.\n            max_bit_1idx = N.bit_length()\n            i = x\n            while i <= max_bit_1idx:\n                total += count_bit_set_up_to(N, i)\n                if total > k:  # small pruning\n                    return total\n                i += x\n            return total\n\n        # Binary search for maximum N with total_price_up_to(N) <= k.\n        lo, hi = 0, 1\n        # Exponentially expand hi until condition fails.\n        while total_price_up_to(hi) <= k:\n            hi *= 2\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_up_to(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # Price(num) counts set bits at positions i (1-indexed from right)\n        # where i % x == 0.\n        #\n        # Sum of prices from 1..N equals, for each eligible bit position p (p% x==0),\n        # the number of integers in [1..N] that have bit p set.\n        #\n        # For a bit position p (value 2^(p-1)), count_ones(N, p) can be computed by\n        # standard periodicity of binary bits.\n        #\n        # We then binary search the maximum N with total_sum(N) <= k.\n\n        def count_ones_upto(n: int, p: int) -> int:\n            \"\"\"Count of numbers in [1..n] with bit position p set (p is 1-indexed from right).\"\"\"\n            if n <= 0:\n                return 0\n            # bit value:\n            bit = 1 << (p - 1)\n            period = bit << 1  # 2*bit\n            full = n // period\n            rem = n % period\n            # In each full period, bit is set for 'bit' numbers.\n            res = full * bit\n            # Remaining part contributes max(0, rem - bit)\n            if rem > bit:\n                res += rem - bit\n            return res\n\n        def total_sum(n: int) -> int:\n            if n <= 0:\n                return 0\n            total = 0\n            # Maximum relevant p such that 2^(p-1) <= n => p-1 <= floor(log2 n)\n            max_p = n.bit_length()\n            # Only p where p % x == 0\n            p = x  # smallest positive multiple of x\n            while p <= max_p:\n                total += count_ones_upto(n, p)\n                # Early break if already too large\n                if total > k:\n                    return total\n                p += x\n            return total\n\n        # Binary search for maximum N such that total_sum(N) <= k\n        lo, hi = 0, 1\n        while total_sum(hi) <= k:\n            hi <<= 1\n            # Ensure we don't infinite loop; k up to 1e15, answer won't exceed ~2^50.\n            if hi > (1 << 62):\n                break\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_sum(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # We need maximum num such that:\n        # sum_{n=1..num} price(n) <= k\n        #\n        # price(n) counts set bits at positions i where i % x == 0\n        # with 1-indexing from right (LSB is position 1).\n        #\n        # For each position p (1-indexed from LSB) with p % x == 0, the contribution to\n        # total price up to num is: count of numbers in [1..num] with bit p set.\n        #\n        # We can compute countBitUpTo(num, p) in O(1) and sum over relevant p.\n        # Then binary search the maximum num.\n        \n        def count_bit_up_to(num: int, p: int) -> int:\n            # Count of integers in [0..num] whose p-th bit is 1 (p is 1-indexed).\n            if num < 0:\n                return 0\n            bit = 1 << (p - 1)          # value of p-th bit\n            block = bit << 1            # period length\n            full = (num + 1) // block\n            rem = (num + 1) % block\n            # In each full block, bit is set for 'bit' consecutive numbers.\n            res = full * bit\n            # In the remainder, add the overlap\n            res += max(0, rem - bit)\n            return res\n\n        def total_price_up_to(num: int) -> int:\n            # Total price from 1..num equals total from 0..num because 0 contributes nothing.\n            if num <= 0:\n                return 0\n            # Highest possible bit position needed\n            max_p = num.bit_length()\n            s = 0\n            # positions p such that p % x == 0\n            # iterate only those\n            p0 = x\n            for p in range(p0, max_p + 1, x):\n                s += count_bit_up_to(num, p)\n                if s > k:  # early exit for speed/overflow safety\n                    return s\n            return s\n\n        # Binary search answer\n        lo, hi = 0, 1\n        # Increase hi until total_price_up_to(hi) > k\n        while total_price_up_to(hi) <= k:\n            hi <<= 1\n\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price_up_to(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```",
+        "```python\nclass Solution:\n    def findMaximumNumber(self, k: int, x: int) -> int:\n        # For a bit position i (1-indexed from right), it contributes 1 to the price of\n        # numbers whose i-th bit is 1 and i % x == 0.\n        # So total sum of prices for numbers [1..n] equals:\n        #   sum over i multiple of x of  count_ones_in_position(n, i)\n        #\n        # We can compute count_ones_in_position(n, i) in O(1) using cycles of length 2^i.\n        # Binary search the maximum n such that total <= k.\n        #\n        # n up to 1e15 implies bit length <= 50, so we only need to iterate i up to 60 safely.\n\n        def ones_at_pos(n: int, pos: int) -> int:\n            # pos is 1-indexed from right; i-th bit corresponds to value (1<<(pos-1))\n            if n <= 0:\n                return 0\n            bit = 1 << (pos - 1)\n            cycle = bit << 1  # 2^pos\n            full = (n // cycle) * bit\n            rem = n % cycle\n            extra = rem - bit + 1\n            if extra < 0:\n                extra = 0\n            elif extra > bit:\n                extra = bit\n            return full + extra\n\n        def total_price(n: int) -> int:\n            if n <= 0:\n                return 0\n            res = 0\n            # iterate only positions i such that i % x == 0\n            # pos max needed: while 2^pos <= n gives pos ~ floor(log2(n))+1\n            # add some slack due to arithmetic safety\n            max_pos = 0\n            t = n\n            while t > 0:\n                max_pos += 1\n                t >>= 1\n            max_pos += 2\n            for pos in range(x, max_pos + 1, x):\n                res += ones_at_pos(n, pos)\n                if res > k:  # early stop to avoid large sums\n                    return res\n            return res\n\n        lo, hi = 1, 1\n        # Find an upper bound where total_price(hi) > k\n        while total_price(hi) <= k:\n            hi *= 2\n        # Now binary search in [lo, hi]\n        while lo < hi:\n            mid = (lo + hi + 1) // 2\n            if total_price(mid) <= k:\n                lo = mid\n            else:\n                hi = mid - 1\n        return lo\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3240",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 7,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "6",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "9",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "40",
+                "actual": "41",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "128",
+                "actual": "129",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "30",
+                "actual": "31",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "38",
+                "actual": "39",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "29",
+                "actual": "30",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "91",
+                "actual": "92",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "142",
+                "actual": "143",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8667131",
+                "actual": "8667132",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "296431861352328",
+                "actual": "296431861352329",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "44470852534271",
+                "actual": "44470852534272",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "343778878348159",
+                "actual": "343778878348160",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3240",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9",
+                "actual": "9",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "40",
+                "actual": "40",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "128",
+                "actual": "128",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "30",
+                "actual": "30",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "38",
+                "actual": "38",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "29",
+                "actual": "29",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "91",
+                "actual": "91",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "142",
+                "actual": "142",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8667131",
+                "actual": "8667131",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "296431861352328",
+                "actual": "296431861352328",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "44470852534271",
+                "actual": "44470852534271",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "343778878348159",
+                "actual": "343778878348159",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.9,
+      "augmented_pass_rate": 0.9,
+      "improvement": 0.0
+    }
+  }
+}

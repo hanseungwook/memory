@@ -1,0 +1,3074 @@
+{
+  "problem_id": "3242",
+  "domain": "coding",
+  "problem": {
+    "id": "3242",
+    "domain": "coding",
+    "statement": "You are given an array nums consisting of positive integers.\nReturn the total frequencies of elements in nums such that those elements all have the maximum frequency.\nThe frequency of an element is the number of occurrences of that element in the array.\n \nExample 1:\n\nInput: nums = [1,2,2,3,1,4]\nOutput: 4\nExplanation: The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array.\nSo the number of elements in the array with maximum frequency is 4.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: 5\nExplanation: All elements of the array have a frequency of 1 which is the maximum.\nSo the number of elements in the array with maximum frequency is 5.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 100",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[1, 2, 2, 3, 1, 4]",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3, 4, 5]",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "[6]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[7]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[22]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[7, 4, 9, 8, 8]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 4, 7, 7, 2, 7]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 4, 3, 3, 3, 5, 9]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 10, 8, 9, 2, 4, 9, 6]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[53, 94, 51, 95, 8, 2, 49, 56, 99, 77, 69, 85, 80, 75, 55, 87, 28, 29, 72, 65, 35, 2, 41, 28, 84, 70, 8, 92, 35, 24, 34, 49, 62, 30, 11, 57, 3, 46, 73, 53, 20, 37, 34, 45, 31, 20, 5, 98, 54, 27, 25, 66, 97, 97, 88, 42, 72, 85, 52, 72, 79, 92, 35, 44, 73, 26, 73, 14, 24, 90, 82, 93, 60, 61, 81, 68, 61, 14, 69, 44, 29, 49, 72, 79, 83, 77, 98, 11, 21, 4, 3, 49, 7, 90, 3, 53, 69, 12, 78, 38]",
+        "output": "8",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100]",
+        "output": "100",
+        "testtype": "functional"
+      },
+      {
+        "input": "[78, 70, 54, 69, 52, 79, 50, 53, 54, 71, 56, 50, 60, 64, 56, 57, 52, 87, 62, 85, 87, 79, 69, 100, 94, 75, 67, 91, 68, 58, 76, 96, 98, 97, 78, 100, 77, 61, 79, 54, 64, 82, 66, 94, 59, 78, 54, 86, 99, 67, 100, 75, 81, 89, 64, 89, 58, 95, 72, 92, 64, 97, 84, 91, 87, 64, 100, 53, 78, 89, 58, 65, 67, 65, 88, 95, 95, 84, 81, 70, 95, 90, 68, 72, 98, 70, 64, 83, 82, 70, 80, 83, 62, 55, 54, 100, 63, 50, 79]",
+        "output": "6",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "maxFrequencyElements",
+      "question_title": "count-elements-with-maximum-frequency",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given an array nums consisting of positive integers.\nReturn the total frequencies of elements in nums such that those elements all have the maximum frequency.\nThe frequency of an element is the number of occurrences of that element in the array.\n \nExample 1:\n\nInput: nums = [1,2,2,3,1,4]\nOutput: 4\nExplanation: The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array.\nSo the number of elements in the array with maximum frequency is 4.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: 5\nExplanation: All elements of the array have a frequency of 1 which is the maximum.\nSo the number of elements in the array with maximum frequency is 5.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(1 for v in freq.values() if v == max_f) * max_f // max_f if max_f else 0\n```\n",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(count for count in freq.values() if count == max_freq)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(count for count in freq.values() if count == max_f)\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3242",
+          "generation_index": 0,
+          "score": 0.5,
+          "tier": "partial",
+          "details": {
+            "passed": 7,
+            "total": 14,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "2",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "8",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "6",
+                "actual": "1",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(count for count in freq.values() if count == max_freq)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(count for count in freq.values() if count == max_f)\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(1 for v in freq.values() if v == max_f) * max_f // max_f if max_f else 0\n```\n"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given an array nums consisting of positive integers.\nReturn the total frequencies of elements in nums such that those elements all have the maximum frequency.\nThe frequency of an element is the number of occurrences of that element in the array.\n \nExample 1:\n\nInput: nums = [1,2,2,3,1,4]\nOutput: 4\nExplanation: The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array.\nSo the number of elements in the array with maximum frequency is 4.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: 5\nExplanation: All elements of the array have a frequency of 1 which is the maximum.\nSo the number of elements in the array with maximum frequency is 5.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 100\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```\n\nAttempt 2\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(count for count in freq.values() if count == max_freq)\n```\n\nAttempt 3\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```\n\nAttempt 4\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```\n\nAttempt 5\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```\n\nAttempt 6\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```\n\nAttempt 7\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```\n\nAttempt 8\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```\n\nAttempt 9\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(count for count in freq.values() if count == max_f)\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(1 for v in freq.values() if v == max_f) * max_f // max_f if max_f else 0\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Count-and-Optimize via Frequency Histogram",
+          "description": "When asked about “elements with maximum frequency,” first compute all occurrence counts, then operate on the multiset of those counts.",
+          "content": "Convert the array into a frequency map, find the maximum frequency value, and compute the result by summing over all elements whose frequency equals that maximum. This pattern is broadly applicable to problems phrased in terms of most-common (or least-common) occurrences.",
+          "reasoning": "The successful attempts all use the same core idea: reduce the problem to counting occurrences, then select the frequency level that is maximal, and finally sum how many elements achieve that maximal frequency. The only partially correct attempt shows a common failure pattern: introducing unnecessary arithmetic/guard logic that obscures the actual required quantity (summing counts) and can lead to incorrect computation even if it sometimes appears to handle edge cases. The correct solutions also consistently validate assumptions implicitly via constraints (non-empty input), and a few explicitly guard empty frequency maps—demonstrating safe handling of edge cases without changing the core logic."
+        },
+        {
+          "title": "Sum the Required Quantity Directly—Avoid Overfitted Arithmetic",
+          "description": "If the task asks to aggregate counts, directly sum the relevant counts instead of trying to re-express the computation with extra algebra.",
+          "content": "A partially correct approach used complicated arithmetic that effectively attempted to transform the aggregation, increasing the chance of logical mismatch. The robust approach is to compute the exact statistic you need (e.g., sum of frequencies for items at the optimum level) rather than manipulating it into a different form.",
+          "reasoning": "The successful attempts all use the same core idea: reduce the problem to counting occurrences, then select the frequency level that is maximal, and finally sum how many elements achieve that maximal frequency. The only partially correct attempt shows a common failure pattern: introducing unnecessary arithmetic/guard logic that obscures the actual required quantity (summing counts) and can lead to incorrect computation even if it sometimes appears to handle edge cases. The correct solutions also consistently validate assumptions implicitly via constraints (non-empty input), and a few explicitly guard empty frequency maps—demonstrating safe handling of edge cases without changing the core logic."
+        },
+        {
+          "title": "Edge-Case Safety Without Distorting the Core Logic",
+          "description": "Add minimal guards for edge cases, but ensure they don’t change the meaning of the main computation.",
+          "content": "Some correct solutions included a defensive check for an empty frequency map, which returns a sensible neutral result. When input constraints guarantee non-emptiness, guards can be optional—but if you add them, keep them localized so the core “max frequency then sum matches” logic remains intact.",
+          "reasoning": "The successful attempts all use the same core idea: reduce the problem to counting occurrences, then select the frequency level that is maximal, and finally sum how many elements achieve that maximal frequency. The only partially correct attempt shows a common failure pattern: introducing unnecessary arithmetic/guard logic that obscures the actual required quantity (summing counts) and can lead to incorrect computation even if it sometimes appears to handle edge cases. The correct solutions also consistently validate assumptions implicitly via constraints (non-empty input), and a few explicitly guard empty frequency maps—demonstrating safe handling of edge cases without changing the core logic."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful attempts all use the same core idea: reduce the problem to counting occurrences, then select the frequency level that is maximal, and finally sum how many elements achieve that maximal frequency. The only partially correct attempt shows a common failure pattern: introducing unnecessary arithmetic/guard logic that obscures the actual required quantity (summing counts) and can lead to incorrect computation even if it sometimes appears to handle edge cases. The correct solutions also consistently validate assumptions implicitly via constraints (non-empty input), and a few explicitly guard empty frequency maps—demonstrating safe handling of edge cases without changing the core logic.\n</reasoning>\n\n<memories>\n  <memory>\n    <title>Count-and-Optimize via Frequency Histogram</title>\n    <description>When asked about “elements with maximum frequency,” first compute all occurrence counts, then operate on the multiset of those counts.</description>\n    <content>Convert the array into a frequency map, find the maximum frequency value, and compute the result by summing over all elements whose frequency equals that maximum. This pattern is broadly applicable to problems phrased in terms of most-common (or least-common) occurrences.</content>\n  </memory>\n\n  <memory>\n    <title>Sum the Required Quantity Directly—Avoid Overfitted Arithmetic</title>\n    <description>If the task asks to aggregate counts, directly sum the relevant counts instead of trying to re-express the computation with extra algebra.</description>\n    <content>A partially correct approach used complicated arithmetic that effectively attempted to transform the aggregation, increasing the chance of logical mismatch. The robust approach is to compute the exact statistic you need (e.g., sum of frequencies for items at the optimum level) rather than manipulating it into a different form.</content>\n  </memory>\n\n  <memory>\n    <title>Edge-Case Safety Without Distorting the Core Logic</title>\n    <description>Add minimal guards for edge cases, but ensure they don’t change the meaning of the main computation.</description>\n    <content>Some correct solutions included a defensive check for an empty frequency map, which returns a sensible neutral result. When input constraints guarantee non-emptiness, guards can be optional—but if you add them, keep them localized so the core “max frequency then sum matches” logic remains intact.</content>\n  </memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given an array nums consisting of positive integers.\nReturn the total frequencies of elements in nums such that those elements all have the maximum frequency.\nThe frequency of an element is the number of occurrences of that element in the array.\n \nExample 1:\n\nInput: nums = [1,2,2,3,1,4]\nOutput: 4\nExplanation: The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array.\nSo the number of elements in the array with maximum frequency is 4.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: 5\nExplanation: All elements of the array have a frequency of 1 which is the maximum.\nSo the number of elements in the array with maximum frequency is 5.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        counts = Counter(nums)\n        max_freq = max(counts.values())\n        return sum(freq for freq in counts.values() if freq == max_freq)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(count for count in freq.values() if count == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        maxf = max(freq.values())\n        return sum(c for c in freq.values() if c == maxf)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        max_freq = max(freq.values())\n        return sum(c for c in freq.values() if c == max_freq)\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3242",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Count-and-Optimize via Frequency Histogram: When asked about “elements with maximum frequency,” first compute all occurrence counts, then operate on the multiset of those counts.\n     Convert the array into a frequency map, find the maximum frequency value, and compute the result by summing over all elements whose frequency equals that maximum. This pattern is broadly applicable to problems phrased in terms of most-common (or least-common) occurrences.\n  2. Sum the Required Quantity Directly—Avoid Overfitted Arithmetic: If the task asks to aggregate counts, directly sum the relevant counts instead of trying to re-express the computation with extra algebra.\n     A partially correct approach used complicated arithmetic that effectively attempted to transform the aggregation, increasing the chance of logical mismatch. The robust approach is to compute the exact statistic you need (e.g., sum of frequencies for items at the optimum level) rather than manipulating it into a different form.\n  3. Edge-Case Safety Without Distorting the Core Logic: Add minimal guards for edge cases, but ensure they don’t change the meaning of the main computation.\n     Some correct solutions included a defensive check for an empty frequency map, which returns a sensible neutral result. When input constraints guarantee non-emptiness, guards can be optional—but if you add them, keep them localized so the core “max frequency then sum matches” logic remains intact.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given an array nums consisting of positive integers.\nReturn the total frequencies of elements in nums such that those elements all have the maximum frequency.\nThe frequency of an element is the number of occurrences of that element in the array.\n \nExample 1:\n\nInput: nums = [1,2,2,3,1,4]\nOutput: 4\nExplanation: The elements 1 and 2 have a frequency of 2 which is the maximum frequency in the array.\nSo the number of elements in the array with maximum frequency is 4.\n\nExample 2:\n\nInput: nums = [1,2,3,4,5]\nOutput: 5\nExplanation: All elements of the array have a frequency of 1 which is the maximum.\nSo the number of elements in the array with maximum frequency is 5.\n\n \nConstraints:\n\n1 <= nums.length <= 100\n1 <= nums[i] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0  # defensive; constraints guarantee non-empty nums\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(count for count in freq.values() if count == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        maxf = max(freq.values())\n        return sum(c for c in freq.values() if c == maxf)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_f = max(freq.values())\n        return sum(c for c in freq.values() if c == max_f)\n```",
+        "```python\nfrom typing import List\nfrom collections import Counter\n\nclass Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        freq = Counter(nums)\n        if not freq:\n            return 0\n        max_count = max(freq.values())\n        return sum(c for c in freq.values() if c == max_count)\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3242",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3242",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8",
+                "actual": "8",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "100",
+                "actual": "100",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

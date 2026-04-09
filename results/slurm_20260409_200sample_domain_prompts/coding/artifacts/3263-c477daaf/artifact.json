@@ -1,0 +1,3279 @@
+{
+  "problem_id": "3263",
+  "domain": "coding",
+  "problem": {
+    "id": "3263",
+    "domain": "coding",
+    "statement": "You are given an array of integers nums of length n.\nThe cost of an array is the value of its first element. For example, the cost of [1,2,3] is 1 while the cost of [3,4,1] is 3.\nYou need to divide nums into 3 disjoint contiguous subarrays.\nReturn the minimum possible sum of the cost of these subarrays.\n \nExample 1:\n\nInput: nums = [1,2,3,12]\nOutput: 6\nExplanation: The best possible way to form 3 subarrays is: [1], [2], and [3,12] at a total cost of 1 + 2 + 3 = 6.\nThe other possible ways to form 3 subarrays are:\n- [1], [2,3], and [12] at a total cost of 1 + 2 + 12 = 15.\n- [1,2], [3], and [12] at a total cost of 1 + 3 + 12 = 16.\n\nExample 2:\n\nInput: nums = [5,4,3]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [5], [4], and [3] at a total cost of 5 + 4 + 3 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\nExample 3:\n\nInput: nums = [10,3,1,1]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [10,3], [1], and [1] at a total cost of 10 + 1 + 1 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\n \nConstraints:\n\n3 <= n <= 50\n1 <= nums[i] <= 50",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[1, 2, 3, 12]",
+        "output": "6",
+        "testtype": "functional"
+      },
+      {
+        "input": "[5, 4, 3]",
+        "output": "12",
+        "testtype": "functional"
+      },
+      {
+        "input": "[10, 3, 1, 1]",
+        "output": "12",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 1, 1]",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "[8, 4, 7]",
+        "output": "19",
+        "testtype": "functional"
+      },
+      {
+        "input": "[49, 28, 9]",
+        "output": "86",
+        "testtype": "functional"
+      },
+      {
+        "input": "[7, 36, 34]",
+        "output": "77",
+        "testtype": "functional"
+      },
+      {
+        "input": "[24, 4, 23]",
+        "output": "51",
+        "testtype": "functional"
+      },
+      {
+        "input": "[34, 48, 34]",
+        "output": "116",
+        "testtype": "functional"
+      },
+      {
+        "input": "[49, 43, 23]",
+        "output": "115",
+        "testtype": "functional"
+      },
+      {
+        "input": "[5, 6, 9, 2, 9]",
+        "output": "13",
+        "testtype": "functional"
+      },
+      {
+        "input": "[28, 2, 27, 28, 24, 35, 48, 46, 28, 2, 26, 11, 20, 17, 17, 41, 48, 16, 50, 20, 36, 41, 42, 17, 3, 27, 8, 30, 46, 23, 13, 9, 34, 10, 26, 32, 29, 50, 3, 37, 43, 14, 47, 29, 4, 28, 19, 43, 18, 35]",
+        "output": "32",
+        "testtype": "functional"
+      },
+      {
+        "input": "[7, 28, 29, 11, 30, 28, 2, 34, 6, 34, 38, 15, 11, 10, 10, 3, 25, 44, 4, 25, 34, 11, 21, 22, 38, 26, 14, 33, 36, 21, 20, 23, 46, 12, 32, 5, 23, 43, 47, 18, 17, 38, 50, 14, 31, 25, 21, 25, 14, 6]",
+        "output": "12",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 4, 6, 7, 7, 8, 10, 11, 12, 12, 12, 15, 18, 18, 19, 19, 21, 21, 22, 25, 26, 26, 26, 26, 28, 29, 30, 30, 30, 31, 31, 31, 33, 33, 34, 34, 36, 37, 38, 39, 40, 41, 41, 41, 42, 42, 44, 44, 45, 49]",
+        "output": "11",
+        "testtype": "functional"
+      },
+      {
+        "input": "[50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50]",
+        "output": "150",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "minimumCost",
+      "question_title": "divide-an-array-into-subarrays-with-minimum-cost-i",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given an array of integers nums of length n.\nThe cost of an array is the value of its first element. For example, the cost of [1,2,3] is 1 while the cost of [3,4,1] is 3.\nYou need to divide nums into 3 disjoint contiguous subarrays.\nReturn the minimum possible sum of the cost of these subarrays.\n \nExample 1:\n\nInput: nums = [1,2,3,12]\nOutput: 6\nExplanation: The best possible way to form 3 subarrays is: [1], [2], and [3,12] at a total cost of 1 + 2 + 3 = 6.\nThe other possible ways to form 3 subarrays are:\n- [1], [2,3], and [12] at a total cost of 1 + 2 + 12 = 15.\n- [1,2], [3], and [12] at a total cost of 1 + 3 + 12 = 16.\n\nExample 2:\n\nInput: nums = [5,4,3]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [5], [4], and [3] at a total cost of 5 + 4 + 3 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\nExample 3:\n\nInput: nums = [10,3,1,1]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [10,3], [1], and [1] at a total cost of 10 + 1 + 1 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\n \nConstraints:\n\n3 <= n <= 50\n1 <= nums[i] <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = min total cost to partition nums[i:] into k subarrays\n        # We only need k = 3.\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        \n        # Base: when k=1, cost is simply nums[i] (first element of the only subarray)\n        for i in range(n):\n            dp[i][1] = nums[i]\n        dp[n][1] = INF  # can't form non-empty subarray\n        \n        # Transition for k>=2:\n        # Choose the end of first subarray at j-1 (start fixed at i), so next start is j\n        # cost = nums[i] + dp[j][k-1]\n        for k in range(2, 4):\n            # We need at least k elements to make k non-empty subarrays\n            for i in range(n - k + 1, -1, -1):\n                best_next = INF\n                # end of first subarray can be from i to n-k\n                # so next start j ranges i+1..n-(k-1)\n                for j in range(i + 1, n - (k - 1) + 1):\n                    if dp[j][k - 1] < best_next:\n                        best_next = dp[j][k - 1]\n                dp[i][k] = nums[i] + best_next\n        \n        return dp[0][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k] = minimum cost to partition nums[0:i] into k subarrays\n        # where the last subarray ends at i-1.\n        # Transition: last subarray is nums[j:i], whose cost is nums[j].\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for k in range(1, 4):\n            # To compute dp[i][k] efficiently:\n            # dp[i][k] = min_{j in [k-1 .. i-1]} (dp[j][k-1] + nums[j])\n            # Maintain best = min(dp[j][k-1] + nums[j]) as j increases.\n            best = INF\n            # i must be at least k (need k non-empty subarrays)\n            for i in range(k, n + 1):\n                j = i - 1\n                # Update best with position (i-1) for future i's transitions.\n                # Note: for dp[i][k], j ranges up to i-1, so update best using j=i-1\n                # right before computing dp[i][k] would be incorrect order.\n                # Instead, we update best using (i-1) after computing dp[i][k],\n                # but that's awkward. We'll do it by preparing best before loop body.\n                pass\n\n        # Re-implement cleanly with correct update order:\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n        for k in range(1, 4):\n            best = INF\n            # j starts at k-1 so that first k-1 elements can form k-1 subarrays\n            for i in range(k, n + 1):\n                # Before computing dp[i][k], best should reflect min over j in [k-1 .. i-1]\n                j = i - 1\n                if dp[j][k - 1] < INF:\n                    best = min(best, dp[j][k - 1] + nums[j])\n                dp[i][k] = best\n\n        return dp[n][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = minimum cost to split prefix nums[0..i] into k subarrays\n        # Transition: last subarray starts at j => cost = nums[j] + dp[j-1][k-1]\n        INF = 10**9\n        dp_prev = [INF] * n  # for k-1\n        dp_cur = [INF] * n   # for k\n\n        # k = 1: only one subarray [0..i], cost is nums[0]\n        for i in range(n):\n            dp_prev[i] = nums[0]\n\n        # k = 2..3\n        for k in range(2, 4):\n            dp_cur = [INF] * n\n            # For fixed i, we need min over j <= i of dp_prev[j-1] + nums[j]\n            # Maintain suffix minimum of dp_prev[j-1] + nums[j] as we scan i.\n            best = INF\n            for i in range(n):\n                if i - 1 >= 0:\n                    best = min(best, dp_prev[i - 1] + nums[i])\n                # dp for k subarrays must end at i, so we need at least k elements\n                if i >= k - 1:\n                    dp_cur[i] = best\n\n            dp_prev = dp_cur\n\n        # k = 3, end at n-1\n        return dp_prev[-1]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Choose 2 cut points to split into 3 contiguous parts:\n        # [0..i], [i+1..j], [j+1..n-1]\n        # Cost is nums[0] + nums[i+1] + nums[j+1]\n        # where i in [0..n-3], j in [i+1..n-2]\n        #\n        # We can precompute suffix minimums of the \"start cost\" for third part.\n        # For any j (start index of 2nd part ends at j), the third part starts at j+1,\n        # so its cost is nums[j+1]. We need min nums[j+1] over valid j choices.\n\n        suffix_min = [0] * (n + 1)  # suffix_min[k] = min nums[t] for t in [k..n-1]\n        suffix_min[n] = 10**9\n        for k in range(n - 1, -1, -1):\n            suffix_min[k] = min(nums[k], suffix_min[k + 1])\n\n        ans = 10**9\n        for i in range(0, n - 2):  # i is end index of first subarray\n            # second subarray must start at i+1, cost = nums[i+1]\n            second_cost = nums[i + 1]\n\n            # third subarray starts at j+1 where j >= i+1 and j <= n-2\n            # so third start index is in [i+2 .. n-1]\n            third_best = suffix_min[i + 2]\n\n            ans = min(ans, nums[0] + second_cost + third_best)\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        \n        # dp[i][k] = minimum cost to partition nums[0..i] into k subarrays\n        # Transition: last subarray starts at j -> cost = min(dp[j-1][k-1] + nums[j])\n        # Base: dp[i][1] = nums[0] for all i because first element is fixed as cost of first subarray\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n)]\n        \n        # k = 1\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # k = 2..3\n        for k in range(2, 4):\n            for i in range(n):\n                # Need at least k elements to form k non-empty subarrays\n                if i + 1 < k:\n                    continue\n                # last subarray is nums[j..i] with j in [k-1 .. i]\n                best = INF\n                for j in range(k - 1, i + 1):\n                    prev = dp[j - 1][k - 1] if j - 1 >= 0 else INF\n                    best = min(best, prev + nums[j])\n                dp[i][k] = best\n        \n        return dp[n - 1][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k]: minimum cost to partition nums[0..i] (inclusive)\n        # into k subarrays, where the k-th subarray ends at i.\n        dp = [[INF] * (4) for _ in range(n)]\n        \n        # Base: k = 1 => only one subarray [0..i], cost = nums[0]\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # For k >= 2:\n        # Transition:\n        # dp[i][k] = min over j in [k-2 .. i-1] of dp[j][k-1] + nums[j+1]\n        # because the k-th subarray is nums[j+1 .. i] whose cost is first element nums[j+1].\n        for k in range(2, 4):\n            for i in range(n):\n                best = INF\n                for j in range(k - 2, i):\n                    best = min(best, dp[j][k - 1] + nums[j + 1])\n                dp[i][k] = best\n\n        return dp[n - 1][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[j] = minimum cost to split first i elements into j subarrays,\n        # using the recurrence derived from:\n        # cost of subarray nums[k:i] is nums[k]\n        # => dp_next[i][j] = min_{k in [j-1 .. i-1]} dp[k][j-1] + nums[k]\n        #\n        # We compute in O(n^2) per j using prefix minima:\n        # min_{k} (dp_prev[k] + nums[k]) can be maintained incrementally.\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0\n\n        for j in range(1, 4):  # create j subarrays\n            dp_cur = [INF] * (n + 1)\n            best = INF  # best over k <= i-1 of dp_prev[k] + nums[k-1]? careful with indices\n            # We'll use k as start index in nums (0-based), and end at i-1.\n            # If we want j subarrays covering nums[0..i-1], previous dp_prev[k]\n            # must cover nums[0..k-1], and current subarray starts at k (nums[k..i-1]).\n            # cost = nums[k]\n            # Transition: dp_cur[i] = min_{k in [j-1 .. i-1]} dp_prev[k] + nums[k]\n            # Valid k is at least j-1 because we need k elements to form j-1 subarrays.\n            for i in range(j, n + 1):  # i elements used\n                # update best with k = i-1 as we move i forward\n                k = i - 1\n                if dp_prev[k] != INF:\n                    best = min(best, dp_prev[k] + nums[k])\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        \n        # dp[j] = minimum cost to split prefix ending at current index into j subarrays\n        # while ensuring subarray cost is its first element.\n        dp = [[INF] * 3 for _ in range(n + 1)]\n        # dp[i][k] = minimum cost to partition nums[0:i] into k subarrays\n        # We'll use transition:\n        # choosing the k-th subarray starts at m (0 <= m < i)\n        # cost contribution = nums[m] + dp[m][k-1]\n        \n        for i in range(1, n + 1):\n            # k = 1: whole prefix is one subarray starting at 0\n            dp[i][1] = nums[0]\n        \n        for i in range(1, n + 1):\n            for k in range(2, 4):  # up to 3 subarrays\n                best = INF\n                # m is the start of the last subarray; last subarray is nums[m:i]\n                # so we need dp[m][k-1] valid and m < i\n                for m in range(k - 1, i):  # at least k-1 elements to have k-1 subarrays\n                    if dp[m][k - 1] < INF:\n                        best = min(best, dp[m][k - 1] + nums[m])\n                dp[i][k] = best\n        \n        return dp[n][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][j] = minimum cost for first i elements (0..i-1) using j subarrays,\n        # where each subarray cost is the first element of that subarray.\n        INF = 10**18\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0\n\n        # For j = 1..3\n        for j in range(1, 4):\n            dp_cur = [INF] * (n + 1)\n            # Need at least j elements to form j non-empty subarrays\n            for i in range(j, n + 1):\n                # last subarray is nums[k..i-1], cost = nums[k]\n                # previous part is dp_prev[k] using j-1 subarrays\n                best = INF\n                for k in range(j - 1, i):\n                    prev = dp_prev[k]\n                    if prev == INF:\n                        continue\n                    cost = prev + nums[k]\n                    if cost < best:\n                        best = cost\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # prefixMin[i] = min(nums[0..i-1]) i from 1..n\n        prefixMin = [0] * (n + 1)\n        INF = 10**18\n        prefixMin[0] = INF\n        cur = INF\n        for i in range(1, n + 1):\n            cur = min(cur, nums[i - 1])\n            prefixMin[i] = cur\n\n        # suffixMin[i] = min(nums[i..n-1]) i from 0..n-1\n        suffixMin = [0] * (n + 1)\n        suffixMin[n] = INF\n        cur = INF\n        for i in range(n - 1, -1, -1):\n            cur = min(cur, nums[i])\n            suffixMin[i] = cur\n\n        # dp2[j] for j split point: min cost of first two subarrays\n        # If second subarray starts at j, its cost is nums[j]\n        # first subarray ends at j-1 => cost = prefixMin[j]\n        # so total = prefixMin[j] + nums[j]\n        dp2 = [INF] * (n + 1)  # valid for j in [1..n-1]\n        for j in range(1, n):\n            dp2[j] = prefixMin[j] + nums[j]\n\n        # Third subarray starts at k, cost is nums[k], and the first two end at k-1\n        # But dp2[k] already includes nums[k] as cost of second; so for total:\n        # Choose i<j<k with:\n        # cost = min(nums[0..i-1]) + nums[j] + nums[k]\n        # We can implement by scanning k and taking minimal dp2[j] + nums[k] where j < k.\n        # However dp2 is defined for j; we need prefix best over dp2 for j in [1..k-1].\n        best_dp2_prefix = [INF] * (n + 1)\n        for t in range(1, n):\n            best_dp2_prefix[t] = min(best_dp2_prefix[t - 1], dp2[t])\n        best_dp2_prefix[0] = INF\n        best_dp2_prefix[n] = min(best_dp2_prefix[n - 1], dp2[n - 1])\n\n        ans = INF\n        # k must be between 2..n-1 so that j exists in [1..k-1]\n        for k in range(2, n):\n            # first two subarrays cost = min_{j in [1..k-1]} (prefixMin[j] + nums[j])\n            # third cost = nums[k]\n            ans = min(ans, best_dp2_prefix[k - 1] + nums[k])\n\n        return ans\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3263",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 7,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "6",
+                "actual": "",
+                "error": "Runtime Error: list assignment index out of range"
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "19",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "86",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "77",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "51",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "116",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "115",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "13",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "32",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "11",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              },
+              {
+                "passed": false,
+                "expected": "150",
+                "actual": "",
+                "error": "Skipped (earlier failure)"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 9,
+          "score": 0.8,
+          "tier": "partial",
+          "details": {
+            "passed": 12,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "32",
+                "actual": "7",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "12",
+                "actual": "9",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = min total cost to partition nums[i:] into k subarrays\n        # We only need k = 3.\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        \n        # Base: when k=1, cost is simply nums[i] (first element of the only subarray)\n        for i in range(n):\n            dp[i][1] = nums[i]\n        dp[n][1] = INF  # can't form non-empty subarray\n        \n        # Transition for k>=2:\n        # Choose the end of first subarray at j-1 (start fixed at i), so next start is j\n        # cost = nums[i] + dp[j][k-1]\n        for k in range(2, 4):\n            # We need at least k elements to make k non-empty subarrays\n            for i in range(n - k + 1, -1, -1):\n                best_next = INF\n                # end of first subarray can be from i to n-k\n                # so next start j ranges i+1..n-(k-1)\n                for j in range(i + 1, n - (k - 1) + 1):\n                    if dp[j][k - 1] < best_next:\n                        best_next = dp[j][k - 1]\n                dp[i][k] = nums[i] + best_next\n        \n        return dp[0][3]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k] = minimum cost to partition nums[0:i] into k subarrays\n        # where the last subarray ends at i-1.\n        # Transition: last subarray is nums[j:i], whose cost is nums[j].\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for k in range(1, 4):\n            # To compute dp[i][k] efficiently:\n            # dp[i][k] = min_{j in [k-1 .. i-1]} (dp[j][k-1] + nums[j])\n            # Maintain best = min(dp[j][k-1] + nums[j]) as j increases.\n            best = INF\n            # i must be at least k (need k non-empty subarrays)\n            for i in range(k, n + 1):\n                j = i - 1\n                # Update best with position (i-1) for future i's transitions.\n                # Note: for dp[i][k], j ranges up to i-1, so update best using j=i-1\n                # right before computing dp[i][k] would be incorrect order.\n                # Instead, we update best using (i-1) after computing dp[i][k],\n                # but that's awkward. We'll do it by preparing best before loop body.\n                pass\n\n        # Re-implement cleanly with correct update order:\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n        for k in range(1, 4):\n            best = INF\n            # j starts at k-1 so that first k-1 elements can form k-1 subarrays\n            for i in range(k, n + 1):\n                # Before computing dp[i][k], best should reflect min over j in [k-1 .. i-1]\n                j = i - 1\n                if dp[j][k - 1] < INF:\n                    best = min(best, dp[j][k - 1] + nums[j])\n                dp[i][k] = best\n\n        return dp[n][3]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = minimum cost to split prefix nums[0..i] into k subarrays\n        # Transition: last subarray starts at j => cost = nums[j] + dp[j-1][k-1]\n        INF = 10**9\n        dp_prev = [INF] * n  # for k-1\n        dp_cur = [INF] * n   # for k\n\n        # k = 1: only one subarray [0..i], cost is nums[0]\n        for i in range(n):\n            dp_prev[i] = nums[0]\n\n        # k = 2..3\n        for k in range(2, 4):\n            dp_cur = [INF] * n\n            # For fixed i, we need min over j <= i of dp_prev[j-1] + nums[j]\n            # Maintain suffix minimum of dp_prev[j-1] + nums[j] as we scan i.\n            best = INF\n            for i in range(n):\n                if i - 1 >= 0:\n                    best = min(best, dp_prev[i - 1] + nums[i])\n                # dp for k subarrays must end at i, so we need at least k elements\n                if i >= k - 1:\n                    dp_cur[i] = best\n\n            dp_prev = dp_cur\n\n        # k = 3, end at n-1\n        return dp_prev[-1]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Choose 2 cut points to split into 3 contiguous parts:\n        # [0..i], [i+1..j], [j+1..n-1]\n        # Cost is nums[0] + nums[i+1] + nums[j+1]\n        # where i in [0..n-3], j in [i+1..n-2]\n        #\n        # We can precompute suffix minimums of the \"start cost\" for third part.\n        # For any j (start index of 2nd part ends at j), the third part starts at j+1,\n        # so its cost is nums[j+1]. We need min nums[j+1] over valid j choices.\n\n        suffix_min = [0] * (n + 1)  # suffix_min[k] = min nums[t] for t in [k..n-1]\n        suffix_min[n] = 10**9\n        for k in range(n - 1, -1, -1):\n            suffix_min[k] = min(nums[k], suffix_min[k + 1])\n\n        ans = 10**9\n        for i in range(0, n - 2):  # i is end index of first subarray\n            # second subarray must start at i+1, cost = nums[i+1]\n            second_cost = nums[i + 1]\n\n            # third subarray starts at j+1 where j >= i+1 and j <= n-2\n            # so third start index is in [i+2 .. n-1]\n            third_best = suffix_min[i + 2]\n\n            ans = min(ans, nums[0] + second_cost + third_best)\n\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        \n        # dp[i][k] = minimum cost to partition nums[0..i] into k subarrays\n        # Transition: last subarray starts at j -> cost = min(dp[j-1][k-1] + nums[j])\n        # Base: dp[i][1] = nums[0] for all i because first element is fixed as cost of first subarray\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n)]\n        \n        # k = 1\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # k = 2..3\n        for k in range(2, 4):\n            for i in range(n):\n                # Need at least k elements to form k non-empty subarrays\n                if i + 1 < k:\n                    continue\n                # last subarray is nums[j..i] with j in [k-1 .. i]\n                best = INF\n                for j in range(k - 1, i + 1):\n                    prev = dp[j - 1][k - 1] if j - 1 >= 0 else INF\n                    best = min(best, prev + nums[j])\n                dp[i][k] = best\n        \n        return dp[n - 1][3]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k]: minimum cost to partition nums[0..i] (inclusive)\n        # into k subarrays, where the k-th subarray ends at i.\n        dp = [[INF] * (4) for _ in range(n)]\n        \n        # Base: k = 1 => only one subarray [0..i], cost = nums[0]\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # For k >= 2:\n        # Transition:\n        # dp[i][k] = min over j in [k-2 .. i-1] of dp[j][k-1] + nums[j+1]\n        # because the k-th subarray is nums[j+1 .. i] whose cost is first element nums[j+1].\n        for k in range(2, 4):\n            for i in range(n):\n                best = INF\n                for j in range(k - 2, i):\n                    best = min(best, dp[j][k - 1] + nums[j + 1])\n                dp[i][k] = best\n\n        return dp[n - 1][3]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[j] = minimum cost to split first i elements into j subarrays,\n        # using the recurrence derived from:\n        # cost of subarray nums[k:i] is nums[k]\n        # => dp_next[i][j] = min_{k in [j-1 .. i-1]} dp[k][j-1] + nums[k]\n        #\n        # We compute in O(n^2) per j using prefix minima:\n        # min_{k} (dp_prev[k] + nums[k]) can be maintained incrementally.\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0\n\n        for j in range(1, 4):  # create j subarrays\n            dp_cur = [INF] * (n + 1)\n            best = INF  # best over k <= i-1 of dp_prev[k] + nums[k-1]? careful with indices\n            # We'll use k as start index in nums (0-based), and end at i-1.\n            # If we want j subarrays covering nums[0..i-1], previous dp_prev[k]\n            # must cover nums[0..k-1], and current subarray starts at k (nums[k..i-1]).\n            # cost = nums[k]\n            # Transition: dp_cur[i] = min_{k in [j-1 .. i-1]} dp_prev[k] + nums[k]\n            # Valid k is at least j-1 because we need k elements to form j-1 subarrays.\n            for i in range(j, n + 1):  # i elements used\n                # update best with k = i-1 as we move i forward\n                k = i - 1\n                if dp_prev[k] != INF:\n                    best = min(best, dp_prev[k] + nums[k])\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][j] = minimum cost for first i elements (0..i-1) using j subarrays,\n        # where each subarray cost is the first element of that subarray.\n        INF = 10**18\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0\n\n        # For j = 1..3\n        for j in range(1, 4):\n            dp_cur = [INF] * (n + 1)\n            # Need at least j elements to form j non-empty subarrays\n            for i in range(j, n + 1):\n                # last subarray is nums[k..i-1], cost = nums[k]\n                # previous part is dp_prev[k] using j-1 subarrays\n                best = INF\n                for k in range(j - 1, i):\n                    prev = dp_prev[k]\n                    if prev == INF:\n                        continue\n                    cost = prev + nums[k]\n                    if cost < best:\n                        best = cost\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```"
+        ],
+        "partial": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # prefixMin[i] = min(nums[0..i-1]) i from 1..n\n        prefixMin = [0] * (n + 1)\n        INF = 10**18\n        prefixMin[0] = INF\n        cur = INF\n        for i in range(1, n + 1):\n            cur = min(cur, nums[i - 1])\n            prefixMin[i] = cur\n\n        # suffixMin[i] = min(nums[i..n-1]) i from 0..n-1\n        suffixMin = [0] * (n + 1)\n        suffixMin[n] = INF\n        cur = INF\n        for i in range(n - 1, -1, -1):\n            cur = min(cur, nums[i])\n            suffixMin[i] = cur\n\n        # dp2[j] for j split point: min cost of first two subarrays\n        # If second subarray starts at j, its cost is nums[j]\n        # first subarray ends at j-1 => cost = prefixMin[j]\n        # so total = prefixMin[j] + nums[j]\n        dp2 = [INF] * (n + 1)  # valid for j in [1..n-1]\n        for j in range(1, n):\n            dp2[j] = prefixMin[j] + nums[j]\n\n        # Third subarray starts at k, cost is nums[k], and the first two end at k-1\n        # But dp2[k] already includes nums[k] as cost of second; so for total:\n        # Choose i<j<k with:\n        # cost = min(nums[0..i-1]) + nums[j] + nums[k]\n        # We can implement by scanning k and taking minimal dp2[j] + nums[k] where j < k.\n        # However dp2 is defined for j; we need prefix best over dp2 for j in [1..k-1].\n        best_dp2_prefix = [INF] * (n + 1)\n        for t in range(1, n):\n            best_dp2_prefix[t] = min(best_dp2_prefix[t - 1], dp2[t])\n        best_dp2_prefix[0] = INF\n        best_dp2_prefix[n] = min(best_dp2_prefix[n - 1], dp2[n - 1])\n\n        ans = INF\n        # k must be between 2..n-1 so that j exists in [1..k-1]\n        for k in range(2, n):\n            # first two subarrays cost = min_{j in [1..k-1]} (prefixMin[j] + nums[j])\n            # third cost = nums[k]\n            ans = min(ans, best_dp2_prefix[k - 1] + nums[k])\n\n        return ans\n```"
+        ],
+        "fail": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        \n        # dp[j] = minimum cost to split prefix ending at current index into j subarrays\n        # while ensuring subarray cost is its first element.\n        dp = [[INF] * 3 for _ in range(n + 1)]\n        # dp[i][k] = minimum cost to partition nums[0:i] into k subarrays\n        # We'll use transition:\n        # choosing the k-th subarray starts at m (0 <= m < i)\n        # cost contribution = nums[m] + dp[m][k-1]\n        \n        for i in range(1, n + 1):\n            # k = 1: whole prefix is one subarray starting at 0\n            dp[i][1] = nums[0]\n        \n        for i in range(1, n + 1):\n            for k in range(2, 4):  # up to 3 subarrays\n                best = INF\n                # m is the start of the last subarray; last subarray is nums[m:i]\n                # so we need dp[m][k-1] valid and m < i\n                for m in range(k - 1, i):  # at least k-1 elements to have k-1 subarrays\n                    if dp[m][k - 1] < INF:\n                        best = min(best, dp[m][k - 1] + nums[m])\n                dp[i][k] = best\n        \n        return dp[n][3]\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given an array of integers nums of length n.\nThe cost of an array is the value of its first element. For example, the cost of [1,2,3] is 1 while the cost of [3,4,1] is 3.\nYou need to divide nums into 3 disjoint contiguous subarrays.\nReturn the minimum possible sum of the cost of these subarrays.\n \nExample 1:\n\nInput: nums = [1,2,3,12]\nOutput: 6\nExplanation: The best possible way to form 3 subarrays is: [1], [2], and [3,12] at a total cost of 1 + 2 + 3 = 6.\nThe other possible ways to form 3 subarrays are:\n- [1], [2,3], and [12] at a total cost of 1 + 2 + 12 = 15.\n- [1,2], [3], and [12] at a total cost of 1 + 3 + 12 = 16.\n\nExample 2:\n\nInput: nums = [5,4,3]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [5], [4], and [3] at a total cost of 5 + 4 + 3 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\nExample 3:\n\nInput: nums = [10,3,1,1]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [10,3], [1], and [1] at a total cost of 10 + 1 + 1 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\n \nConstraints:\n\n3 <= n <= 50\n1 <= nums[i] <= 50\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = min total cost to partition nums[i:] into k subarrays\n        # We only need k = 3.\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        \n        # Base: when k=1, cost is simply nums[i] (first element of the only subarray)\n        for i in range(n):\n            dp[i][1] = nums[i]\n        dp[n][1] = INF  # can't form non-empty subarray\n        \n        # Transition for k>=2:\n        # Choose the end of first subarray at j-1 (start fixed at i), so next start is j\n        # cost = nums[i] + dp[j][k-1]\n        for k in range(2, 4):\n            # We need at least k elements to make k non-empty subarrays\n            for i in range(n - k + 1, -1, -1):\n                best_next = INF\n                # end of first subarray can be from i to n-k\n                # so next start j ranges i+1..n-(k-1)\n                for j in range(i + 1, n - (k - 1) + 1):\n                    if dp[j][k - 1] < best_next:\n                        best_next = dp[j][k - 1]\n                dp[i][k] = nums[i] + best_next\n        \n        return dp[0][3]\n```\n\nAttempt 2\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k] = minimum cost to partition nums[0:i] into k subarrays\n        # where the last subarray ends at i-1.\n        # Transition: last subarray is nums[j:i], whose cost is nums[j].\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for k in range(1, 4):\n            # To compute dp[i][k] efficiently:\n            # dp[i][k] = min_{j in [k-1 .. i-1]} (dp[j][k-1] + nums[j])\n            # Maintain best = min(dp[j][k-1] + nums[j]) as j increases.\n            best = INF\n            # i must be at least k (need k non-empty subarrays)\n            for i in range(k, n + 1):\n                j = i - 1\n                # Update best with position (i-1) for future i's transitions.\n                # Note: for dp[i][k], j ranges up to i-1, so update best using j=i-1\n                # right before computing dp[i][k] would be incorrect order.\n                # Instead, we update best using (i-1) after computing dp[i][k],\n                # but that's awkward. We'll do it by preparing best before loop body.\n                pass\n\n        # Re-implement cleanly with correct update order:\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n        for k in range(1, 4):\n            best = INF\n            # j starts at k-1 so that first k-1 elements can form k-1 subarrays\n            for i in range(k, n + 1):\n                # Before computing dp[i][k], best should reflect min over j in [k-1 .. i-1]\n                j = i - 1\n                if dp[j][k - 1] < INF:\n                    best = min(best, dp[j][k - 1] + nums[j])\n                dp[i][k] = best\n\n        return dp[n][3]\n```\n\nAttempt 3\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = minimum cost to split prefix nums[0..i] into k subarrays\n        # Transition: last subarray starts at j => cost = nums[j] + dp[j-1][k-1]\n        INF = 10**9\n        dp_prev = [INF] * n  # for k-1\n        dp_cur = [INF] * n   # for k\n\n        # k = 1: only one subarray [0..i], cost is nums[0]\n        for i in range(n):\n            dp_prev[i] = nums[0]\n\n        # k = 2..3\n        for k in range(2, 4):\n            dp_cur = [INF] * n\n            # For fixed i, we need min over j <= i of dp_prev[j-1] + nums[j]\n            # Maintain suffix minimum of dp_prev[j-1] + nums[j] as we scan i.\n            best = INF\n            for i in range(n):\n                if i - 1 >= 0:\n                    best = min(best, dp_prev[i - 1] + nums[i])\n                # dp for k subarrays must end at i, so we need at least k elements\n                if i >= k - 1:\n                    dp_cur[i] = best\n\n            dp_prev = dp_cur\n\n        # k = 3, end at n-1\n        return dp_prev[-1]\n```\n\nAttempt 4\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Choose 2 cut points to split into 3 contiguous parts:\n        # [0..i], [i+1..j], [j+1..n-1]\n        # Cost is nums[0] + nums[i+1] + nums[j+1]\n        # where i in [0..n-3], j in [i+1..n-2]\n        #\n        # We can precompute suffix minimums of the \"start cost\" for third part.\n        # For any j (start index of 2nd part ends at j), the third part starts at j+1,\n        # so its cost is nums[j+1]. We need min nums[j+1] over valid j choices.\n\n        suffix_min = [0] * (n + 1)  # suffix_min[k] = min nums[t] for t in [k..n-1]\n        suffix_min[n] = 10**9\n        for k in range(n - 1, -1, -1):\n            suffix_min[k] = min(nums[k], suffix_min[k + 1])\n\n        ans = 10**9\n        for i in range(0, n - 2):  # i is end index of first subarray\n            # second subarray must start at i+1, cost = nums[i+1]\n            second_cost = nums[i + 1]\n\n            # third subarray starts at j+1 where j >= i+1 and j <= n-2\n            # so third start index is in [i+2 .. n-1]\n            third_best = suffix_min[i + 2]\n\n            ans = min(ans, nums[0] + second_cost + third_best)\n\n        return ans\n```\n\nAttempt 5\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        \n        # dp[i][k] = minimum cost to partition nums[0..i] into k subarrays\n        # Transition: last subarray starts at j -> cost = min(dp[j-1][k-1] + nums[j])\n        # Base: dp[i][1] = nums[0] for all i because first element is fixed as cost of first subarray\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n)]\n        \n        # k = 1\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # k = 2..3\n        for k in range(2, 4):\n            for i in range(n):\n                # Need at least k elements to form k non-empty subarrays\n                if i + 1 < k:\n                    continue\n                # last subarray is nums[j..i] with j in [k-1 .. i]\n                best = INF\n                for j in range(k - 1, i + 1):\n                    prev = dp[j - 1][k - 1] if j - 1 >= 0 else INF\n                    best = min(best, prev + nums[j])\n                dp[i][k] = best\n        \n        return dp[n - 1][3]\n```\n\nAttempt 6\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k]: minimum cost to partition nums[0..i] (inclusive)\n        # into k subarrays, where the k-th subarray ends at i.\n        dp = [[INF] * (4) for _ in range(n)]\n        \n        # Base: k = 1 => only one subarray [0..i], cost = nums[0]\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # For k >= 2:\n        # Transition:\n        # dp[i][k] = min over j in [k-2 .. i-1] of dp[j][k-1] + nums[j+1]\n        # because the k-th subarray is nums[j+1 .. i] whose cost is first element nums[j+1].\n        for k in range(2, 4):\n            for i in range(n):\n                best = INF\n                for j in range(k - 2, i):\n                    best = min(best, dp[j][k - 1] + nums[j + 1])\n                dp[i][k] = best\n\n        return dp[n - 1][3]\n```\n\nAttempt 7\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[j] = minimum cost to split first i elements into j subarrays,\n        # using the recurrence derived from:\n        # cost of subarray nums[k:i] is nums[k]\n        # => dp_next[i][j] = min_{k in [j-1 .. i-1]} dp[k][j-1] + nums[k]\n        #\n        # We compute in O(n^2) per j using prefix minima:\n        # min_{k} (dp_prev[k] + nums[k]) can be maintained incrementally.\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0\n\n        for j in range(1, 4):  # create j subarrays\n            dp_cur = [INF] * (n + 1)\n            best = INF  # best over k <= i-1 of dp_prev[k] + nums[k-1]? careful with indices\n            # We'll use k as start index in nums (0-based), and end at i-1.\n            # If we want j subarrays covering nums[0..i-1], previous dp_prev[k]\n            # must cover nums[0..k-1], and current subarray starts at k (nums[k..i-1]).\n            # cost = nums[k]\n            # Transition: dp_cur[i] = min_{k in [j-1 .. i-1]} dp_prev[k] + nums[k]\n            # Valid k is at least j-1 because we need k elements to form j-1 subarrays.\n            for i in range(j, n + 1):  # i elements used\n                # update best with k = i-1 as we move i forward\n                k = i - 1\n                if dp_prev[k] != INF:\n                    best = min(best, dp_prev[k] + nums[k])\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```\n\nAttempt 8\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][j] = minimum cost for first i elements (0..i-1) using j subarrays,\n        # where each subarray cost is the first element of that subarray.\n        INF = 10**18\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0\n\n        # For j = 1..3\n        for j in range(1, 4):\n            dp_cur = [INF] * (n + 1)\n            # Need at least j elements to form j non-empty subarrays\n            for i in range(j, n + 1):\n                # last subarray is nums[k..i-1], cost = nums[k]\n                # previous part is dp_prev[k] using j-1 subarrays\n                best = INF\n                for k in range(j - 1, i):\n                    prev = dp_prev[k]\n                    if prev == INF:\n                        continue\n                    cost = prev + nums[k]\n                    if cost < best:\n                        best = cost\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```\n\n#### Partially Correct\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # prefixMin[i] = min(nums[0..i-1]) i from 1..n\n        prefixMin = [0] * (n + 1)\n        INF = 10**18\n        prefixMin[0] = INF\n        cur = INF\n        for i in range(1, n + 1):\n            cur = min(cur, nums[i - 1])\n            prefixMin[i] = cur\n\n        # suffixMin[i] = min(nums[i..n-1]) i from 0..n-1\n        suffixMin = [0] * (n + 1)\n        suffixMin[n] = INF\n        cur = INF\n        for i in range(n - 1, -1, -1):\n            cur = min(cur, nums[i])\n            suffixMin[i] = cur\n\n        # dp2[j] for j split point: min cost of first two subarrays\n        # If second subarray starts at j, its cost is nums[j]\n        # first subarray ends at j-1 => cost = prefixMin[j]\n        # so total = prefixMin[j] + nums[j]\n        dp2 = [INF] * (n + 1)  # valid for j in [1..n-1]\n        for j in range(1, n):\n            dp2[j] = prefixMin[j] + nums[j]\n\n        # Third subarray starts at k, cost is nums[k], and the first two end at k-1\n        # But dp2[k] already includes nums[k] as cost of second; so for total:\n        # Choose i<j<k with:\n        # cost = min(nums[0..i-1]) + nums[j] + nums[k]\n        # We can implement by scanning k and taking minimal dp2[j] + nums[k] where j < k.\n        # However dp2 is defined for j; we need prefix best over dp2 for j in [1..k-1].\n        best_dp2_prefix = [INF] * (n + 1)\n        for t in range(1, n):\n            best_dp2_prefix[t] = min(best_dp2_prefix[t - 1], dp2[t])\n        best_dp2_prefix[0] = INF\n        best_dp2_prefix[n] = min(best_dp2_prefix[n - 1], dp2[n - 1])\n\n        ans = INF\n        # k must be between 2..n-1 so that j exists in [1..k-1]\n        for k in range(2, n):\n            # first two subarrays cost = min_{j in [1..k-1]} (prefixMin[j] + nums[j])\n            # third cost = nums[k]\n            ans = min(ans, best_dp2_prefix[k - 1] + nums[k])\n\n        return ans\n```\n\n#### Incorrect\nAttempt 1\n```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n        \n        # dp[j] = minimum cost to split prefix ending at current index into j subarrays\n        # while ensuring subarray cost is its first element.\n        dp = [[INF] * 3 for _ in range(n + 1)]\n        # dp[i][k] = minimum cost to partition nums[0:i] into k subarrays\n        # We'll use transition:\n        # choosing the k-th subarray starts at m (0 <= m < i)\n        # cost contribution = nums[m] + dp[m][k-1]\n        \n        for i in range(1, n + 1):\n            # k = 1: whole prefix is one subarray starting at 0\n            dp[i][1] = nums[0]\n        \n        for i in range(1, n + 1):\n            for k in range(2, 4):  # up to 3 subarrays\n                best = INF\n                # m is the start of the last subarray; last subarray is nums[m:i]\n                # so we need dp[m][k-1] valid and m < i\n                for m in range(k - 1, i):  # at least k-1 elements to have k-1 subarrays\n                    if dp[m][k - 1] < INF:\n                        best = min(best, dp[m][k - 1] + nums[m])\n                dp[i][k] = best\n        \n        return dp[n][3]\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Constraint-Consistent DP State & Transitions",
+          "description": "Define DP states so that each transition exactly matches how segment boundaries change, including all necessary index offsets.",
+          "content": "When partitioning an array into contiguous segments, pick a state that uniquely represents “how much prefix/suffix is already covered” and “how many segments formed,” then derive transitions by explicitly writing where the next segment starts/ends. Many wrong solutions stem from an indexing offset being handled implicitly (e.g., mixing “start index” with “previous coverage” without reconciling off-by-one logic).",
+          "reasoning": "The successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence."
+        },
+        {
+          "title": "Enforce Non-Empty Segments via Index Range Guards",
+          "description": "Prevent invalid partitions early by restricting loop bounds to guarantee every segment contains at least one element.",
+          "content": "In k-way contiguous partition DP, add explicit constraints like “at least k elements must exist to form k non-empty parts.” Even if the recurrence is correct, missing these guards often yields transitions that use states representing impossible decompositions.",
+          "reasoning": "The successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence."
+        },
+        {
+          "title": "Verification of Recurrence with a Sanity Check Pass",
+          "description": "After deriving a recurrence, test it against small cases or boundary indices to catch mismatched base cases or impossible states.",
+          "content": "Several incorrect attempts compute DP values using transitions that look algebraically plausible but violate how the DP was initialized (base states and valid ranges). A quick consistency check on earliest/largest indices for each k (including when k=1) can reveal these issues before full implementation.",
+          "reasoning": "The successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence."
+        },
+        {
+          "title": "Prefer Fixed-k DP with Rolling Arrays for Clarity",
+          "description": "When the number of partitions is small and fixed, use DP with small dimensions and possibly rolling arrays to reduce complexity and mistakes.",
+          "content": "For a constant number of segments, O(n^2) DP with careful state definitions is usually feasible and less error-prone than aggressive optimizations. Rolling arrays (keeping only previous k-1 layer) can simplify indexing while preserving correctness.",
+          "reasoning": "The successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence."
+        },
+        {
+          "title": "Be Skeptical of Over-Aggressive Min/Prefix-Suffix Simplifications",
+          "description": "Optimization via prefix/suffix minima must be proven to match the exact set of feasible cut positions for the remaining segments.",
+          "content": "Partial/incorrect attempts that reduce the problem to “min of some precomputed array” often fail because the recurrence requires coupling between multiple cut indices, not just a single best prefix or suffix. Any such simplification should explicitly show the equivalence between the original multi-index minimization and the reduced one.",
+          "reasoning": "The successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence."
+        },
+        {
+          "title": "Independent Modeling of Each Segment’s Cost Contribution",
+          "description": "Exploit cost structure by expressing the total cost as a sum of contributions that depend on a single boundary per segment.",
+          "content": "Here, segment cost depends only on the first element of each segment, so the transition can add exactly that boundary value while reusing the DP cost of the already-partitioned remainder. Generalize this: if a segment’s objective depends on a single cut (start/end), structure DP transitions around that cut to avoid unnecessary state complexity.",
+          "reasoning": "The successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful attempts share a clear DP modeling of partitions into a fixed number of contiguous segments where each segment’s “cost” depends only on a specific position (the segment’s first element). They differ in state choice (suffix-based vs prefix-based vs rolling arrays), but all correctly align transitions with segment boundaries and ensure subarrays are non-empty by restricting index ranges. Failures mainly come from mismatched DP state definitions vs transition formulas (using an index as both “start of last segment” and “end of previous segment” without consistent offset), incorrect base conditions/array sizing, or “optimization” attempts that inadvertently assume properties (e.g., minimums over prefixes/suffixes) that don’t correspond to the required two-cut structure. Another partial failure demonstrates over-simplifying to greedy/min-over-cuts when the dependence on multiple cut positions isn’t captured by the derived recurrence.\n</reasoning>\n\n<memories>\n<memory>\n<title>Constraint-Consistent DP State & Transitions</title>\n<description>Define DP states so that each transition exactly matches how segment boundaries change, including all necessary index offsets.</description>\n<content>When partitioning an array into contiguous segments, pick a state that uniquely represents “how much prefix/suffix is already covered” and “how many segments formed,” then derive transitions by explicitly writing where the next segment starts/ends. Many wrong solutions stem from an indexing offset being handled implicitly (e.g., mixing “start index” with “previous coverage” without reconciling off-by-one logic).</content>\n</memory>\n\n<memory>\n<title>Enforce Non-Empty Segments via Index Range Guards</title>\n<description>Prevent invalid partitions early by restricting loop bounds to guarantee every segment contains at least one element.</description>\n<content>In k-way contiguous partition DP, add explicit constraints like “at least k elements must exist to form k non-empty parts.” Even if the recurrence is correct, missing these guards often yields transitions that use states representing impossible decompositions.</content>\n</memory>\n\n<memory>\n<title>Verification of Recurrence with a Sanity Check Pass</title>\n<description>After deriving a recurrence, test it against small cases or boundary indices to catch mismatched base cases or impossible states.</description>\n<content>Several incorrect attempts compute DP values using transitions that look algebraically plausible but violate how the DP was initialized (base states and valid ranges). A quick consistency check on earliest/largest indices for each k (including when k=1) can reveal these issues before full implementation.</content>\n</memory>\n\n<memory>\n<title>Prefer Fixed-k DP with Rolling Arrays for Clarity</title>\n<description>When the number of partitions is small and fixed, use DP with small dimensions and possibly rolling arrays to reduce complexity and mistakes.</description>\n<content>For a constant number of segments, O(n^2) DP with careful state definitions is usually feasible and less error-prone than aggressive optimizations. Rolling arrays (keeping only previous k-1 layer) can simplify indexing while preserving correctness.</content>\n</memory>\n\n<memory>\n<title>Be Skeptical of Over-Aggressive Min/Prefix-Suffix Simplifications</title>\n<description>Optimization via prefix/suffix minima must be proven to match the exact set of feasible cut positions for the remaining segments.</description>\n<content>Partial/incorrect attempts that reduce the problem to “min of some precomputed array” often fail because the recurrence requires coupling between multiple cut indices, not just a single best prefix or suffix. Any such simplification should explicitly show the equivalence between the original multi-index minimization and the reduced one.</content>\n</memory>\n\n<memory>\n<title>Independent Modeling of Each Segment’s Cost Contribution</title>\n<description>Exploit cost structure by expressing the total cost as a sum of contributions that depend on a single boundary per segment.</description>\n<content>Here, segment cost depends only on the first element of each segment, so the transition can add exactly that boundary value while reusing the DP cost of the already-partitioned remainder. Generalize this: if a segment’s objective depends on a single cut (start/end), structure DP transitions around that cut to avoid unnecessary state complexity.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given an array of integers nums of length n.\nThe cost of an array is the value of its first element. For example, the cost of [1,2,3] is 1 while the cost of [3,4,1] is 3.\nYou need to divide nums into 3 disjoint contiguous subarrays.\nReturn the minimum possible sum of the cost of these subarrays.\n \nExample 1:\n\nInput: nums = [1,2,3,12]\nOutput: 6\nExplanation: The best possible way to form 3 subarrays is: [1], [2], and [3,12] at a total cost of 1 + 2 + 3 = 6.\nThe other possible ways to form 3 subarrays are:\n- [1], [2,3], and [12] at a total cost of 1 + 2 + 12 = 15.\n- [1,2], [3], and [12] at a total cost of 1 + 3 + 12 = 16.\n\nExample 2:\n\nInput: nums = [5,4,3]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [5], [4], and [3] at a total cost of 5 + 4 + 3 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\nExample 3:\n\nInput: nums = [10,3,1,1]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [10,3], [1], and [1] at a total cost of 10 + 1 + 1 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\n \nConstraints:\n\n3 <= n <= 50\n1 <= nums[i] <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Precompute suffix minimums:\n        # suffix_min[i] = min(nums[i..n-1])\n        suffix_min = [0] * (n + 1)\n        suffix_min[n] = 10**9\n        for i in range(n - 1, -1, -1):\n            suffix_min[i] = min(nums[i], suffix_min[i + 1])\n\n        # If we split into 3 subarrays:\n        # cost = nums[0] + nums[i] + min(nums[j..n-1]) where 1 <= i < j <= n-1\n        # For fixed j, the best i in [1..j-1] is the min nums[i] over that range.\n        # We'll compute:\n        # best_first_start[j] = min(nums[1..j-1]) for each j\n        best_first_start = [10**9] * (n + 1)\n        cur_min = 10**9\n        for j in range(2, n):\n            cur_min = min(cur_min, nums[j - 1])  # includes nums[1..j-1]\n            best_first_start[j] = cur_min\n\n        ans = 10**9\n        # Choose j as the start of the 3rd subarray: it must be at least 2\n        # Then i is in [1..j-1].\n        for j in range(2, n):\n            ans = min(ans, nums[0] + best_first_start[j] + suffix_min[j])\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Need 3 contiguous subarrays => choose split points:\n        # [0..i-1], [i..j-1], [j..n-1] where 1<=i<j<=n-1\n        # cost = nums[0] + nums[i] + nums[j]\n        # minimize sum of nums[i] + nums[j] with i<j.\n        \n        INF = 10**18\n        best_second = [INF] * n\n        best_second[n - 1] = INF  # no j for j=n-1 with i<j? handled by loop\n        \n        # For each position j, find minimal nums[i] among i<j\n        # Then total at j = nums[j] + min_prefix.\n        min_prefix = INF\n        for j in range(n):\n            if nums[j] is not None:\n                best_second[j] = min_prefix  # min nums[i] for i<j\n            min_prefix = min(min_prefix, nums[j])\n\n        ans = INF\n        for j in range(2, n):  # need at least i>=1 and i<j; j must allow two previous parts\n            if best_second[j] < INF:\n                # first subarray cost is nums[0], second start i contributes nums[i],\n                # third start is nums[j].\n                ans = min(ans, nums[0] + best_second[j] + nums[j])\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = minimum cost to partition prefix nums[0..i] into k subarrays\n        # Transition: last subarray is nums[j..i], cost adds nums[j]\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n)]\n        \n        # k = 1: only one subarray [0..i], cost is nums[0]\n        for i in range(n):\n            dp[i][1] = nums[0]\n        \n        # For k >= 2:\n        # dp[i][k] = min_{j< = i} dp[j-1][k-1] + nums[j]\n        # Maintain prefix minima of (dp[j-1][k-1] - something) isn't directly applicable,\n        # but constraints are tiny (n<=50), so O(n^3) is fine.\n        for k in range(2, 4):  # k=2,3\n            for i in range(k - 1, n):  # need at least k elements for k subarrays\n                best = INF\n                for j in range(k - 1, i + 1):  # j is start index of last subarray\n                    prev = 0 if j == 0 else dp[j - 1][k - 1]\n                    cand = prev + nums[j]\n                    if cand < best:\n                        best = cand\n                dp[i][k] = best\n        \n        return dp[n - 1][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Prefix array of minima for convenience isn't needed; costs are first elements.\n        # DP:\n        # dp[k][i] = minimum cost to partition nums[0..i] into k subarrays,\n        # with the k-th (last) subarray ending at i.\n        #\n        # If last subarray starts at j (0-based, j..i), its cost is nums[j].\n        # Transition:\n        # dp[k][i] = min over j in [k-1 .. i] of dp[k-1][j-1] + nums[j]\n        #\n        # To optimize:\n        # dp[k][i] can be computed incrementally because nums[j] is just added to dp[k-1][j-1].\n        # For fixed k, define best[j] = dp[k-1][j-1] + nums[j], then dp[k][i] = min_{j<=i} best[j].\n        \n        INF = 10**18\n        # dp_prev for k-1, dp_cur for k\n        dp_prev = [INF] * n\n        # k=1: only one subarray [0..i] cost is nums[0]\n        for i in range(n):\n            dp_prev[i] = nums[0]\n        \n        # Build for k=2 and k=3\n        for k in range(2, 4):  # k = 2,3\n            dp_cur = [INF] * n\n            running_min = INF\n            # j is start index of last subarray\n            # For partition into k subarrays, last subarray must start at j >= k-1\n            for i in range(k - 1, n):\n                j = i  # placeholder; we'll update running_min using starts j as we extend i\n            # We iterate i from k-1..n-1, and incorporate all possible starts j up to i\n            # by considering start j=i each time and updating running_min.\n            running_min = INF\n            for i in range(k - 1, n):\n                start = i\n                # last subarray is [start..i]; previous partitions end at start-1 => dp_prev[start-1]\n                cand = dp_prev[start - 1] + nums[start]\n                running_min = min(running_min, cand)\n                dp_cur[i] = running_min\n            dp_prev = dp_cur\n        \n        return dp_prev[n - 1]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        \n        # dp[i][j]: minimum cost using first i elements partitioned into j non-empty subarrays\n        # Transition: last cut at k -> subarray is nums[k:i], cost adds nums[k]\n        dp = [[10**18] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for i in range(1, n + 1):\n            for j in range(1, 4):\n                best = 10**18\n                # k ranges from j-1 .. i-1 (need k elements already partitioned into j-1 groups)\n                for k in range(j - 1, i):\n                    if dp[k][j - 1] != 10**18:\n                        best = min(best, dp[k][j - 1] + nums[k])\n                dp[i][j] = best\n\n        return dp[n][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[j][i] = minimum cost to split first i elements into j subarrays\n        # with the condition that each subarray cost is its first element.\n        # Transition: last cut starts at k (k < i), so cost adds nums[k].\n        INF = 10**9\n        dp = [[INF] * (n + 1) for _ in range(4)]\n        \n        # Base: for 1 subarray, cost is the first element of that subarray.\n        # If we take first i elements as one subarray, start is 0 -> cost nums[0].\n        dp[1][1] = nums[0]\n        for i in range(2, n + 1):\n            # cost of subarray nums[0:i] is nums[0]\n            dp[1][i] = nums[0]\n        \n        # For j >= 2, use optimized transitions:\n        # dp[j][i] = min_{k in [j-1 .. i-1]} dp[j-1][k] + nums[k]\n        # Maintain prefix minimum of dp[j-1][k] + nums[k].\n        for j in range(2, 4):\n            best = INF\n            # k must be at least j-1 to have enough elements for (j-1) subarrays,\n            # and k < i for the new subarray to be non-empty.\n            for i in range(j, n + 1):\n                k = i - 1\n                # Update best using k = i-1 when moving i forward.\n                # For general correctness: we need min over k in [j-1, i-1]\n                # We'll update best with dp[j-1][k] + nums[k-1]? Wait indexing:\n                # dp[j-1][k] corresponds to first k elements. Next subarray starts at k\n                # (0-indexed start = k), so added cost is nums[k].\n                # Therefore dp[j][i] uses dp[j-1][k] + nums[k] where k ranges [j-1 .. i-1].\n                # Here i is count of elements considered, so k is also a count => 0-indexed start = k.\n                if k >= j - 1:\n                    best = min(best, dp[j - 1][k] + nums[k])\n                dp[j][i] = best\n        \n        return dp[3][n]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][j] = min cost to partition prefix nums[:i] into j subarrays\n        # cost of each subarray is its first element, i.e., if a subarray is nums[k:i],\n        # its cost is nums[k].\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for j in range(1, 4):\n            # Need at least j elements to make j non-empty subarrays\n            for i in range(j, n + 1):\n                # last subarray starts at k-1 (0-indexed), ends at i-1\n                # choose k in [j-1, i-1] where last subarray is nums[k:i]\n                best = INF\n                # Iterate possible start positions for last segment\n                for k in range(j - 1, i):\n                    # last segment is nums[k:i], cost = nums[k]\n                    best = min(best, dp[k][j - 1] + nums[k])\n                dp[i][j] = best\n\n        return dp[n][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        if n == 3:\n            return nums[0] + nums[1] + nums[2]\n\n        # dp[i][k]: minimum cost using k subarrays that cover nums[0..i]\n        # Transition: last subarray starts at j (j<=i), so its cost is nums[j],\n        # and previous part covers nums[0..j-1] with k-1 subarrays.\n        INF = 10**18\n        dp_prev = [INF] * n\n\n        # k = 1: only one subarray is [0..i], cost is nums[0]\n        dp_prev[0] = nums[0]\n        for i in range(1, n):\n            dp_prev[i] = nums[0]\n\n        for k in range(2, 4):  # build k=2 and k=3\n            dp_cur = [INF] * n\n            # For k subarrays, we need at least k elements (each subarray non-empty)\n            # so end index i must satisfy i >= k-1.\n            for i in range(k - 1, n):\n                # choose start j of last subarray in [k-1 .. i]\n                # previous part ends at j-1, must have k-1 subarrays => dp_prev[j-1]\n                best = INF\n                # Since constraints are small (n<=50), O(n^3) is fine.\n                for j in range(k - 1, i + 1):\n                    prev_cost = dp_prev[j - 1] if j - 1 >= 0 else (0 if k == 1 else INF)\n                    if prev_cost < INF:\n                        best = min(best, prev_cost + nums[j])\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        # For k=3, cover entire array => end at n-1\n        return dp_prev[n - 1]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # Since each subarray cost is its first element, after partitioning into\n        # 3 contiguous parts [0..i-1], [i..j-1], [j..n-1], the total cost is:\n        # nums[0] + nums[i] + nums[j]\n        # where 1 <= i <= j-1 and j <= n-1  (ensured by i in [1..n-2], j in [i+1..n-1]).\n        ans = float('inf')\n        for i in range(1, n - 1):\n            # j must be at least i+1\n            right_min = min(nums[j] for j in range(i + 1, n))\n            ans = min(ans, nums[0] + nums[i] + right_min)\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # If we must split into 3 non-empty contiguous subarrays:\n        # [0..i-1], [i..j-1], [j..n-1] with 1 <= i <= j-1 <= n-2\n        # cost = nums[0] + nums[i] + nums[j]\n        best = float('inf')\n        first = nums[0]\n        # choose j as start of third subarray, and i as start of second\n        # We need i < j, i between 1..j-1\n        min_prefix_start = float('inf')  # min nums[i] for i in [1..j-1]\n        for j in range(2, n):  # j is start index of third subarray, must leave room for second\n            # update min for i in [1..j-1]\n            if nums[j - 1] < min_prefix_start:\n                min_prefix_start = nums[j - 1]\n            if min_prefix_start != float('inf'):\n                best = min(best, first + min_prefix_start + nums[j])\n        return best\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3263",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 1,
+          "score": 0.6666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 10,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "6",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "77",
+                "actual": "48",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "116",
+                "actual": "102",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "13",
+                "actual": "12",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "11",
+                "actual": "8",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Constraint-Consistent DP State & Transitions: Define DP states so that each transition exactly matches how segment boundaries change, including all necessary index offsets.\n     When partitioning an array into contiguous segments, pick a state that uniquely represents “how much prefix/suffix is already covered” and “how many segments formed,” then derive transitions by explicitly writing where the next segment starts/ends. Many wrong solutions stem from an indexing offset being handled implicitly (e.g., mixing “start index” with “previous coverage” without reconciling off-by-one logic).\n  2. Enforce Non-Empty Segments via Index Range Guards: Prevent invalid partitions early by restricting loop bounds to guarantee every segment contains at least one element.\n     In k-way contiguous partition DP, add explicit constraints like “at least k elements must exist to form k non-empty parts.” Even if the recurrence is correct, missing these guards often yields transitions that use states representing impossible decompositions.\n  3. Verification of Recurrence with a Sanity Check Pass: After deriving a recurrence, test it against small cases or boundary indices to catch mismatched base cases or impossible states.\n     Several incorrect attempts compute DP values using transitions that look algebraically plausible but violate how the DP was initialized (base states and valid ranges). A quick consistency check on earliest/largest indices for each k (including when k=1) can reveal these issues before full implementation.\n  4. Prefer Fixed-k DP with Rolling Arrays for Clarity: When the number of partitions is small and fixed, use DP with small dimensions and possibly rolling arrays to reduce complexity and mistakes.\n     For a constant number of segments, O(n^2) DP with careful state definitions is usually feasible and less error-prone than aggressive optimizations. Rolling arrays (keeping only previous k-1 layer) can simplify indexing while preserving correctness.\n  5. Be Skeptical of Over-Aggressive Min/Prefix-Suffix Simplifications: Optimization via prefix/suffix minima must be proven to match the exact set of feasible cut positions for the remaining segments.\n     Partial/incorrect attempts that reduce the problem to “min of some precomputed array” often fail because the recurrence requires coupling between multiple cut indices, not just a single best prefix or suffix. Any such simplification should explicitly show the equivalence between the original multi-index minimization and the reduced one.\n  6. Independent Modeling of Each Segment’s Cost Contribution: Exploit cost structure by expressing the total cost as a sum of contributions that depend on a single boundary per segment.\n     Here, segment cost depends only on the first element of each segment, so the transition can add exactly that boundary value while reusing the DP cost of the already-partitioned remainder. Generalize this: if a segment’s objective depends on a single cut (start/end), structure DP transitions around that cut to avoid unnecessary state complexity.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given an array of integers nums of length n.\nThe cost of an array is the value of its first element. For example, the cost of [1,2,3] is 1 while the cost of [3,4,1] is 3.\nYou need to divide nums into 3 disjoint contiguous subarrays.\nReturn the minimum possible sum of the cost of these subarrays.\n \nExample 1:\n\nInput: nums = [1,2,3,12]\nOutput: 6\nExplanation: The best possible way to form 3 subarrays is: [1], [2], and [3,12] at a total cost of 1 + 2 + 3 = 6.\nThe other possible ways to form 3 subarrays are:\n- [1], [2,3], and [12] at a total cost of 1 + 2 + 12 = 15.\n- [1,2], [3], and [12] at a total cost of 1 + 3 + 12 = 16.\n\nExample 2:\n\nInput: nums = [5,4,3]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [5], [4], and [3] at a total cost of 5 + 4 + 3 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\nExample 3:\n\nInput: nums = [10,3,1,1]\nOutput: 12\nExplanation: The best possible way to form 3 subarrays is: [10,3], [1], and [1] at a total cost of 10 + 1 + 1 = 12.\nIt can be shown that 12 is the minimum cost achievable.\n\n \nConstraints:\n\n3 <= n <= 50\n1 <= nums[i] <= 50\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k] = minimum cost to split nums[:i] into k non-empty contiguous parts\n        # where i is the end index (exclusive). Cost of each part is its first element.\n        # Transition: last part is nums[j:i] (j < i), so its cost is nums[j].\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for k in range(1, 4):\n            # Need at least k elements to form k non-empty parts\n            for i in range(k, n + 1):\n                # last cut at j where j >= k-1 so first k-1 parts can use nums[:j]\n                for j in range(k - 1, i):\n                    dp[i][k] = min(dp[i][k], dp[j][k - 1] + nums[j])\n\n        return dp[n][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = minimum cost to split nums[:i] (first i elements) into k non-empty parts\n        # cost of each part = its first element. So for the last part ending at i-1,\n        # if it starts at j, we add nums[j].\n        #\n        # i ranges: 0..n, k ranges: 0..3\n        INF = 10**18\n        dp = [[INF] * 4 for _ in range(n + 1)]\n        dp[0][0] = 0\n\n        for k in range(1, 4):\n            # To split into k non-empty parts, i must be at least k\n            for i in range(k, n + 1):\n                # last segment is nums[j:i], must be non-empty => j in [k-1 .. i-1]\n                # dp[j][k-1] + nums[j]\n                best = INF\n                for j in range(k - 1, i):\n                    best = min(best, dp[j][k - 1] + nums[j])\n                dp[i][k] = best\n\n        return dp[n][3]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[i][k] = minimum cost to partition nums[0..i-1] into k non-empty contiguous parts.\n        # Transition adds cost of the first element of the newly created last part.\n        # If last part is nums[j..i-1], it contributes nums[j].\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0  # 0 elements into 0 parts costs 0\n\n        for k in range(1, 4):  # k = 1..3\n            dp_cur = [INF] * (n + 1)\n            # Need at least k elements to make k non-empty parts\n            for i in range(k, n + 1):  # i = number of elements used\n                # choose start j of last segment: j in [k-1 .. i-1]\n                best = INF\n                for j in range(k - 1, i):\n                    if dp_prev[j] != INF:\n                        best = min(best, dp_prev[j] + nums[j])\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[k][i] = minimum cost to partition nums[0..i] into k non-empty contiguous subarrays\n        # where the last subarray ends at i.\n        dp = [[INF] * n for _ in range(4)]\n\n        # Base k=1: only one subarray [0..i], cost is nums[0]\n        for i in range(n):\n            dp[1][i] = nums[0]\n\n        # Transitions:\n        # For k>=2, last subarray is [j..i] with j in [k-1 .. i]\n        # Cost adds nums[j] (first element of last subarray)\n        # Previous k-1 subarrays cover [0..j-1] ending at j-1\n        for k in range(2, 4):\n            # Need at least k elements to form k non-empty parts\n            for i in range(k - 1, n):\n                best = INF\n                # j is start of last subarray, so previous ends at j-1\n                for j in range(k - 1, i + 1):\n                    prev = dp[k - 1][j - 1]\n                    if prev != INF:\n                        best = min(best, prev + nums[j])\n                dp[k][i] = best\n\n        return dp[3][n - 1]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[k][i] = min cost to partition nums[0..i-1] into k non-empty contiguous subarrays\n        # where the last subarray is nums[t..i-1] for some t in [k-1..i-1],\n        # and cost of that last subarray is nums[t].\n        #\n        # Transition:\n        # dp[k][i] = min over t ( dp[k-1][t] + nums[t] ) where t is start index of last segment.\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0  # 0 elements into 0 segments\n\n        # Build dp for k = 1..3\n        for k in range(1, 4):\n            dp_cur = [INF] * (n + 1)\n            # Need at least k elements to make k non-empty segments\n            # i is number of elements taken (prefix length), so i must be >= k\n            for i in range(k, n + 1):\n                # last segment start t must satisfy:\n                # - previous prefix ends at t: dp_prev[t] known\n                # - last segment non-empty: t <= i-1\n                # - since we have k segments total, t must be at least k-1\n                # We'll compute min_{t in [k-1..i-1]} dp_prev[t] + nums[t]\n                best = INF\n                for t in range(k - 1, i):\n                    val = dp_prev[t] + nums[t]  # nums[t] is first element of last segment nums[t..i-1]\n                    if val < best:\n                        best = val\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        INF = 10**18\n\n        # dp[k][i] = minimum cost to split nums[0..i] into k non-empty contiguous parts\n        # Each part cost = its first element.\n        # i is inclusive end index for the prefix we are partitioning.\n        dp = [[INF] * n for _ in range(4)]\n\n        # Base: k = 1, whole prefix is one segment => cost is nums[0]\n        for i in range(n):\n            dp[1][i] = nums[0]\n\n        # Transition:\n        # For k>=2, if the last segment starts at s and ends at i (s<=i),\n        # then the previous k-1 segments cover nums[0..s-1] (end index = s-1),\n        # and the last segment contributes nums[s] (its first element).\n        for k in range(2, 4):\n            # Need at least k elements to make k non-empty segments => end index i >= k-1\n            for i in range(k - 1, n):\n                best = INF\n                # last segment starts at s, so previous ends at s-1 (must be >= k-2)\n                for s in range(k - 1, i + 1):\n                    prev = dp[k - 1][s - 1]\n                    if prev != INF:\n                        best = min(best, prev + nums[s])\n                dp[k][i] = best\n\n        return dp[3][n - 1]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[k][i] = minimum cost to partition nums[i:] into k non-empty contiguous subarrays\n        # where cost of each subarray is its first element.\n        # Transition: first subarray is nums[i:j+1], contributes nums[i] + dp[k-1][j+1]\n        # So dp[k][i] = nums[i] + min_{j >= i+1} dp[k-1][j+1]  (j chosen to ensure enough elements)\n        #\n        # We'll implement with rolling arrays for k=1..3.\n        \n        INF = 10**18\n        \n        # Base: k=1 => entire suffix nums[i:] is one subarray => cost = nums[i]\n        prev = [INF] * n\n        for i in range(n):\n            prev[i] = nums[i]\n        \n        # Build for k=2 and k=3\n        for k in (2, 3):\n            cur = [INF] * n\n            # Need at least k elements starting from i to make k non-empty subarrays.\n            # That means i <= n - k\n            for i in range(n - k + 1):\n                # Choose end of first subarray at j where next part starts at j+1.\n                # Next suffix starts at s = j+1, and s must allow (k-1) subarrays:\n                # s <= n - (k-1) => s <= n - k + 1\n                # Also, first subarray must be non-empty => s >= i+1\n                # Thus s in [i+1, n-k+1]\n                # dp[k][i] = nums[i] + min(prev[s]] for s in [i+1, n-k+1]\n                mn = INF\n                upper_s = n - k + 1\n                for s in range(i + 1, upper_s + 1):\n                    if prev[s] < mn:\n                        mn = prev[s]\n                cur[i] = nums[i] + mn\n            prev = cur\n        \n        # After k=3, dp[3][0] is the answer (partition from full array start)\n        return prev[0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = min cost to partition prefix nums[0..i-1] into k non-empty contiguous subarrays\n        # Transition: last subarray starts at j (k-1 <= j <= i-1), so its cost is nums[j]\n        INF = 10**18\n        dp_prev = [INF] * (n + 1)\n        dp_prev[0] = 0  # 0 elements, 0 subarrays\n\n        for k in range(1, 4):  # k = 1..3\n            dp_cur = [INF] * (n + 1)\n            # Need at least k elements to form k non-empty parts\n            for i in range(k, n + 1):  # prefix length i\n                best = INF\n                # last segment starts at j, ends at i-1 => j in [k-1, i-1]\n                # cost = dp_prev[j] + nums[j]\n                for j in range(k - 1, i):\n                    if dp_prev[j] != INF:\n                        val = dp_prev[j] + nums[j]\n                        if val < best:\n                            best = val\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        return dp_prev[n]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[k][i] = minimum cost to partition nums[i:] into k non-empty contiguous parts\n        # where the cost of each part is its first element.\n        # Answer is dp[0][3].\n        INF = 10**18\n        dp = [[INF] * (n + 1) for _ in range(4)]\n        \n        # Base: k = 1, cost is just the first element of the remaining suffix\n        for i in range(n):\n            dp[1][i] = nums[i]\n        \n        # Fill for k=2..3\n        for k in range(2, 4):\n            # Need at least k elements to make k non-empty parts\n            for i in range(n - k + 1):\n                # Choose end of first segment from i..j, so the next segment starts at j+1.\n                # Cost contribution of first segment is nums[i] (first element of that segment),\n                # plus dp[k-1][j+1].\n                best = INF\n                for j in range(i, n - k + 1):\n                    # first segment = nums[i..j], next starts at j+1\n                    best = min(best, dp[k - 1][j + 1])\n                dp[k][i] = nums[i] + best\n        \n        return dp[3][0]\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def minimumCost(self, nums: List[int]) -> int:\n        n = len(nums)\n        # dp[i][k] = minimum cost to partition nums[i:] into k non-empty contiguous subarrays\n        # transition: first segment is nums[i:j], cost = nums[i], next state is dp[j+1][k-1]\n        # We will compute for i from n-1 down to 0.\n        INF = 10**18\n        dp_prev = [INF] * (n + 1)  # for k-1\n        dp_cur = [INF] * (n + 1)   # for k\n\n        # Base: k = 1 => dp[i][1] = cost of taking the whole suffix as one segment\n        # But since segments must be non-empty, valid i is 0..n-1\n        dp_prev = [INF] * (n + 1)\n        for i in range(n):\n            dp_prev[i] = nums[i]\n        dp_prev[n] = INF  # empty suffix not allowed for non-zero k\n\n        # Build for k = 2 and 3\n        for k in range(2, 4):\n            dp_cur = [INF] * (n + 1)\n            # Need at least k elements to make k non-empty parts\n            for i in range(n - k + 1):\n                best = INF\n                # choose end j of first segment: i..j, with at least k-1 elements left after j\n                # => j <= n - (k-1) - 1 = n - k\n                # next index is j+1, must satisfy dp_prev[next][k-1] finite\n                for j in range(i, n - k + 1):\n                    nxt = j + 1\n                    cand = nums[i] + dp_prev[nxt]\n                    if cand < best:\n                        best = cand\n                dp_cur[i] = best\n            dp_prev = dp_cur\n\n        # dp[0][3]\n        return dp_prev[0]\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3263",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3263",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "6",
+                "actual": "6",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "19",
+                "actual": "19",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "86",
+                "actual": "86",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "77",
+                "actual": "77",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "51",
+                "actual": "51",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "116",
+                "actual": "116",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "115",
+                "actual": "115",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "13",
+                "actual": "13",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "32",
+                "actual": "32",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "11",
+                "actual": "11",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "150",
+                "actual": "150",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.9,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.09999999999999998
+    }
+  }
+}

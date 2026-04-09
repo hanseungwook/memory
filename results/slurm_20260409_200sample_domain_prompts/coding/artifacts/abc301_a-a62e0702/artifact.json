@@ -1,0 +1,3265 @@
+{
+  "problem_id": "abc301_a",
+  "domain": "coding",
+  "problem": {
+    "id": "abc301_a",
+    "domain": "coding",
+    "statement": "Takahashi and Aoki played N games.\r\nYou are given a string S of length N, representing the results of these games.\r\nTakahashi won the i-th game if the i-th character of S is T, and Aoki won that game if it is A.\nThe overall winner between Takahashi and Aoki is the one who won more games than the other.\r\nIf they had the same number of wins, the overall winner is the one who reached that number of wins first.\r\nFind the overall winner: Takahashi or Aoki.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nS\n\nOutput\n\nIf the overall winner is Takahashi, print T; if it is Aoki, print A.\n\nConstraints\n\n\n- 1\\leq N \\leq 100\n- N is an integer.\n- S is a string of length N consisting of T and A.\n\nSample Input 1\n\n5\r\nTTAAT\n\nSample Output 1\n\nT\r\n\nTakahashi won three games, and Aoki won two.\r\nThus, the overall winner is Takahashi, who won more games.\n\nSample Input 2\n\n6\r\nATTATA\n\nSample Output 2\n\nT\r\n\nBoth Takahashi and Aoki won three games.\r\nTakahashi reached three wins in the fifth game, and Aoki in the sixth game.\r\nThus, the overall winner is Takahashi, who reached three wins first.\n\nSample Input 3\n\n1\r\nA\n\nSample Output 3\n\nA",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "5\nTTAAT\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "6\nATTATA\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "1\nA\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "90\nATTTTATATATTATTAATATATTAATTATTAAATTAAATTATTTATTAATAAAAATATTATTTTAATAAAAATTAAAAAAAATATTTTTT\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "91\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "92\nAATAAAAAAATATAAAAAAAAATAAAAAAATAAATAAAAAAAAAAAAAAAAATAAAAAAAAAATAAAAAATAAAATAAAATAAAAAATATAA\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "92\nATTTAAATTTTAAAAATAAATTTAAAATTAAAATTAAAAATAATTTTAATTTATATTTATTTAATTTTATAAATAATTTTTATATAATATTA\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "92\nATTTTTATTTTTATTATTTTAATATTTAAATTAATTTATTAAATTTTATTTTAAATATATTTAAATAATATTATTAAATTAATATTTAAATA\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "92\nATATTTAAATAATTTTATTAATTATTTAATATTTTTATTATTTAATTTAATTTAAATATATAATATAAAAAATTATAAATTATAAAATAAAT\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "93\nTTAAAATTTTATAATAAAAAAAATAATAAATTTTATTTAATAATAAATAAAAAAAAAAAATTTTTATTATATTTATATTTTTAAAAATTATAA\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "93\nTTTATTATTATATTTTTATATTTTATTTTTTAAATTTTATAATTTTTATTTTTTATTTATATTTATTTAAATTTTATATTTATTATATTTTTA\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "96\nTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "97\nTTTTTTTTTATTTATTTTTTTATTTTTTTTTATTAAATTTATTTTTTTTTTTTTATTTTTTTATTTTTAATTTTTTTTTATTTTTTATTTTTTTTTT\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "98\nTTAATATTATATAATTAAAATAATTTATATAAATTAATAATTATTTATAATATATAATAAATAATAATTTATAATAATTTTTATATTTATTATAATTA\n",
+        "output": "T\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "100\nAAAAAAAAAAAAAAAAAAAAAAAATTTAAAAATATTATAAAATATAATAATTAAAAAAAAATATTTATTTATAAAATATAAAATAATTAAATATATAATA\n",
+        "output": "A\n",
+        "testtype": "stdin"
+      }
+    ],
+    "starter_code": null,
+    "metadata": {
+      "func_name": null,
+      "question_title": "Overall Winner",
+      "platform": "atcoder",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nTakahashi and Aoki played N games.\r\nYou are given a string S of length N, representing the results of these games.\r\nTakahashi won the i-th game if the i-th character of S is T, and Aoki won that game if it is A.\nThe overall winner between Takahashi and Aoki is the one who won more games than the other.\r\nIf they had the same number of wins, the overall winner is the one who reached that number of wins first.\r\nFind the overall winner: Takahashi or Aoki.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nS\n\nOutput\n\nIf the overall winner is Takahashi, print T; if it is Aoki, print A.\n\nConstraints\n\n\n- 1\\leq N \\leq 100\n- N is an integer.\n- S is a string of length N consisting of T and A.\n\nSample Input 1\n\n5\r\nTTAAT\n\nSample Output 1\n\nT\r\n\nTakahashi won three games, and Aoki won two.\r\nThus, the overall winner is Takahashi, who won more games.\n\nSample Input 2\n\n6\r\nATTATA\n\nSample Output 2\n\nT\r\n\nBoth Takahashi and Aoki won three games.\r\nTakahashi reached three wins in the fifth game, and Aoki in the sixth game.\r\nThus, the overall winner is Takahashi, who reached three wins first.\n\nSample Input 3\n\n1\r\nA\n\nSample Output 3\n\nA\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t = 0  # Takahashi wins\n    a = 0  # Aoki wins\n\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n\n        # If someone is ahead, they are the overall winner.\n        # If tied, keep going; the rules say the one who reaches the target first wins.\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\n    # If never differs (shouldn't happen given N>=1), decide by who reached first.\n    # But as written above, difference will occur at some point for any non-empty string.\n    # Fallback:\n    print('T' if t >= a else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef main():\n    input_data = sys.stdin.read().strip().split()\n    N = int(input_data[0])\n    S = input_data[1]\n\n    t_wins = 0\n    a_wins = 0\n    target_t = None\n    target_a = None\n\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t_wins += 1\n            if t_wins > a_wins:\n                print('T')\n                return\n            if t_wins == a_wins:\n                # If equal now, winner depends on who reached the higher wins first.\n                # That happens only when one surpasses the other, so continue.\n                pass\n        else:  # 'A'\n            a_wins += 1\n            if a_wins > t_wins:\n                print('A')\n                return\n\n    # If reached here, neither ever surpassed the other -> must be ties, so\n    # by rule the one who reached that number of wins first wins.\n    # We'll compute with a second pass for first reaching the max wins.\n    max_wins = max(t_wins, a_wins)\n    t_first = None\n    a_first = None\n    tw = aw = 0\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            tw += 1\n            if tw == max_wins:\n                t_first = i\n                break\n        else:\n            aw += 1\n            if aw == max_wins:\n                a_first = i\n                break\n\n    # If t_wins == a_wins, only one of the first indices will have occurred first\n    # based on loop order; compute properly:\n    # Actually loop above stops at first max_wins reached by either; so decide by ch.\n    # Simpler: redo properly.\n    tw = aw = 0\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            tw += 1\n            if tw == max_wins:\n                print('T')\n                return\n        else:\n            aw += 1\n            if aw == max_wins:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    main()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t == a:\n            continue\n        # someone has more wins; determine which reached first to this higher count\n        # But the problem's rule about \"same number of wins reached first\" means:\n        # As we iterate, the first time someone becomes strictly greater than the other,\n        # their current win count is the winner's final tie/break condition.\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\n    # For completeness (should always return within loop)\n    print('T' if t > a else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > a:\n            # first to make t strictly greater than a wins overall\n            # but per problem: if same wins, whoever reached that count first\n            # We can handle directly by checking when someone reaches final count.\n            pass\n\n    # Better approach: track first time reaching the final win count.\n    total_t = S.count('T')\n    total_a = N - total_t\n\n    if total_t > total_a:\n        target = total_t\n        count = 0\n        for ch in S:\n            if ch == 'T':\n                count += 1\n                if count == target:\n                    print('T')\n                    return\n    elif total_a > total_t:\n        target = total_a\n        count = 0\n        for ch in S:\n            if ch == 'A':\n                count += 1\n                if count == target:\n                    print('A')\n                    return\n    else:\n        # same wins: whoever reaches that number first\n        target = total_t\n        t = a = 0\n        for ch in S:\n            if ch == 'T':\n                t += 1\n                if t == target:\n                    print('T')\n                    return\n            else:\n                a += 1\n                if a == target:\n                    print('A')\n                    return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_cnt = 0\n    a_cnt = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_cnt += 1\n            if t_cnt > a_cnt:\n                print('T')\n                return\n        else:  # 'A'\n            a_cnt += 1\n            if a_cnt > t_cnt:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins > a_wins:\n            print('T')\n            return\n        if a_wins > t_wins:\n            print('A')\n            return\n\n    # If counts are equal after N games, the one who first reached the final max\n    # wins is the one whose winning count reached max earlier.\n    # But with the above loop, one side would have exceeded the other unless equal.\n    # Therefore, determine by first occurrence of max wins.\n    max_w = max(t_wins, a_wins)\n    t_idx = next((i for i, ch in enumerate(s, 1) if ch == 'T'), None)\n\n    # Recompute first time each reaches max_w\n    t_first = None\n    a_first = None\n    t = a = 0\n    for i, ch in enumerate(s, 1):\n        if ch == 'T':\n            t += 1\n            if t == max_w and t_first is None:\n                t_first = i\n        else:\n            a += 1\n            if a == max_w and a_first is None:\n                a_first = i\n        if t_first is not None and a_first is not None:\n            break\n\n    print('T' if t_first < a_first else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0  # Takahashi wins\n    a = 0  # Aoki wins\n\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        # When someone reaches more wins than the other, they are the overall winner\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\nsolve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    N = int(data[0])\n    S = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n    for ch in S:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins != a_wins:\n            continue\n\n        # If currently tied, keep going until one reaches the other's final win count.\n        # But the problem wants: who wins more; if equal, who reached that number first.\n        # So we can finish by tracking max wins and earliest reach.\n        # We'll handle this by continuing and computing final result after loop.\n    # Compute final winner\n    if t_wins > a_wins:\n        sys.stdout.write('T')\n    elif a_wins > t_wins:\n        sys.stdout.write('A')\n    else:\n        target = t_wins  # same as a_wins\n        t = 0\n        a = 0\n        for ch in S:\n            if ch == 'T':\n                t += 1\n            else:\n                a += 1\n            if t == target:\n                sys.stdout.write('T')\n                return\n            if a == target:\n                sys.stdout.write('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    input_data = sys.stdin.read().strip().split()\n    N = int(input_data[0])\n    S = input_data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for c in S:\n        if c == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # Same number of wins: whoever reaches that number first\n    target = t_wins\n    t = 0\n    a = 0\n    for c in S:\n        if c == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0  # wins for Takahashi\n    a = 0  # wins for Aoki\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 0,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 1,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 2,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 4,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 5,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 6,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 9,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > a:\n            # first to make t strictly greater than a wins overall\n            # but per problem: if same wins, whoever reached that count first\n            # We can handle directly by checking when someone reaches final count.\n            pass\n\n    # Better approach: track first time reaching the final win count.\n    total_t = S.count('T')\n    total_a = N - total_t\n\n    if total_t > total_a:\n        target = total_t\n        count = 0\n        for ch in S:\n            if ch == 'T':\n                count += 1\n                if count == target:\n                    print('T')\n                    return\n    elif total_a > total_t:\n        target = total_a\n        count = 0\n        for ch in S:\n            if ch == 'A':\n                count += 1\n                if count == target:\n                    print('A')\n                    return\n    else:\n        # same wins: whoever reaches that number first\n        target = total_t\n        t = a = 0\n        for ch in S:\n            if ch == 'T':\n                t += 1\n                if t == target:\n                    print('T')\n                    return\n            else:\n                a += 1\n                if a == target:\n                    print('A')\n                    return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    N = int(data[0])\n    S = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n    for ch in S:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins != a_wins:\n            continue\n\n        # If currently tied, keep going until one reaches the other's final win count.\n        # But the problem wants: who wins more; if equal, who reached that number first.\n        # So we can finish by tracking max wins and earliest reach.\n        # We'll handle this by continuing and computing final result after loop.\n    # Compute final winner\n    if t_wins > a_wins:\n        sys.stdout.write('T')\n    elif a_wins > t_wins:\n        sys.stdout.write('A')\n    else:\n        target = t_wins  # same as a_wins\n        t = 0\n        a = 0\n        for ch in S:\n            if ch == 'T':\n                t += 1\n            else:\n                a += 1\n            if t == target:\n                sys.stdout.write('T')\n                return\n            if a == target:\n                sys.stdout.write('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    input_data = sys.stdin.read().strip().split()\n    N = int(input_data[0])\n    S = input_data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for c in S:\n        if c == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # Same number of wins: whoever reaches that number first\n    target = t_wins\n    t = 0\n    a = 0\n    for c in S:\n        if c == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```"
+        ],
+        "partial": [
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t = 0  # Takahashi wins\n    a = 0  # Aoki wins\n\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n\n        # If someone is ahead, they are the overall winner.\n        # If tied, keep going; the rules say the one who reaches the target first wins.\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\n    # If never differs (shouldn't happen given N>=1), decide by who reached first.\n    # But as written above, difference will occur at some point for any non-empty string.\n    # Fallback:\n    print('T' if t >= a else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef main():\n    input_data = sys.stdin.read().strip().split()\n    N = int(input_data[0])\n    S = input_data[1]\n\n    t_wins = 0\n    a_wins = 0\n    target_t = None\n    target_a = None\n\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t_wins += 1\n            if t_wins > a_wins:\n                print('T')\n                return\n            if t_wins == a_wins:\n                # If equal now, winner depends on who reached the higher wins first.\n                # That happens only when one surpasses the other, so continue.\n                pass\n        else:  # 'A'\n            a_wins += 1\n            if a_wins > t_wins:\n                print('A')\n                return\n\n    # If reached here, neither ever surpassed the other -> must be ties, so\n    # by rule the one who reached that number of wins first wins.\n    # We'll compute with a second pass for first reaching the max wins.\n    max_wins = max(t_wins, a_wins)\n    t_first = None\n    a_first = None\n    tw = aw = 0\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            tw += 1\n            if tw == max_wins:\n                t_first = i\n                break\n        else:\n            aw += 1\n            if aw == max_wins:\n                a_first = i\n                break\n\n    # If t_wins == a_wins, only one of the first indices will have occurred first\n    # based on loop order; compute properly:\n    # Actually loop above stops at first max_wins reached by either; so decide by ch.\n    # Simpler: redo properly.\n    tw = aw = 0\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            tw += 1\n            if tw == max_wins:\n                print('T')\n                return\n        else:\n            aw += 1\n            if aw == max_wins:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    main()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t == a:\n            continue\n        # someone has more wins; determine which reached first to this higher count\n        # But the problem's rule about \"same number of wins reached first\" means:\n        # As we iterate, the first time someone becomes strictly greater than the other,\n        # their current win count is the winner's final tie/break condition.\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\n    # For completeness (should always return within loop)\n    print('T' if t > a else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_cnt = 0\n    a_cnt = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_cnt += 1\n            if t_cnt > a_cnt:\n                print('T')\n                return\n        else:  # 'A'\n            a_cnt += 1\n            if a_cnt > t_cnt:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins > a_wins:\n            print('T')\n            return\n        if a_wins > t_wins:\n            print('A')\n            return\n\n    # If counts are equal after N games, the one who first reached the final max\n    # wins is the one whose winning count reached max earlier.\n    # But with the above loop, one side would have exceeded the other unless equal.\n    # Therefore, determine by first occurrence of max wins.\n    max_w = max(t_wins, a_wins)\n    t_idx = next((i for i, ch in enumerate(s, 1) if ch == 'T'), None)\n\n    # Recompute first time each reaches max_w\n    t_first = None\n    a_first = None\n    t = a = 0\n    for i, ch in enumerate(s, 1):\n        if ch == 'T':\n            t += 1\n            if t == max_w and t_first is None:\n                t_first = i\n        else:\n            a += 1\n            if a == max_w and a_first is None:\n                a_first = i\n        if t_first is not None and a_first is not None:\n            break\n\n    print('T' if t_first < a_first else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0  # Takahashi wins\n    a = 0  # Aoki wins\n\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        # When someone reaches more wins than the other, they are the overall winner\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\nsolve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0  # wins for Takahashi\n    a = 0  # wins for Aoki\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\nif __name__ == \"__main__\":\n    solve()\n```"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nTakahashi and Aoki played N games.\r\nYou are given a string S of length N, representing the results of these games.\r\nTakahashi won the i-th game if the i-th character of S is T, and Aoki won that game if it is A.\nThe overall winner between Takahashi and Aoki is the one who won more games than the other.\r\nIf they had the same number of wins, the overall winner is the one who reached that number of wins first.\r\nFind the overall winner: Takahashi or Aoki.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nS\n\nOutput\n\nIf the overall winner is Takahashi, print T; if it is Aoki, print A.\n\nConstraints\n\n\n- 1\\leq N \\leq 100\n- N is an integer.\n- S is a string of length N consisting of T and A.\n\nSample Input 1\n\n5\r\nTTAAT\n\nSample Output 1\n\nT\r\n\nTakahashi won three games, and Aoki won two.\r\nThus, the overall winner is Takahashi, who won more games.\n\nSample Input 2\n\n6\r\nATTATA\n\nSample Output 2\n\nT\r\n\nBoth Takahashi and Aoki won three games.\r\nTakahashi reached three wins in the fifth game, and Aoki in the sixth game.\r\nThus, the overall winner is Takahashi, who reached three wins first.\n\nSample Input 3\n\n1\r\nA\n\nSample Output 3\n\nA\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > a:\n            # first to make t strictly greater than a wins overall\n            # but per problem: if same wins, whoever reached that count first\n            # We can handle directly by checking when someone reaches final count.\n            pass\n\n    # Better approach: track first time reaching the final win count.\n    total_t = S.count('T')\n    total_a = N - total_t\n\n    if total_t > total_a:\n        target = total_t\n        count = 0\n        for ch in S:\n            if ch == 'T':\n                count += 1\n                if count == target:\n                    print('T')\n                    return\n    elif total_a > total_t:\n        target = total_a\n        count = 0\n        for ch in S:\n            if ch == 'A':\n                count += 1\n                if count == target:\n                    print('A')\n                    return\n    else:\n        # same wins: whoever reaches that number first\n        target = total_t\n        t = a = 0\n        for ch in S:\n            if ch == 'T':\n                t += 1\n                if t == target:\n                    print('T')\n                    return\n            else:\n                a += 1\n                if a == target:\n                    print('A')\n                    return\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 2\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    N = int(data[0])\n    S = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n    for ch in S:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins != a_wins:\n            continue\n\n        # If currently tied, keep going until one reaches the other's final win count.\n        # But the problem wants: who wins more; if equal, who reached that number first.\n        # So we can finish by tracking max wins and earliest reach.\n        # We'll handle this by continuing and computing final result after loop.\n    # Compute final winner\n    if t_wins > a_wins:\n        sys.stdout.write('T')\n    elif a_wins > t_wins:\n        sys.stdout.write('A')\n    else:\n        target = t_wins  # same as a_wins\n        t = 0\n        a = 0\n        for ch in S:\n            if ch == 'T':\n                t += 1\n            else:\n                a += 1\n            if t == target:\n                sys.stdout.write('T')\n                return\n            if a == target:\n                sys.stdout.write('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 3\n```python\nimport sys\n\ndef solve():\n    input_data = sys.stdin.read().strip().split()\n    N = int(input_data[0])\n    S = input_data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for c in S:\n        if c == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # Same number of wins: whoever reaches that number first\n    target = t_wins\n    t = 0\n    a = 0\n    for c in S:\n        if c == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n#### Partially Correct\nAttempt 1\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t = 0  # Takahashi wins\n    a = 0  # Aoki wins\n\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n\n        # If someone is ahead, they are the overall winner.\n        # If tied, keep going; the rules say the one who reaches the target first wins.\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\n    # If never differs (shouldn't happen given N>=1), decide by who reached first.\n    # But as written above, difference will occur at some point for any non-empty string.\n    # Fallback:\n    print('T' if t >= a else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 2\n```python\nimport sys\n\ndef main():\n    input_data = sys.stdin.read().strip().split()\n    N = int(input_data[0])\n    S = input_data[1]\n\n    t_wins = 0\n    a_wins = 0\n    target_t = None\n    target_a = None\n\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t_wins += 1\n            if t_wins > a_wins:\n                print('T')\n                return\n            if t_wins == a_wins:\n                # If equal now, winner depends on who reached the higher wins first.\n                # That happens only when one surpasses the other, so continue.\n                pass\n        else:  # 'A'\n            a_wins += 1\n            if a_wins > t_wins:\n                print('A')\n                return\n\n    # If reached here, neither ever surpassed the other -> must be ties, so\n    # by rule the one who reached that number of wins first wins.\n    # We'll compute with a second pass for first reaching the max wins.\n    max_wins = max(t_wins, a_wins)\n    t_first = None\n    a_first = None\n    tw = aw = 0\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            tw += 1\n            if tw == max_wins:\n                t_first = i\n                break\n        else:\n            aw += 1\n            if aw == max_wins:\n                a_first = i\n                break\n\n    # If t_wins == a_wins, only one of the first indices will have occurred first\n    # based on loop order; compute properly:\n    # Actually loop above stops at first max_wins reached by either; so decide by ch.\n    # Simpler: redo properly.\n    tw = aw = 0\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            tw += 1\n            if tw == max_wins:\n                print('T')\n                return\n        else:\n            aw += 1\n            if aw == max_wins:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    main()\n```\n\nAttempt 3\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t == a:\n            continue\n        # someone has more wins; determine which reached first to this higher count\n        # But the problem's rule about \"same number of wins reached first\" means:\n        # As we iterate, the first time someone becomes strictly greater than the other,\n        # their current win count is the winner's final tie/break condition.\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\n    # For completeness (should always return within loop)\n    print('T' if t > a else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 4\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_cnt = 0\n    a_cnt = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_cnt += 1\n            if t_cnt > a_cnt:\n                print('T')\n                return\n        else:  # 'A'\n            a_cnt += 1\n            if a_cnt > t_cnt:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 5\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins > a_wins:\n            print('T')\n            return\n        if a_wins > t_wins:\n            print('A')\n            return\n\n    # If counts are equal after N games, the one who first reached the final max\n    # wins is the one whose winning count reached max earlier.\n    # But with the above loop, one side would have exceeded the other unless equal.\n    # Therefore, determine by first occurrence of max wins.\n    max_w = max(t_wins, a_wins)\n    t_idx = next((i for i, ch in enumerate(s, 1) if ch == 'T'), None)\n\n    # Recompute first time each reaches max_w\n    t_first = None\n    a_first = None\n    t = a = 0\n    for i, ch in enumerate(s, 1):\n        if ch == 'T':\n            t += 1\n            if t == max_w and t_first is None:\n                t_first = i\n        else:\n            a += 1\n            if a == max_w and a_first is None:\n                a_first = i\n        if t_first is not None and a_first is not None:\n            break\n\n    print('T' if t_first < a_first else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```\n\nAttempt 6\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0  # Takahashi wins\n    a = 0  # Aoki wins\n\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        # When someone reaches more wins than the other, they are the overall winner\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\nsolve()\n```\n\nAttempt 7\n```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0  # wins for Takahashi\n    a = 0  # wins for Aoki\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > a:\n            print('T')\n            return\n        if a > t:\n            print('A')\n            return\n\nif __name__ == \"__main__\":\n    solve()\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Constraint-First Decision Logic",
+          "description": "Derive the algorithm directly from the problem’s formal win/tie-breaking rules instead of using intuitive ordering assumptions.",
+          "content": "When a problem has a primary criterion (e.g., “more wins”) plus a tie-break (e.g., “reached that number first”), implement them as separate, explicit branches. This prevents subtle logical mismatches where a natural “first time one leads” notion does not equal the specified tie-break.",
+          "reasoning": "The correct attempts converge on a robust strategy: explicitly handle the two-phase rule implied by the statement—(1) compare total wins, and (2) if tied, resolve by the earliest time a player reaches that tied win count. The partially correct attempts fail mainly by making an incorrect assumption that the “first to exceed” the other always matches the tie-break rule, or by using an inconsistent/overcomplicated method to infer “who reached the max first,” which can break when the logic about reaching and timing is misapplied. Overall, success comes from aligning the algorithm directly with the problem’s decision rule rather than relying on intuitive shortcuts, and from doing a clean tie-break computation with an unambiguous condition."
+        },
+        {
+          "title": "Two-Pass Tie-Break Computation",
+          "description": "In tie situations, compute the target milestone from final totals, then rescan to find the first time each side reaches it.",
+          "content": "A reliable pattern is: first compute final aggregates; if equal, define a “target count” and scan in order to detect the earliest position where each side reaches that count. This makes the timing rule unambiguous and avoids complex reasoning about intermediate comparisons.",
+          "reasoning": "The correct attempts converge on a robust strategy: explicitly handle the two-phase rule implied by the statement—(1) compare total wins, and (2) if tied, resolve by the earliest time a player reaches that tied win count. The partially correct attempts fail mainly by making an incorrect assumption that the “first to exceed” the other always matches the tie-break rule, or by using an inconsistent/overcomplicated method to infer “who reached the max first,” which can break when the logic about reaching and timing is misapplied. Overall, success comes from aligning the algorithm directly with the problem’s decision rule rather than relying on intuitive shortcuts, and from doing a clean tie-break computation with an unambiguous condition."
+        },
+        {
+          "title": "Validate “First Exceeds” Reasoning",
+          "description": "Any transformation that replaces the required tie-break with “who first becomes strictly ahead” must be checked for equivalence.",
+          "content": "It’s tempting to decide during the scan when one side becomes greater, but that can fail when the problem’s tie-break is about reaching a shared target count, not about first exceeding. Add an equivalence check (or follow the statement’s rule literally) before adopting such a shortcut.",
+          "reasoning": "The correct attempts converge on a robust strategy: explicitly handle the two-phase rule implied by the statement—(1) compare total wins, and (2) if tied, resolve by the earliest time a player reaches that tied win count. The partially correct attempts fail mainly by making an incorrect assumption that the “first to exceed” the other always matches the tie-break rule, or by using an inconsistent/overcomplicated method to infer “who reached the max first,” which can break when the logic about reaching and timing is misapplied. Overall, success comes from aligning the algorithm directly with the problem’s decision rule rather than relying on intuitive shortcuts, and from doing a clean tie-break computation with an unambiguous condition."
+        },
+        {
+          "title": "Avoid Overcomplicated Index Inference",
+          "description": "Don’t infer first-reaching order indirectly; track it with a direct condition during a controlled scan.",
+          "content": "Partially correct attempts that try to deduce timing using partial information or placeholder variables often end up inconsistent. Prefer a straightforward loop that stops when the precise event (“reaches the target count”) occurs.",
+          "reasoning": "The correct attempts converge on a robust strategy: explicitly handle the two-phase rule implied by the statement—(1) compare total wins, and (2) if tied, resolve by the earliest time a player reaches that tied win count. The partially correct attempts fail mainly by making an incorrect assumption that the “first to exceed” the other always matches the tie-break rule, or by using an inconsistent/overcomplicated method to infer “who reached the max first,” which can break when the logic about reaching and timing is misapplied. Overall, success comes from aligning the algorithm directly with the problem’s decision rule rather than relying on intuitive shortcuts, and from doing a clean tie-break computation with an unambiguous condition."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe correct attempts converge on a robust strategy: explicitly handle the two-phase rule implied by the statement—(1) compare total wins, and (2) if tied, resolve by the earliest time a player reaches that tied win count. The partially correct attempts fail mainly by making an incorrect assumption that the “first to exceed” the other always matches the tie-break rule, or by using an inconsistent/overcomplicated method to infer “who reached the max first,” which can break when the logic about reaching and timing is misapplied. Overall, success comes from aligning the algorithm directly with the problem’s decision rule rather than relying on intuitive shortcuts, and from doing a clean tie-break computation with an unambiguous condition.\n</reasoning>\n\n<memories>\n<memory>\n<title>Constraint-First Decision Logic</title>\n<description>Derive the algorithm directly from the problem’s formal win/tie-breaking rules instead of using intuitive ordering assumptions.</description>\n<content>When a problem has a primary criterion (e.g., “more wins”) plus a tie-break (e.g., “reached that number first”), implement them as separate, explicit branches. This prevents subtle logical mismatches where a natural “first time one leads” notion does not equal the specified tie-break.</content>\n</memory>\n\n<memory>\n<title>Two-Pass Tie-Break Computation</title>\n<description>In tie situations, compute the target milestone from final totals, then rescan to find the first time each side reaches it.</description>\n<content>A reliable pattern is: first compute final aggregates; if equal, define a “target count” and scan in order to detect the earliest position where each side reaches that count. This makes the timing rule unambiguous and avoids complex reasoning about intermediate comparisons.</content>\n</memory>\n\n<memory>\n<title>Validate “First Exceeds” Reasoning</title>\n<description>Any transformation that replaces the required tie-break with “who first becomes strictly ahead” must be checked for equivalence.</description>\n<content>It’s tempting to decide during the scan when one side becomes greater, but that can fail when the problem’s tie-break is about reaching a shared target count, not about first exceeding. Add an equivalence check (or follow the statement’s rule literally) before adopting such a shortcut.</content>\n</memory>\n\n<memory>\n<title>Avoid Overcomplicated Index Inference</title>\n<description>Don’t infer first-reaching order indirectly; track it with a direct condition during a controlled scan.</description>\n<content>Partially correct attempts that try to deduce timing using partial information or placeholder variables often end up inconsistent. Prefer a straightforward loop that stops when the precise event (“reaches the target count”) occurs.</content>\n</memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nTakahashi and Aoki played N games.\r\nYou are given a string S of length N, representing the results of these games.\r\nTakahashi won the i-th game if the i-th character of S is T, and Aoki won that game if it is A.\nThe overall winner between Takahashi and Aoki is the one who won more games than the other.\r\nIf they had the same number of wins, the overall winner is the one who reached that number of wins first.\r\nFind the overall winner: Takahashi or Aoki.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nS\n\nOutput\n\nIf the overall winner is Takahashi, print T; if it is Aoki, print A.\n\nConstraints\n\n\n- 1\\leq N \\leq 100\n- N is an integer.\n- S is a string of length N consisting of T and A.\n\nSample Input 1\n\n5\r\nTTAAT\n\nSample Output 1\n\nT\r\n\nTakahashi won three games, and Aoki won two.\r\nThus, the overall winner is Takahashi, who won more games.\n\nSample Input 2\n\n6\r\nATTATA\n\nSample Output 2\n\nT\r\n\nBoth Takahashi and Aoki won three games.\r\nTakahashi reached three wins in the fifth game, and Aoki in the sixth game.\r\nThus, the overall winner is Takahashi, who reached three wins first.\n\nSample Input 3\n\n1\r\nA\n\nSample Output 3\n\nA\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t = 0\n    a = 0\n    first_target = None  # first player to reach final max wins\n\n    for i, ch in enumerate(s):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n\n        # Once someone reaches the other player's final win count, determine winner\n        # But final win count isn't known until the end, so we instead compute at end\n        # We'll just track wins at each step and decide after counting totals.\n        # (Simpler: compute totals first, then scan for first reach.)\n    t_total = s.count('T')\n    a_total = n - t_total\n\n    target = max(t_total, a_total)\n    for ch in s:\n        if ch == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for i, ch in enumerate(S):\n        if ch == 'T':\n            t += 1\n            if t > a:\n                print('T')\n                return\n            if t == a:\n                # tie case: decide only when one side catches up to the final winner,\n                # but we can still continue until someone exceeds or finishes.\n                pass\n        else:\n            a += 1\n            if a > t:\n                print('A')\n                return\n            if t == a:\n                pass\n\n    # If we reach here, then final counts are equal.\n    # The winner is the one who reached that number of wins first.\n    target = t  # == a\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        # If someone has more wins than the other, they are the overall winner.\n        if t_wins > a_wins:\n            print('T')\n            return\n        if a_wins > t_wins:\n            print('A')\n            return\n\n    # If equal after all games, it means N==0 (not possible by constraints),\n    # but we'll keep a safe fallback.\n    print('T' if t_wins > a_wins else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    input_data = sys.stdin.read().strip().split()\n    n = int(input_data[0])\n    s = input_data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n    target_t = target_a = None\n\n    # Track first time either reaches its final max (i.e., the other can't catch up)\n    # Equivalent simpler approach:\n    # - compute final counts\n    # - if unequal: winner is one with more\n    # - if equal: winner is who reaches that count first in the sequence\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # tie: find first index where one reaches the tied count\n    target = t_wins\n    t_wins = a_wins = 0\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n            if t_wins == target:\n                print('T')\n                return\n        else:\n            a_wins += 1\n            if a_wins == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1]\n\n    t_wins = 0\n    a_wins = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n        if t_wins != a_wins:\n            # The one who eventually wins more is determined by counts;\n            # but the \"first to reach the final tie-break number\" happens exactly\n            # when one side crosses the other's current count.\n            pass\n\n        # If one side has more wins than the other, it is already the overall winner\n        if t_wins > a_wins:\n            print('T')\n            return\n        if a_wins > t_wins:\n            print('A')\n            return\n\n    # If we get here, counts are equal (only possible when n is even and all processed),\n    # tie-breaker is who reached that number first; can be found by scanning again.\n    target = n // 2\n    t_reach = None\n    a_reach = None\n    t_count = 0\n    a_count = 0\n    for i, ch in enumerate(s):\n        if ch == 'T':\n            t_count += 1\n            if t_reach is None and t_count == target:\n                t_reach = i\n        else:\n            a_count += 1\n            if a_reach is None and a_count == target:\n                a_reach = i\n        if t_reach is not None and a_reach is not None:\n            break\n    print('T' if t_reach < a_reach else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t > N//2 and t != a and t > a:\n            # Not needed; we handle by first reaching max\n            pass\n\n    # Determine overall winner using \"more wins, else who reached that count first\"\n    if t > a:\n        target = t\n    elif a > t:\n        target = a\n    else:\n        target = t  # same\n\n    # Who reached target first?\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1]\n\n    t_count = 0\n    a_count = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_count += 1\n            if t_count > a_count:\n                print('T')\n                return\n        else:\n            a_count += 1\n            if a_count > t_count:\n                print('A')\n                return\n\n    # The loop should always decide before end, but for completeness:\n    # If equal overall (not possible here because n finite and winner defined by first reach),\n    # decide by first reaching max; simulate after loop.\n    if t_count > a_count:\n        print('T')\n    elif a_count > t_count:\n        print('A')\n    else:\n        # If somehow equal, determine who reached it first by scanning again\n        target = t_count\n        t_first = a_first = None\n        for i, ch in enumerate(s):\n            if ch == 'T' and t_first is None:\n                # count T's\n                pass\n        # fallback: compute first index where each reaches target\n        t = a = 0\n        for i, ch in enumerate(s):\n            if ch == 'T':\n                t += 1\n                if t == target:\n                    t_first = i\n                    break\n            else:\n                a += 1\n                if a == target:\n                    a_first = i\n                    break\n        # scan for other if needed\n        t = a = 0\n        for i, ch in enumerate(s):\n            if ch == 'T':\n                t += 1\n                if t == target:\n                    t_first = i\n                    break\n            else:\n                a += 1\n                if a == target:\n                    a_first = i\n                    break\n        print('T' if t_first is not None and a_first is not None and t_first < a_first else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = 0\n    a = 0\n    for i, ch in enumerate(S):\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n\n        # When one leads by more than the other, winner is determined.\n        # Equivalent to: if current winner's wins > opponent's wins, that current player is overall winner.\n        if t > a:\n            # This happens exactly when T first becomes overall winner.\n            # But A could also become overall winner later; we need first time max comparison.\n            # With this rule we must ensure the other can't have become overall earlier.\n            # It's safe to return here because t>a occurs at the earliest point T can lead.\n            pass\n        if a > t:\n            pass\n\n        # Determine overall winner condition:\n        if t >= a:\n            # If t > a, or t == a (can't happen as it would mean no one has strictly more yet),\n            # we only finalize when someone has strictly more OR when equal threshold reached first.\n            # The problem defines \"same wins -> who reached that number first\".\n            # So we can track first time each reaches its final winning count.\n            pass\n\n    # Simpler correct approach:\n    # Let final counts be t_total and a_total. If one is larger, print that.\n    # If equal, find first index where cumulative wins reach that count.\n\n    # Recompute totals and if equal, determine by first reach.\n    t_total = S.count('T')\n    a_total = N - t_total\n\n    if t_total > a_total:\n        print('T')\n        return\n    if a_total > t_total:\n        print('A')\n        return\n\n    target = t_total  # equal to a_total\n    t = 0\n    a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_count = 0\n    a_count = 0\n\n    for ch in s:\n        if ch == 'T':\n            t_count += 1\n        else:\n            a_count += 1\n\n        if t_count == a_count + 1:\n            # Takahashi just got the lead by 1\n            # but we still should confirm overall winner via first reaching max\n            pass\n\n    # Determine overall winner:\n    # One with more wins, or if tie, who reached that count first.\n    if t_count > a_count:\n        target = t_count\n        running = 0\n        for i, ch in enumerate(s):\n            if ch == 'T':\n                running += 1\n            if running == target:\n                print('T')\n                return\n    elif a_count > t_count:\n        target = a_count\n        running = 0\n        for i, ch in enumerate(s):\n            if ch == 'A':\n                running += 1\n            if running == target:\n                print('A')\n                return\n    else:\n        # Same number of wins: whoever reached that number first\n        target = t_count\n        t_reached = a_reached = None\n        t_running = a_running = 0\n        for i, ch in enumerate(s):\n            if ch == 'T':\n                t_running += 1\n                if t_running == target and t_reached is None:\n                    t_reached = i\n            else:\n                a_running += 1\n                if a_running == target and a_reached is None:\n                    a_reached = i\n            if t_reached is not None and a_reached is not None:\n                break\n        print('T' if t_reached < a_reached else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    input_data = sys.stdin.read().strip().split()\n    n = int(input_data[0])\n    s = input_data[1]\n\n    t_count = 0\n    a_count = 0\n\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            t_count += 1\n            if t_count > a_count:\n                print('T')\n                return\n            if t_count == a_count:\n                # continue; first to reach the tied maximum will be decided later\n                continue\n        else:\n            a_count += 1\n            if a_count > t_count:\n                print('A')\n                return\n            if a_count == t_count:\n                continue\n\n    # Determine by rule: more wins wins; if equal, who reached that number first.\n    # We already printed when someone reached a strictly larger count.\n    # If equal overall, find earliest index where the winning count was achieved.\n    # Compute final counts\n    t_total = s.count('T')\n    a_total = n - t_total\n\n    if t_total > a_total:\n        print('T')\n        return\n    if a_total > t_total:\n        print('A')\n        return\n\n    # Equal wins: find first index where cumulative matches that win count\n    t_needed = t_total\n    a_needed = a_total\n    cum_t = cum_a = 0\n    for ch in s:\n        if ch == 'T':\n            cum_t += 1\n        else:\n            cum_a += 1\n        if cum_t == t_needed:\n            print('T')\n            return\n        if cum_a == a_needed:\n            print('A')\n            return\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 0,
+          "score": 0.0,
+          "tier": "fail",
+          "details": {
+            "passed": 0,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 1,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 2,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 4,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 6,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 9,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "T",
+                "actual": "A",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "A",
+                "actual": "T",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Constraint-First Decision Logic: Derive the algorithm directly from the problem’s formal win/tie-breaking rules instead of using intuitive ordering assumptions.\n     When a problem has a primary criterion (e.g., “more wins”) plus a tie-break (e.g., “reached that number first”), implement them as separate, explicit branches. This prevents subtle logical mismatches where a natural “first time one leads” notion does not equal the specified tie-break.\n  2. Two-Pass Tie-Break Computation: In tie situations, compute the target milestone from final totals, then rescan to find the first time each side reaches it.\n     A reliable pattern is: first compute final aggregates; if equal, define a “target count” and scan in order to detect the earliest position where each side reaches that count. This makes the timing rule unambiguous and avoids complex reasoning about intermediate comparisons.\n  3. Validate “First Exceeds” Reasoning: Any transformation that replaces the required tie-break with “who first becomes strictly ahead” must be checked for equivalence.\n     It’s tempting to decide during the scan when one side becomes greater, but that can fail when the problem’s tie-break is about reaching a shared target count, not about first exceeding. Add an equivalence check (or follow the statement’s rule literally) before adopting such a shortcut.\n  4. Avoid Overcomplicated Index Inference: Don’t infer first-reaching order indirectly; track it with a direct condition during a controlled scan.\n     Partially correct attempts that try to deduce timing using partial information or placeholder variables often end up inconsistent. Prefer a straightforward loop that stops when the precise event (“reaches the target count”) occurs.\n\nApply these insights to the problem below.\n\n### Question:\nTakahashi and Aoki played N games.\r\nYou are given a string S of length N, representing the results of these games.\r\nTakahashi won the i-th game if the i-th character of S is T, and Aoki won that game if it is A.\nThe overall winner between Takahashi and Aoki is the one who won more games than the other.\r\nIf they had the same number of wins, the overall winner is the one who reached that number of wins first.\r\nFind the overall winner: Takahashi or Aoki.\n\nInput\n\nThe input is given from Standard Input in the following format:\nN\r\nS\n\nOutput\n\nIf the overall winner is Takahashi, print T; if it is Aoki, print A.\n\nConstraints\n\n\n- 1\\leq N \\leq 100\n- N is an integer.\n- S is a string of length N consisting of T and A.\n\nSample Input 1\n\n5\r\nTTAAT\n\nSample Output 1\n\nT\r\n\nTakahashi won three games, and Aoki won two.\r\nThus, the overall winner is Takahashi, who won more games.\n\nSample Input 2\n\n6\r\nATTATA\n\nSample Output 2\n\nT\r\n\nBoth Takahashi and Aoki won three games.\r\nTakahashi reached three wins in the fifth game, and Aoki in the sixth game.\r\nThus, the overall winner is Takahashi, who reached three wins first.\n\nSample Input 3\n\n1\r\nA\n\nSample Output 3\n\nA\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t_total = S.count('T')\n    a_total = N - t_total\n\n    if t_total > a_total:\n        print('T')\n        return\n    if a_total > t_total:\n        print('A')\n        return\n\n    # Tie: determine who reached the final equal number of wins first\n    target = t_total  # == a_total\n    t = a = 0\n    for ch in S:\n        if ch == 'T':\n            t += 1\n        else:\n            a += 1\n        if t == target:\n            print('T')\n            return\n        if a == target:\n            print('A')\n            return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_total = s.count('T')\n    a_total = n - t_total\n\n    if t_total > a_total:\n        print('T')\n        return\n    if a_total > t_total:\n        print('A')\n        return\n\n    # Tie-break: the one who reached that number of wins first\n    target = t_total  # == a_total\n    t_count = 0\n    a_count = 0\n    for ch in s:\n        if ch == 'T':\n            t_count += 1\n        else:\n            a_count += 1\n        if t_count == target and a_count == target:\n            # This can only happen if both reach target in same game,\n            # but since a game can't be won by both, it won't occur.\n            break\n        if t_count == target:\n            print('T')\n            return\n        if a_count == target:\n            print('A')\n            return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t = S.count('T')\n    a = N - t\n\n    if t > a:\n        print('T')\n        return\n    if a > t:\n        print('A')\n        return\n\n    # Tie: reached the final win count first\n    target = t  # == a\n    t_reached = None\n    a_reached = None\n    t_count = 0\n    a_count = 0\n\n    for i, ch in enumerate(S, start=1):\n        if ch == 'T':\n            t_count += 1\n            if t_reached is None and t_count == target:\n                t_reached = i\n        else:\n            a_count += 1\n            if a_reached is None and a_count == target:\n                a_reached = i\n        if t_reached is not None and a_reached is not None:\n            break\n\n    print('T' if t_reached < a_reached else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    N = int(data[0])\n    S = data[1].strip()\n\n    t_total = S.count('T')\n    a_total = N - t_total\n\n    if t_total > a_total:\n        print('T')\n        return\n    if a_total > t_total:\n        print('A')\n        return\n\n    # Tie: both reached the same number of wins. Winner is who reached it first.\n    target = t_total\n    t_reached = None\n    a_reached = None\n    t_cnt = a_cnt = 0\n\n    for i, ch in enumerate(S):\n        if ch == 'T':\n            t_cnt += 1\n            if t_reached is None and t_cnt == target:\n                t_reached = i\n        else:\n            a_cnt += 1\n            if a_reached is None and a_cnt == target:\n                a_reached = i\n\n        if t_reached is not None and a_reached is not None:\n            break\n\n    print('T' if t_reached < a_reached else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_total = s.count('T')\n    a_total = n - t_total\n\n    if t_total > a_total:\n        print(\"T\")\n        return\n    if a_total > t_total:\n        print(\"A\")\n        return\n\n    # Tie: determine who reached the final win count first\n    target = t_total  # == a_total\n    t_reached = a_reached = None\n    t = a = 0\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            t += 1\n            if t_reached is None and t == target:\n                t_reached = i\n        else:\n            a += 1\n            if a_reached is None and a == target:\n                a_reached = i\n        if t_reached is not None and a_reached is not None:\n            break\n\n    print(\"T\" if t_reached < a_reached else \"A\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    N = int(data[0])\n    S = data[1].strip()\n\n    t_total = S.count('T')\n    a_total = N - t_total\n\n    if t_total > a_total:\n        print('T')\n        return\n    if a_total > t_total:\n        print('A')\n        return\n\n    # Tie-break: who reaches the final win count first\n    target = t_total  # == a_total\n    t_reached = None\n    a_reached = None\n    t_cnt = 0\n    a_cnt = 0\n    for i, ch in enumerate(S):\n        if ch == 'T':\n            t_cnt += 1\n            if t_reached is None and t_cnt == target:\n                t_reached = i\n        else:  # 'A'\n            a_cnt += 1\n            if a_reached is None and a_cnt == target:\n                a_reached = i\n\n    print('T' if t_reached < a_reached else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1]\n\n    t_wins = s.count('T')\n    a_wins = n - t_wins\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # Tie-break: who reached that number of wins first\n    target = t_wins\n    t = a = 0\n    for ch in s:\n        if ch == 'T':\n            t += 1\n            if t == target:\n                print('T')\n                return\n        else:\n            a += 1\n            if a == target:\n                print('A')\n                return\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = s.count('T')\n    a_wins = n - t_wins\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # Tie: both have same wins; decide by who reached that count first.\n    target = t_wins  # == a_wins\n    t_reached = a_reached = None\n    tc = ac = 0\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            tc += 1\n            if t_reached is None and tc == target:\n                t_reached = i\n        else:\n            ac += 1\n            if a_reached is None and ac == target:\n                a_reached = i\n        if t_reached is not None and a_reached is not None:\n            break\n\n    print('T' if t_reached < a_reached else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = 0\n    a_wins = 0\n    for ch in s:\n        if ch == 'T':\n            t_wins += 1\n        else:\n            a_wins += 1\n\n    if t_wins > a_wins:\n        print(\"T\")\n        return\n    if a_wins > t_wins:\n        print(\"A\")\n        return\n\n    # Tie: both have same wins; whoever reached that win count first wins.\n    target = t_wins\n    t_reached = a_reached = None\n    for i, ch in enumerate(s):\n        if ch == 'T':\n            t_wins_so_far = s[:i+1].count('T')\n            if t_reached is None and t_wins_so_far == target:\n                t_reached = i\n        else:\n            a_wins_so_far = s[:i+1].count('A')\n            if a_reached is None and a_wins_so_far == target:\n                a_reached = i\n        if t_reached is not None and a_reached is not None:\n            break\n\n    # Compare first reach times\n    print(\"T\" if t_reached < a_reached else \"A\")\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    n = int(data[0])\n    s = data[1].strip()\n\n    t_wins = s.count('T')\n    a_wins = n - t_wins\n\n    if t_wins > a_wins:\n        print('T')\n        return\n    if a_wins > t_wins:\n        print('A')\n        return\n\n    # Tie: reached that number of wins first.\n    target = t_wins  # == a_wins\n    t_reach = None\n    a_reach = None\n    t_cnt = a_cnt = 0\n\n    for i, ch in enumerate(s, start=1):\n        if ch == 'T':\n            t_cnt += 1\n            if t_reach is None and t_cnt == target:\n                t_reach = i\n        else:\n            a_cnt += 1\n            if a_reach is None and a_cnt == target:\n                a_reach = i\n\n        if t_reach is not None and a_reach is not None:\n            break\n\n    print('T' if t_reach < a_reach else 'A')\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "abc301_a",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "T",
+                "actual": "T",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "A",
+                "actual": "A",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.4,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.6
+    }
+  }
+}

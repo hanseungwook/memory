@@ -1,0 +1,3051 @@
+{
+  "problem_id": "3251",
+  "domain": "coding",
+  "problem": {
+    "id": "3251",
+    "domain": "coding",
+    "statement": "You are given a 2D 0-indexed integer array dimensions.\nFor all indices i, 0 <= i < dimensions.length, dimensions[i][0] represents the length and dimensions[i][1] represents the width of the rectangle i.\nReturn the area of the rectangle having the longest diagonal. If there are multiple rectangles with the longest diagonal, return the area of the rectangle having the maximum area.\n \nExample 1:\n\nInput: dimensions = [[9,3],[8,6]]\nOutput: 48\nExplanation: \nFor index = 0, length = 9 and width = 3. Diagonal length = sqrt(9 * 9 + 3 * 3) = sqrt(90) ≈ 9.487.\nFor index = 1, length = 8 and width = 6. Diagonal length = sqrt(8 * 8 + 6 * 6) = sqrt(100) = 10.\nSo, the rectangle at index 1 has a greater diagonal length therefore we return area = 8 * 6 = 48.\n\nExample 2:\n\nInput: dimensions = [[3,4],[4,3]]\nOutput: 12\nExplanation: Length of diagonal is the same for both which is 5, so maximum area = 12.\n\n \nConstraints:\n\n1 <= dimensions.length <= 100\ndimensions[i].length == 2\n1 <= dimensions[i][0], dimensions[i][1] <= 100",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[[9, 3], [8, 6]]",
+        "output": "48",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[3, 4], [4, 3]]",
+        "output": "12",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[2, 2], [4, 1]]",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[9, 6], [4, 3]]",
+        "output": "54",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[9, 8], [3, 10]]",
+        "output": "72",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[27, 27], [54, 13]]",
+        "output": "702",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[38, 38], [76, 19]]",
+        "output": "1444",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[78, 78], [156, 39]]",
+        "output": "6084",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[60, 60], [120, 30]]",
+        "output": "3600",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[1, 4], [5, 9], [5, 1]]",
+        "output": "45",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[9, 3], [5, 7], [2, 4], [7, 2], [5, 8]]",
+        "output": "27",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[91, 44], [55, 100], [24, 57], [6, 43], [75, 91], [6, 84], [45, 23], [4, 96], [5, 90], [78, 26], [25, 43], [81, 3], [23, 37], [22, 74], [77, 78], [92, 65], [23, 61], [12, 55], [77, 4], [15, 28], [90, 16], [28, 10], [13, 36], [91, 54], [46, 32], [67, 47], [87, 62], [14, 59], [66, 12], [16, 29], [98, 75], [68, 32], [43, 26], [55, 19], [88, 80], [39, 70], [11, 51], [28, 33], [27, 80], [76, 61], [7, 27], [5, 9], [92, 89], [64, 53], [68, 53], [52, 52], [48, 17], [71, 59], [14, 73], [92, 42], [89, 87], [74, 56], [92, 53], [38, 73], [35, 26], [66, 15], [13, 25], [24, 36], [23, 95], [8, 28], [92, 95], [31, 47], [96, 53], [50, 53], [9, 29], [41, 21], [30, 13], [51, 45], [81, 67], [61, 78], [88, 44], [62, 20], [47, 59], [29, 31], [92, 35], [68, 75], [61, 80], [69, 80], [93, 8], [95, 87], [10, 51], [85, 97], [21, 69], [75, 94], [65, 54], [39, 50], [79, 79], [58, 33], [26, 49], [87, 94], [18, 97], [92, 65], [64, 73], [48, 75], [24, 51], [26, 35], [76, 38], [96, 27], [11, 51], [54, 43]]",
+        "output": "8740",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[48, 12], [61, 62], [54, 93], [21, 31], [28, 23], [74, 15], [93, 83], [22, 78], [77, 5], [91, 11], [95, 71], [81, 10], [89, 11], [10, 16], [27, 82], [80, 73], [93, 91], [100, 27], [6, 92], [50, 58], [49, 61], [39, 76], [70, 26], [19, 100], [1, 45], [71, 22], [56, 89], [44, 84], [100, 98], [3, 79], [73, 3], [41, 5], [89, 83], [81, 94], [34, 79], [84, 100], [76, 52], [69, 71], [90, 79], [73, 30], [98, 49], [73, 4], [37, 69], [47, 47], [87, 29], [80, 34], [15, 84], [95, 96], [70, 2], [29, 93], [84, 97], [69, 95], [90, 14], [31, 37], [32, 39], [37, 44], [84, 40], [51, 17], [4, 32], [81, 33], [60, 30], [56, 18], [10, 75], [54, 43], [32, 66], [78, 100], [94, 37], [34, 57], [60, 34], [40, 42], [7, 1], [42, 70], [94, 81], [4, 66], [99, 32], [88, 85], [62, 93], [98, 64], [96, 32], [16, 62], [41, 3], [12, 36], [66, 26], [3, 96], [23, 67], [13, 71], [27, 57], [95, 81], [59, 30], [59, 24], [76, 75], [83, 8], [12, 44], [63, 55], [14, 35], [37, 39], [18, 33], [19, 51], [99, 70], [57, 51]]",
+        "output": "9800",
+        "testtype": "functional"
+      },
+      {
+        "input": "[[100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100], [100, 100]]",
+        "output": "10000",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        ",
+    "metadata": {
+      "func_name": "areaOfMaxDiagonal",
+      "question_title": "maximum-area-of-longest-diagonal-rectangle",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 2D 0-indexed integer array dimensions.\nFor all indices i, 0 <= i < dimensions.length, dimensions[i][0] represents the length and dimensions[i][1] represents the width of the rectangle i.\nReturn the area of the rectangle having the longest diagonal. If there are multiple rectangles with the longest diagonal, return the area of the rectangle having the maximum area.\n \nExample 1:\n\nInput: dimensions = [[9,3],[8,6]]\nOutput: 48\nExplanation: \nFor index = 0, length = 9 and width = 3. Diagonal length = sqrt(9 * 9 + 3 * 3) = sqrt(90) ≈ 9.487.\nFor index = 1, length = 8 and width = 6. Diagonal length = sqrt(8 * 8 + 6 * 6) = sqrt(100) = 10.\nSo, the rectangle at index 1 has a greater diagonal length therefore we return area = 8 * 6 = 48.\n\nExample 2:\n\nInput: dimensions = [[3,4],[4,3]]\nOutput: 12\nExplanation: Length of diagonal is the same for both which is 5, so maximum area = 12.\n\n \nConstraints:\n\n1 <= dimensions.length <= 100\ndimensions[i].length == 2\n1 <= dimensions[i][0], dimensions[i][1] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # compare squared diagonal to avoid floating point\n\n        for length, width in dimensions:\n            area = length * width\n            diag2 = length * length + width * width  # (sqrt(l^2 + w^2))^2\n\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare using squared diagonal to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag = -1  # store squared diagonal length\n        best_area = 0\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag or (diag_sq == best_diag and area > best_area):\n                best_diag = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag_sq = -1\n        best_area = -1\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width  # compare diagonals without sqrt\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare using squared diagonal to avoid floats\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag2 = -1          # squared diagonal length\n        best_area = 0\n\n        for length, width in dimensions:\n            diag2 = length * length + width * width\n            area = length * width\n\n            if diag2 > best_diag2:\n                best_diag2 = diag2\n                best_area = area\n            elif diag2 == best_diag2 and area > best_area:\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal to avoid floating point issues\n\n        for l, w in dimensions:\n            diag_sq = l * l + w * w\n            area = l * w\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare diagonals via squared value to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal to avoid floating point issues\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            \n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag_sq = -1\n        best_area = 0\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3251",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # compare squared diagonal to avoid floating point\n\n        for length, width in dimensions:\n            area = length * width\n            diag2 = length * length + width * width  # (sqrt(l^2 + w^2))^2\n\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare using squared diagonal to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag = -1  # store squared diagonal length\n        best_area = 0\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag or (diag_sq == best_diag and area > best_area):\n                best_diag = diag_sq\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag_sq = -1\n        best_area = -1\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width  # compare diagonals without sqrt\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n        \n        return best_area\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare using squared diagonal to avoid floats\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag2 = -1          # squared diagonal length\n        best_area = 0\n\n        for length, width in dimensions:\n            diag2 = length * length + width * width\n            area = length * width\n\n            if diag2 > best_diag2:\n                best_diag2 = diag2\n                best_area = area\n            elif diag2 == best_diag2 and area > best_area:\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal to avoid floating point issues\n\n        for l, w in dimensions:\n            diag_sq = l * l + w * w\n            area = l * w\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare diagonals via squared value to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+          "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal to avoid floating point issues\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            \n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n        \n        return best_area\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag_sq = -1\n        best_area = 0\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 2D 0-indexed integer array dimensions.\nFor all indices i, 0 <= i < dimensions.length, dimensions[i][0] represents the length and dimensions[i][1] represents the width of the rectangle i.\nReturn the area of the rectangle having the longest diagonal. If there are multiple rectangles with the longest diagonal, return the area of the rectangle having the maximum area.\n \nExample 1:\n\nInput: dimensions = [[9,3],[8,6]]\nOutput: 48\nExplanation: \nFor index = 0, length = 9 and width = 3. Diagonal length = sqrt(9 * 9 + 3 * 3) = sqrt(90) ≈ 9.487.\nFor index = 1, length = 8 and width = 6. Diagonal length = sqrt(8 * 8 + 6 * 6) = sqrt(100) = 10.\nSo, the rectangle at index 1 has a greater diagonal length therefore we return area = 8 * 6 = 48.\n\nExample 2:\n\nInput: dimensions = [[3,4],[4,3]]\nOutput: 12\nExplanation: Length of diagonal is the same for both which is 5, so maximum area = 12.\n\n \nConstraints:\n\n1 <= dimensions.length <= 100\ndimensions[i].length == 2\n1 <= dimensions[i][0], dimensions[i][1] <= 100\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = -1\n        best_diag_sq = -1  # compare squared diagonals to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # squared diagonal: l^2 + w^2 (avoids sqrt)\n\n        for l, w in dimensions:\n            diag2 = l * l + w * w\n            area = l * w\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag_sq = -1\n        best_area = 0\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width  # compare squared diagonals\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n                \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal lengths to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        # Compare rectangles by squared diagonal: d^2 = l^2 + w^2\n        # If tied, pick larger area: a = l*w\n        best_d2 = -1\n        best_area = -1\n        \n        for l, w in dimensions:\n            d2 = l * l + w * w\n            area = l * w\n            if d2 > best_d2 or (d2 == best_d2 and area > best_area):\n                best_d2 = d2\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # use squared diagonal to avoid floating point\n        \n        for length, width in dimensions:\n            diag2 = length * length + width * width\n            area = length * width\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal lengths to avoid floating point issues\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal to avoid floating point\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare using squared diagonal to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # squared diagonal length\n\n        for length, width in dimensions:\n            diag2 = length * length + width * width\n            area = length * width\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n\n        return best_area\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3251",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = -1\n        best_diag_sq = -1  # compare squared diagonals to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # squared diagonal: l^2 + w^2 (avoids sqrt)\n\n        for l, w in dimensions:\n            diag2 = l * l + w * w\n            area = l * w\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_diag_sq = -1\n        best_area = 0\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width  # compare squared diagonals\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n                \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal lengths to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        # Compare rectangles by squared diagonal: d^2 = l^2 + w^2\n        # If tied, pick larger area: a = l*w\n        best_d2 = -1\n        best_area = -1\n        \n        for l, w in dimensions:\n            d2 = l * l + w * w\n            area = l * w\n            if d2 > best_d2 or (d2 == best_d2 and area > best_area):\n                best_d2 = d2\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # use squared diagonal to avoid floating point\n        \n        for length, width in dimensions:\n            diag2 = length * length + width * width\n            area = length * width\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal lengths to avoid floating point issues\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare squared diagonal to avoid floating point\n        \n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n        \n        return best_area\n```",
+        "```python\nfrom typing import List\nimport math\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag_sq = -1  # compare using squared diagonal to avoid floating point\n\n        for length, width in dimensions:\n            diag_sq = length * length + width * width\n            area = length * width\n            if diag_sq > best_diag_sq or (diag_sq == best_diag_sq and area > best_area):\n                best_diag_sq = diag_sq\n                best_area = area\n\n        return best_area\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:\n        best_area = 0\n        best_diag2 = -1  # squared diagonal length\n\n        for length, width in dimensions:\n            diag2 = length * length + width * width\n            area = length * width\n            if diag2 > best_diag2 or (diag2 == best_diag2 and area > best_area):\n                best_diag2 = diag2\n                best_area = area\n\n        return best_area\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3251",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3251",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "12",
+                "actual": "12",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "54",
+                "actual": "54",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "72",
+                "actual": "72",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "702",
+                "actual": "702",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1444",
+                "actual": "1444",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "6084",
+                "actual": "6084",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3600",
+                "actual": "3600",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "45",
+                "actual": "45",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "27",
+                "actual": "27",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "8740",
+                "actual": "8740",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "9800",
+                "actual": "9800",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "10000",
+                "actual": "10000",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

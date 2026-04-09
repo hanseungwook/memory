@@ -1,0 +1,3236 @@
+{
+  "problem_id": "3309",
+  "domain": "coding",
+  "problem": {
+    "id": "3309",
+    "domain": "coding",
+    "statement": "You are given a 0-indexed string array words.\nLet's define a boolean function isPrefixAndSuffix that takes two strings, str1 and str2:\n\nisPrefixAndSuffix(str1, str2) returns true if str1 is both a prefix and a suffix of str2, and false otherwise.\n\nFor example, isPrefixAndSuffix(\"aba\", \"ababa\") is true because \"aba\" is a prefix of \"ababa\" and also a suffix, but isPrefixAndSuffix(\"abc\", \"abcd\") is false.\nReturn an integer denoting the number of index pairs (i, j) such that i < j, and isPrefixAndSuffix(words[i], words[j]) is true.\n \nExample 1:\n\nInput: words = [\"a\",\"aba\",\"ababa\",\"aa\"]\nOutput: 4\nExplanation: In this example, the counted index pairs are:\ni = 0 and j = 1 because isPrefixAndSuffix(\"a\", \"aba\") is true.\ni = 0 and j = 2 because isPrefixAndSuffix(\"a\", \"ababa\") is true.\ni = 0 and j = 3 because isPrefixAndSuffix(\"a\", \"aa\") is true.\ni = 1 and j = 2 because isPrefixAndSuffix(\"aba\", \"ababa\") is true.\nTherefore, the answer is 4.\nExample 2:\n\nInput: words = [\"pa\",\"papa\",\"ma\",\"mama\"]\nOutput: 2\nExplanation: In this example, the counted index pairs are:\ni = 0 and j = 1 because isPrefixAndSuffix(\"pa\", \"papa\") is true.\ni = 2 and j = 3 because isPrefixAndSuffix(\"ma\", \"mama\") is true.\nTherefore, the answer is 2.  \nExample 3:\n\nInput: words = [\"abab\",\"ab\"]\nOutput: 0\nExplanation: In this example, the only valid index pair is i = 0 and j = 1, and isPrefixAndSuffix(\"abab\", \"ab\") is false.\nTherefore, the answer is 0.\n \nConstraints:\n\n1 <= words.length <= 50\n1 <= words[i].length <= 10\nwords[i] consists only of lowercase English letters.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[\"a\", \"aba\", \"ababa\", \"aa\"]",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"pa\", \"papa\", \"ma\", \"mama\"]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"abab\", \"ab\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"ft\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"qdes\", \"o\", \"abjvywvh\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"oabp\", \"waby\", \"tabz\", \"iabn\", \"labq\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"wabco\", \"rabcl\", \"qabcd\", \"vabcc\", \"iabcd\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"jmabln\", \"adabfr\", \"rmabur\", \"zwabqp\", \"thabbt\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"vfipmp\", \"uhatc\", \"oehwriwalg\", \"lbgtqjv\", \"csbx\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"fbyxzk\", \"edgbdaf\", \"hbt\", \"robpfdcj\", \"i\", \"knc\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"akwatll\", \"pjfajjz\", \"fpparos\", \"ledalph\", \"bmvaffb\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"e\", \"gr\", \"oi\", \"y\", \"yjxnk\", \"bnpj\", \"e\", \"rr\"]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"neclmneclm\", \"omfbaomfba\", \"amrvaamrva\", \"ndmjnndmjn\", \"jmiyrjmiyr\", \"hajfihajfi\", \"ptvcmptvcm\", \"lliqolliqo\", \"sfkiysfkiy\", \"mfeplmfepl\", \"hjomqhjomq\", \"yqdeyyqdey\", \"wnlrtwnlrt\", \"lctirlctir\", \"ufbuoufbuo\", \"fnrwlfnrwl\", \"gvnirgvnir\", \"iwznciwznc\", \"otnclotncl\", \"ptwqrptwqr\", \"exrcgexrcg\", \"cvvjicvvji\", \"hqpuxhqpux\", \"dzcaydzcay\", \"inyqsinyqs\", \"epezsepezs\", \"ngngingngi\", \"hfkzfhfkzf\", \"japxjjapxj\", \"zzasrzzasr\", \"tvsletvsle\", \"blqlwblqlw\", \"vakiovakio\", \"sqozusqozu\", \"ajgyaajgya\", \"yyluvyyluv\", \"phijfphijf\", \"fxhshfxhsh\", \"zbxahzbxah\", \"wvhkewvhke\", \"fwapofwapo\", \"pvpxvpvpxv\", \"xvjtwxvjtw\", \"valhmvalhm\", \"utymbutymb\", \"hrrvwhrrvw\", \"hnvhchnvhc\", \"gamdegamde\", \"ulsorulsor\", \"luvowluvow\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"sdwulobxcw\", \"nxpzymgfsw\", \"qvwwiyowza\", \"tvantzscju\", \"hnsvmwogau\", \"aswxrkkjdz\", \"jcqlcrquwn\", \"mufeosrdja\", \"fqybtxyhrw\", \"tnnrbfscud\", \"ilgfirstvf\", \"rcjuxajlot\", \"efrdrigqah\", \"sghvufinlb\", \"jtukgyblyf\", \"ujasirkdsu\", \"gcpffkxtrh\", \"ejhxusvcqw\", \"kemygnaqvm\", \"pxbfsjdjmp\", \"tqqqspyjjg\", \"sodtabavhc\", \"ykrfvekqdf\", \"yanwpwspgz\", \"ujyfrlgmhh\", \"pzjgniqjpy\", \"atzwcmrups\", \"jhrgbxjvfu\", \"gnamsavvjq\", \"tebnkbeqmr\", \"sbwxjxwsfx\", \"oasqtdnsbv\", \"vrjgjhentb\", \"fpgokgomyr\", \"xavcbvgptm\", \"meouozlvvw\", \"ionnfbfltk\", \"lxxlzfbrdm\", \"suznerqwdv\", \"uwhdulrxuy\", \"vbxvadzfsq\", \"lsstejxmtk\", \"lrlhveinip\", \"dquzyjuwcw\", \"upskxetyep\", \"uswrkxvfqc\", \"qhmnvknwpn\", \"satcwtprrp\", \"ztgivktdih\", \"rrspapshqg\"]",
+        "output": "0",
+        "testtype": "functional"
+      },
+      {
+        "input": "[\"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\", \"svlgyoqkyw\"]",
+        "output": "1225",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        ",
+    "metadata": {
+      "func_name": "countPrefixSuffixPairs",
+      "question_title": "count-prefix-and-suffix-pairs-i",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a 0-indexed string array words.\nLet's define a boolean function isPrefixAndSuffix that takes two strings, str1 and str2:\n\nisPrefixAndSuffix(str1, str2) returns true if str1 is both a prefix and a suffix of str2, and false otherwise.\n\nFor example, isPrefixAndSuffix(\"aba\", \"ababa\") is true because \"aba\" is a prefix of \"ababa\" and also a suffix, but isPrefixAndSuffix(\"abc\", \"abcd\") is false.\nReturn an integer denoting the number of index pairs (i, j) such that i < j, and isPrefixAndSuffix(words[i], words[j]) is true.\n \nExample 1:\n\nInput: words = [\"a\",\"aba\",\"ababa\",\"aa\"]\nOutput: 4\nExplanation: In this example, the counted index pairs are:\ni = 0 and j = 1 because isPrefixAndSuffix(\"a\", \"aba\") is true.\ni = 0 and j = 2 because isPrefixAndSuffix(\"a\", \"ababa\") is true.\ni = 0 and j = 3 because isPrefixAndSuffix(\"a\", \"aa\") is true.\ni = 1 and j = 2 because isPrefixAndSuffix(\"aba\", \"ababa\") is true.\nTherefore, the answer is 4.\nExample 2:\n\nInput: words = [\"pa\",\"papa\",\"ma\",\"mama\"]\nOutput: 2\nExplanation: In this example, the counted index pairs are:\ni = 0 and j = 1 because isPrefixAndSuffix(\"pa\", \"papa\") is true.\ni = 2 and j = 3 because isPrefixAndSuffix(\"ma\", \"mama\") is true.\nTherefore, the answer is 2.  \nExample 3:\n\nInput: words = [\"abab\",\"ab\"]\nOutput: 0\nExplanation: In this example, the only valid index pair is i = 0 and j = 1, and isPrefixAndSuffix(\"abab\", \"ab\") is false.\nTherefore, the answer is 0.\n \nConstraints:\n\n1 <= words.length <= 50\n1 <= words[i].length <= 10\nwords[i] consists only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        # Count pairs (i, j) with i < j such that words[i] is both a prefix and suffix of words[j]\n        # Brute force with small constraints is fine.\n        ans = 0\n        for i in range(len(words)):\n            s = words[i]\n            for j in range(i + 1, len(words)):\n                t = words[j]\n                if len(s) > len(t):\n                    continue\n                if t.startswith(s) and t.endswith(s):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(s1: str, s2: str) -> bool:\n            n = len(s1)\n            return s2.startswith(s1) and s2.endswith(s1)\n\n        ans = 0\n        for i in range(len(words)):\n            for j in range(i + 1, len(words)):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        # Use KMP prefix-function to find all prefix lengths that are also suffixes.\n        # For each word (as str2), compute which earlier words can match:\n        # If words[i] equals prefix and suffix of words[j], then words[i] must have a certain\n        # length L that appears as both prefix and suffix of words[j].\n        #\n        # Then for each word length that is a \"border\" of words[j], add how many earlier\n        # words of exactly that length have that string content.\n        #\n        # Because words length <= 10, we can safely brute-check borders by direct slicing\n        # from the computed border lengths (still fast).\n\n        def borders(s: str):\n            # return list of lengths L such that s[:L] == s[-L:] and L is a proper? (not required)\n            # including full length is fine; but our i<j uses i index, so equality string works.\n            n = len(s)\n            pi = [0] * n\n            for i in range(1, n):\n                j = pi[i - 1]\n                while j > 0 and s[i] != s[j]:\n                    j = pi[j - 1]\n                if s[i] == s[j]:\n                    j += 1\n                pi[i] = j\n\n            res = []\n            k = n\n            while k > 0:\n                if s[:k] == s[n - k:]:\n                    res.append(k)\n                k = pi[k - 1]  # next border\n            return res  # may include n\n\n        # Map each word string to count of occurrences so far\n        seen = {}\n        ans = 0\n\n        for w in words:\n            # For this w as str2, count prior words that are prefix+suffix of w.\n            for L in borders(w):\n                pref_suf = w[:L]\n                ans += seen.get(pref_suf, 0)\n            seen[w] = seen.get(w, 0) + 1\n\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            # b starts with a and ends with a\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            # a is prefix of b\n            if b[:len(a)] != a:\n                return False\n            # a is suffix of b\n            return b[-len(a):] == a\n\n        n = len(words)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_pref_suf(a: str, b: str) -> bool:\n            # a must be shorter or equal, and be both prefix and suffix of b\n            return len(a) <= len(b) and b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_pref_suf(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(s1: str, s2: str) -> bool:\n            # Need len(s1) <= len(s2)\n            if len(s1) > len(s2):\n                return False\n            return s2.startswith(s1) and s2.endswith(s1)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            # a must be prefix of b and suffix of b\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3309",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        # Count pairs (i, j) with i < j such that words[i] is both a prefix and suffix of words[j]\n        # Brute force with small constraints is fine.\n        ans = 0\n        for i in range(len(words)):\n            s = words[i]\n            for j in range(i + 1, len(words)):\n                t = words[j]\n                if len(s) > len(t):\n                    continue\n                if t.startswith(s) and t.endswith(s):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(s1: str, s2: str) -> bool:\n            n = len(s1)\n            return s2.startswith(s1) and s2.endswith(s1)\n\n        ans = 0\n        for i in range(len(words)):\n            for j in range(i + 1, len(words)):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        # Use KMP prefix-function to find all prefix lengths that are also suffixes.\n        # For each word (as str2), compute which earlier words can match:\n        # If words[i] equals prefix and suffix of words[j], then words[i] must have a certain\n        # length L that appears as both prefix and suffix of words[j].\n        #\n        # Then for each word length that is a \"border\" of words[j], add how many earlier\n        # words of exactly that length have that string content.\n        #\n        # Because words length <= 10, we can safely brute-check borders by direct slicing\n        # from the computed border lengths (still fast).\n\n        def borders(s: str):\n            # return list of lengths L such that s[:L] == s[-L:] and L is a proper? (not required)\n            # including full length is fine; but our i<j uses i index, so equality string works.\n            n = len(s)\n            pi = [0] * n\n            for i in range(1, n):\n                j = pi[i - 1]\n                while j > 0 and s[i] != s[j]:\n                    j = pi[j - 1]\n                if s[i] == s[j]:\n                    j += 1\n                pi[i] = j\n\n            res = []\n            k = n\n            while k > 0:\n                if s[:k] == s[n - k:]:\n                    res.append(k)\n                k = pi[k - 1]  # next border\n            return res  # may include n\n\n        # Map each word string to count of occurrences so far\n        seen = {}\n        ans = 0\n\n        for w in words:\n            # For this w as str2, count prior words that are prefix+suffix of w.\n            for L in borders(w):\n                pref_suf = w[:L]\n                ans += seen.get(pref_suf, 0)\n            seen[w] = seen.get(w, 0) + 1\n\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            # b starts with a and ends with a\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            # a is prefix of b\n            if b[:len(a)] != a:\n                return False\n            # a is suffix of b\n            return b[-len(a):] == a\n\n        n = len(words)\n        ans = 0\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_pref_suf(a: str, b: str) -> bool:\n            # a must be shorter or equal, and be both prefix and suffix of b\n            return len(a) <= len(b) and b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_pref_suf(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(s1: str, s2: str) -> bool:\n            # Need len(s1) <= len(s2)\n            if len(s1) > len(s2):\n                return False\n            return s2.startswith(s1) and s2.endswith(s1)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            # a must be prefix of b and suffix of b\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a 0-indexed string array words.\nLet's define a boolean function isPrefixAndSuffix that takes two strings, str1 and str2:\n\nisPrefixAndSuffix(str1, str2) returns true if str1 is both a prefix and a suffix of str2, and false otherwise.\n\nFor example, isPrefixAndSuffix(\"aba\", \"ababa\") is true because \"aba\" is a prefix of \"ababa\" and also a suffix, but isPrefixAndSuffix(\"abc\", \"abcd\") is false.\nReturn an integer denoting the number of index pairs (i, j) such that i < j, and isPrefixAndSuffix(words[i], words[j]) is true.\n \nExample 1:\n\nInput: words = [\"a\",\"aba\",\"ababa\",\"aa\"]\nOutput: 4\nExplanation: In this example, the counted index pairs are:\ni = 0 and j = 1 because isPrefixAndSuffix(\"a\", \"aba\") is true.\ni = 0 and j = 2 because isPrefixAndSuffix(\"a\", \"ababa\") is true.\ni = 0 and j = 3 because isPrefixAndSuffix(\"a\", \"aa\") is true.\ni = 1 and j = 2 because isPrefixAndSuffix(\"aba\", \"ababa\") is true.\nTherefore, the answer is 4.\nExample 2:\n\nInput: words = [\"pa\",\"papa\",\"ma\",\"mama\"]\nOutput: 2\nExplanation: In this example, the counted index pairs are:\ni = 0 and j = 1 because isPrefixAndSuffix(\"pa\", \"papa\") is true.\ni = 2 and j = 3 because isPrefixAndSuffix(\"ma\", \"mama\") is true.\nTherefore, the answer is 2.  \nExample 3:\n\nInput: words = [\"abab\",\"ab\"]\nOutput: 0\nExplanation: In this example, the only valid index pair is i = 0 and j = 1, and isPrefixAndSuffix(\"abab\", \"ab\") is false.\nTherefore, the answer is 0.\n \nConstraints:\n\n1 <= words.length <= 50\n1 <= words[i].length <= 10\nwords[i] consists only of lowercase English letters.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(s1: str, s2: str) -> bool:\n            if len(s1) > len(s2):\n                return False\n            return s2.startswith(s1) and s2.endswith(s1)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(str1: str, str2: str) -> bool:\n            n = len(str1)\n            return str2[:n] == str1 and str2[-n:] == str1\n\n        ans = 0\n        for i in range(len(words)):\n            for j in range(i + 1, len(words)):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            # a is prefix of b\n            if not b.startswith(a):\n                return False\n            # a is suffix of b\n            return b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            # a is prefix and suffix of b\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(prefix: str, s: str) -> bool:\n            # prefix must match both prefix and suffix of s\n            if len(prefix) > len(s):\n                return False\n            return s.startswith(prefix) and s.endswith(prefix)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            # a is prefix of b\n            if not b.startswith(a):\n                return False\n            # a is suffix of b\n            return b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3309",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(s1: str, s2: str) -> bool:\n            if len(s1) > len(s2):\n                return False\n            return s2.startswith(s1) and s2.endswith(s1)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(str1: str, str2: str) -> bool:\n            n = len(str1)\n            return str2[:n] == str1 and str2[-n:] == str1\n\n        ans = 0\n        for i in range(len(words)):\n            for j in range(i + 1, len(words)):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            # a is prefix of b\n            if not b.startswith(a):\n                return False\n            # a is suffix of b\n            return b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            # a is prefix and suffix of b\n            return b.startswith(a) and b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(prefix: str, s: str) -> bool:\n            # prefix must match both prefix and suffix of s\n            if len(prefix) > len(s):\n                return False\n            return s.startswith(prefix) and s.endswith(prefix)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def countPrefixSuffixPairs(self, words: List[str]) -> int:\n        def is_prefix_and_suffix(a: str, b: str) -> bool:\n            if len(a) > len(b):\n                return False\n            # a is prefix of b\n            if not b.startswith(a):\n                return False\n            # a is suffix of b\n            return b.endswith(a)\n\n        ans = 0\n        n = len(words)\n        for i in range(n):\n            for j in range(i + 1, n):\n                if is_prefix_and_suffix(words[i], words[j]):\n                    ans += 1\n        return ans\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3309",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3309",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "0",
+                "actual": "0",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1225",
+                "actual": "1225",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

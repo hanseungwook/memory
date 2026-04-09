@@ -1,0 +1,3265 @@
+{
+  "problem_id": "3019",
+  "domain": "coding",
+  "problem": {
+    "id": "3019",
+    "domain": "coding",
+    "statement": "You are given a string moves of length n consisting only of characters 'L', 'R', and '_'. The string represents your movement on a number line starting from the origin 0.\nIn the i^th move, you can choose one of the following directions:\n\nmove to the left if moves[i] = 'L' or moves[i] = '_'\nmove to the right if moves[i] = 'R' or moves[i] = '_'\n\nReturn the distance from the origin of the furthest point you can get to after n moves.\n \nExample 1:\n\nInput: moves = \"L_RL__R\"\nOutput: 3\nExplanation: The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".\n\nExample 2:\n\nInput: moves = \"_R__LL_\"\nOutput: 5\nExplanation: The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".\n\nExample 3:\n\nInput: moves = \"_______\"\nOutput: 7\nExplanation: The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".\n\n \nConstraints:\n\n1 <= moves.length == n <= 50\nmoves consists only of characters 'L', 'R' and '_'.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "\"L_RL__R\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"_R__LL_\"",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"_______\"",
+        "output": "7",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"R\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"_\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"L\"",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"_LR_R\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"RRRLR\"",
+        "output": "3",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"_L_LL\"",
+        "output": "5",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"___LLR\"",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"RRL_RLR_\"",
+        "output": "4",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"________________________L________________________R\"",
+        "output": "48",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"_RLLRR_____LRRL_LRRRRL_RR__L_L_RLLRLRRRRL_RR_R_RR_\"",
+        "output": "26",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"RRL_R_LRR___L_R_LRLR_RR_RRL_L_R_RRLL____LRR_RRR_LL\"",
+        "output": "26",
+        "testtype": "functional"
+      },
+      {
+        "input": "\"R_RLRRLL_R_L___RRRRLRLLRL_LLLRLRRR_LL_R__LRLRR_LRL\"",
+        "output": "14",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        ",
+    "metadata": {
+      "func_name": "furthestDistanceFromOrigin",
+      "question_title": "furthest-point-from-origin",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nYou are given a string moves of length n consisting only of characters 'L', 'R', and '_'. The string represents your movement on a number line starting from the origin 0.\nIn the i^th move, you can choose one of the following directions:\n\nmove to the left if moves[i] = 'L' or moves[i] = '_'\nmove to the right if moves[i] = 'R' or moves[i] = '_'\n\nReturn the distance from the origin of the furthest point you can get to after n moves.\n \nExample 1:\n\nInput: moves = \"L_RL__R\"\nOutput: 3\nExplanation: The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".\n\nExample 2:\n\nInput: moves = \"_R__LL_\"\nOutput: 5\nExplanation: The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".\n\nExample 3:\n\nInput: moves = \"_______\"\nOutput: 7\nExplanation: The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".\n\n \nConstraints:\n\n1 <= moves.length == n <= 50\nmoves consists only of characters 'L', 'R' and '_'.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        x = 0\n        far = 0\n        for ch in moves:\n            if ch == 'L' or ch == '_':\n                x -= 1\n            else:  # 'R'\n                x += 1\n            if x < far:  # farthest from origin on the negative side\n                far = x\n        return max(abs(far), abs(x if far == 0 else far))\n```\n\n",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Track best possible absolute position extremes.\n        # If we want maximum positive distance:\n        # - 'R' contributes +1, 'L' contributes -1\n        # - '_' can be chosen as +1 or -1\n        # So choosing all '_' to push in the desired direction gives the extreme.\n        n = len(moves)\n        right_reachable = 0  # max position achievable\n        left_reachable = 0   # min position achievable (most negative)\n\n        for ch in moves:\n            if ch == 'R':\n                right_reachable += 1\n                left_reachable -= 1\n            elif ch == 'L':\n                right_reachable -= 1\n                left_reachable += 1\n            else:  # '_'\n                # can go either way; for extrema:\n                right_reachable += 1\n                left_reachable -= 1\n\n        return max(right_reachable, -left_reachable)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance achievable occurs by greedily moving in the\n        # currently favorable direction: 'R' forces right, 'L' forces left,\n        # '_' can be chosen to maximize the maximum absolute position.\n        #\n        # We can compute the best possible final position after each step\n        # in terms of absolute distance by tracking the maximum and minimum\n        # reachable positions.\n        pos_min = pos_max = 0\n        for ch in moves:\n            if ch == 'L':\n                pos_min -= 1\n                pos_max -= 1\n            elif ch == 'R':\n                pos_min += 1\n                pos_max += 1\n            else:  # '_'\n                # '_' can go both ways\n                new_min = pos_min - 1\n                new_max = pos_max + 1\n                pos_min, pos_max = new_min, new_max\n        return max(abs(pos_min), abs(pos_max))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy: maximize absolute position with the option to choose direction\n        # Each '_' can be chosen to move further in the desired direction.\n        left = 0   # maximum distance achievable to the left (negative)\n        right = 0  # maximum distance achievable to the right (positive)\n\n        for ch in moves:\n            if ch == 'L':\n                left += 1\n                # right unchanged because we can't move right on 'L'\n            elif ch == 'R':\n                right += 1\n            else:  # '_'\n                # we can choose either direction to extend the furthest side\n                left += 1\n                right += 1\n\n        return max(left, right)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum possible distance from 0.\n        # Choose to always go left whenever possible to maximize negative distance,\n        # and similarly for right; '_' can be used either way.\n        left = right = 0\n        for ch in moves:\n            if ch == 'L':\n                left += 1\n            elif ch == 'R':\n                right += 1\n            else:  # '_'\n                left += 1\n                right += 1\n        return max(left, right)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Track the furthest possible absolute position we can reach\n        # after processing each move.\n        ans = 0\n        pos = 0  # actual position for a chosen strategy is not fixed, we only need the maximum\n        \n        # Greedy: maintain the maximum absolute distance by choosing\n        # direction that increases the magnitude whenever possible.\n        #\n        # We can think in terms of possible range [min_pos, max_pos] after i moves,\n        # then the furthest distance is max(abs(min_pos), abs(max_pos)).\n        min_pos = max_pos = 0\n        \n        for ch in moves:\n            if ch == 'L':\n                min_pos -= 1\n                max_pos -= 1\n            elif ch == 'R':\n                min_pos += 1\n                max_pos += 1\n            else:  # '_'\n                min_pos -= 1   # choose to go left for the minimum\n                max_pos += 1   # choose to go right for the maximum\n        \n        return max(abs(min_pos), abs(max_pos))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy: to maximize distance, choose direction each '_' to extend the\n        # current best side, while fixed L/R constrain movement.\n        pos = 0  # maximum reachable on the right\n        neg = 0  # minimum reachable on the left (most negative)\n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n                neg -= 1\n            elif ch == 'L':\n                pos -= 1\n                neg += 1\n            else:  # '_'\n                # Can choose either direction; keep the best absolute distance.\n                pos = max(pos + 1, pos - 1)\n                neg = min(neg - 1, neg + 1)\n\n            # Note: This implementation for '_' can be simplified but remains correct.\n\n        return max(pos, -neg)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance occurs when at each '_' we choose the direction\n        # that moves us further away from 0. We can compute the best possible\n        # position in the positive and negative directions and take the max.\n        \n        pos = 0  # best possible final position (furthest to +)\n        neg = 0  # best possible final position (furthest to -)\n        \n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n                neg -= 1\n            elif ch == 'L':\n                pos -= 1\n                neg += 1\n            else:  # '_'\n                pos += 1  # choose R for maximizing positive\n                neg -= 1  # choose L for maximizing negative (more negative)\n        \n        return max(pos, -neg)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position we can reach\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 1\n            else:  # '_'\n                # We can choose either direction; keep track of extremes.\n                pos += 1   # best for reaching farthest positive\n                neg -= 1   # best for reaching farthest negative\n        return max(pos, -neg)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position reachable\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 0  # neg stays as the minimum tracker; updated below in '_' case\n                neg = neg  # no-op for clarity\n            else:  # '_'\n                # when '_' we can choose either direction; update both extremes\n                # For maximum distance to the right, increase pos\n                pos += 1\n                # For maximum distance to the left, decrease neg\n                neg -= 1\n\n            # The above \"neg stays\" for 'R' is not enough; handle properly:\n            # We'll maintain extremes more simply by recomputing:\n        # Let's do the correct extreme computation in one pass:\n        return self._max_extreme(moves)\n\n    def _max_extreme(self, moves: str) -> int:\n        # Recompute properly:\n        pos = 0  # maximum right position possible\n        neg = 0  # maximum left distance possible as negative number\n        for ch in moves:\n            if ch == 'L':\n                pos = pos - 1  # if forced left, max right also decreases\n                neg = neg - 1\n            elif ch == 'R':\n                pos = pos + 1\n                # if forced right, most negative doesn't improve; keep neg\n            else:  # '_'\n                pos = pos + 1  # choose right to maximize positive\n                neg = neg - 1  # choose left to minimize (most negative)\n            # If ch == 'R', neg should remain as the minimum position achievable:\n            # With the chosen strategy for extremes:\n            # - neg only changes on 'L' or '_' (we always pick left there)\n            # - neg should remain unchanged on 'R'\n            if ch == 'R':\n                # neg unchanged\n                pass\n        return max(pos, -neg)\n```\n\n"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3019",
+          "generation_index": 0,
+          "score": 0.4666666666666667,
+          "tier": "partial",
+          "details": {
+            "passed": 7,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "0",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "10",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "11",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "10",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 1,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 3,
+          "score": 0.3333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 5,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "32",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 4,
+          "score": 0.3333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 5,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "32",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 6,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 7,
+          "score": 0.7333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 11,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "1",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "-1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 9,
+          "score": 0.5333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 8,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "28",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "30",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "30",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance achievable occurs by greedily moving in the\n        # currently favorable direction: 'R' forces right, 'L' forces left,\n        # '_' can be chosen to maximize the maximum absolute position.\n        #\n        # We can compute the best possible final position after each step\n        # in terms of absolute distance by tracking the maximum and minimum\n        # reachable positions.\n        pos_min = pos_max = 0\n        for ch in moves:\n            if ch == 'L':\n                pos_min -= 1\n                pos_max -= 1\n            elif ch == 'R':\n                pos_min += 1\n                pos_max += 1\n            else:  # '_'\n                # '_' can go both ways\n                new_min = pos_min - 1\n                new_max = pos_max + 1\n                pos_min, pos_max = new_min, new_max\n        return max(abs(pos_min), abs(pos_max))\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Track the furthest possible absolute position we can reach\n        # after processing each move.\n        ans = 0\n        pos = 0  # actual position for a chosen strategy is not fixed, we only need the maximum\n        \n        # Greedy: maintain the maximum absolute distance by choosing\n        # direction that increases the magnitude whenever possible.\n        #\n        # We can think in terms of possible range [min_pos, max_pos] after i moves,\n        # then the furthest distance is max(abs(min_pos), abs(max_pos)).\n        min_pos = max_pos = 0\n        \n        for ch in moves:\n            if ch == 'L':\n                min_pos -= 1\n                max_pos -= 1\n            elif ch == 'R':\n                min_pos += 1\n                max_pos += 1\n            else:  # '_'\n                min_pos -= 1   # choose to go left for the minimum\n                max_pos += 1   # choose to go right for the maximum\n        \n        return max(abs(min_pos), abs(max_pos))\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position we can reach\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 1\n            else:  # '_'\n                # We can choose either direction; keep track of extremes.\n                pos += 1   # best for reaching farthest positive\n                neg -= 1   # best for reaching farthest negative\n        return max(pos, -neg)\n```"
+        ],
+        "partial": [
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        x = 0\n        far = 0\n        for ch in moves:\n            if ch == 'L' or ch == '_':\n                x -= 1\n            else:  # 'R'\n                x += 1\n            if x < far:  # farthest from origin on the negative side\n                far = x\n        return max(abs(far), abs(x if far == 0 else far))\n```\n\n",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Track best possible absolute position extremes.\n        # If we want maximum positive distance:\n        # - 'R' contributes +1, 'L' contributes -1\n        # - '_' can be chosen as +1 or -1\n        # So choosing all '_' to push in the desired direction gives the extreme.\n        n = len(moves)\n        right_reachable = 0  # max position achievable\n        left_reachable = 0   # min position achievable (most negative)\n\n        for ch in moves:\n            if ch == 'R':\n                right_reachable += 1\n                left_reachable -= 1\n            elif ch == 'L':\n                right_reachable -= 1\n                left_reachable += 1\n            else:  # '_'\n                # can go either way; for extrema:\n                right_reachable += 1\n                left_reachable -= 1\n\n        return max(right_reachable, -left_reachable)\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy: maximize absolute position with the option to choose direction\n        # Each '_' can be chosen to move further in the desired direction.\n        left = 0   # maximum distance achievable to the left (negative)\n        right = 0  # maximum distance achievable to the right (positive)\n\n        for ch in moves:\n            if ch == 'L':\n                left += 1\n                # right unchanged because we can't move right on 'L'\n            elif ch == 'R':\n                right += 1\n            else:  # '_'\n                # we can choose either direction to extend the furthest side\n                left += 1\n                right += 1\n\n        return max(left, right)\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum possible distance from 0.\n        # Choose to always go left whenever possible to maximize negative distance,\n        # and similarly for right; '_' can be used either way.\n        left = right = 0\n        for ch in moves:\n            if ch == 'L':\n                left += 1\n            elif ch == 'R':\n                right += 1\n            else:  # '_'\n                left += 1\n                right += 1\n        return max(left, right)\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy: to maximize distance, choose direction each '_' to extend the\n        # current best side, while fixed L/R constrain movement.\n        pos = 0  # maximum reachable on the right\n        neg = 0  # minimum reachable on the left (most negative)\n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n                neg -= 1\n            elif ch == 'L':\n                pos -= 1\n                neg += 1\n            else:  # '_'\n                # Can choose either direction; keep the best absolute distance.\n                pos = max(pos + 1, pos - 1)\n                neg = min(neg - 1, neg + 1)\n\n            # Note: This implementation for '_' can be simplified but remains correct.\n\n        return max(pos, -neg)\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance occurs when at each '_' we choose the direction\n        # that moves us further away from 0. We can compute the best possible\n        # position in the positive and negative directions and take the max.\n        \n        pos = 0  # best possible final position (furthest to +)\n        neg = 0  # best possible final position (furthest to -)\n        \n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n                neg -= 1\n            elif ch == 'L':\n                pos -= 1\n                neg += 1\n            else:  # '_'\n                pos += 1  # choose R for maximizing positive\n                neg -= 1  # choose L for maximizing negative (more negative)\n        \n        return max(pos, -neg)\n```",
+          "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position reachable\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 0  # neg stays as the minimum tracker; updated below in '_' case\n                neg = neg  # no-op for clarity\n            else:  # '_'\n                # when '_' we can choose either direction; update both extremes\n                # For maximum distance to the right, increase pos\n                pos += 1\n                # For maximum distance to the left, decrease neg\n                neg -= 1\n\n            # The above \"neg stays\" for 'R' is not enough; handle properly:\n            # We'll maintain extremes more simply by recomputing:\n        # Let's do the correct extreme computation in one pass:\n        return self._max_extreme(moves)\n\n    def _max_extreme(self, moves: str) -> int:\n        # Recompute properly:\n        pos = 0  # maximum right position possible\n        neg = 0  # maximum left distance possible as negative number\n        for ch in moves:\n            if ch == 'L':\n                pos = pos - 1  # if forced left, max right also decreases\n                neg = neg - 1\n            elif ch == 'R':\n                pos = pos + 1\n                # if forced right, most negative doesn't improve; keep neg\n            else:  # '_'\n                pos = pos + 1  # choose right to maximize positive\n                neg = neg - 1  # choose left to minimize (most negative)\n            # If ch == 'R', neg should remain as the minimum position achievable:\n            # With the chosen strategy for extremes:\n            # - neg only changes on 'L' or '_' (we always pick left there)\n            # - neg should remain unchanged on 'R'\n            if ch == 'R':\n                # neg unchanged\n                pass\n        return max(pos, -neg)\n```\n\n"
+        ]
+      },
+      "prompt": "## Guidelines\nYou need to extract and summarize useful insights in the format of memory items based on comparing the successful and unsuccessful solution attempts below.\nThe goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — each insight must be useful not just for this problem, but for a broad class of similar problems. Write each memory as advice that would help someone who has never seen this specific problem.\n\n## Important notes\n- You must first think about why certain attempts succeeded and others failed, then summarize the insights.\n- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.\n- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.\n- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.\n- Do NOT mention specific values, answers, variable names, or problem-specific details. Every memory item must stand on its own as a general problem-solving principle or technique that transfers across different problems in the same domain.\n- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.\n- Emphasize high-level strategies that would still make sense on a different problem in the same domain.\n\n## Examples of good meta-reasoning memories\n- Title: Constraint-First Reformulation\n  Description: Turn informal requirements into explicit constraints before solving.\n  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.\n- Title: Validate Risky Transformations\n  Description: Check any step that can introduce invalid candidates against the original problem.\n  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.\n- Title: Model the Smallest Faithful State\n  Description: Reduce the problem to the minimal state that still determines future decisions.\n  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.\n\n### Problem\nYou are given a string moves of length n consisting only of characters 'L', 'R', and '_'. The string represents your movement on a number line starting from the origin 0.\nIn the i^th move, you can choose one of the following directions:\n\nmove to the left if moves[i] = 'L' or moves[i] = '_'\nmove to the right if moves[i] = 'R' or moves[i] = '_'\n\nReturn the distance from the origin of the furthest point you can get to after n moves.\n \nExample 1:\n\nInput: moves = \"L_RL__R\"\nOutput: 3\nExplanation: The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".\n\nExample 2:\n\nInput: moves = \"_R__LL_\"\nOutput: 5\nExplanation: The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".\n\nExample 3:\n\nInput: moves = \"_______\"\nOutput: 7\nExplanation: The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".\n\n \nConstraints:\n\n1 <= moves.length == n <= 50\nmoves consists only of characters 'L', 'R' and '_'.\n\n### Solutions\n#### Correct\nAttempt 1\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance achievable occurs by greedily moving in the\n        # currently favorable direction: 'R' forces right, 'L' forces left,\n        # '_' can be chosen to maximize the maximum absolute position.\n        #\n        # We can compute the best possible final position after each step\n        # in terms of absolute distance by tracking the maximum and minimum\n        # reachable positions.\n        pos_min = pos_max = 0\n        for ch in moves:\n            if ch == 'L':\n                pos_min -= 1\n                pos_max -= 1\n            elif ch == 'R':\n                pos_min += 1\n                pos_max += 1\n            else:  # '_'\n                # '_' can go both ways\n                new_min = pos_min - 1\n                new_max = pos_max + 1\n                pos_min, pos_max = new_min, new_max\n        return max(abs(pos_min), abs(pos_max))\n```\n\nAttempt 2\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Track the furthest possible absolute position we can reach\n        # after processing each move.\n        ans = 0\n        pos = 0  # actual position for a chosen strategy is not fixed, we only need the maximum\n        \n        # Greedy: maintain the maximum absolute distance by choosing\n        # direction that increases the magnitude whenever possible.\n        #\n        # We can think in terms of possible range [min_pos, max_pos] after i moves,\n        # then the furthest distance is max(abs(min_pos), abs(max_pos)).\n        min_pos = max_pos = 0\n        \n        for ch in moves:\n            if ch == 'L':\n                min_pos -= 1\n                max_pos -= 1\n            elif ch == 'R':\n                min_pos += 1\n                max_pos += 1\n            else:  # '_'\n                min_pos -= 1   # choose to go left for the minimum\n                max_pos += 1   # choose to go right for the maximum\n        \n        return max(abs(min_pos), abs(max_pos))\n```\n\nAttempt 3\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position we can reach\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 1\n            else:  # '_'\n                # We can choose either direction; keep track of extremes.\n                pos += 1   # best for reaching farthest positive\n                neg -= 1   # best for reaching farthest negative\n        return max(pos, -neg)\n```\n\n#### Partially Correct\nAttempt 1\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        x = 0\n        far = 0\n        for ch in moves:\n            if ch == 'L' or ch == '_':\n                x -= 1\n            else:  # 'R'\n                x += 1\n            if x < far:  # farthest from origin on the negative side\n                far = x\n        return max(abs(far), abs(x if far == 0 else far))\n```\n\nAttempt 2\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Track best possible absolute position extremes.\n        # If we want maximum positive distance:\n        # - 'R' contributes +1, 'L' contributes -1\n        # - '_' can be chosen as +1 or -1\n        # So choosing all '_' to push in the desired direction gives the extreme.\n        n = len(moves)\n        right_reachable = 0  # max position achievable\n        left_reachable = 0   # min position achievable (most negative)\n\n        for ch in moves:\n            if ch == 'R':\n                right_reachable += 1\n                left_reachable -= 1\n            elif ch == 'L':\n                right_reachable -= 1\n                left_reachable += 1\n            else:  # '_'\n                # can go either way; for extrema:\n                right_reachable += 1\n                left_reachable -= 1\n\n        return max(right_reachable, -left_reachable)\n```\n\nAttempt 3\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy: maximize absolute position with the option to choose direction\n        # Each '_' can be chosen to move further in the desired direction.\n        left = 0   # maximum distance achievable to the left (negative)\n        right = 0  # maximum distance achievable to the right (positive)\n\n        for ch in moves:\n            if ch == 'L':\n                left += 1\n                # right unchanged because we can't move right on 'L'\n            elif ch == 'R':\n                right += 1\n            else:  # '_'\n                # we can choose either direction to extend the furthest side\n                left += 1\n                right += 1\n\n        return max(left, right)\n```\n\nAttempt 4\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum possible distance from 0.\n        # Choose to always go left whenever possible to maximize negative distance,\n        # and similarly for right; '_' can be used either way.\n        left = right = 0\n        for ch in moves:\n            if ch == 'L':\n                left += 1\n            elif ch == 'R':\n                right += 1\n            else:  # '_'\n                left += 1\n                right += 1\n        return max(left, right)\n```\n\nAttempt 5\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy: to maximize distance, choose direction each '_' to extend the\n        # current best side, while fixed L/R constrain movement.\n        pos = 0  # maximum reachable on the right\n        neg = 0  # minimum reachable on the left (most negative)\n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n                neg -= 1\n            elif ch == 'L':\n                pos -= 1\n                neg += 1\n            else:  # '_'\n                # Can choose either direction; keep the best absolute distance.\n                pos = max(pos + 1, pos - 1)\n                neg = min(neg - 1, neg + 1)\n\n            # Note: This implementation for '_' can be simplified but remains correct.\n\n        return max(pos, -neg)\n```\n\nAttempt 6\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance occurs when at each '_' we choose the direction\n        # that moves us further away from 0. We can compute the best possible\n        # position in the positive and negative directions and take the max.\n        \n        pos = 0  # best possible final position (furthest to +)\n        neg = 0  # best possible final position (furthest to -)\n        \n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n                neg -= 1\n            elif ch == 'L':\n                pos -= 1\n                neg += 1\n            else:  # '_'\n                pos += 1  # choose R for maximizing positive\n                neg -= 1  # choose L for maximizing negative (more negative)\n        \n        return max(pos, -neg)\n```\n\nAttempt 7\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position reachable\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 0  # neg stays as the minimum tracker; updated below in '_' case\n                neg = neg  # no-op for clarity\n            else:  # '_'\n                # when '_' we can choose either direction; update both extremes\n                # For maximum distance to the right, increase pos\n                pos += 1\n                # For maximum distance to the left, decrease neg\n                neg -= 1\n\n            # The above \"neg stays\" for 'R' is not enough; handle properly:\n            # We'll maintain extremes more simply by recomputing:\n        # Let's do the correct extreme computation in one pass:\n        return self._max_extreme(moves)\n\n    def _max_extreme(self, moves: str) -> int:\n        # Recompute properly:\n        pos = 0  # maximum right position possible\n        neg = 0  # maximum left distance possible as negative number\n        for ch in moves:\n            if ch == 'L':\n                pos = pos - 1  # if forced left, max right also decreases\n                neg = neg - 1\n            elif ch == 'R':\n                pos = pos + 1\n                # if forced right, most negative doesn't improve; keep neg\n            else:  # '_'\n                pos = pos + 1  # choose right to maximize positive\n                neg = neg - 1  # choose left to minimize (most negative)\n            # If ch == 'R', neg should remain as the minimum position achievable:\n            # With the chosen strategy for extremes:\n            # - neg only changes on 'L' or '_' (we always pick left there)\n            # - neg should remain unchanged on 'R'\n            if ch == 'R':\n                # neg unchanged\n                pass\n        return max(pos, -neg)\n```\n\n\n## Response format\nFirst write your analysis inside <reasoning> tags, then produce one or more memory items.\nEach memory item must be a self-contained, generalizable insight that transfers to other problems.\nA good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.\nEach memory item must use this schema:\n- \"title\": a short label for the memory item\n- \"description\": one sentence summary of the memory item\n- \"content\": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks\n\n<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>\n\n<memories>\n<memory>\n<title>The title of the memory item</title>\n<description>One sentence summary of the memory item.</description>\n<content>One to three sentences describing the reusable insight learned from the comparison.</content>\n</memory>\n<memory>\n<title>Another distinct reusable principle</title>\n<description>One sentence summary of the second memory item.</description>\n<content>One to three sentences describing the second reusable insight.</content>\n</memory>\n</memories>",
+      "skipped": false,
+      "items": [
+        {
+          "title": "Maintain Reachable-Interval Invariant",
+          "description": "Track the minimum and maximum reachable positions after each step to correctly reason about extremes.",
+          "content": "When actions can vary (e.g., optional moves), represent all possibilities as a reachable interval rather than a single greedy path. Update both ends under each move type so the invariant “all reachable positions lie within [min,max]” remains true. At the end, compute the best metric directly from the interval endpoints.",
+          "reasoning": "The successful attempts share a key invariant: after processing each prefix, you track the entire reachable interval (minimum and maximum positions), not a single guessed position or side-specific counters that can get out of sync. Failed/partially correct attempts often mix strategies (e.g., updating only one extreme or greedily treating “furthest negative/positive” with inconsistent state updates), or they try to infer distance from separate counts without maintaining the proper reachable-set invariant. The correct solutions also properly handle the “flexible” symbol by expanding the reachable interval symmetrically, followed by computing the answer from the interval endpoints."
+        },
+        {
+          "title": "Expand Both Extremes for Flexible Choices",
+          "description": "For nondeterministic choices, update the state to reflect simultaneous expansion toward both extremes.",
+          "content": "If an option can go in multiple directions, it typically enlarges the reachable range on both sides (or at least cannot be represented by updating only one side). Ensure the update for a flexible symbol correctly transforms the current [min,max] into the new reachable interval before extracting an answer from extremes.",
+          "reasoning": "The successful attempts share a key invariant: after processing each prefix, you track the entire reachable interval (minimum and maximum positions), not a single guessed position or side-specific counters that can get out of sync. Failed/partially correct attempts often mix strategies (e.g., updating only one extreme or greedily treating “furthest negative/positive” with inconsistent state updates), or they try to infer distance from separate counts without maintaining the proper reachable-set invariant. The correct solutions also properly handle the “flexible” symbol by expanding the reachable interval symmetrically, followed by computing the answer from the interval endpoints."
+        },
+        {
+          "title": "Avoid Side-Only Counters Without a Valid State Model",
+          "description": "Don’t compute furthest distance using separate positive/negative counters unless they are derived from a consistent reachable-state model.",
+          "content": "Attempts that track “furthest to the left” and “furthest to the right” with ad-hoc updates often break because those values correspond to potentially different strategies and can’t be combined arbitrarily. If you want separate extremes, derive them from the same invariant (e.g., endpoints of the reachable interval) so both are updated consistently.",
+          "reasoning": "The successful attempts share a key invariant: after processing each prefix, you track the entire reachable interval (minimum and maximum positions), not a single guessed position or side-specific counters that can get out of sync. Failed/partially correct attempts often mix strategies (e.g., updating only one extreme or greedily treating “furthest negative/positive” with inconsistent state updates), or they try to infer distance from separate counts without maintaining the proper reachable-set invariant. The correct solutions also properly handle the “flexible” symbol by expanding the reachable interval symmetrically, followed by computing the answer from the interval endpoints."
+        },
+        {
+          "title": "Greedy Requires Verification Against the Original Constraints",
+          "description": "Greedy choices that look locally optimal can be wrong when the objective depends on global reachability.",
+          "content": "Local rules like “always move away from the origin” may fail when later fixed moves restrict what earlier choices enable. A robust way to validate greedy reasoning is to compare it to the reachable interval update; if your greedy state matches the interval endpoints at each step, it’s effectively correct.",
+          "reasoning": "The successful attempts share a key invariant: after processing each prefix, you track the entire reachable interval (minimum and maximum positions), not a single guessed position or side-specific counters that can get out of sync. Failed/partially correct attempts often mix strategies (e.g., updating only one extreme or greedily treating “furthest negative/positive” with inconsistent state updates), or they try to infer distance from separate counts without maintaining the proper reachable-set invariant. The correct solutions also properly handle the “flexible” symbol by expanding the reachable interval symmetrically, followed by computing the answer from the interval endpoints."
+        }
+      ],
+      "raw_response": "<reasoning>\nThe successful attempts share a key invariant: after processing each prefix, you track the entire reachable interval (minimum and maximum positions), not a single guessed position or side-specific counters that can get out of sync. Failed/partially correct attempts often mix strategies (e.g., updating only one extreme or greedily treating “furthest negative/positive” with inconsistent state updates), or they try to infer distance from separate counts without maintaining the proper reachable-set invariant. The correct solutions also properly handle the “flexible” symbol by expanding the reachable interval symmetrically, followed by computing the answer from the interval endpoints.\n</reasoning>\n\n<memories>\n  <memory>\n    <title>Maintain Reachable-Interval Invariant</title>\n    <description>Track the minimum and maximum reachable positions after each step to correctly reason about extremes.</description>\n    <content>When actions can vary (e.g., optional moves), represent all possibilities as a reachable interval rather than a single greedy path. Update both ends under each move type so the invariant “all reachable positions lie within [min,max]” remains true. At the end, compute the best metric directly from the interval endpoints.</content>\n  </memory>\n\n  <memory>\n    <title>Expand Both Extremes for Flexible Choices</title>\n    <description>For nondeterministic choices, update the state to reflect simultaneous expansion toward both extremes.</description>\n    <content>If an option can go in multiple directions, it typically enlarges the reachable range on both sides (or at least cannot be represented by updating only one side). Ensure the update for a flexible symbol correctly transforms the current [min,max] into the new reachable interval before extracting an answer from extremes.</content>\n  </memory>\n\n  <memory>\n    <title>Avoid Side-Only Counters Without a Valid State Model</title>\n    <description>Don’t compute furthest distance using separate positive/negative counters unless they are derived from a consistent reachable-state model.</description>\n    <content>Attempts that track “furthest to the left” and “furthest to the right” with ad-hoc updates often break because those values correspond to potentially different strategies and can’t be combined arbitrarily. If you want separate extremes, derive them from the same invariant (e.g., endpoints of the reachable interval) so both are updated consistently.</content>\n  </memory>\n\n  <memory>\n    <title>Greedy Requires Verification Against the Original Constraints</title>\n    <description>Greedy choices that look locally optimal can be wrong when the objective depends on global reachability.</description>\n    <content>Local rules like “always move away from the origin” may fail when later fixed moves restrict what earlier choices enable. A robust way to validate greedy reasoning is to compare it to the reachable interval update; if your greedy state matches the interval endpoints at each step, it’s effectively correct.</content>\n  </memory>\n</memories>"
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nYou are given a string moves of length n consisting only of characters 'L', 'R', and '_'. The string represents your movement on a number line starting from the origin 0.\nIn the i^th move, you can choose one of the following directions:\n\nmove to the left if moves[i] = 'L' or moves[i] = '_'\nmove to the right if moves[i] = 'R' or moves[i] = '_'\n\nReturn the distance from the origin of the furthest point you can get to after n moves.\n \nExample 1:\n\nInput: moves = \"L_RL__R\"\nOutput: 3\nExplanation: The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".\n\nExample 2:\n\nInput: moves = \"_R__LL_\"\nOutput: 5\nExplanation: The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".\n\nExample 3:\n\nInput: moves = \"_______\"\nOutput: 7\nExplanation: The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".\n\n \nConstraints:\n\n1 <= moves.length == n <= 50\nmoves consists only of characters 'L', 'R' and '_'.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0          # farthest to the right\n        neg = 0          # farthest to the left (most negative)\n        \n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n            elif ch == 'L':\n                neg -= 1\n            else:  # '_'\n                # Choose independently to maximize either direction\n                pos += 1\n                neg -= 1\n        \n        return max(pos, -neg)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Greedy/DP idea:\n        # Track the farthest position we can reach in each direction step-by-step.\n        # At each move:\n        # - 'L' forces left\n        # - 'R' forces right\n        # - '_' allows either\n        #\n        # We can maximize the distance by treating '_' as whichever direction\n        # increases the current best extreme.\n        #\n        # We'll track both extremes: min_pos (most negative) and max_pos (most positive).\n        min_pos = max_pos = 0\n\n        for ch in moves:\n            if ch == 'L':\n                min_pos -= 1\n                max_pos -= 1\n            elif ch == 'R':\n                min_pos += 1\n                max_pos += 1\n            else:  # '_'\n                # From min_pos, we can either go left (min decreases) or right (min might increase),\n                # but for min extreme we still can choose left.\n                min_pos -= 1\n                # For max extreme, we choose right.\n                max_pos += 1\n\n        return max(abs(min_pos), abs(max_pos))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # most negative position reachable\n        \n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n                neg -= 1\n            elif ch == 'R':\n                pos += 1\n                neg += 1\n            else:  # '_'\n                # We can choose either direction\n                pos += 1      # to maximize positive distance\n                neg -= 1      # to maximize negative distance\n        \n        return max(pos, -neg)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        neg = 0  # absolute minimum position achievable\n\n        for ch in moves:\n            if ch == 'L':\n                pos += 1      # can force rightmost reachable in positive direction? Actually for max distance:\n                # We'll track max positive and max negative separately.\n                # pos: maximum position; neg: minimum (most negative) position as absolute distance.\n                # For 'L', maximum position decreases (moving left), but minimum becomes more negative.\n                # So update like:\n                pos -= 1\n                neg += 1\n            elif ch == 'R':\n                pos += 1\n                neg -= 1\n            else:  # '_'\n                # Can choose direction to maximize distance from origin:\n                # For max positive position, choose 'R'; for max negative, choose 'L'.\n                pos += 1\n                neg += 1\n\n        # pos is maximum position; neg is minimum position in absolute count? Let's compute correctly:\n        # The above neg update is not consistent. Let's implement properly below.\n        return max(pos, -neg)\n```\n\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        max_pos = 0\n        min_pos = 0  # most negative position\n\n        for ch in moves:\n            if ch == 'L':\n                max_pos -= 1\n                min_pos -= 1\n            elif ch == 'R':\n                max_pos += 1\n                min_pos += 1\n            else:  # '_'\n                # choose independently to maximize furthest distance:\n                # for max_pos, go right; for min_pos, go left\n                max_pos += 1\n                min_pos -= 1\n\n        return max(max_pos, -min_pos)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        best_abs = 0\n\n        # We can always choose '_' to move in the direction that maximizes final distance.\n        for ch in moves:\n            if ch == 'R':\n                pos += 1\n            elif ch == 'L':\n                pos -= 1\n            else:  # '_'\n                # Choose direction that makes us move away from origin\n                if pos >= 0:\n                    pos += 1\n                else:\n                    pos -= 1\n            best_abs = max(best_abs, abs(pos))\n\n        return best_abs\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        x_min = x_max = 0\n        for ch in moves:\n            if ch == 'L':\n                x_min -= 1\n                x_max -= 1\n            elif ch == 'R':\n                x_min += 1\n                x_max += 1\n            else:  # '_'\n                x_min -= 1  # choose L to minimize\n                x_max += 1  # choose R to maximize\n        return max(abs(x_min), abs(x_max))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        dist = 0\n        max_dist = 0\n        for ch in moves:\n            if ch == 'R':\n                dist += 1\n            elif ch == 'L':\n                dist -= 1\n            else:  # '_': choose direction to maximize absolute distance\n                if dist >= 0:\n                    dist += 1\n                else:\n                    dist -= 1\n            if abs(dist) > max_dist:\n                max_dist = abs(dist)\n        return max_dist\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        pos = 0\n        best = 0\n        for ch in moves:\n            if ch == 'L':\n                pos -= 1\n            elif ch == 'R':\n                pos += 1\n            else:  # '_'\n                # choose direction to maximize distance from origin\n                # if pos is non-negative, go left; if negative, go right\n                pos += 1 if pos < 0 else -1\n            best = max(best, abs(pos))\n        return best\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maximum distance to the right/left we can guarantee given choices for '_'\n        n = len(moves)\n        # If we end up at position p after n moves, we need p <= count_right and p >= -count_left\n        # We can compute the maximal possible right position:\n        # - 'R' and '_' can contribute +1 each\n        # - 'L' contributes 0 to the right count\n        right = 0\n        left = 0\n        for c in moves:\n            if c == 'R':\n                right += 1\n            elif c == 'L':\n                left += 1\n            else:  # '_'\n                right += 1\n                left += 1  # '_' can be used either way for maximum opposite directions\n\n        # Furthest distance is max(abs(max_right), abs(min_left)) -> max(right, left)\n        # Since min position is -left when maximizing leftward movement.\n        return max(right, left)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Start at 0. You can always choose to go opposite to minimize or maximize.\n        # Greedy: each '_' can be treated as either side; to maximize absolute distance,\n        # keep an \"optimal\" maximum on the negative side and positive side.\n        #\n        # Let best_pos be maximum reachable position >=0, best_neg be maximum\n        # magnitude on the negative side (i.e., most negative position).\n        best_pos = 0\n        best_neg = 0\n\n        for ch in moves:\n            if ch == 'R':\n                best_pos += 1\n                best_neg += 0  # moving right won't help negative magnitude\n            elif ch == 'L':\n                best_neg += 1\n                best_pos += 0   # moving left won't help positive magnitude\n            else:  # '_'\n                # Choose to go whichever side currently yields larger absolute distance.\n                # Equivalent to: on '_' you can add 1 to either best_pos or best_neg.\n                if best_pos >= best_neg:\n                    best_pos += 1\n                else:\n                    best_neg += 1\n\n        return max(best_pos, best_neg)\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3019",
+          "generation_index": 0,
+          "score": 0.3333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 5,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "32",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 4,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "28",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "15",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 6,
+          "score": 0.6,
+          "tier": "partial",
+          "details": {
+            "passed": 9,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "28",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "15",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 7,
+          "score": 0.26666666666666666,
+          "tier": "partial",
+          "details": {
+            "passed": 4,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "7",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "2",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "1",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "3",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 8,
+          "score": 0.3333333333333333,
+          "tier": "partial",
+          "details": {
+            "passed": 5,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "32",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 9,
+          "score": 0.4,
+          "tier": "partial",
+          "details": {
+            "passed": 6,
+            "total": 15,
+            "cases": [
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "5",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "3",
+                "actual": "4",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "5",
+                "actual": "3",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": false,
+                "expected": "4",
+                "actual": "6",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "48",
+                "actual": "49",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "26",
+                "actual": "38",
+                "error": "Wrong Answer"
+              },
+              {
+                "passed": false,
+                "expected": "14",
+                "actual": "32",
+                "error": "Wrong Answer"
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "Before solving, consider these reusable insights from prior analysis:\n\n  1. Maintain Reachable-Interval Invariant: Track the minimum and maximum reachable positions after each step to correctly reason about extremes.\n     When actions can vary (e.g., optional moves), represent all possibilities as a reachable interval rather than a single greedy path. Update both ends under each move type so the invariant “all reachable positions lie within [min,max]” remains true. At the end, compute the best metric directly from the interval endpoints.\n  2. Expand Both Extremes for Flexible Choices: For nondeterministic choices, update the state to reflect simultaneous expansion toward both extremes.\n     If an option can go in multiple directions, it typically enlarges the reachable range on both sides (or at least cannot be represented by updating only one side). Ensure the update for a flexible symbol correctly transforms the current [min,max] into the new reachable interval before extracting an answer from extremes.\n  3. Avoid Side-Only Counters Without a Valid State Model: Don’t compute furthest distance using separate positive/negative counters unless they are derived from a consistent reachable-state model.\n     Attempts that track “furthest to the left” and “furthest to the right” with ad-hoc updates often break because those values correspond to potentially different strategies and can’t be combined arbitrarily. If you want separate extremes, derive them from the same invariant (e.g., endpoints of the reachable interval) so both are updated consistently.\n  4. Greedy Requires Verification Against the Original Constraints: Greedy choices that look locally optimal can be wrong when the objective depends on global reachability.\n     Local rules like “always move away from the origin” may fail when later fixed moves restrict what earlier choices enable. A robust way to validate greedy reasoning is to compare it to the reachable interval update; if your greedy state matches the interval endpoints at each step, it’s effectively correct.\n\nApply these insights to the problem below.\n\n### Question:\nYou are given a string moves of length n consisting only of characters 'L', 'R', and '_'. The string represents your movement on a number line starting from the origin 0.\nIn the i^th move, you can choose one of the following directions:\n\nmove to the left if moves[i] = 'L' or moves[i] = '_'\nmove to the right if moves[i] = 'R' or moves[i] = '_'\n\nReturn the distance from the origin of the furthest point you can get to after n moves.\n \nExample 1:\n\nInput: moves = \"L_RL__R\"\nOutput: 3\nExplanation: The furthest point we can reach from the origin 0 is point -3 through the following sequence of moves \"LLRLLLR\".\n\nExample 2:\n\nInput: moves = \"_R__LL_\"\nOutput: 5\nExplanation: The furthest point we can reach from the origin 0 is point -5 through the following sequence of moves \"LRLLLLL\".\n\nExample 3:\n\nInput: moves = \"_______\"\nOutput: 7\nExplanation: The furthest point we can reach from the origin 0 is point 7 through the following sequence of moves \"RRRRRRR\".\n\n \nConstraints:\n\n1 <= moves.length == n <= 50\nmoves consists only of characters 'L', 'R' and '_'.\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "augmented_solutions": [
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each step.\n        # Starting position is exactly 0.\n        lo = hi = 0\n\n        for c in moves:\n            if c == 'L':\n                # Must move left by 1\n                lo -= 1\n                hi -= 1\n            elif c == 'R':\n                # Must move right by 1\n                lo += 1\n                hi += 1\n            else:\n                # '_' can be either left or right; reachable set expands on both sides\n                lo -= 1\n                hi += 1\n\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain invariant: after processing i moves, all reachable positions are within [lo, hi]\n        # and the endpoints lo/hi are achievable.\n        lo = hi = 0\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_'\n                # Can go either left or right:\n                # new reachable interval is [lo-1, hi+1]\n                lo -= 1\n                hi += 1\n        return max(-lo, hi)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each step.\n        lo = hi = 0  # all reachable positions lie within this interval\n\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_': can move left or right\n                # From any position in [lo, hi], moving left gives [lo-1, hi-1]\n                # and moving right gives [lo+1, hi+1]. Union => [lo-1, hi+1].\n                lo = lo - 1\n                hi = hi + 1\n\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each step.\n        lo = hi = 0  # all reachable positions lie within this interval\n\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_': can go either left or right\n                # Interval expands by 1 on both sides:\n                # new reachable: [lo-1, hi+1]\n                lo -= 1\n                hi += 1\n\n        # Furthest point from origin is the maximum distance among endpoints.\n        return max(-lo, hi)\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each step\n        lo = hi = 0\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_': can go left or right\n                lo -= 1  # minimal reachable shifts left\n                hi += 1  # maximal reachable shifts right\n\n        # Furthest distance from origin is max(|lo|, |hi|)\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each move.\n        # Start at origin.\n        lo = hi = 0\n\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_': can go both left or right\n                # From any position in [lo, hi], next positions can be [lo-1, hi+1]\n                lo -= 1\n                hi += 1\n\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each step.\n        # Start at 0.\n        lo = hi = 0\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_'\n                # Can go left or right each step, so interval expands by 1 on both sides.\n                lo -= 1\n                hi += 1\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain the reachable interval [lo, hi] after each move.\n        # lo = minimum position reachable, hi = maximum position reachable.\n        lo = hi = 0\n\n        for c in moves:\n            if c == 'L':\n                lo -= 1\n                hi -= 1\n            elif c == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_'\n                # Can go either left or right: both extremes expand by 1\n                lo -= 1\n                hi += 1\n\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after processing each move.\n        # lo = minimum reachable position, hi = maximum reachable position.\n        lo = hi = 0\n\n        for ch in moves:\n            if ch == 'L':\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                lo += 1\n                hi += 1\n            else:  # '_': can move left or right\n                # From any position in [lo, hi], left gives x-1 and right gives x+1.\n                # Thus new min is lo-1 and new max is hi+1.\n                lo -= 1\n                hi += 1\n\n        return max(abs(lo), abs(hi))\n```",
+        "```python\nclass Solution:\n    def furthestDistanceFromOrigin(self, moves: str) -> int:\n        # Maintain reachable interval [lo, hi] after each processed move.\n        # Start at origin 0.\n        lo = hi = 0\n\n        for ch in moves:\n            if ch == 'L':\n                # must move left: x -> x - 1\n                lo -= 1\n                hi -= 1\n            elif ch == 'R':\n                # must move right: x -> x + 1\n                lo += 1\n                hi += 1\n            else:  # '_': can choose left or right\n                # x -> x-1 or x+1, so reachable positions expand by 1 on both sides\n                lo -= 1\n                hi += 1\n\n        return max(abs(lo), abs(hi))\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3019",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3019",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 15,
+            "total": 15,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "7",
+                "actual": "7",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "3",
+                "actual": "3",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "5",
+                "actual": "5",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "4",
+                "actual": "4",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "48",
+                "actual": "48",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "26",
+                "actual": "26",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "14",
+                "actual": "14",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": false,
+      "baseline_pass_rate": 0.4,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.6
+    }
+  }
+}

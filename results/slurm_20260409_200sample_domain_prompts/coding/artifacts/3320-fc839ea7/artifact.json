@@ -1,0 +1,3051 @@
+{
+  "problem_id": "3320",
+  "domain": "coding",
+  "problem": {
+    "id": "3320",
+    "domain": "coding",
+    "statement": "Given an array of integers called nums, you can perform the following operation while nums contains at least 2 elements:\n\nChoose the first two elements of nums and delete them.\n\nThe score of the operation is the sum of the deleted elements.\nYour task is to find the maximum number of operations that can be performed, such that all operations have the same score.\nReturn the maximum number of operations possible that satisfy the condition mentioned above.\n \nExample 1:\n\nInput: nums = [3,2,1,4,5]\nOutput: 2\nExplanation: We perform the following operations:\n- Delete the first two elements, with score 3 + 2 = 5, nums = [1,4,5].\n- Delete the first two elements, with score 1 + 4 = 5, nums = [5].\nWe are unable to perform any more operations as nums contain only 1 element.\nExample 2:\n\nInput: nums = [3,2,6,1,4]\nOutput: 1\nExplanation: We perform the following operations:\n- Delete the first two elements, with score 3 + 2 = 5, nums = [6,1,4].\nWe are unable to perform any more operations as the score of the next operation isn't the same as the previous one.\n\n \nConstraints:\n\n2 <= nums.length <= 100\n1 <= nums[i] <= 1000",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "[3, 2, 1, 4, 5]",
+        "output": "2",
+        "testtype": "functional"
+      },
+      {
+        "input": "[3, 2, 6, 1, 4]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[1, 1]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[2, 1]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[5, 5]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[50, 50]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[65, 65]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[42, 488]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[500, 500]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[250, 250]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[199, 301]",
+        "output": "1",
+        "testtype": "functional"
+      },
+      {
+        "input": "[500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500]",
+        "output": "50",
+        "testtype": "functional"
+      },
+      {
+        "input": "[500, 500, 501, 499, 502, 498, 503, 497, 504, 496, 505, 495, 506, 494, 507, 493, 508, 492, 509, 491, 510, 490, 511, 489, 512, 488, 513, 487, 514, 486, 515, 485, 516, 484, 517, 483, 518, 482, 519, 481, 520, 480, 521, 479, 522, 478, 523, 477, 524, 476, 525, 475, 526, 474, 527, 473, 528, 472, 529, 471, 530, 470, 531, 469, 532, 468, 533, 467, 534, 466, 535, 465, 536, 464, 537, 463, 538, 462, 539, 461, 540, 460, 541, 459, 542, 458, 543, 457, 544, 456, 545, 455, 546, 454, 547, 453, 548, 452, 549, 451]",
+        "output": "50",
+        "testtype": "functional"
+      },
+      {
+        "input": "[500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 499]",
+        "output": "49",
+        "testtype": "functional"
+      }
+    ],
+    "starter_code": "class Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        ",
+    "metadata": {
+      "func_name": "maxOperations",
+      "question_title": "maximum-number-of-operations-with-the-same-score-i",
+      "platform": "leetcode",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nGiven an array of integers called nums, you can perform the following operation while nums contains at least 2 elements:\n\nChoose the first two elements of nums and delete them.\n\nThe score of the operation is the sum of the deleted elements.\nYour task is to find the maximum number of operations that can be performed, such that all operations have the same score.\nReturn the maximum number of operations possible that satisfy the condition mentioned above.\n \nExample 1:\n\nInput: nums = [3,2,1,4,5]\nOutput: 2\nExplanation: We perform the following operations:\n- Delete the first two elements, with score 3 + 2 = 5, nums = [1,4,5].\n- Delete the first two elements, with score 1 + 4 = 5, nums = [5].\nWe are unable to perform any more operations as nums contain only 1 element.\nExample 2:\n\nInput: nums = [3,2,6,1,4]\nOutput: 1\nExplanation: We perform the following operations:\n- Delete the first two elements, with score 3 + 2 = 5, nums = [6,1,4].\nWe are unable to perform any more operations as the score of the next operation isn't the same as the previous one.\n\n \nConstraints:\n\n2 <= nums.length <= 100\n1 <= nums[i] <= 1000\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try each possible score determined by the first operation:\n        # score = nums[0] + nums[1] (must be the first pair's sum)\n        target = nums[0] + nums[1]\n\n        # Count how many consecutive \"front-pair\" deletions can be made\n        # while each pair sums to the same target.\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Try each possible target score derived from the first operation:\n        # score = nums[0] + nums[1], but after deleting first two,\n        # the next required score is determined by the same target.\n        target = nums[0] + nums[1]\n        i = 2  # next element index after removing first two\n        ops = 1\n\n        # Greedily remove pairs from the front as long as their sum matches target.\n        while i + 1 < len(nums) and nums[i] + nums[i + 1] == target:\n            ops += 1\n            i += 2\n\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        best = 0\n\n        # Try all possible first-operation sums: first element + nums[1]\n        # The score must equal the sum of each removed pair, so once the target\n        # is fixed, the process is deterministic.\n        target = nums[0] + nums[1]\n\n        i = 2\n        cnt = 1\n        curr_sum = nums[0] + nums[1]\n\n        if curr_sum != target:\n            return 0  # not possible, but kept for completeness\n\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            cnt += 1\n            i += 2\n\n        best = cnt\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        def can_make(target: int) -> int:\n            # Greedily consume pairs from the front while their sum == target\n            i = 0\n            ops = 0\n            while i + 1 < n and nums[i] + nums[i + 1] == target:\n                ops += 1\n                i += 2\n            return ops\n\n        # The score must be the sum of the first two elements in the chosen scheme.\n        # Therefore we only need to try two possible starting sums:\n        # - using initial pair (0,1) => target1\n        # - if you remove none? not allowed; operations begin with first two.\n        # In this problem, target can only be nums[0]+nums[1].\n        # However, we can also consider the first operation score as nums[0]+nums[1] only.\n        # We'll compute directly.\n        target = nums[0] + nums[1]\n        return can_make(target)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Try possible target scores derived from the first operation.\n        # Each operation removes the first two elements, so the score is fixed\n        # once we choose the target sum for the first pair.\n        n = len(nums)\n        if n < 2:\n            return 0\n\n        target1 = nums[0] + nums[1]\n        target2 = nums[0] + nums[2] if n >= 3 else None\n\n        def simulate(target: int) -> int:\n            ops = 0\n            i = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        best = simulate(target1)\n        if target2 is not None:\n            best = max(best, simulate(target2))\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        best = 0\n\n        # Try every possible target score formed by the first two elements removed\n        # i.e., target = nums[0] + nums[1], then simulate greedily.\n        for i in range(n - 1):\n            target = nums[i] + nums[0]  # not used directly; we instead simulate after fixing initial pair\n            # We actually need to fix the initial pair to be the first two elements at start.\n            # So only one choice exists: the target score must be nums[0] + nums[1].\n            break\n\n        target = nums[0] + nums[1]\n        score = target\n        ops = 0\n        # Since the operation always deletes the first two elements, the sequence is deterministic.\n        j = 0\n        while j + 1 < n:\n            if nums[j] + nums[j + 1] == score:\n                ops += 1\n                j += 2\n            else:\n                break\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        def can_make(k: int) -> int:\n            # Simulate deletions while every operation sum == k\n            i = 0\n            ops = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != k:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        # First operation sum determines the required k, so only need to try candidates.\n        # Try k as sum of first two elements, and also possible if we want\n        # to allow skipping? Actually we cannot reorder and we always delete first two,\n        # so k must be nums[0] + nums[1] for any operation count >= 1.\n        k = nums[0] + nums[1]  # only possible score for the first operation\n        return can_make(k)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        def can_make(target: int) -> int:\n            i = 0\n            ops = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] == target:\n                    ops += 1\n                    i += 2\n                else:\n                    return ops\n            return ops\n\n        # Try score candidates derived from the first operation.\n        # If the first operation is valid, its score must be nums[0]+nums[1].\n        # There are no other possibilities because operations always remove the first two.\n        target = nums[0] + nums[1]\n        return can_make(target)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try every possible target score derived from the first operation:\n        # score = nums[0] + nums[1], and we simulate consuming the array greedily.\n        best = 0\n        for start in (0,):\n            target = nums[start] + nums[start + 1]\n            ops = 0\n            i = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            best = max(best, ops)\n\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try each possible first-pair sum as the target score.\n        # At most n-1 operations, but we can just check i from 0..n-2.\n        best = 0\n        for target in (nums[0] + nums[1],):\n            # Since the first operation must use the first two elements,\n            # the target is forced to nums[0] + nums[1] (LC problem statement).\n            # Build iteratively: each operation consumes next two elements.\n            ops = 0\n            i = 0\n            while i + 1 < n and ops >= 0:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            best = ops\n\n        return best\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "3320",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try each possible score determined by the first operation:\n        # score = nums[0] + nums[1] (must be the first pair's sum)\n        target = nums[0] + nums[1]\n\n        # Count how many consecutive \"front-pair\" deletions can be made\n        # while each pair sums to the same target.\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Try each possible target score derived from the first operation:\n        # score = nums[0] + nums[1], but after deleting first two,\n        # the next required score is determined by the same target.\n        target = nums[0] + nums[1]\n        i = 2  # next element index after removing first two\n        ops = 1\n\n        # Greedily remove pairs from the front as long as their sum matches target.\n        while i + 1 < len(nums) and nums[i] + nums[i + 1] == target:\n            ops += 1\n            i += 2\n\n        return ops\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        best = 0\n\n        # Try all possible first-operation sums: first element + nums[1]\n        # The score must equal the sum of each removed pair, so once the target\n        # is fixed, the process is deterministic.\n        target = nums[0] + nums[1]\n\n        i = 2\n        cnt = 1\n        curr_sum = nums[0] + nums[1]\n\n        if curr_sum != target:\n            return 0  # not possible, but kept for completeness\n\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            cnt += 1\n            i += 2\n\n        best = cnt\n        return best\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        def can_make(target: int) -> int:\n            # Greedily consume pairs from the front while their sum == target\n            i = 0\n            ops = 0\n            while i + 1 < n and nums[i] + nums[i + 1] == target:\n                ops += 1\n                i += 2\n            return ops\n\n        # The score must be the sum of the first two elements in the chosen scheme.\n        # Therefore we only need to try two possible starting sums:\n        # - using initial pair (0,1) => target1\n        # - if you remove none? not allowed; operations begin with first two.\n        # In this problem, target can only be nums[0]+nums[1].\n        # However, we can also consider the first operation score as nums[0]+nums[1] only.\n        # We'll compute directly.\n        target = nums[0] + nums[1]\n        return can_make(target)\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Try possible target scores derived from the first operation.\n        # Each operation removes the first two elements, so the score is fixed\n        # once we choose the target sum for the first pair.\n        n = len(nums)\n        if n < 2:\n            return 0\n\n        target1 = nums[0] + nums[1]\n        target2 = nums[0] + nums[2] if n >= 3 else None\n\n        def simulate(target: int) -> int:\n            ops = 0\n            i = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        best = simulate(target1)\n        if target2 is not None:\n            best = max(best, simulate(target2))\n        return best\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        best = 0\n\n        # Try every possible target score formed by the first two elements removed\n        # i.e., target = nums[0] + nums[1], then simulate greedily.\n        for i in range(n - 1):\n            target = nums[i] + nums[0]  # not used directly; we instead simulate after fixing initial pair\n            # We actually need to fix the initial pair to be the first two elements at start.\n            # So only one choice exists: the target score must be nums[0] + nums[1].\n            break\n\n        target = nums[0] + nums[1]\n        score = target\n        ops = 0\n        # Since the operation always deletes the first two elements, the sequence is deterministic.\n        j = 0\n        while j + 1 < n:\n            if nums[j] + nums[j + 1] == score:\n                ops += 1\n                j += 2\n            else:\n                break\n        return ops\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        def can_make(k: int) -> int:\n            # Simulate deletions while every operation sum == k\n            i = 0\n            ops = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != k:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        # First operation sum determines the required k, so only need to try candidates.\n        # Try k as sum of first two elements, and also possible if we want\n        # to allow skipping? Actually we cannot reorder and we always delete first two,\n        # so k must be nums[0] + nums[1] for any operation count >= 1.\n        k = nums[0] + nums[1]  # only possible score for the first operation\n        return can_make(k)\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        def can_make(target: int) -> int:\n            i = 0\n            ops = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] == target:\n                    ops += 1\n                    i += 2\n                else:\n                    return ops\n            return ops\n\n        # Try score candidates derived from the first operation.\n        # If the first operation is valid, its score must be nums[0]+nums[1].\n        # There are no other possibilities because operations always remove the first two.\n        target = nums[0] + nums[1]\n        return can_make(target)\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try every possible target score derived from the first operation:\n        # score = nums[0] + nums[1], and we simulate consuming the array greedily.\n        best = 0\n        for start in (0,):\n            target = nums[start] + nums[start + 1]\n            ops = 0\n            i = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            best = max(best, ops)\n\n        return best\n```",
+          "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try each possible first-pair sum as the target score.\n        # At most n-1 operations, but we can just check i from 0..n-2.\n        best = 0\n        for target in (nums[0] + nums[1],):\n            # Since the first operation must use the first two elements,\n            # the target is forced to nums[0] + nums[1] (LC problem statement).\n            # Build iteratively: each operation consumes next two elements.\n            ops = 0\n            i = 0\n            while i + 1 < n and ops >= 0:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            best = ops\n\n        return best\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nGiven an array of integers called nums, you can perform the following operation while nums contains at least 2 elements:\n\nChoose the first two elements of nums and delete them.\n\nThe score of the operation is the sum of the deleted elements.\nYour task is to find the maximum number of operations that can be performed, such that all operations have the same score.\nReturn the maximum number of operations possible that satisfy the condition mentioned above.\n \nExample 1:\n\nInput: nums = [3,2,1,4,5]\nOutput: 2\nExplanation: We perform the following operations:\n- Delete the first two elements, with score 3 + 2 = 5, nums = [1,4,5].\n- Delete the first two elements, with score 1 + 4 = 5, nums = [5].\nWe are unable to perform any more operations as nums contain only 1 element.\nExample 2:\n\nInput: nums = [3,2,6,1,4]\nOutput: 1\nExplanation: We perform the following operations:\n- Delete the first two elements, with score 3 + 2 = 5, nums = [6,1,4].\nWe are unable to perform any more operations as the score of the next operation isn't the same as the previous one.\n\n \nConstraints:\n\n2 <= nums.length <= 100\n1 <= nums[i] <= 1000\n\n### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.\n```python\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        \n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Try all possible target sums: only sums of the first two elements\n        # and one-step ahead (because each operation removes from the front).\n        n = len(nums)\n\n        def can_do(target: int) -> int:\n            ops = 0\n            i = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        # The target sum must be nums[0] + nums[1] if at least one operation is done.\n        return can_do(nums[0] + nums[1])\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # All valid solutions are determined by the score of the first operation:\n        # If we take x = nums[0] + nums[1], then every later operation must also\n        # remove the next two elements summing to x.\n        target = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        def can_make(target: int) -> bool:\n            i = 0\n            ops = 0\n            n = len(nums)\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    return False\n                ops += 1\n                i += 2\n            return ops > 0  # at least one operation fits this target\n\n        # Try all possible targets derived from the first operation.\n        # Each operation always deletes the first two elements, so targets\n        # can only come from nums[0] + nums[1] or nums[0] + nums[2] (if used after one deletion),\n        # but actually the second operation's first element depends on first split,\n        # and in the greedy structure after choosing a target, the process is determined.\n        # We'll just enumerate targets that can appear for the first operation:\n        # First operation must be nums[0] + nums[1].\n        targets = {nums[0] + nums[1]}\n        \n        # Note: In this specific process, the first deletion is fixed, so only that target is possible.\n        # However, some similar tasks allow choosing target from different indices.\n        # Here the operation always deletes first two elements, so only one target is feasible.\n        # Still, implement in a general safe way: include only feasible target(s).\n        best = 0\n        for t in targets:\n            i = 0\n            ops = 0\n            n = len(nums)\n            while i + 1 < n and nums[i] + nums[i + 1] == t:\n                ops += 1\n                i += 2\n            best = max(best, ops)\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        def can_make(target: int) -> int:\n            i = 0\n            ops = 0\n            while i + 1 < len(nums):\n                if nums[i] + nums[i + 1] == target:\n                    ops += 1\n                    i += 2\n                else:\n                    break\n            return ops\n\n        best = 0\n        # First operation determines the fixed score, so try possible targets\n        # based on the first pair (only one possible for each target).\n        for target in (nums[0] + nums[1],):\n            best = max(best, can_make(target))\n\n        # More generally, consider targets created by choosing the first two elements\n        # (but since the operation always uses the first two, only nums[0]+nums[1] matters).\n        # The loop above is kept for clarity/minimal extensibility.\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Since each operation always removes the first two elements,\n        # any valid solution is determined by the target score s,\n        # which must equal nums[0] + nums[1] for the first operation.\n        s = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        n = len(nums)\n        while i + 1 < n and nums[i] + nums[i + 1] == s:\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        def can(score: int) -> int:\n            ops = 0\n            i = 0\n            n = len(nums)\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != score:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        n = len(nums)\n        if n < 2:\n            return 0\n\n        # Possible scores are sums of the first two elements after choosing\n        # which first pair score to match: only possible candidate is nums[0]+nums[1].\n        # But after deletions, the first pair is always from the current prefix,\n        # so score must be nums[0]+nums[1].\n        score = nums[0] + nums[1]\n        return can(score)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        best = 0\n\n        # Try all possible first operation scores derived from deleting\n        # the first two elements repeatedly (only possible score is fixed\n        # once we take the first two elements).\n        # But still, since score must be equal for all operations and\n        # operations are forced to always delete the first two elements,\n        # the score is determined by the first pair: nums[0] + nums[1].\n        target = nums[0] + nums[1]\n\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try all possible target sums using the first operation.\n        # Two pointers for a fixed target:\n        # - We always delete from the front, so next operation starts at some index i.\n        best = 0\n        for j in range(1, n, 1):\n            # Fix the target as sum of first two elements (always indices 0 and 1)\n            # This operation model implies target must equal nums[0] + nums[1].\n            # But to align with possible interpretations, keep logic general:\n            # In reality, since deletions always remove the first two elements,\n            # the score is fixed to nums[0] + nums[1] for any feasible solution.\n            pass\n\n        target = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try all possible target scores derived from deleting the first two elements.\n        # For each target score, greedily delete as long as possible.\n        best = 0\n        for i in range(2, n + 1):\n            target = nums[0] + nums[1]  # initial candidate score\n            # Check target validity against current prefix (only depends on first pair)\n            # Greedy simulation with this fixed target.\n            ops = 0\n            j = 0\n            k = 1\n            while k + 1 < n - (2 * ops - 1):  # not robust, avoid this approach\n\n                break\n\n        # The above attempt is incorrect; implement correct O(n) greedy per target.\n        # Only scores possible come from first two elements since every operation\n        # begins with the current first two elements. Therefore there is only one possible target:\n        # nums[0] + nums[1]. However, deletions happen, so after deletions the next first two\n        # elements must also sum to the same target; that's it.\n        target = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] == target:\n                ops += 1\n                i += 2\n            else:\n                break\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        if n < 2:\n            return 0\n\n        # Choose target score as sum of the first pair.\n        target = nums[0] + nums[1]\n\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "3320",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Try all possible target sums: only sums of the first two elements\n        # and one-step ahead (because each operation removes from the front).\n        n = len(nums)\n\n        def can_do(target: int) -> int:\n            ops = 0\n            i = 0\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        # The target sum must be nums[0] + nums[1] if at least one operation is done.\n        return can_do(nums[0] + nums[1])\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # All valid solutions are determined by the score of the first operation:\n        # If we take x = nums[0] + nums[1], then every later operation must also\n        # remove the next two elements summing to x.\n        target = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        def can_make(target: int) -> bool:\n            i = 0\n            ops = 0\n            n = len(nums)\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != target:\n                    return False\n                ops += 1\n                i += 2\n            return ops > 0  # at least one operation fits this target\n\n        # Try all possible targets derived from the first operation.\n        # Each operation always deletes the first two elements, so targets\n        # can only come from nums[0] + nums[1] or nums[0] + nums[2] (if used after one deletion),\n        # but actually the second operation's first element depends on first split,\n        # and in the greedy structure after choosing a target, the process is determined.\n        # We'll just enumerate targets that can appear for the first operation:\n        # First operation must be nums[0] + nums[1].\n        targets = {nums[0] + nums[1]}\n        \n        # Note: In this specific process, the first deletion is fixed, so only that target is possible.\n        # However, some similar tasks allow choosing target from different indices.\n        # Here the operation always deletes first two elements, so only one target is feasible.\n        # Still, implement in a general safe way: include only feasible target(s).\n        best = 0\n        for t in targets:\n            i = 0\n            ops = 0\n            n = len(nums)\n            while i + 1 < n and nums[i] + nums[i + 1] == t:\n                ops += 1\n                i += 2\n            best = max(best, ops)\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        def can_make(target: int) -> int:\n            i = 0\n            ops = 0\n            while i + 1 < len(nums):\n                if nums[i] + nums[i + 1] == target:\n                    ops += 1\n                    i += 2\n                else:\n                    break\n            return ops\n\n        best = 0\n        # First operation determines the fixed score, so try possible targets\n        # based on the first pair (only one possible for each target).\n        for target in (nums[0] + nums[1],):\n            best = max(best, can_make(target))\n\n        # More generally, consider targets created by choosing the first two elements\n        # (but since the operation always uses the first two, only nums[0]+nums[1] matters).\n        # The loop above is kept for clarity/minimal extensibility.\n        return best\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        # Since each operation always removes the first two elements,\n        # any valid solution is determined by the target score s,\n        # which must equal nums[0] + nums[1] for the first operation.\n        s = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        n = len(nums)\n        while i + 1 < n and nums[i] + nums[i + 1] == s:\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        def can(score: int) -> int:\n            ops = 0\n            i = 0\n            n = len(nums)\n            while i + 1 < n:\n                if nums[i] + nums[i + 1] != score:\n                    break\n                ops += 1\n                i += 2\n            return ops\n\n        n = len(nums)\n        if n < 2:\n            return 0\n\n        # Possible scores are sums of the first two elements after choosing\n        # which first pair score to match: only possible candidate is nums[0]+nums[1].\n        # But after deletions, the first pair is always from the current prefix,\n        # so score must be nums[0]+nums[1].\n        score = nums[0] + nums[1]\n        return can(score)\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        best = 0\n\n        # Try all possible first operation scores derived from deleting\n        # the first two elements repeatedly (only possible score is fixed\n        # once we take the first two elements).\n        # But still, since score must be equal for all operations and\n        # operations are forced to always delete the first two elements,\n        # the score is determined by the first pair: nums[0] + nums[1].\n        target = nums[0] + nums[1]\n\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try all possible target sums using the first operation.\n        # Two pointers for a fixed target:\n        # - We always delete from the front, so next operation starts at some index i.\n        best = 0\n        for j in range(1, n, 1):\n            # Fix the target as sum of first two elements (always indices 0 and 1)\n            # This operation model implies target must equal nums[0] + nums[1].\n            # But to align with possible interpretations, keep logic general:\n            # In reality, since deletions always remove the first two elements,\n            # the score is fixed to nums[0] + nums[1] for any feasible solution.\n            pass\n\n        target = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n\n        # Try all possible target scores derived from deleting the first two elements.\n        # For each target score, greedily delete as long as possible.\n        best = 0\n        for i in range(2, n + 1):\n            target = nums[0] + nums[1]  # initial candidate score\n            # Check target validity against current prefix (only depends on first pair)\n            # Greedy simulation with this fixed target.\n            ops = 0\n            j = 0\n            k = 1\n            while k + 1 < n - (2 * ops - 1):  # not robust, avoid this approach\n\n                break\n\n        # The above attempt is incorrect; implement correct O(n) greedy per target.\n        # Only scores possible come from first two elements since every operation\n        # begins with the current first two elements. Therefore there is only one possible target:\n        # nums[0] + nums[1]. However, deletions happen, so after deletions the next first two\n        # elements must also sum to the same target; that's it.\n        target = nums[0] + nums[1]\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] == target:\n                ops += 1\n                i += 2\n            else:\n                break\n        return ops\n```",
+        "```python\nfrom typing import List\n\nclass Solution:\n    def maxOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        if n < 2:\n            return 0\n\n        # Choose target score as sum of the first pair.\n        target = nums[0] + nums[1]\n\n        ops = 0\n        i = 0\n        while i + 1 < n:\n            if nums[i] + nums[i + 1] != target:\n                break\n            ops += 1\n            i += 2\n        return ops\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "3320",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "3320",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 14,
+            "total": 14,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "2",
+                "actual": "2",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "1",
+                "actual": "1",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "50",
+                "actual": "50",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "49",
+                "actual": "49",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}
