@@ -1,0 +1,488 @@
+{
+  "problem_id": "1983-9",
+  "domain": "math",
+  "problem": {
+    "id": "1983-9",
+    "domain": "math",
+    "statement": "Find the minimum value of $\\frac{9x^2\\sin^2 x + 4}{x\\sin x}$ for $0 < x < \\pi$ .",
+    "answer": "12",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1983,
+      "problem_number": 9
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nFind the minimum value of $\\frac{9x^2\\sin^2 x + 4}{x\\sin x}$ for $0 < x < \\pi$ .",
+      "solutions": [
+        "We want minimize, for \\(0<x<\\pi\\),\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}.\n\\]\nLet \\(t=x\\sin x\\). Note \\(t>0\\) on \\((0,\\pi)\\), since \\(\\sin x>0\\) and \\(x>0\\). Then the expression becomes\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need minimize \\(9t+\\frac{4}{t}\\) subject to \\(t=x\\sin x\\) attainable for \\(0<x<\\pi\\).\n\n### Step 1: Minimize \\(9t+\\frac{4}{t}\\) as a function of \\(t>0\\)\nBy AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is at least \\(12\\), and will be achieved if there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\n### Step 2: Show \\(x\\sin x=\\frac{2}{3}\\) has a solution in \\((0,\\pi)\\)\nConsider \\(f(x)=x\\sin x\\). We have:\n- \\(\\lim_{x\\to 0^+} f(x)=0\\).\n- At \\(x=\\frac{\\pi}{2}\\), \\(f\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx 1.5708\\).\n\nSince \\(\\frac{2}{3}\\approx 0.6667\\), by continuity there exists some \\(x\\in(0,\\pi/2)\\subset(0,\\pi)\\) with \\(f(x)=\\frac{2}{3}\\).\n\nThus the equality condition is achievable, so the lower bound \\(12\\) is attained.\n\nTherefore the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\). Set\n\\[\nt=x\\sin x,\\qquad s=\\sin x.\n\\]\nThen \\(t>0\\) and \\(0<s\\le 1\\). The expression becomes\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we must minimize \\(9t+\\frac{4}{t}\\) over all possible values of \\(t=x\\sin x\\).\n\n### Step 1: Find the maximum possible \\(t\\)\nSince \\(\\sin x\\le 1\\),\n\\[\nt=x\\sin x\\le x.\n\\]\nMore directly, the function \\(x\\sin x\\) on \\((0,\\pi)\\) attains its maximum where its derivative is zero:\n\\[\n\\frac{d}{dx}(x\\sin x)=\\sin x+x\\cos x=0\n\\quad\\Longleftrightarrow\\quad\n\\tan x=-x.\n\\]\nThis transcendental equation has a unique solution in \\((\\tfrac{\\pi}{2},\\pi)\\); call it \\(x_0\\). Then\n\\[\nt_{\\max}=x_0\\sin x_0.\n\\]\n(We won’t need its explicit value.)\n\n### Step 2: Minimize \\(9t+\\frac4t\\) by checking feasibility\nFor \\(t>0\\), consider\n\\[\nf(t)=9t+\\frac4t.\n\\]\nThis is minimized at\n\\[\nf'(t)=9-\\frac4{t^2}=0\n\\quad\\Longrightarrow\\quad\nt^2=\\frac49\n\\quad\\Longrightarrow\\quad\nt=\\frac23\n\\]\n(since \\(t>0\\)). Then\n\\[\nf\\left(\\frac23\\right)=9\\cdot\\frac23+\\frac4{2/3}=6+\\frac4{2/3}=6+6=12.\n\\]\nThus, if \\(\\frac23\\) is achievable as \\(x\\sin x\\), the minimum is \\(12\\).\n\n### Step 3: Show \\(\\frac23\\) is achievable\nWe use continuity of \\(g(x)=x\\sin x\\) on \\((0,\\pi)\\). We know:\n- As \\(x\\to 0^+\\), \\(g(x)=x\\sin x\\sim x^2\\to 0\\).\n- At \\(x=\\pi/2\\), \\(g(\\pi/2)=(\\pi/2)\\cdot 1=\\pi/2\\approx 1.5708\\).\n\nSince\n\\[\n0<\\frac23\\approx 0.6667<\\frac\\pi2,\n\\]\nand \\(g\\) is continuous, by the Intermediate Value Theorem there exists some \\(x\\in(0,\\pi/2)\\) such that\n\\[\nx\\sin x=\\frac23.\n\\]\nAt that \\(x\\), the expression equals \\(12\\). Because \\(f(t)\\ge 12\\) for all \\(t>0\\) (by AM-GM or calculus),\n\\[\n9t+\\frac4t \\ge 2\\sqrt{9t\\cdot \\frac4t}=2\\sqrt{36}=12,\n\\]\nthe global minimum is indeed \\(12\\).\n\n### Step 4: Conclude\nTherefore the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let  \n\\[\nf(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\\qquad (0<x<\\pi).\n\\]\nSince \\(\\sin x>0\\) on \\((0,\\pi)\\), the denominator \\(x\\sin x>0\\), so \\(f(x)\\) is well-defined and positive.\n\nRewrite:\n\\[\nf(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nLet\n\\[\nt=x\\sin x \\quad\\Rightarrow\\quad t>0.\n\\]\nThen\n\\[\nf(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or the inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt{b}\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Rightarrow\\quad 9t^2=4\\quad\\Rightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow check existence: the function \\(g(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), and\n\\[\n\\lim_{x\\to 0^+} x\\sin x = 0.\n\\]\nAlso at \\(x=\\frac{\\pi}{2}\\),\n\\[\ng\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx1.57>\\frac{2}{3}.\n\\]\nBy the Intermediate Value Theorem, there is some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achieved.\n\nHence the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\\qquad (0<x<\\pi).\n\\]\nLet \\(t=x\\sin x\\). For \\(0<x<\\pi\\), we have \\(\\sin x>0\\) so \\(t>0\\).\n\nRewrite the expression in terms of \\(t\\):\n\\[\nE(x)=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need to minimize \\(9t+\\frac{4}{t}\\) over all achievable \\(t=x\\sin x\\) with \\(0<x<\\pi\\).\n\nBy AM-GM (or standard inequality),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\n\nIt remains to check whether there exists \\(x\\in(0,\\pi)\\) such that \\(x\\sin x=\\frac23\\).\nConsider \\(f(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(f(x)\\) is continuous, \\(f(x)\\to 0\\) as \\(x\\to 0^+\\), and\n\\[\nf\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac23.\n\\]\nThus by the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac23\\). At that \\(x\\), the equality condition holds, so the minimum value is indeed \\(12\\).\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\) and set\n\\[\nt=x\\sin x.\n\\]\nThen \\(t>0\\) (since \\(\\sin x>0\\) on \\((0,\\pi)\\)). The expression becomes\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need the minimum of\n\\[\n9t+\\frac{4}{t}\n\\]\nover all possible values of \\(t=x\\sin x\\).\n\nNow,\n\\[\nt=x\\sin x \\le x\\cdot 1 \\le \\pi,\n\\]\nand also \\(t>0\\). So \\(t\\in(0,\\pi]\\).\n\nFor fixed \\(t>0\\), the function \\(f(t)=9t+\\frac{4}{t}\\) is minimized at\n\\[\nf'(t)=9-\\frac{4}{t^2}=0 \\quad\\Longrightarrow\\quad 9t^2=4 \\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nThis critical point lies in \\((0,\\pi]\\), so it is feasible provided there exists \\(x\\in(0,\\pi)\\) such that \\(x\\sin x=\\frac23\\). Since \\(x\\sin x\\) is continuous and takes values arbitrarily close to \\(0\\) near \\(x\\to 0^+\\), and equals \\( \\frac{\\pi}{2}\\) at \\(x=\\frac{\\pi}{2}\\), by the Intermediate Value Theorem there is such an \\(x\\).\n\nThus the minimum value is\n\\[\nf\\!\\left(\\frac23\\right)=9\\cdot\\frac23+\\frac{4}{2/3}=6+\\frac{4\\cdot 3}{2}=6+6=12.\n\\]\n\nANSWER: 12",
+        "Let \\(x\\in(0,\\pi)\\) and set\n\\[\ns=\\sin x,\\qquad \\text{so } s\\in(0,1].\n\\]\nWe must minimize\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9x^2s^2+4}{xs}\n=9xs+\\frac{4}{xs}.\n\\]\nSo the expression is\n\\[\nf(x)=9xs+\\frac{4}{xs}.\n\\]\n\nNow use AM-GM on the two positive terms \\(9xs\\) and \\(\\frac{4}{xs}\\):\n\\[\n9xs+\\frac{4}{xs}\\ \\ge\\ 2\\sqrt{9xs\\cdot \\frac{4}{xs}}\n=2\\sqrt{36}=12.\n\\]\nEquality in AM-GM occurs when\n\\[\n9xs=\\frac{4}{xs}\\quad\\Longrightarrow\\quad 9x^2s^2=4\n\\quad\\Longrightarrow\\quad 3xs=2.\n\\]\nSo we need \\(x\\sin x=\\frac{2}{3}\\).\n\nCheck whether such an \\(x\\) exists in \\((0,\\pi)\\):\n- As \\(x\\to 0^+\\), \\(\\sin x\\sim x\\), hence \\(x\\sin x\\sim x^2\\to 0\\).\n- At \\(x=\\pi\\), \\(\\sin\\pi=0\\), so \\(x\\sin x=0\\).\n- At \\(x=\\frac{\\pi}{2}\\), \\(\\sin x=1\\), so \\(x\\sin x=\\frac{\\pi}{2}\\approx 1.57>\\frac{2}{3}\\).\n\nBy continuity, on \\((0,\\frac{\\pi}{2}]\\) there is some \\(x\\) with \\(x\\sin x=\\frac{2}{3}\\). For that \\(x\\), the AM-GM equality condition holds, giving minimum value \\(12\\).\n\nTherefore, the minimum value of the given expression is \\(12\\).\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x + 4}{x\\sin x}\n\\]\nfor \\(0<x<\\pi\\). Note \\(\\sin x>0\\) on \\((0,\\pi)\\), so \\(x\\sin x>0\\) and the expression is well-defined.\n\nRewrite by splitting:\n\\[\nE(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nSet \\(t=x\\sin x\\), where \\(t>0\\). Then\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), minimize \\(9t+\\frac{4}{t}\\). By AM-GM:\n\\[\n9t+\\frac{4}{t} \\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\n\nSo the minimum possible value of \\(E(x)\\) is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nNow \\(x\\sin x\\) is continuous on \\((0,\\pi)\\), with\n\\[\n\\lim_{x\\to 0^+} x\\sin x=0,\\qquad x=\\frac{\\pi}{2}\\implies x\\sin x=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nBy the Intermediate Value Theorem, such an \\(x\\) exists. Therefore the lower bound \\(12\\) is attainable.\n\nHence the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\) and set \\(t=x\\sin x\\). Note that\n\\[\n\\frac{9x^2\\sin^2 x + 4}{x\\sin x}=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(0<x<\\pi\\), we have \\(\\sin x>0\\), so \\(t=x\\sin x>0\\). Thus the expression is\n\\[\nf(t)=9t+\\frac{4}{t}\\quad (t>0),\n\\]\nwhich is minimized when \\(f'(t)=9-\\frac{4}{t^2}=0\\), i.e.\n\\[\n9=\\frac{4}{t^2}\\quad\\Rightarrow\\quad t^2=\\frac{4}{9}\\quad\\Rightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is\n\\[\nf\\!\\left(\\frac{2}{3}\\right)=9\\cdot\\frac{2}{3}+\\frac{4}{2/3}=6+\\frac{4\\cdot 3}{2}=6+6=12,\n\\]\nprovided there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\).\n\nConsider \\(g(x)=x\\sin x\\) on \\((0,\\pi)\\). We have \\(g(x)>0\\), and\n\\[\n\\lim_{x\\to 0^+} g(x)=0,\\qquad g\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}> \\frac{2}{3}.\n\\]\nBy continuity, there exists some \\(x\\in(0,\\pi/2)\\subset(0,\\pi)\\) with \\(g(x)=\\frac{2}{3}\\). Therefore the bound \\(12\\) is attainable, hence it is the minimum.\n\n\\[\n\\boxed{12}\n\\]\n\nANSWER: 12",
+        "Let  \n\\[\nF(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x} \\qquad (0<x<\\pi).\n\\]\nSince \\(\\sin x>0\\) on \\((0,\\pi)\\), we can set\n\\[\nt=x\\sin x>0.\n\\]\nThen\n\\[\nF(x)=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or the standard inequality \\(a u+\\frac{b}{u}\\ge 2\\sqrt{ab}\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum of \\(F(x)\\) is \\(12\\) provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nBut \\(x\\sin x\\) is continuous on \\((0,\\pi)\\), and:\n- as \\(x\\to 0^+\\), \\(x\\sin x\\sim x^2\\to 0\\),\n- at \\(x=\\frac{\\pi}{2}\\), \\(x\\sin x=\\frac{\\pi}{2}\\approx 1.57>\\frac23\\).\nHence by the Intermediate Value Theorem, there exists some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac23\\), achieving the bound.\n\nTherefore the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nFor \\(0<x<\\pi\\), we have \\(\\sin x>0\\), so the denominator is positive.\n\nSet \\(t=x\\sin x>0\\). Then\n\\[\nE(x)=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or the standard inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt b\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow consider \\(f(x)=x\\sin x\\) on \\((0,\\pi)\\). We have\n\\[\n\\lim_{x\\to 0^+} x\\sin x =0,\\qquad f\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}> \\frac{2}{3}.\n\\]\nSince \\(f\\) is continuous, by the Intermediate Value Theorem there exists \\(x\\in(0,\\pi)\\) with \\(f(x)=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achievable.\n\nHence the minimum value is \\(12\\).\n\nANSWER: 12"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1983-9",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "We want minimize, for \\(0<x<\\pi\\),\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}.\n\\]\nLet \\(t=x\\sin x\\). Note \\(t>0\\) on \\((0,\\pi)\\), since \\(\\sin x>0\\) and \\(x>0\\). Then the expression becomes\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need minimize \\(9t+\\frac{4}{t}\\) subject to \\(t=x\\sin x\\) attainable for \\(0<x<\\pi\\).\n\n### Step 1: Minimize \\(9t+\\frac{4}{t}\\) as a function of \\(t>0\\)\nBy AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is at least \\(12\\), and will be achieved if there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\n### Step 2: Show \\(x\\sin x=\\frac{2}{3}\\) has a solution in \\((0,\\pi)\\)\nConsider \\(f(x)=x\\sin x\\). We have:\n- \\(\\lim_{x\\to 0^+} f(x)=0\\).\n- At \\(x=\\frac{\\pi}{2}\\), \\(f\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx 1.5708\\).\n\nSince \\(\\frac{2}{3}\\approx 0.6667\\), by continuity there exists some \\(x\\in(0,\\pi/2)\\subset(0,\\pi)\\) with \\(f(x)=\\frac{2}{3}\\).\n\nThus the equality condition is achievable, so the lower bound \\(12\\) is attained.\n\nTherefore the minimum value is \\(12\\).\n\nANSWER: 12",
+          "Let \\(0<x<\\pi\\). Set\n\\[\nt=x\\sin x,\\qquad s=\\sin x.\n\\]\nThen \\(t>0\\) and \\(0<s\\le 1\\). The expression becomes\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we must minimize \\(9t+\\frac{4}{t}\\) over all possible values of \\(t=x\\sin x\\).\n\n### Step 1: Find the maximum possible \\(t\\)\nSince \\(\\sin x\\le 1\\),\n\\[\nt=x\\sin x\\le x.\n\\]\nMore directly, the function \\(x\\sin x\\) on \\((0,\\pi)\\) attains its maximum where its derivative is zero:\n\\[\n\\frac{d}{dx}(x\\sin x)=\\sin x+x\\cos x=0\n\\quad\\Longleftrightarrow\\quad\n\\tan x=-x.\n\\]\nThis transcendental equation has a unique solution in \\((\\tfrac{\\pi}{2},\\pi)\\); call it \\(x_0\\). Then\n\\[\nt_{\\max}=x_0\\sin x_0.\n\\]\n(We won’t need its explicit value.)\n\n### Step 2: Minimize \\(9t+\\frac4t\\) by checking feasibility\nFor \\(t>0\\), consider\n\\[\nf(t)=9t+\\frac4t.\n\\]\nThis is minimized at\n\\[\nf'(t)=9-\\frac4{t^2}=0\n\\quad\\Longrightarrow\\quad\nt^2=\\frac49\n\\quad\\Longrightarrow\\quad\nt=\\frac23\n\\]\n(since \\(t>0\\)). Then\n\\[\nf\\left(\\frac23\\right)=9\\cdot\\frac23+\\frac4{2/3}=6+\\frac4{2/3}=6+6=12.\n\\]\nThus, if \\(\\frac23\\) is achievable as \\(x\\sin x\\), the minimum is \\(12\\).\n\n### Step 3: Show \\(\\frac23\\) is achievable\nWe use continuity of \\(g(x)=x\\sin x\\) on \\((0,\\pi)\\). We know:\n- As \\(x\\to 0^+\\), \\(g(x)=x\\sin x\\sim x^2\\to 0\\).\n- At \\(x=\\pi/2\\), \\(g(\\pi/2)=(\\pi/2)\\cdot 1=\\pi/2\\approx 1.5708\\).\n\nSince\n\\[\n0<\\frac23\\approx 0.6667<\\frac\\pi2,\n\\]\nand \\(g\\) is continuous, by the Intermediate Value Theorem there exists some \\(x\\in(0,\\pi/2)\\) such that\n\\[\nx\\sin x=\\frac23.\n\\]\nAt that \\(x\\), the expression equals \\(12\\). Because \\(f(t)\\ge 12\\) for all \\(t>0\\) (by AM-GM or calculus),\n\\[\n9t+\\frac4t \\ge 2\\sqrt{9t\\cdot \\frac4t}=2\\sqrt{36}=12,\n\\]\nthe global minimum is indeed \\(12\\).\n\n### Step 4: Conclude\nTherefore the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+          "Let  \n\\[\nf(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\\qquad (0<x<\\pi).\n\\]\nSince \\(\\sin x>0\\) on \\((0,\\pi)\\), the denominator \\(x\\sin x>0\\), so \\(f(x)\\) is well-defined and positive.\n\nRewrite:\n\\[\nf(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nLet\n\\[\nt=x\\sin x \\quad\\Rightarrow\\quad t>0.\n\\]\nThen\n\\[\nf(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or the inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt{b}\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Rightarrow\\quad 9t^2=4\\quad\\Rightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow check existence: the function \\(g(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), and\n\\[\n\\lim_{x\\to 0^+} x\\sin x = 0.\n\\]\nAlso at \\(x=\\frac{\\pi}{2}\\),\n\\[\ng\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx1.57>\\frac{2}{3}.\n\\]\nBy the Intermediate Value Theorem, there is some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achieved.\n\nHence the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+          "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\\qquad (0<x<\\pi).\n\\]\nLet \\(t=x\\sin x\\). For \\(0<x<\\pi\\), we have \\(\\sin x>0\\) so \\(t>0\\).\n\nRewrite the expression in terms of \\(t\\):\n\\[\nE(x)=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need to minimize \\(9t+\\frac{4}{t}\\) over all achievable \\(t=x\\sin x\\) with \\(0<x<\\pi\\).\n\nBy AM-GM (or standard inequality),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\n\nIt remains to check whether there exists \\(x\\in(0,\\pi)\\) such that \\(x\\sin x=\\frac23\\).\nConsider \\(f(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(f(x)\\) is continuous, \\(f(x)\\to 0\\) as \\(x\\to 0^+\\), and\n\\[\nf\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac23.\n\\]\nThus by the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac23\\). At that \\(x\\), the equality condition holds, so the minimum value is indeed \\(12\\).\n\nANSWER: 12",
+          "Let \\(0<x<\\pi\\) and set\n\\[\nt=x\\sin x.\n\\]\nThen \\(t>0\\) (since \\(\\sin x>0\\) on \\((0,\\pi)\\)). The expression becomes\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need the minimum of\n\\[\n9t+\\frac{4}{t}\n\\]\nover all possible values of \\(t=x\\sin x\\).\n\nNow,\n\\[\nt=x\\sin x \\le x\\cdot 1 \\le \\pi,\n\\]\nand also \\(t>0\\). So \\(t\\in(0,\\pi]\\).\n\nFor fixed \\(t>0\\), the function \\(f(t)=9t+\\frac{4}{t}\\) is minimized at\n\\[\nf'(t)=9-\\frac{4}{t^2}=0 \\quad\\Longrightarrow\\quad 9t^2=4 \\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nThis critical point lies in \\((0,\\pi]\\), so it is feasible provided there exists \\(x\\in(0,\\pi)\\) such that \\(x\\sin x=\\frac23\\). Since \\(x\\sin x\\) is continuous and takes values arbitrarily close to \\(0\\) near \\(x\\to 0^+\\), and equals \\( \\frac{\\pi}{2}\\) at \\(x=\\frac{\\pi}{2}\\), by the Intermediate Value Theorem there is such an \\(x\\).\n\nThus the minimum value is\n\\[\nf\\!\\left(\\frac23\\right)=9\\cdot\\frac23+\\frac{4}{2/3}=6+\\frac{4\\cdot 3}{2}=6+6=12.\n\\]\n\nANSWER: 12",
+          "Let \\(x\\in(0,\\pi)\\) and set\n\\[\ns=\\sin x,\\qquad \\text{so } s\\in(0,1].\n\\]\nWe must minimize\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9x^2s^2+4}{xs}\n=9xs+\\frac{4}{xs}.\n\\]\nSo the expression is\n\\[\nf(x)=9xs+\\frac{4}{xs}.\n\\]\n\nNow use AM-GM on the two positive terms \\(9xs\\) and \\(\\frac{4}{xs}\\):\n\\[\n9xs+\\frac{4}{xs}\\ \\ge\\ 2\\sqrt{9xs\\cdot \\frac{4}{xs}}\n=2\\sqrt{36}=12.\n\\]\nEquality in AM-GM occurs when\n\\[\n9xs=\\frac{4}{xs}\\quad\\Longrightarrow\\quad 9x^2s^2=4\n\\quad\\Longrightarrow\\quad 3xs=2.\n\\]\nSo we need \\(x\\sin x=\\frac{2}{3}\\).\n\nCheck whether such an \\(x\\) exists in \\((0,\\pi)\\):\n- As \\(x\\to 0^+\\), \\(\\sin x\\sim x\\), hence \\(x\\sin x\\sim x^2\\to 0\\).\n- At \\(x=\\pi\\), \\(\\sin\\pi=0\\), so \\(x\\sin x=0\\).\n- At \\(x=\\frac{\\pi}{2}\\), \\(\\sin x=1\\), so \\(x\\sin x=\\frac{\\pi}{2}\\approx 1.57>\\frac{2}{3}\\).\n\nBy continuity, on \\((0,\\frac{\\pi}{2}]\\) there is some \\(x\\) with \\(x\\sin x=\\frac{2}{3}\\). For that \\(x\\), the AM-GM equality condition holds, giving minimum value \\(12\\).\n\nTherefore, the minimum value of the given expression is \\(12\\).\n\nANSWER: 12",
+          "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x + 4}{x\\sin x}\n\\]\nfor \\(0<x<\\pi\\). Note \\(\\sin x>0\\) on \\((0,\\pi)\\), so \\(x\\sin x>0\\) and the expression is well-defined.\n\nRewrite by splitting:\n\\[\nE(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nSet \\(t=x\\sin x\\), where \\(t>0\\). Then\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), minimize \\(9t+\\frac{4}{t}\\). By AM-GM:\n\\[\n9t+\\frac{4}{t} \\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\n\nSo the minimum possible value of \\(E(x)\\) is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nNow \\(x\\sin x\\) is continuous on \\((0,\\pi)\\), with\n\\[\n\\lim_{x\\to 0^+} x\\sin x=0,\\qquad x=\\frac{\\pi}{2}\\implies x\\sin x=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nBy the Intermediate Value Theorem, such an \\(x\\) exists. Therefore the lower bound \\(12\\) is attainable.\n\nHence the minimum value is \\(12\\).\n\nANSWER: 12",
+          "Let \\(0<x<\\pi\\) and set \\(t=x\\sin x\\). Note that\n\\[\n\\frac{9x^2\\sin^2 x + 4}{x\\sin x}=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(0<x<\\pi\\), we have \\(\\sin x>0\\), so \\(t=x\\sin x>0\\). Thus the expression is\n\\[\nf(t)=9t+\\frac{4}{t}\\quad (t>0),\n\\]\nwhich is minimized when \\(f'(t)=9-\\frac{4}{t^2}=0\\), i.e.\n\\[\n9=\\frac{4}{t^2}\\quad\\Rightarrow\\quad t^2=\\frac{4}{9}\\quad\\Rightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is\n\\[\nf\\!\\left(\\frac{2}{3}\\right)=9\\cdot\\frac{2}{3}+\\frac{4}{2/3}=6+\\frac{4\\cdot 3}{2}=6+6=12,\n\\]\nprovided there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\).\n\nConsider \\(g(x)=x\\sin x\\) on \\((0,\\pi)\\). We have \\(g(x)>0\\), and\n\\[\n\\lim_{x\\to 0^+} g(x)=0,\\qquad g\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}> \\frac{2}{3}.\n\\]\nBy continuity, there exists some \\(x\\in(0,\\pi/2)\\subset(0,\\pi)\\) with \\(g(x)=\\frac{2}{3}\\). Therefore the bound \\(12\\) is attainable, hence it is the minimum.\n\n\\[\n\\boxed{12}\n\\]\n\nANSWER: 12",
+          "Let  \n\\[\nF(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x} \\qquad (0<x<\\pi).\n\\]\nSince \\(\\sin x>0\\) on \\((0,\\pi)\\), we can set\n\\[\nt=x\\sin x>0.\n\\]\nThen\n\\[\nF(x)=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or the standard inequality \\(a u+\\frac{b}{u}\\ge 2\\sqrt{ab}\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum of \\(F(x)\\) is \\(12\\) provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nBut \\(x\\sin x\\) is continuous on \\((0,\\pi)\\), and:\n- as \\(x\\to 0^+\\), \\(x\\sin x\\sim x^2\\to 0\\),\n- at \\(x=\\frac{\\pi}{2}\\), \\(x\\sin x=\\frac{\\pi}{2}\\approx 1.57>\\frac23\\).\nHence by the Intermediate Value Theorem, there exists some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac23\\), achieving the bound.\n\nTherefore the minimum value is \\(12\\).\n\nANSWER: 12",
+          "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nFor \\(0<x<\\pi\\), we have \\(\\sin x>0\\), so the denominator is positive.\n\nSet \\(t=x\\sin x>0\\). Then\n\\[\nE(x)=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or the standard inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt b\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow consider \\(f(x)=x\\sin x\\) on \\((0,\\pi)\\). We have\n\\[\n\\lim_{x\\to 0^+} x\\sin x =0,\\qquad f\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}> \\frac{2}{3}.\n\\]\nSince \\(f\\) is continuous, by the Intermediate Value Theorem there exists \\(x\\in(0,\\pi)\\) with \\(f(x)=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achievable.\n\nHence the minimum value is \\(12\\).\n\nANSWER: 12"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nFind the minimum value of $\\frac{9x^2\\sin^2 x + 4}{x\\sin x}$ for $0 < x < \\pi$ ."
+      },
+      "baseline_solutions": [
+        "Let  \n\\[\nf(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\\qquad (0<x<\\pi).\n\\]\nSince \\(x>0\\) and \\(\\sin x>0\\) on \\((0,\\pi)\\), the expression is well-defined and positive.\n\nRewrite:\n\\[\nf(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nSet\n\\[\nt=x\\sin x \\quad (>0).\n\\]\nThen\n\\[\nf(x)=9t+\\frac{4}{t}.\n\\]\n\nFor \\(t>0\\), by AM-GM (or the inequality \\(at+\\frac{b}{t}\\ge 2\\sqrt{ab}\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9\\cdot 4}=2\\sqrt{36}=12.\n\\]\nEquality occurs when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum of \\(f(x)\\) is \\(12\\) provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nCheck existence: define \\(g(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(g\\) is continuous, \\(g(x)\\to 0\\) as \\(x\\to 0^+\\), and \\(g(\\pi/2)=\\frac{\\pi}{2}> \\frac{2}{3}\\). Therefore by the Intermediate Value Theorem, there is some \\(x\\in(0,\\pi)\\) with \\(g(x)=\\frac{2}{3}\\). Hence the lower bound \\(12\\) is achievable.\n\nTherefore the minimum value is\n\\[\n\\boxed{12}.\n\\]\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nOn \\((0,\\pi)\\), we have \\(\\sin x>0\\), and also \\(x>0\\), so \\(x\\sin x>0\\). Thus we can rewrite:\n\\[\nE(x)=\\frac{9(x\\sin x)^2+4}{x\\sin x}=9(x\\sin x)+\\frac{4}{x\\sin x}.\n\\]\nSet\n\\[\nt=x\\sin x \\quad (>0).\n\\]\nThen\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), use AM-GM:\n\\[\n9t+\\frac{4}{t}= \\left( \\frac{9t+9t}{2} \\right)+\\left(\\frac{4/t+4/t}{2}\\right)\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12.\n\\]\nEquality holds when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad t^2=\\frac{4}{9}\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum value is \\(12\\), provided there exists some \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nCheck existence: consider \\(f(x)=x\\sin x\\). We have\n\\[\nf(0^+)=0,\\qquad f(\\pi/2)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx1.57>\\frac{2}{3}.\n\\]\nBy continuity, there is \\(x\\in(0,\\pi/2)\\) with \\(x\\sin x=2/3\\). Hence the equality case is achievable.\n\nTherefore the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\). Put \\(s=\\sin x\\) and \\(t=x s=x\\sin x\\). Note \\(s>0\\) on \\((0,\\pi)\\), and \\(t>0\\).\n\nRewrite the expression:\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need the minimum of\n\\[\nf(t)=9t+\\frac{4}{t}\\quad \\text{for } t=x\\sin x \\text{ with }0<x<\\pi.\n\\]\n\nFirst, for positive \\(t\\), by AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nThus the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow check existence. Define \\(g(x)=x\\sin x\\) on \\((0,\\pi)\\). We have:\n- \\(g(x)\\to 0\\) as \\(x\\to 0^+\\),\n- \\(g(\\pi)=\\pi\\sin\\pi=0\\),\n- \\(g\\) is positive somewhere in between, and it attains a maximum at some \\(x\\in(0,\\pi)\\).\n\nIn particular, at \\(x=\\frac{\\pi}{2}\\),\n\\[\ng\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx 1.5708>\\frac{2}{3}\\approx 0.6667.\n\\]\nSince \\(g(x)\\) is continuous and \\(g(0^+)=0<\\frac{2}{3}\\) while \\(g\\!\\left(\\frac{\\pi}{2}\\right)>\\frac{2}{3}\\), by the intermediate value theorem there exists \\(x\\in\\left(0,\\frac{\\pi}{2}\\right)\\subset(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\).\n\nTherefore the lower bound \\(12\\) is achievable, hence it is the minimum.\n\nANSWER: 12",
+        "Let \\(f(x)=\\dfrac{9x^2\\sin^2 x+4}{x\\sin x}\\) for \\(0<x<\\pi\\).  \nSet\n\\[\nt=x\\sin x \\quad (>0 \\text{ on }(0,\\pi)),\n\\]\nso\n\\[\nf(x)=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nBy AM-GM (or the standard inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt b\\) for \\(a>0\\)),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is at least \\(12\\), and it is attained if there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow note that \\(g(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), and\n- as \\(x\\to 0^+\\), \\(g(x)=x\\sin x\\sim x^2\\to 0\\),\n- at \\(x=\\frac{\\pi}{2}\\), \\(g\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}\\).\nBy the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Hence the lower bound \\(12\\) is achievable.\n\nTherefore the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let  \n\\[\nf(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nSince \\(x>0\\) and \\(\\sin x>0\\) for \\(0<x<\\pi\\), set\n\\[\nt=x\\sin x>0.\n\\]\nThen\n\\[\n9x^2\\sin^2 x+4=9t^2+4,\n\\]\nso\n\\[\nf(x)=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM,\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12.\n\\]\nEquality occurs when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo we need to check whether there exists \\(x\\in(0,\\pi)\\) with\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nThe function \\(x\\sin x\\) is continuous and positive on \\((0,\\pi)\\), and as \\(x\\to 0^+\\), \\(x\\sin x\\sim x^2\\to 0\\). At \\(x=\\frac{\\pi}{2}\\),\n\\[\nx\\sin x=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nHence by the Intermediate Value Theorem, there exists some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achievable, and thus is the minimum.\n\n\\[\n\\boxed{12}\n\\]\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\) and set\n\\[\nt=\\sin x \\quad (0<t\\le 1).\n\\]\nAlso note that \\(x>0\\), so we can work with positive quantities. Consider the expression\n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\n=\\frac{9x^2 t^2+4}{x t}\n=9xt+\\frac{4}{xt}.\n\\]\nLet \\(y=xt>0\\). Then\n\\[\nE=9y+\\frac{4}{y}.\n\\]\nBy AM-GM (or the standard inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt{b}\\) applied appropriately),\n\\[\n9y+\\frac{4}{y} \\ge 2\\sqrt{9y\\cdot \\frac{4}{y}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9y=\\frac{4}{y}\\quad\\Longrightarrow\\quad 9y^2=4\\quad\\Longrightarrow\\quad y=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided we can realize \\(xt=\\frac{2}{3}\\) with \\(t=\\sin x\\).\n\nEquality requires\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nCheck existence on \\((0,\\pi)\\): define \\(f(x)=x\\sin x\\). Then\n- \\(f(x)\\to 0\\) as \\(x\\to 0^+\\),\n- \\(f(\\pi)=\\pi\\sin\\pi=0\\),\n- \\(f(x)>0\\) for \\((0,\\pi)\\), and it attains a positive maximum somewhere in between.\nWe have \\(f\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx1.57>\\frac{2}{3}\\).\nHence, by continuity, there exists at least one \\(x\\in(0,\\pi)\\) such that \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achievable.\n\nThus the minimum value is \\(12\\).\n\nANSWER: 12",
+        "We minimize\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}\n= \\frac{(3x\\sin x)^2+2^2}{x\\sin x}.\n\\]\nLet \\(t=x\\sin x>0\\) for \\(0<x<\\pi\\) (since \\(\\sin x>0\\)). Then the expression becomes\n\\[\n\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nBut the function \\(f(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), with\n\\[\n\\lim_{x\\to 0^+} x\\sin x=0,\\qquad f\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nHence by the Intermediate Value Theorem, there exists some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the minimum is achievable.\n\nThus the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nNote that \\(x>0\\) and \\(\\sin x>0\\) on \\((0,\\pi)\\), so \\(x\\sin x>0\\) and the expression is well-defined.\n\nRewrite:\n\\[\nE(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}\n=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nLet \\(t=x\\sin x\\), where \\(t>0\\). Then\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), minimize \\(f(t)=9t+\\frac{4}{t}\\). By AM-GM:\n\\[\n9t+\\frac{4}{t}=9t+\\frac{1}{t/4}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12.\n\\]\nEquality occurs when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nDefine \\(g(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(g(0^+)=0\\) and \\(g(\\pi/2)=\\frac{\\pi}{2}\\approx1.57\\), so by continuity there is some \\(x\\) with \\(g(x)=\\frac{2}{3}\\). Hence the equality case is achievable, and the minimum is indeed \\(12\\).\n\nTherefore the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let\n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nSet \\(t=x\\sin x\\). On \\((0,\\pi)\\), we have \\(\\sin x>0\\), so \\(t>0\\). Then\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor fixed \\(t>0\\), by AM-GM (or the standard inequality \\(a t+\\frac{b}{t}\\ge 2\\sqrt{ab}\\)),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\) provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nNow note \\(f(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), and\n\\[\n\\lim_{x\\to 0^+} x\\sin x = 0,\\qquad f\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nHence by the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). For that \\(x\\), equality holds and \\(E(x)=12\\).\n\nTherefore, the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let \\(x\\in(0,\\pi)\\). Set\n\\[\nt=x\\sin x \\quad (>0).\n\\]\nAlso note\n\\[\n9x^2\\sin^2 x+4=9t^2+4.\n\\]\nThe expression becomes\n\\[\n\\frac{9t^2+4}{t}=9t+\\frac{4}{t},\\qquad t=x\\sin x,\\ 0<t<\\pi.\n\\]\n\nSo we need the minimum of \\(9t+\\frac{4}{t}\\) over the achievable range of \\(t\\).\n\n**Step 1: Minimize \\(9t+\\frac{4}{t}\\) for \\(t>0\\).**  \nBy AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nThus the expression is \\(\\ge 12\\), and it will attain 12 if there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\n**Step 2: Check feasibility of \\(t=\\frac{2}{3}\\) for \\(x\\in(0,\\pi)\\).**  \nConsider \\(f(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(f(x)>0\\), continuous.  \nAt \\(x\\to 0^+\\), \\(\\sin x\\sim x\\), so \\(f(x)\\sim x^2\\to 0\\).  \nAt \\(x=\\frac{\\pi}{2}\\), \\(f\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\approx 1.57\\), which is \\(>\\frac{2}{3}\\approx 0.666\\).\n\nBy the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound 12 is attainable.\n\nHence the minimum value is \\(12\\).\n\nANSWER: 12"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1983-9",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Let  \n\\[\nf(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\\qquad (0<x<\\pi).\n\\]\nSince \\(x>0\\) and \\(\\sin x>0\\) on \\((0,\\pi)\\), the expression is well-defined and positive.\n\nRewrite:\n\\[\nf(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nSet\n\\[\nt=x\\sin x \\quad (>0).\n\\]\nThen\n\\[\nf(x)=9t+\\frac{4}{t}.\n\\]\n\nFor \\(t>0\\), by AM-GM (or the inequality \\(at+\\frac{b}{t}\\ge 2\\sqrt{ab}\\)):\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9\\cdot 4}=2\\sqrt{36}=12.\n\\]\nEquality occurs when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum of \\(f(x)\\) is \\(12\\) provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nCheck existence: define \\(g(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(g\\) is continuous, \\(g(x)\\to 0\\) as \\(x\\to 0^+\\), and \\(g(\\pi/2)=\\frac{\\pi}{2}> \\frac{2}{3}\\). Therefore by the Intermediate Value Theorem, there is some \\(x\\in(0,\\pi)\\) with \\(g(x)=\\frac{2}{3}\\). Hence the lower bound \\(12\\) is achievable.\n\nTherefore the minimum value is\n\\[\n\\boxed{12}.\n\\]\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nOn \\((0,\\pi)\\), we have \\(\\sin x>0\\), and also \\(x>0\\), so \\(x\\sin x>0\\). Thus we can rewrite:\n\\[\nE(x)=\\frac{9(x\\sin x)^2+4}{x\\sin x}=9(x\\sin x)+\\frac{4}{x\\sin x}.\n\\]\nSet\n\\[\nt=x\\sin x \\quad (>0).\n\\]\nThen\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), use AM-GM:\n\\[\n9t+\\frac{4}{t}= \\left( \\frac{9t+9t}{2} \\right)+\\left(\\frac{4/t+4/t}{2}\\right)\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12.\n\\]\nEquality holds when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad t^2=\\frac{4}{9}\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum value is \\(12\\), provided there exists some \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nCheck existence: consider \\(f(x)=x\\sin x\\). We have\n\\[\nf(0^+)=0,\\qquad f(\\pi/2)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx1.57>\\frac{2}{3}.\n\\]\nBy continuity, there is \\(x\\in(0,\\pi/2)\\) with \\(x\\sin x=2/3\\). Hence the equality case is achievable.\n\nTherefore the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\). Put \\(s=\\sin x\\) and \\(t=x s=x\\sin x\\). Note \\(s>0\\) on \\((0,\\pi)\\), and \\(t>0\\).\n\nRewrite the expression:\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nSo we need the minimum of\n\\[\nf(t)=9t+\\frac{4}{t}\\quad \\text{for } t=x\\sin x \\text{ with }0<x<\\pi.\n\\]\n\nFirst, for positive \\(t\\), by AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nThus the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow check existence. Define \\(g(x)=x\\sin x\\) on \\((0,\\pi)\\). We have:\n- \\(g(x)\\to 0\\) as \\(x\\to 0^+\\),\n- \\(g(\\pi)=\\pi\\sin\\pi=0\\),\n- \\(g\\) is positive somewhere in between, and it attains a maximum at some \\(x\\in(0,\\pi)\\).\n\nIn particular, at \\(x=\\frac{\\pi}{2}\\),\n\\[\ng\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx 1.5708>\\frac{2}{3}\\approx 0.6667.\n\\]\nSince \\(g(x)\\) is continuous and \\(g(0^+)=0<\\frac{2}{3}\\) while \\(g\\!\\left(\\frac{\\pi}{2}\\right)>\\frac{2}{3}\\), by the intermediate value theorem there exists \\(x\\in\\left(0,\\frac{\\pi}{2}\\right)\\subset(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\).\n\nTherefore the lower bound \\(12\\) is achievable, hence it is the minimum.\n\nANSWER: 12",
+        "Let \\(f(x)=\\dfrac{9x^2\\sin^2 x+4}{x\\sin x}\\) for \\(0<x<\\pi\\).  \nSet\n\\[\nt=x\\sin x \\quad (>0 \\text{ on }(0,\\pi)),\n\\]\nso\n\\[\nf(x)=\\frac{9(x\\sin x)^2+4}{x\\sin x}=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nBy AM-GM (or the standard inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt b\\) for \\(a>0\\)),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is at least \\(12\\), and it is attained if there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\nNow note that \\(g(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), and\n- as \\(x\\to 0^+\\), \\(g(x)=x\\sin x\\sim x^2\\to 0\\),\n- at \\(x=\\frac{\\pi}{2}\\), \\(g\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}\\).\nBy the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Hence the lower bound \\(12\\) is achievable.\n\nTherefore the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let  \n\\[\nf(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nSince \\(x>0\\) and \\(\\sin x>0\\) for \\(0<x<\\pi\\), set\n\\[\nt=x\\sin x>0.\n\\]\nThen\n\\[\n9x^2\\sin^2 x+4=9t^2+4,\n\\]\nso\n\\[\nf(x)=\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM,\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12.\n\\]\nEquality occurs when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo we need to check whether there exists \\(x\\in(0,\\pi)\\) with\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nThe function \\(x\\sin x\\) is continuous and positive on \\((0,\\pi)\\), and as \\(x\\to 0^+\\), \\(x\\sin x\\sim x^2\\to 0\\). At \\(x=\\frac{\\pi}{2}\\),\n\\[\nx\\sin x=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nHence by the Intermediate Value Theorem, there exists some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achievable, and thus is the minimum.\n\n\\[\n\\boxed{12}\n\\]\n\nANSWER: 12",
+        "Let \\(0<x<\\pi\\) and set\n\\[\nt=\\sin x \\quad (0<t\\le 1).\n\\]\nAlso note that \\(x>0\\), so we can work with positive quantities. Consider the expression\n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}\n=\\frac{9x^2 t^2+4}{x t}\n=9xt+\\frac{4}{xt}.\n\\]\nLet \\(y=xt>0\\). Then\n\\[\nE=9y+\\frac{4}{y}.\n\\]\nBy AM-GM (or the standard inequality \\(a+\\frac{b}{a}\\ge 2\\sqrt{b}\\) applied appropriately),\n\\[\n9y+\\frac{4}{y} \\ge 2\\sqrt{9y\\cdot \\frac{4}{y}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9y=\\frac{4}{y}\\quad\\Longrightarrow\\quad 9y^2=4\\quad\\Longrightarrow\\quad y=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided we can realize \\(xt=\\frac{2}{3}\\) with \\(t=\\sin x\\).\n\nEquality requires\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nCheck existence on \\((0,\\pi)\\): define \\(f(x)=x\\sin x\\). Then\n- \\(f(x)\\to 0\\) as \\(x\\to 0^+\\),\n- \\(f(\\pi)=\\pi\\sin\\pi=0\\),\n- \\(f(x)>0\\) for \\((0,\\pi)\\), and it attains a positive maximum somewhere in between.\nWe have \\(f\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}\\approx1.57>\\frac{2}{3}\\).\nHence, by continuity, there exists at least one \\(x\\in(0,\\pi)\\) such that \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound \\(12\\) is achievable.\n\nThus the minimum value is \\(12\\).\n\nANSWER: 12",
+        "We minimize\n\\[\n\\frac{9x^2\\sin^2 x+4}{x\\sin x}\n= \\frac{(3x\\sin x)^2+2^2}{x\\sin x}.\n\\]\nLet \\(t=x\\sin x>0\\) for \\(0<x<\\pi\\) (since \\(\\sin x>0\\)). Then the expression becomes\n\\[\n\\frac{9t^2+4}{t}=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), by AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nBut the function \\(f(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), with\n\\[\n\\lim_{x\\to 0^+} x\\sin x=0,\\qquad f\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nHence by the Intermediate Value Theorem, there exists some \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the minimum is achievable.\n\nThus the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let  \n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x},\\qquad 0<x<\\pi.\n\\]\nNote that \\(x>0\\) and \\(\\sin x>0\\) on \\((0,\\pi)\\), so \\(x\\sin x>0\\) and the expression is well-defined.\n\nRewrite:\n\\[\nE(x)=\\frac{9x^2\\sin^2 x}{x\\sin x}+\\frac{4}{x\\sin x}\n=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nLet \\(t=x\\sin x\\), where \\(t>0\\). Then\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor \\(t>0\\), minimize \\(f(t)=9t+\\frac{4}{t}\\). By AM-GM:\n\\[\n9t+\\frac{4}{t}=9t+\\frac{1}{t/4}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12.\n\\]\nEquality occurs when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\), provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nDefine \\(g(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(g(0^+)=0\\) and \\(g(\\pi/2)=\\frac{\\pi}{2}\\approx1.57\\), so by continuity there is some \\(x\\) with \\(g(x)=\\frac{2}{3}\\). Hence the equality case is achievable, and the minimum is indeed \\(12\\).\n\nTherefore the minimum value is \\(12\\).\n\nANSWER: 12",
+        "Let\n\\[\nE(x)=\\frac{9x^2\\sin^2 x+4}{x\\sin x}=9x\\sin x+\\frac{4}{x\\sin x}.\n\\]\nSet \\(t=x\\sin x\\). On \\((0,\\pi)\\), we have \\(\\sin x>0\\), so \\(t>0\\). Then\n\\[\nE(x)=9t+\\frac{4}{t}.\n\\]\nFor fixed \\(t>0\\), by AM-GM (or the standard inequality \\(a t+\\frac{b}{t}\\ge 2\\sqrt{ab}\\)),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nSo the minimum possible value is \\(12\\) provided there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\nNow note \\(f(x)=x\\sin x\\) is continuous on \\((0,\\pi)\\), and\n\\[\n\\lim_{x\\to 0^+} x\\sin x = 0,\\qquad f\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\cdot 1=\\frac{\\pi}{2}>\\frac{2}{3}.\n\\]\nHence by the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). For that \\(x\\), equality holds and \\(E(x)=12\\).\n\nTherefore, the minimum value is \\(\\boxed{12}\\).\n\nANSWER: 12",
+        "Let \\(x\\in(0,\\pi)\\). Set\n\\[\nt=x\\sin x \\quad (>0).\n\\]\nAlso note\n\\[\n9x^2\\sin^2 x+4=9t^2+4.\n\\]\nThe expression becomes\n\\[\n\\frac{9t^2+4}{t}=9t+\\frac{4}{t},\\qquad t=x\\sin x,\\ 0<t<\\pi.\n\\]\n\nSo we need the minimum of \\(9t+\\frac{4}{t}\\) over the achievable range of \\(t\\).\n\n**Step 1: Minimize \\(9t+\\frac{4}{t}\\) for \\(t>0\\).**  \nBy AM-GM (or calculus),\n\\[\n9t+\\frac{4}{t}\\ge 2\\sqrt{9t\\cdot \\frac{4}{t}}=2\\sqrt{36}=12,\n\\]\nwith equality when\n\\[\n9t=\\frac{4}{t}\\quad\\Longrightarrow\\quad 9t^2=4\\quad\\Longrightarrow\\quad t=\\frac{2}{3}.\n\\]\nThus the expression is \\(\\ge 12\\), and it will attain 12 if there exists \\(x\\in(0,\\pi)\\) such that\n\\[\nx\\sin x=\\frac{2}{3}.\n\\]\n\n**Step 2: Check feasibility of \\(t=\\frac{2}{3}\\) for \\(x\\in(0,\\pi)\\).**  \nConsider \\(f(x)=x\\sin x\\). On \\((0,\\pi)\\), \\(f(x)>0\\), continuous.  \nAt \\(x\\to 0^+\\), \\(\\sin x\\sim x\\), so \\(f(x)\\sim x^2\\to 0\\).  \nAt \\(x=\\frac{\\pi}{2}\\), \\(f\\!\\left(\\frac{\\pi}{2}\\right)=\\frac{\\pi}{2}\\approx 1.57\\), which is \\(>\\frac{2}{3}\\approx 0.666\\).\n\nBy the Intermediate Value Theorem, there exists \\(x\\in(0,\\pi)\\) with \\(x\\sin x=\\frac{2}{3}\\). Therefore the lower bound 12 is attainable.\n\nHence the minimum value is \\(12\\).\n\nANSWER: 12"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1983-9",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        },
+        {
+          "problem_id": "1983-9",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "12",
+            "answer_line": "ANSWER: 12",
+            "answer_fragment": "12",
+            "extracted": "12"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

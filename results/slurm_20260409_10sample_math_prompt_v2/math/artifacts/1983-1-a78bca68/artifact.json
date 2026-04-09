@@ -1,0 +1,488 @@
+{
+  "problem_id": "1983-1",
+  "domain": "math",
+  "problem": {
+    "id": "1983-1",
+    "domain": "math",
+    "statement": "Let $x$ , $y$ and $z$ all exceed $1$ and let $w$ be a positive number such that $\\log_xw=24$ , $\\log_y w = 40$ and $\\log_{xyz}w=12$ . Find $\\log_zw$ .",
+    "answer": "60",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1983,
+      "problem_number": 1
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nLet $x$ , $y$ and $z$ all exceed $1$ and let $w$ be a positive number such that $\\log_xw=24$ , $\\log_y w = 40$ and $\\log_{xyz}w=12$ . Find $\\log_zw$ .",
+      "solutions": [
+        "Let  \n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z,\\quad t=\\ln w.\n\\]\nThen the given logarithm conditions become:\n\n1) \\(\\log_x w=24 \\Rightarrow \\dfrac{\\ln w}{\\ln x}=24 \\Rightarrow \\dfrac{t}{a}=24 \\Rightarrow t=24a.\\)\n\n2) \\(\\log_y w=40 \\Rightarrow \\dfrac{t}{b}=40 \\Rightarrow t=40b.\\)\n\n3) \\(\\log_{xyz} w=12 \\Rightarrow \\dfrac{\\ln w}{\\ln(xyz)}=12.\\)  \nBut \\(\\ln(xyz)=\\ln x+\\ln y+\\ln z=a+b+c\\). So\n\\[\n\\frac{t}{a+b+c}=12 \\Rightarrow t=12(a+b+c).\n\\]\n\nNow substitute \\(t=24a\\) and \\(t=40b\\).\n\nFrom \\(24a=40b\\), we get\n\\[\nb=\\frac{3}{5}a.\n\\]\n\nAlso from \\(t=12(a+b+c)\\):\n\\[\n24a=12(a+b+c)\\Rightarrow 2a=a+b+c \\Rightarrow a=b+c.\n\\]\nSo\n\\[\nc=a-b=a-\\frac{3}{5}a=\\frac{2}{5}a.\n\\]\n\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{t}{c}=\\frac{24a}{(2/5)a}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "Let \\(a=\\ln x,\\; b=\\ln y,\\; c=\\ln z\\). Then\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{\\ln w}{a}=24 \\implies \\ln w=24a\n\\]\n\\[\n\\log_y w=\\frac{\\ln w}{b}=40 \\implies \\ln w=40b\n\\]\nSo \\(24a=40b \\implies 3a=5b \\implies a=\\frac53 b\\).\n\nNext,\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=\\frac{\\ln w}{a+b+c}=12.\n\\]\nBut \\(\\ln w=24a\\), so\n\\[\n\\frac{24a}{a+b+c}=12 \\implies 24a=12(a+b+c)\\implies 2a=a+b+c\n\\]\n\\[\n\\implies a=b+c \\implies c=a-b.\n\\]\nUsing \\(a=\\frac53 b\\),\n\\[\nc=\\frac53 b-b=\\frac23 b.\n\\]\n\nNow compute \\(\\log_z w\\):\n\\[\n\\log_z w=\\frac{\\ln w}{c}=\\frac{24a}{c}.\n\\]\nSubstitute \\(c=\\frac23 b\\) and \\(a=\\frac53 b\\):\n\\[\n\\log_z w=\\frac{24\\cdot \\frac53 b}{\\frac23 b}=24\\cdot \\frac{5/3}{2/3}=24\\cdot \\frac52=60.\n\\]\n\nANSWER: 60",
+        "We are given\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nwith \\(x,y,z>1\\) and \\(w>0\\).\n\nRewrite each as an exponential relation:\n\\[\nw=x^{24},\\qquad w=y^{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=12 \\iff w=(xyz)^{12}.\n\\]\nSubstitute \\(w=x^{24}\\) into the third equation:\n\\[\nx^{24}=(xyz)^{12}.\n\\]\nTaking \\(12\\)-th roots gives\n\\[\nx^2=xyz.\n\\]\nSo\n\\[\nz=\\frac{x^2}{xy}=\\frac{x}{y}.\n\\]\n\nNow use \\(w=x^{24}=y^{40}\\). Taking logs base \\(e\\) (or any base) is fine:\n\\[\n24\\ln x=40\\ln y \\implies \\ln y=\\frac{24}{40}\\ln x=\\frac{3}{5}\\ln x.\n\\]\nHence\n\\[\ny=x^{3/5}.\n\\]\nThen\n\\[\nz=\\frac{x}{y}=\\frac{x}{x^{3/5}}=x^{2/5}.\n\\]\n\nWe want \\(\\log_z w\\). Since \\(w=x^{24}\\) and \\(z=x^{2/5}\\),\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{24\\ln x}{\\frac{2}{5}\\ln x}=24\\cdot\\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "We are given (with all logs in base indicated):\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12.\n\\]\nLet \\(L=\\ln w\\). Then\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{L}{\\ln x}=24 \\implies \\ln x=\\frac{L}{24},\n\\]\n\\[\n\\log_y w=\\frac{L}{\\ln y}=40 \\implies \\ln y=\\frac{L}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=\\frac{L}{\\ln(xyz)}=12 \\implies \\ln(xyz)=\\frac{L}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=\\frac{L}{24}+\\frac{L}{40}+\\ln z.\n\\]\nSo\n\\[\n\\frac{L}{24}+\\frac{L}{40}+\\ln z=\\frac{L}{12}\n\\]\n\\[\n\\ln z=\\frac{L}{12}-\\frac{L}{24}-\\frac{L}{40}.\n\\]\nCompute the coefficient:\n\\[\n\\frac{1}{12}-\\frac{1}{24}=\\frac{1}{24},\\quad \\frac{1}{24}-\\frac{1}{40}=\\frac{5-3}{120}=\\frac{2}{120}=\\frac{1}{60}.\n\\]\nThus\n\\[\n\\ln z=\\frac{L}{60}.\n\\]\nTherefore\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{L}{L/60}=60.\n\\]\n\nANSWER: 60",
+        "Let \\(a=\\ln x,\\; b=\\ln y,\\; c=\\ln z\\). Then for any base \\(t\\),\n\\[\n\\log_t w=\\frac{\\ln w}{\\ln t}.\n\\]\n\nGiven:\n\\[\n\\log_x w=24 \\implies \\frac{\\ln w}{a}=24 \\implies \\ln w=24a,\n\\]\n\\[\n\\log_y w=40 \\implies \\frac{\\ln w}{b}=40 \\implies \\ln w=40b,\n\\]\n\\[\n\\log_{xyz} w=12 \\implies \\frac{\\ln w}{\\ln(xyz)}=12.\n\\]\nBut \\(\\ln(xyz)=a+b+c\\), so\n\\[\n\\frac{\\ln w}{a+b+c}=12 \\implies \\ln w=12(a+b+c).\n\\]\n\nNow equate the three expressions for \\(\\ln w\\):\n\\[\n24a = 40b = 12(a+b+c).\n\\]\nFrom \\(24a=40b\\), we get\n\\[\n3a=5b \\implies a=\\frac{5}{3}b.\n\\]\nUse \\(24a=12(a+b+c)\\), divide by 12:\n\\[\n2a=a+b+c \\implies a=b+c \\implies c=a-b.\n\\]\nSubstitute \\(a=\\frac{5}{3}b\\):\n\\[\nc=\\frac{5}{3}b - b=\\frac{2}{3}b.\n\\]\n\nWe want \\(\\log_z w = \\dfrac{\\ln w}{c}\\). Since \\(\\ln w=24a\\),\n\\[\n\\log_z w=\\frac{24a}{c}=\\frac{24\\left(\\frac{5}{3}b\\right)}{\\left(\\frac{2}{3}b\\right)}\n=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "We’re given\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nwith \\(x,y,z>1\\) and \\(w>0\\).\n\nConvert each condition to exponential form.\n\n1) From \\(\\log_x w=24\\):\n\\[\nw=x^{24}\\quad\\Rightarrow\\quad \\ln w=24\\ln x.\n\\]\n\n2) From \\(\\log_y w=40\\):\n\\[\nw=y^{40}\\quad\\Rightarrow\\quad \\ln w=40\\ln y.\n\\]\n\n3) From \\(\\log_{xyz} w=12\\):\n\\[\nw=(xyz)^{12}\\quad\\Rightarrow\\quad \\ln w=12(\\ln x+\\ln y+\\ln z).\n\\]\n\nLet \\(a=\\ln x,\\ b=\\ln y,\\ c=\\ln z\\). Then\n\\[\n\\ln w = 24a = 40b,\n\\]\nand also\n\\[\n\\ln w = 12(a+b+c).\n\\]\nSubstitute \\(a=\\frac{\\ln w}{24}\\) and \\(b=\\frac{\\ln w}{40}\\) into the third equation:\n\\[\n\\ln w = 12\\left(\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+c\\right).\n\\]\nDivide by \\(\\ln w\\) (nonzero since \\(w>0\\) and the logs are defined; also \\(x>1\\) so \\(w\\neq 1\\)):\n\\[\n1=12\\left(\\frac{1}{24}+\\frac{1}{40}+\\frac{c}{\\ln w}\\right).\n\\]\nCompute:\n\\[\n\\frac{1}{24}+\\frac{1}{40}=\\frac{5}{120}+\\frac{3}{120}=\\frac{8}{120}=\\frac{1}{15}.\n\\]\nSo\n\\[\n1=12\\left(\\frac{1}{15}+\\frac{c}{\\ln w}\\right)=\\frac{12}{15}+12\\cdot\\frac{c}{\\ln w}=\\frac{4}{5}+12\\cdot\\frac{c}{\\ln w}.\n\\]\nThus\n\\[\n1-\\frac{4}{5}=\\frac{1}{5}=12\\cdot\\frac{c}{\\ln w}\\quad\\Rightarrow\\quad \\frac{c}{\\ln w}=\\frac{1}{60}.\n\\]\nBut\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{\\ln w}{c}=\\frac{1}{c/\\ln w}=60.\n\\]\n\nANSWER: 60",
+        "Let\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=24,\\quad \\log_y w=\\frac{\\ln w}{\\ln y}=40,\\quad \\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=12.\n\\]\nLet \\(A=\\ln w\\), \\(a=\\ln x\\), \\(b=\\ln y\\), \\(c=\\ln z\\). Then\n\\[\n\\frac{A}{a}=24\\Rightarrow a=\\frac{A}{24},\\qquad \\frac{A}{b}=40\\Rightarrow b=\\frac{A}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=\\frac{A}{\\ln(xyz)}=12,\\quad \\ln(xyz)=\\ln x+\\ln y+\\ln z=a+b+c.\n\\]\nSo\n\\[\n\\frac{A}{a+b+c}=12 \\Rightarrow a+b+c=\\frac{A}{12}.\n\\]\nSubstitute \\(a=\\frac{A}{24}\\), \\(b=\\frac{A}{40}\\):\n\\[\n\\frac{A}{24}+\\frac{A}{40}+c=\\frac{A}{12}\n\\]\n\\[\nc=\\frac{A}{12}-\\frac{A}{24}-\\frac{A}{40}\n= A\\left(\\frac{1}{12}-\\frac{1}{24}-\\frac{1}{40}\\right).\n\\]\nCompute the bracket:\n\\[\n\\frac{1}{12}-\\frac{1}{24}=\\frac{1}{24},\\quad \\frac{1}{24}-\\frac{1}{40}=\\frac{5-3}{120}=\\frac{2}{120}=\\frac{1}{60}.\n\\]\nThus \\(c=\\frac{A}{60}\\), so\n\\[\n\\log_z w=\\frac{A}{c}=\\frac{A}{A/60}=60.\n\\]\n\nANSWER: 60",
+        "Let \\(w>0\\), \\(x,y,z>1\\).  \nUse change of base in terms of natural logs.\n\n\\[\n\\log_x w = \\frac{\\ln w}{\\ln x}=24 \\quad\\Rightarrow\\quad \\ln w = 24\\ln x\n\\]\n\\[\n\\log_y w = \\frac{\\ln w}{\\ln y}=40 \\quad\\Rightarrow\\quad \\ln w = 40\\ln y\n\\]\n\nAlso,\n\\[\n\\log_{xyz} w = \\frac{\\ln w}{\\ln(xyz)}=12\n\\]\nand \\(\\ln(xyz)=\\ln x+\\ln y+\\ln z\\). Let\n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z,\\quad \\text{so }\\ln w = 24a = 40b.\n\\]\nFrom \\(24a=40b\\),\n\\[\n3a=5b \\quad\\Rightarrow\\quad a=\\frac{5}{3}b.\n\\]\nNow use the third equation:\n\\[\n12=\\frac{\\ln w}{a+b+c}=\\frac{24a}{a+b+c}.\n\\]\nSo\n\\[\na+b+c=\\frac{24a}{12}=2a\n\\]\n\\[\nb+c=2a-a=a.\n\\]\nThus\n\\[\nc=a-b.\n\\]\nSubstitute \\(a=\\frac{5}{3}b\\):\n\\[\nc=\\frac{5}{3}b-b=\\frac{2}{3}b.\n\\]\n\nWe want\n\\[\n\\log_z w = \\frac{\\ln w}{\\ln z}=\\frac{24a}{c}.\n\\]\nWith \\(a=\\frac{5}{3}b\\) and \\(c=\\frac{2}{3}b\\),\n\\[\n\\log_z w = \\frac{24\\cdot \\frac{5}{3}b}{\\frac{2}{3}b}\n=24\\cdot \\frac{5}{3}\\cdot \\frac{3}{2}\n=24\\cdot \\frac{5}{2}\n=60.\n\\]\n\nANSWER: 60",
+        "Let\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12.\n\\]\nRewrite in exponential form:\n\\[\nw=x^{24}=y^{40}=(xyz)^{12}.\n\\]\nTake natural logs (or any consistent log base). Let \\(a=\\ln x,\\ b=\\ln y\\), and \\(c=\\ln w\\). Then:\n\\[\nc=24a,\\quad c=40b,\\quad c=12(\\ln x+\\ln y+\\ln z)=12(a+b+\\ln z).\n\\]\nFrom the first two,\n\\[\n24a=c=40b \\implies \\frac{a}{b}=\\frac{40}{24}=\\frac{5}{3}.\n\\]\nAlso \\(c=24a\\), so\n\\[\na=\\frac{c}{24},\\quad b=\\frac{3}{5}a=\\frac{3}{5}\\cdot \\frac{c}{24}=\\frac{c}{40}\n\\]\n(consistent with \\(c=40b\\)).\n\nNow use the third equation:\n\\[\nc=12(a+b+\\ln z).\n\\]\nSo\n\\[\n\\ln z=\\frac{c}{12}-(a+b).\n\\]\nCompute \\(a+b\\):\n\\[\na+b=\\frac{c}{24}+\\frac{c}{40}=c\\left(\\frac{1}{24}+\\frac{1}{40}\\right)\n=c\\left(\\frac{5}{120}+\\frac{3}{120}\\right)=c\\cdot \\frac{8}{120}=c\\cdot\\frac{1}{15}.\n\\]\nThus\n\\[\n\\ln z=\\frac{c}{12}-\\frac{c}{15}=c\\left(\\frac{1}{12}-\\frac{1}{15}\\right)\n=c\\left(\\frac{5-4}{60}\\right)=\\frac{c}{60}.\n\\]\nWe want \\(\\log_z w\\):\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{c}{c/60}=60.\n\\]\n\nANSWER: 60",
+        "We use change of base. Let\n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z,\\quad t=\\ln w.\n\\]\nThen\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{t}{a}=24 \\quad\\Rightarrow\\quad t=24a,\n\\]\n\\[\n\\log_y w=\\frac{t}{b}=40 \\quad\\Rightarrow\\quad t=40b.\n\\]\nSo \\(24a=40b\\), hence \\(3a=5b\\).\n\nNext,\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=\\frac{t}{\\ln x+\\ln y+\\ln z}=\\frac{t}{a+b+c}=12.\n\\]\nThus\n\\[\nt=12(a+b+c).\n\\]\nBut \\(t=24a\\), so\n\\[\n24a=12(a+b+c)\\;\\Rightarrow\\; 2a=a+b+c\\;\\Rightarrow\\; a-b-c=0.\n\\]\nSo \\(c=a-b\\). Using \\(3a=5b\\), we get \\(b=\\frac{3}{5}a\\), hence\n\\[\nc=a-\\frac{3}{5}a=\\frac{2}{5}a.\n\\]\n\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{t}{c}=\\frac{24a}{\\frac{2}{5}a}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1983-1",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "Let  \n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z,\\quad t=\\ln w.\n\\]\nThen the given logarithm conditions become:\n\n1) \\(\\log_x w=24 \\Rightarrow \\dfrac{\\ln w}{\\ln x}=24 \\Rightarrow \\dfrac{t}{a}=24 \\Rightarrow t=24a.\\)\n\n2) \\(\\log_y w=40 \\Rightarrow \\dfrac{t}{b}=40 \\Rightarrow t=40b.\\)\n\n3) \\(\\log_{xyz} w=12 \\Rightarrow \\dfrac{\\ln w}{\\ln(xyz)}=12.\\)  \nBut \\(\\ln(xyz)=\\ln x+\\ln y+\\ln z=a+b+c\\). So\n\\[\n\\frac{t}{a+b+c}=12 \\Rightarrow t=12(a+b+c).\n\\]\n\nNow substitute \\(t=24a\\) and \\(t=40b\\).\n\nFrom \\(24a=40b\\), we get\n\\[\nb=\\frac{3}{5}a.\n\\]\n\nAlso from \\(t=12(a+b+c)\\):\n\\[\n24a=12(a+b+c)\\Rightarrow 2a=a+b+c \\Rightarrow a=b+c.\n\\]\nSo\n\\[\nc=a-b=a-\\frac{3}{5}a=\\frac{2}{5}a.\n\\]\n\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{t}{c}=\\frac{24a}{(2/5)a}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+          "Let \\(a=\\ln x,\\; b=\\ln y,\\; c=\\ln z\\). Then\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{\\ln w}{a}=24 \\implies \\ln w=24a\n\\]\n\\[\n\\log_y w=\\frac{\\ln w}{b}=40 \\implies \\ln w=40b\n\\]\nSo \\(24a=40b \\implies 3a=5b \\implies a=\\frac53 b\\).\n\nNext,\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=\\frac{\\ln w}{a+b+c}=12.\n\\]\nBut \\(\\ln w=24a\\), so\n\\[\n\\frac{24a}{a+b+c}=12 \\implies 24a=12(a+b+c)\\implies 2a=a+b+c\n\\]\n\\[\n\\implies a=b+c \\implies c=a-b.\n\\]\nUsing \\(a=\\frac53 b\\),\n\\[\nc=\\frac53 b-b=\\frac23 b.\n\\]\n\nNow compute \\(\\log_z w\\):\n\\[\n\\log_z w=\\frac{\\ln w}{c}=\\frac{24a}{c}.\n\\]\nSubstitute \\(c=\\frac23 b\\) and \\(a=\\frac53 b\\):\n\\[\n\\log_z w=\\frac{24\\cdot \\frac53 b}{\\frac23 b}=24\\cdot \\frac{5/3}{2/3}=24\\cdot \\frac52=60.\n\\]\n\nANSWER: 60",
+          "We are given\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nwith \\(x,y,z>1\\) and \\(w>0\\).\n\nRewrite each as an exponential relation:\n\\[\nw=x^{24},\\qquad w=y^{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=12 \\iff w=(xyz)^{12}.\n\\]\nSubstitute \\(w=x^{24}\\) into the third equation:\n\\[\nx^{24}=(xyz)^{12}.\n\\]\nTaking \\(12\\)-th roots gives\n\\[\nx^2=xyz.\n\\]\nSo\n\\[\nz=\\frac{x^2}{xy}=\\frac{x}{y}.\n\\]\n\nNow use \\(w=x^{24}=y^{40}\\). Taking logs base \\(e\\) (or any base) is fine:\n\\[\n24\\ln x=40\\ln y \\implies \\ln y=\\frac{24}{40}\\ln x=\\frac{3}{5}\\ln x.\n\\]\nHence\n\\[\ny=x^{3/5}.\n\\]\nThen\n\\[\nz=\\frac{x}{y}=\\frac{x}{x^{3/5}}=x^{2/5}.\n\\]\n\nWe want \\(\\log_z w\\). Since \\(w=x^{24}\\) and \\(z=x^{2/5}\\),\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{24\\ln x}{\\frac{2}{5}\\ln x}=24\\cdot\\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+          "We are given (with all logs in base indicated):\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12.\n\\]\nLet \\(L=\\ln w\\). Then\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{L}{\\ln x}=24 \\implies \\ln x=\\frac{L}{24},\n\\]\n\\[\n\\log_y w=\\frac{L}{\\ln y}=40 \\implies \\ln y=\\frac{L}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=\\frac{L}{\\ln(xyz)}=12 \\implies \\ln(xyz)=\\frac{L}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=\\frac{L}{24}+\\frac{L}{40}+\\ln z.\n\\]\nSo\n\\[\n\\frac{L}{24}+\\frac{L}{40}+\\ln z=\\frac{L}{12}\n\\]\n\\[\n\\ln z=\\frac{L}{12}-\\frac{L}{24}-\\frac{L}{40}.\n\\]\nCompute the coefficient:\n\\[\n\\frac{1}{12}-\\frac{1}{24}=\\frac{1}{24},\\quad \\frac{1}{24}-\\frac{1}{40}=\\frac{5-3}{120}=\\frac{2}{120}=\\frac{1}{60}.\n\\]\nThus\n\\[\n\\ln z=\\frac{L}{60}.\n\\]\nTherefore\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{L}{L/60}=60.\n\\]\n\nANSWER: 60",
+          "Let \\(a=\\ln x,\\; b=\\ln y,\\; c=\\ln z\\). Then for any base \\(t\\),\n\\[\n\\log_t w=\\frac{\\ln w}{\\ln t}.\n\\]\n\nGiven:\n\\[\n\\log_x w=24 \\implies \\frac{\\ln w}{a}=24 \\implies \\ln w=24a,\n\\]\n\\[\n\\log_y w=40 \\implies \\frac{\\ln w}{b}=40 \\implies \\ln w=40b,\n\\]\n\\[\n\\log_{xyz} w=12 \\implies \\frac{\\ln w}{\\ln(xyz)}=12.\n\\]\nBut \\(\\ln(xyz)=a+b+c\\), so\n\\[\n\\frac{\\ln w}{a+b+c}=12 \\implies \\ln w=12(a+b+c).\n\\]\n\nNow equate the three expressions for \\(\\ln w\\):\n\\[\n24a = 40b = 12(a+b+c).\n\\]\nFrom \\(24a=40b\\), we get\n\\[\n3a=5b \\implies a=\\frac{5}{3}b.\n\\]\nUse \\(24a=12(a+b+c)\\), divide by 12:\n\\[\n2a=a+b+c \\implies a=b+c \\implies c=a-b.\n\\]\nSubstitute \\(a=\\frac{5}{3}b\\):\n\\[\nc=\\frac{5}{3}b - b=\\frac{2}{3}b.\n\\]\n\nWe want \\(\\log_z w = \\dfrac{\\ln w}{c}\\). Since \\(\\ln w=24a\\),\n\\[\n\\log_z w=\\frac{24a}{c}=\\frac{24\\left(\\frac{5}{3}b\\right)}{\\left(\\frac{2}{3}b\\right)}\n=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+          "We’re given\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nwith \\(x,y,z>1\\) and \\(w>0\\).\n\nConvert each condition to exponential form.\n\n1) From \\(\\log_x w=24\\):\n\\[\nw=x^{24}\\quad\\Rightarrow\\quad \\ln w=24\\ln x.\n\\]\n\n2) From \\(\\log_y w=40\\):\n\\[\nw=y^{40}\\quad\\Rightarrow\\quad \\ln w=40\\ln y.\n\\]\n\n3) From \\(\\log_{xyz} w=12\\):\n\\[\nw=(xyz)^{12}\\quad\\Rightarrow\\quad \\ln w=12(\\ln x+\\ln y+\\ln z).\n\\]\n\nLet \\(a=\\ln x,\\ b=\\ln y,\\ c=\\ln z\\). Then\n\\[\n\\ln w = 24a = 40b,\n\\]\nand also\n\\[\n\\ln w = 12(a+b+c).\n\\]\nSubstitute \\(a=\\frac{\\ln w}{24}\\) and \\(b=\\frac{\\ln w}{40}\\) into the third equation:\n\\[\n\\ln w = 12\\left(\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+c\\right).\n\\]\nDivide by \\(\\ln w\\) (nonzero since \\(w>0\\) and the logs are defined; also \\(x>1\\) so \\(w\\neq 1\\)):\n\\[\n1=12\\left(\\frac{1}{24}+\\frac{1}{40}+\\frac{c}{\\ln w}\\right).\n\\]\nCompute:\n\\[\n\\frac{1}{24}+\\frac{1}{40}=\\frac{5}{120}+\\frac{3}{120}=\\frac{8}{120}=\\frac{1}{15}.\n\\]\nSo\n\\[\n1=12\\left(\\frac{1}{15}+\\frac{c}{\\ln w}\\right)=\\frac{12}{15}+12\\cdot\\frac{c}{\\ln w}=\\frac{4}{5}+12\\cdot\\frac{c}{\\ln w}.\n\\]\nThus\n\\[\n1-\\frac{4}{5}=\\frac{1}{5}=12\\cdot\\frac{c}{\\ln w}\\quad\\Rightarrow\\quad \\frac{c}{\\ln w}=\\frac{1}{60}.\n\\]\nBut\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{\\ln w}{c}=\\frac{1}{c/\\ln w}=60.\n\\]\n\nANSWER: 60",
+          "Let\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=24,\\quad \\log_y w=\\frac{\\ln w}{\\ln y}=40,\\quad \\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=12.\n\\]\nLet \\(A=\\ln w\\), \\(a=\\ln x\\), \\(b=\\ln y\\), \\(c=\\ln z\\). Then\n\\[\n\\frac{A}{a}=24\\Rightarrow a=\\frac{A}{24},\\qquad \\frac{A}{b}=40\\Rightarrow b=\\frac{A}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=\\frac{A}{\\ln(xyz)}=12,\\quad \\ln(xyz)=\\ln x+\\ln y+\\ln z=a+b+c.\n\\]\nSo\n\\[\n\\frac{A}{a+b+c}=12 \\Rightarrow a+b+c=\\frac{A}{12}.\n\\]\nSubstitute \\(a=\\frac{A}{24}\\), \\(b=\\frac{A}{40}\\):\n\\[\n\\frac{A}{24}+\\frac{A}{40}+c=\\frac{A}{12}\n\\]\n\\[\nc=\\frac{A}{12}-\\frac{A}{24}-\\frac{A}{40}\n= A\\left(\\frac{1}{12}-\\frac{1}{24}-\\frac{1}{40}\\right).\n\\]\nCompute the bracket:\n\\[\n\\frac{1}{12}-\\frac{1}{24}=\\frac{1}{24},\\quad \\frac{1}{24}-\\frac{1}{40}=\\frac{5-3}{120}=\\frac{2}{120}=\\frac{1}{60}.\n\\]\nThus \\(c=\\frac{A}{60}\\), so\n\\[\n\\log_z w=\\frac{A}{c}=\\frac{A}{A/60}=60.\n\\]\n\nANSWER: 60",
+          "Let \\(w>0\\), \\(x,y,z>1\\).  \nUse change of base in terms of natural logs.\n\n\\[\n\\log_x w = \\frac{\\ln w}{\\ln x}=24 \\quad\\Rightarrow\\quad \\ln w = 24\\ln x\n\\]\n\\[\n\\log_y w = \\frac{\\ln w}{\\ln y}=40 \\quad\\Rightarrow\\quad \\ln w = 40\\ln y\n\\]\n\nAlso,\n\\[\n\\log_{xyz} w = \\frac{\\ln w}{\\ln(xyz)}=12\n\\]\nand \\(\\ln(xyz)=\\ln x+\\ln y+\\ln z\\). Let\n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z,\\quad \\text{so }\\ln w = 24a = 40b.\n\\]\nFrom \\(24a=40b\\),\n\\[\n3a=5b \\quad\\Rightarrow\\quad a=\\frac{5}{3}b.\n\\]\nNow use the third equation:\n\\[\n12=\\frac{\\ln w}{a+b+c}=\\frac{24a}{a+b+c}.\n\\]\nSo\n\\[\na+b+c=\\frac{24a}{12}=2a\n\\]\n\\[\nb+c=2a-a=a.\n\\]\nThus\n\\[\nc=a-b.\n\\]\nSubstitute \\(a=\\frac{5}{3}b\\):\n\\[\nc=\\frac{5}{3}b-b=\\frac{2}{3}b.\n\\]\n\nWe want\n\\[\n\\log_z w = \\frac{\\ln w}{\\ln z}=\\frac{24a}{c}.\n\\]\nWith \\(a=\\frac{5}{3}b\\) and \\(c=\\frac{2}{3}b\\),\n\\[\n\\log_z w = \\frac{24\\cdot \\frac{5}{3}b}{\\frac{2}{3}b}\n=24\\cdot \\frac{5}{3}\\cdot \\frac{3}{2}\n=24\\cdot \\frac{5}{2}\n=60.\n\\]\n\nANSWER: 60",
+          "Let\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12.\n\\]\nRewrite in exponential form:\n\\[\nw=x^{24}=y^{40}=(xyz)^{12}.\n\\]\nTake natural logs (or any consistent log base). Let \\(a=\\ln x,\\ b=\\ln y\\), and \\(c=\\ln w\\). Then:\n\\[\nc=24a,\\quad c=40b,\\quad c=12(\\ln x+\\ln y+\\ln z)=12(a+b+\\ln z).\n\\]\nFrom the first two,\n\\[\n24a=c=40b \\implies \\frac{a}{b}=\\frac{40}{24}=\\frac{5}{3}.\n\\]\nAlso \\(c=24a\\), so\n\\[\na=\\frac{c}{24},\\quad b=\\frac{3}{5}a=\\frac{3}{5}\\cdot \\frac{c}{24}=\\frac{c}{40}\n\\]\n(consistent with \\(c=40b\\)).\n\nNow use the third equation:\n\\[\nc=12(a+b+\\ln z).\n\\]\nSo\n\\[\n\\ln z=\\frac{c}{12}-(a+b).\n\\]\nCompute \\(a+b\\):\n\\[\na+b=\\frac{c}{24}+\\frac{c}{40}=c\\left(\\frac{1}{24}+\\frac{1}{40}\\right)\n=c\\left(\\frac{5}{120}+\\frac{3}{120}\\right)=c\\cdot \\frac{8}{120}=c\\cdot\\frac{1}{15}.\n\\]\nThus\n\\[\n\\ln z=\\frac{c}{12}-\\frac{c}{15}=c\\left(\\frac{1}{12}-\\frac{1}{15}\\right)\n=c\\left(\\frac{5-4}{60}\\right)=\\frac{c}{60}.\n\\]\nWe want \\(\\log_z w\\):\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{c}{c/60}=60.\n\\]\n\nANSWER: 60",
+          "We use change of base. Let\n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z,\\quad t=\\ln w.\n\\]\nThen\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{t}{a}=24 \\quad\\Rightarrow\\quad t=24a,\n\\]\n\\[\n\\log_y w=\\frac{t}{b}=40 \\quad\\Rightarrow\\quad t=40b.\n\\]\nSo \\(24a=40b\\), hence \\(3a=5b\\).\n\nNext,\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=\\frac{t}{\\ln x+\\ln y+\\ln z}=\\frac{t}{a+b+c}=12.\n\\]\nThus\n\\[\nt=12(a+b+c).\n\\]\nBut \\(t=24a\\), so\n\\[\n24a=12(a+b+c)\\;\\Rightarrow\\; 2a=a+b+c\\;\\Rightarrow\\; a-b-c=0.\n\\]\nSo \\(c=a-b\\). Using \\(3a=5b\\), we get \\(b=\\frac{3}{5}a\\), hence\n\\[\nc=a-\\frac{3}{5}a=\\frac{2}{5}a.\n\\]\n\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{t}{c}=\\frac{24a}{\\frac{2}{5}a}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nLet $x$ , $y$ and $z$ all exceed $1$ and let $w$ be a positive number such that $\\log_xw=24$ , $\\log_y w = 40$ and $\\log_{xyz}w=12$ . Find $\\log_zw$ ."
+      },
+      "baseline_solutions": [
+        "Let\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12,\\quad \\text{and we want } \\log_z w.\n\\]\nWrite these in exponential form:\n\\[\nw=x^{24}=y^{40}=(xyz)^{12}.\n\\]\nTake natural logs:\n\\[\n\\ln w=24\\ln x=40\\ln y=12(\\ln x+\\ln y+\\ln z).\n\\]\nFrom \\(24\\ln x=40\\ln y\\),\n\\[\n\\ln x=\\frac{40}{24}\\ln y=\\frac{5}{3}\\ln y.\n\\]\nAlso \\(\\ln w=40\\ln y\\), so substitute into \\(\\ln w=12(\\ln x+\\ln y+\\ln z)\\):\n\\[\n40\\ln y = 12\\left(\\ln x+\\ln y+\\ln z\\right)\n=12\\left(\\frac{5}{3}\\ln y+\\ln y+\\ln z\\right).\n\\]\nCompute inside:\n\\[\n\\frac{5}{3}\\ln y+\\ln y=\\left(\\frac{5}{3}+\\frac{3}{3}\\right)\\ln y=\\frac{8}{3}\\ln y.\n\\]\nSo\n\\[\n40\\ln y=12\\left(\\frac{8}{3}\\ln y+\\ln z\\right)=12\\cdot\\frac{8}{3}\\ln y+12\\ln z=32\\ln y+12\\ln z.\n\\]\nThus\n\\[\n40\\ln y-32\\ln y=12\\ln z \\implies 8\\ln y=12\\ln z \\implies \\ln z=\\frac{2}{3}\\ln y.\n\\]\nNow\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{40\\ln y}{\\frac{2}{3}\\ln y}=40\\cdot\\frac{3}{2}=60.\n\\]\n\nANSWER: 60",
+        "We’re given\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nwith \\(x,y,z>1\\) and \\(w>0\\). Write these in exponential form.\n\nFrom \\(\\log_x w=24\\), we have\n\\[\nw=x^{24}.\n\\]\nFrom \\(\\log_y w=40\\),\n\\[\nw=y^{40}.\n\\]\n\nNow use \\(\\log_{xyz} w=12\\), which means\n\\[\nw=(xyz)^{12}.\n\\]\nSubstitute \\(w=x^{24}\\) into this:\n\\[\nx^{24}=(xyz)^{12} = x^{12}y^{12}z^{12}.\n\\]\nDivide both sides by \\(x^{12}\\):\n\\[\nx^{12}=y^{12}z^{12}.\n\\]\nTake the 12th root (all \\(>1\\), so no ambiguity):\n\\[\nx = yz.\n\\]\n\nWe also know \\(w=x^{24}\\), so\n\\[\n\\log_z w = \\log_z(x^{24}) = 24\\log_z x.\n\\]\nBut \\(x=yz\\), so\n\\[\n\\log_z x = \\log_z(yz)=\\log_z y + \\log_z z = \\log_z y + 1.\n\\]\nThus\n\\[\n\\log_z w = 24(\\log_z y + 1).\n\\]\n\nSo we need \\(\\log_z y\\). Use \\(w=y^{40}\\) and \\(w=(yz)^{24}\\) (since \\(x=yz\\) and \\(w=x^{24}\\)):\n\\[\ny^{40} = (yz)^{24} = y^{24}z^{24}.\n\\]\nDivide by \\(y^{24}\\):\n\\[\ny^{16} = z^{24}.\n\\]\nTake logs base \\(z\\):\n\\[\n\\log_z(y^{16})=\\log_z(z^{24}) \\implies 16\\log_z y = 24.\n\\]\nSo\n\\[\n\\log_z y = \\frac{24}{16}=\\frac{3}{2}.\n\\]\n\nFinally,\n\\[\n\\log_z w = 24\\left(\\log_z y +1\\right)=24\\left(\\frac{3}{2}+1\\right)=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "Let\n\\[\na=\\log_x w,\\quad b=\\log_y w,\\quad c=\\log_{xyz} w,\\quad t=\\log_z w.\n\\]\nWe are given \\(a=24,\\ b=40,\\ c=12\\), and need \\(t\\).\n\nUse change of base:\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=24 \\ \\Rightarrow\\ \\ln w=24\\ln x,\n\\]\n\\[\n\\log_y w=\\frac{\\ln w}{\\ln y}=40 \\ \\Rightarrow\\ \\ln w=40\\ln y.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=12 \\ \\Rightarrow\\ \\ln(xyz)=\\frac{\\ln w}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z.\n\\]\nCompute each in terms of \\(\\ln w\\). From \\(\\ln w=24\\ln x\\), we have \\(\\ln x=\\frac{\\ln w}{24}\\).\nFrom \\(\\ln w=40\\ln y\\), we have \\(\\ln y=\\frac{\\ln w}{40}\\).\nLet \\(\\ln z = \\frac{\\ln w}{t}\\) since \\(t=\\log_z w=\\frac{\\ln w}{\\ln z}\\).\n\nSo\n\\[\n\\ln(xyz)=\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+\\frac{\\ln w}{t}\n=\\ln w\\left(\\frac1{24}+\\frac1{40}+\\frac1t\\right).\n\\]\nBut also \\(\\ln(xyz)=\\frac{\\ln w}{12}\\). Cancel \\(\\ln w>0\\):\n\\[\n\\frac1{24}+\\frac1{40}+\\frac1t=\\frac1{12}.\n\\]\nCompute:\n\\[\n\\frac1{24}=\\frac{5}{120},\\quad \\frac1{40}=\\frac{3}{120},\\quad \\frac1{12}=\\frac{10}{120}.\n\\]\nThus\n\\[\n\\frac{5}{120}+\\frac{3}{120}+\\frac1t=\\frac{10}{120}\n\\Rightarrow \\frac{8}{120}+\\frac1t=\\frac{10}{120}\n\\Rightarrow \\frac1t=\\frac{2}{120}=\\frac1{60}.\n\\]\nTherefore \\(t=60\\).\n\nANSWER: 60",
+        "Let \\( \\log_x w =24,\\ \\log_y w =40,\\ \\log_{xyz} w =12\\).  \nSet\n\\[\na=\\ln w,\\quad b=\\ln x,\\quad c=\\ln y,\\quad d=\\ln z.\n\\]\nThen\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{a}{b}=24 \\implies a=24b,\n\\]\n\\[\n\\log_y w=\\frac{a}{c}=40 \\implies a=40c,\n\\]\n\\[\n\\log_{xyz} w=\\frac{a}{\\ln(xyz)}=\\frac{a}{b+c+d}=12.\n\\]\nFrom \\(a=24b\\) and \\(a=40c\\),\n\\[\n24b=40c \\implies 3b=5c \\implies c=\\frac35 b.\n\\]\nAlso \\(a=24b\\), so the third equation gives\n\\[\n\\frac{a}{b+c+d}=12 \\implies \\frac{24b}{b+\\frac35 b + d}=12.\n\\]\nCompute \\(b+\\frac35 b=\\frac85 b\\). Thus\n\\[\n\\frac{24b}{\\frac85 b + d}=12 \\implies 24b =12\\left(\\frac85 b + d\\right).\n\\]\nDivide by \\(12\\):\n\\[\n2b=\\frac85 b + d \\implies d=2b-\\frac85 b=\\frac{10}{5}b-\\frac{8}{5}b=\\frac25 b.\n\\]\nWe need\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{a}{d}=\\frac{24b}{\\frac25 b}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "We use the change-of-base formula.\n\nLet\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12.\n\\]\nSet\n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z.\n\\]\nThen\n\\[\n\\log_x w = \\frac{\\ln w}{\\ln x}=\\frac{\\ln w}{a}=24 \\implies \\ln w=24a,\n\\]\n\\[\n\\log_y w = \\frac{\\ln w}{b}=40 \\implies \\ln w=40b.\n\\]\nSo \\(24a=40b\\), hence\n\\[\n\\frac{a}{b}=\\frac{40}{24}=\\frac{5}{3}\\implies a=\\frac{5}{3}b.\n\\]\n\nNow use the third condition:\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=12.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=a+b+c.\n\\]\nSo\n\\[\n\\frac{\\ln w}{a+b+c}=12.\n\\]\nSince \\(\\ln w=24a\\),\n\\[\n\\frac{24a}{a+b+c}=12 \\implies 24a=12(a+b+c)\\implies 2a=a+b+c.\n\\]\nThus\n\\[\na=b+c \\implies c=a-b.\n\\]\nWith \\(a=\\frac{5}{3}b\\),\n\\[\nc=\\frac{5}{3}b-b=\\frac{2}{3}b.\n\\]\n\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{24a}{c}.\n\\]\nSubstitute \\(a=\\frac{5}{3}b\\) and \\(c=\\frac{2}{3}b\\):\n\\[\n\\log_z w=\\frac{24\\cdot \\frac{5}{3}b}{\\frac{2}{3}b}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "We use the change-of-base formula:\n\\[\n\\log_a w=\\frac{\\ln w}{\\ln a}.\n\\]\nGiven\n\\[\n\\log_x w=24 \\implies \\frac{\\ln w}{\\ln x}=24 \\implies \\ln x=\\frac{\\ln w}{24},\n\\]\n\\[\n\\log_y w=40 \\implies \\ln y=\\frac{\\ln w}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=12 \\implies \\frac{\\ln w}{\\ln(xyz)}=12 \\implies \\ln(xyz)=\\frac{\\ln w}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+\\ln z.\n\\]\nSo\n\\[\n\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+\\ln z=\\frac{\\ln w}{12}.\n\\]\nCompute\n\\[\n\\frac{1}{24}+\\frac{1}{40}=\\frac{5}{120}+\\frac{3}{120}=\\frac{8}{120}=\\frac{1}{15}.\n\\]\nThus\n\\[\n\\frac{\\ln w}{15}+\\ln z=\\frac{\\ln w}{12}\n\\implies \\ln z=\\ln w\\left(\\frac{1}{12}-\\frac{1}{15}\\right).\n\\]\nNow\n\\[\n\\frac{1}{12}-\\frac{1}{15}=\\frac{5-4}{60}=\\frac{1}{60},\n\\]\nso\n\\[\n\\ln z=\\frac{\\ln w}{60}.\n\\]\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{\\ln w}{\\ln w/60}=60.\n\\]\n\nANSWER: 60",
+        "Let  \n\\[\na=\\log_x w,\\quad b=\\log_y w,\\quad c=\\log_{xyz} w.\n\\]\nWe are given \\(a=24,\\ b=40,\\ c=12\\). Also\n\\[\n\\log_{xyz} w = \\frac{\\log w}{\\log(xyz)}.\n\\]\nMeanwhile\n\\[\na=\\frac{\\log w}{\\log x},\\qquad b=\\frac{\\log w}{\\log y}.\n\\]\nLet \\(L=\\log w\\), \\(p=\\log x\\), \\(q=\\log y\\), \\(r=\\log z\\). Then\n\\[\n\\frac{L}{p}=24 \\Rightarrow p=\\frac{L}{24},\\qquad \\frac{L}{q}=40 \\Rightarrow q=\\frac{L}{40}.\n\\]\nAlso\n\\[\nc=\\log_{xyz} w=\\frac{L}{\\log(xyz)}=\\frac{L}{p+q+r}=12.\n\\]\nSo\n\\[\n\\frac{L}{p+q+r}=12 \\Rightarrow p+q+r=\\frac{L}{12}.\n\\]\nSubstitute \\(p=\\frac{L}{24}\\) and \\(q=\\frac{L}{40}\\):\n\\[\n\\frac{L}{24}+\\frac{L}{40}+r=\\frac{L}{12}.\n\\]\nDivide by \\(L\\neq 0\\):\n\\[\n\\frac{1}{24}+\\frac{1}{40}+\\frac{r}{L}=\\frac{1}{12}.\n\\]\nCompute:\n\\[\n\\frac{1}{24}=\\frac{5}{120},\\quad \\frac{1}{40}=\\frac{3}{120}\\Rightarrow \\frac{1}{24}+\\frac{1}{40}=\\frac{8}{120}=\\frac{1}{15}.\n\\]\nSo\n\\[\n\\frac{1}{15}+\\frac{r}{L}=\\frac{1}{12}\\Rightarrow \\frac{r}{L}=\\frac{1}{12}-\\frac{1}{15}=\\frac{5-4}{60}=\\frac{1}{60}.\n\\]\nBut\n\\[\n\\log_z w=\\frac{\\log w}{\\log z}=\\frac{L}{r}=\\frac{1}{r/L}=\\frac{1}{1/60}=60.\n\\]\n\nANSWER: 60",
+        "Since \\(\\log_x w = 24\\), we have\n\\[\nw = x^{24}.\n\\]\nSimilarly, \\(\\log_y w = 40\\) gives\n\\[\nw = y^{40}.\n\\]\nAnd \\(\\log_{xyz} w = 12\\) gives\n\\[\nw = (xyz)^{12}.\n\\]\n\nFrom \\(w=x^{24}\\) and \\(w=(xyz)^{12}\\), substitute \\(w\\):\n\\[\nx^{24} = (xyz)^{12} = x^{12}y^{12}z^{12}.\n\\]\nDivide both sides by \\(x^{12}\\):\n\\[\nx^{12} = y^{12}z^{12} \\implies x = yz.\n\\]\nNow use \\(w=y^{40}\\) and \\(w=(xyz)^{12}\\) again:\n\\[\ny^{40} = (xyz)^{12} = (x y z)^{12}.\n\\]\nBut since \\(x=yz\\), we get \\(xyz = (yz)\\cdot y\\cdot z = y^2 z^2 = (yz)^2 = x^2\\). Thus\n\\[\ny^{40} = (x^2)^{12} = x^{24}.\n\\]\nThis is consistent with \\(w=x^{24}\\), so the key relation remains \\(x=yz\\).\n\nWe want \\(\\log_z w\\). Using \\(w=x^{24}\\) and \\(x=yz\\):\n\\[\nw = (yz)^{24} = y^{24} z^{24}.\n\\]\nTake logs base \\(y\\):\n\\[\nw = y^{40} = y^{24} z^{24} \\implies y^{40-24} = z^{24}.\n\\]\nSo\n\\[\ny^{16} = z^{24} \\implies z = y^{16/24} = y^{2/3}.\n\\]\n\nNow compute \\(\\log_z w\\):\n\\[\nw = y^{40}, \\quad z = y^{2/3}.\n\\]\nLet \\(\\log_z w = k\\). Then \\(w = z^k\\) means\n\\[\ny^{40} = (y^{2/3})^k = y^{(2k)/3}.\n\\]\nSo\n\\[\n\\frac{2k}{3} = 40 \\implies k = 60.\n\\]\n\nANSWER: 60",
+        "We have\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12.\n\\]\nLet \\(a=\\ln w\\), \\(b=\\ln x\\), \\(c=\\ln y\\), \\(d=\\ln z\\). Then\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{a}{b}=24 \\implies a=24b,\n\\]\n\\[\n\\log_y w=\\frac{a}{c}=40 \\implies a=40c,\n\\]\n\\[\n\\log_{xyz} w=\\frac{a}{\\ln(xyz)}=\\frac{a}{b+c+d}=12 \\implies a=12(b+c+d).\n\\]\nFrom \\(a=24b\\) and \\(a=40c\\), we get \\(24b=40c \\implies 3b=5c \\implies b=\\frac53 c\\).\nNow use \\(a=12(b+c+d)\\):\n\\[\n24b = 12(b+c+d)\\implies 2b=b+c+d \\implies d=b-c.\n\\]\nSubstitute \\(b=\\frac53c\\):\n\\[\nd=\\frac53c - c=\\frac23c.\n\\]\nWe need \\(\\log_z w=\\dfrac{a}{d}\\). Using \\(a=40c\\) and \\(d=\\frac23c\\):\n\\[\n\\log_z w=\\frac{40c}{\\frac23c}=40\\cdot \\frac32=60.\n\\]\n\nANSWER: 60",
+        "Let  \n\\[\n\\log_x w = 24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nand we want \\( \\log_z w\\).  \n\nUse the identity \\(\\log_a w=\\dfrac{\\ln w}{\\ln a}\\). Let \\(L=\\ln w\\). Then\n\\[\n\\frac{L}{\\ln x}=24 \\Rightarrow \\ln x=\\frac{L}{24},\\qquad\n\\frac{L}{\\ln y}=40 \\Rightarrow \\ln y=\\frac{L}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=12 \\Rightarrow \\frac{L}{\\ln(xyz)}=12 \\Rightarrow \\ln(xyz)=\\frac{L}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=\\frac{L}{24}+\\frac{L}{40}+\\ln z=\\frac{L}{12}.\n\\]\nSo\n\\[\n\\ln z=\\frac{L}{12}-\\frac{L}{24}-\\frac{L}{40}\n= L\\left(\\frac{1}{12}-\\frac{1}{24}-\\frac{1}{40}\\right).\n\\]\nCompute:\n\\[\n\\frac{1}{12}-\\frac{1}{24}=\\frac{1}{24},\\quad \\frac{1}{24}-\\frac{1}{40}=\\frac{5-3}{120}=\\frac{2}{120}=\\frac{1}{60}.\n\\]\nThus\n\\[\n\\ln z=\\frac{L}{60}.\n\\]\nTherefore\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{L}{L/60}=60.\n\\]\n\nANSWER: 60"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1983-1",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Let\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12,\\quad \\text{and we want } \\log_z w.\n\\]\nWrite these in exponential form:\n\\[\nw=x^{24}=y^{40}=(xyz)^{12}.\n\\]\nTake natural logs:\n\\[\n\\ln w=24\\ln x=40\\ln y=12(\\ln x+\\ln y+\\ln z).\n\\]\nFrom \\(24\\ln x=40\\ln y\\),\n\\[\n\\ln x=\\frac{40}{24}\\ln y=\\frac{5}{3}\\ln y.\n\\]\nAlso \\(\\ln w=40\\ln y\\), so substitute into \\(\\ln w=12(\\ln x+\\ln y+\\ln z)\\):\n\\[\n40\\ln y = 12\\left(\\ln x+\\ln y+\\ln z\\right)\n=12\\left(\\frac{5}{3}\\ln y+\\ln y+\\ln z\\right).\n\\]\nCompute inside:\n\\[\n\\frac{5}{3}\\ln y+\\ln y=\\left(\\frac{5}{3}+\\frac{3}{3}\\right)\\ln y=\\frac{8}{3}\\ln y.\n\\]\nSo\n\\[\n40\\ln y=12\\left(\\frac{8}{3}\\ln y+\\ln z\\right)=12\\cdot\\frac{8}{3}\\ln y+12\\ln z=32\\ln y+12\\ln z.\n\\]\nThus\n\\[\n40\\ln y-32\\ln y=12\\ln z \\implies 8\\ln y=12\\ln z \\implies \\ln z=\\frac{2}{3}\\ln y.\n\\]\nNow\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{40\\ln y}{\\frac{2}{3}\\ln y}=40\\cdot\\frac{3}{2}=60.\n\\]\n\nANSWER: 60",
+        "We’re given\n\\[\n\\log_x w=24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nwith \\(x,y,z>1\\) and \\(w>0\\). Write these in exponential form.\n\nFrom \\(\\log_x w=24\\), we have\n\\[\nw=x^{24}.\n\\]\nFrom \\(\\log_y w=40\\),\n\\[\nw=y^{40}.\n\\]\n\nNow use \\(\\log_{xyz} w=12\\), which means\n\\[\nw=(xyz)^{12}.\n\\]\nSubstitute \\(w=x^{24}\\) into this:\n\\[\nx^{24}=(xyz)^{12} = x^{12}y^{12}z^{12}.\n\\]\nDivide both sides by \\(x^{12}\\):\n\\[\nx^{12}=y^{12}z^{12}.\n\\]\nTake the 12th root (all \\(>1\\), so no ambiguity):\n\\[\nx = yz.\n\\]\n\nWe also know \\(w=x^{24}\\), so\n\\[\n\\log_z w = \\log_z(x^{24}) = 24\\log_z x.\n\\]\nBut \\(x=yz\\), so\n\\[\n\\log_z x = \\log_z(yz)=\\log_z y + \\log_z z = \\log_z y + 1.\n\\]\nThus\n\\[\n\\log_z w = 24(\\log_z y + 1).\n\\]\n\nSo we need \\(\\log_z y\\). Use \\(w=y^{40}\\) and \\(w=(yz)^{24}\\) (since \\(x=yz\\) and \\(w=x^{24}\\)):\n\\[\ny^{40} = (yz)^{24} = y^{24}z^{24}.\n\\]\nDivide by \\(y^{24}\\):\n\\[\ny^{16} = z^{24}.\n\\]\nTake logs base \\(z\\):\n\\[\n\\log_z(y^{16})=\\log_z(z^{24}) \\implies 16\\log_z y = 24.\n\\]\nSo\n\\[\n\\log_z y = \\frac{24}{16}=\\frac{3}{2}.\n\\]\n\nFinally,\n\\[\n\\log_z w = 24\\left(\\log_z y +1\\right)=24\\left(\\frac{3}{2}+1\\right)=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "Let\n\\[\na=\\log_x w,\\quad b=\\log_y w,\\quad c=\\log_{xyz} w,\\quad t=\\log_z w.\n\\]\nWe are given \\(a=24,\\ b=40,\\ c=12\\), and need \\(t\\).\n\nUse change of base:\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=24 \\ \\Rightarrow\\ \\ln w=24\\ln x,\n\\]\n\\[\n\\log_y w=\\frac{\\ln w}{\\ln y}=40 \\ \\Rightarrow\\ \\ln w=40\\ln y.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=12 \\ \\Rightarrow\\ \\ln(xyz)=\\frac{\\ln w}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z.\n\\]\nCompute each in terms of \\(\\ln w\\). From \\(\\ln w=24\\ln x\\), we have \\(\\ln x=\\frac{\\ln w}{24}\\).\nFrom \\(\\ln w=40\\ln y\\), we have \\(\\ln y=\\frac{\\ln w}{40}\\).\nLet \\(\\ln z = \\frac{\\ln w}{t}\\) since \\(t=\\log_z w=\\frac{\\ln w}{\\ln z}\\).\n\nSo\n\\[\n\\ln(xyz)=\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+\\frac{\\ln w}{t}\n=\\ln w\\left(\\frac1{24}+\\frac1{40}+\\frac1t\\right).\n\\]\nBut also \\(\\ln(xyz)=\\frac{\\ln w}{12}\\). Cancel \\(\\ln w>0\\):\n\\[\n\\frac1{24}+\\frac1{40}+\\frac1t=\\frac1{12}.\n\\]\nCompute:\n\\[\n\\frac1{24}=\\frac{5}{120},\\quad \\frac1{40}=\\frac{3}{120},\\quad \\frac1{12}=\\frac{10}{120}.\n\\]\nThus\n\\[\n\\frac{5}{120}+\\frac{3}{120}+\\frac1t=\\frac{10}{120}\n\\Rightarrow \\frac{8}{120}+\\frac1t=\\frac{10}{120}\n\\Rightarrow \\frac1t=\\frac{2}{120}=\\frac1{60}.\n\\]\nTherefore \\(t=60\\).\n\nANSWER: 60",
+        "Let \\( \\log_x w =24,\\ \\log_y w =40,\\ \\log_{xyz} w =12\\).  \nSet\n\\[\na=\\ln w,\\quad b=\\ln x,\\quad c=\\ln y,\\quad d=\\ln z.\n\\]\nThen\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{a}{b}=24 \\implies a=24b,\n\\]\n\\[\n\\log_y w=\\frac{a}{c}=40 \\implies a=40c,\n\\]\n\\[\n\\log_{xyz} w=\\frac{a}{\\ln(xyz)}=\\frac{a}{b+c+d}=12.\n\\]\nFrom \\(a=24b\\) and \\(a=40c\\),\n\\[\n24b=40c \\implies 3b=5c \\implies c=\\frac35 b.\n\\]\nAlso \\(a=24b\\), so the third equation gives\n\\[\n\\frac{a}{b+c+d}=12 \\implies \\frac{24b}{b+\\frac35 b + d}=12.\n\\]\nCompute \\(b+\\frac35 b=\\frac85 b\\). Thus\n\\[\n\\frac{24b}{\\frac85 b + d}=12 \\implies 24b =12\\left(\\frac85 b + d\\right).\n\\]\nDivide by \\(12\\):\n\\[\n2b=\\frac85 b + d \\implies d=2b-\\frac85 b=\\frac{10}{5}b-\\frac{8}{5}b=\\frac25 b.\n\\]\nWe need\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{a}{d}=\\frac{24b}{\\frac25 b}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "We use the change-of-base formula.\n\nLet\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12.\n\\]\nSet\n\\[\na=\\ln x,\\quad b=\\ln y,\\quad c=\\ln z.\n\\]\nThen\n\\[\n\\log_x w = \\frac{\\ln w}{\\ln x}=\\frac{\\ln w}{a}=24 \\implies \\ln w=24a,\n\\]\n\\[\n\\log_y w = \\frac{\\ln w}{b}=40 \\implies \\ln w=40b.\n\\]\nSo \\(24a=40b\\), hence\n\\[\n\\frac{a}{b}=\\frac{40}{24}=\\frac{5}{3}\\implies a=\\frac{5}{3}b.\n\\]\n\nNow use the third condition:\n\\[\n\\log_{xyz} w=\\frac{\\ln w}{\\ln(xyz)}=12.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=a+b+c.\n\\]\nSo\n\\[\n\\frac{\\ln w}{a+b+c}=12.\n\\]\nSince \\(\\ln w=24a\\),\n\\[\n\\frac{24a}{a+b+c}=12 \\implies 24a=12(a+b+c)\\implies 2a=a+b+c.\n\\]\nThus\n\\[\na=b+c \\implies c=a-b.\n\\]\nWith \\(a=\\frac{5}{3}b\\),\n\\[\nc=\\frac{5}{3}b-b=\\frac{2}{3}b.\n\\]\n\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{24a}{c}.\n\\]\nSubstitute \\(a=\\frac{5}{3}b\\) and \\(c=\\frac{2}{3}b\\):\n\\[\n\\log_z w=\\frac{24\\cdot \\frac{5}{3}b}{\\frac{2}{3}b}=24\\cdot \\frac{5}{2}=60.\n\\]\n\nANSWER: 60",
+        "We use the change-of-base formula:\n\\[\n\\log_a w=\\frac{\\ln w}{\\ln a}.\n\\]\nGiven\n\\[\n\\log_x w=24 \\implies \\frac{\\ln w}{\\ln x}=24 \\implies \\ln x=\\frac{\\ln w}{24},\n\\]\n\\[\n\\log_y w=40 \\implies \\ln y=\\frac{\\ln w}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=12 \\implies \\frac{\\ln w}{\\ln(xyz)}=12 \\implies \\ln(xyz)=\\frac{\\ln w}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+\\ln z.\n\\]\nSo\n\\[\n\\frac{\\ln w}{24}+\\frac{\\ln w}{40}+\\ln z=\\frac{\\ln w}{12}.\n\\]\nCompute\n\\[\n\\frac{1}{24}+\\frac{1}{40}=\\frac{5}{120}+\\frac{3}{120}=\\frac{8}{120}=\\frac{1}{15}.\n\\]\nThus\n\\[\n\\frac{\\ln w}{15}+\\ln z=\\frac{\\ln w}{12}\n\\implies \\ln z=\\ln w\\left(\\frac{1}{12}-\\frac{1}{15}\\right).\n\\]\nNow\n\\[\n\\frac{1}{12}-\\frac{1}{15}=\\frac{5-4}{60}=\\frac{1}{60},\n\\]\nso\n\\[\n\\ln z=\\frac{\\ln w}{60}.\n\\]\nFinally,\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{\\ln w}{\\ln w/60}=60.\n\\]\n\nANSWER: 60",
+        "Let  \n\\[\na=\\log_x w,\\quad b=\\log_y w,\\quad c=\\log_{xyz} w.\n\\]\nWe are given \\(a=24,\\ b=40,\\ c=12\\). Also\n\\[\n\\log_{xyz} w = \\frac{\\log w}{\\log(xyz)}.\n\\]\nMeanwhile\n\\[\na=\\frac{\\log w}{\\log x},\\qquad b=\\frac{\\log w}{\\log y}.\n\\]\nLet \\(L=\\log w\\), \\(p=\\log x\\), \\(q=\\log y\\), \\(r=\\log z\\). Then\n\\[\n\\frac{L}{p}=24 \\Rightarrow p=\\frac{L}{24},\\qquad \\frac{L}{q}=40 \\Rightarrow q=\\frac{L}{40}.\n\\]\nAlso\n\\[\nc=\\log_{xyz} w=\\frac{L}{\\log(xyz)}=\\frac{L}{p+q+r}=12.\n\\]\nSo\n\\[\n\\frac{L}{p+q+r}=12 \\Rightarrow p+q+r=\\frac{L}{12}.\n\\]\nSubstitute \\(p=\\frac{L}{24}\\) and \\(q=\\frac{L}{40}\\):\n\\[\n\\frac{L}{24}+\\frac{L}{40}+r=\\frac{L}{12}.\n\\]\nDivide by \\(L\\neq 0\\):\n\\[\n\\frac{1}{24}+\\frac{1}{40}+\\frac{r}{L}=\\frac{1}{12}.\n\\]\nCompute:\n\\[\n\\frac{1}{24}=\\frac{5}{120},\\quad \\frac{1}{40}=\\frac{3}{120}\\Rightarrow \\frac{1}{24}+\\frac{1}{40}=\\frac{8}{120}=\\frac{1}{15}.\n\\]\nSo\n\\[\n\\frac{1}{15}+\\frac{r}{L}=\\frac{1}{12}\\Rightarrow \\frac{r}{L}=\\frac{1}{12}-\\frac{1}{15}=\\frac{5-4}{60}=\\frac{1}{60}.\n\\]\nBut\n\\[\n\\log_z w=\\frac{\\log w}{\\log z}=\\frac{L}{r}=\\frac{1}{r/L}=\\frac{1}{1/60}=60.\n\\]\n\nANSWER: 60",
+        "Since \\(\\log_x w = 24\\), we have\n\\[\nw = x^{24}.\n\\]\nSimilarly, \\(\\log_y w = 40\\) gives\n\\[\nw = y^{40}.\n\\]\nAnd \\(\\log_{xyz} w = 12\\) gives\n\\[\nw = (xyz)^{12}.\n\\]\n\nFrom \\(w=x^{24}\\) and \\(w=(xyz)^{12}\\), substitute \\(w\\):\n\\[\nx^{24} = (xyz)^{12} = x^{12}y^{12}z^{12}.\n\\]\nDivide both sides by \\(x^{12}\\):\n\\[\nx^{12} = y^{12}z^{12} \\implies x = yz.\n\\]\nNow use \\(w=y^{40}\\) and \\(w=(xyz)^{12}\\) again:\n\\[\ny^{40} = (xyz)^{12} = (x y z)^{12}.\n\\]\nBut since \\(x=yz\\), we get \\(xyz = (yz)\\cdot y\\cdot z = y^2 z^2 = (yz)^2 = x^2\\). Thus\n\\[\ny^{40} = (x^2)^{12} = x^{24}.\n\\]\nThis is consistent with \\(w=x^{24}\\), so the key relation remains \\(x=yz\\).\n\nWe want \\(\\log_z w\\). Using \\(w=x^{24}\\) and \\(x=yz\\):\n\\[\nw = (yz)^{24} = y^{24} z^{24}.\n\\]\nTake logs base \\(y\\):\n\\[\nw = y^{40} = y^{24} z^{24} \\implies y^{40-24} = z^{24}.\n\\]\nSo\n\\[\ny^{16} = z^{24} \\implies z = y^{16/24} = y^{2/3}.\n\\]\n\nNow compute \\(\\log_z w\\):\n\\[\nw = y^{40}, \\quad z = y^{2/3}.\n\\]\nLet \\(\\log_z w = k\\). Then \\(w = z^k\\) means\n\\[\ny^{40} = (y^{2/3})^k = y^{(2k)/3}.\n\\]\nSo\n\\[\n\\frac{2k}{3} = 40 \\implies k = 60.\n\\]\n\nANSWER: 60",
+        "We have\n\\[\n\\log_x w = 24,\\quad \\log_y w = 40,\\quad \\log_{xyz} w = 12.\n\\]\nLet \\(a=\\ln w\\), \\(b=\\ln x\\), \\(c=\\ln y\\), \\(d=\\ln z\\). Then\n\\[\n\\log_x w=\\frac{\\ln w}{\\ln x}=\\frac{a}{b}=24 \\implies a=24b,\n\\]\n\\[\n\\log_y w=\\frac{a}{c}=40 \\implies a=40c,\n\\]\n\\[\n\\log_{xyz} w=\\frac{a}{\\ln(xyz)}=\\frac{a}{b+c+d}=12 \\implies a=12(b+c+d).\n\\]\nFrom \\(a=24b\\) and \\(a=40c\\), we get \\(24b=40c \\implies 3b=5c \\implies b=\\frac53 c\\).\nNow use \\(a=12(b+c+d)\\):\n\\[\n24b = 12(b+c+d)\\implies 2b=b+c+d \\implies d=b-c.\n\\]\nSubstitute \\(b=\\frac53c\\):\n\\[\nd=\\frac53c - c=\\frac23c.\n\\]\nWe need \\(\\log_z w=\\dfrac{a}{d}\\). Using \\(a=40c\\) and \\(d=\\frac23c\\):\n\\[\n\\log_z w=\\frac{40c}{\\frac23c}=40\\cdot \\frac32=60.\n\\]\n\nANSWER: 60",
+        "Let  \n\\[\n\\log_x w = 24,\\quad \\log_y w=40,\\quad \\log_{xyz} w=12,\n\\]\nand we want \\( \\log_z w\\).  \n\nUse the identity \\(\\log_a w=\\dfrac{\\ln w}{\\ln a}\\). Let \\(L=\\ln w\\). Then\n\\[\n\\frac{L}{\\ln x}=24 \\Rightarrow \\ln x=\\frac{L}{24},\\qquad\n\\frac{L}{\\ln y}=40 \\Rightarrow \\ln y=\\frac{L}{40}.\n\\]\nAlso,\n\\[\n\\log_{xyz} w=12 \\Rightarrow \\frac{L}{\\ln(xyz)}=12 \\Rightarrow \\ln(xyz)=\\frac{L}{12}.\n\\]\nBut\n\\[\n\\ln(xyz)=\\ln x+\\ln y+\\ln z=\\frac{L}{24}+\\frac{L}{40}+\\ln z=\\frac{L}{12}.\n\\]\nSo\n\\[\n\\ln z=\\frac{L}{12}-\\frac{L}{24}-\\frac{L}{40}\n= L\\left(\\frac{1}{12}-\\frac{1}{24}-\\frac{1}{40}\\right).\n\\]\nCompute:\n\\[\n\\frac{1}{12}-\\frac{1}{24}=\\frac{1}{24},\\quad \\frac{1}{24}-\\frac{1}{40}=\\frac{5-3}{120}=\\frac{2}{120}=\\frac{1}{60}.\n\\]\nThus\n\\[\n\\ln z=\\frac{L}{60}.\n\\]\nTherefore\n\\[\n\\log_z w=\\frac{\\ln w}{\\ln z}=\\frac{L}{L/60}=60.\n\\]\n\nANSWER: 60"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1983-1",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        },
+        {
+          "problem_id": "1983-1",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "60",
+            "answer_line": "ANSWER: 60",
+            "answer_fragment": "60",
+            "extracted": "60"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

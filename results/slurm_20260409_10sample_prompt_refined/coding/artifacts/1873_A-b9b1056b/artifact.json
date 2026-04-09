@@ -1,0 +1,1386 @@
+{
+  "problem_id": "1873_A",
+  "domain": "coding",
+  "problem": {
+    "id": "1873_A",
+    "domain": "coding",
+    "statement": "There are three cards with letters $\\texttt{a}$, $\\texttt{b}$, $\\texttt{c}$ placed in a row in some order. You can do the following operation at most once: \n\n \n-  Pick two cards, and swap them.  Is it possible that the row becomes $\\texttt{abc}$ after the operation? Output \"YES\" if it is possible, and \"NO\" otherwise.\n\nInput\n\nThe first line contains a single integer $t$ ($1 \\leq t \\leq 6$) — the number of test cases.\n\nThe only line of each test case contains a single string consisting of each of the three characters $\\texttt{a}$, $\\texttt{b}$, and $\\texttt{c}$ exactly once, representing the cards.\n\nOutput\n\nFor each test case, output \"YES\" if you can make the row $\\texttt{abc}$ with at most one operation, or \"NO\" otherwise.\n\nYou can output the answer in any case (for example, the strings \"yEs\", \"yes\", \"Yes\" and \"YES\" will be recognized as a positive answer).Sample Input 1:\n6\n\nabc\n\nacb\n\nbac\n\nbca\n\ncab\n\ncba\n\n\n\nSample Output 1:\n\nYES\nYES\nYES\nNO\nNO\nYES\n\n\nNote\n\nIn the first test case, we don't need to do any operations, since the row is already $\\texttt{abc}$.\n\nIn the second test case, we can swap $\\texttt{c}$ and $\\texttt{b}$: $\\texttt{acb} \\to \\texttt{abc}$.\n\nIn the third test case, we can swap $\\texttt{b}$ and $\\texttt{a}$: $\\texttt{bac} \\to \\texttt{abc}$.\n\nIn the fourth test case, it is impossible to make $\\texttt{abc}$ using at most one operation.",
+    "answer": null,
+    "test_cases": [
+      {
+        "input": "6\nabc\nacb\nbac\nbca\ncab\ncba\n",
+        "output": "YES\nYES\nYES\nNO\nNO\nYES\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "1\nabc\n",
+        "output": "YES\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "3\nabc\nabc\nabc\n",
+        "output": "YES\nYES\nYES\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "5\ncab\nacb\ncba\nbac\nbca\n",
+        "output": "NO\nYES\nYES\nYES\nNO\n",
+        "testtype": "stdin"
+      },
+      {
+        "input": "6\nabc\nabc\nabc\nabc\nabc\nabc\n",
+        "output": "YES\nYES\nYES\nYES\nYES\nYES\n",
+        "testtype": "stdin"
+      }
+    ],
+    "starter_code": null,
+    "metadata": {
+      "func_name": null,
+      "question_title": "A. Short Sort",
+      "platform": "codeforces",
+      "difficulty": "easy"
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+      "user_prompt": "### Question:\nThere are three cards with letters $\\texttt{a}$, $\\texttt{b}$, $\\texttt{c}$ placed in a row in some order. You can do the following operation at most once: \n\n \n-  Pick two cards, and swap them.  Is it possible that the row becomes $\\texttt{abc}$ after the operation? Output \"YES\" if it is possible, and \"NO\" otherwise.\n\nInput\n\nThe first line contains a single integer $t$ ($1 \\leq t \\leq 6$) — the number of test cases.\n\nThe only line of each test case contains a single string consisting of each of the three characters $\\texttt{a}$, $\\texttt{b}$, and $\\texttt{c}$ exactly once, representing the cards.\n\nOutput\n\nFor each test case, output \"YES\" if you can make the row $\\texttt{abc}$ with at most one operation, or \"NO\" otherwise.\n\nYou can output the answer in any case (for example, the strings \"yEs\", \"yes\", \"Yes\" and \"YES\" will be recognized as a positive answer).Sample Input 1:\n6\n\nabc\n\nacb\n\nbac\n\nbca\n\ncab\n\ncba\n\n\n\nSample Output 1:\n\nYES\nYES\nYES\nNO\nNO\nYES\n\n\nNote\n\nIn the first test case, we don't need to do any operations, since the row is already $\\texttt{abc}$.\n\nIn the second test case, we can swap $\\texttt{c}$ and $\\texttt{b}$: $\\texttt{acb} \\to \\texttt{abc}$.\n\nIn the third test case, we can swap $\\texttt{b}$ and $\\texttt{a}$: $\\texttt{bac} \\to \\texttt{abc}$.\n\nIn the fourth test case, it is impossible to make $\\texttt{abc}$ using at most one operation.\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n",
+      "solutions": [
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Check if target can be obtained by swapping exactly one pair\n        pos = [(ch, idx) for idx, ch in enumerate(s) for ch2 in [ch] if True]  # not needed\n        diff = [j for j in range(3) if s[j] != target[j]]\n        # With 3 distinct letters, any one swap can only fix if mismatches are 2\n        if len(diff) != 2:\n            out.append(\"NO\")\n            continue\n        a, b = diff\n        s_list = list(s)\n        s_list[a], s_list[b] = s_list[b], s_list[a]\n        out.append(\"YES\" if \"\".join(s_list) == target else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        arr = list(s)\n        n = 3\n\n        # Check if there exists at least one swap (i<j) that makes it \"abc\"\n        ok = False\n        for i in range(n):\n            for j in range(i + 1, n):\n                arr2 = arr[:]\n                arr2[i], arr2[j] = arr2[j], arr2[i]\n                if \"\".join(arr2) == target:\n                    ok = True\n                    break\n            if ok:\n                break\n\n        out.append(\"YES\" if ok else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    ans = []\n    for i in range(1, t + 1):\n        s = data[i]\n        ans.append(\"YES\" if s == \"abc\" or s in {\"acb\", \"bac\", \"cba\"} else \"NO\")\n    sys.stdout.write(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    out = []\n    target = \"abc\"\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # Count positions that differ from target\n        diff = sum(1 for a, b in zip(s, target) if a != b)\n\n        # A single swap can fix exactly:\n        # - 0 mismatches (already handled)\n        # - 2 mismatches (swap those two positions)\n        # - 3 mismatches only if the permutation is a 3-cycle; but a single swap\n        #   cannot transform one 3-cycle into identity (it would require 2 swaps).\n        out.append(\"YES\" if diff == 2 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Any swap is allowed at most once, so just check if s can become target by one swap\n        # Compute mismatched indices\n        mism = [i for i in range(3) if s[i] != target[i]]\n        if len(mism) == 2:\n            i, j = mism\n            lst = list(s)\n            lst[i], lst[j] = lst[j], lst[i]\n            out.append(\"YES\" if \"\".join(lst) == target else \"NO\")\n        else:\n            # If 0 -> already handled, if 3 -> would require more than one swap\n            out.append(\"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    ans = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            ans.append(\"YES\")\n            continue\n        # Count mismatched positions relative to \"abc\"\n        mismatches = [i for i in range(3) if s[i] != target[i]]\n        # With one swap, we can fix at most 2 mismatched positions.\n        # For 3 chars, the only solvable non-identity cases have exactly 2 mismatches.\n        ans.append(\"YES\" if len(mismatches) == 2 else \"NO\")\n    sys.stdout.write(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    res = []\n    target = \"abc\"\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            res.append(\"YES\")\n            continue\n        # With one swap, positions that are already correct must remain correct.\n        diff = [j for j in range(3) if s[j] != target[j]]\n        if len(diff) == 2:\n            a, b = diff\n            lst = list(s)\n            lst[a], lst[b] = lst[b], lst[a]\n            res.append(\"YES\" if \"\".join(lst) == target else \"NO\")\n        else:\n            res.append(\"NO\")\n    sys.stdout.write(\"\\n\".join(res))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    ans = []\n    target = \"abc\"\n\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            ans.append(\"YES\")\n            continue\n        # Check if s can be turned into target by swapping at most one pair\n        mismatch = [j for j in range(3) if s[j] != target[j]]\n        # If already different at exactly 2 positions, one swap may fix it\n        if len(mismatch) == 2:\n            a, b = mismatch\n            s_list = list(s)\n            s_list[a], s_list[b] = s_list[b], s_list[a]\n            ans.append(\"YES\" if ''.join(s_list) == target else \"NO\")\n        else:\n            ans.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # If it's exactly one swap away from \"abc\"\n        # Since length is 3, we can just try all swaps (3C2 = 3).\n        a = list(s)\n        possible = False\n        for i in range(3):\n            for j in range(i+1, 3):\n                b = a[:]\n                b[i], b[j] = b[j], b[i]\n                if ''.join(b) == target:\n                    possible = True\n                    break\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # Count positions that differ from target\n        diff = sum(1 for a, b in zip(s, target) if a != b)\n\n        # With one swap, the number of differing positions can be:\n        # - 2 (swap the two misplaced cards to match)\n        # - 0 (already handled)\n        # If diff == 2, it's always fixable by swapping those two positions.\n        out.append(\"YES\" if diff == 2 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1873_A",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "full": [
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Check if target can be obtained by swapping exactly one pair\n        pos = [(ch, idx) for idx, ch in enumerate(s) for ch2 in [ch] if True]  # not needed\n        diff = [j for j in range(3) if s[j] != target[j]]\n        # With 3 distinct letters, any one swap can only fix if mismatches are 2\n        if len(diff) != 2:\n            out.append(\"NO\")\n            continue\n        a, b = diff\n        s_list = list(s)\n        s_list[a], s_list[b] = s_list[b], s_list[a]\n        out.append(\"YES\" if \"\".join(s_list) == target else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        arr = list(s)\n        n = 3\n\n        # Check if there exists at least one swap (i<j) that makes it \"abc\"\n        ok = False\n        for i in range(n):\n            for j in range(i + 1, n):\n                arr2 = arr[:]\n                arr2[i], arr2[j] = arr2[j], arr2[i]\n                if \"\".join(arr2) == target:\n                    ok = True\n                    break\n            if ok:\n                break\n\n        out.append(\"YES\" if ok else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    ans = []\n    for i in range(1, t + 1):\n        s = data[i]\n        ans.append(\"YES\" if s == \"abc\" or s in {\"acb\", \"bac\", \"cba\"} else \"NO\")\n    sys.stdout.write(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    out = []\n    target = \"abc\"\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # Count positions that differ from target\n        diff = sum(1 for a, b in zip(s, target) if a != b)\n\n        # A single swap can fix exactly:\n        # - 0 mismatches (already handled)\n        # - 2 mismatches (swap those two positions)\n        # - 3 mismatches only if the permutation is a 3-cycle; but a single swap\n        #   cannot transform one 3-cycle into identity (it would require 2 swaps).\n        out.append(\"YES\" if diff == 2 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Any swap is allowed at most once, so just check if s can become target by one swap\n        # Compute mismatched indices\n        mism = [i for i in range(3) if s[i] != target[i]]\n        if len(mism) == 2:\n            i, j = mism\n            lst = list(s)\n            lst[i], lst[j] = lst[j], lst[i]\n            out.append(\"YES\" if \"\".join(lst) == target else \"NO\")\n        else:\n            # If 0 -> already handled, if 3 -> would require more than one swap\n            out.append(\"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    ans = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            ans.append(\"YES\")\n            continue\n        # Count mismatched positions relative to \"abc\"\n        mismatches = [i for i in range(3) if s[i] != target[i]]\n        # With one swap, we can fix at most 2 mismatched positions.\n        # For 3 chars, the only solvable non-identity cases have exactly 2 mismatches.\n        ans.append(\"YES\" if len(mismatches) == 2 else \"NO\")\n    sys.stdout.write(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    res = []\n    target = \"abc\"\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            res.append(\"YES\")\n            continue\n        # With one swap, positions that are already correct must remain correct.\n        diff = [j for j in range(3) if s[j] != target[j]]\n        if len(diff) == 2:\n            a, b = diff\n            lst = list(s)\n            lst[a], lst[b] = lst[b], lst[a]\n            res.append(\"YES\" if \"\".join(lst) == target else \"NO\")\n        else:\n            res.append(\"NO\")\n    sys.stdout.write(\"\\n\".join(res))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    ans = []\n    target = \"abc\"\n\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            ans.append(\"YES\")\n            continue\n        # Check if s can be turned into target by swapping at most one pair\n        mismatch = [j for j in range(3) if s[j] != target[j]]\n        # If already different at exactly 2 positions, one swap may fix it\n        if len(mismatch) == 2:\n            a, b = mismatch\n            s_list = list(s)\n            s_list[a], s_list[b] = s_list[b], s_list[a]\n            ans.append(\"YES\" if ''.join(s_list) == target else \"NO\")\n        else:\n            ans.append(\"NO\")\n\n    sys.stdout.write(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # If it's exactly one swap away from \"abc\"\n        # Since length is 3, we can just try all swaps (3C2 = 3).\n        a = list(s)\n        possible = False\n        for i in range(3):\n            for j in range(i+1, 3):\n                b = a[:]\n                b[i], b[j] = b[j], b[i]\n                if ''.join(b) == target:\n                    possible = True\n                    break\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+          "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # Count positions that differ from target\n        diff = sum(1 for a, b in zip(s, target) if a != b)\n\n        # With one swap, the number of differing positions can be:\n        # - 2 (swap the two misplaced cards to match)\n        # - 0 (already handled)\n        # If diff == 2, it's always fixable by swapping those two positions.\n        out.append(\"YES\" if diff == 2 else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.",
+        "user_prompt": "### Question:\nThere are three cards with letters $\\texttt{a}$, $\\texttt{b}$, $\\texttt{c}$ placed in a row in some order. You can do the following operation at most once: \n\n \n-  Pick two cards, and swap them.  Is it possible that the row becomes $\\texttt{abc}$ after the operation? Output \"YES\" if it is possible, and \"NO\" otherwise.\n\nInput\n\nThe first line contains a single integer $t$ ($1 \\leq t \\leq 6$) — the number of test cases.\n\nThe only line of each test case contains a single string consisting of each of the three characters $\\texttt{a}$, $\\texttt{b}$, and $\\texttt{c}$ exactly once, representing the cards.\n\nOutput\n\nFor each test case, output \"YES\" if you can make the row $\\texttt{abc}$ with at most one operation, or \"NO\" otherwise.\n\nYou can output the answer in any case (for example, the strings \"yEs\", \"yes\", \"Yes\" and \"YES\" will be recognized as a positive answer).Sample Input 1:\n6\n\nabc\n\nacb\n\nbac\n\nbca\n\ncab\n\ncba\n\n\n\nSample Output 1:\n\nYES\nYES\nYES\nNO\nNO\nYES\n\n\nNote\n\nIn the first test case, we don't need to do any operations, since the row is already $\\texttt{abc}$.\n\nIn the second test case, we can swap $\\texttt{c}$ and $\\texttt{b}$: $\\texttt{acb} \\to \\texttt{abc}$.\n\nIn the third test case, we can swap $\\texttt{b}$ and $\\texttt{a}$: $\\texttt{bac} \\to \\texttt{abc}$.\n\nIn the fourth test case, it is impossible to make $\\texttt{abc}$ using at most one operation.\n\n### Format: Read the inputs from stdin solve the problem and write the answer to stdout (do not directly test on the sample inputs). Enclose your code within delimiters as follows. Ensure that when the python program runs, it reads the inputs, runs the algorithm and writes output to STDOUT.\n```python\n# YOUR CODE HERE\n```\n\n### Answer: (use the provided format with backticks)\n"
+      },
+      "baseline_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # One swap can fix it iff we can obtain target by swapping exactly one pair\n        # (or at most once, but swapping 0 is already handled above).\n        chars = list(s)\n        n = 3\n        possible = False\n        for i in range(n):\n            for j in range(i + 1, n):\n                chars[i], chars[j] = chars[j], chars[i]\n                if \"\".join(chars) == target:\n                    possible = True\n                    chars[i], chars[j] = chars[j], chars[i]  # revert\n                    break\n                chars[i], chars[j] = chars[j], chars[i]  # revert\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # In a permutation of length 3, any single swap results from swapping\n        # some pair positions. Check if any gives the target.\n        s_list = list(s)\n        possible = False\n        for i in range(3):\n            for j in range(i + 1, 3):\n                b = s_list[:]          # copy\n                b[i], b[j] = b[j], b[i]\n                if \"\".join(b) == target:\n                    possible = True\n                    break\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    res = []\n    target = \"abc\"\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            res.append(\"YES\")\n            continue\n        # If we can reach target by at most one swap, then the strings must differ\n        # only in positions involved by a single swap (i.e., exactly 2 mismatches)\n        mism = [idx for idx, (x, y) in enumerate(zip(s, target)) if x != y]\n        res.append(\"YES\" if len(mism) == 2 else \"NO\")\n    sys.stdout.write(\"\\n\".join(res))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # Try all swaps once and check if any gives \"abc\"\n        chars = list(s)\n        ok = False\n        n = 3\n        for i in range(n):\n            for j in range(i + 1, n):\n                tmp = chars[:]\n                tmp[i], tmp[j] = tmp[j], tmp[i]\n                if \"\".join(tmp) == target:\n                    ok = True\n                    break\n            if ok:\n                break\n        out.append(\"YES\" if ok else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    idx = 1\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Try all swaps of two positions once\n        arr = list(s)\n        possible = False\n        for i in range(3):\n            for j in range(i + 1, 3):\n                arr2 = arr[:]\n                arr2[i], arr2[j] = arr2[j], arr2[i]\n                if \"\".join(arr2) == target:\n                    possible = True\n                    break\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # If we can sort to \"abc\" with at most one swap,\n        # then the number of mismatched positions between s and target\n        # must be 0 or 2 (a single swap fixes two positions).\n        mismatches = [i for i in range(3) if s[i] != target[i]]\n        if len(mismatches) != 2:\n            out.append(\"NO\")\n            continue\n\n        i, j = mismatches\n        # Check that swapping the mismatched positions makes it equal.\n        lst = list(s)\n        lst[i], lst[j] = lst[j], lst[i]\n        out.append(\"YES\" if \"\".join(lst) == target else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    idx = 1\n    out = []\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        out.append(\"YES\" if s == target else \"YES\" if sorted(s) == ['a','b','c'] and (s.index('a') != 0 or s.index('b') != 1 or s.index('c') != 2) and True else \"NO\")\n\n    # The above logic is overly complicated; fix with correct approach below.\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    idx = 1\n    out = []\n    for _ in range(t):\n        s = data[idx]; idx += 1\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Determine if s can be turned into target by at most one swap\n        pos = {ch: i for i, ch in enumerate(s)}\n        # positions in target for each character\n        # we can simulate all swaps that differ from target and see if any works in 1 swap\n        found = False\n        for i in range(3):\n            for j in range(i+1, 3):\n                lst = list(s)\n                lst[i], lst[j] = lst[j], lst[i]\n                if ''.join(lst) == target:\n                    found = True\n                    break\n            if found:\n                break\n        out.append(\"YES\" if found else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    ans = []\n    target = \"abc\"\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            ans.append(\"YES\")\n        else:\n            # Can we sort to \"abc\" in at most one swap?\n            # Since only 3 chars, just check all single swaps.\n            lst = list(s)\n            ok = False\n            for i in range(3):\n                for j in range(i + 1, 3):\n                    lst[i], lst[j] = lst[j], lst[i]\n                    if \"\".join(lst) == target:\n                        ok = True\n                        break\n                    lst[i], lst[j] = lst[j], lst[i]\n                if ok:\n                    break\n            ans.append(\"YES\" if ok else \"NO\")\n    print(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    idx = 1\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        # If already target, YES; otherwise check if exactly one swap can make it.\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        pos = {ch: i for i, ch in enumerate(s)}\n        # Find swaps that could place 'a','b','c' into target positions\n        # Since only 3 letters, at most 3 possible swaps.\n        swapped = False\n        arr = list(s)\n        swaps = [(0,1), (0,2), (1,2)]\n        for i, j in swaps:\n            arr[i], arr[j] = arr[j], arr[i]\n            if ''.join(arr) == target:\n                swapped = True\n                arr[i], arr[j] = arr[j], arr[i]  # restore\n                break\n            arr[i], arr[j] = arr[j], arr[i]  # restore\n        out.append(\"YES\" if swapped else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    idx = 1\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        # Count mismatched positions with target\n        mismatches = sum(1 for i in range(3) if s[i] != target[i])\n        # With at most one swap, we can fix the permutation if:\n        # - already correct (0 mismatches), or\n        # - exactly 2 positions differ (one swap can fix), or\n        # - exactly 3 positions differ means it's a 3-cycle -> needs 2 swaps, not allowed\n        out.append(\"YES\" if mismatches in (0, 2) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1873_A",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # One swap can fix it iff we can obtain target by swapping exactly one pair\n        # (or at most once, but swapping 0 is already handled above).\n        chars = list(s)\n        n = 3\n        possible = False\n        for i in range(n):\n            for j in range(i + 1, n):\n                chars[i], chars[j] = chars[j], chars[i]\n                if \"\".join(chars) == target:\n                    possible = True\n                    chars[i], chars[j] = chars[j], chars[i]  # revert\n                    break\n                chars[i], chars[j] = chars[j], chars[i]  # revert\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # In a permutation of length 3, any single swap results from swapping\n        # some pair positions. Check if any gives the target.\n        s_list = list(s)\n        possible = False\n        for i in range(3):\n            for j in range(i + 1, 3):\n                b = s_list[:]          # copy\n                b[i], b[j] = b[j], b[i]\n                if \"\".join(b) == target:\n                    possible = True\n                    break\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    res = []\n    target = \"abc\"\n    for i in range(1, t + 1):\n        s = data[i]\n        if s == target:\n            res.append(\"YES\")\n            continue\n        # If we can reach target by at most one swap, then the strings must differ\n        # only in positions involved by a single swap (i.e., exactly 2 mismatches)\n        mism = [idx for idx, (x, y) in enumerate(zip(s, target)) if x != y]\n        res.append(\"YES\" if len(mism) == 2 else \"NO\")\n    sys.stdout.write(\"\\n\".join(res))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # Try all swaps once and check if any gives \"abc\"\n        chars = list(s)\n        ok = False\n        n = 3\n        for i in range(n):\n            for j in range(i + 1, n):\n                tmp = chars[:]\n                tmp[i], tmp[j] = tmp[j], tmp[i]\n                if \"\".join(tmp) == target:\n                    ok = True\n                    break\n            if ok:\n                break\n        out.append(\"YES\" if ok else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    if not data:\n        return\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    idx = 1\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Try all swaps of two positions once\n        arr = list(s)\n        possible = False\n        for i in range(3):\n            for j in range(i + 1, 3):\n                arr2 = arr[:]\n                arr2[i], arr2[j] = arr2[j], arr2[i]\n                if \"\".join(arr2) == target:\n                    possible = True\n                    break\n            if possible:\n                break\n        out.append(\"YES\" if possible else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    target = \"abc\"\n    out = []\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        # If we can sort to \"abc\" with at most one swap,\n        # then the number of mismatched positions between s and target\n        # must be 0 or 2 (a single swap fixes two positions).\n        mismatches = [i for i in range(3) if s[i] != target[i]]\n        if len(mismatches) != 2:\n            out.append(\"NO\")\n            continue\n\n        i, j = mismatches\n        # Check that swapping the mismatched positions makes it equal.\n        lst = list(s)\n        lst[i], lst[j] = lst[j], lst[i]\n        out.append(\"YES\" if \"\".join(lst) == target else \"NO\")\n\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    idx = 1\n    out = []\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        out.append(\"YES\" if s == target else \"YES\" if sorted(s) == ['a','b','c'] and (s.index('a') != 0 or s.index('b') != 1 or s.index('c') != 2) and True else \"NO\")\n\n    # The above logic is overly complicated; fix with correct approach below.\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    idx = 1\n    out = []\n    for _ in range(t):\n        s = data[idx]; idx += 1\n        if s == target:\n            out.append(\"YES\")\n            continue\n        # Determine if s can be turned into target by at most one swap\n        pos = {ch: i for i, ch in enumerate(s)}\n        # positions in target for each character\n        # we can simulate all swaps that differ from target and see if any works in 1 swap\n        found = False\n        for i in range(3):\n            for j in range(i+1, 3):\n                lst = list(s)\n                lst[i], lst[j] = lst[j], lst[i]\n                if ''.join(lst) == target:\n                    found = True\n                    break\n            if found:\n                break\n        out.append(\"YES\" if found else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    it = iter(sys.stdin.read().strip().split())\n    t = int(next(it))\n    ans = []\n    target = \"abc\"\n    for _ in range(t):\n        s = next(it)\n        if s == target:\n            ans.append(\"YES\")\n        else:\n            # Can we sort to \"abc\" in at most one swap?\n            # Since only 3 chars, just check all single swaps.\n            lst = list(s)\n            ok = False\n            for i in range(3):\n                for j in range(i + 1, 3):\n                    lst[i], lst[j] = lst[j], lst[i]\n                    if \"\".join(lst) == target:\n                        ok = True\n                        break\n                    lst[i], lst[j] = lst[j], lst[i]\n                if ok:\n                    break\n            ans.append(\"YES\" if ok else \"NO\")\n    print(\"\\n\".join(ans))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    idx = 1\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        # If already target, YES; otherwise check if exactly one swap can make it.\n        if s == target:\n            out.append(\"YES\")\n            continue\n\n        pos = {ch: i for i, ch in enumerate(s)}\n        # Find swaps that could place 'a','b','c' into target positions\n        # Since only 3 letters, at most 3 possible swaps.\n        swapped = False\n        arr = list(s)\n        swaps = [(0,1), (0,2), (1,2)]\n        for i, j in swaps:\n            arr[i], arr[j] = arr[j], arr[i]\n            if ''.join(arr) == target:\n                swapped = True\n                arr[i], arr[j] = arr[j], arr[i]  # restore\n                break\n            arr[i], arr[j] = arr[j], arr[i]  # restore\n        out.append(\"YES\" if swapped else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```",
+        "```python\nimport sys\n\ndef solve():\n    data = sys.stdin.read().strip().split()\n    t = int(data[0])\n    target = \"abc\"\n    out = []\n    idx = 1\n    for _ in range(t):\n        s = data[idx]\n        idx += 1\n        # Count mismatched positions with target\n        mismatches = sum(1 for i in range(3) if s[i] != target[i])\n        # With at most one swap, we can fix the permutation if:\n        # - already correct (0 mismatches), or\n        # - exactly 2 positions differ (one swap can fix), or\n        # - exactly 3 positions differ means it's a 3-cycle -> needs 2 swaps, not allowed\n        out.append(\"YES\" if mismatches in (0, 2) else \"NO\")\n    sys.stdout.write(\"\\n\".join(out))\n\nif __name__ == \"__main__\":\n    solve()\n```"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1873_A",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        },
+        {
+          "problem_id": "1873_A",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "full",
+          "details": {
+            "passed": 5,
+            "total": 5,
+            "cases": [
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nNO\nNO\nYES",
+                "actual": "YES\nYES\nYES\nNO\nNO\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES",
+                "actual": "YES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES",
+                "actual": "YES\nYES\nYES",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "NO\nYES\nYES\nYES\nNO",
+                "actual": "NO\nYES\nYES\nYES\nNO",
+                "error": ""
+              },
+              {
+                "passed": true,
+                "expected": "YES\nYES\nYES\nYES\nYES\nYES",
+                "actual": "YES\nYES\nYES\nYES\nYES\nYES",
+                "error": ""
+              }
+            ]
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

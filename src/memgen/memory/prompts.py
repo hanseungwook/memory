@@ -73,6 +73,7 @@ _PROMPT_TIER_ORDER = ("Correct", "Partially Correct", "Incorrect")
 def build_memory_creation_prompt(
     problem: Problem, grouped_solutions: dict[str, list[str]]
 ) -> str:
+    domain = _normalize_domain(problem.domain)
     sections = [
         "## Guidelines",
         "You need to extract and summarize useful insights in the format of memory items "
@@ -93,22 +94,23 @@ def build_memory_creation_prompt(
         "- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.",
         "- Emphasize high-level strategies that would still make sense on a different problem in the same domain.",
         "",
-        "## Examples of good meta-reasoning memories",
-        "- Title: Constraint-First Reformulation",
-        '  Description: Turn informal requirements into explicit constraints before solving.',
-        "  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.",
-        "- Title: Validate Risky Transformations",
-        '  Description: Check any step that can introduce invalid candidates against the original problem.',
-        "  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.",
-        "- Title: Model the Smallest Faithful State",
-        '  Description: Reduce the problem to the minimal state that still determines future decisions.',
-        "  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.",
-        "",
+    ]
+    sections.extend(_domain_specific_guidance(domain))
+    sections.extend(
+        [
+            "## Examples of good meta-reasoning memories",
+            *_example_memories_for_domain(domain),
+            "",
+        ]
+    )
+    sections.extend(
+        [
         "### Problem",
         problem.statement.strip(),
         "",
         "### Solutions",
-    ]
+        ]
+    )
 
     for label, solutions in _group_prompt_solutions(grouped_solutions).items():
         sections.append(f"#### {label}")
@@ -258,3 +260,54 @@ def _group_prompt_solutions(
         ordered[label] = solutions
 
     return ordered
+
+
+def _normalize_domain(domain: str) -> str:
+    return str(domain).strip().lower()
+
+
+def _domain_specific_guidance(domain: str) -> list[str]:
+    if domain != "math":
+        return []
+
+    return [
+        "## Math-specific guidance",
+        "- For math, prefer memories about how to choose a representation, invariant, proof strategy, or validation step rather than advice tied to one theorem, construction, or object type.",
+        "- A good math memory should still make sense if the next problem uses different mathematical objects but has the same structural challenge.",
+        "- If a draft memory mainly says to use a particular theorem, formula, or named construction, rewrite it one level more abstract: explain the signal for using that move and the mistake it helps prevent.",
+        "- Prefer titles that name the reasoning move, not the surface topic.",
+        "- Favor reusable proof moves such as explicit constraint modeling, invariant selection, validating transformed equations, disciplined casework, complement or bijection counting, extremal arguments, and completeness or bounding proofs.",
+        "- Merge overlapping memories that express the same proof move. Do not split one idea into several object-specific variants.",
+        "- In the content field, explain both when to use the idea and what class of failure it helps avoid.",
+        "",
+    ]
+
+
+def _example_memories_for_domain(domain: str) -> list[str]:
+    if domain == "math":
+        return [
+            "- Title: Validate Lossy Transformations",
+            '  Description: Check transformed candidates against the original constraints before finalizing.',
+            "  Content: If you square, divide, drop a case, or weaken a condition, add a verification pass against the original problem. This prevents transformed solutions from being accepted just because they satisfy an easier intermediate condition.",
+            "- Title: Switch to an Explicit Constraint Model",
+            '  Description: When a diagram, identity, or theorem application is ambiguous, rewrite the givens as direct equations or inequalities.',
+            "  Content: Introduce variables for the unknown quantities and encode each condition explicitly. This is often safer than forcing a theorem whose prerequisites may not actually be established.",
+            "- Title: Prove Search Completeness",
+            '  Description: If you test candidates or scan cases, justify why no untested case can beat the selected answer.',
+            "  Content: Use a bound, invariant, monotonicity argument, or exhaustion proof to show the search space is complete. This turns a plausible candidate check into a full proof.",
+            "- Title: Choose a Counting Model with a Verified Bijection",
+            '  Description: In combinatorics, count through a model only after proving it matches the original objects one-to-one.',
+            "  Content: If you switch to gaps, complements, or auxiliary configurations, verify the mapping in both directions. This prevents elegant-looking counts that miss or double-count cases.",
+        ]
+
+    return [
+        "- Title: Constraint-First Reformulation",
+        '  Description: Turn informal requirements into explicit constraints before solving.',
+        "  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.",
+        "- Title: Validate Risky Transformations",
+        '  Description: Check any step that can introduce invalid candidates against the original problem.',
+        "  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.",
+        "- Title: Model the Smallest Faithful State",
+        '  Description: Reduce the problem to the minimal state that still determines future decisions.',
+        "  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.",
+    ]
