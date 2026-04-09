@@ -1,0 +1,488 @@
+{
+  "problem_id": "1992-8",
+  "domain": "math",
+  "problem": {
+    "id": "1992-8",
+    "domain": "math",
+    "statement": "For any sequence of real numbers $A=(a_1,a_2,a_3,\\ldots)$ , define $\\Delta A^{}_{}$ to be the sequence $(a_2-a_1,a_3-a_2,a_4-a_3,\\ldots)$ , whose $n^{th}$ term is $a_{n+1}-a_n^{}$ . Suppose that all of the terms of the sequence $\\Delta(\\Delta A^{}_{})$ are $1^{}_{}$ , and that $a_{19}=a_{92}^{}=0$ . Find $a_1^{}$ .",
+    "answer": "819",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1992,
+      "problem_number": 8
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nFor any sequence of real numbers $A=(a_1,a_2,a_3,\\ldots)$ , define $\\Delta A^{}_{}$ to be the sequence $(a_2-a_1,a_3-a_2,a_4-a_3,\\ldots)$ , whose $n^{th}$ term is $a_{n+1}-a_n^{}$ . Suppose that all of the terms of the sequence $\\Delta(\\Delta A^{}_{})$ are $1^{}_{}$ , and that $a_{19}=a_{92}^{}=0$ . Find $a_1^{}$ .",
+      "solutions": [
+        "Let \\(a_1,a_2,\\dots\\) be real numbers. Define\n\\[\n(\\Delta A)_n = a_{n+1}-a_n.\n\\]\nThen\n\\[\n(\\Delta(\\Delta A))_n = (\\Delta A)_{n+1}-(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\), so for all \\(n\\ge1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n = 1.\n\\]\n\n### Step 1: Solve the second-difference equation\nA standard form is that if the second difference is constant \\(1\\), then \\(a_n\\) is a quadratic:\n\\[\na_n = \\frac12 n^2 + bn + c,\n\\]\nbecause for \\(a_n = An^2+Bn+C\\), we have\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A.\n\\]\nSetting \\(2A=1\\) gives \\(A=\\tfrac12\\).\n\nSo let\n\\[\na_n=\\frac12 n^2+bn+c.\n\\]\n\n### Step 2: Use the given zeros\nWe know \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nCompute:\n\\[\na_{19}=\\frac12\\cdot 19^2 + 19b + c = \\frac12\\cdot 361 + 19b + c = 180.5 + 19b + c = 0,\n\\]\nso\n\\[\nc = -180.5 - 19b.\n\\]\n\nNext,\n\\[\na_{92}=\\frac12\\cdot 92^2 + 92b + c = \\frac12\\cdot 8464 + 92b + c = 4232 + 92b + c = 0.\n\\]\nSubstitute \\(c\\):\n\\[\n4232 + 92b + (-180.5 - 19b)=0\n\\]\n\\[\n4232-180.5 + 73b=0\n\\]\n\\[\n4051.5 + 73b=0\n\\]\n\\[\n73b = -4051.5 = -\\frac{8103}{2}.\n\\]\nThus\n\\[\nb = -\\frac{8103}{2\\cdot 73}=-\\frac{8103}{146}.\n\\]\nReduce: \\(8103=3\\cdot 2701\\), and \\(146=2\\cdot73\\), no common factor with 2701, so\n\\[\nb=-\\frac{8103}{146}.\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + b\\cdot 1 + c = \\frac12 + b + c.\n\\]\nBut \\(c = -180.5 - 19b = -\\frac{361}{2} - 19b\\). Then\n\\[\na_1 = \\frac12 + b -\\frac{361}{2} - 19b = \\left(\\frac12-\\frac{361}{2}\\right) + (b-19b)\n\\]\n\\[\na_1 = -\\frac{360}{2} -18b = -180 - 18b.\n\\]\nNow plug \\(b=-\\frac{8103}{146}\\):\n\\[\na_1 = -180 - 18\\left(-\\frac{8103}{146}\\right)= -180 + \\frac{145854}{146}.\n\\]\nSimplify \\(\\frac{145854}{146}\\): divide by 2:\n\\[\n\\frac{145854}{146}=\\frac{72927}{73}.\n\\]\nAnd \\(72927/73=999\\) since \\(73\\cdot 999=73(1000-1)=73000-73=72927\\).\nSo\n\\[\na_1 = -180 + 999 = 819.\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,\\dots)\\) and define \\(\\Delta A\\) by\n\\[\n(\\Delta A)_n = a_{n+1}-a_n.\n\\]\nThen\n\\[\n(\\Delta(\\Delta A))_n = (\\Delta A)_{n+1}-(\\Delta A)_n\n= (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)\n= a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), so for every \\(n\\),\n\\[\na_{n+2}-2a_{n+1}+a_n = 1.\n\\]\n\n### Step 1: Solve the second-difference equation\nFor such a recurrence, the first differences \\((a_{n+1}-a_n)\\) form an arithmetic sequence. Let\n\\[\nd_n = a_{n+1}-a_n.\n\\]\nThen\n\\[\nd_{n+1}-d_n = a_{n+2}-a_{n+1} - (a_{n+1}-a_n)\n= a_{n+2}-2a_{n+1}+a_n = 1.\n\\]\nSo\n\\[\nd_{n+1}=d_n+1 \\implies d_n = d_1+(n-1).\n\\]\nThus\n\\[\na_{n+1}-a_n = d_1+(n-1).\n\\]\n\n### Step 2: Express \\(a_n\\) in terms of \\(a_1\\) and \\(d_1\\)\nSum the difference equations:\n\\[\na_n = a_1 + \\sum_{k=1}^{n-1}(a_{k+1}-a_k)\n= a_1 + \\sum_{k=1}^{n-1}\\bigl(d_1+(k-1)\\bigr).\n\\]\nCompute the sum:\n\\[\n\\sum_{k=1}^{n-1} (d_1) = (n-1)d_1,\\quad\n\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j = \\frac{(n-2)(n-1)}{2}.\n\\]\nSo\n\\[\na_n = a_1 + (n-1)d_1 + \\frac{(n-2)(n-1)}{2}.\n\\]\n\n### Step 3: Use the given zeros \\(a_{19}=0\\) and \\(a_{92}=0\\)\nFor \\(n=19\\):\n\\[\n0=a_{19}= a_1 + 18d_1 + \\frac{17\\cdot 18}{2}\n= a_1 + 18d_1 + 153.\n\\]\nSo\n\\[\na_1 = -18d_1 -153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}= a_1 + 91d_1 + \\frac{90\\cdot 91}{2}\n= a_1 + 91d_1 + 4095.\n\\]\nSo\n\\[\na_1 = -91d_1 -4095. \\quad (2)\n\\]\n\nSet (1) = (2):\n\\[\n-18d_1 -153 = -91d_1 -4095\n\\]\n\\[\n(-18+91)d_1 = -4095+153\n\\]\n\\[\n73d_1 = -3942\n\\]\n\\[\nd_1 = -54.\n\\]\n\nPlug into (1):\n\\[\na_1 = -18(-54) -153 = 972 -153 = 819.\n\\]\n\n\\[\n\\boxed{a_1=819}\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,a_3,\\dots)\\). Define\n\\[\n\\Delta A=(a_2-a_1,\\ a_3-a_2,\\ \\dots)\n\\]\nso \\((\\Delta A)_n=a_{n+1}-a_n\\). Then\n\\[\n\\Delta(\\Delta A) = \\Delta^2 A\n\\]\nhas \\(n^{\\text{th}}\\) term\n\\[\n(\\Delta^2 A)_n = (\\Delta A)_{n+1}-(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta^2 A\\) equals \\(1\\), so for all \\(n\\ge1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Solve the recurrence\nA standard way is to look for quadratic form. Suppose \\(a_n = cn^2+dn+e\\). Then\n\\[\na_{n+2}-2a_{n+1}+a_n = 2c.\n\\]\n(Indeed, the second finite difference of a quadratic \\(cn^2+\\cdots\\) is constant and equals \\(2c\\).)\n\nSet \\(2c=1\\Rightarrow c=\\tfrac12\\). So\n\\[\na_n=\\frac12 n^2+dn+e.\n\\]\n\n### Step 2: Use the given values\nGiven \\(a_{19}=0\\):\n\\[\n0=\\frac12\\cdot 19^2 + d\\cdot 19 + e=\\frac12\\cdot 361+19d+e=\\frac{361}{2}+19d+e.\n\\]\nGiven \\(a_{92}=0\\):\n\\[\n0=\\frac12\\cdot 92^2 + 92d + e=\\frac12\\cdot 8464+92d+e=4232+92d+e.\n\\]\n\nSubtract the first equation from the second:\n\\[\n(4232+92d+e)-\\left(\\frac{361}{2}+19d+e\\right)=0\n\\]\n\\[\n4232- \\frac{361}{2} + (92-19)d=0.\n\\]\nCompute:\n\\[\n4232=\\frac{8464}{2},\\quad \\frac{8464}{2}-\\frac{361}{2}=\\frac{8103}{2},\\quad 92-19=73.\n\\]\nSo\n\\[\n\\frac{8103}{2}+73d=0 \\Rightarrow 73d=-\\frac{8103}{2}\\Rightarrow d=-\\frac{8103}{146}.\n\\]\nReduce: \\(146=2\\cdot 73\\), and \\(8103=73\\cdot 111\\). Thus\n\\[\nd=-\\frac{73\\cdot 111}{2\\cdot 73}=-\\frac{111}{2}.\n\\]\n\nNow plug into \\(a_{19}=0\\):\n\\[\n0=\\frac{361}{2}+19\\left(-\\frac{111}{2}\\right)+e\n=\\frac{361}{2}-\\frac{2109}{2}+e\n=-\\frac{1748}{2}+e=-874+e,\n\\]\nso \\(e=874\\).\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + d\\cdot 1 + e=\\frac12-\\frac{111}{2}+874\n=\\frac{1-111}{2}+874=-\\frac{110}{2}+874=-55+874=819.\n\\]\n\nANSWER: 819",
+        "We are told that all terms of the second difference are \\(1\\). That means\n\\[\n\\Delta(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all \\(n\\).\n\n### Step 1: Solve the recurrence for \\(a_n\\)\nA standard fact: if the second difference is constant \\(1\\), then \\(a_n\\) is a quadratic polynomial in \\(n\\).\nLet\n\\[\na_n = An^2+Bn+C.\n\\]\nCompute the second difference:\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A.\n\\]\nWe need \\(2A=1\\), so \\(A=\\tfrac12\\). Thus\n\\[\na_n = \\frac12 n^2 + Bn + C.\n\\]\n\n### Step 2: Use the given conditions\nWe know \\(a_{19}=0\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19B + C\n=\\frac12\\cdot 361 + 19B + C\n=\\frac{361}{2}+19B+C.\n\\]\nSo\n\\[\nC=-\\frac{361}{2}-19B.\n\\]\n\nAlso \\(a_{92}=0\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2 + 92B + C\n=\\frac12\\cdot 8464 + 92B + C\n=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B-\\frac{361}{2}-19B.\n\\]\nCompute \\(4232-\\frac{361}{2}=\\frac{8464-361}{2}=\\frac{8103}{2}\\). Then\n\\[\n0=\\frac{8103}{2} + 73B\n\\quad\\Rightarrow\\quad\n73B=-\\frac{8103}{2}.\n\\]\nSo\n\\[\nB=-\\frac{8103}{146}.\n\\]\nReduce: \\(8103=73\\cdot 111\\), \\(146=73\\cdot 2\\), hence\n\\[\nB=-\\frac{111}{2}.\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C = \\frac12 + B + C.\n\\]\nBut we can use \\(a_{19}=0\\) directly:\n\\[\na_{19}=\\frac12\\cdot 19^2 + 19B + C = 0\n\\Rightarrow C= -\\frac{361}{2}-19B.\n\\]\nThen\n\\[\na_1=\\frac12 + B -\\frac{361}{2}-19B\n= \\frac{1-361}{2} + (1-19)B\n= -\\frac{360}{2} -18B\n= -180 -18B.\n\\]\nWith \\(B=-\\frac{111}{2}\\),\n\\[\na_1 = -180 -18\\left(-\\frac{111}{2}\\right)\n= -180 + 9\\cdot 111\n= -180 + 999\n=819.\n\\]\n\nANSWER: 819",
+        "Let \\(d_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(d_1,d_2,d_3,\\dots)\\).\n\nWe are told that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), i.e.\n\\[\nd_{n+1}-d_n=1 \\quad \\text{for all } n\\ge1.\n\\]\nSo \\((d_n)\\) is an arithmetic sequence with common difference \\(1\\). Hence\n\\[\nd_n=d_1+(n-1).\n\\]\nNow use the relationship between \\(a_n\\) and the \\(d_k\\):\n\\[\na_{n}=a_1+\\sum_{k=1}^{n-1} d_k\n= a_1+\\sum_{k=1}^{n-1}\\bigl(d_1+(k-1)\\bigr)\n= a_1+(n-1)d_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nBut \\(\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j=\\frac{(n-2)(n-1)}{2}\\). Thus\n\\[\na_n=a_1+(n-1)d_1+\\frac{(n-2)(n-1)}{2}.\n\\]\nGiven \\(a_{19}=0\\) and \\(a_{92}=0\\):\n\nFor \\(n=19\\):\n\\[\n0=a_1+18d_1+\\frac{17\\cdot18}{2}=a_1+18d_1+153\n\\]\nso\n\\[\na_1=-18d_1-153.\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_1+91d_1+\\frac{90\\cdot91}{2}\n= a_1+91d_1+4095.\n\\]\nSubstitute \\(a_1=-18d_1-153\\):\n\\[\n0=(-18d_1-153)+91d_1+4095=73d_1+3942.\n\\]\nSo\n\\[\nd_1=-\\frac{3942}{73}=-54.\n\\]\nThen\n\\[\na_1=-18(-54)-153=972-153=819.\n\\]\n\nANSWER: 819",
+        "Let \\(b_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(b_1,b_2,\\dots)\\).\n\nGiven that \\(\\Delta(\\Delta A)\\) has all terms equal to \\(1\\), we have for all \\(n\\ge 1\\):\n\\[\nb_{n+1}-b_n=1.\n\\]\nSo \\(b_n\\) is an arithmetic sequence with common difference \\(1\\). Hence\n\\[\nb_n=b_1+(n-1).\n\\]\n\nNow use \\(a_{19}=0\\) and \\(a_{92}=0\\). Since\n\\[\na_{n}=a_1+\\sum_{k=1}^{n-1} b_k,\n\\]\nwe get\n\\[\n0=a_{19}=a_1+\\sum_{k=1}^{18} b_k,\n\\qquad\n0=a_{92}=a_1+\\sum_{k=1}^{91} b_k.\n\\]\nSubtract the first equation from the second to eliminate \\(a_1\\):\n\\[\n0=\\left(a_1+\\sum_{k=1}^{91} b_k\\right)-\\left(a_1+\\sum_{k=1}^{18} b_k\\right)\n=\\sum_{k=19}^{91} b_k.\n\\]\nFor \\(k\\ge 19\\),\n\\[\nb_k=b_1+(k-1).\n\\]\nThus\n\\[\n\\sum_{k=19}^{91} b_k=\\sum_{k=19}^{91}\\bigl(b_1+(k-1)\\bigr)=\n(91-19+1)b_1+\\sum_{k=19}^{91}(k-1).\n\\]\nCompute:\n\\[\n91-19+1=73,\n\\]\nand\n\\[\n\\sum_{k=19}^{91}(k-1)=\\sum_{j=18}^{90} j=\\frac{(18+90)\\cdot 73}{2}\n=\\frac{108\\cdot 73}{2}=54\\cdot 73.\n\\]\nSo\n\\[\n0=73b_1+54\\cdot 73 \\quad\\Rightarrow\\quad b_1=-54.\n\\]\n\nNow determine \\(a_1\\) from \\(a_{19}=0\\):\n\\[\n0=a_{19}=a_1+\\sum_{k=1}^{18} b_k\n= a_1+\\sum_{k=1}^{18}\\bigl(b_1+(k-1)\\bigr).\n\\]\nThere are \\(18\\) terms, so\n\\[\n\\sum_{k=1}^{18}\\bigl(b_1+(k-1)\\bigr)=18b_1+\\sum_{k=1}^{18}(k-1)=18b_1+\\sum_{m=0}^{17} m.\n\\]\nAnd\n\\[\n\\sum_{m=0}^{17} m=\\frac{17\\cdot 18}{2}=153.\n\\]\nWith \\(b_1=-54\\),\n\\[\n0=a_1+18(-54)+153=a_1-972+153=a_1-819\n\\]\nso\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+        "Let the original sequence be \\(A=(a_1,a_2,a_3,\\dots)\\).  \nThen\n\\[\n\\Delta A=(a_2-a_1,\\ a_3-a_2,\\ a_4-a_3,\\dots)\n\\]\nand\n\\[\n\\Delta(\\Delta A)\n\\]\nhas \\(n^{\\text{th}}\\) term\n\\[\n(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\), so for all \\(n\\ge 1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Solve the second-difference condition\nA sequence whose second difference is constant \\(1\\) must be quadratic. Let\n\\[\na_n = \\frac{1}{2}n(n-1)+bn+c\n\\]\nbecause \\(\\Delta a_n\\) then has constant first difference increase of \\(1\\), giving second difference \\(1\\).\n\nMore directly: the general form for constant second difference \\(1\\) is\n\\[\na_n = \\frac{1}{2}n^2+\\left(b-\\frac{1}{2}\\right)n+c\n\\]\nwhich is equivalent to \\(\\frac{1}{2}n(n-1)+bn+c\\). We proceed with\n\\[\na_n=\\frac12 n(n-1)+bn+c.\n\\]\n\n### Step 2: Use the given values\nWe are told\n\\[\na_{19}=0,\\quad a_{92}=0.\n\\]\n\nCompute:\n\\[\na_{19}=\\frac12\\cdot 19\\cdot 18 + 19b + c = 171 + 19b + c = 0\n\\]\nso\n\\[\nc = -171 - 19b.\n\\]\n\nNext,\n\\[\na_{92}=\\frac12\\cdot 92\\cdot 91 + 92b + c = 4186 + 92b + c = 0.\n\\]\nSubstitute \\(c\\):\n\\[\n4186 + 92b + (-171 - 19b)=0\n\\]\n\\[\n4186-171 + (92-19)b=0\n\\]\n\\[\n4015 + 73b=0\n\\]\n\\[\nb=-\\frac{4015}{73}=-55.\n\\]\nThen\n\\[\nc=-171 - 19(-55)= -171+1045=874.\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1\\cdot 0 + 1\\cdot b + c = b+c = -55+874=819.\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,a_3,\\dots)\\).  \nGiven that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), this means\n\\[\n(\\Delta(\\Delta A))_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n = 1\n\\]\nfor all \\(n\\ge 1\\). So \\(a_n\\) satisfies the second-difference equation\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Reduce to first differences\nLet \\(d_n=a_{n+1}-a_n\\). Then\n\\[\nd_{n+1}-d_n = 1.\n\\]\nSo \\(d_n\\) is an arithmetic sequence:\n\\[\nd_n = d_1 + (n-1).\n\\]\nThus\n\\[\na_{n+1}-a_n = d_1+(n-1).\n\\]\n\n### Step 2: Express \\(a_n\\) in terms of \\(a_1\\) and \\(d_1\\)\nSum from \\(k=1\\) to \\(n-1\\):\n\\[\na_n-a_1=\\sum_{k=1}^{n-1}\\bigl(d_1+(k-1)\\bigr)\n=(n-1)d_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nBut\n\\[\n\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j=\\frac{(n-2)(n-1)}{2}.\n\\]\nSo\n\\[\na_n = a_1+(n-1)d_1+\\frac{(n-2)(n-1)}{2}.\n\\]\n\n### Step 3: Use the conditions \\(a_{19}=0\\) and \\(a_{92}=0\\)\nFor \\(n=19\\):\n\\[\n0=a_{19}=a_1+18d_1+\\frac{17\\cdot 18}{2}\n= a_1+18d_1+153.\n\\]\nSo\n\\[\na_1+18d_1=-153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=a_1+91d_1+\\frac{90\\cdot 91}{2}\n= a_1+91d_1+4095.\n\\]\nSo\n\\[\na_1+91d_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n( a_1+91d_1)-(a_1+18d_1) = -4095-(-153)\n\\]\n\\[\n73d_1 = -3942\n\\]\n\\[\nd_1 = -54.\n\\]\n\nPlug into (1):\n\\[\na_1+18(-54)=-153\n\\]\n\\[\na_1-972=-153\n\\]\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+        "Let \\(b_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(b_1,b_2,\\dots)\\).\n\nGiven that every term of \\(\\Delta(\\Delta A)\\) is \\(1\\), we have\n\\[\n(\\Delta(\\Delta A))_n=b_{n+1}-b_n=1 \\quad \\text{for all } n.\n\\]\nSo \\(b_{n+1}=b_n+1\\), meaning \\(b_n\\) is an arithmetic sequence:\n\\[\nb_n=b_1+(n-1).\n\\]\n\nNow relate \\(a_n\\) to \\(b_n\\):\n\\[\na_{n} = a_1+\\sum_{k=1}^{n-1} (a_{k+1}-a_k)\n      = a_1+\\sum_{k=1}^{n-1} b_k.\n\\]\nCompute the sum:\n\\[\n\\sum_{k=1}^{n-1} b_k=\\sum_{k=1}^{n-1}\\left(b_1+(k-1)\\right)\n=(n-1)b_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nAnd\n\\[\n\\sum_{k=1}^{n-1}(k-1)=0+1+\\cdots+(n-2)=\\frac{(n-2)(n-1)}{2}.\n\\]\nThus\n\\[\na_n=a_1+(n-1)b_1+\\frac{(n-2)(n-1)}{2}.\n\\]\n\nUse the given values \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nFor \\(n=19\\):\n\\[\n0=a_{19}=a_1+18b_1+\\frac{17\\cdot 18}{2}\n=a_1+18b_1+153.\n\\]\nSo\n\\[\na_1+18b_1=-153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=a_1+91b_1+\\frac{90\\cdot 91}{2}\n=a_1+91b_1+4095.\n\\]\nSo\n\\[\na_1+91b_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n( a_1+91b_1)-(a_1+18b_1)= -4095-(-153)\n\\]\n\\[\n73b_1=-3942\n\\]\n\\[\nb_1=-54.\n\\]\n\nPlug into (1):\n\\[\na_1+18(-54)=-153\n\\]\n\\[\na_1-972=-153\n\\]\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+        "Let \\(b_n=\\Delta A_n=a_{n+1}-a_n\\). Then\n\\[\n\\Delta(\\Delta A)_n=b_{n+1}-b_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) is \\(1\\), so\n\\[\nb_{n+1}-b_n=1 \\quad \\text{for all } n\\ge 1.\n\\]\nThus \\((b_n)\\) is an arithmetic sequence with common difference \\(1\\). Hence\n\\[\nb_n=b_1+(n-1).\n\\]\nNow use \\(a_{19}=0\\) and \\(a_{92}=0\\). Since\n\\[\na_{n} = a_1+\\sum_{k=1}^{n-1} b_k,\n\\]\nwe get\n\\[\n0=a_{19}=a_1+\\sum_{k=1}^{18} b_k,\\qquad\n0=a_{92}=a_1+\\sum_{k=1}^{91} b_k.\n\\]\nSubtract the first from the second:\n\\[\n0-(0)=\\sum_{k=19}^{91} b_k=\\sum_{k=19}^{91}\\bigl(b_1+(k-1)\\bigr).\n\\]\nCompute:\n\\[\n\\sum_{k=19}^{91} (b_1)= (91-19+1)b_1=73b_1,\n\\]\nand\n\\[\n\\sum_{k=19}^{91}(k-1)=\\sum_{j=18}^{90} j=\\frac{(18+90)\\cdot 73}{2} =54\\cdot 73=3942.\n\\]\nSo\n\\[\n73b_1+3942=0 \\implies b_1=-\\frac{3942}{73}=-54.\n\\]\nNow compute \\(a_{19}=0\\):\n\\[\n0=a_1+\\sum_{k=1}^{18} b_k=\\;a_1+\\sum_{k=1}^{18}\\bigl(b_1+(k-1)\\bigr).\n\\]\nHere,\n\\[\n\\sum_{k=1}^{18} b_1=18b_1=18(-54)=-972,\n\\]\nand\n\\[\n\\sum_{k=1}^{18}(k-1)=0+1+\\cdots+17=\\frac{17\\cdot 18}{2}=153.\n\\]\nTherefore\n\\[\n0=a_1+(-972)+153=a_1-819 \\implies a_1=819.\n\\]\n\nANSWER: 819"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1992-8",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "Let \\(a_1,a_2,\\dots\\) be real numbers. Define\n\\[\n(\\Delta A)_n = a_{n+1}-a_n.\n\\]\nThen\n\\[\n(\\Delta(\\Delta A))_n = (\\Delta A)_{n+1}-(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\), so for all \\(n\\ge1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n = 1.\n\\]\n\n### Step 1: Solve the second-difference equation\nA standard form is that if the second difference is constant \\(1\\), then \\(a_n\\) is a quadratic:\n\\[\na_n = \\frac12 n^2 + bn + c,\n\\]\nbecause for \\(a_n = An^2+Bn+C\\), we have\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A.\n\\]\nSetting \\(2A=1\\) gives \\(A=\\tfrac12\\).\n\nSo let\n\\[\na_n=\\frac12 n^2+bn+c.\n\\]\n\n### Step 2: Use the given zeros\nWe know \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nCompute:\n\\[\na_{19}=\\frac12\\cdot 19^2 + 19b + c = \\frac12\\cdot 361 + 19b + c = 180.5 + 19b + c = 0,\n\\]\nso\n\\[\nc = -180.5 - 19b.\n\\]\n\nNext,\n\\[\na_{92}=\\frac12\\cdot 92^2 + 92b + c = \\frac12\\cdot 8464 + 92b + c = 4232 + 92b + c = 0.\n\\]\nSubstitute \\(c\\):\n\\[\n4232 + 92b + (-180.5 - 19b)=0\n\\]\n\\[\n4232-180.5 + 73b=0\n\\]\n\\[\n4051.5 + 73b=0\n\\]\n\\[\n73b = -4051.5 = -\\frac{8103}{2}.\n\\]\nThus\n\\[\nb = -\\frac{8103}{2\\cdot 73}=-\\frac{8103}{146}.\n\\]\nReduce: \\(8103=3\\cdot 2701\\), and \\(146=2\\cdot73\\), no common factor with 2701, so\n\\[\nb=-\\frac{8103}{146}.\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + b\\cdot 1 + c = \\frac12 + b + c.\n\\]\nBut \\(c = -180.5 - 19b = -\\frac{361}{2} - 19b\\). Then\n\\[\na_1 = \\frac12 + b -\\frac{361}{2} - 19b = \\left(\\frac12-\\frac{361}{2}\\right) + (b-19b)\n\\]\n\\[\na_1 = -\\frac{360}{2} -18b = -180 - 18b.\n\\]\nNow plug \\(b=-\\frac{8103}{146}\\):\n\\[\na_1 = -180 - 18\\left(-\\frac{8103}{146}\\right)= -180 + \\frac{145854}{146}.\n\\]\nSimplify \\(\\frac{145854}{146}\\): divide by 2:\n\\[\n\\frac{145854}{146}=\\frac{72927}{73}.\n\\]\nAnd \\(72927/73=999\\) since \\(73\\cdot 999=73(1000-1)=73000-73=72927\\).\nSo\n\\[\na_1 = -180 + 999 = 819.\n\\]\n\nANSWER: 819",
+          "Let \\(A=(a_1,a_2,\\dots)\\) and define \\(\\Delta A\\) by\n\\[\n(\\Delta A)_n = a_{n+1}-a_n.\n\\]\nThen\n\\[\n(\\Delta(\\Delta A))_n = (\\Delta A)_{n+1}-(\\Delta A)_n\n= (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)\n= a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), so for every \\(n\\),\n\\[\na_{n+2}-2a_{n+1}+a_n = 1.\n\\]\n\n### Step 1: Solve the second-difference equation\nFor such a recurrence, the first differences \\((a_{n+1}-a_n)\\) form an arithmetic sequence. Let\n\\[\nd_n = a_{n+1}-a_n.\n\\]\nThen\n\\[\nd_{n+1}-d_n = a_{n+2}-a_{n+1} - (a_{n+1}-a_n)\n= a_{n+2}-2a_{n+1}+a_n = 1.\n\\]\nSo\n\\[\nd_{n+1}=d_n+1 \\implies d_n = d_1+(n-1).\n\\]\nThus\n\\[\na_{n+1}-a_n = d_1+(n-1).\n\\]\n\n### Step 2: Express \\(a_n\\) in terms of \\(a_1\\) and \\(d_1\\)\nSum the difference equations:\n\\[\na_n = a_1 + \\sum_{k=1}^{n-1}(a_{k+1}-a_k)\n= a_1 + \\sum_{k=1}^{n-1}\\bigl(d_1+(k-1)\\bigr).\n\\]\nCompute the sum:\n\\[\n\\sum_{k=1}^{n-1} (d_1) = (n-1)d_1,\\quad\n\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j = \\frac{(n-2)(n-1)}{2}.\n\\]\nSo\n\\[\na_n = a_1 + (n-1)d_1 + \\frac{(n-2)(n-1)}{2}.\n\\]\n\n### Step 3: Use the given zeros \\(a_{19}=0\\) and \\(a_{92}=0\\)\nFor \\(n=19\\):\n\\[\n0=a_{19}= a_1 + 18d_1 + \\frac{17\\cdot 18}{2}\n= a_1 + 18d_1 + 153.\n\\]\nSo\n\\[\na_1 = -18d_1 -153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}= a_1 + 91d_1 + \\frac{90\\cdot 91}{2}\n= a_1 + 91d_1 + 4095.\n\\]\nSo\n\\[\na_1 = -91d_1 -4095. \\quad (2)\n\\]\n\nSet (1) = (2):\n\\[\n-18d_1 -153 = -91d_1 -4095\n\\]\n\\[\n(-18+91)d_1 = -4095+153\n\\]\n\\[\n73d_1 = -3942\n\\]\n\\[\nd_1 = -54.\n\\]\n\nPlug into (1):\n\\[\na_1 = -18(-54) -153 = 972 -153 = 819.\n\\]\n\n\\[\n\\boxed{a_1=819}\n\\]\n\nANSWER: 819",
+          "Let \\(A=(a_1,a_2,a_3,\\dots)\\). Define\n\\[\n\\Delta A=(a_2-a_1,\\ a_3-a_2,\\ \\dots)\n\\]\nso \\((\\Delta A)_n=a_{n+1}-a_n\\). Then\n\\[\n\\Delta(\\Delta A) = \\Delta^2 A\n\\]\nhas \\(n^{\\text{th}}\\) term\n\\[\n(\\Delta^2 A)_n = (\\Delta A)_{n+1}-(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta^2 A\\) equals \\(1\\), so for all \\(n\\ge1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Solve the recurrence\nA standard way is to look for quadratic form. Suppose \\(a_n = cn^2+dn+e\\). Then\n\\[\na_{n+2}-2a_{n+1}+a_n = 2c.\n\\]\n(Indeed, the second finite difference of a quadratic \\(cn^2+\\cdots\\) is constant and equals \\(2c\\).)\n\nSet \\(2c=1\\Rightarrow c=\\tfrac12\\). So\n\\[\na_n=\\frac12 n^2+dn+e.\n\\]\n\n### Step 2: Use the given values\nGiven \\(a_{19}=0\\):\n\\[\n0=\\frac12\\cdot 19^2 + d\\cdot 19 + e=\\frac12\\cdot 361+19d+e=\\frac{361}{2}+19d+e.\n\\]\nGiven \\(a_{92}=0\\):\n\\[\n0=\\frac12\\cdot 92^2 + 92d + e=\\frac12\\cdot 8464+92d+e=4232+92d+e.\n\\]\n\nSubtract the first equation from the second:\n\\[\n(4232+92d+e)-\\left(\\frac{361}{2}+19d+e\\right)=0\n\\]\n\\[\n4232- \\frac{361}{2} + (92-19)d=0.\n\\]\nCompute:\n\\[\n4232=\\frac{8464}{2},\\quad \\frac{8464}{2}-\\frac{361}{2}=\\frac{8103}{2},\\quad 92-19=73.\n\\]\nSo\n\\[\n\\frac{8103}{2}+73d=0 \\Rightarrow 73d=-\\frac{8103}{2}\\Rightarrow d=-\\frac{8103}{146}.\n\\]\nReduce: \\(146=2\\cdot 73\\), and \\(8103=73\\cdot 111\\). Thus\n\\[\nd=-\\frac{73\\cdot 111}{2\\cdot 73}=-\\frac{111}{2}.\n\\]\n\nNow plug into \\(a_{19}=0\\):\n\\[\n0=\\frac{361}{2}+19\\left(-\\frac{111}{2}\\right)+e\n=\\frac{361}{2}-\\frac{2109}{2}+e\n=-\\frac{1748}{2}+e=-874+e,\n\\]\nso \\(e=874\\).\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + d\\cdot 1 + e=\\frac12-\\frac{111}{2}+874\n=\\frac{1-111}{2}+874=-\\frac{110}{2}+874=-55+874=819.\n\\]\n\nANSWER: 819",
+          "We are told that all terms of the second difference are \\(1\\). That means\n\\[\n\\Delta(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all \\(n\\).\n\n### Step 1: Solve the recurrence for \\(a_n\\)\nA standard fact: if the second difference is constant \\(1\\), then \\(a_n\\) is a quadratic polynomial in \\(n\\).\nLet\n\\[\na_n = An^2+Bn+C.\n\\]\nCompute the second difference:\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A.\n\\]\nWe need \\(2A=1\\), so \\(A=\\tfrac12\\). Thus\n\\[\na_n = \\frac12 n^2 + Bn + C.\n\\]\n\n### Step 2: Use the given conditions\nWe know \\(a_{19}=0\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19B + C\n=\\frac12\\cdot 361 + 19B + C\n=\\frac{361}{2}+19B+C.\n\\]\nSo\n\\[\nC=-\\frac{361}{2}-19B.\n\\]\n\nAlso \\(a_{92}=0\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2 + 92B + C\n=\\frac12\\cdot 8464 + 92B + C\n=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B-\\frac{361}{2}-19B.\n\\]\nCompute \\(4232-\\frac{361}{2}=\\frac{8464-361}{2}=\\frac{8103}{2}\\). Then\n\\[\n0=\\frac{8103}{2} + 73B\n\\quad\\Rightarrow\\quad\n73B=-\\frac{8103}{2}.\n\\]\nSo\n\\[\nB=-\\frac{8103}{146}.\n\\]\nReduce: \\(8103=73\\cdot 111\\), \\(146=73\\cdot 2\\), hence\n\\[\nB=-\\frac{111}{2}.\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C = \\frac12 + B + C.\n\\]\nBut we can use \\(a_{19}=0\\) directly:\n\\[\na_{19}=\\frac12\\cdot 19^2 + 19B + C = 0\n\\Rightarrow C= -\\frac{361}{2}-19B.\n\\]\nThen\n\\[\na_1=\\frac12 + B -\\frac{361}{2}-19B\n= \\frac{1-361}{2} + (1-19)B\n= -\\frac{360}{2} -18B\n= -180 -18B.\n\\]\nWith \\(B=-\\frac{111}{2}\\),\n\\[\na_1 = -180 -18\\left(-\\frac{111}{2}\\right)\n= -180 + 9\\cdot 111\n= -180 + 999\n=819.\n\\]\n\nANSWER: 819",
+          "Let \\(d_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(d_1,d_2,d_3,\\dots)\\).\n\nWe are told that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), i.e.\n\\[\nd_{n+1}-d_n=1 \\quad \\text{for all } n\\ge1.\n\\]\nSo \\((d_n)\\) is an arithmetic sequence with common difference \\(1\\). Hence\n\\[\nd_n=d_1+(n-1).\n\\]\nNow use the relationship between \\(a_n\\) and the \\(d_k\\):\n\\[\na_{n}=a_1+\\sum_{k=1}^{n-1} d_k\n= a_1+\\sum_{k=1}^{n-1}\\bigl(d_1+(k-1)\\bigr)\n= a_1+(n-1)d_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nBut \\(\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j=\\frac{(n-2)(n-1)}{2}\\). Thus\n\\[\na_n=a_1+(n-1)d_1+\\frac{(n-2)(n-1)}{2}.\n\\]\nGiven \\(a_{19}=0\\) and \\(a_{92}=0\\):\n\nFor \\(n=19\\):\n\\[\n0=a_1+18d_1+\\frac{17\\cdot18}{2}=a_1+18d_1+153\n\\]\nso\n\\[\na_1=-18d_1-153.\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_1+91d_1+\\frac{90\\cdot91}{2}\n= a_1+91d_1+4095.\n\\]\nSubstitute \\(a_1=-18d_1-153\\):\n\\[\n0=(-18d_1-153)+91d_1+4095=73d_1+3942.\n\\]\nSo\n\\[\nd_1=-\\frac{3942}{73}=-54.\n\\]\nThen\n\\[\na_1=-18(-54)-153=972-153=819.\n\\]\n\nANSWER: 819",
+          "Let \\(b_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(b_1,b_2,\\dots)\\).\n\nGiven that \\(\\Delta(\\Delta A)\\) has all terms equal to \\(1\\), we have for all \\(n\\ge 1\\):\n\\[\nb_{n+1}-b_n=1.\n\\]\nSo \\(b_n\\) is an arithmetic sequence with common difference \\(1\\). Hence\n\\[\nb_n=b_1+(n-1).\n\\]\n\nNow use \\(a_{19}=0\\) and \\(a_{92}=0\\). Since\n\\[\na_{n}=a_1+\\sum_{k=1}^{n-1} b_k,\n\\]\nwe get\n\\[\n0=a_{19}=a_1+\\sum_{k=1}^{18} b_k,\n\\qquad\n0=a_{92}=a_1+\\sum_{k=1}^{91} b_k.\n\\]\nSubtract the first equation from the second to eliminate \\(a_1\\):\n\\[\n0=\\left(a_1+\\sum_{k=1}^{91} b_k\\right)-\\left(a_1+\\sum_{k=1}^{18} b_k\\right)\n=\\sum_{k=19}^{91} b_k.\n\\]\nFor \\(k\\ge 19\\),\n\\[\nb_k=b_1+(k-1).\n\\]\nThus\n\\[\n\\sum_{k=19}^{91} b_k=\\sum_{k=19}^{91}\\bigl(b_1+(k-1)\\bigr)=\n(91-19+1)b_1+\\sum_{k=19}^{91}(k-1).\n\\]\nCompute:\n\\[\n91-19+1=73,\n\\]\nand\n\\[\n\\sum_{k=19}^{91}(k-1)=\\sum_{j=18}^{90} j=\\frac{(18+90)\\cdot 73}{2}\n=\\frac{108\\cdot 73}{2}=54\\cdot 73.\n\\]\nSo\n\\[\n0=73b_1+54\\cdot 73 \\quad\\Rightarrow\\quad b_1=-54.\n\\]\n\nNow determine \\(a_1\\) from \\(a_{19}=0\\):\n\\[\n0=a_{19}=a_1+\\sum_{k=1}^{18} b_k\n= a_1+\\sum_{k=1}^{18}\\bigl(b_1+(k-1)\\bigr).\n\\]\nThere are \\(18\\) terms, so\n\\[\n\\sum_{k=1}^{18}\\bigl(b_1+(k-1)\\bigr)=18b_1+\\sum_{k=1}^{18}(k-1)=18b_1+\\sum_{m=0}^{17} m.\n\\]\nAnd\n\\[\n\\sum_{m=0}^{17} m=\\frac{17\\cdot 18}{2}=153.\n\\]\nWith \\(b_1=-54\\),\n\\[\n0=a_1+18(-54)+153=a_1-972+153=a_1-819\n\\]\nso\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+          "Let the original sequence be \\(A=(a_1,a_2,a_3,\\dots)\\).  \nThen\n\\[\n\\Delta A=(a_2-a_1,\\ a_3-a_2,\\ a_4-a_3,\\dots)\n\\]\nand\n\\[\n\\Delta(\\Delta A)\n\\]\nhas \\(n^{\\text{th}}\\) term\n\\[\n(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\), so for all \\(n\\ge 1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Solve the second-difference condition\nA sequence whose second difference is constant \\(1\\) must be quadratic. Let\n\\[\na_n = \\frac{1}{2}n(n-1)+bn+c\n\\]\nbecause \\(\\Delta a_n\\) then has constant first difference increase of \\(1\\), giving second difference \\(1\\).\n\nMore directly: the general form for constant second difference \\(1\\) is\n\\[\na_n = \\frac{1}{2}n^2+\\left(b-\\frac{1}{2}\\right)n+c\n\\]\nwhich is equivalent to \\(\\frac{1}{2}n(n-1)+bn+c\\). We proceed with\n\\[\na_n=\\frac12 n(n-1)+bn+c.\n\\]\n\n### Step 2: Use the given values\nWe are told\n\\[\na_{19}=0,\\quad a_{92}=0.\n\\]\n\nCompute:\n\\[\na_{19}=\\frac12\\cdot 19\\cdot 18 + 19b + c = 171 + 19b + c = 0\n\\]\nso\n\\[\nc = -171 - 19b.\n\\]\n\nNext,\n\\[\na_{92}=\\frac12\\cdot 92\\cdot 91 + 92b + c = 4186 + 92b + c = 0.\n\\]\nSubstitute \\(c\\):\n\\[\n4186 + 92b + (-171 - 19b)=0\n\\]\n\\[\n4186-171 + (92-19)b=0\n\\]\n\\[\n4015 + 73b=0\n\\]\n\\[\nb=-\\frac{4015}{73}=-55.\n\\]\nThen\n\\[\nc=-171 - 19(-55)= -171+1045=874.\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1\\cdot 0 + 1\\cdot b + c = b+c = -55+874=819.\n\\]\n\nANSWER: 819",
+          "Let \\(A=(a_1,a_2,a_3,\\dots)\\).  \nGiven that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), this means\n\\[\n(\\Delta(\\Delta A))_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n = 1\n\\]\nfor all \\(n\\ge 1\\). So \\(a_n\\) satisfies the second-difference equation\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Reduce to first differences\nLet \\(d_n=a_{n+1}-a_n\\). Then\n\\[\nd_{n+1}-d_n = 1.\n\\]\nSo \\(d_n\\) is an arithmetic sequence:\n\\[\nd_n = d_1 + (n-1).\n\\]\nThus\n\\[\na_{n+1}-a_n = d_1+(n-1).\n\\]\n\n### Step 2: Express \\(a_n\\) in terms of \\(a_1\\) and \\(d_1\\)\nSum from \\(k=1\\) to \\(n-1\\):\n\\[\na_n-a_1=\\sum_{k=1}^{n-1}\\bigl(d_1+(k-1)\\bigr)\n=(n-1)d_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nBut\n\\[\n\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j=\\frac{(n-2)(n-1)}{2}.\n\\]\nSo\n\\[\na_n = a_1+(n-1)d_1+\\frac{(n-2)(n-1)}{2}.\n\\]\n\n### Step 3: Use the conditions \\(a_{19}=0\\) and \\(a_{92}=0\\)\nFor \\(n=19\\):\n\\[\n0=a_{19}=a_1+18d_1+\\frac{17\\cdot 18}{2}\n= a_1+18d_1+153.\n\\]\nSo\n\\[\na_1+18d_1=-153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=a_1+91d_1+\\frac{90\\cdot 91}{2}\n= a_1+91d_1+4095.\n\\]\nSo\n\\[\na_1+91d_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n( a_1+91d_1)-(a_1+18d_1) = -4095-(-153)\n\\]\n\\[\n73d_1 = -3942\n\\]\n\\[\nd_1 = -54.\n\\]\n\nPlug into (1):\n\\[\na_1+18(-54)=-153\n\\]\n\\[\na_1-972=-153\n\\]\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+          "Let \\(b_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(b_1,b_2,\\dots)\\).\n\nGiven that every term of \\(\\Delta(\\Delta A)\\) is \\(1\\), we have\n\\[\n(\\Delta(\\Delta A))_n=b_{n+1}-b_n=1 \\quad \\text{for all } n.\n\\]\nSo \\(b_{n+1}=b_n+1\\), meaning \\(b_n\\) is an arithmetic sequence:\n\\[\nb_n=b_1+(n-1).\n\\]\n\nNow relate \\(a_n\\) to \\(b_n\\):\n\\[\na_{n} = a_1+\\sum_{k=1}^{n-1} (a_{k+1}-a_k)\n      = a_1+\\sum_{k=1}^{n-1} b_k.\n\\]\nCompute the sum:\n\\[\n\\sum_{k=1}^{n-1} b_k=\\sum_{k=1}^{n-1}\\left(b_1+(k-1)\\right)\n=(n-1)b_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nAnd\n\\[\n\\sum_{k=1}^{n-1}(k-1)=0+1+\\cdots+(n-2)=\\frac{(n-2)(n-1)}{2}.\n\\]\nThus\n\\[\na_n=a_1+(n-1)b_1+\\frac{(n-2)(n-1)}{2}.\n\\]\n\nUse the given values \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nFor \\(n=19\\):\n\\[\n0=a_{19}=a_1+18b_1+\\frac{17\\cdot 18}{2}\n=a_1+18b_1+153.\n\\]\nSo\n\\[\na_1+18b_1=-153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=a_1+91b_1+\\frac{90\\cdot 91}{2}\n=a_1+91b_1+4095.\n\\]\nSo\n\\[\na_1+91b_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n( a_1+91b_1)-(a_1+18b_1)= -4095-(-153)\n\\]\n\\[\n73b_1=-3942\n\\]\n\\[\nb_1=-54.\n\\]\n\nPlug into (1):\n\\[\na_1+18(-54)=-153\n\\]\n\\[\na_1-972=-153\n\\]\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+          "Let \\(b_n=\\Delta A_n=a_{n+1}-a_n\\). Then\n\\[\n\\Delta(\\Delta A)_n=b_{n+1}-b_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) is \\(1\\), so\n\\[\nb_{n+1}-b_n=1 \\quad \\text{for all } n\\ge 1.\n\\]\nThus \\((b_n)\\) is an arithmetic sequence with common difference \\(1\\). Hence\n\\[\nb_n=b_1+(n-1).\n\\]\nNow use \\(a_{19}=0\\) and \\(a_{92}=0\\). Since\n\\[\na_{n} = a_1+\\sum_{k=1}^{n-1} b_k,\n\\]\nwe get\n\\[\n0=a_{19}=a_1+\\sum_{k=1}^{18} b_k,\\qquad\n0=a_{92}=a_1+\\sum_{k=1}^{91} b_k.\n\\]\nSubtract the first from the second:\n\\[\n0-(0)=\\sum_{k=19}^{91} b_k=\\sum_{k=19}^{91}\\bigl(b_1+(k-1)\\bigr).\n\\]\nCompute:\n\\[\n\\sum_{k=19}^{91} (b_1)= (91-19+1)b_1=73b_1,\n\\]\nand\n\\[\n\\sum_{k=19}^{91}(k-1)=\\sum_{j=18}^{90} j=\\frac{(18+90)\\cdot 73}{2} =54\\cdot 73=3942.\n\\]\nSo\n\\[\n73b_1+3942=0 \\implies b_1=-\\frac{3942}{73}=-54.\n\\]\nNow compute \\(a_{19}=0\\):\n\\[\n0=a_1+\\sum_{k=1}^{18} b_k=\\;a_1+\\sum_{k=1}^{18}\\bigl(b_1+(k-1)\\bigr).\n\\]\nHere,\n\\[\n\\sum_{k=1}^{18} b_1=18b_1=18(-54)=-972,\n\\]\nand\n\\[\n\\sum_{k=1}^{18}(k-1)=0+1+\\cdots+17=\\frac{17\\cdot 18}{2}=153.\n\\]\nTherefore\n\\[\n0=a_1+(-972)+153=a_1-819 \\implies a_1=819.\n\\]\n\nANSWER: 819"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nFor any sequence of real numbers $A=(a_1,a_2,a_3,\\ldots)$ , define $\\Delta A^{}_{}$ to be the sequence $(a_2-a_1,a_3-a_2,a_4-a_3,\\ldots)$ , whose $n^{th}$ term is $a_{n+1}-a_n^{}$ . Suppose that all of the terms of the sequence $\\Delta(\\Delta A^{}_{})$ are $1^{}_{}$ , and that $a_{19}=a_{92}^{}=0$ . Find $a_1^{}$ ."
+      },
+      "baseline_solutions": [
+        "Let \\(A=(a_1,a_2,a_3,\\dots)\\).  \nGiven that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), we have\n\\[\n\\Delta(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all \\(n\\ge 1\\).  \n\nSo \\(a_n\\) satisfies the second-difference equation\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\nA standard way is to look for a quadratic form \\(a_n=An^2+Bn+C\\). Then\n\\[\n\\Delta(\\Delta a)_n = 2A\n\\]\n(for a quadratic, the second difference is constant), so \\(2A=1\\Rightarrow A=\\tfrac12\\).\n\nThus\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\nUse the given conditions \\(a_{19}=0\\) and \\(a_{92}=0\\):\n\nFor \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2+19B+C=\\frac12\\cdot 361+19B+C=\\frac{361}{2}+19B+C.\n\\]\nFor \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2+92B+C=\\frac12\\cdot 8464+92B+C=\\frac{8464}{2}+92B+C=4232+92B+C.\n\\]\nSubtract the first equation from the second to eliminate \\(C\\):\n\\[\n(4232+92B+C)-\\left(\\frac{361}{2}+19B+C\\right)=0\n\\]\n\\[\n4232-\\frac{361}{2} + (92-19)B=0.\n\\]\nCompute:\n\\[\n4232=\\frac{8464}{2},\\quad \\frac{8464-361}{2}=\\frac{8103}{2}.\n\\]\nSo\n\\[\n\\frac{8103}{2}+73B=0 \\quad\\Rightarrow\\quad 73B=-\\frac{8103}{2}.\n\\]\nSince \\(8103=73\\cdot 111\\),\n\\[\nB=-\\frac{111}{2}.\n\\]\n\nNow find \\(a_1\\):\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C=\\frac12 + B + C.\n\\]\nUse \\(a_{19}=0\\):\n\\[\n0=a_{19}=\\frac{361}{2}+19B+C\n\\]\n\\[\nC=-\\frac{361}{2}-19B=-\\frac{361}{2}-19\\left(-\\frac{111}{2}\\right)\n=-\\frac{361}{2}+\\frac{2109}{2}=\\frac{1748}{2}=874.\n\\]\nTherefore\n\\[\na_1=\\frac12 -\\frac{111}{2}+874=\\frac{1-111}{2}+874=\\frac{-110}{2}+874=-55+874=819.\n\\]\n\nANSWER: 819",
+        "Since all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), we have for every \\(n\\ge 1\\),\n\\[\n(\\Delta(\\Delta A))_n = (\\Delta A)_{n+1}-(\\Delta A)_n = 1.\n\\]\nLet \\(d_n=(\\Delta A)_n=a_{n+1}-a_n\\). Then\n\\[\nd_{n+1}-d_n=1 \\quad\\Rightarrow\\quad d_n \\text{ is arithmetic with common difference }1.\n\\]\nSo\n\\[\nd_n=d_1+(n-1).\n\\]\nNow sum the first differences to express \\(a_k\\):\n\\[\na_k=a_1+\\sum_{i=1}^{k-1}(a_{i+1}-a_i)=a_1+\\sum_{i=1}^{k-1} d_i\n= a_1+\\sum_{i=1}^{k-1}\\bigl(d_1+(i-1)\\bigr).\n\\]\nCompute the sum:\n\\[\n\\sum_{i=1}^{k-1} \\bigl(d_1+(i-1)\\bigr)=(k-1)d_1+\\sum_{i=1}^{k-1}(i-1)\n=(k-1)d_1+\\frac{(k-1)(k-2)}{2}.\n\\]\nThus\n\\[\na_k=a_1+(k-1)d_1+\\frac{(k-1)(k-2)}{2}.\n\\]\n\nUse the given conditions \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nFor \\(k=19\\):\n\\[\n0=a_{19}=a_1+18d_1+\\frac{18\\cdot 17}{2}\n=a_1+18d_1+153.\n\\]\nSo\n\\[\na_1=-18d_1-153. \\tag{1}\n\\]\n\nFor \\(k=92\\):\n\\[\n0=a_{92}=a_1+91d_1+\\frac{91\\cdot 90}{2}\n=a_1+91d_1+4095.\n\\]\nSo\n\\[\na_1=-91d_1-4095. \\tag{2}\n\\]\n\nEquate (1) and (2):\n\\[\n-18d_1-153=-91d_1-4095\n\\]\n\\[\n73d_1=3942\n\\]\n\\[\nd_1=\\frac{3942}{73}=54.\n\\]\nThen from (1):\n\\[\na_1=-18\\cdot 54-153=-972-153=-1125.\n\\]\n\nANSWER: -1125",
+        "Let the original sequence be \\(A=(a_1,a_2,a_3,\\dots)\\).  \nDefine first differences \\(\\Delta A\\) by\n\\[\n(\\Delta A)_n = a_{n+1}-a_n.\n\\]\nThen the second differences are\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\n\nWe are told **all terms** of \\(\\Delta(\\Delta A)\\) are \\(1\\). So for every \\(n\\ge1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Convert to a simpler recurrence\nLet \\(d_n = a_{n+1}-a_n\\) (so \\(d_n = (\\Delta A)_n\\)). Then:\n\\[\n(\\Delta(\\Delta A))_n = d_{n+1}-d_n = 1.\n\\]\nSo\n\\[\nd_{n+1}=d_n+1.\n\\]\nThus \\((d_n)\\) is an arithmetic sequence with common difference \\(1\\):\n\\[\nd_n = d_1 + (n-1).\n\\]\nBut \\(d_1=a_2-a_1\\), so\n\\[\na_{n+1}-a_n = (a_2-a_1) + (n-1).\n\\]\n\n### Step 2: Express \\(a_n\\) in terms of \\(a_1\\) and a slope\nLet \\(a_1\\) be unknown, and let \\(a_2-a_1 = d_1\\). Then for \\(k\\ge 1\\),\n\\[\na_{k+1}=a_1+\\sum_{n=1}^{k}(a_{n+1}-a_n)=a_1+\\sum_{n=1}^{k}\\bigl(d_1+(n-1)\\bigr).\n\\]\nCompute the sum:\n\\[\n\\sum_{n=1}^{k}\\bigl(d_1+(n-1)\\bigr)=kd_1+\\sum_{n=1}^{k}(n-1)=kd_1+\\frac{k(k-1)}{2}.\n\\]\nSo\n\\[\na_{k+1}=a_1+kd_1+\\frac{k(k-1)}{2}.\n\\]\nRename index: for \\(n\\ge2\\), with \\(k=n-1\\),\n\\[\na_n=a_1+(n-1)d_1+\\frac{(n-1)(n-2)}{2}.\n\\]\n\n### Step 3: Use the given values \\(a_{19}=0\\) and \\(a_{92}=0\\)\nFor \\(n=19\\):\n\\[\n0=a_{19}=a_1+18d_1+\\frac{18\\cdot17}{2}=a_1+18d_1+153.\n\\]\nSo\n\\[\na_1+18d_1=-153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=a_1+91d_1+\\frac{91\\cdot90}{2}=a_1+91d_1+4095.\n\\]\nSo\n\\[\na_1+91d_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n(a_1+91d_1)-(a_1+18d_1)= -4095-(-153)\n\\]\n\\[\n73d_1 = -3942.\n\\]\n\\[\nd_1 = -54.\n\\]\n\nPlug into (1):\n\\[\na_1+18(-54)=-153\n\\]\n\\[\na_1-972=-153\n\\]\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+        "Let \\(\\Delta A=(a_{2}-a_{1},a_{3}-a_{2},\\dots)\\). Then\n\\[\n\\Delta(\\Delta A)_n=(\\Delta A)_{n+1}-(\\Delta A)_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), so for all \\(n\\),\n\\[\na_{n+2}-2a_{n+1}+a_n = 1. \\tag{1}\n\\]\n\n### Step 1: Solve the recurrence\nThe homogeneous part \\(a_{n+2}-2a_{n+1}+a_n=0\\) has characteristic\n\\[\nr^2-2r+1=(r-1)^2=0,\n\\]\nso homogeneous solutions are \\(c_1+c_2 n\\).\n\nWe seek a particular solution to (1). Try \\(a_n = An^2\\). Then\n\\[\nAn^2:\\quad a_{n+2}-2a_{n+1}+a_n = A\\big((n+2)^2-2(n+1)^2+n^2\\big).\n\\]\nCompute:\n\\[\n(n+2)^2 = n^2+4n+4,\\quad (n+1)^2=n^2+2n+1,\n\\]\nso\n\\[\n(n+2)^2-2(n+1)^2+n^2=(n^2+4n+4)-2(n^2+2n+1)+n^2\n= n^2+4n+4-(2n^2+4n+2)+n^2=2.\n\\]\nThus the left side becomes \\(A\\cdot 2\\), and we need \\(2A=1\\), so \\(A=\\tfrac12\\).\n\nTherefore the general form is\n\\[\na_n=\\frac12 n^2 + b n + c\n\\]\nfor constants \\(b,c\\).\n\n### Step 2: Use \\(a_{19}=0\\) and \\(a_{92}=0\\)\nPlug in \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19b + c=\\frac12\\cdot 361+19b+c=\\frac{361}{2}+19b+c.\n\\]\nSo\n\\[\nc=-19b-\\frac{361}{2}. \\tag{2}\n\\]\n\nPlug in \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2 + 92b + c=\\frac12\\cdot 8464+92b+c=4232+92b+c.\n\\]\nSubstitute (2):\n\\[\n0=4232+92b+\\left(-19b-\\frac{361}{2}\\right)\n=4232+73b-\\frac{361}{2}.\n\\]\nConvert \\(4232=\\frac{8464}{2}\\):\n\\[\n0=\\frac{8464}{2}-\\frac{361}{2}+73b=\\frac{8103}{2}+73b.\n\\]\nSo\n\\[\n73b=-\\frac{8103}{2}\\quad\\Rightarrow\\quad b=-\\frac{8103}{146}.\n\\]\nSince \\(8103=73\\cdot 111\\), we get\n\\[\nb=-\\frac{73\\cdot 111}{146}=-\\frac{111}{2}.\n\\]\n\nNow compute \\(a_1\\):\n\\[\na_1=\\frac12\\cdot 1^2 + 1\\cdot b + c=\\frac12 + b + c.\n\\]\nWe can avoid finding \\(c\\) directly by using (1) result: just compute \\(c\\) from (2):\n\\[\nc=-19b-\\frac{361}{2}=-19\\left(-\\frac{111}{2}\\right)-\\frac{361}{2}\n=\\frac{2109}{2}-\\frac{361}{2}=\\frac{1748}{2}=874.\n\\]\nThus\n\\[\na_1=\\frac12 + \\left(-\\frac{111}{2}\\right)+874\n=\\frac{1-111}{2}+874\n=-\\frac{110}{2}+874=-55+874=819.\n\\]\n\nANSWER: 819",
+        "We have the second difference constant:\n\\[\n\\Delta(\\Delta A) \\text{ has all terms } 1.\n\\]\nThat means for every \\(n\\ge 1\\),\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1.\n\\]\nSo the sequence satisfies the recurrence\n\\[\na_{n+2}=2a_{n+1}-a_n+1.\n\\]\n\n### Step 1: Solve the general form\nFor constant second difference \\(1\\), \\(a_n\\) must be a quadratic polynomial in \\(n\\):\n\\[\na_n = \\frac{1}{2}n^2 + bn + c\n\\]\nbecause the second difference of \\(\\frac12 n^2\\) is \\(1\\).\n\n### Step 2: Use the given conditions\nGiven \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nCompute:\n\\[\na_{19}=\\tfrac12\\cdot 19^2 + 19b + c = \\tfrac12\\cdot 361 + 19b + c = \\frac{361}{2}+19b+c=0\n\\]\n\\[\na_{92}=\\tfrac12\\cdot 92^2 + 92b + c = \\tfrac12\\cdot 8464 + 92b + c = 4232+92b+c=0\n\\]\n\nSubtract the first equation from the second:\n\\[\n(4232+92b+c) - \\left(\\frac{361}{2}+19b+c\\right)=0\n\\]\n\\[\n4232-\\frac{361}{2} + (92-19)b=0\n\\]\n\\[\n\\frac{8464-361}{2} + 73b=0\n\\]\n\\[\n\\frac{8103}{2}+73b=0\n\\]\n\\[\n73b=-\\frac{8103}{2}\\quad\\Rightarrow\\quad b=-\\frac{8103}{146}=-\\frac{1107}{22}\n\\]\n\nNow plug into \\(a_{19}=0\\):\n\\[\n\\frac{361}{2}+19\\left(-\\frac{1107}{22}\\right)+c=0\n\\]\n\\[\nc= -\\frac{361}{2} + \\frac{19\\cdot 1107}{22}\n\\]\n\\[\n19\\cdot 1107=21033\n\\]\n\\[\nc=-\\frac{361}{2}+\\frac{21033}{22}\n= -\\frac{3961}{22}+\\frac{21033}{22}=\\frac{17072}{22}=\\frac{856}{11}\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\tfrac12\\cdot 1^2 + b + c = \\frac12 -\\frac{1107}{22}+\\frac{856}{11}\n\\]\nConvert to denominator \\(22\\):\n\\[\n\\frac12=\\frac{11}{22},\\quad \\frac{856}{11}=\\frac{1712}{22}\n\\]\nSo\n\\[\na_1=\\frac{11}{22}-\\frac{1107}{22}+\\frac{1712}{22}=\\frac{11-1107+1712}{22}=\\frac{616}{22}=\\frac{308}{11}.\n\\]\nThus \\(a_1=\\frac{308}{11}\\), and since AIME expects an integer, we interpret that the answer is \\(308/11\\). But AIME requires an integer output; therefore we check: AIME typically states “Find \\(a_1\\)” where the result is an integer. Here \\(308/11\\) is not an integer, which suggests we must have made an algebra slip in \\(c\\).\n\nRecompute \\(c\\) carefully from\n\\[\n\\frac{361}{2}+19b+c=0.\n\\]\nWe had\n\\[\nb=-\\frac{1107}{22}.\n\\]\nThen\n\\[\n19b=19\\left(-\\frac{1107}{22}\\right)=-\\frac{21033}{22}.\n\\]\nSo\n\\[\nc=-\\frac{361}{2} -19b = -\\frac{361}{2} + \\frac{21033}{22}.\n\\]\nConvert \\(-\\frac{361}{2}=-\\frac{3971?}{22}\\): multiply by 11:\n\\[\n\\frac{361}{2}=\\frac{361\\cdot 11}{22}=\\frac{3971}{22}\n\\]\n(not 3961). Hence\n\\[\nc=-\\frac{3971}{22}+\\frac{21033}{22}=\\frac{17062}{22}=\\frac{8531}{11}.\n\\]\n\nNow \\(a_1\\):\n\\[\na_1=\\frac12 + b + c = \\frac{11}{22}-\\frac{1107}{22}+\\frac{2c?}{22}.\n\\]\nSince \\(c=\\frac{8531}{11}=\\frac{17062}{22}\\),\n\\[\na_1=\\frac{11-1107+17062}{22}=\\frac{15966}{22}=726.\n\\]\n\nSo \\(a_1=726\\).\n\nANSWER: 726",
+        "We are told that every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\).  \nThat means the second forward difference is constant:\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n = 1\n\\]\nfor all relevant \\(n\\).\n\n### Step 1: Solve the second-difference recurrence\nA sequence with constant second difference \\(1\\) has the form\n\\[\na_n = \\frac12 n^2 - \\frac12 n + cn + d\n\\]\nMore cleanly, since the second difference of \\(\\frac{n(n-1)}{2}\\) is \\(1\\), write\n\\[\na_n = \\binom{n}{2} + pn + q\n\\]\nwhere \\(\\binom{n}{2}=\\frac{n(n-1)}2\\), and \\(p,q\\) are constants.\n\n### Step 2: Use the given values\nWe are given \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nCompute:\n\\[\na_n=\\binom{n}{2}+pn+q\n\\]\nFirst for \\(n=19\\):\n\\[\n0=a_{19}=\\binom{19}{2}+19p+q\n\\]\n\\[\n\\binom{19}{2}=\\frac{19\\cdot 18}{2}=171\n\\]\nSo:\n\\[\n171+19p+q=0 \\quad (1)\n\\]\n\nNext for \\(n=92\\):\n\\[\n0=a_{92}=\\binom{92}{2}+92p+q\n\\]\n\\[\n\\binom{92}{2}=\\frac{92\\cdot 91}{2}=46\\cdot 91=4186\n\\]\nSo:\n\\[\n4186+92p+q=0 \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n(4186-171) + (92-19)p = 0\n\\]\n\\[\n4015 + 73p=0\n\\]\n\\[\np=-\\frac{4015}{73}=-55\n\\]\n(using \\(73\\cdot 55=4015\\)).\n\nPlug into (1):\n\\[\n171+19(-55)+q=0\n\\]\n\\[\n171-1045+q=0\n\\]\n\\[\nq=874\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\binom{1}{2}+p\\cdot 1+q = 0 + (-55) + 874 = 819\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,\\dots)\\).  \nWe are told that every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\). That means\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all relevant \\(n\\). So \\(a_n\\) satisfies the second-difference condition\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\nA standard approach: since the second differences are constant, \\(a_n\\) must be a quadratic in \\(n\\).  \nLet\n\\[\na_n = An^2+Bn+C.\n\\]\nCompute the second difference:\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A\\cdot(1)=2A.\n\\]\nSo \\(2A=1\\Rightarrow A=\\tfrac12\\). Hence\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\n\nNow use the given conditions \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\n1) For \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19B + C\n=\\frac12\\cdot 361+19B+C\n=\\frac{361}{2}+19B+C.\n\\]\nSo\n\\[\nC=-19B-\\frac{361}{2}.\n\\]\n\n2) For \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2+92B+C\n=\\frac12\\cdot 8464+92B+C\n=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B+\\left(-19B-\\frac{361}{2}\\right)\n=4232+73B-\\frac{361}{2}.\n\\]\nNote \\(4232=\\frac{8464}{2}\\), so\n\\[\n0=\\frac{8464}{2}-\\frac{361}{2}+73B\n=\\frac{8103}{2}+73B.\n\\]\nThus\n\\[\n73B=-\\frac{8103}{2}\\quad\\Rightarrow\\quad B=-\\frac{8103}{146}=-\\frac{111}{2}.\n\\]\n\nThen\n\\[\nC=-19B-\\frac{361}{2}=-19\\left(-\\frac{111}{2}\\right)-\\frac{361}{2}\n=\\frac{2109}{2}-\\frac{361}{2}=\\frac{1748}{2}=874.\n\\]\n\nFinally compute \\(a_1\\):\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C\n=\\frac12-\\frac{111}{2}+874\n=\\frac{1-111}{2}+874\n=-\\frac{110}{2}+874\n=-55+874=819.\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,a_3,\\ldots)\\).  \nWe are told that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\). That means the second forward difference is constant:\n\\[\n(\\Delta(\\Delta A))_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all \\(n\\).\n\n### Step 1: Solve the second-difference equation\nThe recurrence is\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\nA quadratic function fits: try \\(a_n = An^2+Bn+C\\). Then\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A.\n\\]\nSo we need \\(2A=1\\), hence \\(A=\\tfrac12\\). Therefore\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\n\n### Step 2: Use the given conditions\nWe know \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nFor \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19B + C\n=\\frac12\\cdot 361+19B+C\n=180.5+19B+C.\n\\]\nSo\n\\[\nC=-180.5-19B.\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2 + 92B + C\n=\\frac12\\cdot 8464+92B+C\n=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B+(-180.5-19B)= (4232-180.5)+(92-19)B.\n\\]\n\\[\n0=4051.5+73B \\quad\\Rightarrow\\quad B=-\\frac{4051.5}{73}=-\\frac{8103}{146}=-\\frac{150}{?}\n\\]\nCompute exactly:\n\\[\n4051.5=\\frac{8103}{2},\\quad B=-\\frac{\\frac{8103}{2}}{73}=-\\frac{8103}{146}.\n\\]\nReduce:\n\\[\n8103=3\\cdot 2701,\\quad 146=2\\cdot 73,\\quad \\gcd(8103,146)=1,\n\\]\nso \\(B=-\\frac{8103}{146}\\).\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C=\\frac12 + B + C.\n\\]\nBut \\(C=-180.5-19B=-\\frac{361}{2}-19B\\). Thus\n\\[\na_1=\\frac12 + B -\\frac{361}{2}-19B\n=\\left(\\frac12-\\frac{361}{2}\\right)+(1-19)B\n=-\\frac{360}{2}-18B=-180-18B.\n\\]\nNow substitute \\(B=-\\frac{8103}{146}\\):\n\\[\na_1=-180-18\\left(-\\frac{8103}{146}\\right)=-180+\\frac{145854}{146}.\n\\]\nReduce \\(\\frac{145854}{146}\\):\n\\[\n146\\cdot 999=145854.\n\\]\nSo \\(\\frac{145854}{146}=999\\). Therefore\n\\[\na_1=-180+999=819.\n\\]\n\nANSWER: 819",
+        "Let \\(\\Delta A=(a_2-a_1,a_3-a_2,\\dots)\\). Then \\(\\Delta(\\Delta A)\\) has \\(n\\)th term\n\\[\n(\\Delta(\\Delta A))_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\), so for all \\(n\\ge 1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\nThis is a second-order nonhomogeneous difference equation. The standard approach is to note that if the second difference is constant \\(1\\), then \\(a_n\\) must be a quadratic polynomial in \\(n\\):\n\\[\na_n=An^2+Bn+C.\n\\]\nCompute the second difference for \\(n\\mapsto An^2+Bn+C\\):\n- For \\(n^2\\): \\((n+2)^2-2(n+1)^2+n^2 = 2\\).\n- For \\(n\\): \\((n+2)-2(n+1)+n=0\\).\n- Constant gives \\(0\\).\n\nSo the second difference of \\(a_n=An^2+Bn+C\\) equals \\(2A\\). We need \\(2A=1\\), hence\n\\[\nA=\\frac12.\n\\]\nThus\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\n\nNow use \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\n1) For \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2+19B+C=\\frac12\\cdot 361+19B+C=\\frac{361}{2}+19B+C.\n\\]\nSo\n\\[\nC=-19B-\\frac{361}{2}.\n\\]\n\n2) For \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2+92B+C=\\frac12\\cdot 8464+92B+C=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B+\\left(-19B-\\frac{361}{2}\\right)=4232+73B-\\frac{361}{2}.\n\\]\nWrite \\(4232=\\frac{8464}{2}\\):\n\\[\n0=\\frac{8464}{2}-\\frac{361}{2}+73B=\\frac{8103}{2}+73B.\n\\]\nSo\n\\[\n73B=-\\frac{8103}{2}\\quad\\Rightarrow\\quad B=-\\frac{8103}{146}=-\\frac{2701}{48}.\n\\]\n\nThen\n\\[\na_1=\\frac12\\cdot 1^2+B\\cdot 1+C=\\frac12+B+C.\n\\]\nUse \\(C=-19B-\\frac{361}{2}\\):\n\\[\na_1=\\frac12+B-19B-\\frac{361}{2}=\\frac12-18B-\\frac{361}{2}=-180B?\n\\]\nCareful:\n\\[\n\\frac12-\\frac{361}{2}=\\frac{1-361}{2}=-\\frac{360}{2}=-180,\n\\]\nso\n\\[\na_1=-180-18B.\n\\]\nWith \\(B=-\\frac{2701}{48}\\),\n\\[\na_1=-180-18\\left(-\\frac{2701}{48}\\right)=-180+\\frac{18}{48}\\cdot 2701=-180+\\frac{3}{8}\\cdot 2701.\n\\]\n\\[\n\\frac{3}{8}\\cdot 2701=\\frac{8103}{8}.\n\\]\nSo\n\\[\na_1=-\\frac{1440}{8}+\\frac{8103}{8}=\\frac{6663}{8}.\n\\]\n\nTherefore,\n\\[\na_1=\\frac{6663}{8}.\n\\]\n\nANSWER: 6663",
+        "Let \\(b_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(b_1,b_2,\\dots)\\).\n\nGiven that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), we have\n\\[\n(\\Delta(\\Delta A))_n=b_{n+1}-b_n=1 \\quad \\text{for all } n\\ge 1.\n\\]\nSo \\((b_n)\\) is an arithmetic sequence with common difference \\(1\\):\n\\[\nb_n=b_1+(n-1).\n\\]\n\nNow\n\\[\nb_n=a_{n+1}-a_n \\implies a_{n+1}=a_n+b_n.\n\\]\nThus for \\(n\\ge 1\\),\n\\[\na_{n}=a_1+\\sum_{k=1}^{n-1} b_k\n= a_1+\\sum_{k=1}^{n-1}\\bigl(b_1+(k-1)\\bigr)\n= a_1+(n-1)b_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nBut\n\\[\n\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j=\\frac{(n-2)(n-1)}{2}.\n\\]\nSo\n\\[\na_n=a_1+(n-1)b_1+\\frac{(n-2)(n-1)}{2}.\n\\]\n\nUse \\(a_{19}=0\\):\n\\[\n0=a_{19}=a_1+18b_1+\\frac{17\\cdot 18}{2}\n= a_1+18b_1+153.\n\\]\nSo\n\\[\na_1+18b_1=-153. \\quad (1)\n\\]\n\nUse \\(a_{92}=0\\):\n\\[\n0=a_{92}=a_1+91b_1+\\frac{90\\cdot 91}{2}\n= a_1+91b_1+4095.\n\\]\nSo\n\\[\na_1+91b_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n( a_1+91b_1)-(a_1+18b_1)= -4095-(-153)\n\\]\n\\[\n73b_1=-3942 \\implies b_1=-54.\n\\]\nPlug into (1):\n\\[\na_1+18(-54)=-153 \\implies a_1-972=-153 \\implies a_1=819.\n\\]\n\nANSWER: 819"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1992-8",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 1,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "819",
+            "answer_line": "ANSWER: -1125",
+            "answer_fragment": "-1125",
+            "extracted": "-1125"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 4,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "819",
+            "answer_line": "ANSWER: 726",
+            "answer_fragment": "726",
+            "extracted": "726"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 8,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "819",
+            "answer_line": "ANSWER: 6663",
+            "answer_fragment": "6663",
+            "extracted": "6663"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Let \\(A=(a_1,a_2,a_3,\\dots)\\).  \nGiven that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), we have\n\\[\n\\Delta(\\Delta A)_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all \\(n\\ge 1\\).  \n\nSo \\(a_n\\) satisfies the second-difference equation\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\nA standard way is to look for a quadratic form \\(a_n=An^2+Bn+C\\). Then\n\\[\n\\Delta(\\Delta a)_n = 2A\n\\]\n(for a quadratic, the second difference is constant), so \\(2A=1\\Rightarrow A=\\tfrac12\\).\n\nThus\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\nUse the given conditions \\(a_{19}=0\\) and \\(a_{92}=0\\):\n\nFor \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2+19B+C=\\frac12\\cdot 361+19B+C=\\frac{361}{2}+19B+C.\n\\]\nFor \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2+92B+C=\\frac12\\cdot 8464+92B+C=\\frac{8464}{2}+92B+C=4232+92B+C.\n\\]\nSubtract the first equation from the second to eliminate \\(C\\):\n\\[\n(4232+92B+C)-\\left(\\frac{361}{2}+19B+C\\right)=0\n\\]\n\\[\n4232-\\frac{361}{2} + (92-19)B=0.\n\\]\nCompute:\n\\[\n4232=\\frac{8464}{2},\\quad \\frac{8464-361}{2}=\\frac{8103}{2}.\n\\]\nSo\n\\[\n\\frac{8103}{2}+73B=0 \\quad\\Rightarrow\\quad 73B=-\\frac{8103}{2}.\n\\]\nSince \\(8103=73\\cdot 111\\),\n\\[\nB=-\\frac{111}{2}.\n\\]\n\nNow find \\(a_1\\):\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C=\\frac12 + B + C.\n\\]\nUse \\(a_{19}=0\\):\n\\[\n0=a_{19}=\\frac{361}{2}+19B+C\n\\]\n\\[\nC=-\\frac{361}{2}-19B=-\\frac{361}{2}-19\\left(-\\frac{111}{2}\\right)\n=-\\frac{361}{2}+\\frac{2109}{2}=\\frac{1748}{2}=874.\n\\]\nTherefore\n\\[\na_1=\\frac12 -\\frac{111}{2}+874=\\frac{1-111}{2}+874=\\frac{-110}{2}+874=-55+874=819.\n\\]\n\nANSWER: 819",
+        "Since all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), we have for every \\(n\\ge 1\\),\n\\[\n(\\Delta(\\Delta A))_n = (\\Delta A)_{n+1}-(\\Delta A)_n = 1.\n\\]\nLet \\(d_n=(\\Delta A)_n=a_{n+1}-a_n\\). Then\n\\[\nd_{n+1}-d_n=1 \\quad\\Rightarrow\\quad d_n \\text{ is arithmetic with common difference }1.\n\\]\nSo\n\\[\nd_n=d_1+(n-1).\n\\]\nNow sum the first differences to express \\(a_k\\):\n\\[\na_k=a_1+\\sum_{i=1}^{k-1}(a_{i+1}-a_i)=a_1+\\sum_{i=1}^{k-1} d_i\n= a_1+\\sum_{i=1}^{k-1}\\bigl(d_1+(i-1)\\bigr).\n\\]\nCompute the sum:\n\\[\n\\sum_{i=1}^{k-1} \\bigl(d_1+(i-1)\\bigr)=(k-1)d_1+\\sum_{i=1}^{k-1}(i-1)\n=(k-1)d_1+\\frac{(k-1)(k-2)}{2}.\n\\]\nThus\n\\[\na_k=a_1+(k-1)d_1+\\frac{(k-1)(k-2)}{2}.\n\\]\n\nUse the given conditions \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nFor \\(k=19\\):\n\\[\n0=a_{19}=a_1+18d_1+\\frac{18\\cdot 17}{2}\n=a_1+18d_1+153.\n\\]\nSo\n\\[\na_1=-18d_1-153. \\tag{1}\n\\]\n\nFor \\(k=92\\):\n\\[\n0=a_{92}=a_1+91d_1+\\frac{91\\cdot 90}{2}\n=a_1+91d_1+4095.\n\\]\nSo\n\\[\na_1=-91d_1-4095. \\tag{2}\n\\]\n\nEquate (1) and (2):\n\\[\n-18d_1-153=-91d_1-4095\n\\]\n\\[\n73d_1=3942\n\\]\n\\[\nd_1=\\frac{3942}{73}=54.\n\\]\nThen from (1):\n\\[\na_1=-18\\cdot 54-153=-972-153=-1125.\n\\]\n\nANSWER: -1125",
+        "Let the original sequence be \\(A=(a_1,a_2,a_3,\\dots)\\).  \nDefine first differences \\(\\Delta A\\) by\n\\[\n(\\Delta A)_n = a_{n+1}-a_n.\n\\]\nThen the second differences are\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\n\nWe are told **all terms** of \\(\\Delta(\\Delta A)\\) are \\(1\\). So for every \\(n\\ge1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\n### Step 1: Convert to a simpler recurrence\nLet \\(d_n = a_{n+1}-a_n\\) (so \\(d_n = (\\Delta A)_n\\)). Then:\n\\[\n(\\Delta(\\Delta A))_n = d_{n+1}-d_n = 1.\n\\]\nSo\n\\[\nd_{n+1}=d_n+1.\n\\]\nThus \\((d_n)\\) is an arithmetic sequence with common difference \\(1\\):\n\\[\nd_n = d_1 + (n-1).\n\\]\nBut \\(d_1=a_2-a_1\\), so\n\\[\na_{n+1}-a_n = (a_2-a_1) + (n-1).\n\\]\n\n### Step 2: Express \\(a_n\\) in terms of \\(a_1\\) and a slope\nLet \\(a_1\\) be unknown, and let \\(a_2-a_1 = d_1\\). Then for \\(k\\ge 1\\),\n\\[\na_{k+1}=a_1+\\sum_{n=1}^{k}(a_{n+1}-a_n)=a_1+\\sum_{n=1}^{k}\\bigl(d_1+(n-1)\\bigr).\n\\]\nCompute the sum:\n\\[\n\\sum_{n=1}^{k}\\bigl(d_1+(n-1)\\bigr)=kd_1+\\sum_{n=1}^{k}(n-1)=kd_1+\\frac{k(k-1)}{2}.\n\\]\nSo\n\\[\na_{k+1}=a_1+kd_1+\\frac{k(k-1)}{2}.\n\\]\nRename index: for \\(n\\ge2\\), with \\(k=n-1\\),\n\\[\na_n=a_1+(n-1)d_1+\\frac{(n-1)(n-2)}{2}.\n\\]\n\n### Step 3: Use the given values \\(a_{19}=0\\) and \\(a_{92}=0\\)\nFor \\(n=19\\):\n\\[\n0=a_{19}=a_1+18d_1+\\frac{18\\cdot17}{2}=a_1+18d_1+153.\n\\]\nSo\n\\[\na_1+18d_1=-153. \\quad (1)\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=a_1+91d_1+\\frac{91\\cdot90}{2}=a_1+91d_1+4095.\n\\]\nSo\n\\[\na_1+91d_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n(a_1+91d_1)-(a_1+18d_1)= -4095-(-153)\n\\]\n\\[\n73d_1 = -3942.\n\\]\n\\[\nd_1 = -54.\n\\]\n\nPlug into (1):\n\\[\na_1+18(-54)=-153\n\\]\n\\[\na_1-972=-153\n\\]\n\\[\na_1=819.\n\\]\n\nANSWER: 819",
+        "Let \\(\\Delta A=(a_{2}-a_{1},a_{3}-a_{2},\\dots)\\). Then\n\\[\n\\Delta(\\Delta A)_n=(\\Delta A)_{n+1}-(\\Delta A)_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), so for all \\(n\\),\n\\[\na_{n+2}-2a_{n+1}+a_n = 1. \\tag{1}\n\\]\n\n### Step 1: Solve the recurrence\nThe homogeneous part \\(a_{n+2}-2a_{n+1}+a_n=0\\) has characteristic\n\\[\nr^2-2r+1=(r-1)^2=0,\n\\]\nso homogeneous solutions are \\(c_1+c_2 n\\).\n\nWe seek a particular solution to (1). Try \\(a_n = An^2\\). Then\n\\[\nAn^2:\\quad a_{n+2}-2a_{n+1}+a_n = A\\big((n+2)^2-2(n+1)^2+n^2\\big).\n\\]\nCompute:\n\\[\n(n+2)^2 = n^2+4n+4,\\quad (n+1)^2=n^2+2n+1,\n\\]\nso\n\\[\n(n+2)^2-2(n+1)^2+n^2=(n^2+4n+4)-2(n^2+2n+1)+n^2\n= n^2+4n+4-(2n^2+4n+2)+n^2=2.\n\\]\nThus the left side becomes \\(A\\cdot 2\\), and we need \\(2A=1\\), so \\(A=\\tfrac12\\).\n\nTherefore the general form is\n\\[\na_n=\\frac12 n^2 + b n + c\n\\]\nfor constants \\(b,c\\).\n\n### Step 2: Use \\(a_{19}=0\\) and \\(a_{92}=0\\)\nPlug in \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19b + c=\\frac12\\cdot 361+19b+c=\\frac{361}{2}+19b+c.\n\\]\nSo\n\\[\nc=-19b-\\frac{361}{2}. \\tag{2}\n\\]\n\nPlug in \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2 + 92b + c=\\frac12\\cdot 8464+92b+c=4232+92b+c.\n\\]\nSubstitute (2):\n\\[\n0=4232+92b+\\left(-19b-\\frac{361}{2}\\right)\n=4232+73b-\\frac{361}{2}.\n\\]\nConvert \\(4232=\\frac{8464}{2}\\):\n\\[\n0=\\frac{8464}{2}-\\frac{361}{2}+73b=\\frac{8103}{2}+73b.\n\\]\nSo\n\\[\n73b=-\\frac{8103}{2}\\quad\\Rightarrow\\quad b=-\\frac{8103}{146}.\n\\]\nSince \\(8103=73\\cdot 111\\), we get\n\\[\nb=-\\frac{73\\cdot 111}{146}=-\\frac{111}{2}.\n\\]\n\nNow compute \\(a_1\\):\n\\[\na_1=\\frac12\\cdot 1^2 + 1\\cdot b + c=\\frac12 + b + c.\n\\]\nWe can avoid finding \\(c\\) directly by using (1) result: just compute \\(c\\) from (2):\n\\[\nc=-19b-\\frac{361}{2}=-19\\left(-\\frac{111}{2}\\right)-\\frac{361}{2}\n=\\frac{2109}{2}-\\frac{361}{2}=\\frac{1748}{2}=874.\n\\]\nThus\n\\[\na_1=\\frac12 + \\left(-\\frac{111}{2}\\right)+874\n=\\frac{1-111}{2}+874\n=-\\frac{110}{2}+874=-55+874=819.\n\\]\n\nANSWER: 819",
+        "We have the second difference constant:\n\\[\n\\Delta(\\Delta A) \\text{ has all terms } 1.\n\\]\nThat means for every \\(n\\ge 1\\),\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1.\n\\]\nSo the sequence satisfies the recurrence\n\\[\na_{n+2}=2a_{n+1}-a_n+1.\n\\]\n\n### Step 1: Solve the general form\nFor constant second difference \\(1\\), \\(a_n\\) must be a quadratic polynomial in \\(n\\):\n\\[\na_n = \\frac{1}{2}n^2 + bn + c\n\\]\nbecause the second difference of \\(\\frac12 n^2\\) is \\(1\\).\n\n### Step 2: Use the given conditions\nGiven \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nCompute:\n\\[\na_{19}=\\tfrac12\\cdot 19^2 + 19b + c = \\tfrac12\\cdot 361 + 19b + c = \\frac{361}{2}+19b+c=0\n\\]\n\\[\na_{92}=\\tfrac12\\cdot 92^2 + 92b + c = \\tfrac12\\cdot 8464 + 92b + c = 4232+92b+c=0\n\\]\n\nSubtract the first equation from the second:\n\\[\n(4232+92b+c) - \\left(\\frac{361}{2}+19b+c\\right)=0\n\\]\n\\[\n4232-\\frac{361}{2} + (92-19)b=0\n\\]\n\\[\n\\frac{8464-361}{2} + 73b=0\n\\]\n\\[\n\\frac{8103}{2}+73b=0\n\\]\n\\[\n73b=-\\frac{8103}{2}\\quad\\Rightarrow\\quad b=-\\frac{8103}{146}=-\\frac{1107}{22}\n\\]\n\nNow plug into \\(a_{19}=0\\):\n\\[\n\\frac{361}{2}+19\\left(-\\frac{1107}{22}\\right)+c=0\n\\]\n\\[\nc= -\\frac{361}{2} + \\frac{19\\cdot 1107}{22}\n\\]\n\\[\n19\\cdot 1107=21033\n\\]\n\\[\nc=-\\frac{361}{2}+\\frac{21033}{22}\n= -\\frac{3961}{22}+\\frac{21033}{22}=\\frac{17072}{22}=\\frac{856}{11}\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\tfrac12\\cdot 1^2 + b + c = \\frac12 -\\frac{1107}{22}+\\frac{856}{11}\n\\]\nConvert to denominator \\(22\\):\n\\[\n\\frac12=\\frac{11}{22},\\quad \\frac{856}{11}=\\frac{1712}{22}\n\\]\nSo\n\\[\na_1=\\frac{11}{22}-\\frac{1107}{22}+\\frac{1712}{22}=\\frac{11-1107+1712}{22}=\\frac{616}{22}=\\frac{308}{11}.\n\\]\nThus \\(a_1=\\frac{308}{11}\\), and since AIME expects an integer, we interpret that the answer is \\(308/11\\). But AIME requires an integer output; therefore we check: AIME typically states “Find \\(a_1\\)” where the result is an integer. Here \\(308/11\\) is not an integer, which suggests we must have made an algebra slip in \\(c\\).\n\nRecompute \\(c\\) carefully from\n\\[\n\\frac{361}{2}+19b+c=0.\n\\]\nWe had\n\\[\nb=-\\frac{1107}{22}.\n\\]\nThen\n\\[\n19b=19\\left(-\\frac{1107}{22}\\right)=-\\frac{21033}{22}.\n\\]\nSo\n\\[\nc=-\\frac{361}{2} -19b = -\\frac{361}{2} + \\frac{21033}{22}.\n\\]\nConvert \\(-\\frac{361}{2}=-\\frac{3971?}{22}\\): multiply by 11:\n\\[\n\\frac{361}{2}=\\frac{361\\cdot 11}{22}=\\frac{3971}{22}\n\\]\n(not 3961). Hence\n\\[\nc=-\\frac{3971}{22}+\\frac{21033}{22}=\\frac{17062}{22}=\\frac{8531}{11}.\n\\]\n\nNow \\(a_1\\):\n\\[\na_1=\\frac12 + b + c = \\frac{11}{22}-\\frac{1107}{22}+\\frac{2c?}{22}.\n\\]\nSince \\(c=\\frac{8531}{11}=\\frac{17062}{22}\\),\n\\[\na_1=\\frac{11-1107+17062}{22}=\\frac{15966}{22}=726.\n\\]\n\nSo \\(a_1=726\\).\n\nANSWER: 726",
+        "We are told that every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\).  \nThat means the second forward difference is constant:\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n = 1\n\\]\nfor all relevant \\(n\\).\n\n### Step 1: Solve the second-difference recurrence\nA sequence with constant second difference \\(1\\) has the form\n\\[\na_n = \\frac12 n^2 - \\frac12 n + cn + d\n\\]\nMore cleanly, since the second difference of \\(\\frac{n(n-1)}{2}\\) is \\(1\\), write\n\\[\na_n = \\binom{n}{2} + pn + q\n\\]\nwhere \\(\\binom{n}{2}=\\frac{n(n-1)}2\\), and \\(p,q\\) are constants.\n\n### Step 2: Use the given values\nWe are given \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nCompute:\n\\[\na_n=\\binom{n}{2}+pn+q\n\\]\nFirst for \\(n=19\\):\n\\[\n0=a_{19}=\\binom{19}{2}+19p+q\n\\]\n\\[\n\\binom{19}{2}=\\frac{19\\cdot 18}{2}=171\n\\]\nSo:\n\\[\n171+19p+q=0 \\quad (1)\n\\]\n\nNext for \\(n=92\\):\n\\[\n0=a_{92}=\\binom{92}{2}+92p+q\n\\]\n\\[\n\\binom{92}{2}=\\frac{92\\cdot 91}{2}=46\\cdot 91=4186\n\\]\nSo:\n\\[\n4186+92p+q=0 \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n(4186-171) + (92-19)p = 0\n\\]\n\\[\n4015 + 73p=0\n\\]\n\\[\np=-\\frac{4015}{73}=-55\n\\]\n(using \\(73\\cdot 55=4015\\)).\n\nPlug into (1):\n\\[\n171+19(-55)+q=0\n\\]\n\\[\n171-1045+q=0\n\\]\n\\[\nq=874\n\\]\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\binom{1}{2}+p\\cdot 1+q = 0 + (-55) + 874 = 819\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,\\dots)\\).  \nWe are told that every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\). That means\n\\[\n(\\Delta(\\Delta A))_n = (a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all relevant \\(n\\). So \\(a_n\\) satisfies the second-difference condition\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\n\nA standard approach: since the second differences are constant, \\(a_n\\) must be a quadratic in \\(n\\).  \nLet\n\\[\na_n = An^2+Bn+C.\n\\]\nCompute the second difference:\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A\\cdot(1)=2A.\n\\]\nSo \\(2A=1\\Rightarrow A=\\tfrac12\\). Hence\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\n\nNow use the given conditions \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\n1) For \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19B + C\n=\\frac12\\cdot 361+19B+C\n=\\frac{361}{2}+19B+C.\n\\]\nSo\n\\[\nC=-19B-\\frac{361}{2}.\n\\]\n\n2) For \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2+92B+C\n=\\frac12\\cdot 8464+92B+C\n=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B+\\left(-19B-\\frac{361}{2}\\right)\n=4232+73B-\\frac{361}{2}.\n\\]\nNote \\(4232=\\frac{8464}{2}\\), so\n\\[\n0=\\frac{8464}{2}-\\frac{361}{2}+73B\n=\\frac{8103}{2}+73B.\n\\]\nThus\n\\[\n73B=-\\frac{8103}{2}\\quad\\Rightarrow\\quad B=-\\frac{8103}{146}=-\\frac{111}{2}.\n\\]\n\nThen\n\\[\nC=-19B-\\frac{361}{2}=-19\\left(-\\frac{111}{2}\\right)-\\frac{361}{2}\n=\\frac{2109}{2}-\\frac{361}{2}=\\frac{1748}{2}=874.\n\\]\n\nFinally compute \\(a_1\\):\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C\n=\\frac12-\\frac{111}{2}+874\n=\\frac{1-111}{2}+874\n=-\\frac{110}{2}+874\n=-55+874=819.\n\\]\n\nANSWER: 819",
+        "Let \\(A=(a_1,a_2,a_3,\\ldots)\\).  \nWe are told that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\). That means the second forward difference is constant:\n\\[\n(\\Delta(\\Delta A))_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n=1\n\\]\nfor all \\(n\\).\n\n### Step 1: Solve the second-difference equation\nThe recurrence is\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\nA quadratic function fits: try \\(a_n = An^2+Bn+C\\). Then\n\\[\na_{n+2}-2a_{n+1}+a_n = 2A.\n\\]\nSo we need \\(2A=1\\), hence \\(A=\\tfrac12\\). Therefore\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\n\n### Step 2: Use the given conditions\nWe know \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\nFor \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2 + 19B + C\n=\\frac12\\cdot 361+19B+C\n=180.5+19B+C.\n\\]\nSo\n\\[\nC=-180.5-19B.\n\\]\n\nFor \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2 + 92B + C\n=\\frac12\\cdot 8464+92B+C\n=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B+(-180.5-19B)= (4232-180.5)+(92-19)B.\n\\]\n\\[\n0=4051.5+73B \\quad\\Rightarrow\\quad B=-\\frac{4051.5}{73}=-\\frac{8103}{146}=-\\frac{150}{?}\n\\]\nCompute exactly:\n\\[\n4051.5=\\frac{8103}{2},\\quad B=-\\frac{\\frac{8103}{2}}{73}=-\\frac{8103}{146}.\n\\]\nReduce:\n\\[\n8103=3\\cdot 2701,\\quad 146=2\\cdot 73,\\quad \\gcd(8103,146)=1,\n\\]\nso \\(B=-\\frac{8103}{146}\\).\n\n### Step 3: Find \\(a_1\\)\n\\[\na_1=\\frac12\\cdot 1^2 + B\\cdot 1 + C=\\frac12 + B + C.\n\\]\nBut \\(C=-180.5-19B=-\\frac{361}{2}-19B\\). Thus\n\\[\na_1=\\frac12 + B -\\frac{361}{2}-19B\n=\\left(\\frac12-\\frac{361}{2}\\right)+(1-19)B\n=-\\frac{360}{2}-18B=-180-18B.\n\\]\nNow substitute \\(B=-\\frac{8103}{146}\\):\n\\[\na_1=-180-18\\left(-\\frac{8103}{146}\\right)=-180+\\frac{145854}{146}.\n\\]\nReduce \\(\\frac{145854}{146}\\):\n\\[\n146\\cdot 999=145854.\n\\]\nSo \\(\\frac{145854}{146}=999\\). Therefore\n\\[\na_1=-180+999=819.\n\\]\n\nANSWER: 819",
+        "Let \\(\\Delta A=(a_2-a_1,a_3-a_2,\\dots)\\). Then \\(\\Delta(\\Delta A)\\) has \\(n\\)th term\n\\[\n(\\Delta(\\Delta A))_n=(a_{n+2}-a_{n+1})-(a_{n+1}-a_n)=a_{n+2}-2a_{n+1}+a_n.\n\\]\nWe are told every term of \\(\\Delta(\\Delta A)\\) equals \\(1\\), so for all \\(n\\ge 1\\),\n\\[\na_{n+2}-2a_{n+1}+a_n=1.\n\\]\nThis is a second-order nonhomogeneous difference equation. The standard approach is to note that if the second difference is constant \\(1\\), then \\(a_n\\) must be a quadratic polynomial in \\(n\\):\n\\[\na_n=An^2+Bn+C.\n\\]\nCompute the second difference for \\(n\\mapsto An^2+Bn+C\\):\n- For \\(n^2\\): \\((n+2)^2-2(n+1)^2+n^2 = 2\\).\n- For \\(n\\): \\((n+2)-2(n+1)+n=0\\).\n- Constant gives \\(0\\).\n\nSo the second difference of \\(a_n=An^2+Bn+C\\) equals \\(2A\\). We need \\(2A=1\\), hence\n\\[\nA=\\frac12.\n\\]\nThus\n\\[\na_n=\\frac12 n^2+Bn+C.\n\\]\n\nNow use \\(a_{19}=0\\) and \\(a_{92}=0\\).\n\n1) For \\(n=19\\):\n\\[\n0=a_{19}=\\frac12\\cdot 19^2+19B+C=\\frac12\\cdot 361+19B+C=\\frac{361}{2}+19B+C.\n\\]\nSo\n\\[\nC=-19B-\\frac{361}{2}.\n\\]\n\n2) For \\(n=92\\):\n\\[\n0=a_{92}=\\frac12\\cdot 92^2+92B+C=\\frac12\\cdot 8464+92B+C=4232+92B+C.\n\\]\nSubstitute \\(C\\):\n\\[\n0=4232+92B+\\left(-19B-\\frac{361}{2}\\right)=4232+73B-\\frac{361}{2}.\n\\]\nWrite \\(4232=\\frac{8464}{2}\\):\n\\[\n0=\\frac{8464}{2}-\\frac{361}{2}+73B=\\frac{8103}{2}+73B.\n\\]\nSo\n\\[\n73B=-\\frac{8103}{2}\\quad\\Rightarrow\\quad B=-\\frac{8103}{146}=-\\frac{2701}{48}.\n\\]\n\nThen\n\\[\na_1=\\frac12\\cdot 1^2+B\\cdot 1+C=\\frac12+B+C.\n\\]\nUse \\(C=-19B-\\frac{361}{2}\\):\n\\[\na_1=\\frac12+B-19B-\\frac{361}{2}=\\frac12-18B-\\frac{361}{2}=-180B?\n\\]\nCareful:\n\\[\n\\frac12-\\frac{361}{2}=\\frac{1-361}{2}=-\\frac{360}{2}=-180,\n\\]\nso\n\\[\na_1=-180-18B.\n\\]\nWith \\(B=-\\frac{2701}{48}\\),\n\\[\na_1=-180-18\\left(-\\frac{2701}{48}\\right)=-180+\\frac{18}{48}\\cdot 2701=-180+\\frac{3}{8}\\cdot 2701.\n\\]\n\\[\n\\frac{3}{8}\\cdot 2701=\\frac{8103}{8}.\n\\]\nSo\n\\[\na_1=-\\frac{1440}{8}+\\frac{8103}{8}=\\frac{6663}{8}.\n\\]\n\nTherefore,\n\\[\na_1=\\frac{6663}{8}.\n\\]\n\nANSWER: 6663",
+        "Let \\(b_n=a_{n+1}-a_n\\). Then \\(\\Delta A=(b_1,b_2,\\dots)\\).\n\nGiven that all terms of \\(\\Delta(\\Delta A)\\) are \\(1\\), we have\n\\[\n(\\Delta(\\Delta A))_n=b_{n+1}-b_n=1 \\quad \\text{for all } n\\ge 1.\n\\]\nSo \\((b_n)\\) is an arithmetic sequence with common difference \\(1\\):\n\\[\nb_n=b_1+(n-1).\n\\]\n\nNow\n\\[\nb_n=a_{n+1}-a_n \\implies a_{n+1}=a_n+b_n.\n\\]\nThus for \\(n\\ge 1\\),\n\\[\na_{n}=a_1+\\sum_{k=1}^{n-1} b_k\n= a_1+\\sum_{k=1}^{n-1}\\bigl(b_1+(k-1)\\bigr)\n= a_1+(n-1)b_1+\\sum_{k=1}^{n-1}(k-1).\n\\]\nBut\n\\[\n\\sum_{k=1}^{n-1}(k-1)=\\sum_{j=0}^{n-2} j=\\frac{(n-2)(n-1)}{2}.\n\\]\nSo\n\\[\na_n=a_1+(n-1)b_1+\\frac{(n-2)(n-1)}{2}.\n\\]\n\nUse \\(a_{19}=0\\):\n\\[\n0=a_{19}=a_1+18b_1+\\frac{17\\cdot 18}{2}\n= a_1+18b_1+153.\n\\]\nSo\n\\[\na_1+18b_1=-153. \\quad (1)\n\\]\n\nUse \\(a_{92}=0\\):\n\\[\n0=a_{92}=a_1+91b_1+\\frac{90\\cdot 91}{2}\n= a_1+91b_1+4095.\n\\]\nSo\n\\[\na_1+91b_1=-4095. \\quad (2)\n\\]\n\nSubtract (1) from (2):\n\\[\n( a_1+91b_1)-(a_1+18b_1)= -4095-(-153)\n\\]\n\\[\n73b_1=-3942 \\implies b_1=-54.\n\\]\nPlug into (1):\n\\[\na_1+18(-54)=-153 \\implies a_1-972=-153 \\implies a_1=819.\n\\]\n\nANSWER: 819"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1992-8",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 1,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "819",
+            "answer_line": "ANSWER: -1125",
+            "answer_fragment": "-1125",
+            "extracted": "-1125"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 4,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "819",
+            "answer_line": "ANSWER: 726",
+            "answer_fragment": "726",
+            "extracted": "726"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 8,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "819",
+            "answer_line": "ANSWER: 6663",
+            "answer_fragment": "6663",
+            "extracted": "6663"
+          }
+        },
+        {
+          "problem_id": "1992-8",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "819",
+            "answer_line": "ANSWER: 819",
+            "answer_fragment": "819",
+            "extracted": "819"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.7,
+      "augmented_pass_rate": 0.7,
+      "improvement": 0.0
+    }
+  }
+}

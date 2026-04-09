@@ -1,0 +1,488 @@
+{
+  "problem_id": "1985-13",
+  "domain": "math",
+  "problem": {
+    "id": "1985-13",
+    "domain": "math",
+    "statement": "The numbers in the sequence $101$ , $104$ , $109$ , $116$ , $\\ldots$ are of the form $a_n=100+n^2$ , where $n=1,2,3,\\ldots$ . For each $n$ , let $d_n$ be the greatest common divisor of $a_n$ and $a_{n+1}$ . Find the maximum value of $d_n$ as $n$ ranges through the positive integers .",
+    "answer": "401",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1985,
+      "problem_number": 13
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nThe numbers in the sequence $101$ , $104$ , $109$ , $116$ , $\\ldots$ are of the form $a_n=100+n^2$ , where $n=1,2,3,\\ldots$ . For each $n$ , let $d_n$ be the greatest common divisor of $a_n$ and $a_{n+1}$ . Find the maximum value of $d_n$ as $n$ ranges through the positive integers .",
+      "solutions": [
+        "We have\n\\[\na_n=100+n^2.\n\\]\nThen\n\\[\na_{n+1}=100+(n+1)^2=100+n^2+2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nUse the gcd difference:\n\\[\n\\gcd(a_n,a_{n+1})=\\gcd\\big(a_n,\\;a_{n+1}-a_n\\big).\n\\]\nCompute\n\\[\na_{n+1}-a_n=(100+(n+1)^2)-(100+n^2)=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(100+n^2,\\;2n+1).\n\\]\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). From \\(2n+1\\equiv 0\\), we have \\(2n\\equiv -1\\) so \\(n\\equiv -\\tfrac12\\). It’s cleaner to use an algebraic substitution:\n\\[\n4n^2=(2n)^2\\equiv (-1)^2=1 \\pmod{2n+1}\n\\]\nso\n\\[\nn^2 \\equiv 4^{-1}\\equiv 1 \\pmod{2n+1},\n\\]\nbecause \\(4\\equiv 4\\) is invertible modulo \\(2n+1\\) (indeed \\(\\gcd(4,2n+1)=1\\) since \\(2n+1\\) is odd). More directly, we can express \\(n^2-1\\) as a multiple of \\(2n+1\\):\n\\[\nn^2-1=(n-1)(n+1),\n\\]\nand using \\(2n+1\\) is typically awkward; instead, do a direct remainder:\n\\[\nn^2 = \\left(\\frac{(2n+1)-1}{2}\\right)^2 = \\frac{(2n+1)^2-2(2n+1)+1}{4}\n\\equiv \\frac{0-0+1}{4}\\equiv \\frac14 \\pmod{2n+1}.\n\\]\nBut since we will multiply by 4, we can avoid fractions:\n\\[\n4(100+n^2)\\equiv 4\\cdot 100 + 4n^2 \\pmod{2n+1}.\n\\]\nAnd\n\\[\n4n^2\\equiv (2n)^2\\equiv (-1)^2=1 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\n4(100+n^2)\\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nSo any common divisor of \\(100+n^2\\) and \\(2n+1\\) must also divide 401. Concretely,\n\\[\nd_n=\\gcd(100+n^2,2n+1)\\mid 401.\n\\]\nNow factor 401:\n\\[\n401 \\text{ is prime} \\quad (\\text{check } \\sqrt{401}\\approx 20).\n\\]\nNot divisible by \\(2,3,5,7,11,13,17,19\\), so it’s prime.\n\nHence\n\\[\nd_n\\le 401,\n\\]\nand the maximum occurs only if \\(401\\mid d_n\\), i.e. if simultaneously\n\\[\n401\\mid (2n+1)\\quad\\text{and}\\quad 401\\mid (100+n^2).\n\\]\nTake \\(2n+1=401k\\). Modulo 401, this gives \\(2n\\equiv -1\\), so \\(n\\equiv (401-1)/2=200\\pmod{401}\\).\nLet \\(n=200\\). Then\n\\[\n2n+1=401 \\quad\\Rightarrow\\quad 401\\mid (2n+1).\n\\]\nAlso\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Therefore\n\\[\nd_{200}=\\gcd(a_{200},a_{201})\\ge 401,\n\\]\nbut we already know \\(d_n\\le 401\\), so\n\\[\nd_{200}=401.\n\\]\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)= (n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must also divide their difference, so\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso,\n\\[\na_n=100+n^2 \\equiv 100+n^2 \\pmod{d_n}.\n\\]\nWe can work modulo an odd number divisor of \\(2n+1\\). Since \\(d_n\\mid (2n+1)\\), we have\n\\[\n2n+1\\equiv 0 \\pmod{d_n}\\quad\\Rightarrow\\quad n\\equiv \\frac{-1}{2}\\pmod{d_n}.\n\\]\nThen\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{d_n}.\n\\]\nPlugging into \\(a_n=100+n^2\\),\n\\[\na_n \\equiv 100+\\frac14 = \\frac{401}{4}\\pmod{d_n}.\n\\]\nBecause \\(d_n\\) divides \\(a_n\\), we get\n\\[\n\\frac{401}{4}\\equiv 0\\pmod{d_n}\\quad\\Rightarrow\\quad 401\\equiv 0\\pmod{d_n},\n\\]\nprovided \\(4\\) is invertible mod \\(d_n\\). Note \\(2n+1\\) is odd, so any divisor of it is odd; hence \\(\\gcd(d_n,4)=1\\) and the inversion is valid. Therefore\n\\[\nd_n \\mid 401.\n\\]\nNow factor \\(401\\). It is prime (since \\(\\sqrt{401}<21\\) and it has no factors among \\(2,3,5,7,11,13,17,19\\)).\n\nSo\n\\[\nd_n \\in \\{1,401\\}.\n\\]\nIt remains to see whether \\(401\\) can actually occur. We need\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nEquivalently, since \\(401\\) is prime and divides the difference \\(a_{n+1}-a_n=2n+1\\), we need\n\\[\n401\\mid (2n+1)\\ \\Rightarrow\\ 2n+1\\equiv 0\\pmod{401}\\ \\Rightarrow\\ n\\equiv 200\\pmod{401}.\n\\]\nCheck \\(a_n\\) mod \\(401\\) for \\(n\\equiv 200\\):\n\\[\na_n=100+n^2 \\equiv 100+200^2 \\pmod{401}.\n\\]\nCompute \\(200^2=40000\\). Since \\(401\\cdot 99=39699\\),\n\\[\n40000-39699=301,\n\\]\nso \\(200^2\\equiv 301\\pmod{401}\\). Thus\n\\[\na_n \\equiv 100+301=401\\equiv 0\\pmod{401}.\n\\]\nSo \\(401\\mid a_n\\). Then because \\(401\\mid (a_{n+1}-a_n)\\), we also get \\(401\\mid a_{n+1}\\). Hence \\(d_n=401\\) is achievable.\n\nTherefore the maximum possible \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nSubtract the two:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(a_n,\\ a_{n+1})=\\gcd(a_n,\\ 2n+1).\n\\]\nNow compute \\(a_n \\pmod{2n+1}\\). Since\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1,\n\\]\nsquare both sides carefully via a standard trick:\nFrom \\(2n\\equiv -1\\), multiply by \\(n\\): \\(2n^2 \\equiv -n\\). But an even cleaner way is:\n\\[\nn \\equiv \\frac{-1}{2}\\pmod{2n+1},\n\\]\nso\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{2n+1}.\n\\]\nInstead of fractions, use the identity\n\\[\n4a_n=4(100+n^2)=400+4n^2.\n\\]\nUsing \\(2n\\equiv -1\\), we have \\(4n^2 \\equiv 1\\pmod{2n+1}\\). Hence\n\\[\n4a_n \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nSo any common divisor \\(d_n\\) of \\(a_n\\) and \\(2n+1\\) must divide \\(401\\). Therefore,\n\\[\nd_n \\mid 401.\n\\]\nSince \\(401\\) is prime (it has no divisors among \\(2,3,5,7,11,13,17,19\\) since \\(19^2=361\\) and \\(401\\) is not divisible by any of those), the only possibilities are\n\\[\nd_n\\in\\{1,401\\}.\n\\]\nSo the maximum value is \\(401\\) if we can find \\(n\\) such that \\(401\\mid a_n\\) (then automatically \\(401\\mid 2n+1\\) as well because \\(401\\mid \\gcd(a_n,2n+1)\\) would be needed; equivalently we check \\(\\gcd\\) gives 401).\n\nWe solve\n\\[\n401 \\mid a_n = 100+n^2 \\quad\\Longleftrightarrow\\quad n^2\\equiv -100 \\pmod{401}.\n\\]\nCompute \\(-100 \\equiv 301 \\pmod{401}\\). So we need\n\\[\nn^2 \\equiv 301 \\pmod{401}.\n\\]\nTry to find a square root: note that\n\\[\n401-100=301.\n\\]\nAlso check \\(n=13\\): \\(13^2=169\\), \\(169+100=269\\) not multiple of 401.  \nCheck \\(n=9\\): \\(81+100=181\\) no.  \nInstead, use the relationship from the earlier congruence: if \\(d_n=401\\), then \\(401\\mid 2n+1\\) so\n\\[\n2n+1\\equiv 0\\pmod{401}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{401}.\n\\]\nThen \\(n\\equiv 200 \\pmod{401}\\) (since \\(2\\cdot 200=400\\equiv -1\\)). So take \\(n=200\\).\nNow compute:\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100.\n\\]\nThus \\(401\\mid a_{200}\\). Also\n\\[\n2\\cdot 200+1=401,\n\\]\nso \\(401\\mid 2n+1\\). Therefore\n\\[\nd_{200}=\\gcd(a_{200},a_{201})=\\gcd(a_{200},2n+1)=\\gcd(401\\cdot 100,401)=401.\n\\]\nHence the maximum value of \\(d_n\\) is indeed \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nSubtract:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,\\ 2n+1).\n\\]\nNow compute \\(a_n\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n \\equiv -1 \\pmod{2n+1}.\n\\]\nSquare both sides:\n\\[\n(2n)^2 \\equiv (-1)^2 \\pmod{2n+1}\\quad\\Rightarrow\\quad 4n^2 \\equiv 1 \\pmod{2n+1}.\n\\]\nMultiply by \\(25\\):\n\\[\n100n^2 \\equiv 25 \\pmod{2n+1}.\n\\]\nBut we want \\(100+n^2\\). Instead, use a direct congruence:\nFrom \\(2n\\equiv -1\\), multiply by \\(n\\):\n\\[\n2n^2 \\equiv -n \\pmod{2n+1}.\n\\]\nThen multiply by \\(2\\):\n\\[\n4n^2 \\equiv -2n \\pmod{2n+1}.\n\\]\nSince \\(2n\\equiv -1\\), we get\n\\[\n-2n \\equiv 1 \\pmod{2n+1},\n\\]\nhence\n\\[\n4n^2 \\equiv 1 \\pmod{2n+1}.\n\\]\nSo\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{2n+1}.\n\\]\nTherefore\n\\[\na_n=100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{2n+1}.\n\\]\nTo avoid fractions, multiply by 4:\n\\[\n4a_n=400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nThus\n\\[\n\\gcd(a_n,2n+1)\\ \\text{divides}\\ \\gcd(4a_n,2n+1)=\\gcd(401,2n+1).\n\\]\nSo\n\\[\nd_n \\mid 401.\n\\]\nNow factor \\(401\\). It is prime (indeed \\(\\sqrt{401}<21\\), and it is not divisible by \\(2,3,5,7,11,13,17,19\\)). Hence the only positive divisors of 401 are \\(1\\) and \\(401\\).\n\nSo the maximum possible \\(d_n\\) is either \\(1\\) or \\(401\\). We check when \\(d_n=401\\):\nWe need \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\). It is enough to require\n\\[\n401 \\mid (a_{n+1}-a_n)=2n+1\n\\]\nand also \\(401\\mid a_n\\).\n\nFrom \\(401\\mid 2n+1\\), we can take\n\\[\n2n+1=401 \\Rightarrow n=200.\n\\]\nNow check \\(a_{200}=100+200^2=100+40000=40100\\), which is divisible by 401 since \\(401\\cdot 100=40100\\). Therefore for \\(n=200\\),\n\\[\nd_{200}=\\gcd(a_{200},a_{201})\\ge 401,\n\\]\nbut we already know \\(d_n\\mid 401\\), so \\(d_{200}=401\\).\n\nHence the maximum value is \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nCompute their difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(a_n,\\;a_{n+1})=\\gcd(a_n,\\;2n+1).\n\\]\nAlso reduce \\(a_n\\) modulo \\(2n+1\\). Since\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\implies 2n\\equiv -1 \\pmod{2n+1}.\n\\]\nThen\n\\[\nn^2=\\left(\\frac{2n}{2}\\right)^2 \\equiv \\left(\\frac{-1}{2}\\right)^2 \\equiv \\frac{1}{4}\\pmod{2n+1},\n\\]\nbut it’s cleaner to avoid fractions by using:\n\\[\n4a_n=4(100+n^2)=400+4n^2.\n\\]\nFrom \\(2n+1\\mid 2n+1\\), we get \\(4n^2 = (2n)^2 \\equiv (-1)^2=1 \\pmod{2n+1}\\) because \\(2n\\equiv -1\\).\nSo\n\\[\n4a_n=400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore any common divisor of \\(a_n\\) and \\(2n+1\\) must also divide \\(401\\), and in fact\n\\[\nd_n=\\gcd(a_n,2n+1)\\quad\\text{divides}\\quad \\gcd( a_n, 2n+1)\\mid 401.\n\\]\nSince \\(401\\) is prime, the only possibilities are\n\\[\nd_n\\in\\{1,401\\}.\n\\]\nSo the maximum \\(d_n\\) is either \\(1\\) or \\(401\\). We check when \\(d_n=401\\), i.e. when \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\).\n\nBecause \\(\\gcd(a_n,a_{n+1})\\mid (a_{n+1}-a_n)=2n+1\\), if \\(401\\mid d_n\\) then\n\\[\n401\\mid (2n+1).\n\\]\nSo \\(2n+1\\equiv 0\\pmod{401}\\Rightarrow n\\equiv 200\\pmod{401}.\n\\]\nNow check \\(401\\mid a_n=100+n^2\\) for such an \\(n\\). Take \\(n=200\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100.\n\\]\nSo \\(401\\mid a_{200}\\). Also \\(2n+1=401\\) ensures \\(401\\mid (a_{n+1}-a_n)\\), hence \\(401\\mid a_{201}\\) as well. Thus \\(d_{200}=401\\).\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2=100+n^2+2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nTake the difference:\n\\[\na_{n+1}-a_n=(100+(n+1)^2)-(100+n^2)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(100+n^2,\\;2n+1).\n\\]\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). Since\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{2n+1},\n\\]\nmultiply by \\(n\\):\n\\[\n2n^2 \\equiv -n \\pmod{2n+1}.\n\\]\nThen\n\\[\nn^2=\\frac{2n^2}{2}\\equiv \\frac{-n}{2}\\pmod{2n+1},\n\\]\nbut “dividing by 2” isn’t ideal. Instead, use the identity:\n\\[\n(2n+1)^2=4n^2+4n+1 \\equiv 0 \\pmod{2n+1}.\n\\]\nSo\n\\[\n4n^2+4n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 4n^2 \\equiv -(4n+1).\n\\]\nCompute \\(100+n^2\\) by expressing \\(n^2\\) from \\(4n^2\\):\n\\[\n4(100+n^2)=400+4n^2 \\equiv 400-(4n+1)=399-4n \\pmod{2n+1}.\n\\]\nAlso \\(4n \\equiv 2(2n)\\equiv 2(-1)= -2 \\pmod{2n+1}\\). Hence\n\\[\n399-4n \\equiv 399-(-2)=401 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\n4(100+n^2)\\equiv 401 \\pmod{2n+1}.\n\\]\nSo any common divisor of \\(100+n^2\\) and \\(2n+1\\) must divide \\(401\\) (except possibly factors coming from 4, but \\(2n+1\\) is odd so \\(\\gcd(4,2n+1)=1\\)). Concretely, let\n\\[\nd_n=\\gcd(100+n^2,2n+1).\n\\]\nThen \\(d_n\\mid 2n+1\\) and from the congruence above, \\(d_n\\mid 401\\). Thus\n\\[\nd_n \\le 401.\n\\]\nNow check if \\(d_n=401\\) is attainable. We need\n\\[\n401\\mid 2n+1 \\quad\\text{and}\\quad 401\\mid 100+n^2.\n\\]\nLet \\(2n+1=401\\). Then \\(n=\\frac{400}{2}=200\\). Verify:\n\\[\na_{200}=100+200^2=100+40000=40100,\n\\]\nand indeed \\(40100/401=100\\), so \\(401\\mid a_{200}\\). Also\n\\[\na_{201}=100+201^2=100+40401=40501,\n\\]\nand \\(40501-40100=401\\), so \\(401\\mid a_{201}\\) as well. Therefore\n\\[\nd_{200}=401.\n\\]\nHence the maximum possible value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\na_{n+1}-a_n=(n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor \\(d_n=\\gcd(a_n,a_{n+1})\\) must divide the difference \\(2n+1\\).\n\nAlso, since \\(d_n\\mid a_n\\), we can reduce \\(a_n\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\implies n \\equiv \\frac{-1}{2}\\pmod{2n+1}.\n\\]\nA cleaner way is to compute \\(n^2\\) in terms of \\(2n+1\\):\n\\[\n(2n+1)^2=4n^2+4n+1 \\implies 4n^2 \\equiv -4n-1 \\pmod{2n+1}.\n\\]\nBut we can do even simpler: from \\(2n\\equiv -1\\) we get\n\\[\nn^2 \\equiv \\left(\\frac{-1}{2}\\right)^2=\\frac14 \\pmod{2n+1},\n\\]\nand multiplying by 4 avoids fractions. Consider \\(4a_n = 400+4n^2\\):\n\\[\n4a_n \\equiv 400+1 =401 \\pmod{2n+1}.\n\\]\nTherefore,\n\\[\n\\gcd(a_n,a_{n+1}) \\mid (2n+1)\\quad\\text{and}\\quad \\gcd(a_n,a_{n+1}) \\mid 401.\n\\]\nSo\n\\[\nd_n \\mid \\gcd(2n+1,401).\n\\]\nHence \\(d_n\\) can only be a positive divisor of \\(401\\). Now factor:\n\\[\n401 \\text{ is prime.}\n\\]\nSo the only possibilities are \\(d_n=1\\) or \\(d_n=401\\).\n\nTo see if \\(d_n=401\\) can happen, we need \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\). Since their difference is \\(2n+1\\), it would suffice to require \\(401\\mid (2n+1)\\) (then \\(\\gcd\\) would be at least 401, but it can’t exceed 401 because 401 is prime).\nTake\n\\[\n2n+1 \\equiv 0 \\pmod{401}\\implies 2n+1=401\\implies n=200.\n\\]\nCheck \\(n=200\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Also,\n\\[\na_{201}-a_{200}=2\\cdot 200+1=401,\n\\]\nso \\(401\\mid a_{201}\\) as well. Thus \\(d_{200}=401\\).\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Then \\(d_n\\) divides their difference, hence\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso \\(d_n\\mid a_n\\), and since \\(a_n=100+n^2\\),\n\\[\na_n = (100+n^2).\n\\]\nUse the congruence coming from \\(2n+1\\). If \\(d_n\\mid(2n+1)\\), then \\(2n\\equiv -1\\pmod{d_n}\\). Multiply by \\(n\\):\n\\[\n2n^2 \\equiv -n \\pmod{d_n}.\n\\]\nAlso from \\(2n\\equiv -1\\), we can compute \\(n^2\\) mod \\(d_n\\) by squaring:\n\\[\n(2n)^2 \\equiv (-1)^2 \\pmod{d_n}\\implies 4n^2\\equiv 1\\pmod{d_n}\\implies n^2\\equiv \\frac14 \\pmod{d_n}.\n\\]\nThis is most clean if \\(d_n\\) is odd (it will be, since it divides \\(2n+1\\)). For odd \\(d_n\\), \\(4\\) is invertible, so the congruence is valid.\n\nFrom \\(d_n\\mid a_n\\):\n\\[\n0\\equiv a_n = 100+n^2 \\pmod{d_n}\n\\implies n^2\\equiv -100\\pmod{d_n}.\n\\]\nCombine with \\(4n^2\\equiv 1\\pmod{d_n}\\):\n\\[\n4(-100)\\equiv 1 \\pmod{d_n}\\implies -400\\equiv 1\\pmod{d_n}\n\\implies 401\\equiv 0\\pmod{d_n}.\n\\]\nThus\n\\[\nd_n \\mid 401.\n\\]\nSince \\(401\\) is prime (it has no divisors among \\(2,3,5,7,11,13,17,19\\), and \\(\\sqrt{401}<20\\)), the only positive divisors are \\(1\\) and \\(401\\). Therefore\n\\[\nd_n\\le 401.\n\\]\n\nNow we check whether \\(d_n=401\\) is achievable. We need\n\\[\n401\\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nIt suffices that \\(401\\mid (a_{n+1}-a_n)=2n+1\\). So set\n\\[\n2n+1\\equiv 0\\pmod{401}\\implies n\\equiv 200\\pmod{401}.\n\\]\nTake \\(n=200\\). Then\n\\[\n2n+1=401,\n\\]\nso \\(401\\mid a_{201}-a_{200}\\), and we also need \\(401\\mid a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso indeed \\(401\\mid a_{200}\\). Hence \\(\\gcd(a_{200},a_{201})=401\\).\n\nTherefore the maximum possible \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad d_n=\\gcd(a_n,a_{n+1}).\n\\]\nCompute \\(a_{n+1}\\):\n\\[\na_{n+1}=100+(n+1)^2=100+n^2+2n+1=a_n+(2n+1).\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,\\ a_n+(2n+1))=\\gcd(a_n,\\ 2n+1).\n\\]\nLet \\(m=2n+1\\) (an odd positive integer). Then \\(n=\\frac{m-1}{2}\\), and\n\\[\na_n=100+n^2=100+\\left(\\frac{m-1}{2}\\right)^2\n=100+\\frac{(m-1)^2}{4}.\n\\]\nMultiply by 4:\n\\[\n4a_n=400+(m-1)^2=m^2-2m+1+400=m^2-2m+401.\n\\]\nNow take this modulo \\(m\\):\n\\[\n4a_n \\equiv m^2-2m+401 \\equiv 0-0+401 \\equiv 401 \\pmod m,\n\\]\nso\n\\[\na_n \\equiv 401\\cdot 4^{-1}\\pmod m.\n\\]\nBut for divisibility we can avoid inverses: since \\(d_n\\mid m\\) and \\(d_n\\mid a_n\\), we must have\n\\[\nd_n \\mid 4a_n \\quad\\Rightarrow\\quad d_n \\mid \\gcd(m,401).\n\\]\nThus\n\\[\nd_n=\\gcd(a_n, m)\\le \\gcd(m,401).\n\\]\nTo maximize \\(d_n\\), note that \\(401\\) is prime (it’s not divisible by \\(3,5,7,11,13,17,19\\) since \\(\\sqrt{401}<20\\)). Therefore \\(\\gcd(m,401)\\) is either \\(1\\) or \\(401\\).\n\nSo the maximum possible \\(d_n\\) is \\(401\\), and we just need to check that \\(d_n=401\\) occurs for some \\(n\\).\n\nWe want \\(401\\mid a_n\\) and \\(401\\mid (2n+1)\\).  \nThe condition \\(401\\mid (2n+1)\\) gives \\(2n+1=401\\Rightarrow n=200\\). Then\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso indeed \\(\\gcd(a_{200},a_{201})=401\\).\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\na_{n+1}-a_n=(n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must also divide their difference, so\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso \\(d_n\\mid a_n=100+n^2\\). Reduce \\(a_n\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1 \\equiv 0 \\pmod{d_n}\\ \\Longrightarrow\\ 2n\\equiv -1 \\pmod{d_n}\n\\Longrightarrow n \\equiv -\\frac12 \\pmod{d_n}.\n\\]\nInstead of fractions, use the identity:\n\\[\n(2n+1)^2=4n^2+4n+1.\n\\]\nCompute \\(4a_n\\):\n\\[\n4a_n=400+4n^2.\n\\]\nNow subtract \\((2n+1)^2\\):\n\\[\n4a_n-(2n+1)^2=(400+4n^2)-(4n^2+4n+1)=399-4n.\n\\]\nThat’s not yet helpful. A cleaner route is to eliminate \\(n^2\\) directly:\nFrom \\(2n+1\\mid (2n+1)\\), we have \\(2n\\equiv -1\\), so\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{d_n}.\n\\]\nThus\n\\[\na_n=100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{d_n}.\n\\]\nMultiplying by \\(4\\) (which is allowed since if \\(d_n\\mid 2n+1\\), then \\(d_n\\) is odd, so \\(\\gcd(d_n,4)=1\\)), we get:\n\\[\nd_n \\mid 4a_n \\Rightarrow d_n \\mid 4\\cdot 100 + 1 = 401.\n\\]\nSo for every \\(n\\),\n\\[\nd_n \\mid 401.\n\\]\nHence \\(d_n\\) can only be a divisor of \\(401\\). Now factor:\n\\[\n401 \\text{ is prime (it’s not divisible by } 3,5,7,11,13,17,19).\n\\]\nTherefore the only possible values are \\(d_n=1\\) or \\(d_n=401\\).\n\nIt remains to see whether \\(d_n=401\\) can occur. We need\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nBut if \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}-a_n=2n+1\\), then automatically both divisibilities hold.\n\nSo we look for \\(n\\) such that\n\\[\n2n+1\\equiv 0\\pmod{401}\\quad\\Rightarrow\\quad n=\\frac{401-1}{2}=200.\n\\]\nCheck \\(a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100.\n\\]\nAnd indeed\n\\[\n40100=401\\cdot 100.\n\\]\nThen\n\\[\na_{201}=100+201^2=100+40401=40501=401\\cdot 101,\n\\]\nso \\(\\gcd(a_{200},a_{201})=401\\).\n\nThus the maximum possible value is \\(401\\).\n\nANSWER: 401"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1985-13",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "We have\n\\[\na_n=100+n^2.\n\\]\nThen\n\\[\na_{n+1}=100+(n+1)^2=100+n^2+2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nUse the gcd difference:\n\\[\n\\gcd(a_n,a_{n+1})=\\gcd\\big(a_n,\\;a_{n+1}-a_n\\big).\n\\]\nCompute\n\\[\na_{n+1}-a_n=(100+(n+1)^2)-(100+n^2)=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(100+n^2,\\;2n+1).\n\\]\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). From \\(2n+1\\equiv 0\\), we have \\(2n\\equiv -1\\) so \\(n\\equiv -\\tfrac12\\). It’s cleaner to use an algebraic substitution:\n\\[\n4n^2=(2n)^2\\equiv (-1)^2=1 \\pmod{2n+1}\n\\]\nso\n\\[\nn^2 \\equiv 4^{-1}\\equiv 1 \\pmod{2n+1},\n\\]\nbecause \\(4\\equiv 4\\) is invertible modulo \\(2n+1\\) (indeed \\(\\gcd(4,2n+1)=1\\) since \\(2n+1\\) is odd). More directly, we can express \\(n^2-1\\) as a multiple of \\(2n+1\\):\n\\[\nn^2-1=(n-1)(n+1),\n\\]\nand using \\(2n+1\\) is typically awkward; instead, do a direct remainder:\n\\[\nn^2 = \\left(\\frac{(2n+1)-1}{2}\\right)^2 = \\frac{(2n+1)^2-2(2n+1)+1}{4}\n\\equiv \\frac{0-0+1}{4}\\equiv \\frac14 \\pmod{2n+1}.\n\\]\nBut since we will multiply by 4, we can avoid fractions:\n\\[\n4(100+n^2)\\equiv 4\\cdot 100 + 4n^2 \\pmod{2n+1}.\n\\]\nAnd\n\\[\n4n^2\\equiv (2n)^2\\equiv (-1)^2=1 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\n4(100+n^2)\\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nSo any common divisor of \\(100+n^2\\) and \\(2n+1\\) must also divide 401. Concretely,\n\\[\nd_n=\\gcd(100+n^2,2n+1)\\mid 401.\n\\]\nNow factor 401:\n\\[\n401 \\text{ is prime} \\quad (\\text{check } \\sqrt{401}\\approx 20).\n\\]\nNot divisible by \\(2,3,5,7,11,13,17,19\\), so it’s prime.\n\nHence\n\\[\nd_n\\le 401,\n\\]\nand the maximum occurs only if \\(401\\mid d_n\\), i.e. if simultaneously\n\\[\n401\\mid (2n+1)\\quad\\text{and}\\quad 401\\mid (100+n^2).\n\\]\nTake \\(2n+1=401k\\). Modulo 401, this gives \\(2n\\equiv -1\\), so \\(n\\equiv (401-1)/2=200\\pmod{401}\\).\nLet \\(n=200\\). Then\n\\[\n2n+1=401 \\quad\\Rightarrow\\quad 401\\mid (2n+1).\n\\]\nAlso\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Therefore\n\\[\nd_{200}=\\gcd(a_{200},a_{201})\\ge 401,\n\\]\nbut we already know \\(d_n\\le 401\\), so\n\\[\nd_{200}=401.\n\\]\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)= (n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must also divide their difference, so\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso,\n\\[\na_n=100+n^2 \\equiv 100+n^2 \\pmod{d_n}.\n\\]\nWe can work modulo an odd number divisor of \\(2n+1\\). Since \\(d_n\\mid (2n+1)\\), we have\n\\[\n2n+1\\equiv 0 \\pmod{d_n}\\quad\\Rightarrow\\quad n\\equiv \\frac{-1}{2}\\pmod{d_n}.\n\\]\nThen\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{d_n}.\n\\]\nPlugging into \\(a_n=100+n^2\\),\n\\[\na_n \\equiv 100+\\frac14 = \\frac{401}{4}\\pmod{d_n}.\n\\]\nBecause \\(d_n\\) divides \\(a_n\\), we get\n\\[\n\\frac{401}{4}\\equiv 0\\pmod{d_n}\\quad\\Rightarrow\\quad 401\\equiv 0\\pmod{d_n},\n\\]\nprovided \\(4\\) is invertible mod \\(d_n\\). Note \\(2n+1\\) is odd, so any divisor of it is odd; hence \\(\\gcd(d_n,4)=1\\) and the inversion is valid. Therefore\n\\[\nd_n \\mid 401.\n\\]\nNow factor \\(401\\). It is prime (since \\(\\sqrt{401}<21\\) and it has no factors among \\(2,3,5,7,11,13,17,19\\)).\n\nSo\n\\[\nd_n \\in \\{1,401\\}.\n\\]\nIt remains to see whether \\(401\\) can actually occur. We need\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nEquivalently, since \\(401\\) is prime and divides the difference \\(a_{n+1}-a_n=2n+1\\), we need\n\\[\n401\\mid (2n+1)\\ \\Rightarrow\\ 2n+1\\equiv 0\\pmod{401}\\ \\Rightarrow\\ n\\equiv 200\\pmod{401}.\n\\]\nCheck \\(a_n\\) mod \\(401\\) for \\(n\\equiv 200\\):\n\\[\na_n=100+n^2 \\equiv 100+200^2 \\pmod{401}.\n\\]\nCompute \\(200^2=40000\\). Since \\(401\\cdot 99=39699\\),\n\\[\n40000-39699=301,\n\\]\nso \\(200^2\\equiv 301\\pmod{401}\\). Thus\n\\[\na_n \\equiv 100+301=401\\equiv 0\\pmod{401}.\n\\]\nSo \\(401\\mid a_n\\). Then because \\(401\\mid (a_{n+1}-a_n)\\), we also get \\(401\\mid a_{n+1}\\). Hence \\(d_n=401\\) is achievable.\n\nTherefore the maximum possible \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nSubtract the two:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(a_n,\\ a_{n+1})=\\gcd(a_n,\\ 2n+1).\n\\]\nNow compute \\(a_n \\pmod{2n+1}\\). Since\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1,\n\\]\nsquare both sides carefully via a standard trick:\nFrom \\(2n\\equiv -1\\), multiply by \\(n\\): \\(2n^2 \\equiv -n\\). But an even cleaner way is:\n\\[\nn \\equiv \\frac{-1}{2}\\pmod{2n+1},\n\\]\nso\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{2n+1}.\n\\]\nInstead of fractions, use the identity\n\\[\n4a_n=4(100+n^2)=400+4n^2.\n\\]\nUsing \\(2n\\equiv -1\\), we have \\(4n^2 \\equiv 1\\pmod{2n+1}\\). Hence\n\\[\n4a_n \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nSo any common divisor \\(d_n\\) of \\(a_n\\) and \\(2n+1\\) must divide \\(401\\). Therefore,\n\\[\nd_n \\mid 401.\n\\]\nSince \\(401\\) is prime (it has no divisors among \\(2,3,5,7,11,13,17,19\\) since \\(19^2=361\\) and \\(401\\) is not divisible by any of those), the only possibilities are\n\\[\nd_n\\in\\{1,401\\}.\n\\]\nSo the maximum value is \\(401\\) if we can find \\(n\\) such that \\(401\\mid a_n\\) (then automatically \\(401\\mid 2n+1\\) as well because \\(401\\mid \\gcd(a_n,2n+1)\\) would be needed; equivalently we check \\(\\gcd\\) gives 401).\n\nWe solve\n\\[\n401 \\mid a_n = 100+n^2 \\quad\\Longleftrightarrow\\quad n^2\\equiv -100 \\pmod{401}.\n\\]\nCompute \\(-100 \\equiv 301 \\pmod{401}\\). So we need\n\\[\nn^2 \\equiv 301 \\pmod{401}.\n\\]\nTry to find a square root: note that\n\\[\n401-100=301.\n\\]\nAlso check \\(n=13\\): \\(13^2=169\\), \\(169+100=269\\) not multiple of 401.  \nCheck \\(n=9\\): \\(81+100=181\\) no.  \nInstead, use the relationship from the earlier congruence: if \\(d_n=401\\), then \\(401\\mid 2n+1\\) so\n\\[\n2n+1\\equiv 0\\pmod{401}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{401}.\n\\]\nThen \\(n\\equiv 200 \\pmod{401}\\) (since \\(2\\cdot 200=400\\equiv -1\\)). So take \\(n=200\\).\nNow compute:\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100.\n\\]\nThus \\(401\\mid a_{200}\\). Also\n\\[\n2\\cdot 200+1=401,\n\\]\nso \\(401\\mid 2n+1\\). Therefore\n\\[\nd_{200}=\\gcd(a_{200},a_{201})=\\gcd(a_{200},2n+1)=\\gcd(401\\cdot 100,401)=401.\n\\]\nHence the maximum value of \\(d_n\\) is indeed \\(401\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nSubtract:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,\\ 2n+1).\n\\]\nNow compute \\(a_n\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n \\equiv -1 \\pmod{2n+1}.\n\\]\nSquare both sides:\n\\[\n(2n)^2 \\equiv (-1)^2 \\pmod{2n+1}\\quad\\Rightarrow\\quad 4n^2 \\equiv 1 \\pmod{2n+1}.\n\\]\nMultiply by \\(25\\):\n\\[\n100n^2 \\equiv 25 \\pmod{2n+1}.\n\\]\nBut we want \\(100+n^2\\). Instead, use a direct congruence:\nFrom \\(2n\\equiv -1\\), multiply by \\(n\\):\n\\[\n2n^2 \\equiv -n \\pmod{2n+1}.\n\\]\nThen multiply by \\(2\\):\n\\[\n4n^2 \\equiv -2n \\pmod{2n+1}.\n\\]\nSince \\(2n\\equiv -1\\), we get\n\\[\n-2n \\equiv 1 \\pmod{2n+1},\n\\]\nhence\n\\[\n4n^2 \\equiv 1 \\pmod{2n+1}.\n\\]\nSo\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{2n+1}.\n\\]\nTherefore\n\\[\na_n=100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{2n+1}.\n\\]\nTo avoid fractions, multiply by 4:\n\\[\n4a_n=400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nThus\n\\[\n\\gcd(a_n,2n+1)\\ \\text{divides}\\ \\gcd(4a_n,2n+1)=\\gcd(401,2n+1).\n\\]\nSo\n\\[\nd_n \\mid 401.\n\\]\nNow factor \\(401\\). It is prime (indeed \\(\\sqrt{401}<21\\), and it is not divisible by \\(2,3,5,7,11,13,17,19\\)). Hence the only positive divisors of 401 are \\(1\\) and \\(401\\).\n\nSo the maximum possible \\(d_n\\) is either \\(1\\) or \\(401\\). We check when \\(d_n=401\\):\nWe need \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\). It is enough to require\n\\[\n401 \\mid (a_{n+1}-a_n)=2n+1\n\\]\nand also \\(401\\mid a_n\\).\n\nFrom \\(401\\mid 2n+1\\), we can take\n\\[\n2n+1=401 \\Rightarrow n=200.\n\\]\nNow check \\(a_{200}=100+200^2=100+40000=40100\\), which is divisible by 401 since \\(401\\cdot 100=40100\\). Therefore for \\(n=200\\),\n\\[\nd_{200}=\\gcd(a_{200},a_{201})\\ge 401,\n\\]\nbut we already know \\(d_n\\mid 401\\), so \\(d_{200}=401\\).\n\nHence the maximum value is \\(401\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nCompute their difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(a_n,\\;a_{n+1})=\\gcd(a_n,\\;2n+1).\n\\]\nAlso reduce \\(a_n\\) modulo \\(2n+1\\). Since\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\implies 2n\\equiv -1 \\pmod{2n+1}.\n\\]\nThen\n\\[\nn^2=\\left(\\frac{2n}{2}\\right)^2 \\equiv \\left(\\frac{-1}{2}\\right)^2 \\equiv \\frac{1}{4}\\pmod{2n+1},\n\\]\nbut it’s cleaner to avoid fractions by using:\n\\[\n4a_n=4(100+n^2)=400+4n^2.\n\\]\nFrom \\(2n+1\\mid 2n+1\\), we get \\(4n^2 = (2n)^2 \\equiv (-1)^2=1 \\pmod{2n+1}\\) because \\(2n\\equiv -1\\).\nSo\n\\[\n4a_n=400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore any common divisor of \\(a_n\\) and \\(2n+1\\) must also divide \\(401\\), and in fact\n\\[\nd_n=\\gcd(a_n,2n+1)\\quad\\text{divides}\\quad \\gcd( a_n, 2n+1)\\mid 401.\n\\]\nSince \\(401\\) is prime, the only possibilities are\n\\[\nd_n\\in\\{1,401\\}.\n\\]\nSo the maximum \\(d_n\\) is either \\(1\\) or \\(401\\). We check when \\(d_n=401\\), i.e. when \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\).\n\nBecause \\(\\gcd(a_n,a_{n+1})\\mid (a_{n+1}-a_n)=2n+1\\), if \\(401\\mid d_n\\) then\n\\[\n401\\mid (2n+1).\n\\]\nSo \\(2n+1\\equiv 0\\pmod{401}\\Rightarrow n\\equiv 200\\pmod{401}.\n\\]\nNow check \\(401\\mid a_n=100+n^2\\) for such an \\(n\\). Take \\(n=200\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100.\n\\]\nSo \\(401\\mid a_{200}\\). Also \\(2n+1=401\\) ensures \\(401\\mid (a_{n+1}-a_n)\\), hence \\(401\\mid a_{201}\\) as well. Thus \\(d_{200}=401\\).\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2=100+n^2+2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nTake the difference:\n\\[\na_{n+1}-a_n=(100+(n+1)^2)-(100+n^2)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(100+n^2,\\;2n+1).\n\\]\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). Since\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{2n+1},\n\\]\nmultiply by \\(n\\):\n\\[\n2n^2 \\equiv -n \\pmod{2n+1}.\n\\]\nThen\n\\[\nn^2=\\frac{2n^2}{2}\\equiv \\frac{-n}{2}\\pmod{2n+1},\n\\]\nbut “dividing by 2” isn’t ideal. Instead, use the identity:\n\\[\n(2n+1)^2=4n^2+4n+1 \\equiv 0 \\pmod{2n+1}.\n\\]\nSo\n\\[\n4n^2+4n+1 \\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 4n^2 \\equiv -(4n+1).\n\\]\nCompute \\(100+n^2\\) by expressing \\(n^2\\) from \\(4n^2\\):\n\\[\n4(100+n^2)=400+4n^2 \\equiv 400-(4n+1)=399-4n \\pmod{2n+1}.\n\\]\nAlso \\(4n \\equiv 2(2n)\\equiv 2(-1)= -2 \\pmod{2n+1}\\). Hence\n\\[\n399-4n \\equiv 399-(-2)=401 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\n4(100+n^2)\\equiv 401 \\pmod{2n+1}.\n\\]\nSo any common divisor of \\(100+n^2\\) and \\(2n+1\\) must divide \\(401\\) (except possibly factors coming from 4, but \\(2n+1\\) is odd so \\(\\gcd(4,2n+1)=1\\)). Concretely, let\n\\[\nd_n=\\gcd(100+n^2,2n+1).\n\\]\nThen \\(d_n\\mid 2n+1\\) and from the congruence above, \\(d_n\\mid 401\\). Thus\n\\[\nd_n \\le 401.\n\\]\nNow check if \\(d_n=401\\) is attainable. We need\n\\[\n401\\mid 2n+1 \\quad\\text{and}\\quad 401\\mid 100+n^2.\n\\]\nLet \\(2n+1=401\\). Then \\(n=\\frac{400}{2}=200\\). Verify:\n\\[\na_{200}=100+200^2=100+40000=40100,\n\\]\nand indeed \\(40100/401=100\\), so \\(401\\mid a_{200}\\). Also\n\\[\na_{201}=100+201^2=100+40401=40501,\n\\]\nand \\(40501-40100=401\\), so \\(401\\mid a_{201}\\) as well. Therefore\n\\[\nd_{200}=401.\n\\]\nHence the maximum possible value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+          "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\na_{n+1}-a_n=(n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor \\(d_n=\\gcd(a_n,a_{n+1})\\) must divide the difference \\(2n+1\\).\n\nAlso, since \\(d_n\\mid a_n\\), we can reduce \\(a_n\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1 \\equiv 0 \\pmod{2n+1}\\implies n \\equiv \\frac{-1}{2}\\pmod{2n+1}.\n\\]\nA cleaner way is to compute \\(n^2\\) in terms of \\(2n+1\\):\n\\[\n(2n+1)^2=4n^2+4n+1 \\implies 4n^2 \\equiv -4n-1 \\pmod{2n+1}.\n\\]\nBut we can do even simpler: from \\(2n\\equiv -1\\) we get\n\\[\nn^2 \\equiv \\left(\\frac{-1}{2}\\right)^2=\\frac14 \\pmod{2n+1},\n\\]\nand multiplying by 4 avoids fractions. Consider \\(4a_n = 400+4n^2\\):\n\\[\n4a_n \\equiv 400+1 =401 \\pmod{2n+1}.\n\\]\nTherefore,\n\\[\n\\gcd(a_n,a_{n+1}) \\mid (2n+1)\\quad\\text{and}\\quad \\gcd(a_n,a_{n+1}) \\mid 401.\n\\]\nSo\n\\[\nd_n \\mid \\gcd(2n+1,401).\n\\]\nHence \\(d_n\\) can only be a positive divisor of \\(401\\). Now factor:\n\\[\n401 \\text{ is prime.}\n\\]\nSo the only possibilities are \\(d_n=1\\) or \\(d_n=401\\).\n\nTo see if \\(d_n=401\\) can happen, we need \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\). Since their difference is \\(2n+1\\), it would suffice to require \\(401\\mid (2n+1)\\) (then \\(\\gcd\\) would be at least 401, but it can’t exceed 401 because 401 is prime).\nTake\n\\[\n2n+1 \\equiv 0 \\pmod{401}\\implies 2n+1=401\\implies n=200.\n\\]\nCheck \\(n=200\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Also,\n\\[\na_{201}-a_{200}=2\\cdot 200+1=401,\n\\]\nso \\(401\\mid a_{201}\\) as well. Thus \\(d_{200}=401\\).\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Then \\(d_n\\) divides their difference, hence\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso \\(d_n\\mid a_n\\), and since \\(a_n=100+n^2\\),\n\\[\na_n = (100+n^2).\n\\]\nUse the congruence coming from \\(2n+1\\). If \\(d_n\\mid(2n+1)\\), then \\(2n\\equiv -1\\pmod{d_n}\\). Multiply by \\(n\\):\n\\[\n2n^2 \\equiv -n \\pmod{d_n}.\n\\]\nAlso from \\(2n\\equiv -1\\), we can compute \\(n^2\\) mod \\(d_n\\) by squaring:\n\\[\n(2n)^2 \\equiv (-1)^2 \\pmod{d_n}\\implies 4n^2\\equiv 1\\pmod{d_n}\\implies n^2\\equiv \\frac14 \\pmod{d_n}.\n\\]\nThis is most clean if \\(d_n\\) is odd (it will be, since it divides \\(2n+1\\)). For odd \\(d_n\\), \\(4\\) is invertible, so the congruence is valid.\n\nFrom \\(d_n\\mid a_n\\):\n\\[\n0\\equiv a_n = 100+n^2 \\pmod{d_n}\n\\implies n^2\\equiv -100\\pmod{d_n}.\n\\]\nCombine with \\(4n^2\\equiv 1\\pmod{d_n}\\):\n\\[\n4(-100)\\equiv 1 \\pmod{d_n}\\implies -400\\equiv 1\\pmod{d_n}\n\\implies 401\\equiv 0\\pmod{d_n}.\n\\]\nThus\n\\[\nd_n \\mid 401.\n\\]\nSince \\(401\\) is prime (it has no divisors among \\(2,3,5,7,11,13,17,19\\), and \\(\\sqrt{401}<20\\)), the only positive divisors are \\(1\\) and \\(401\\). Therefore\n\\[\nd_n\\le 401.\n\\]\n\nNow we check whether \\(d_n=401\\) is achievable. We need\n\\[\n401\\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nIt suffices that \\(401\\mid (a_{n+1}-a_n)=2n+1\\). So set\n\\[\n2n+1\\equiv 0\\pmod{401}\\implies n\\equiv 200\\pmod{401}.\n\\]\nTake \\(n=200\\). Then\n\\[\n2n+1=401,\n\\]\nso \\(401\\mid a_{201}-a_{200}\\), and we also need \\(401\\mid a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso indeed \\(401\\mid a_{200}\\). Hence \\(\\gcd(a_{200},a_{201})=401\\).\n\nTherefore the maximum possible \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+          "We have  \n\\[\na_n=100+n^2,\\qquad d_n=\\gcd(a_n,a_{n+1}).\n\\]\nCompute \\(a_{n+1}\\):\n\\[\na_{n+1}=100+(n+1)^2=100+n^2+2n+1=a_n+(2n+1).\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,\\ a_n+(2n+1))=\\gcd(a_n,\\ 2n+1).\n\\]\nLet \\(m=2n+1\\) (an odd positive integer). Then \\(n=\\frac{m-1}{2}\\), and\n\\[\na_n=100+n^2=100+\\left(\\frac{m-1}{2}\\right)^2\n=100+\\frac{(m-1)^2}{4}.\n\\]\nMultiply by 4:\n\\[\n4a_n=400+(m-1)^2=m^2-2m+1+400=m^2-2m+401.\n\\]\nNow take this modulo \\(m\\):\n\\[\n4a_n \\equiv m^2-2m+401 \\equiv 0-0+401 \\equiv 401 \\pmod m,\n\\]\nso\n\\[\na_n \\equiv 401\\cdot 4^{-1}\\pmod m.\n\\]\nBut for divisibility we can avoid inverses: since \\(d_n\\mid m\\) and \\(d_n\\mid a_n\\), we must have\n\\[\nd_n \\mid 4a_n \\quad\\Rightarrow\\quad d_n \\mid \\gcd(m,401).\n\\]\nThus\n\\[\nd_n=\\gcd(a_n, m)\\le \\gcd(m,401).\n\\]\nTo maximize \\(d_n\\), note that \\(401\\) is prime (it’s not divisible by \\(3,5,7,11,13,17,19\\) since \\(\\sqrt{401}<20\\)). Therefore \\(\\gcd(m,401)\\) is either \\(1\\) or \\(401\\).\n\nSo the maximum possible \\(d_n\\) is \\(401\\), and we just need to check that \\(d_n=401\\) occurs for some \\(n\\).\n\nWe want \\(401\\mid a_n\\) and \\(401\\mid (2n+1)\\).  \nThe condition \\(401\\mid (2n+1)\\) gives \\(2n+1=401\\Rightarrow n=200\\). Then\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso indeed \\(\\gcd(a_{200},a_{201})=401\\).\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+          "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\na_{n+1}-a_n=(n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must also divide their difference, so\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso \\(d_n\\mid a_n=100+n^2\\). Reduce \\(a_n\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1 \\equiv 0 \\pmod{d_n}\\ \\Longrightarrow\\ 2n\\equiv -1 \\pmod{d_n}\n\\Longrightarrow n \\equiv -\\frac12 \\pmod{d_n}.\n\\]\nInstead of fractions, use the identity:\n\\[\n(2n+1)^2=4n^2+4n+1.\n\\]\nCompute \\(4a_n\\):\n\\[\n4a_n=400+4n^2.\n\\]\nNow subtract \\((2n+1)^2\\):\n\\[\n4a_n-(2n+1)^2=(400+4n^2)-(4n^2+4n+1)=399-4n.\n\\]\nThat’s not yet helpful. A cleaner route is to eliminate \\(n^2\\) directly:\nFrom \\(2n+1\\mid (2n+1)\\), we have \\(2n\\equiv -1\\), so\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{d_n}.\n\\]\nThus\n\\[\na_n=100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{d_n}.\n\\]\nMultiplying by \\(4\\) (which is allowed since if \\(d_n\\mid 2n+1\\), then \\(d_n\\) is odd, so \\(\\gcd(d_n,4)=1\\)), we get:\n\\[\nd_n \\mid 4a_n \\Rightarrow d_n \\mid 4\\cdot 100 + 1 = 401.\n\\]\nSo for every \\(n\\),\n\\[\nd_n \\mid 401.\n\\]\nHence \\(d_n\\) can only be a divisor of \\(401\\). Now factor:\n\\[\n401 \\text{ is prime (it’s not divisible by } 3,5,7,11,13,17,19).\n\\]\nTherefore the only possible values are \\(d_n=1\\) or \\(d_n=401\\).\n\nIt remains to see whether \\(d_n=401\\) can occur. We need\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nBut if \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}-a_n=2n+1\\), then automatically both divisibilities hold.\n\nSo we look for \\(n\\) such that\n\\[\n2n+1\\equiv 0\\pmod{401}\\quad\\Rightarrow\\quad n=\\frac{401-1}{2}=200.\n\\]\nCheck \\(a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100.\n\\]\nAnd indeed\n\\[\n40100=401\\cdot 100.\n\\]\nThen\n\\[\na_{201}=100+201^2=100+40401=40501=401\\cdot 101,\n\\]\nso \\(\\gcd(a_{200},a_{201})=401\\).\n\nThus the maximum possible value is \\(401\\).\n\nANSWER: 401"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nThe numbers in the sequence $101$ , $104$ , $109$ , $116$ , $\\ldots$ are of the form $a_n=100+n^2$ , where $n=1,2,3,\\ldots$ . For each $n$ , let $d_n$ be the greatest common divisor of $a_n$ and $a_{n+1}$ . Find the maximum value of $d_n$ as $n$ ranges through the positive integers ."
+      },
+      "baseline_solutions": [
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2=100+n^2+2n+1.\n\\]\nSo any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must divide their difference:\n\\[\na_{n+1}-a_n=(100+n^2+2n+1)-(100+n^2)=2n+1.\n\\]\nLet\n\\[\nd_n=\\gcd(a_n,a_{n+1}).\n\\]\nThen\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso, since \\(d_n\\mid a_n\\), we can work modulo \\(2n+1\\). Note that\n\\[\nn\\equiv -\\frac12 \\pmod{2n+1}\\quad\\Rightarrow\\quad n^2\\equiv \\frac14 \\pmod{2n+1}.\n\\]\nMultiply \\(a_n=100+n^2\\) by 4:\n\\[\n4a_n=400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nHence any \\(d_n\\) dividing both \\(a_n\\) and \\(2n+1\\) must divide \\(401\\) as well:\n\\[\nd_n \\mid 401.\n\\]\n\nNow factor:\n\\[\n401 \\text{ is prime (it has no divisors among }2,3,5,7,11,13,17,19).\n\\]\nSo the only possible values of \\(d_n\\) are \\(1\\) or \\(401\\). The maximum is therefore \\(401\\) if it occurs.\n\nTo see it occurs, we want some \\(n\\) such that \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\). Since \\(d_n\\mid (2n+1)\\), for \\(d_n=401\\) we need\n\\[\n2n+1\\equiv 0 \\pmod{401}\\quad\\Rightarrow\\quad 2n+1=401 \\Rightarrow n=200.\n\\]\nCheck \\(a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Also\n\\[\na_{201}=100+201^2=100+40401=40501.\n\\]\nBut since \\(a_{201}-a_{200}=2n+1=401\\), we get\n\\[\na_{201}=a_{200}+401,\n\\]\nso \\(401\\mid a_{201}\\) as well. Therefore \\(d_{200}=401\\).\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nCompute the gcd:\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nTake the difference:\n\\[\n(100+(n+1)^2)-(100+n^2)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1).\n\\]\nNow use congruences mod \\(2n+1\\). Since \\(2n+1\\equiv 0\\pmod{2n+1}\\), we have\n\\[\n2n\\equiv -1 \\pmod{2n+1}\\implies n\\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nSquare:\n\\[\nn^2\\equiv \\left(-\\frac12\\right)^2=\\frac14 \\pmod{2n+1}.\n\\]\nMultiplying by 4,\n\\[\n4n^2\\equiv 1 \\pmod{2n+1}\\implies 4(100+n^2)=400+4n^2\\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nThus any common divisor \\(d_n\\) divides both \\(100+n^2\\) and \\(2n+1\\), hence divides \\(401\\) as well (because \\(d_n\\mid 2n+1\\) implies \\(d_n\\mid 401\\)). Therefore\n\\[\nd_n\\le 401.\n\\]\n\nNow check whether \\(d_n\\) can actually equal \\(401\\). For \\(d_n=401\\), we need\n\\[\n401 \\mid (2n+1)\\quad\\text{and}\\quad 401\\mid (100+n^2).\n\\]\nFrom \\(401\\mid (2n+1)\\), write\n\\[\n2n+1=401k \\implies n=\\frac{401k-1}{2}.\n\\]\nTest the smallest possibility \\(k=1\\): \\(2n+1=401\\Rightarrow n=200\\).\nThen\n\\[\na_n=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nand\n\\[\na_{n+1}=100+201^2=100+40401=40501=401\\cdot 101.\n\\]\nSo\n\\[\n\\gcd(a_{200},a_{201})=401.\n\\]\nHence the maximum possible value is indeed \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd\\bigl(100+n^2,\\ 100+(n+1)^2\\bigr).\n\\]\nSubtract:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must divide both \\(a_n\\) and \\(2n+1\\). Hence\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1).\n\\]\n\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1\\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{2n+1}.\n\\]\nSquare \\(2n\\equiv -1\\):\n\\[\n(2n)^2 \\equiv (-1)^2 \\Rightarrow 4n^2\\equiv 1 \\pmod{2n+1}.\n\\]\nMultiply by \\(25\\) (since we want \\(n^2\\)):\n\\[\n100n^2 \\equiv 25 \\pmod{2n+1}.\n\\]\nBut we can instead directly write \\(n\\) in terms of \\(2n+1\\):\n\\[\n2n \\equiv -1 \\Rightarrow n \\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nThen\n\\[\nn^2 \\equiv \\frac14 \\pmod{2n+1}.\n\\]\nThus\n\\[\n100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{2n+1}.\n\\]\nTo avoid fractions, multiply by 4:\n\\[\n4(100+n^2)=400+4n^2.\n\\]\nFrom \\(4n^2\\equiv 1\\pmod{2n+1}\\), we get\n\\[\n400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore,\n\\[\n\\gcd(100+n^2,2n+1)=\\gcd(4(100+n^2),2n+1)=\\gcd(401,2n+1).\n\\]\nSo\n\\[\nd_n=\\gcd(401,2n+1).\n\\]\n\nNow \\(401\\) is prime (it is not divisible by \\(2,3,5,7,11,13,17,19\\); \\(\\sqrt{401}<21\\)). Hence the gcd is either \\(1\\) or \\(401\\). The maximum possible value is \\(401\\), achieved when\n\\[\n401\\mid (2n+1).\n\\]\nThis is possible because we can take\n\\[\n2n+1=401 \\Rightarrow n=200,\n\\]\nwhich is a positive integer.\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\n\nCompute the difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1).\n\\]\n\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). Since\n\\[\n2n+1\\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{2n+1},\n\\]\nwe get\n\\[\nn \\equiv \\frac{-1}{2}\\pmod{2n+1}.\n\\]\nInstead of fractions, use the identity:\n\\[\n(2n+1)^2=4n^2+4n+1.\n\\]\nFrom this,\n\\[\n4n^2 \\equiv -(4n+1)\\pmod{2n+1}.\n\\]\nBut we need \\(n^2\\). A cleaner route is to express \\(n^2\\) in terms of \\(2n+1\\):\n\nLet \\(m=2n+1\\). Then \\(m\\) is odd and\n\\[\nn=\\frac{m-1}{2}.\n\\]\nSo\n\\[\nn^2=\\left(\\frac{m-1}{2}\\right)^2=\\frac{(m-1)^2}{4}=\\frac{m^2-2m+1}{4}.\n\\]\nWorking modulo \\(m\\), we have \\(m^2\\equiv 0\\) and \\(-2m\\equiv 0\\), so\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{m}.\n\\]\nThus\n\\[\n100+n^2 \\equiv 100+\\frac{1}{4}\\pmod{m}\n\\]\nMultiply by 4 (valid since \\(\\gcd(4,m)=1\\) for odd \\(m\\)):\n\\[\n4(100+n^2)\\equiv 400+1=401 \\pmod{m}.\n\\]\nTherefore\n\\[\n\\gcd(100+n^2,\\ m)\\mid \\gcd(401,\\ m).\n\\]\nSo\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1)\\mid \\gcd(401,\\ 2n+1).\n\\]\n\nNow factor \\(401\\). It’s prime (check primes \\(\\le \\sqrt{401}\\approx 20\\): not divisible by 2,3,5,7,11,13,17,19). Hence \\(\\gcd(401,2n+1)\\) is either \\(1\\) or \\(401\\).\n\nSo the maximum possible \\(d_n\\) is at most \\(401\\), and it will be achieved iff there exists \\(n\\) such that\n\\[\n2n+1 \\text{ is divisible by }401.\n\\]\nLet \\(2n+1=401\\). Then \\(n=200\\). Compute \\(a_{200}\\) and verify \\(401\\mid a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso indeed \\(401\\mid a_{200}\\). Also, \\(a_{201}=100+201^2=100+40401=40501=401\\cdot 101\\), so \\(\\gcd(a_{200},a_{201})=401\\).\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nCompute the gcd:\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd\\bigl(100+n^2,\\ 100+(n+1)^2\\bigr).\n\\]\nUse the difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n \\mid (a_{n+1}-a_n)=2n+1.\n\\]\nAlso \\(d_n\\mid a_n\\), so any common divisor \\(d\\) must divide both \\(100+n^2\\) and \\(2n+1\\).\n\nLet \\(d=d_n\\). From \\(d\\mid 2n+1\\), we have\n\\[\n2n\\equiv -1 \\pmod d \\implies n \\equiv \\frac{d-1}{2}\\pmod d,\n\\]\nand it’s easier to eliminate \\(n\\) by substituting using modular relations.\n\nWork modulo \\(d\\). Since \\(2n+1\\equiv 0\\pmod d\\), we get\n\\[\n(2n+1)^2 \\equiv 0 \\pmod d \\implies 4n^2+4n+1\\equiv 0\\pmod d.\n\\]\nBut from \\(a_n\\equiv 0\\pmod d\\),\n\\[\n100+n^2\\equiv 0\\pmod d \\implies n^2\\equiv -100\\pmod d.\n\\]\nSubstitute into \\(4n^2+4n+1\\equiv 0\\):\n\\[\n4(-100)+4n+1 \\equiv 0 \\pmod d\n\\]\n\\[\n-400+4n+1 \\equiv 0 \\pmod d\n\\]\n\\[\n4n-399 \\equiv 0 \\pmod d.\n\\]\nNow use \\(2n\\equiv -1\\pmod d\\). Multiply by 2:\n\\[\n4n\\equiv -2\\pmod d.\n\\]\nSo\n\\[\n4n-399 \\equiv -2-399=-401 \\equiv 0\\pmod d.\n\\]\nTherefore,\n\\[\nd_n \\mid 401.\n\\]\nNow factor \\(401\\). Since \\(\\sqrt{401}\\approx 20\\), test primes \\(2,3,5,7,11,13,17,19\\):\n- \\(401\\) is not divisible by \\(2,3,5\\) (obvious),\n- \\(401/7=57.28\\ldots\\) not integer,\n- \\(401/11=36.45\\ldots\\),\n- \\(401/13=30.84\\ldots\\),\n- \\(401/17=23.58\\ldots\\),\n- \\(401/19=21.1\\ldots\\).\nSo \\(401\\) is prime. Hence the only positive divisors are \\(1\\) and \\(401\\). Thus\n\\[\nd_n \\le 401,\n\\]\nand the maximum possible value is \\(401\\) if it occurs for some \\(n\\).\n\nCheck when \\(d_n=401\\). Since \\(401\\mid 2n+1\\), we need\n\\[\n2n+1\\equiv 0 \\pmod{401}.\n\\]\nTake \\(n=\\frac{401-1}{2}=200\\). Then \\(2n+1=401\\), so \\(401\\mid (a_{201}-a_{200})\\). Also we must ensure \\(401\\mid a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100.\n\\]\nAnd\n\\[\n40100=401\\cdot 100.\n\\]\nSo \\(401\\mid a_{200}\\). Therefore \\(401\\) divides both \\(a_{200}\\) and \\(a_{201}\\), so\n\\[\nd_{200}=\\gcd(a_{200},a_{201})=401.\n\\]\n\nThus the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\na_{n+1}-a_n=(100+(n+1)^2)-(100+n^2)= (n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Then \\(d_n\\) divides every integer combination, in particular it divides the difference:\n\\[\nd_n \\mid (a_{n+1}-a_n)=2n+1.\n\\]\nAlso \\(d_n\\mid a_n=100+n^2\\). Reduce \\(a_n\\) modulo \\(2n+1\\). Since \\(2n\\equiv -1\\pmod{2n+1}\\), we get\n\\[\nn^2 \\equiv \\left(-\\frac12\\right)^2 \\equiv \\frac14 \\pmod{2n+1}.\n\\]\nA cleaner way: use the identity\n\\[\n4a_n=4(100+n^2)=400+4n^2=(2n+1)^2+399,\n\\]\nbecause\n\\[\n(2n+1)^2=4n^2+4n+1,\\quad (2n+1)^2+399=4n^2+4n+400=4(100+n^2)+4n.\n\\]\nBut the more standard direct computation is:\n\\[\n(2n+1)^2 = 4n^2+4n+1 \\implies 4n^2 = (2n+1)^2-(4n+1).\n\\]\nInstead, use:\n\\[\n4(100+n^2)-(2n+1)^2 = 400+4n^2-(4n^2+4n+1)=399-4n.\n\\]\nThat still has \\(n\\). So we proceed with a modular relation using gcd properties:\n\nSince \\(d_n\\mid a_n\\) and \\(d_n\\mid (2n+1)\\), we can also evaluate \\(a_n\\) modulo \\(2n+1\\) by expressing \\(n\\) in terms of \\(2n+1\\):\n\\[\n2n+1\\equiv 0 \\Rightarrow 2n\\equiv -1 \\Rightarrow n\\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nThus \\(n^2\\equiv \\frac14\\pmod{2n+1}\\). Multiply \\(a_n=100+n^2\\) by 4:\n\\[\n4a_n = 400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\nd_n \\mid 4a_n \\quad \\text{and}\\quad d_n\\mid (2n+1)\n\\implies d_n \\mid \\gcd(2n+1,401).\n\\]\nSo for every \\(n\\),\n\\[\nd_n \\le \\gcd(2n+1,401)\\le 401.\n\\]\nNow check whether \\(d_n\\) can actually equal \\(401\\). We need \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\).\n\nIf \\(401\\mid (2n+1)\\), then \\(2n+1\\equiv 0\\pmod{401}\\). Also, from the congruence above,\n\\[\n4a_n \\equiv 401 \\equiv 0 \\pmod{401},\n\\]\nso \\(401\\mid 4a_n\\). Since \\(\\gcd(401,4)=1\\), this implies \\(401\\mid a_n\\).\nSimilarly, because \\(d_n\\mid (2n+1)\\) and \\(401\\mid (2n+1)\\), we get \\(401\\mid \\gcd(a_n,a_{n+1})\\), i.e. \\(d_n\\ge 401\\). But we already have \\(d_n\\le 401\\), hence \\(d_n=401\\).\n\nIt remains to see there exists \\(n\\) with \\(2n+1\\) divisible by \\(401\\). Take\n\\[\n2n+1=401 \\implies n=200,\n\\]\nwhich is a positive integer. Then indeed \\(d_{200}=401\\).\n\nThus the maximum possible value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nCompute the difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)= (n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor \\(d_n=\\gcd(a_n,a_{n+1})\\) must divide both \\(a_n\\) and \\(a_{n+1}\\), hence must divide their difference:\n\\[\nd_n \\mid (2n+1).\n\\]\n\nAlso, \\(d_n\\) divides \\(a_n=100+n^2\\). Reduce \\(a_n\\) modulo \\(2n+1\\). Since\n\\[\n2n+1\\equiv 0 \\pmod{2n+1}\\implies 2n\\equiv -1 \\implies n\\equiv -\\frac12 \\pmod{2n+1},\n\\]\nit’s easier to eliminate denominators by using the identity:\n\\[\n(2n+1)^2=4n^2+4n+1.\n\\]\nWork modulo \\(2n+1\\): we have \\(4n^2\\equiv -4n-1\\). Then\n\\[\nn^2=\\frac{4n^2}{4}\\equiv \\frac{-4n-1}{4}\\pmod{2n+1},\n\\]\nstill messy. Instead, do a direct linear combination:\nFind constants \\(A,B\\) such that\n\\[\n100+n^2 - A(2n+1)=\\text{constant}.\n\\]\nTake \\(A=\\frac n2\\) is not allowed; so we use another standard trick: compute \\(4a_n\\) modulo \\(2n+1\\):\n\\[\n4a_n=400+4n^2.\n\\]\nBut from \\((2n+1)^2=4n^2+4n+1\\), we get\n\\[\n4n^2 \\equiv -(4n+1)\\pmod{2n+1}.\n\\]\nSo\n\\[\n4a_n=400+4n^2 \\equiv 400-(4n+1)=399-4n \\pmod{2n+1}.\n\\]\nAlso \\(4n \\equiv -2 \\pmod{2n+1}\\) because \\(2n\\equiv -1\\). Thus\n\\[\n4a_n \\equiv 399-(-2)=401 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\n2n+1 \\mid (4a_n-401).\n\\]\nSince \\(d_n\\) divides \\(a_n\\), it divides \\(4a_n\\), hence\n\\[\nd_n \\mid 401.\n\\]\nSo every \\(d_n\\) is a positive divisor of \\(401\\). Now factor:\n\\[\n401 \\text{ is prime (not divisible by }2,3,5,7,11,13,17,19).\n\\]\nThus the only possibilities are \\(d_n=1\\) or \\(d_n=401\\).\n\nTo see if \\(401\\) can occur, we need\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401 \\mid a_{n+1}.\n\\]\nBut if \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\), then \\(401\\mid (a_{n+1}-a_n)=2n+1\\).\nSo we require\n\\[\n2n+1 \\equiv 0 \\pmod{401}.\n\\]\nTake \\(2n+1=401\\Rightarrow n=200\\). Check \\(a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Then automatically\n\\[\na_{201}-a_{200}=2\\cdot 200+1=401\n\\]\nimplies \\(a_{201}\\equiv a_{200}\\equiv 0\\pmod{401}\\), so \\(401\\mid a_{201}\\) as well. Hence\n\\[\nd_{200}=\\gcd(a_{200},a_{201})=401.\n\\]\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nSubtract:\n\\[\n(100+(n+1)^2)-(100+n^2)=(n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must divide \\(2n+1\\). Also,\n\\[\nd_n \\mid a_n=100+n^2.\n\\]\nWork modulo \\(2n+1\\). Since \\(2n+1\\equiv 0\\), we have \\(2n\\equiv -1\\), hence\n\\[\nn^2=\\left(\\frac{-1}{2}\\right)^2=\\frac14 \\pmod{2n+1}.\n\\]\nMore cleanly: write \\(4(100+n^2)=400+4n^2\\). Using \\(2n\\equiv -1\\),\n\\[\n4n^2=(2n)^2\\equiv (-1)^2=1 \\pmod{2n+1}.\n\\]\nThus\n\\[\n400+4n^2\\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore,\n\\[\n2n+1 \\mid \\bigl(400+4n^2\\bigr)\\quad\\Longrightarrow\\quad 2n+1 \\mid 401 \\ \\text{whenever a prime factor of }d_n\\text{ forces divisibility}.\n\\]\nBut we can make this exact as follows. Let \\(d_n=\\gcd(a_n,a_{n+1})\\). Then \\(d_n\\mid (2n+1)\\), so write \\(d_n \\mid 2n+1\\). Also \\(d_n\\mid a_n\\), hence \\(d_n\\mid 4a_n=400+4n^2\\). Since \\(d_n\\mid 2n+1\\), we also have \\(d_n\\mid (400+4n^2)\\) implies\n\\[\n400+4n^2 \\equiv 401 \\equiv 0 \\pmod{d_n},\n\\]\nso\n\\[\nd_n \\mid 401.\n\\]\nNow \\(401\\) is prime (it has no divisors among \\(2,3,5,7,11,13,17,19\\); since \\(\\sqrt{401}\\approx 20\\), that’s enough). So\n\\[\nd_n \\in \\{1,401\\}.\n\\]\nTo see whether \\(401\\) actually occurs, solve\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nIt suffices to solve \\(401\\mid a_n\\), because then automatically \\(d_n\\) divides \\(2n+1\\), and the condition \\(401\\mid (a_{n+1}-a_n)=2n+1\\) will be needed. Instead, use the earlier fact: if \\(d_n=401\\), then\n\\[\n401\\mid (2n+1).\n\\]\nSo take\n\\[\n2n+1=401 \\implies n=200.\n\\]\nCheck:\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nand\n\\[\na_{201}=100+201^2=100+40401=40501=401\\cdot 101.\n\\]\nThus \\(401\\) divides both, so \\(d_{200}=401\\).\n\nTherefore the maximum possible value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\quad a_{n+1}=100+(n+1)^2=100+n^2+2n+1=a_n+2n+1.\n\\]\nLet\n\\[\nd_n=\\gcd(a_n,a_{n+1}).\n\\]\nThen \\(d_n\\mid a_{n+1}-a_n=2n+1\\). Also \\(d_n\\mid a_n=100+n^2\\). So \\(d_n\\) divides any integer combination of these two numbers.\n\nA very useful combination is:\n\\[\n(100+n^2)-(n^2+2n+1)\\cdot 1 = 100+n^2-(n+1)^2 = 100+n^2-(n^2+2n+1)=99.\n\\]\nBut \\((n+1)^2 = a_{n+1}-100\\), so more cleanly:\nSince \\(d_n\\mid a_n\\) and \\(d_n\\mid a_{n+1}\\), we also have \\(d_n\\mid \\big(a_{n+1}-a_n\\big)\\) and \\(d_n\\mid \\big(a_n-(n+1)^2\\big)\\) etc. The simplest direct way is:\n\\[\na_{n+1}-a_n=2n+1,\n\\]\nand also\n\\[\na_n-(2n+1)\\cdot \\frac{n}{?}\n\\]\nis messy; instead use the explicit constant found by eliminating \\(n^2\\):\nFrom \\(a_n=100+n^2\\), we get \\(n^2=a_n-100\\).\nFrom \\(a_{n+1}=100+(n+1)^2=100+n^2+2n+1\\), we get \\(2n+1=a_{n+1}-a_n\\).\nNow compute:\n\\[\na_n-(n^2)=100,\\quad a_{n+1}-(n+1)^2=100.\n\\]\nA standard trick: compute\n\\[\na_{n+1} - (a_n + (2n+1)) = 0,\n\\]\nnot helpful. Instead, notice:\n\\[\n(a_n)\\;-\\;n( a_{n+1}-a_n)= (100+n^2)-n(2n+1)=100+n^2-2n^2-n=100-n^2-n.\n\\]\nNot constant.\n\nSo do it the classic gcd way: since \\(d_n\\mid a_n\\) and \\(d_n\\mid (2n+1)\\), we can reduce \\(n\\) mod \\(d_n\\).\nLet \\(d=d_n\\). Then \\(2n+1\\equiv 0\\pmod d\\), so \\(2n\\equiv -1\\pmod d\\).\nSquare both sides:\n\\[\n(2n)^2 \\equiv (-1)^2 \\pmod d \\implies 4n^2\\equiv 1\\pmod d \\implies n^2\\equiv 4^{-1}\\pmod d.\n\\]\nNow use \\(d\\mid a_n=100+n^2\\), so\n\\[\n100+n^2\\equiv 0\\pmod d \\implies n^2\\equiv -100\\pmod d.\n\\]\nThus\n\\[\n-100 \\equiv n^2 \\equiv 4^{-1}\\pmod d.\n\\]\nEquivalently,\n\\[\n4(-100)\\equiv 1 \\pmod d \\implies -400\\equiv 1 \\pmod d \\implies 401\\equiv 0\\pmod d.\n\\]\nSo\n\\[\nd_n \\mid 401.\n\\]\nSince \\(401\\) is prime (it has no divisors among primes \\(\\le \\sqrt{401}\\approx 20\\): not divisible by 3,5,7,11,13,17,19), the only positive divisors are \\(1\\) and \\(401\\).\nTherefore the maximum possible \\(d_n\\) is either \\(1\\) or \\(401\\). We just need to see whether \\(401\\) can occur.\n\nWe need \\(401\\mid a_n=100+n^2\\) and also \\(401\\mid a_{n+1}-a_n=2n+1\\).\nFrom \\(2n+1\\equiv 0\\pmod{401}\\), we get\n\\[\nn\\equiv -\\frac12 \\pmod{401}.\n\\]\nThe inverse of \\(2\\) mod \\(401\\) is \\((401+1)/2=201\\), since \\(2\\cdot 201=402\\equiv 1\\).\nSo\n\\[\nn\\equiv -201 \\equiv 200 \\pmod{401}.\n\\]\nCheck \\(n=200\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100.\n\\]\nSo \\(401\\mid a_{200}\\).\nAlso,\n\\[\na_{201}-a_{200} = 2\\cdot 200 +1 = 401,\n\\]\nso \\(401\\mid (a_{201}-a_{200})\\), hence \\(401\\mid a_{201}\\) as well.\nThus \\(\\gcd(a_{200},a_{201})\\) is at least \\(401\\), but it cannot exceed \\(401\\). Therefore\n\\[\nd_{200}=401.\n\\]\n\nHence the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nSubtract:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,\\ 2n+1).\n\\]\nNow reduce \\(a_n\\) modulo \\(2n+1\\). Since \\(2n+1\\equiv 0\\pmod{2n+1}\\), we have\n\\[\n2n\\equiv -1 \\pmod{2n+1}\\quad\\Rightarrow\\quad n\\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nA cleaner way: compute \\(4n^2\\) modulo \\(2n+1\\):\n\\[\n(2n+1)^2=4n^2+4n+1\\equiv 0 \\pmod{2n+1}\n\\]\nso\n\\[\n4n^2\\equiv -(4n+1)\\pmod{2n+1}.\n\\]\nBut also from \\(2n\\equiv -1\\), multiply by 2 gives \\(4n\\equiv -2\\). Then\n\\[\n4n^2\\equiv -(4n+1)\\equiv -((-2)+1)= -(-1)=1 \\pmod{2n+1}.\n\\]\nThus\n\\[\nn^2\\equiv \\frac14 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\na_n=100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{2n+1}.\n\\]\nTo avoid fractions, use the equivalent statement:\n\\[\n4a_n = 400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nSince \\(d_n\\mid a_n\\) and \\(d_n\\mid (2n+1)\\), we get\n\\[\nd_n \\mid 4a_n \\quad\\text{and}\\quad d_n\\mid (2n+1),\n\\]\nso\n\\[\nd_n \\mid \\gcd(2n+1,\\ 4a_n)=\\gcd(2n+1,\\ 401).\n\\]\nHence\n\\[\nd_n \\le 401\n\\]\nand in fact\n\\[\nd_n=\\gcd(2n+1,401).\n\\]\n\nNow maximize \\(\\gcd(2n+1,401)\\) over positive integers \\(n\\). The maximum possible gcd is the largest divisor of \\(401\\), which is \\(401\\) itself if we can have \\(2n+1=401\\). That gives\n\\[\n2n+1=401 \\Rightarrow n=200.\n\\]\nThen indeed \\(d_{200}=\\gcd(a_{200},a_{201})=\\gcd(100+200^2,\\ 2\\cdot 200+1)=\\gcd(\\cdots,401)=401\\).\n\nSo the maximum value is \\(\\boxed{401}\\).\n\nANSWER: 401"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1985-13",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2=100+n^2+2n+1.\n\\]\nSo any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must divide their difference:\n\\[\na_{n+1}-a_n=(100+n^2+2n+1)-(100+n^2)=2n+1.\n\\]\nLet\n\\[\nd_n=\\gcd(a_n,a_{n+1}).\n\\]\nThen\n\\[\nd_n \\mid (2n+1).\n\\]\nAlso, since \\(d_n\\mid a_n\\), we can work modulo \\(2n+1\\). Note that\n\\[\nn\\equiv -\\frac12 \\pmod{2n+1}\\quad\\Rightarrow\\quad n^2\\equiv \\frac14 \\pmod{2n+1}.\n\\]\nMultiply \\(a_n=100+n^2\\) by 4:\n\\[\n4a_n=400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nHence any \\(d_n\\) dividing both \\(a_n\\) and \\(2n+1\\) must divide \\(401\\) as well:\n\\[\nd_n \\mid 401.\n\\]\n\nNow factor:\n\\[\n401 \\text{ is prime (it has no divisors among }2,3,5,7,11,13,17,19).\n\\]\nSo the only possible values of \\(d_n\\) are \\(1\\) or \\(401\\). The maximum is therefore \\(401\\) if it occurs.\n\nTo see it occurs, we want some \\(n\\) such that \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\). Since \\(d_n\\mid (2n+1)\\), for \\(d_n=401\\) we need\n\\[\n2n+1\\equiv 0 \\pmod{401}\\quad\\Rightarrow\\quad 2n+1=401 \\Rightarrow n=200.\n\\]\nCheck \\(a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Also\n\\[\na_{201}=100+201^2=100+40401=40501.\n\\]\nBut since \\(a_{201}-a_{200}=2n+1=401\\), we get\n\\[\na_{201}=a_{200}+401,\n\\]\nso \\(401\\mid a_{201}\\) as well. Therefore \\(d_{200}=401\\).\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nCompute the gcd:\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nTake the difference:\n\\[\n(100+(n+1)^2)-(100+n^2)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1).\n\\]\nNow use congruences mod \\(2n+1\\). Since \\(2n+1\\equiv 0\\pmod{2n+1}\\), we have\n\\[\n2n\\equiv -1 \\pmod{2n+1}\\implies n\\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nSquare:\n\\[\nn^2\\equiv \\left(-\\frac12\\right)^2=\\frac14 \\pmod{2n+1}.\n\\]\nMultiplying by 4,\n\\[\n4n^2\\equiv 1 \\pmod{2n+1}\\implies 4(100+n^2)=400+4n^2\\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nThus any common divisor \\(d_n\\) divides both \\(100+n^2\\) and \\(2n+1\\), hence divides \\(401\\) as well (because \\(d_n\\mid 2n+1\\) implies \\(d_n\\mid 401\\)). Therefore\n\\[\nd_n\\le 401.\n\\]\n\nNow check whether \\(d_n\\) can actually equal \\(401\\). For \\(d_n=401\\), we need\n\\[\n401 \\mid (2n+1)\\quad\\text{and}\\quad 401\\mid (100+n^2).\n\\]\nFrom \\(401\\mid (2n+1)\\), write\n\\[\n2n+1=401k \\implies n=\\frac{401k-1}{2}.\n\\]\nTest the smallest possibility \\(k=1\\): \\(2n+1=401\\Rightarrow n=200\\).\nThen\n\\[\na_n=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nand\n\\[\na_{n+1}=100+201^2=100+40401=40501=401\\cdot 101.\n\\]\nSo\n\\[\n\\gcd(a_{200},a_{201})=401.\n\\]\nHence the maximum possible value is indeed \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd\\bigl(100+n^2,\\ 100+(n+1)^2\\bigr).\n\\]\nSubtract:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must divide both \\(a_n\\) and \\(2n+1\\). Hence\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1).\n\\]\n\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). Note that\n\\[\n2n+1\\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{2n+1}.\n\\]\nSquare \\(2n\\equiv -1\\):\n\\[\n(2n)^2 \\equiv (-1)^2 \\Rightarrow 4n^2\\equiv 1 \\pmod{2n+1}.\n\\]\nMultiply by \\(25\\) (since we want \\(n^2\\)):\n\\[\n100n^2 \\equiv 25 \\pmod{2n+1}.\n\\]\nBut we can instead directly write \\(n\\) in terms of \\(2n+1\\):\n\\[\n2n \\equiv -1 \\Rightarrow n \\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nThen\n\\[\nn^2 \\equiv \\frac14 \\pmod{2n+1}.\n\\]\nThus\n\\[\n100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{2n+1}.\n\\]\nTo avoid fractions, multiply by 4:\n\\[\n4(100+n^2)=400+4n^2.\n\\]\nFrom \\(4n^2\\equiv 1\\pmod{2n+1}\\), we get\n\\[\n400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore,\n\\[\n\\gcd(100+n^2,2n+1)=\\gcd(4(100+n^2),2n+1)=\\gcd(401,2n+1).\n\\]\nSo\n\\[\nd_n=\\gcd(401,2n+1).\n\\]\n\nNow \\(401\\) is prime (it is not divisible by \\(2,3,5,7,11,13,17,19\\); \\(\\sqrt{401}<21\\)). Hence the gcd is either \\(1\\) or \\(401\\). The maximum possible value is \\(401\\), achieved when\n\\[\n401\\mid (2n+1).\n\\]\nThis is possible because we can take\n\\[\n2n+1=401 \\Rightarrow n=200,\n\\]\nwhich is a positive integer.\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\n\nCompute the difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nThus\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1).\n\\]\n\nNow reduce \\(100+n^2\\) modulo \\(2n+1\\). Since\n\\[\n2n+1\\equiv 0 \\pmod{2n+1}\\quad\\Rightarrow\\quad 2n\\equiv -1 \\pmod{2n+1},\n\\]\nwe get\n\\[\nn \\equiv \\frac{-1}{2}\\pmod{2n+1}.\n\\]\nInstead of fractions, use the identity:\n\\[\n(2n+1)^2=4n^2+4n+1.\n\\]\nFrom this,\n\\[\n4n^2 \\equiv -(4n+1)\\pmod{2n+1}.\n\\]\nBut we need \\(n^2\\). A cleaner route is to express \\(n^2\\) in terms of \\(2n+1\\):\n\nLet \\(m=2n+1\\). Then \\(m\\) is odd and\n\\[\nn=\\frac{m-1}{2}.\n\\]\nSo\n\\[\nn^2=\\left(\\frac{m-1}{2}\\right)^2=\\frac{(m-1)^2}{4}=\\frac{m^2-2m+1}{4}.\n\\]\nWorking modulo \\(m\\), we have \\(m^2\\equiv 0\\) and \\(-2m\\equiv 0\\), so\n\\[\nn^2 \\equiv \\frac{1}{4}\\pmod{m}.\n\\]\nThus\n\\[\n100+n^2 \\equiv 100+\\frac{1}{4}\\pmod{m}\n\\]\nMultiply by 4 (valid since \\(\\gcd(4,m)=1\\) for odd \\(m\\)):\n\\[\n4(100+n^2)\\equiv 400+1=401 \\pmod{m}.\n\\]\nTherefore\n\\[\n\\gcd(100+n^2,\\ m)\\mid \\gcd(401,\\ m).\n\\]\nSo\n\\[\nd_n=\\gcd(100+n^2,\\ 2n+1)\\mid \\gcd(401,\\ 2n+1).\n\\]\n\nNow factor \\(401\\). It’s prime (check primes \\(\\le \\sqrt{401}\\approx 20\\): not divisible by 2,3,5,7,11,13,17,19). Hence \\(\\gcd(401,2n+1)\\) is either \\(1\\) or \\(401\\).\n\nSo the maximum possible \\(d_n\\) is at most \\(401\\), and it will be achieved iff there exists \\(n\\) such that\n\\[\n2n+1 \\text{ is divisible by }401.\n\\]\nLet \\(2n+1=401\\). Then \\(n=200\\). Compute \\(a_{200}\\) and verify \\(401\\mid a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso indeed \\(401\\mid a_{200}\\). Also, \\(a_{201}=100+201^2=100+40401=40501=401\\cdot 101\\), so \\(\\gcd(a_{200},a_{201})=401\\).\n\nThus the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nCompute the gcd:\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd\\bigl(100+n^2,\\ 100+(n+1)^2\\bigr).\n\\]\nUse the difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n \\mid (a_{n+1}-a_n)=2n+1.\n\\]\nAlso \\(d_n\\mid a_n\\), so any common divisor \\(d\\) must divide both \\(100+n^2\\) and \\(2n+1\\).\n\nLet \\(d=d_n\\). From \\(d\\mid 2n+1\\), we have\n\\[\n2n\\equiv -1 \\pmod d \\implies n \\equiv \\frac{d-1}{2}\\pmod d,\n\\]\nand it’s easier to eliminate \\(n\\) by substituting using modular relations.\n\nWork modulo \\(d\\). Since \\(2n+1\\equiv 0\\pmod d\\), we get\n\\[\n(2n+1)^2 \\equiv 0 \\pmod d \\implies 4n^2+4n+1\\equiv 0\\pmod d.\n\\]\nBut from \\(a_n\\equiv 0\\pmod d\\),\n\\[\n100+n^2\\equiv 0\\pmod d \\implies n^2\\equiv -100\\pmod d.\n\\]\nSubstitute into \\(4n^2+4n+1\\equiv 0\\):\n\\[\n4(-100)+4n+1 \\equiv 0 \\pmod d\n\\]\n\\[\n-400+4n+1 \\equiv 0 \\pmod d\n\\]\n\\[\n4n-399 \\equiv 0 \\pmod d.\n\\]\nNow use \\(2n\\equiv -1\\pmod d\\). Multiply by 2:\n\\[\n4n\\equiv -2\\pmod d.\n\\]\nSo\n\\[\n4n-399 \\equiv -2-399=-401 \\equiv 0\\pmod d.\n\\]\nTherefore,\n\\[\nd_n \\mid 401.\n\\]\nNow factor \\(401\\). Since \\(\\sqrt{401}\\approx 20\\), test primes \\(2,3,5,7,11,13,17,19\\):\n- \\(401\\) is not divisible by \\(2,3,5\\) (obvious),\n- \\(401/7=57.28\\ldots\\) not integer,\n- \\(401/11=36.45\\ldots\\),\n- \\(401/13=30.84\\ldots\\),\n- \\(401/17=23.58\\ldots\\),\n- \\(401/19=21.1\\ldots\\).\nSo \\(401\\) is prime. Hence the only positive divisors are \\(1\\) and \\(401\\). Thus\n\\[\nd_n \\le 401,\n\\]\nand the maximum possible value is \\(401\\) if it occurs for some \\(n\\).\n\nCheck when \\(d_n=401\\). Since \\(401\\mid 2n+1\\), we need\n\\[\n2n+1\\equiv 0 \\pmod{401}.\n\\]\nTake \\(n=\\frac{401-1}{2}=200\\). Then \\(2n+1=401\\), so \\(401\\mid (a_{201}-a_{200})\\). Also we must ensure \\(401\\mid a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100.\n\\]\nAnd\n\\[\n40100=401\\cdot 100.\n\\]\nSo \\(401\\mid a_{200}\\). Therefore \\(401\\) divides both \\(a_{200}\\) and \\(a_{201}\\), so\n\\[\nd_{200}=\\gcd(a_{200},a_{201})=401.\n\\]\n\nThus the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have  \n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nSo\n\\[\na_{n+1}-a_n=(100+(n+1)^2)-(100+n^2)= (n+1)^2-n^2=2n+1.\n\\]\nLet \\(d_n=\\gcd(a_n,a_{n+1})\\). Then \\(d_n\\) divides every integer combination, in particular it divides the difference:\n\\[\nd_n \\mid (a_{n+1}-a_n)=2n+1.\n\\]\nAlso \\(d_n\\mid a_n=100+n^2\\). Reduce \\(a_n\\) modulo \\(2n+1\\). Since \\(2n\\equiv -1\\pmod{2n+1}\\), we get\n\\[\nn^2 \\equiv \\left(-\\frac12\\right)^2 \\equiv \\frac14 \\pmod{2n+1}.\n\\]\nA cleaner way: use the identity\n\\[\n4a_n=4(100+n^2)=400+4n^2=(2n+1)^2+399,\n\\]\nbecause\n\\[\n(2n+1)^2=4n^2+4n+1,\\quad (2n+1)^2+399=4n^2+4n+400=4(100+n^2)+4n.\n\\]\nBut the more standard direct computation is:\n\\[\n(2n+1)^2 = 4n^2+4n+1 \\implies 4n^2 = (2n+1)^2-(4n+1).\n\\]\nInstead, use:\n\\[\n4(100+n^2)-(2n+1)^2 = 400+4n^2-(4n^2+4n+1)=399-4n.\n\\]\nThat still has \\(n\\). So we proceed with a modular relation using gcd properties:\n\nSince \\(d_n\\mid a_n\\) and \\(d_n\\mid (2n+1)\\), we can also evaluate \\(a_n\\) modulo \\(2n+1\\) by expressing \\(n\\) in terms of \\(2n+1\\):\n\\[\n2n+1\\equiv 0 \\Rightarrow 2n\\equiv -1 \\Rightarrow n\\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nThus \\(n^2\\equiv \\frac14\\pmod{2n+1}\\). Multiply \\(a_n=100+n^2\\) by 4:\n\\[\n4a_n = 400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\nd_n \\mid 4a_n \\quad \\text{and}\\quad d_n\\mid (2n+1)\n\\implies d_n \\mid \\gcd(2n+1,401).\n\\]\nSo for every \\(n\\),\n\\[\nd_n \\le \\gcd(2n+1,401)\\le 401.\n\\]\nNow check whether \\(d_n\\) can actually equal \\(401\\). We need \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\).\n\nIf \\(401\\mid (2n+1)\\), then \\(2n+1\\equiv 0\\pmod{401}\\). Also, from the congruence above,\n\\[\n4a_n \\equiv 401 \\equiv 0 \\pmod{401},\n\\]\nso \\(401\\mid 4a_n\\). Since \\(\\gcd(401,4)=1\\), this implies \\(401\\mid a_n\\).\nSimilarly, because \\(d_n\\mid (2n+1)\\) and \\(401\\mid (2n+1)\\), we get \\(401\\mid \\gcd(a_n,a_{n+1})\\), i.e. \\(d_n\\ge 401\\). But we already have \\(d_n\\le 401\\), hence \\(d_n=401\\).\n\nIt remains to see there exists \\(n\\) with \\(2n+1\\) divisible by \\(401\\). Take\n\\[\n2n+1=401 \\implies n=200,\n\\]\nwhich is a positive integer. Then indeed \\(d_{200}=401\\).\n\nThus the maximum possible value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nCompute the difference:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)= (n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor \\(d_n=\\gcd(a_n,a_{n+1})\\) must divide both \\(a_n\\) and \\(a_{n+1}\\), hence must divide their difference:\n\\[\nd_n \\mid (2n+1).\n\\]\n\nAlso, \\(d_n\\) divides \\(a_n=100+n^2\\). Reduce \\(a_n\\) modulo \\(2n+1\\). Since\n\\[\n2n+1\\equiv 0 \\pmod{2n+1}\\implies 2n\\equiv -1 \\implies n\\equiv -\\frac12 \\pmod{2n+1},\n\\]\nit’s easier to eliminate denominators by using the identity:\n\\[\n(2n+1)^2=4n^2+4n+1.\n\\]\nWork modulo \\(2n+1\\): we have \\(4n^2\\equiv -4n-1\\). Then\n\\[\nn^2=\\frac{4n^2}{4}\\equiv \\frac{-4n-1}{4}\\pmod{2n+1},\n\\]\nstill messy. Instead, do a direct linear combination:\nFind constants \\(A,B\\) such that\n\\[\n100+n^2 - A(2n+1)=\\text{constant}.\n\\]\nTake \\(A=\\frac n2\\) is not allowed; so we use another standard trick: compute \\(4a_n\\) modulo \\(2n+1\\):\n\\[\n4a_n=400+4n^2.\n\\]\nBut from \\((2n+1)^2=4n^2+4n+1\\), we get\n\\[\n4n^2 \\equiv -(4n+1)\\pmod{2n+1}.\n\\]\nSo\n\\[\n4a_n=400+4n^2 \\equiv 400-(4n+1)=399-4n \\pmod{2n+1}.\n\\]\nAlso \\(4n \\equiv -2 \\pmod{2n+1}\\) because \\(2n\\equiv -1\\). Thus\n\\[\n4a_n \\equiv 399-(-2)=401 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\n2n+1 \\mid (4a_n-401).\n\\]\nSince \\(d_n\\) divides \\(a_n\\), it divides \\(4a_n\\), hence\n\\[\nd_n \\mid 401.\n\\]\nSo every \\(d_n\\) is a positive divisor of \\(401\\). Now factor:\n\\[\n401 \\text{ is prime (not divisible by }2,3,5,7,11,13,17,19).\n\\]\nThus the only possibilities are \\(d_n=1\\) or \\(d_n=401\\).\n\nTo see if \\(401\\) can occur, we need\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401 \\mid a_{n+1}.\n\\]\nBut if \\(401\\mid a_n\\) and \\(401\\mid a_{n+1}\\), then \\(401\\mid (a_{n+1}-a_n)=2n+1\\).\nSo we require\n\\[\n2n+1 \\equiv 0 \\pmod{401}.\n\\]\nTake \\(2n+1=401\\Rightarrow n=200\\). Check \\(a_{200}\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nso \\(401\\mid a_{200}\\). Then automatically\n\\[\na_{201}-a_{200}=2\\cdot 200+1=401\n\\]\nimplies \\(a_{201}\\equiv a_{200}\\equiv 0\\pmod{401}\\), so \\(401\\mid a_{201}\\) as well. Hence\n\\[\nd_{200}=\\gcd(a_{200},a_{201})=401.\n\\]\n\nTherefore the maximum value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\;100+(n+1)^2).\n\\]\nSubtract:\n\\[\n(100+(n+1)^2)-(100+n^2)=(n+1)^2-n^2=2n+1.\n\\]\nSo any common divisor of \\(a_n\\) and \\(a_{n+1}\\) must divide \\(2n+1\\). Also,\n\\[\nd_n \\mid a_n=100+n^2.\n\\]\nWork modulo \\(2n+1\\). Since \\(2n+1\\equiv 0\\), we have \\(2n\\equiv -1\\), hence\n\\[\nn^2=\\left(\\frac{-1}{2}\\right)^2=\\frac14 \\pmod{2n+1}.\n\\]\nMore cleanly: write \\(4(100+n^2)=400+4n^2\\). Using \\(2n\\equiv -1\\),\n\\[\n4n^2=(2n)^2\\equiv (-1)^2=1 \\pmod{2n+1}.\n\\]\nThus\n\\[\n400+4n^2\\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nTherefore,\n\\[\n2n+1 \\mid \\bigl(400+4n^2\\bigr)\\quad\\Longrightarrow\\quad 2n+1 \\mid 401 \\ \\text{whenever a prime factor of }d_n\\text{ forces divisibility}.\n\\]\nBut we can make this exact as follows. Let \\(d_n=\\gcd(a_n,a_{n+1})\\). Then \\(d_n\\mid (2n+1)\\), so write \\(d_n \\mid 2n+1\\). Also \\(d_n\\mid a_n\\), hence \\(d_n\\mid 4a_n=400+4n^2\\). Since \\(d_n\\mid 2n+1\\), we also have \\(d_n\\mid (400+4n^2)\\) implies\n\\[\n400+4n^2 \\equiv 401 \\equiv 0 \\pmod{d_n},\n\\]\nso\n\\[\nd_n \\mid 401.\n\\]\nNow \\(401\\) is prime (it has no divisors among \\(2,3,5,7,11,13,17,19\\); since \\(\\sqrt{401}\\approx 20\\), that’s enough). So\n\\[\nd_n \\in \\{1,401\\}.\n\\]\nTo see whether \\(401\\) actually occurs, solve\n\\[\n401 \\mid a_n \\quad\\text{and}\\quad 401\\mid a_{n+1}.\n\\]\nIt suffices to solve \\(401\\mid a_n\\), because then automatically \\(d_n\\) divides \\(2n+1\\), and the condition \\(401\\mid (a_{n+1}-a_n)=2n+1\\) will be needed. Instead, use the earlier fact: if \\(d_n=401\\), then\n\\[\n401\\mid (2n+1).\n\\]\nSo take\n\\[\n2n+1=401 \\implies n=200.\n\\]\nCheck:\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100,\n\\]\nand\n\\[\na_{201}=100+201^2=100+40401=40501=401\\cdot 101.\n\\]\nThus \\(401\\) divides both, so \\(d_{200}=401\\).\n\nTherefore the maximum possible value of \\(d_n\\) is \\(\\boxed{401}\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\quad a_{n+1}=100+(n+1)^2=100+n^2+2n+1=a_n+2n+1.\n\\]\nLet\n\\[\nd_n=\\gcd(a_n,a_{n+1}).\n\\]\nThen \\(d_n\\mid a_{n+1}-a_n=2n+1\\). Also \\(d_n\\mid a_n=100+n^2\\). So \\(d_n\\) divides any integer combination of these two numbers.\n\nA very useful combination is:\n\\[\n(100+n^2)-(n^2+2n+1)\\cdot 1 = 100+n^2-(n+1)^2 = 100+n^2-(n^2+2n+1)=99.\n\\]\nBut \\((n+1)^2 = a_{n+1}-100\\), so more cleanly:\nSince \\(d_n\\mid a_n\\) and \\(d_n\\mid a_{n+1}\\), we also have \\(d_n\\mid \\big(a_{n+1}-a_n\\big)\\) and \\(d_n\\mid \\big(a_n-(n+1)^2\\big)\\) etc. The simplest direct way is:\n\\[\na_{n+1}-a_n=2n+1,\n\\]\nand also\n\\[\na_n-(2n+1)\\cdot \\frac{n}{?}\n\\]\nis messy; instead use the explicit constant found by eliminating \\(n^2\\):\nFrom \\(a_n=100+n^2\\), we get \\(n^2=a_n-100\\).\nFrom \\(a_{n+1}=100+(n+1)^2=100+n^2+2n+1\\), we get \\(2n+1=a_{n+1}-a_n\\).\nNow compute:\n\\[\na_n-(n^2)=100,\\quad a_{n+1}-(n+1)^2=100.\n\\]\nA standard trick: compute\n\\[\na_{n+1} - (a_n + (2n+1)) = 0,\n\\]\nnot helpful. Instead, notice:\n\\[\n(a_n)\\;-\\;n( a_{n+1}-a_n)= (100+n^2)-n(2n+1)=100+n^2-2n^2-n=100-n^2-n.\n\\]\nNot constant.\n\nSo do it the classic gcd way: since \\(d_n\\mid a_n\\) and \\(d_n\\mid (2n+1)\\), we can reduce \\(n\\) mod \\(d_n\\).\nLet \\(d=d_n\\). Then \\(2n+1\\equiv 0\\pmod d\\), so \\(2n\\equiv -1\\pmod d\\).\nSquare both sides:\n\\[\n(2n)^2 \\equiv (-1)^2 \\pmod d \\implies 4n^2\\equiv 1\\pmod d \\implies n^2\\equiv 4^{-1}\\pmod d.\n\\]\nNow use \\(d\\mid a_n=100+n^2\\), so\n\\[\n100+n^2\\equiv 0\\pmod d \\implies n^2\\equiv -100\\pmod d.\n\\]\nThus\n\\[\n-100 \\equiv n^2 \\equiv 4^{-1}\\pmod d.\n\\]\nEquivalently,\n\\[\n4(-100)\\equiv 1 \\pmod d \\implies -400\\equiv 1 \\pmod d \\implies 401\\equiv 0\\pmod d.\n\\]\nSo\n\\[\nd_n \\mid 401.\n\\]\nSince \\(401\\) is prime (it has no divisors among primes \\(\\le \\sqrt{401}\\approx 20\\): not divisible by 3,5,7,11,13,17,19), the only positive divisors are \\(1\\) and \\(401\\).\nTherefore the maximum possible \\(d_n\\) is either \\(1\\) or \\(401\\). We just need to see whether \\(401\\) can occur.\n\nWe need \\(401\\mid a_n=100+n^2\\) and also \\(401\\mid a_{n+1}-a_n=2n+1\\).\nFrom \\(2n+1\\equiv 0\\pmod{401}\\), we get\n\\[\nn\\equiv -\\frac12 \\pmod{401}.\n\\]\nThe inverse of \\(2\\) mod \\(401\\) is \\((401+1)/2=201\\), since \\(2\\cdot 201=402\\equiv 1\\).\nSo\n\\[\nn\\equiv -201 \\equiv 200 \\pmod{401}.\n\\]\nCheck \\(n=200\\):\n\\[\na_{200}=100+200^2=100+40000=40100=401\\cdot 100.\n\\]\nSo \\(401\\mid a_{200}\\).\nAlso,\n\\[\na_{201}-a_{200} = 2\\cdot 200 +1 = 401,\n\\]\nso \\(401\\mid (a_{201}-a_{200})\\), hence \\(401\\mid a_{201}\\) as well.\nThus \\(\\gcd(a_{200},a_{201})\\) is at least \\(401\\), but it cannot exceed \\(401\\). Therefore\n\\[\nd_{200}=401.\n\\]\n\nHence the maximum value of \\(d_n\\) is \\(401\\).\n\nANSWER: 401",
+        "We have\n\\[\na_n=100+n^2,\\qquad a_{n+1}=100+(n+1)^2.\n\\]\nThen\n\\[\nd_n=\\gcd(a_n,a_{n+1})=\\gcd(100+n^2,\\ 100+(n+1)^2).\n\\]\nSubtract:\n\\[\na_{n+1}-a_n=\\bigl(100+(n+1)^2\\bigr)-\\bigl(100+n^2\\bigr)=(n+1)^2-n^2=2n+1.\n\\]\nSo\n\\[\nd_n=\\gcd(a_n,\\ 2n+1).\n\\]\nNow reduce \\(a_n\\) modulo \\(2n+1\\). Since \\(2n+1\\equiv 0\\pmod{2n+1}\\), we have\n\\[\n2n\\equiv -1 \\pmod{2n+1}\\quad\\Rightarrow\\quad n\\equiv -\\frac12 \\pmod{2n+1}.\n\\]\nA cleaner way: compute \\(4n^2\\) modulo \\(2n+1\\):\n\\[\n(2n+1)^2=4n^2+4n+1\\equiv 0 \\pmod{2n+1}\n\\]\nso\n\\[\n4n^2\\equiv -(4n+1)\\pmod{2n+1}.\n\\]\nBut also from \\(2n\\equiv -1\\), multiply by 2 gives \\(4n\\equiv -2\\). Then\n\\[\n4n^2\\equiv -(4n+1)\\equiv -((-2)+1)= -(-1)=1 \\pmod{2n+1}.\n\\]\nThus\n\\[\nn^2\\equiv \\frac14 \\pmod{2n+1}.\n\\]\nTherefore\n\\[\na_n=100+n^2 \\equiv 100+\\frac14=\\frac{401}{4}\\pmod{2n+1}.\n\\]\nTo avoid fractions, use the equivalent statement:\n\\[\n4a_n = 400+4n^2 \\equiv 400+1=401 \\pmod{2n+1}.\n\\]\nSince \\(d_n\\mid a_n\\) and \\(d_n\\mid (2n+1)\\), we get\n\\[\nd_n \\mid 4a_n \\quad\\text{and}\\quad d_n\\mid (2n+1),\n\\]\nso\n\\[\nd_n \\mid \\gcd(2n+1,\\ 4a_n)=\\gcd(2n+1,\\ 401).\n\\]\nHence\n\\[\nd_n \\le 401\n\\]\nand in fact\n\\[\nd_n=\\gcd(2n+1,401).\n\\]\n\nNow maximize \\(\\gcd(2n+1,401)\\) over positive integers \\(n\\). The maximum possible gcd is the largest divisor of \\(401\\), which is \\(401\\) itself if we can have \\(2n+1=401\\). That gives\n\\[\n2n+1=401 \\Rightarrow n=200.\n\\]\nThen indeed \\(d_{200}=\\gcd(a_{200},a_{201})=\\gcd(100+200^2,\\ 2\\cdot 200+1)=\\gcd(\\cdots,401)=401\\).\n\nSo the maximum value is \\(\\boxed{401}\\).\n\nANSWER: 401"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1985-13",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        },
+        {
+          "problem_id": "1985-13",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "401",
+            "answer_line": "ANSWER: 401",
+            "answer_fragment": "401",
+            "extracted": "401"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

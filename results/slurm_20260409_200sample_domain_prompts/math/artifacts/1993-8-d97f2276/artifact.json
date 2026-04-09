@@ -1,0 +1,488 @@
+{
+  "problem_id": "1993-8",
+  "domain": "math",
+  "problem": {
+    "id": "1993-8",
+    "domain": "math",
+    "statement": "Let $S\\,$ be a set with six elements. In how many different ways can one select two not necessarily distinct subsets of $S\\,$ so that the union of the two subsets is $S\\,$ ?  The order of selection does not matter; for example, the pair of subsets $\\{a, c\\},\\{b, c, d, e, f\\}$ represents the same selection as the pair $\\{b, c, d, e, f\\},\\{a, c\\}.$ ",
+    "answer": "365",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1993,
+      "problem_number": 8
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nLet $S\\,$ be a set with six elements. In how many different ways can one select two not necessarily distinct subsets of $S\\,$ so that the union of the two subsets is $S\\,$ ?  The order of selection does not matter; for example, the pair of subsets $\\{a, c\\},\\{b, c, d, e, f\\}$ represents the same selection as the pair $\\{b, c, d, e, f\\},\\{a, c\\}.$ ",
+      "solutions": [
+        "Reasoning:  \nWe need unordered pairs of subsets \\((A,B)\\) of a 6-element set \\(S\\) such that \\(A\\cup B=S\\). “Not necessarily distinct” means \\(A\\) and \\(B\\) may be equal, and order doesn’t matter.\n\nStep 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\).  \nFor each element \\(x\\in S\\), it must be in at least one of \\(A\\) or \\(B\\).  \nFor each \\(x\\), there are 3 allowed membership patterns:\n\n1. \\(x\\in A\\) only  \n2. \\(x\\in B\\) only  \n3. \\(x\\in A\\cap B\\)\n\nSo for 6 elements, the number of ordered pairs is\n\\[\n3^6=729.\n\\]\n\nStep 2: Convert to unordered pairs.  \nWhen order doesn’t matter, we divide by 2 except for pairs where \\(A=B\\), since those are not double-counted.\n\nSo we need the number of ordered pairs with \\(A=B\\) and \\(A\\cup B=S\\).  \nIf \\(A=B\\), then \\(A\\cup B=A\\), so we need \\(A=S\\). Thus the only possibility is\n\\[\n(A,B)=(S,S).\n\\]\nSo there is exactly 1 ordered pair with \\(A=B\\).\n\nLet \\(U\\) be the number of unordered selections. Then\n\\[\n729 = 2U - 1\n\\]\n(because all unequal pairs contribute twice when ordered, while \\((S,S)\\) contributes once).\n\nThus\n\\[\n2U = 730 \\implies U=365.\n\\]\n\nANSWER: 365",
+        "Let the two chosen subsets be \\(A\\) and \\(B\\) (order doesn’t matter).\n\nFor each element \\(x\\in S\\), consider what membership it can have in \\((A,B)\\). We need\n\\[\nA\\cup B = S,\n\\]\nso each \\(x\\) must be in \\(A\\) or in \\(B\\) (or both). Thus for each \\(x\\), the allowed membership patterns are:\n- \\(x\\in A\\) only: \\((1,0)\\)\n- \\(x\\in B\\) only: \\((0,1)\\)\n- \\(x\\in A\\cap B\\): \\((1,1)\\)\n\nThe forbidden pattern is \\(x\\notin A\\) and \\(x\\notin B\\): \\((0,0)\\).\n\nSo for each of the 6 elements, there are \\(3\\) allowed patterns, giving\n\\[\n3^6\n\\]\nordered pairs \\((A,B)\\) with union \\(S\\).\n\nNow we must account for the fact that the order of selection doesn’t matter: \\(\\{A,B\\}=\\{B,A\\}\\).\nNormally we would divide by 2, but when \\(A=B\\), swapping doesn’t change anything. So we use:\n\\[\n\\#\\text{unordered}=\\frac{\\#\\text{ordered}+\\#\\text{fixed}}{2},\n\\]\nwhere “fixed” means \\(A=B\\).\n\nIf \\(A=B\\), then \\(A\\cup B = A = S\\), so \\(A=B=S\\). There is exactly \\(1\\) such fixed pair.\n\nTherefore,\n\\[\n\\#=\\frac{3^6+1}{2}=\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+        "We need unordered pairs \\((A,B)\\) of (not necessarily distinct) subsets of a 6-element set \\(S\\) such that\n\\[\nA\\cup B = S.\n\\]\n\n### Step 1: Count ordered pairs \\((A,B)\\)\nFor each element \\(x\\in S\\), to have \\(x\\in A\\cup B\\), the element must be in at least one of \\(A\\) or \\(B\\).\nSo for each \\(x\\), the allowed membership states are:\n- in \\(A\\) only: \\((1,0)\\)\n- in \\(B\\) only: \\((0,1)\\)\n- in both: \\((1,1)\\)\n\nThat’s \\(3\\) choices per element, independently for all 6 elements, giving\n\\[\n3^6 = 729\n\\]\nordered pairs \\((A,B)\\).\n\n### Step 2: Convert to unordered pairs\nNow we count unordered pairs \\(\\{A,B\\}\\). Each unordered pair corresponds to:\n- 2 ordered pairs if \\(A\\neq B\\),\n- 1 ordered pair if \\(A=B\\).\n\nSo let \\(N\\) be the number of unordered pairs. Then\n\\[\nN = \\frac{\\#\\text{ordered pairs} + \\#\\text{fixed points }(A=B)}{2}.\n\\]\n\n### Step 3: Count cases with \\(A=B\\)\nIf \\(A=B\\), then \\(A\\cup B = A = S\\). So the only possibility is\n\\[\nA=B=S.\n\\]\nThat gives exactly \\(1\\) unordered pair fixed by swapping, i.e. \\(\\#\\{(A,B):A=B\\}=1\\).\n\nThus\n\\[\nN = \\frac{729 + 1}{2} = \\frac{730}{2} = 365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\((A,B)\\) of subsets of \\(S\\) such that \\(A\\cup B=S\\). The order does not matter, so first count ordered pairs, then divide appropriately, accounting for the possible symmetry case \\(A=B\\).\n\nLet \\(|S|=6\\). For each element \\(x\\in S\\), the condition \\(A\\cup B=S\\) means \\(x\\) must be in \\(A\\) or in \\(B\\) (or both). For a fixed \\(x\\), the allowed membership states are:\n- in \\(A\\) only,\n- in \\(B\\) only,\n- in both \\(A\\) and \\(B\\).\n\nThat’s \\(3\\) choices per element, independently for all 6 elements.  \nSo the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6=729.\n\\]\n\nNow convert to unordered pairs \\(\\{A,B\\}\\). Typically, unordered pairs correspond to ordered pairs counted twice (for \\(A\\neq B\\)). We must add back the cases where \\(A=B\\).\n\nIf \\(A=B\\), then \\(A\\cup A=S\\) implies \\(A=S\\). So the only diagonal case is \\((A,B)=(S,S)\\). There is exactly \\(1\\) ordered pair with \\(A=B\\).\n\nHence the number of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+        "Step 1: Rephrase the condition elementwise.  \nWe choose two subsets \\(A,B\\subseteq S\\) such that \\(A\\cup B=S\\).  \nFor each element \\(x\\in S\\), it must belong to at least one of \\(A\\) or \\(B\\). So for each \\(x\\), the possibilities are:\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\nThat’s \\(3\\) choices per element, so the number of **ordered** pairs \\((A,B)\\) is\n\\[\n3^{6}=729.\n\\]\n\nStep 2: Convert ordered pairs to unordered pairs.  \nWe need the number of selections where the pair \\(\\{A,B\\}\\) is the same as \\(\\{B,A\\}\\). So we must divide by \\(2\\), except for the cases where \\(A=B\\), since those are not double-counted.\n\nStep 3: Count the diagonal cases \\(A=B\\).  \nIf \\(A=B\\), then \\(A\\cup B=A\\cup A=A\\) must equal \\(S\\). Thus \\(A=S\\).  \nSo there is exactly **one** ordered pair with \\(A=B\\): \\((S,S)\\).\n\nStep 4: Apply the counting correction.  \nNumber of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+        "We choose two subsets \\(A,B \\subseteq S\\) (not necessarily distinct) such that\n\\[\nA\\cup B = S.\n\\]\nFor each element \\(x\\in S\\), we must have \\(x\\in A\\) or \\(x\\in B\\) (or both). So each element has 3 possibilities:\n- \\(x\\in A\\) only,\n- \\(x\\in B\\) only,\n- \\(x\\in A\\cap B\\).\n\nThus, the number of **ordered** pairs \\((A,B)\\) is \\(3^6\\).\n\nHowever, the problem asks for **unordered** pairs \\(\\{A,B\\}\\), where \\((A,B)\\) and \\((B,A)\\) are the same.\n\nWe apply:\n\\[\n\\#\\text{unordered}=\\frac{\\#\\text{ordered}+\\#\\text{fixed points}}{2},\n\\]\nwhere “fixed points” are ordered pairs with \\(A=B\\).\n\nWhen \\(A=B\\), the condition \\(A\\cup A = S\\) becomes \\(A=S\\). Hence the only possibility is\n\\[\n(A,B)=(S,S),\n\\]\nso there is exactly \\(1\\) fixed point.\n\nTherefore,\n\\[\n\\#\\text{unordered}=\\frac{3^6 + 1}{2}=\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+        "We need two (not necessarily distinct) subsets \\(A,B\\subseteq S\\) such that\n\\[\nA\\cup B=S,\n\\]\nwhere \\(|S|=6\\). The order doesn’t matter, so \\(\\{A,B\\}\\) is an unordered pair.\n\n### Step 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\)\nFor each element \\(x\\in S\\), it must be in \\(A\\) or \\(B\\) (or both). So relative to \\((A,B)\\), each element has 3 possibilities:\n- \\(x\\in A\\setminus B\\)\n- \\(x\\in B\\setminus A\\)\n- \\(x\\in A\\cap B\\)\n\nThus the number of ordered pairs \\((A,B)\\) is\n\\[\n3^6=729.\n\\]\n\n### Step 2: Convert to unordered pairs\nWe need the number of unordered pairs \\(\\{A,B\\}\\). Start from ordered pairs and divide by 2, but correct for double-counting when \\(A=B\\).\n\n- If \\(A\\neq B\\), then \\((A,B)\\) and \\((B,A)\\) are distinct ordered pairs but correspond to the same unordered pair.\n- If \\(A=B\\), then \\((A,B)\\) is the same as \\((B,A)\\), so those are not doubled.\n\nSo:\n\\[\n\\#\\{\\text{unordered}\\}=\\frac{(\\#\\text{ordered})+(\\#\\text{diagonal})}{2}.\n\\]\n\nWe count diagonal cases \\(A=B\\). Condition \\(A\\cup A=S\\) means \\(A=S\\). Hence there is exactly\n\\[\n1\n\\]\ndiagonal ordered pair \\((S,S)\\).\n\nTherefore,\n\\[\n\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+        "We need the number of (unordered) pairs \\(\\{A,B\\}\\) of subsets of a 6-element set \\(S\\) such that\n\\[\nA\\cup B = S.\n\\]\n(Here \\(A\\) and \\(B\\) may be equal; order doesn’t matter.)\n\n### Step 1: Count ordered pairs \\((A,B)\\)\nFix an element \\(x\\in S\\). In the ordered pair \\((A,B)\\), \\(x\\) must belong to \\(A\\cup B\\), meaning \\(x\\) is in at least one of \\(A,B\\).\n\nFor each \\(x\\), there are 3 possibilities:\n- \\(x\\in A\\) only,\n- \\(x\\in B\\) only,\n- \\(x\\in A\\cap B\\).\n\nSo for all 6 elements independently:\n\\[\n3^6 = 729\n\\]\nordered pairs \\((A,B)\\) satisfy \\(A\\cup B=S\\).\n\n### Step 2: Convert to unordered pairs \\(\\{A,B\\}\\)\nAn unordered pair \\(\\{A,B\\}\\) corresponds to exactly 2 ordered pairs \\((A,B)\\) and \\((B,A)\\), except when \\(A=B\\).\n\nSo:\n\\[\n\\#\\text{unordered}=\\frac{3^6 + \\#\\{A: A\\cup A=S\\}}{2}.\n\\]\n\nNow \\(A\\cup A = A\\), so we need \\(A=S\\). Thus there is exactly 1 subset \\(A\\) with \\(A\\cup A=S\\), namely \\(A=S\\).\nTherefore:\n\\[\n\\#\\text{unordered}=\\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+        "We need unordered pairs \\(\\{A,B\\}\\) of (not necessarily distinct) subsets of \\(S\\) such that\n\\[\nA\\cup B = S.\n\\]\nLet \\(|S|=6\\).\n\n### Step 1: Count ordered pairs \\((A,B)\\)\nFor each element \\(x\\in S\\), consider which of \\(A\\) and \\(B\\) contain \\(x\\). To have \\(A\\cup B=S\\), \\(x\\) must be in \\(A\\) or in \\(B\\) (or both). So for each \\(x\\), there are \\(3\\) allowed membership patterns:\n- \\(x\\in A\\) not \\(B\\),\n- \\(x\\in B\\) not \\(A\\),\n- \\(x\\in A\\cap B\\).\n\nThus the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6 = 729.\n\\]\n\n### Step 2: Convert to unordered pairs\nThe unordered pair \\(\\{A,B\\}\\) corresponds to either:\n- one ordered pair if \\(A=B\\),\n- or two ordered pairs if \\(A\\neq B\\).\n\nSo\n\\[\n\\#\\text{unordered}=\\frac{(\\#\\text{ordered})+(\\#\\text{ordered with }A=B)}{2}.\n\\]\n\n### Step 3: Count ordered pairs with \\(A=B\\)\nIf \\(A=B\\), then \\(A\\cup B = A = S\\). So the only possibility is\n\\[\nA=B=S.\n\\]\nThat gives exactly \\(1\\) ordered pair with \\(A=B\\).\n\n### Step 4: Final count\n\\[\n\\#\\text{unordered}=\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+        "We choose two subsets \\(A,B\\subseteq S\\) (not necessarily distinct) such that\n\\[\nA\\cup B = S.\n\\]\nFor each element \\(x\\in S\\), we must ensure \\(x\\) is contained in at least one of \\(A\\) or \\(B\\).\n\nFor a fixed element \\(x\\), the possible membership patterns \\((\\mathbf{1}_{x\\in A},\\mathbf{1}_{x\\in B})\\) are:\n\\[\n(1,0),\\ (0,1),\\ (1,1),\n\\]\nbut not \\((0,0)\\), since then \\(x\\notin A\\cup B\\).\n\nSo there are \\(3\\) choices per element, and with \\(6\\) elements this gives\n\\[\n3^6\n\\]\nordered pairs \\((A,B)\\).\n\nHowever, the problem says order does not matter: \\(\\{A,B\\}\\) is the same as \\(\\{B,A\\}\\). Thus we need to divide by \\(2\\), except when \\(A=B\\).\n\nCount ordered pairs with \\(A=B\\):\nIf \\(A=B\\), then \\(A\\cup B=A=S\\), so \\(A=B=S\\) is the only possibility. Hence there is exactly \\(1\\) ordered pair with \\(A=B\\).\n\nTherefore the number of unordered selections is\n\\[\n\\frac{3^6 - 1}{2} + 1\n= \\frac{3^6 + 1}{2}.\n\\]\nCompute:\n\\[\n3^6=729 \\quad\\Rightarrow\\quad \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1993-8",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "Reasoning:  \nWe need unordered pairs of subsets \\((A,B)\\) of a 6-element set \\(S\\) such that \\(A\\cup B=S\\). “Not necessarily distinct” means \\(A\\) and \\(B\\) may be equal, and order doesn’t matter.\n\nStep 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\).  \nFor each element \\(x\\in S\\), it must be in at least one of \\(A\\) or \\(B\\).  \nFor each \\(x\\), there are 3 allowed membership patterns:\n\n1. \\(x\\in A\\) only  \n2. \\(x\\in B\\) only  \n3. \\(x\\in A\\cap B\\)\n\nSo for 6 elements, the number of ordered pairs is\n\\[\n3^6=729.\n\\]\n\nStep 2: Convert to unordered pairs.  \nWhen order doesn’t matter, we divide by 2 except for pairs where \\(A=B\\), since those are not double-counted.\n\nSo we need the number of ordered pairs with \\(A=B\\) and \\(A\\cup B=S\\).  \nIf \\(A=B\\), then \\(A\\cup B=A\\), so we need \\(A=S\\). Thus the only possibility is\n\\[\n(A,B)=(S,S).\n\\]\nSo there is exactly 1 ordered pair with \\(A=B\\).\n\nLet \\(U\\) be the number of unordered selections. Then\n\\[\n729 = 2U - 1\n\\]\n(because all unequal pairs contribute twice when ordered, while \\((S,S)\\) contributes once).\n\nThus\n\\[\n2U = 730 \\implies U=365.\n\\]\n\nANSWER: 365",
+          "Let the two chosen subsets be \\(A\\) and \\(B\\) (order doesn’t matter).\n\nFor each element \\(x\\in S\\), consider what membership it can have in \\((A,B)\\). We need\n\\[\nA\\cup B = S,\n\\]\nso each \\(x\\) must be in \\(A\\) or in \\(B\\) (or both). Thus for each \\(x\\), the allowed membership patterns are:\n- \\(x\\in A\\) only: \\((1,0)\\)\n- \\(x\\in B\\) only: \\((0,1)\\)\n- \\(x\\in A\\cap B\\): \\((1,1)\\)\n\nThe forbidden pattern is \\(x\\notin A\\) and \\(x\\notin B\\): \\((0,0)\\).\n\nSo for each of the 6 elements, there are \\(3\\) allowed patterns, giving\n\\[\n3^6\n\\]\nordered pairs \\((A,B)\\) with union \\(S\\).\n\nNow we must account for the fact that the order of selection doesn’t matter: \\(\\{A,B\\}=\\{B,A\\}\\).\nNormally we would divide by 2, but when \\(A=B\\), swapping doesn’t change anything. So we use:\n\\[\n\\#\\text{unordered}=\\frac{\\#\\text{ordered}+\\#\\text{fixed}}{2},\n\\]\nwhere “fixed” means \\(A=B\\).\n\nIf \\(A=B\\), then \\(A\\cup B = A = S\\), so \\(A=B=S\\). There is exactly \\(1\\) such fixed pair.\n\nTherefore,\n\\[\n\\#=\\frac{3^6+1}{2}=\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+          "We need unordered pairs \\((A,B)\\) of (not necessarily distinct) subsets of a 6-element set \\(S\\) such that\n\\[\nA\\cup B = S.\n\\]\n\n### Step 1: Count ordered pairs \\((A,B)\\)\nFor each element \\(x\\in S\\), to have \\(x\\in A\\cup B\\), the element must be in at least one of \\(A\\) or \\(B\\).\nSo for each \\(x\\), the allowed membership states are:\n- in \\(A\\) only: \\((1,0)\\)\n- in \\(B\\) only: \\((0,1)\\)\n- in both: \\((1,1)\\)\n\nThat’s \\(3\\) choices per element, independently for all 6 elements, giving\n\\[\n3^6 = 729\n\\]\nordered pairs \\((A,B)\\).\n\n### Step 2: Convert to unordered pairs\nNow we count unordered pairs \\(\\{A,B\\}\\). Each unordered pair corresponds to:\n- 2 ordered pairs if \\(A\\neq B\\),\n- 1 ordered pair if \\(A=B\\).\n\nSo let \\(N\\) be the number of unordered pairs. Then\n\\[\nN = \\frac{\\#\\text{ordered pairs} + \\#\\text{fixed points }(A=B)}{2}.\n\\]\n\n### Step 3: Count cases with \\(A=B\\)\nIf \\(A=B\\), then \\(A\\cup B = A = S\\). So the only possibility is\n\\[\nA=B=S.\n\\]\nThat gives exactly \\(1\\) unordered pair fixed by swapping, i.e. \\(\\#\\{(A,B):A=B\\}=1\\).\n\nThus\n\\[\nN = \\frac{729 + 1}{2} = \\frac{730}{2} = 365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+          "We count unordered pairs \\((A,B)\\) of subsets of \\(S\\) such that \\(A\\cup B=S\\). The order does not matter, so first count ordered pairs, then divide appropriately, accounting for the possible symmetry case \\(A=B\\).\n\nLet \\(|S|=6\\). For each element \\(x\\in S\\), the condition \\(A\\cup B=S\\) means \\(x\\) must be in \\(A\\) or in \\(B\\) (or both). For a fixed \\(x\\), the allowed membership states are:\n- in \\(A\\) only,\n- in \\(B\\) only,\n- in both \\(A\\) and \\(B\\).\n\nThat’s \\(3\\) choices per element, independently for all 6 elements.  \nSo the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6=729.\n\\]\n\nNow convert to unordered pairs \\(\\{A,B\\}\\). Typically, unordered pairs correspond to ordered pairs counted twice (for \\(A\\neq B\\)). We must add back the cases where \\(A=B\\).\n\nIf \\(A=B\\), then \\(A\\cup A=S\\) implies \\(A=S\\). So the only diagonal case is \\((A,B)=(S,S)\\). There is exactly \\(1\\) ordered pair with \\(A=B\\).\n\nHence the number of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+          "Step 1: Rephrase the condition elementwise.  \nWe choose two subsets \\(A,B\\subseteq S\\) such that \\(A\\cup B=S\\).  \nFor each element \\(x\\in S\\), it must belong to at least one of \\(A\\) or \\(B\\). So for each \\(x\\), the possibilities are:\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\nThat’s \\(3\\) choices per element, so the number of **ordered** pairs \\((A,B)\\) is\n\\[\n3^{6}=729.\n\\]\n\nStep 2: Convert ordered pairs to unordered pairs.  \nWe need the number of selections where the pair \\(\\{A,B\\}\\) is the same as \\(\\{B,A\\}\\). So we must divide by \\(2\\), except for the cases where \\(A=B\\), since those are not double-counted.\n\nStep 3: Count the diagonal cases \\(A=B\\).  \nIf \\(A=B\\), then \\(A\\cup B=A\\cup A=A\\) must equal \\(S\\). Thus \\(A=S\\).  \nSo there is exactly **one** ordered pair with \\(A=B\\): \\((S,S)\\).\n\nStep 4: Apply the counting correction.  \nNumber of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+          "We choose two subsets \\(A,B \\subseteq S\\) (not necessarily distinct) such that\n\\[\nA\\cup B = S.\n\\]\nFor each element \\(x\\in S\\), we must have \\(x\\in A\\) or \\(x\\in B\\) (or both). So each element has 3 possibilities:\n- \\(x\\in A\\) only,\n- \\(x\\in B\\) only,\n- \\(x\\in A\\cap B\\).\n\nThus, the number of **ordered** pairs \\((A,B)\\) is \\(3^6\\).\n\nHowever, the problem asks for **unordered** pairs \\(\\{A,B\\}\\), where \\((A,B)\\) and \\((B,A)\\) are the same.\n\nWe apply:\n\\[\n\\#\\text{unordered}=\\frac{\\#\\text{ordered}+\\#\\text{fixed points}}{2},\n\\]\nwhere “fixed points” are ordered pairs with \\(A=B\\).\n\nWhen \\(A=B\\), the condition \\(A\\cup A = S\\) becomes \\(A=S\\). Hence the only possibility is\n\\[\n(A,B)=(S,S),\n\\]\nso there is exactly \\(1\\) fixed point.\n\nTherefore,\n\\[\n\\#\\text{unordered}=\\frac{3^6 + 1}{2}=\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+          "We need two (not necessarily distinct) subsets \\(A,B\\subseteq S\\) such that\n\\[\nA\\cup B=S,\n\\]\nwhere \\(|S|=6\\). The order doesn’t matter, so \\(\\{A,B\\}\\) is an unordered pair.\n\n### Step 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\)\nFor each element \\(x\\in S\\), it must be in \\(A\\) or \\(B\\) (or both). So relative to \\((A,B)\\), each element has 3 possibilities:\n- \\(x\\in A\\setminus B\\)\n- \\(x\\in B\\setminus A\\)\n- \\(x\\in A\\cap B\\)\n\nThus the number of ordered pairs \\((A,B)\\) is\n\\[\n3^6=729.\n\\]\n\n### Step 2: Convert to unordered pairs\nWe need the number of unordered pairs \\(\\{A,B\\}\\). Start from ordered pairs and divide by 2, but correct for double-counting when \\(A=B\\).\n\n- If \\(A\\neq B\\), then \\((A,B)\\) and \\((B,A)\\) are distinct ordered pairs but correspond to the same unordered pair.\n- If \\(A=B\\), then \\((A,B)\\) is the same as \\((B,A)\\), so those are not doubled.\n\nSo:\n\\[\n\\#\\{\\text{unordered}\\}=\\frac{(\\#\\text{ordered})+(\\#\\text{diagonal})}{2}.\n\\]\n\nWe count diagonal cases \\(A=B\\). Condition \\(A\\cup A=S\\) means \\(A=S\\). Hence there is exactly\n\\[\n1\n\\]\ndiagonal ordered pair \\((S,S)\\).\n\nTherefore,\n\\[\n\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+          "We need the number of (unordered) pairs \\(\\{A,B\\}\\) of subsets of a 6-element set \\(S\\) such that\n\\[\nA\\cup B = S.\n\\]\n(Here \\(A\\) and \\(B\\) may be equal; order doesn’t matter.)\n\n### Step 1: Count ordered pairs \\((A,B)\\)\nFix an element \\(x\\in S\\). In the ordered pair \\((A,B)\\), \\(x\\) must belong to \\(A\\cup B\\), meaning \\(x\\) is in at least one of \\(A,B\\).\n\nFor each \\(x\\), there are 3 possibilities:\n- \\(x\\in A\\) only,\n- \\(x\\in B\\) only,\n- \\(x\\in A\\cap B\\).\n\nSo for all 6 elements independently:\n\\[\n3^6 = 729\n\\]\nordered pairs \\((A,B)\\) satisfy \\(A\\cup B=S\\).\n\n### Step 2: Convert to unordered pairs \\(\\{A,B\\}\\)\nAn unordered pair \\(\\{A,B\\}\\) corresponds to exactly 2 ordered pairs \\((A,B)\\) and \\((B,A)\\), except when \\(A=B\\).\n\nSo:\n\\[\n\\#\\text{unordered}=\\frac{3^6 + \\#\\{A: A\\cup A=S\\}}{2}.\n\\]\n\nNow \\(A\\cup A = A\\), so we need \\(A=S\\). Thus there is exactly 1 subset \\(A\\) with \\(A\\cup A=S\\), namely \\(A=S\\).\nTherefore:\n\\[\n\\#\\text{unordered}=\\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+          "We need unordered pairs \\(\\{A,B\\}\\) of (not necessarily distinct) subsets of \\(S\\) such that\n\\[\nA\\cup B = S.\n\\]\nLet \\(|S|=6\\).\n\n### Step 1: Count ordered pairs \\((A,B)\\)\nFor each element \\(x\\in S\\), consider which of \\(A\\) and \\(B\\) contain \\(x\\). To have \\(A\\cup B=S\\), \\(x\\) must be in \\(A\\) or in \\(B\\) (or both). So for each \\(x\\), there are \\(3\\) allowed membership patterns:\n- \\(x\\in A\\) not \\(B\\),\n- \\(x\\in B\\) not \\(A\\),\n- \\(x\\in A\\cap B\\).\n\nThus the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6 = 729.\n\\]\n\n### Step 2: Convert to unordered pairs\nThe unordered pair \\(\\{A,B\\}\\) corresponds to either:\n- one ordered pair if \\(A=B\\),\n- or two ordered pairs if \\(A\\neq B\\).\n\nSo\n\\[\n\\#\\text{unordered}=\\frac{(\\#\\text{ordered})+(\\#\\text{ordered with }A=B)}{2}.\n\\]\n\n### Step 3: Count ordered pairs with \\(A=B\\)\nIf \\(A=B\\), then \\(A\\cup B = A = S\\). So the only possibility is\n\\[\nA=B=S.\n\\]\nThat gives exactly \\(1\\) ordered pair with \\(A=B\\).\n\n### Step 4: Final count\n\\[\n\\#\\text{unordered}=\\frac{729+1}{2}=365.\n\\]\n\nANSWER: 365",
+          "We choose two subsets \\(A,B\\subseteq S\\) (not necessarily distinct) such that\n\\[\nA\\cup B = S.\n\\]\nFor each element \\(x\\in S\\), we must ensure \\(x\\) is contained in at least one of \\(A\\) or \\(B\\).\n\nFor a fixed element \\(x\\), the possible membership patterns \\((\\mathbf{1}_{x\\in A},\\mathbf{1}_{x\\in B})\\) are:\n\\[\n(1,0),\\ (0,1),\\ (1,1),\n\\]\nbut not \\((0,0)\\), since then \\(x\\notin A\\cup B\\).\n\nSo there are \\(3\\) choices per element, and with \\(6\\) elements this gives\n\\[\n3^6\n\\]\nordered pairs \\((A,B)\\).\n\nHowever, the problem says order does not matter: \\(\\{A,B\\}\\) is the same as \\(\\{B,A\\}\\). Thus we need to divide by \\(2\\), except when \\(A=B\\).\n\nCount ordered pairs with \\(A=B\\):\nIf \\(A=B\\), then \\(A\\cup B=A=S\\), so \\(A=B=S\\) is the only possibility. Hence there is exactly \\(1\\) ordered pair with \\(A=B\\).\n\nTherefore the number of unordered selections is\n\\[\n\\frac{3^6 - 1}{2} + 1\n= \\frac{3^6 + 1}{2}.\n\\]\nCompute:\n\\[\n3^6=729 \\quad\\Rightarrow\\quad \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nLet $S\\,$ be a set with six elements. In how many different ways can one select two not necessarily distinct subsets of $S\\,$ so that the union of the two subsets is $S\\,$ ?  The order of selection does not matter; for example, the pair of subsets $\\{a, c\\},\\{b, c, d, e, f\\}$ represents the same selection as the pair $\\{b, c, d, e, f\\},\\{a, c\\}.$ "
+      },
+      "baseline_solutions": [
+        "Let the two subsets be \\(A\\) and \\(B\\). We require\n\\[\nA\\cup B = S,\n\\]\nwhere \\(|S|=6\\).\n\nFor each element \\(x\\in S\\), there are three possibilities consistent with \\(x\\in A\\cup B\\):\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\nSo, counting ordered pairs \\((A,B)\\), each of the 6 elements independently has 3 choices, giving\n\\[\n3^6\n\\]\nordered pairs \\((A,B)\\) with \\(A\\cup B=S\\).\n\nBut the problem asks for unordered pairs \\(\\{A,B\\}\\). The unordered pair corresponds to:\n- two ordered pairs \\((A,B)\\) and \\((B,A)\\) when \\(A\\neq B\\),\n- one ordered pair when \\(A=B\\).\n\nSo we compute the number of ordered pairs with \\(A=B\\). If \\(A=B\\), then\n\\[\nA\\cup B = A = S \\implies A=B=S.\n\\]\nThus there is exactly \\(1\\) ordered pair with \\(A=B\\): namely \\((S,S)\\).\n\nTherefore the number of unordered pairs is\n\\[\n\\frac{3^6 - 1}{2} + 1 = \\frac{3^6+1}{2}.\n\\]\nCompute \\(3^6=729\\), so\n\\[\n\\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) such that \\(A\\cup B=S\\), where \\(|S|=6\\). Order does not matter.\n\n**Step 1: Count ordered pairs.**  \nFor each element \\(x\\in S\\), since \\(A\\cup B=S\\), \\(x\\) must be in at least one of \\(A\\) or \\(B\\).  \nFor a single element, the possibilities for \\((\\mathbf{1}_{x\\in A},\\mathbf{1}_{x\\in B})\\) are:\n\\[\n(1,0),\\ (0,1),\\ (1,1)\n\\]\n3 choices per element, independently across 6 elements.  \nSo the number of **ordered** pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6=729.\n\\]\n\n**Step 2: Convert to unordered pairs.**  \nUnordered pairs identify \\((A,B)\\) with \\((B,A)\\). The only ordered pairs fixed under swapping are those with \\(A=B\\).  \nIf \\(A=B\\), then \\(A\\cup B=A=S\\), so \\(A=B=S\\) is the only possibility. Thus, there is exactly **1** ordered pair with \\(A=B\\).\n\nSo the number of unordered pairs is:\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+        "To choose two subsets \\(A,B\\subseteq S\\) whose union is \\(S\\), look element-by-element.\n\nFor each element \\(x\\in S\\), we need \\(x\\) to be in \\(A\\cup B\\). So \\(x\\) must be in at least one of \\(A\\) or \\(B\\). That gives exactly 3 possibilities for membership of \\(x\\):\n- \\(x\\in A\\) only  \\(\\Rightarrow (1,0)\\)\n- \\(x\\in B\\) only  \\(\\Rightarrow (0,1)\\)\n- \\(x\\in A\\) and \\(x\\in B\\) \\(\\Rightarrow (1,1)\\)\n\nSince there are 6 elements and choices are independent, the number of **ordered** pairs \\((A,B)\\) is\n\\[\n3^6.\n\\]\n\nBut the problem wants **unordered** pairs \\(\\{A,B\\}\\), where order doesn’t matter. To convert:\n- If \\(A\\neq B\\), then each unordered pair corresponds to exactly 2 ordered pairs: \\((A,B)\\) and \\((B,A)\\).\n- If \\(A=B\\), then it corresponds to only 1 ordered pair.\n\nSo we count unordered pairs as\n\\[\n\\frac{3^6 - \\#\\{(A,A):A\\cup A=S\\}}{2} + \\#\\{(A,A):A\\cup A=S\\}.\n\\]\n\nNow \\(A\\cup A = A\\), so we need \\(A=S\\). Thus \\(\\#\\{(A,A):A\\cup A=S\\}=1\\).\n\nTherefore,\n\\[\n\\text{answer}=\\frac{3^6-1}{2}+1=\\frac{3^6+1}{2}.\n\\]\nCompute:\n\\[\n3^6=729,\\quad \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "Reasoning:  \nLet the two (unordered) selected subsets be \\(A\\) and \\(B\\). The condition\n\\[\nA\\cup B = S\n\\]\nmeans that for every element \\(x\\in S\\), at least one of \\(x\\in A\\) or \\(x\\in B\\) holds.\n\nFor a single element \\(x\\), there are exactly three membership possibilities among the ordered pair \\((A,B)\\):\n1. \\(x\\in A\\) and \\(x\\notin B\\),\n2. \\(x\\notin A\\) and \\(x\\in B\\),\n3. \\(x\\in A\\) and \\(x\\in B\\).\n\nThus, for all 6 elements, the number of **ordered** pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6.\n\\]\n\nBut the problem treats \\(\\{A,B\\}\\) as an unordered pair, so we should divide by 2, except when \\(A=B\\), in which case swapping does not create a new pair.\n\nIf \\(A=B\\), then \\(A\\cup B = A = S\\), so \\(A\\) must be \\(S\\). Hence there is exactly **one** ordered pair with \\(A=B\\): \\((S,S)\\).\n\nSo the count of unordered selections is:\n\\[\n\\frac{3^6 - 1}{2} + 1\n= \\frac{3^6+1}{2}.\n\\]\nCompute:\n\\[\n3^6=729 \\quad\\Rightarrow\\quad \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) (order doesn’t matter) such that\n\\[\nA\\cup B = S,\n\\]\nwhere \\(|S|=6\\). Note that \\(A,B\\) are allowed to be the same subset.\n\n**Step 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\).**\n\nFor each element \\(x\\in S\\), there are three possibilities:\n- \\(x\\in A\\) but \\(x\\notin B\\),\n- \\(x\\notin A\\) but \\(x\\in B\\),\n- \\(x\\in A\\cap B\\).\n\nThe case “\\(x\\notin A\\) and \\(x\\notin B\\)” is forbidden because then \\(x\\notin A\\cup B\\).\n\nSo each of the 6 elements has \\(3\\) independent choices, giving\n\\[\n3^6=729\n\\]\nordered pairs \\((A,B)\\).\n\n**Step 2: Convert to unordered pairs.**\n\nUnordered pairs \\(\\{A,B\\}\\) correspond to ordered pairs \\((A,B)\\) except when \\(A=B\\), where the unordered and ordered counts coincide.\n\nSo:\n\\[\n\\#\\text{unordered}=\\frac{\\#\\text{ordered}-\\#\\text{(ordered with }A=B\\text{)}}{2}+\\#\\text{(unordered with }A=B\\text{)}.\n\\]\nBut the number of ordered pairs with \\(A=B\\) is the number of subsets \\(A\\) such that \\(A\\cup A = A = S\\), which forces \\(A=S\\). Thus there is exactly **1** ordered pair: \\((S,S)\\). Therefore also exactly **1** unordered pair with \\(A=B\\): \\(\\{S,S\\}\\).\n\nHence:\n\\[\n\\#\\text{unordered}=\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+        "Reasoning (step by step):\n\nLet \\(S\\) have 6 elements. We want to count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) (allowing \\(A=B\\)) such that\n\\[\nA\\cup B = S.\n\\]\n\n**Step 1: Count ordered pairs \\((A,B)\\).**  \nFor each element \\(x\\in S\\), the condition \\(A\\cup B=S\\) means \\(x\\) must be in at least one of \\(A\\) or \\(B\\).\n\nFor a fixed element \\(x\\), the allowed membership states are:\n- \\(x\\in A\\) only,\n- \\(x\\in B\\) only,\n- \\(x\\in A\\) and \\(x\\in B\\).\n\nThat’s \\(3\\) choices per element. With 6 elements, the number of ordered pairs \\((A,B)\\) is\n\\[\n3^6 = 729.\n\\]\n\n**Step 2: Convert to unordered pairs \\(\\{A,B\\}\\).**  \nMost ordered pairs correspond to two different orders \\((A,B)\\) and \\((B,A)\\), which would be double-counted.\n\nThe only time \\((A,B)\\) and \\((B,A)\\) are the same unordered pair is when \\(A=B\\). So we must count how many ordered pairs satisfy \\(A=B\\) and \\(A\\cup B=S\\).\n\nIf \\(A=B\\), then \\(A\\cup B = A = S\\). So the only possibility is\n\\[\nA=B=S.\n\\]\nThus there is exactly \\(1\\) ordered pair with \\(A=B\\).\n\nTherefore, the number of unordered pairs is\n\\[\n\\frac{3^6 - 1}{2} + 1 = \\frac{3^6 + 1}{2}.\n\\]\nCompute:\n\\[\n\\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "Let the six elements of \\(S\\) be colored by membership status in the two chosen subsets \\((A,B)\\). The pair is unordered, but we can count ordered first and then divide by 2 carefully.\n\nFor each element \\(x\\in S\\), there are 4 possibilities:\n\\[\n(x\\notin A,\\ x\\notin B),\\quad (x\\in A,\\ x\\notin B),\\quad (x\\notin A,\\ x\\in B),\\quad (x\\in A,\\ x\\in B).\n\\]\nThe condition \\(A\\cup B=S\\) forbids the first possibility \\((x\\notin A,\\ x\\notin B)\\).  \nSo each element has exactly 3 allowed statuses: it must lie in \\(A\\) only, in \\(B\\) only, or in both.\n\nThus the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6.\n\\]\n\nNow convert to unordered pairs \\(\\{A,B\\}\\). The only ordered pairs that would be double-counted when swapping are those with \\(A\\neq B\\). If \\(A=B\\), then swapping gives the same ordered pair, so those should not be halved.\n\nCount ordered pairs with \\(A=B\\) and \\(A\\cup A=S\\). Then \\(A=S\\). So there is exactly 1 ordered pair \\((A,B)=(S,S)\\).\n\nTherefore, the number of unordered selections is\n\\[\n\\frac{3^6-1}{2}+1=\\frac{3^6+1}{2}.\n\\]\nCompute:\n\\[\n3^6=729 \\implies \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) such that \\(A\\cup B=S\\).\n\nIt’s convenient to first count ordered pairs \\((A,B)\\), then divide by \\(2\\) where appropriate.\n\n### Step 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\)\nFor each element \\(x\\in S\\), to have \\(A\\cup B=S\\), \\(x\\) must be in \\(A\\) or in \\(B\\) (or in both).\n\nSo for each of the 6 elements, there are 3 choices:\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\nThus the number of ordered pairs is\n\\[\n3^6=729.\n\\]\n\n### Step 2: Convert to unordered pairs\nUnordered pairs \\(\\{A,B\\}\\) identify \\((A,B)\\) with \\((B,A)\\). Among ordered pairs, most have \\(A\\neq B\\) and come in symmetric pairs.\n\nThe only ordered pairs that do **not** pair up are those with \\(A=B\\).\nIf \\(A=B\\), then \\(A\\cup B=A\\) must equal \\(S\\), so \\(A=B=S\\) is the only possibility.\nSo there is exactly \\(1\\) ordered pair with \\(A=B\\): \\((S,S)\\).\n\nTherefore, the number of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+        "We want unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) (allowing \\(A=B\\)) such that\n\\[\nA\\cup B = S,\n\\]\nwhere \\(|S|=6\\).\n\n**Step 1: Count ordered pairs \\((A,B)\\).**  \nWork element-by-element. For any element \\(x\\in S\\), to have \\(x\\in A\\cup B\\), it must be in at least one of \\(A,B\\).  \nFor each \\(x\\), the allowed membership patterns are:\n\\[\n(x\\in A, x\\notin B),\\quad (x\\notin A, x\\in B),\\quad (x\\in A, x\\in B),\n\\]\nwhich is **3** choices per element. Since the 6 elements behave independently,\n\\[\n\\#\\{(A,B): A\\cup B=S\\} = 3^6 = 729.\n\\]\n\n**Step 2: Convert to unordered pairs.**  \nUnordered pairs correspond to identifying \\((A,B)\\) with \\((B,A)\\). This typically halves the count, except when \\(A=B\\).\n\nSo we compute:\n- Number of ordered pairs where \\(A=B\\): this requires \\(A\\cup A = S\\), i.e. \\(A=S\\). Thus there is exactly **1** ordered pair: \\((S,S)\\).\n- Therefore, among the 729 ordered pairs, exactly 1 is fixed under swapping, and the remaining \\(728\\) come in swapped pairs.\n\nHence the number of unordered pairs is\n\\[\n\\frac{729-1}{2} + 1 = \\frac{728}{2} + 1 = 364 + 1 = 365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+        "Let the two (unordered) subsets be \\(A\\) and \\(B\\). We require\n\\[\nA\\cup B = S.\n\\]\nFor each element \\(x\\in S\\), at least one of \\(A,B\\) must contain it.\n\nConsider the ordered pairs first. For a fixed \\(x\\), there are 3 possibilities:\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\n(“In neither” is forbidden because \\(A\\cup B=S\\).)  \nSince elements behave independently, the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6=729.\n\\]\n\nNow the selection is **unordered**, so we divide by 2 except for the cases where \\(A=B\\).  \nIf \\(A=B\\), then \\(A\\cup B=A=S\\), so \\(A=B=S\\) is the only possibility. Thus there is exactly 1 ordered pair with \\(A=B\\).\n\nTherefore, the number of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1993-8",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Let the two subsets be \\(A\\) and \\(B\\). We require\n\\[\nA\\cup B = S,\n\\]\nwhere \\(|S|=6\\).\n\nFor each element \\(x\\in S\\), there are three possibilities consistent with \\(x\\in A\\cup B\\):\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\nSo, counting ordered pairs \\((A,B)\\), each of the 6 elements independently has 3 choices, giving\n\\[\n3^6\n\\]\nordered pairs \\((A,B)\\) with \\(A\\cup B=S\\).\n\nBut the problem asks for unordered pairs \\(\\{A,B\\}\\). The unordered pair corresponds to:\n- two ordered pairs \\((A,B)\\) and \\((B,A)\\) when \\(A\\neq B\\),\n- one ordered pair when \\(A=B\\).\n\nSo we compute the number of ordered pairs with \\(A=B\\). If \\(A=B\\), then\n\\[\nA\\cup B = A = S \\implies A=B=S.\n\\]\nThus there is exactly \\(1\\) ordered pair with \\(A=B\\): namely \\((S,S)\\).\n\nTherefore the number of unordered pairs is\n\\[\n\\frac{3^6 - 1}{2} + 1 = \\frac{3^6+1}{2}.\n\\]\nCompute \\(3^6=729\\), so\n\\[\n\\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) such that \\(A\\cup B=S\\), where \\(|S|=6\\). Order does not matter.\n\n**Step 1: Count ordered pairs.**  \nFor each element \\(x\\in S\\), since \\(A\\cup B=S\\), \\(x\\) must be in at least one of \\(A\\) or \\(B\\).  \nFor a single element, the possibilities for \\((\\mathbf{1}_{x\\in A},\\mathbf{1}_{x\\in B})\\) are:\n\\[\n(1,0),\\ (0,1),\\ (1,1)\n\\]\n3 choices per element, independently across 6 elements.  \nSo the number of **ordered** pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6=729.\n\\]\n\n**Step 2: Convert to unordered pairs.**  \nUnordered pairs identify \\((A,B)\\) with \\((B,A)\\). The only ordered pairs fixed under swapping are those with \\(A=B\\).  \nIf \\(A=B\\), then \\(A\\cup B=A=S\\), so \\(A=B=S\\) is the only possibility. Thus, there is exactly **1** ordered pair with \\(A=B\\).\n\nSo the number of unordered pairs is:\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+        "To choose two subsets \\(A,B\\subseteq S\\) whose union is \\(S\\), look element-by-element.\n\nFor each element \\(x\\in S\\), we need \\(x\\) to be in \\(A\\cup B\\). So \\(x\\) must be in at least one of \\(A\\) or \\(B\\). That gives exactly 3 possibilities for membership of \\(x\\):\n- \\(x\\in A\\) only  \\(\\Rightarrow (1,0)\\)\n- \\(x\\in B\\) only  \\(\\Rightarrow (0,1)\\)\n- \\(x\\in A\\) and \\(x\\in B\\) \\(\\Rightarrow (1,1)\\)\n\nSince there are 6 elements and choices are independent, the number of **ordered** pairs \\((A,B)\\) is\n\\[\n3^6.\n\\]\n\nBut the problem wants **unordered** pairs \\(\\{A,B\\}\\), where order doesn’t matter. To convert:\n- If \\(A\\neq B\\), then each unordered pair corresponds to exactly 2 ordered pairs: \\((A,B)\\) and \\((B,A)\\).\n- If \\(A=B\\), then it corresponds to only 1 ordered pair.\n\nSo we count unordered pairs as\n\\[\n\\frac{3^6 - \\#\\{(A,A):A\\cup A=S\\}}{2} + \\#\\{(A,A):A\\cup A=S\\}.\n\\]\n\nNow \\(A\\cup A = A\\), so we need \\(A=S\\). Thus \\(\\#\\{(A,A):A\\cup A=S\\}=1\\).\n\nTherefore,\n\\[\n\\text{answer}=\\frac{3^6-1}{2}+1=\\frac{3^6+1}{2}.\n\\]\nCompute:\n\\[\n3^6=729,\\quad \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "Reasoning:  \nLet the two (unordered) selected subsets be \\(A\\) and \\(B\\). The condition\n\\[\nA\\cup B = S\n\\]\nmeans that for every element \\(x\\in S\\), at least one of \\(x\\in A\\) or \\(x\\in B\\) holds.\n\nFor a single element \\(x\\), there are exactly three membership possibilities among the ordered pair \\((A,B)\\):\n1. \\(x\\in A\\) and \\(x\\notin B\\),\n2. \\(x\\notin A\\) and \\(x\\in B\\),\n3. \\(x\\in A\\) and \\(x\\in B\\).\n\nThus, for all 6 elements, the number of **ordered** pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6.\n\\]\n\nBut the problem treats \\(\\{A,B\\}\\) as an unordered pair, so we should divide by 2, except when \\(A=B\\), in which case swapping does not create a new pair.\n\nIf \\(A=B\\), then \\(A\\cup B = A = S\\), so \\(A\\) must be \\(S\\). Hence there is exactly **one** ordered pair with \\(A=B\\): \\((S,S)\\).\n\nSo the count of unordered selections is:\n\\[\n\\frac{3^6 - 1}{2} + 1\n= \\frac{3^6+1}{2}.\n\\]\nCompute:\n\\[\n3^6=729 \\quad\\Rightarrow\\quad \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) (order doesn’t matter) such that\n\\[\nA\\cup B = S,\n\\]\nwhere \\(|S|=6\\). Note that \\(A,B\\) are allowed to be the same subset.\n\n**Step 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\).**\n\nFor each element \\(x\\in S\\), there are three possibilities:\n- \\(x\\in A\\) but \\(x\\notin B\\),\n- \\(x\\notin A\\) but \\(x\\in B\\),\n- \\(x\\in A\\cap B\\).\n\nThe case “\\(x\\notin A\\) and \\(x\\notin B\\)” is forbidden because then \\(x\\notin A\\cup B\\).\n\nSo each of the 6 elements has \\(3\\) independent choices, giving\n\\[\n3^6=729\n\\]\nordered pairs \\((A,B)\\).\n\n**Step 2: Convert to unordered pairs.**\n\nUnordered pairs \\(\\{A,B\\}\\) correspond to ordered pairs \\((A,B)\\) except when \\(A=B\\), where the unordered and ordered counts coincide.\n\nSo:\n\\[\n\\#\\text{unordered}=\\frac{\\#\\text{ordered}-\\#\\text{(ordered with }A=B\\text{)}}{2}+\\#\\text{(unordered with }A=B\\text{)}.\n\\]\nBut the number of ordered pairs with \\(A=B\\) is the number of subsets \\(A\\) such that \\(A\\cup A = A = S\\), which forces \\(A=S\\). Thus there is exactly **1** ordered pair: \\((S,S)\\). Therefore also exactly **1** unordered pair with \\(A=B\\): \\(\\{S,S\\}\\).\n\nHence:\n\\[\n\\#\\text{unordered}=\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+        "Reasoning (step by step):\n\nLet \\(S\\) have 6 elements. We want to count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) (allowing \\(A=B\\)) such that\n\\[\nA\\cup B = S.\n\\]\n\n**Step 1: Count ordered pairs \\((A,B)\\).**  \nFor each element \\(x\\in S\\), the condition \\(A\\cup B=S\\) means \\(x\\) must be in at least one of \\(A\\) or \\(B\\).\n\nFor a fixed element \\(x\\), the allowed membership states are:\n- \\(x\\in A\\) only,\n- \\(x\\in B\\) only,\n- \\(x\\in A\\) and \\(x\\in B\\).\n\nThat’s \\(3\\) choices per element. With 6 elements, the number of ordered pairs \\((A,B)\\) is\n\\[\n3^6 = 729.\n\\]\n\n**Step 2: Convert to unordered pairs \\(\\{A,B\\}\\).**  \nMost ordered pairs correspond to two different orders \\((A,B)\\) and \\((B,A)\\), which would be double-counted.\n\nThe only time \\((A,B)\\) and \\((B,A)\\) are the same unordered pair is when \\(A=B\\). So we must count how many ordered pairs satisfy \\(A=B\\) and \\(A\\cup B=S\\).\n\nIf \\(A=B\\), then \\(A\\cup B = A = S\\). So the only possibility is\n\\[\nA=B=S.\n\\]\nThus there is exactly \\(1\\) ordered pair with \\(A=B\\).\n\nTherefore, the number of unordered pairs is\n\\[\n\\frac{3^6 - 1}{2} + 1 = \\frac{3^6 + 1}{2}.\n\\]\nCompute:\n\\[\n\\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "Let the six elements of \\(S\\) be colored by membership status in the two chosen subsets \\((A,B)\\). The pair is unordered, but we can count ordered first and then divide by 2 carefully.\n\nFor each element \\(x\\in S\\), there are 4 possibilities:\n\\[\n(x\\notin A,\\ x\\notin B),\\quad (x\\in A,\\ x\\notin B),\\quad (x\\notin A,\\ x\\in B),\\quad (x\\in A,\\ x\\in B).\n\\]\nThe condition \\(A\\cup B=S\\) forbids the first possibility \\((x\\notin A,\\ x\\notin B)\\).  \nSo each element has exactly 3 allowed statuses: it must lie in \\(A\\) only, in \\(B\\) only, or in both.\n\nThus the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6.\n\\]\n\nNow convert to unordered pairs \\(\\{A,B\\}\\). The only ordered pairs that would be double-counted when swapping are those with \\(A\\neq B\\). If \\(A=B\\), then swapping gives the same ordered pair, so those should not be halved.\n\nCount ordered pairs with \\(A=B\\) and \\(A\\cup A=S\\). Then \\(A=S\\). So there is exactly 1 ordered pair \\((A,B)=(S,S)\\).\n\nTherefore, the number of unordered selections is\n\\[\n\\frac{3^6-1}{2}+1=\\frac{3^6+1}{2}.\n\\]\nCompute:\n\\[\n3^6=729 \\implies \\frac{729+1}{2}=\\frac{730}{2}=365.\n\\]\n\nANSWER: 365",
+        "We count unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) such that \\(A\\cup B=S\\).\n\nIt’s convenient to first count ordered pairs \\((A,B)\\), then divide by \\(2\\) where appropriate.\n\n### Step 1: Count ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\)\nFor each element \\(x\\in S\\), to have \\(A\\cup B=S\\), \\(x\\) must be in \\(A\\) or in \\(B\\) (or in both).\n\nSo for each of the 6 elements, there are 3 choices:\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\nThus the number of ordered pairs is\n\\[\n3^6=729.\n\\]\n\n### Step 2: Convert to unordered pairs\nUnordered pairs \\(\\{A,B\\}\\) identify \\((A,B)\\) with \\((B,A)\\). Among ordered pairs, most have \\(A\\neq B\\) and come in symmetric pairs.\n\nThe only ordered pairs that do **not** pair up are those with \\(A=B\\).\nIf \\(A=B\\), then \\(A\\cup B=A\\) must equal \\(S\\), so \\(A=B=S\\) is the only possibility.\nSo there is exactly \\(1\\) ordered pair with \\(A=B\\): \\((S,S)\\).\n\nTherefore, the number of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365",
+        "We want unordered pairs \\(\\{A,B\\}\\) of subsets of \\(S\\) (allowing \\(A=B\\)) such that\n\\[\nA\\cup B = S,\n\\]\nwhere \\(|S|=6\\).\n\n**Step 1: Count ordered pairs \\((A,B)\\).**  \nWork element-by-element. For any element \\(x\\in S\\), to have \\(x\\in A\\cup B\\), it must be in at least one of \\(A,B\\).  \nFor each \\(x\\), the allowed membership patterns are:\n\\[\n(x\\in A, x\\notin B),\\quad (x\\notin A, x\\in B),\\quad (x\\in A, x\\in B),\n\\]\nwhich is **3** choices per element. Since the 6 elements behave independently,\n\\[\n\\#\\{(A,B): A\\cup B=S\\} = 3^6 = 729.\n\\]\n\n**Step 2: Convert to unordered pairs.**  \nUnordered pairs correspond to identifying \\((A,B)\\) with \\((B,A)\\). This typically halves the count, except when \\(A=B\\).\n\nSo we compute:\n- Number of ordered pairs where \\(A=B\\): this requires \\(A\\cup A = S\\), i.e. \\(A=S\\). Thus there is exactly **1** ordered pair: \\((S,S)\\).\n- Therefore, among the 729 ordered pairs, exactly 1 is fixed under swapping, and the remaining \\(728\\) come in swapped pairs.\n\nHence the number of unordered pairs is\n\\[\n\\frac{729-1}{2} + 1 = \\frac{728}{2} + 1 = 364 + 1 = 365.\n\\]\n\n\\[\n\\boxed{365}\n\\]\n\nANSWER: 365",
+        "Let the two (unordered) subsets be \\(A\\) and \\(B\\). We require\n\\[\nA\\cup B = S.\n\\]\nFor each element \\(x\\in S\\), at least one of \\(A,B\\) must contain it.\n\nConsider the ordered pairs first. For a fixed \\(x\\), there are 3 possibilities:\n- \\(x\\in A\\) only\n- \\(x\\in B\\) only\n- \\(x\\in A\\cap B\\)\n\n(“In neither” is forbidden because \\(A\\cup B=S\\).)  \nSince elements behave independently, the number of ordered pairs \\((A,B)\\) with \\(A\\cup B=S\\) is\n\\[\n3^6=729.\n\\]\n\nNow the selection is **unordered**, so we divide by 2 except for the cases where \\(A=B\\).  \nIf \\(A=B\\), then \\(A\\cup B=A=S\\), so \\(A=B=S\\) is the only possibility. Thus there is exactly 1 ordered pair with \\(A=B\\).\n\nTherefore, the number of unordered pairs is\n\\[\n\\frac{729-1}{2}+1=\\frac{728}{2}+1=364+1=365.\n\\]\n\nANSWER: 365"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1993-8",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        },
+        {
+          "problem_id": "1993-8",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "365",
+            "answer_line": "ANSWER: 365",
+            "answer_fragment": "365",
+            "extracted": "365"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

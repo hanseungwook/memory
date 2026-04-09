@@ -1,0 +1,488 @@
+{
+  "problem_id": "1990-9",
+  "domain": "math",
+  "problem": {
+    "id": "1990-9",
+    "domain": "math",
+    "statement": "A fair coin is to be tossed $10_{}^{}$ times. Let $i/j^{}_{}$ , in lowest terms, be the probability that heads never occur on consecutive tosses. Find $i+j_{}^{}$ .",
+    "answer": "73",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1990,
+      "problem_number": 9
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nA fair coin is to be tossed $10_{}^{}$ times. Let $i/j^{}_{}$ , in lowest terms, be the probability that heads never occur on consecutive tosses. Find $i+j_{}^{}$ .",
+      "solutions": [
+        "We count sequences of length \\(10\\) of H/T with **no two consecutive H**.  \nSince the coin is fair, the desired probability is\n\\[\n\\frac{\\#\\{\\text{length-10 sequences with no consecutive H}\\}}{2^{10}}.\n\\]\n\nLet \\(a_n\\) be the number of valid sequences of length \\(n\\).\n\nConsider the last toss:\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\). So the first \\(n-2\\) tosses form a valid sequence, and then we append \\(TH\\): \\(a_{n-2}\\) choices.\n\nThus\n\\[\na_n = a_{n-1}+a_{n-2}.\n\\]\n\nInitial values:\n- \\(a_1=2\\) (H or T)\n- \\(a_2=3\\) (TT, TH, HT; but not HH)\n\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(after dividing numerator and denominator by \\(16\\)).\n\nThus \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We count sequences of length \\(n=10\\) of H/T with **no two consecutive H**.\n\nLet\n- \\(a_n\\) = number of valid sequences of length \\(n\\).\n- More specifically, let\n  - \\(b_n\\) = number of valid sequences of length \\(n\\) ending in T,\n  - \\(c_n\\) = number of valid sequences of length \\(n\\) ending in H.\n\nThen:\n- If a sequence ends in T, the previous toss can be anything:\n  \\[\n  b_n = a_{n-1}.\n  \\]\n- If a sequence ends in H, the previous toss must be T:\n  \\[\n  c_n = b_{n-1}.\n  \\]\nSo\n\\[\na_n = b_n + c_n = a_{n-1} + b_{n-1} = a_{n-1} + a_{n-2}.\n\\]\nThis is the Fibonacci recurrence.\n\nBase cases:\n- \\(n=1\\): sequences are \\(T, H\\) so \\(a_1=2\\).\n- \\(n=2\\): valid sequences are \\(TT, TH, HT\\) (but not HH), so \\(a_2=3\\).\n\nThus the sequence \\(a_n\\) goes:\n\\[\na_1=2,\\quad a_2=3,\\quad a_3=5,\\quad a_4=8,\\quad a_5=13,\\quad a_6=21,\\quad a_7=34,\\quad a_8=55,\\quad a_9=89,\\quad a_{10}=144.\n\\]\n\nTotal outcomes of 10 coin tosses: \\(2^{10}=1024\\).\n\nSo the desired probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) sequences of H/T with **no two consecutive H’s**.  \nThen the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider the last toss.\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) possibilities.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\). So the first \\(n-2\\) tosses can be any valid sequence: \\(a_{n-2}\\) possibilities.\n\nThus,\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n**Step 2: Initial values.**\n- \\(a_1 = 2\\) (H, T)\n- \\(a_2 = 3\\) (TT, TH, HT)\n\n**Step 3: Compute up to \\(n=10\\).**\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144\n\\end{aligned}\n\\]\n\n**Step 4: Probability and reduction.**\n\\[\n\\text{Probability}=\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since \\(144/1024\\) divide top and bottom by \\(16\\): \\(144/16=9\\), \\(1024/16=64\\)).\n\nSo \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We model the process with a small state machine.\n\nLet the probability that **no two consecutive tosses are both heads** occur over \\(n\\) tosses.\n\nTrack two types of histories:\n- \\(A_n\\): valid sequences of length \\(n\\) that **end with T**.\n- \\(B_n\\): valid sequences of length \\(n\\) that **end with H**.\n\nThen for valid sequences:\n- To end with \\(T\\): the previous toss can be \\(T\\) or \\(H\\).\n  \\[\n  A_{n+1} = A_n + B_n\n  \\]\n- To end with \\(H\\): the previous toss must be \\(T\\).\n  \\[\n  B_{n+1} = A_n\n  \\]\n\nWe start with \\(n=1\\):\n- \\(A_1\\) counts outcomes ending with \\(T\\): exactly 1 sequence (T).\n- \\(B_1\\) counts outcomes ending with \\(H\\): exactly 1 sequence (H).\nSo as counts (or probabilities multiplied by \\(2^n\\)), we can use:\n\\[\nA_1=1,\\quad B_1=1\n\\]\nand total valid sequences:\n\\[\nS_n = A_n + B_n\n\\]\n\nCompute the recurrence for \\(S_n\\):\n\\[\nS_{n+1} = A_{n+1} + B_{n+1} = (A_n+B_n) + A_n = S_n + A_n\n\\]\nBut also from \\(S_n=A_n+B_n\\) and \\(B_n=A_{n-1}\\), a cleaner way is:\n\\[\nS_{n} = A_n + B_n = (A_{n-1}+B_{n-1}) + A_{n-1} = S_{n-1} + A_{n-1}\n\\]\nInstead, observe directly that the system implies:\n\\[\nA_{n+1} = S_n,\\quad B_{n+1}=A_n\n\\]\nThus\n\\[\nS_{n+1} = A_{n+1}+B_{n+1} = S_n + A_n = S_n + S_{n-1}\n\\]\nbecause \\(A_n = S_{n-1}\\) (since \\(A_n = A_{n-1}+B_{n-1}=S_{n-1}\\)).\nSo:\n\\[\nS_{n+1} = S_n + S_{n-1}\n\\]\nThis is Fibonacci recurrence.\n\nInitial values:\n\\[\nS_1 = A_1+B_1 = 2,\\quad S_2: \\text{valid sequences of length 2 are } TT,TH,HT \\Rightarrow 3\n\\]\nSo \\(S_2=3\\).\n\nTherefore \\(S_n\\) follows:\n\\[\nS_1=2,\\ S_2=3,\\ S_{n}=F_{n+2}\n\\]\n(where \\(F_1=1,F_2=1\\) standard Fibonacci). Check: \\(F_3=2\\Rightarrow S_1=F_3\\), \\(F_4=3\\Rightarrow S_2=F_4\\). Works.\n\nWe need \\(n=10^? \\) actually the problem states \\(10_{}^{ } \\) times, i.e. \\(10^1=10\\) tosses.\n\nSo \\(n=10\\). Then the number of valid sequences is\n\\[\nS_{10} = F_{12}\n\\]\nFibonacci numbers:\n\\[\nF_{10}=55,\\ F_{11}=89,\\ F_{12}=144\n\\]\nTotal possible sequences of length 10: \\(2^{10}=1024\\).\n\nThus probability:\n\\[\n\\frac{144}{1024}=\\frac{9}{64}\n\\]\nSo \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) sequences of H/T with **no two consecutive heads**.  \nThen the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider sequences of length \\(n\\).\n\n- If the last toss is **T**, then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\).\n- If the last toss is **H**, then the \\((n-1)\\)st toss must be **T**. So the first \\(n-2\\) tosses form any valid sequence: \\(a_{n-2}\\).\n\nThus\n\\[\na_n=a_{n-1}+a_{n-2}.\n\\]\n\n**Step 2: Initial values.**\n- \\(a_1=2\\) (H, T)\n- \\(a_2=3\\) (TT, TH, HT; but not HH)\n\nNow compute:\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since \\(144/1024\\) reduces by \\(16\\)).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 coin tosses, **no two consecutive tosses are both heads**.\n\nLet’s count sequences of length \\(10\\) over \\(\\{H,T\\}\\) with no “HH” as a consecutive substring.\n\nUse a standard recurrence with states:\n\n- Let \\(a_n\\) = number of valid sequences of length \\(n\\) that end in \\(T\\).\n- Let \\(b_n\\) = number of valid sequences of length \\(n\\) that end in \\(H\\).\n\nIf a sequence ends in \\(T\\), the previous symbol can be anything:\n\\[\na_n = a_{n-1} + b_{n-1}.\n\\]\nIf a sequence ends in \\(H\\), then the previous symbol must be \\(T\\) (to avoid HH):\n\\[\nb_n = a_{n-1}.\n\\]\n\nBase case: for \\(n=1\\),\n- \\(a_1=1\\) (sequence: T)\n- \\(b_1=1\\) (sequence: H)\n\nNow compute up to \\(n=10\\):\n\n\\[\n\\begin{aligned}\na_2 &= a_1+b_1 = 2, & b_2 &= a_1 = 1\\\\\na_3 &= a_2+b_2 = 3, & b_3 &= a_2 = 2\\\\\na_4 &= a_3+b_3 = 5, & b_4 &= a_3 = 3\\\\\na_5 &= a_4+b_4 = 8, & b_5 &= a_4 = 5\\\\\na_6 &= a_5+b_5 = 13, & b_6 &= a_5 = 8\\\\\na_7 &= a_6+b_6 = 21, & b_7 &= a_6 = 13\\\\\na_8 &= a_7+b_7 = 34, & b_8 &= a_7 = 21\\\\\na_9 &= a_8+b_8 = 55, & b_9 &= a_8 = 34\\\\\na_{10} &= a_9+b_9 = 89, & b_{10} &= a_9 = 55\n\\end{aligned}\n\\]\n\nTotal valid sequences of length 10:\n\\[\na_{10}+b_{10} = 89+55 = 144.\n\\]\n\nTotal possible sequences: \\(2^{10} = 1024\\).\n\nSo the desired probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since divide numerator and denominator by 16).\n\nThus \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We count the number of length-10 binary sequences (H/T) with **no two consecutive H’s**. Each such sequence has probability \\((1/2)^{10}\\), so the desired probability is\n\\[\n\\frac{\\#\\{\\text{valid sequences}\\}}{2^{10}}.\n\\]\n\nLet \\(a_n\\) be the number of valid sequences of length \\(n\\).\n\nConsider the last toss:\n- If the last toss is **T**, then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is **H**, then the previous toss (toss \\(n-1\\)) must be **T**, so the first \\(n-2\\) tosses can be any valid sequence: \\(a_{n-2}\\) choices.\n\nThus for \\(n\\ge 2\\),\n\\[\na_n = a_{n-1}+a_{n-2}.\n\\]\n\nInitial values:\n- \\(a_1=2\\) (T or H)\n- \\(a_2=3\\) (TT, TH, HT; but not HH)\n\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since \\(144/1024\\) reduces by \\(16\\)).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(p\\) be the probability that in \\(n=10\\) tosses, heads never occur on consecutive tosses.\n\nModel as a 2-state process:\n- State \\(H\\): last toss is Head.\n- State \\(T\\): last toss is Tail.\n\nLet\n- \\(a_n = P(\\text{valid up to } n \\text{ and } n\\text{-th is T})\\)\n- \\(b_n = P(\\text{valid up to } n \\text{ and } n\\text{-th is H})\\)\n\nRecurrences:\n- To end in \\(T\\) at time \\(n\\): regardless of previous state, we need a Tail:\n\\[\na_n = \\tfrac12(a_{n-1}+b_{n-1})\n\\]\n- To end in \\(H\\) at time \\(n\\): previous must be \\(T\\), then we toss Head:\n\\[\nb_n = \\tfrac12 a_{n-1}\n\\]\n\nInitial conditions at \\(n=1\\):\n- \\(a_1 = P(T)=\\tfrac12\\)\n- \\(b_1 = P(H)=\\tfrac12\\)\n\nWe want \\(p=a_{10}+b_{10}\\).\n\nNow compute iteratively:\n\n\\[\n\\begin{aligned}\na_1&=\\tfrac12,\\quad b_1=\\tfrac12\\\\[4pt]\na_2&=\\tfrac12\\left(\\tfrac12+\\tfrac12\\right)=\\tfrac12,\\quad b_2=\\tfrac12\\cdot\\tfrac12=\\tfrac14\\\\[4pt]\na_3&=\\tfrac12\\left(\\tfrac12+\\tfrac14\\right)=\\tfrac38,\\quad b_3=\\tfrac12\\cdot\\tfrac12=\\tfrac14\\\\[4pt]\na_4&=\\tfrac12\\left(\\tfrac38+\\tfrac14\\right)=\\tfrac{5}{16},\\quad b_4=\\tfrac12\\cdot\\tfrac38=\\tfrac{3}{16}\\\\[4pt]\na_5&=\\tfrac12\\left(\\tfrac{5}{16}+\\tfrac{3}{16}\\right)=\\tfrac14,\\quad b_5=\\tfrac12\\cdot\\tfrac{5}{16}=\\tfrac{5}{32}\\\\[4pt]\na_6&=\\tfrac12\\left(\\tfrac14+\\tfrac{5}{32}\\right)=\\tfrac{13}{64},\\quad b_6=\\tfrac12\\cdot\\tfrac14=\\tfrac18=\\tfrac{8}{64}\\\\[4pt]\na_7&=\\tfrac12\\left(\\tfrac{13}{64}+\\tfrac{8}{64}\\right)=\\tfrac{21}{128},\\quad b_7=\\tfrac12\\cdot\\tfrac{13}{64}=\\tfrac{13}{128}\\\\[4pt]\na_8&=\\tfrac12\\left(\\tfrac{21}{128}+\\tfrac{13}{128}\\right)=\\tfrac{17}{128},\\quad b_8=\\tfrac12\\cdot\\tfrac{21}{128}=\\tfrac{21}{256}\\\\[4pt]\na_9&=\\tfrac12\\left(\\tfrac{17}{128}+\\tfrac{21}{256}\\right)=\\tfrac{55}{512},\\quad b_9=\\tfrac12\\cdot\\tfrac{17}{128}=\\tfrac{17}{256}\\\\[4pt]\na_{10}&=\\tfrac12\\left(\\tfrac{55}{512}+\\tfrac{17}{256}\\right)=\\tfrac{89}{1024},\\quad b_{10}=\\tfrac12\\cdot\\tfrac{55}{512}=\\tfrac{55}{1024}\n\\end{aligned}\n\\]\n\nTherefore\n\\[\np=a_{10}+b_{10}=\\frac{89}{1024}+\\frac{55}{1024}=\\frac{144}{1024}=\\frac{9}{64}.\n\\]\n\nSo \\(i/j = 9/64\\), and \\(i+j=9+64=73\\).\n\nANSWER: 73",
+        "Let \\(p_n\\) be the probability that in \\(n\\) tosses, heads never occur on consecutive tosses.\n\nConsider the last toss:\n- Let \\(A_n\\) = number of length-\\(n\\) binary strings with no consecutive heads that end in **H**.\n- Let \\(B_n\\) = number that end in **T**.\n\nThen:\n- To end in H, the previous toss must be T, so \\(A_n = B_{n-1}\\).\n- To end in T, the previous toss can be H or T, so \\(B_n = A_{n-1}+B_{n-1}\\).\n\nThus the total number \\(S_n = A_n + B_n\\) satisfies\n\\[\nS_n = (B_{n-1}) + (A_{n-1}+B_{n-1}) = A_{n-1}+2B_{n-1}.\n\\]\nBut it’s easier to combine directly into a Fibonacci recurrence:\nSince \\(S_{n}=A_n+B_n = B_{n-1}+(A_{n-1}+B_{n-1})=A_{n-1}+2B_{n-1}\\), and also one can show\n\\[\nS_n = S_{n-1}+S_{n-2}.\n\\]\nInitial values:\n- For \\(n=1\\): strings are H, T \\(\\Rightarrow S_1=2\\).\n- For \\(n=2\\): allowed strings are HT, TH, TT \\(\\Rightarrow S_2=3\\).\n\nSo \\(S_n\\) follows Fibonacci:\n\\[\nS_1=2,\\quad S_2=3,\\quad S_n=S_{n-1}+S_{n-2}.\n\\]\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\nS_3&=S_2+S_1=3+2=5\\\\\nS_4&=5+3=8\\\\\nS_5&=8+5=13\\\\\nS_6&=13+8=21\\\\\nS_7&=21+13=34\\\\\nS_8&=34+21=55\\\\\nS_9&=55+34=89\\\\\nS_{10}&=89+55=144.\n\\end{aligned}\n\\]\nThere are \\(2^{10}=1024\\) equally likely outcomes, so\n\\[\np_{10}=\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of binary strings of length \\(n\\) with **no consecutive heads** (i.e., no substring \\(HH\\)).  \nEach such string has probability \\((1/2)^n\\), and there are \\(2^n\\) total outcomes, so the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n### Step 1: Recurrence for \\(a_n\\)\nClassify valid strings of length \\(n\\) by their last toss:\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses can be any valid string: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\) (to avoid \\(HH\\)). So the first \\(n-2\\) tosses form any valid string, giving \\(a_{n-2}\\) choices.\n\nThus,\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n### Step 2: Initial values\n- \\(a_1 = 2\\): strings \\(\\{H, T\\}\\)\n- \\(a_2 = 3\\): strings \\(\\{TT, TH, HT\\}\\) (but not \\(HH\\))\n\n### Step 3: Compute up to \\(a_{10}\\)\nUsing \\(a_n=a_{n-1}+a_{n-2}\\):\n\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=5\\\\\na_4&=8\\\\\na_5&=13\\\\\na_6&=21\\\\\na_7&=34\\\\\na_8&=55\\\\\na_9&=89\\\\\na_{10}&=144\n\\end{aligned}\n\\]\n\n### Step 4: Form the probability and reduce\n\\[\nP=\\frac{a_{10}}{2^{10}}=\\frac{144}{1024}.\n\\]\nReduce:\n\\[\n\\gcd(144,1024)=16 \\quad\\Rightarrow\\quad \\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1990-9",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "We count sequences of length \\(10\\) of H/T with **no two consecutive H**.  \nSince the coin is fair, the desired probability is\n\\[\n\\frac{\\#\\{\\text{length-10 sequences with no consecutive H}\\}}{2^{10}}.\n\\]\n\nLet \\(a_n\\) be the number of valid sequences of length \\(n\\).\n\nConsider the last toss:\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\). So the first \\(n-2\\) tosses form a valid sequence, and then we append \\(TH\\): \\(a_{n-2}\\) choices.\n\nThus\n\\[\na_n = a_{n-1}+a_{n-2}.\n\\]\n\nInitial values:\n- \\(a_1=2\\) (H or T)\n- \\(a_2=3\\) (TT, TH, HT; but not HH)\n\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(after dividing numerator and denominator by \\(16\\)).\n\nThus \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "We count sequences of length \\(n=10\\) of H/T with **no two consecutive H**.\n\nLet\n- \\(a_n\\) = number of valid sequences of length \\(n\\).\n- More specifically, let\n  - \\(b_n\\) = number of valid sequences of length \\(n\\) ending in T,\n  - \\(c_n\\) = number of valid sequences of length \\(n\\) ending in H.\n\nThen:\n- If a sequence ends in T, the previous toss can be anything:\n  \\[\n  b_n = a_{n-1}.\n  \\]\n- If a sequence ends in H, the previous toss must be T:\n  \\[\n  c_n = b_{n-1}.\n  \\]\nSo\n\\[\na_n = b_n + c_n = a_{n-1} + b_{n-1} = a_{n-1} + a_{n-2}.\n\\]\nThis is the Fibonacci recurrence.\n\nBase cases:\n- \\(n=1\\): sequences are \\(T, H\\) so \\(a_1=2\\).\n- \\(n=2\\): valid sequences are \\(TT, TH, HT\\) (but not HH), so \\(a_2=3\\).\n\nThus the sequence \\(a_n\\) goes:\n\\[\na_1=2,\\quad a_2=3,\\quad a_3=5,\\quad a_4=8,\\quad a_5=13,\\quad a_6=21,\\quad a_7=34,\\quad a_8=55,\\quad a_9=89,\\quad a_{10}=144.\n\\]\n\nTotal outcomes of 10 coin tosses: \\(2^{10}=1024\\).\n\nSo the desired probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "Let \\(a_n\\) be the number of length-\\(n\\) sequences of H/T with **no two consecutive H’s**.  \nThen the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider the last toss.\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) possibilities.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\). So the first \\(n-2\\) tosses can be any valid sequence: \\(a_{n-2}\\) possibilities.\n\nThus,\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n**Step 2: Initial values.**\n- \\(a_1 = 2\\) (H, T)\n- \\(a_2 = 3\\) (TT, TH, HT)\n\n**Step 3: Compute up to \\(n=10\\).**\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144\n\\end{aligned}\n\\]\n\n**Step 4: Probability and reduction.**\n\\[\n\\text{Probability}=\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since \\(144/1024\\) divide top and bottom by \\(16\\): \\(144/16=9\\), \\(1024/16=64\\)).\n\nSo \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "We model the process with a small state machine.\n\nLet the probability that **no two consecutive tosses are both heads** occur over \\(n\\) tosses.\n\nTrack two types of histories:\n- \\(A_n\\): valid sequences of length \\(n\\) that **end with T**.\n- \\(B_n\\): valid sequences of length \\(n\\) that **end with H**.\n\nThen for valid sequences:\n- To end with \\(T\\): the previous toss can be \\(T\\) or \\(H\\).\n  \\[\n  A_{n+1} = A_n + B_n\n  \\]\n- To end with \\(H\\): the previous toss must be \\(T\\).\n  \\[\n  B_{n+1} = A_n\n  \\]\n\nWe start with \\(n=1\\):\n- \\(A_1\\) counts outcomes ending with \\(T\\): exactly 1 sequence (T).\n- \\(B_1\\) counts outcomes ending with \\(H\\): exactly 1 sequence (H).\nSo as counts (or probabilities multiplied by \\(2^n\\)), we can use:\n\\[\nA_1=1,\\quad B_1=1\n\\]\nand total valid sequences:\n\\[\nS_n = A_n + B_n\n\\]\n\nCompute the recurrence for \\(S_n\\):\n\\[\nS_{n+1} = A_{n+1} + B_{n+1} = (A_n+B_n) + A_n = S_n + A_n\n\\]\nBut also from \\(S_n=A_n+B_n\\) and \\(B_n=A_{n-1}\\), a cleaner way is:\n\\[\nS_{n} = A_n + B_n = (A_{n-1}+B_{n-1}) + A_{n-1} = S_{n-1} + A_{n-1}\n\\]\nInstead, observe directly that the system implies:\n\\[\nA_{n+1} = S_n,\\quad B_{n+1}=A_n\n\\]\nThus\n\\[\nS_{n+1} = A_{n+1}+B_{n+1} = S_n + A_n = S_n + S_{n-1}\n\\]\nbecause \\(A_n = S_{n-1}\\) (since \\(A_n = A_{n-1}+B_{n-1}=S_{n-1}\\)).\nSo:\n\\[\nS_{n+1} = S_n + S_{n-1}\n\\]\nThis is Fibonacci recurrence.\n\nInitial values:\n\\[\nS_1 = A_1+B_1 = 2,\\quad S_2: \\text{valid sequences of length 2 are } TT,TH,HT \\Rightarrow 3\n\\]\nSo \\(S_2=3\\).\n\nTherefore \\(S_n\\) follows:\n\\[\nS_1=2,\\ S_2=3,\\ S_{n}=F_{n+2}\n\\]\n(where \\(F_1=1,F_2=1\\) standard Fibonacci). Check: \\(F_3=2\\Rightarrow S_1=F_3\\), \\(F_4=3\\Rightarrow S_2=F_4\\). Works.\n\nWe need \\(n=10^? \\) actually the problem states \\(10_{}^{ } \\) times, i.e. \\(10^1=10\\) tosses.\n\nSo \\(n=10\\). Then the number of valid sequences is\n\\[\nS_{10} = F_{12}\n\\]\nFibonacci numbers:\n\\[\nF_{10}=55,\\ F_{11}=89,\\ F_{12}=144\n\\]\nTotal possible sequences of length 10: \\(2^{10}=1024\\).\n\nThus probability:\n\\[\n\\frac{144}{1024}=\\frac{9}{64}\n\\]\nSo \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73\n\\]\n\nANSWER: 73",
+          "Let \\(a_n\\) be the number of length-\\(n\\) sequences of H/T with **no two consecutive heads**.  \nThen the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider sequences of length \\(n\\).\n\n- If the last toss is **T**, then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\).\n- If the last toss is **H**, then the \\((n-1)\\)st toss must be **T**. So the first \\(n-2\\) tosses form any valid sequence: \\(a_{n-2}\\).\n\nThus\n\\[\na_n=a_{n-1}+a_{n-2}.\n\\]\n\n**Step 2: Initial values.**\n- \\(a_1=2\\) (H, T)\n- \\(a_2=3\\) (TT, TH, HT; but not HH)\n\nNow compute:\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since \\(144/1024\\) reduces by \\(16\\)).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "We want the probability that in 10 coin tosses, **no two consecutive tosses are both heads**.\n\nLet’s count sequences of length \\(10\\) over \\(\\{H,T\\}\\) with no “HH” as a consecutive substring.\n\nUse a standard recurrence with states:\n\n- Let \\(a_n\\) = number of valid sequences of length \\(n\\) that end in \\(T\\).\n- Let \\(b_n\\) = number of valid sequences of length \\(n\\) that end in \\(H\\).\n\nIf a sequence ends in \\(T\\), the previous symbol can be anything:\n\\[\na_n = a_{n-1} + b_{n-1}.\n\\]\nIf a sequence ends in \\(H\\), then the previous symbol must be \\(T\\) (to avoid HH):\n\\[\nb_n = a_{n-1}.\n\\]\n\nBase case: for \\(n=1\\),\n- \\(a_1=1\\) (sequence: T)\n- \\(b_1=1\\) (sequence: H)\n\nNow compute up to \\(n=10\\):\n\n\\[\n\\begin{aligned}\na_2 &= a_1+b_1 = 2, & b_2 &= a_1 = 1\\\\\na_3 &= a_2+b_2 = 3, & b_3 &= a_2 = 2\\\\\na_4 &= a_3+b_3 = 5, & b_4 &= a_3 = 3\\\\\na_5 &= a_4+b_4 = 8, & b_5 &= a_4 = 5\\\\\na_6 &= a_5+b_5 = 13, & b_6 &= a_5 = 8\\\\\na_7 &= a_6+b_6 = 21, & b_7 &= a_6 = 13\\\\\na_8 &= a_7+b_7 = 34, & b_8 &= a_7 = 21\\\\\na_9 &= a_8+b_8 = 55, & b_9 &= a_8 = 34\\\\\na_{10} &= a_9+b_9 = 89, & b_{10} &= a_9 = 55\n\\end{aligned}\n\\]\n\nTotal valid sequences of length 10:\n\\[\na_{10}+b_{10} = 89+55 = 144.\n\\]\n\nTotal possible sequences: \\(2^{10} = 1024\\).\n\nSo the desired probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since divide numerator and denominator by 16).\n\nThus \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "We count the number of length-10 binary sequences (H/T) with **no two consecutive H’s**. Each such sequence has probability \\((1/2)^{10}\\), so the desired probability is\n\\[\n\\frac{\\#\\{\\text{valid sequences}\\}}{2^{10}}.\n\\]\n\nLet \\(a_n\\) be the number of valid sequences of length \\(n\\).\n\nConsider the last toss:\n- If the last toss is **T**, then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is **H**, then the previous toss (toss \\(n-1\\)) must be **T**, so the first \\(n-2\\) tosses can be any valid sequence: \\(a_{n-2}\\) choices.\n\nThus for \\(n\\ge 2\\),\n\\[\na_n = a_{n-1}+a_{n-2}.\n\\]\n\nInitial values:\n- \\(a_1=2\\) (T or H)\n- \\(a_2=3\\) (TT, TH, HT; but not HH)\n\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(since \\(144/1024\\) reduces by \\(16\\)).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "Let \\(p\\) be the probability that in \\(n=10\\) tosses, heads never occur on consecutive tosses.\n\nModel as a 2-state process:\n- State \\(H\\): last toss is Head.\n- State \\(T\\): last toss is Tail.\n\nLet\n- \\(a_n = P(\\text{valid up to } n \\text{ and } n\\text{-th is T})\\)\n- \\(b_n = P(\\text{valid up to } n \\text{ and } n\\text{-th is H})\\)\n\nRecurrences:\n- To end in \\(T\\) at time \\(n\\): regardless of previous state, we need a Tail:\n\\[\na_n = \\tfrac12(a_{n-1}+b_{n-1})\n\\]\n- To end in \\(H\\) at time \\(n\\): previous must be \\(T\\), then we toss Head:\n\\[\nb_n = \\tfrac12 a_{n-1}\n\\]\n\nInitial conditions at \\(n=1\\):\n- \\(a_1 = P(T)=\\tfrac12\\)\n- \\(b_1 = P(H)=\\tfrac12\\)\n\nWe want \\(p=a_{10}+b_{10}\\).\n\nNow compute iteratively:\n\n\\[\n\\begin{aligned}\na_1&=\\tfrac12,\\quad b_1=\\tfrac12\\\\[4pt]\na_2&=\\tfrac12\\left(\\tfrac12+\\tfrac12\\right)=\\tfrac12,\\quad b_2=\\tfrac12\\cdot\\tfrac12=\\tfrac14\\\\[4pt]\na_3&=\\tfrac12\\left(\\tfrac12+\\tfrac14\\right)=\\tfrac38,\\quad b_3=\\tfrac12\\cdot\\tfrac12=\\tfrac14\\\\[4pt]\na_4&=\\tfrac12\\left(\\tfrac38+\\tfrac14\\right)=\\tfrac{5}{16},\\quad b_4=\\tfrac12\\cdot\\tfrac38=\\tfrac{3}{16}\\\\[4pt]\na_5&=\\tfrac12\\left(\\tfrac{5}{16}+\\tfrac{3}{16}\\right)=\\tfrac14,\\quad b_5=\\tfrac12\\cdot\\tfrac{5}{16}=\\tfrac{5}{32}\\\\[4pt]\na_6&=\\tfrac12\\left(\\tfrac14+\\tfrac{5}{32}\\right)=\\tfrac{13}{64},\\quad b_6=\\tfrac12\\cdot\\tfrac14=\\tfrac18=\\tfrac{8}{64}\\\\[4pt]\na_7&=\\tfrac12\\left(\\tfrac{13}{64}+\\tfrac{8}{64}\\right)=\\tfrac{21}{128},\\quad b_7=\\tfrac12\\cdot\\tfrac{13}{64}=\\tfrac{13}{128}\\\\[4pt]\na_8&=\\tfrac12\\left(\\tfrac{21}{128}+\\tfrac{13}{128}\\right)=\\tfrac{17}{128},\\quad b_8=\\tfrac12\\cdot\\tfrac{21}{128}=\\tfrac{21}{256}\\\\[4pt]\na_9&=\\tfrac12\\left(\\tfrac{17}{128}+\\tfrac{21}{256}\\right)=\\tfrac{55}{512},\\quad b_9=\\tfrac12\\cdot\\tfrac{17}{128}=\\tfrac{17}{256}\\\\[4pt]\na_{10}&=\\tfrac12\\left(\\tfrac{55}{512}+\\tfrac{17}{256}\\right)=\\tfrac{89}{1024},\\quad b_{10}=\\tfrac12\\cdot\\tfrac{55}{512}=\\tfrac{55}{1024}\n\\end{aligned}\n\\]\n\nTherefore\n\\[\np=a_{10}+b_{10}=\\frac{89}{1024}+\\frac{55}{1024}=\\frac{144}{1024}=\\frac{9}{64}.\n\\]\n\nSo \\(i/j = 9/64\\), and \\(i+j=9+64=73\\).\n\nANSWER: 73",
+          "Let \\(p_n\\) be the probability that in \\(n\\) tosses, heads never occur on consecutive tosses.\n\nConsider the last toss:\n- Let \\(A_n\\) = number of length-\\(n\\) binary strings with no consecutive heads that end in **H**.\n- Let \\(B_n\\) = number that end in **T**.\n\nThen:\n- To end in H, the previous toss must be T, so \\(A_n = B_{n-1}\\).\n- To end in T, the previous toss can be H or T, so \\(B_n = A_{n-1}+B_{n-1}\\).\n\nThus the total number \\(S_n = A_n + B_n\\) satisfies\n\\[\nS_n = (B_{n-1}) + (A_{n-1}+B_{n-1}) = A_{n-1}+2B_{n-1}.\n\\]\nBut it’s easier to combine directly into a Fibonacci recurrence:\nSince \\(S_{n}=A_n+B_n = B_{n-1}+(A_{n-1}+B_{n-1})=A_{n-1}+2B_{n-1}\\), and also one can show\n\\[\nS_n = S_{n-1}+S_{n-2}.\n\\]\nInitial values:\n- For \\(n=1\\): strings are H, T \\(\\Rightarrow S_1=2\\).\n- For \\(n=2\\): allowed strings are HT, TH, TT \\(\\Rightarrow S_2=3\\).\n\nSo \\(S_n\\) follows Fibonacci:\n\\[\nS_1=2,\\quad S_2=3,\\quad S_n=S_{n-1}+S_{n-2}.\n\\]\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\nS_3&=S_2+S_1=3+2=5\\\\\nS_4&=5+3=8\\\\\nS_5&=8+5=13\\\\\nS_6&=13+8=21\\\\\nS_7&=21+13=34\\\\\nS_8&=34+21=55\\\\\nS_9&=55+34=89\\\\\nS_{10}&=89+55=144.\n\\end{aligned}\n\\]\nThere are \\(2^{10}=1024\\) equally likely outcomes, so\n\\[\np_{10}=\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+          "Let \\(a_n\\) be the number of binary strings of length \\(n\\) with **no consecutive heads** (i.e., no substring \\(HH\\)).  \nEach such string has probability \\((1/2)^n\\), and there are \\(2^n\\) total outcomes, so the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n### Step 1: Recurrence for \\(a_n\\)\nClassify valid strings of length \\(n\\) by their last toss:\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses can be any valid string: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\) (to avoid \\(HH\\)). So the first \\(n-2\\) tosses form any valid string, giving \\(a_{n-2}\\) choices.\n\nThus,\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n### Step 2: Initial values\n- \\(a_1 = 2\\): strings \\(\\{H, T\\}\\)\n- \\(a_2 = 3\\): strings \\(\\{TT, TH, HT\\}\\) (but not \\(HH\\))\n\n### Step 3: Compute up to \\(a_{10}\\)\nUsing \\(a_n=a_{n-1}+a_{n-2}\\):\n\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=5\\\\\na_4&=8\\\\\na_5&=13\\\\\na_6&=21\\\\\na_7&=34\\\\\na_8&=55\\\\\na_9&=89\\\\\na_{10}&=144\n\\end{aligned}\n\\]\n\n### Step 4: Form the probability and reduce\n\\[\nP=\\frac{a_{10}}{2^{10}}=\\frac{144}{1024}.\n\\]\nReduce:\n\\[\n\\gcd(144,1024)=16 \\quad\\Rightarrow\\quad \\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nA fair coin is to be tossed $10_{}^{}$ times. Let $i/j^{}_{}$ , in lowest terms, be the probability that heads never occur on consecutive tosses. Find $i+j_{}^{}$ ."
+      },
+      "baseline_solutions": [
+        "Let the coin be tossed 10 times. We want the probability that there is **no** occurrence of consecutive heads anywhere.\n\nCount favorable sequences of H/T of length 10 with no “HH” substring.\n\n### Step 1: Fibonacci counting\nLet:\n- \\(a_n\\) = number of valid sequences of length \\(n\\) with no consecutive heads.\n\nConsider the first toss:\n- If it is **T**, the remaining \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\).\n- If it is **H**, then the next toss must be **T** to avoid “HH”. The remaining \\(n-2\\) tosses form a valid sequence: \\(a_{n-2}\\).\n\nSo for \\(n\\ge 2\\),\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n### Step 2: Base cases\n- \\(a_1 = 2\\): sequences {T, H}\n- \\(a_2 = 3\\): sequences {TT, TH, HT} (but not HH)\n\nCompute up to \\(a_{10}\\):\n\\[\n\\begin{aligned}\na_3 &= a_2+a_1 = 3+2=5\\\\\na_4 &= 5+3=8\\\\\na_5 &= 8+5=13\\\\\na_6 &= 13+8=21\\\\\na_7 &= 21+13=34\\\\\na_8 &= 34+21=55\\\\\na_9 &= 55+34=89\\\\\na_{10} &= 89+55=144.\n\\end{aligned}\n\\]\n\nSo there are \\(144\\) favorable sequences out of \\(2^{10}=1024\\) total.\n\n### Step 3: Form the probability in lowest terms\n\\[\n\\text{Probability}=\\frac{144}{1024}.\n\\]\nReduce:\n\\[\n\\gcd(144,1024)=16.\n\\]\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j = 9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) sequences of H/T with no two consecutive H’s. Then the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider valid sequences of length \\(n\\).\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), the previous toss cannot be \\(H\\), so the \\((n-1)\\)-st toss must be \\(T\\). Then the first \\(n-2\\) tosses form any valid sequence: \\(a_{n-2}\\) choices.\n\nSo\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n**Step 2: Initial values.**  \n- \\(a_1=2\\) (H or T)\n- \\(a_2=3\\) (HT, TH, TT) (HH is forbidden)\n\n**Step 3: Compute up to \\(n=10\\).**\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=a_3+a_2=5+3=8\\\\\na_5&=a_4+a_3=8+5=13\\\\\na_6&=a_5+a_4=13+8=21\\\\\na_7&=a_6+a_5=21+13=34\\\\\na_8&=a_7+a_6=34+21=55\\\\\na_9&=a_8+a_7=55+34=89\\\\\na_{10}&=a_9+a_8=89+55=144.\n\\end{aligned}\n\\]\n\n**Step 4: Probability and reduce.**  \n\\[\n\\text{Probability}=\\frac{144}{2^{10}}=\\frac{144}{1024}.\n\\]\nSimplify by dividing numerator and denominator by \\(16\\):\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) binary sequences (H/T outcomes) with **no two consecutive H’s**. Then the desired probability for \\(n=10\\) is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n### Step 1: Recurrence for \\(a_n\\)\nConsider valid sequences of length \\(n\\).\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the \\((n-1)\\)-st toss cannot be \\(H\\), so it must be \\(T\\). Thus we must have a valid sequence of length \\(n-2\\) followed by \\(TH\\): \\(a_{n-2}\\) choices.\n\nSo,\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n### Step 2: Initial conditions\n- \\(a_1=2\\): sequences \\(\\{T,H\\}\\).\n- \\(a_2=3\\): sequences \\(\\{TT,TH,HT\\}\\) (exclude \\(HH\\)).\n\nSo the recurrence is Fibonacci-like.\n\n### Step 3: Compute \\(a_{10}\\)\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\n### Step 4: Form the probability and reduce\nTotal outcomes: \\(2^{10}=1024\\). Favorable outcomes: \\(144\\).\n\\[\n\\text{Probability}=\\frac{144}{1024}.\n\\]\nReduce: \\(\\gcd(144,1024)=16\\).\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We count length-10 binary strings (H/T) with no two consecutive H’s.  \nLet \\(a_n\\) be the number of valid strings of length \\(n\\).\n\nBuild them by the last symbol:\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid string: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the \\((n-1)\\)-th toss must be \\(T\\). So the first \\(n-2\\) tosses form any valid string: \\(a_{n-2}\\) choices.\n\nThus the recurrence is\n\\[\na_n=a_{n-1}+a_{n-2},\n\\]\nwith initial values:\n\\[\na_1=2 \\quad (T,H), \\qquad a_2=3 \\quad (TT,TH,HT).\n\\]\n\nNow compute up to \\(n=10\\):\n\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=5\\\\\na_4&=8\\\\\na_5&=13\\\\\na_6&=21\\\\\na_7&=34\\\\\na_8&=55\\\\\na_9&=89\\\\\na_{10}&=144.\n\\end{aligned}\n\\]\n\nTotal outcomes for 10 tosses: \\(2^{10}=1024\\).  \nSo the probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 tosses, there is never a pair of consecutive heads (i.e., no “HH” occurs).\n\nLet \\(a_n\\) be the number of valid length-\\(n\\) binary sequences (H/T) with no consecutive H’s.\nTotal sequences of length \\(n\\) is \\(2^n\\), so the desired probability is \\(\\dfrac{a_{10}}{2^{10}}\\).\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider valid sequences of length \\(n\\).\n\nLet:\n- \\(x_n\\): number of valid sequences of length \\(n\\) ending with \\(T\\)\n- \\(y_n\\): number of valid sequences of length \\(n\\) ending with \\(H\\)\n\nThen:\n- Any valid sequence ending with \\(T\\) can be formed by appending \\(T\\) to any valid length-\\((n-1)\\) sequence:\n  \\[\n  x_n = x_{n-1}+y_{n-1}=a_{n-1}.\n  \\]\n- To end with \\(H\\), the previous toss must be \\(T\\), so:\n  \\[\n  y_n = x_{n-1}.\n  \\]\nThus\n\\[\na_n=x_n+y_n = a_{n-1}+x_{n-1}.\n\\]\nBut \\(x_{n-1}=a_{n-2}\\) (since \\(x_{n-1}\\) is sequences of length \\(n-1\\) ending with \\(T\\), which comes from any valid length \\(n-2\\) sequence with a \\(T\\) appended). Therefore:\n\\[\na_n=a_{n-1}+a_{n-2}.\n\\]\n\n**Step 2: Initial values.**\n- For \\(n=1\\): sequences \\(T, H\\) are both valid, so \\(a_1=2\\).\n- For \\(n=2\\): valid sequences are \\(TT, TH, HT\\) (but not \\(HH\\)), so \\(a_2=3\\).\n\nThis matches the Fibonacci-like recurrence.\n\n**Step 3: Compute up to \\(n=10\\).**\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=a_3+a_2=5+3=8\\\\\na_5&=a_4+a_3=8+5=13\\\\\na_6&=a_5+a_4=13+8=21\\\\\na_7&=a_6+a_5=21+13=34\\\\\na_8&=a_7+a_6=34+21=55\\\\\na_9&=a_8+a_7=55+34=89\\\\\na_{10}&=a_9+a_8=89+55=144\n\\end{aligned}\n\\]\n\nSo the desired probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}.\n\\]\n\nReduce:\n\\[\n\\frac{144}{1024}=\\frac{144\\div 16}{1024\\div 16}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 tosses, there is **no** pair of consecutive heads.\n\nModel by tracking the last toss:\n- Let \\(a_n\\) be the number of valid sequences of length \\(n\\) that **end with T**.\n- Let \\(b_n\\) be the number of valid sequences of length \\(n\\) that **end with H**.\n\nThen:\n- To end with \\(T\\): append \\(T\\) after anything valid of length \\(n-1\\):\n  \\[\n  a_n = a_{n-1} + b_{n-1}\n  \\]\n- To end with \\(H\\): we must have had a \\(T\\) before it:\n  \\[\n  b_n = a_{n-1}\n  \\]\n\nTotal valid sequences \\(t_n = a_n + b_n\\). Compute a recursion:\n\\[\nt_n = a_n + b_n = (a_{n-1}+b_{n-1}) + a_{n-1} = 2a_{n-1}+b_{n-1}\n\\]\nBut easier is to derive directly for \\(t_n\\):\nSince \\(a_{n-1}=t_{n-2}+?\\) is messy, just compute initial values and iterate.\n\nBase:\n- \\(n=1\\): sequences are \\(T, H\\) both valid.\n  \\[\n  a_1=1,\\quad b_1=1,\\quad t_1=2\n  \\]\n- \\(n=2\\): valid sequences are \\(TT, TH, HT\\) (exclude \\(HH\\)):\n  \\[\n  t_2=3\n  \\]\n\nNow iterate with the \\(a_n,b_n\\) relations:\n- \\(a_2=a_1+b_1=2,\\; b_2=a_1=1\\) (consistent)\n- \\(n=3\\):\n  \\[\n  a_3=a_2+b_2=2+1=3,\\quad b_3=a_2=2,\\quad t_3=5\n  \\]\n- \\(n=4\\):\n  \\[\n  a_4=a_3+b_3=3+2=5,\\quad b_4=a_3=3,\\quad t_4=8\n  \\]\n- \\(n=5\\):\n  \\[\n  a_5= a_4+b_4=5+3=8,\\quad b_5=a_4=5,\\quad t_5=13\n  \\]\nThis is Fibonacci growth: \\(t_n = F_{n+2}\\) with \\(F_1=1,F_2=1\\).\nIndeed:\n\\[\nt_1=2=F_3,\\; t_2=3=F_4,\\; t_3=5=F_5,\\dots\n\\]\n\nSo for \\(n=10\\):\n\\[\nt_{10} = F_{12}\n\\]\nCompute Fibonacci numbers:\n\\[\nF_{10}=55,\\; F_{11}=89,\\; F_{12}=144\n\\]\nThus number of valid sequences is \\(144\\).\n\nTotal sequences of length 10: \\(2^{10}=1024\\).\n\nTherefore the probability is:\n\\[\n\\frac{144}{1024}=\\frac{9}{64}\n\\]\nSo \\(i=9,\\; j=64\\), and:\n\\[\ni+j=9+64=73\n\\]\n\nANSWER: 73",
+        "Let \\(p_n\\) be the probability that in \\(n\\) coin tosses, heads never occur on consecutive tosses.\n\nUse a recurrence by conditioning on the last toss:\n- Let \\(a_n\\) be the probability that the sequence of length \\(n\\) is “good” (no consecutive heads) and ends in \\(T\\).\n- Let \\(b_n\\) be the probability that the sequence is “good” and ends in \\(H\\).\n\nThen \\(p_n=a_n+b_n\\).\n\nTransitions:\n- To end with \\(T\\): regardless of the previous end (\\(T\\) or \\(H\\)), we can toss \\(T\\), probability \\(\\frac12\\).\n  \\[\n  a_{n+1}=\\frac12(a_n+b_n)=\\frac12 p_n.\n  \\]\n- To end with \\(H\\): we must have ended with \\(T\\) at step \\(n\\), then toss \\(H\\) with probability \\(\\frac12\\).\n  \\[\n  b_{n+1}=\\frac12 a_n.\n  \\]\n\nSo\n\\[\np_{n+1}=a_{n+1}+b_{n+1}=\\frac12 p_n+\\frac12 a_n.\n\\]\nBut \\(a_n=\\frac12 p_{n-1}\\) (from \\(a_n=\\frac12 p_{n-1}\\)). Hence\n\\[\np_{n+1}=\\frac12 p_n+\\frac12\\left(\\frac12 p_{n-1}\\right)=\\frac12 p_n+\\frac14 p_{n-1}.\n\\]\n\nInitial conditions:\n- For \\(n=1\\): any single toss is good, so \\(p_1=1\\).\n- For \\(n=2\\): the only bad sequence is \\(HH\\) (probability \\(1/4\\)), so \\(p_2=1-\\frac14=\\frac34\\).\n\nNow compute:\n\\[\np_3=\\frac12 p_2+\\frac14 p_1=\\frac12\\cdot\\frac34+\\frac14\\cdot1=\\frac38+\\frac14=\\frac58.\n\\]\n\\[\np_4=\\frac12 p_3+\\frac14 p_2=\\frac12\\cdot\\frac58+\\frac14\\cdot\\frac34=\\frac{5}{16}+\\frac{3}{16}=\\frac12.\n\\]\nContinuing this recurrence up to \\(n=10\\) yields:\n\\[\np_{10}=\\frac{89}{256}.\n\\]\n\nThus the probability is \\(\\frac{i}{j}=\\frac{89}{256}\\) in lowest terms, so\n\\[\ni+j=89+256=345.\n\\]\n\nANSWER: 345",
+        "We count sequences of length \\(10\\) over \\(\\{H,T\\}\\) with **no two consecutive heads**.\n\nLet \\(a_n\\) be the number of valid sequences of length \\(n\\).\n\nClassify by the last toss:\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses form any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\), so the first \\(n-2\\) tosses form a valid sequence, and then we append \\(TH\\): \\(a_{n-2}\\) choices.\n\nSo the recurrence is:\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\nBase cases:\n- \\(a_1=2\\) ( \\(H,T\\) )\n- \\(a_2=3\\) ( \\(TT,TH,HT\\); but not \\(HH\\) )\n\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nEach toss is independent, so total outcomes: \\(2^{10}=1024\\).\nThus the probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9,\\; j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 coin tosses, no two consecutive tosses are both heads.\n\nThis is a counting problem on all \\(2^{10}\\) equally likely sequences of H/T.\n\nLet’s count the number of valid sequences.\n\nLet \\(a_n\\) = number of valid sequences of length \\(n\\) that end in T (so last toss is T).  \nLet \\(b_n\\) = number of valid sequences of length \\(n\\) that end in H (so last toss is H).\n\nRecurrences:\n- If a valid sequence of length \\(n-1\\) ends in T, we may append T or H:\n  - Appending T keeps us in T: \\(a_n\\) gets contributions from \\(a_{n-1}\\) (T after T).\n  - Appending H gives a sequence ending in H: \\(b_n\\) gets contributions from \\(a_{n-1}\\) (H after T).\n- If a valid sequence of length \\(n-1\\) ends in H, we cannot append H (since HH is forbidden), so we must append T:\n  - \\(a_n\\) gets contributions from \\(b_{n-1}\\) (T after H).\n  - \\(b_n\\) gets none from \\(b_{n-1}\\).\n\nSo:\n\\[\na_n = a_{n-1}+b_{n-1},\\quad b_n = a_{n-1}.\n\\]\nTotal valid sequences \\(t_n=a_n+b_n\\). Then:\n\\[\nt_n = (a_{n-1}+b_{n-1}) + a_{n-1} = 2a_{n-1}+b_{n-1}.\n\\]\nBut it’s easier to compute directly with the recurrences.\n\nBase case \\(n=1\\):\n- Sequences: T, H are both valid.\n\\[\na_1=1,\\quad b_1=1,\\quad t_1=2.\n\\]\n\nNow iterate up to \\(n=10\\):\n\n\\[\n\\begin{array}{c|c|c|c}\nn & a_n & b_n & t_n=a_n+b_n\\\\ \\hline\n1 & 1 & 1 & 2\\\\\n2 & a_1+b_1=2 & a_1=1 & 3\\\\\n3 & a_2+b_2=3 & a_2=2 & 5\\\\\n4 & a_3+b_3=5 & a_3=3 & 8\\\\\n5 & a_4+b_4=8 & a_4=5 & 13\\\\\n6 & a_5+b_5=13 & a_5=8 & 21\\\\\n7 & a_6+b_6=21 & a_6=13 & 34\\\\\n8 & a_7+b_7=34 & a_7=21 & 55\\\\\n9 & a_8+b_8=55 & a_8=34 & 89\\\\\n10 & a_9+b_9=89 & a_9=55 & 144\n\\end{array}\n\\]\n\nSo the number of valid sequences of length 10 is \\(t_{10}=144\\).\n\nTherefore the desired probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\nsince \\(144/16=9\\) and \\(1024/16=64\\).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) binary strings (H/T) with **no consecutive H’s**. Then the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\nWe compute \\(a_n\\) by recursion.\n\nSplit strings of length \\(n\\) by their last toss:\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid string: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\). So the last two tosses must be \\(TH\\), and the first \\(n-2\\) tosses can be any valid string: \\(a_{n-2}\\) choices.\n\nThus,\n\\[\na_n = a_{n-1}+a_{n-2}.\n\\]\n\nInitial values:\n- \\(a_1=2\\) (H, T).\n- \\(a_2=3\\) (TT, TH, HT).\n\nNow compute:\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5,\\\\\na_4&=a_3+a_2=5+3=8,\\\\\na_5&=a_4+a_3=8+5=13,\\\\\na_6&=a_5+a_4=13+8=21,\\\\\na_7&=a_6+a_5=21+13=34,\\\\\na_8&=a_7+a_6=34+21=55,\\\\\na_9&=a_8+a_7=55+34=89,\\\\\na_{10}&=a_9+a_8=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(after dividing numerator and denominator by \\(16\\)).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1990-9",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 6,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "73",
+            "answer_line": "ANSWER: 345",
+            "answer_fragment": "345",
+            "extracted": "345"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Let the coin be tossed 10 times. We want the probability that there is **no** occurrence of consecutive heads anywhere.\n\nCount favorable sequences of H/T of length 10 with no “HH” substring.\n\n### Step 1: Fibonacci counting\nLet:\n- \\(a_n\\) = number of valid sequences of length \\(n\\) with no consecutive heads.\n\nConsider the first toss:\n- If it is **T**, the remaining \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\).\n- If it is **H**, then the next toss must be **T** to avoid “HH”. The remaining \\(n-2\\) tosses form a valid sequence: \\(a_{n-2}\\).\n\nSo for \\(n\\ge 2\\),\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n### Step 2: Base cases\n- \\(a_1 = 2\\): sequences {T, H}\n- \\(a_2 = 3\\): sequences {TT, TH, HT} (but not HH)\n\nCompute up to \\(a_{10}\\):\n\\[\n\\begin{aligned}\na_3 &= a_2+a_1 = 3+2=5\\\\\na_4 &= 5+3=8\\\\\na_5 &= 8+5=13\\\\\na_6 &= 13+8=21\\\\\na_7 &= 21+13=34\\\\\na_8 &= 34+21=55\\\\\na_9 &= 55+34=89\\\\\na_{10} &= 89+55=144.\n\\end{aligned}\n\\]\n\nSo there are \\(144\\) favorable sequences out of \\(2^{10}=1024\\) total.\n\n### Step 3: Form the probability in lowest terms\n\\[\n\\text{Probability}=\\frac{144}{1024}.\n\\]\nReduce:\n\\[\n\\gcd(144,1024)=16.\n\\]\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j = 9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) sequences of H/T with no two consecutive H’s. Then the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider valid sequences of length \\(n\\).\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), the previous toss cannot be \\(H\\), so the \\((n-1)\\)-st toss must be \\(T\\). Then the first \\(n-2\\) tosses form any valid sequence: \\(a_{n-2}\\) choices.\n\nSo\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n**Step 2: Initial values.**  \n- \\(a_1=2\\) (H or T)\n- \\(a_2=3\\) (HT, TH, TT) (HH is forbidden)\n\n**Step 3: Compute up to \\(n=10\\).**\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=a_3+a_2=5+3=8\\\\\na_5&=a_4+a_3=8+5=13\\\\\na_6&=a_5+a_4=13+8=21\\\\\na_7&=a_6+a_5=21+13=34\\\\\na_8&=a_7+a_6=34+21=55\\\\\na_9&=a_8+a_7=55+34=89\\\\\na_{10}&=a_9+a_8=89+55=144.\n\\end{aligned}\n\\]\n\n**Step 4: Probability and reduce.**  \n\\[\n\\text{Probability}=\\frac{144}{2^{10}}=\\frac{144}{1024}.\n\\]\nSimplify by dividing numerator and denominator by \\(16\\):\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9,\\ j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) binary sequences (H/T outcomes) with **no two consecutive H’s**. Then the desired probability for \\(n=10\\) is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\n\n### Step 1: Recurrence for \\(a_n\\)\nConsider valid sequences of length \\(n\\).\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses can be any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the \\((n-1)\\)-st toss cannot be \\(H\\), so it must be \\(T\\). Thus we must have a valid sequence of length \\(n-2\\) followed by \\(TH\\): \\(a_{n-2}\\) choices.\n\nSo,\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\n\n### Step 2: Initial conditions\n- \\(a_1=2\\): sequences \\(\\{T,H\\}\\).\n- \\(a_2=3\\): sequences \\(\\{TT,TH,HT\\}\\) (exclude \\(HH\\)).\n\nSo the recurrence is Fibonacci-like.\n\n### Step 3: Compute \\(a_{10}\\)\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\n### Step 4: Form the probability and reduce\nTotal outcomes: \\(2^{10}=1024\\). Favorable outcomes: \\(144\\).\n\\[\n\\text{Probability}=\\frac{144}{1024}.\n\\]\nReduce: \\(\\gcd(144,1024)=16\\).\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We count length-10 binary strings (H/T) with no two consecutive H’s.  \nLet \\(a_n\\) be the number of valid strings of length \\(n\\).\n\nBuild them by the last symbol:\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid string: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the \\((n-1)\\)-th toss must be \\(T\\). So the first \\(n-2\\) tosses form any valid string: \\(a_{n-2}\\) choices.\n\nThus the recurrence is\n\\[\na_n=a_{n-1}+a_{n-2},\n\\]\nwith initial values:\n\\[\na_1=2 \\quad (T,H), \\qquad a_2=3 \\quad (TT,TH,HT).\n\\]\n\nNow compute up to \\(n=10\\):\n\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=5\\\\\na_4&=8\\\\\na_5&=13\\\\\na_6&=21\\\\\na_7&=34\\\\\na_8&=55\\\\\na_9&=89\\\\\na_{10}&=144.\n\\end{aligned}\n\\]\n\nTotal outcomes for 10 tosses: \\(2^{10}=1024\\).  \nSo the probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 tosses, there is never a pair of consecutive heads (i.e., no “HH” occurs).\n\nLet \\(a_n\\) be the number of valid length-\\(n\\) binary sequences (H/T) with no consecutive H’s.\nTotal sequences of length \\(n\\) is \\(2^n\\), so the desired probability is \\(\\dfrac{a_{10}}{2^{10}}\\).\n\n**Step 1: Recurrence for \\(a_n\\).**  \nConsider valid sequences of length \\(n\\).\n\nLet:\n- \\(x_n\\): number of valid sequences of length \\(n\\) ending with \\(T\\)\n- \\(y_n\\): number of valid sequences of length \\(n\\) ending with \\(H\\)\n\nThen:\n- Any valid sequence ending with \\(T\\) can be formed by appending \\(T\\) to any valid length-\\((n-1)\\) sequence:\n  \\[\n  x_n = x_{n-1}+y_{n-1}=a_{n-1}.\n  \\]\n- To end with \\(H\\), the previous toss must be \\(T\\), so:\n  \\[\n  y_n = x_{n-1}.\n  \\]\nThus\n\\[\na_n=x_n+y_n = a_{n-1}+x_{n-1}.\n\\]\nBut \\(x_{n-1}=a_{n-2}\\) (since \\(x_{n-1}\\) is sequences of length \\(n-1\\) ending with \\(T\\), which comes from any valid length \\(n-2\\) sequence with a \\(T\\) appended). Therefore:\n\\[\na_n=a_{n-1}+a_{n-2}.\n\\]\n\n**Step 2: Initial values.**\n- For \\(n=1\\): sequences \\(T, H\\) are both valid, so \\(a_1=2\\).\n- For \\(n=2\\): valid sequences are \\(TT, TH, HT\\) (but not \\(HH\\)), so \\(a_2=3\\).\n\nThis matches the Fibonacci-like recurrence.\n\n**Step 3: Compute up to \\(n=10\\).**\n\\[\n\\begin{aligned}\na_1&=2\\\\\na_2&=3\\\\\na_3&=a_2+a_1=3+2=5\\\\\na_4&=a_3+a_2=5+3=8\\\\\na_5&=a_4+a_3=8+5=13\\\\\na_6&=a_5+a_4=13+8=21\\\\\na_7&=a_6+a_5=21+13=34\\\\\na_8&=a_7+a_6=34+21=55\\\\\na_9&=a_8+a_7=55+34=89\\\\\na_{10}&=a_9+a_8=89+55=144\n\\end{aligned}\n\\]\n\nSo the desired probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}.\n\\]\n\nReduce:\n\\[\n\\frac{144}{1024}=\\frac{144\\div 16}{1024\\div 16}=\\frac{9}{64}.\n\\]\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 tosses, there is **no** pair of consecutive heads.\n\nModel by tracking the last toss:\n- Let \\(a_n\\) be the number of valid sequences of length \\(n\\) that **end with T**.\n- Let \\(b_n\\) be the number of valid sequences of length \\(n\\) that **end with H**.\n\nThen:\n- To end with \\(T\\): append \\(T\\) after anything valid of length \\(n-1\\):\n  \\[\n  a_n = a_{n-1} + b_{n-1}\n  \\]\n- To end with \\(H\\): we must have had a \\(T\\) before it:\n  \\[\n  b_n = a_{n-1}\n  \\]\n\nTotal valid sequences \\(t_n = a_n + b_n\\). Compute a recursion:\n\\[\nt_n = a_n + b_n = (a_{n-1}+b_{n-1}) + a_{n-1} = 2a_{n-1}+b_{n-1}\n\\]\nBut easier is to derive directly for \\(t_n\\):\nSince \\(a_{n-1}=t_{n-2}+?\\) is messy, just compute initial values and iterate.\n\nBase:\n- \\(n=1\\): sequences are \\(T, H\\) both valid.\n  \\[\n  a_1=1,\\quad b_1=1,\\quad t_1=2\n  \\]\n- \\(n=2\\): valid sequences are \\(TT, TH, HT\\) (exclude \\(HH\\)):\n  \\[\n  t_2=3\n  \\]\n\nNow iterate with the \\(a_n,b_n\\) relations:\n- \\(a_2=a_1+b_1=2,\\; b_2=a_1=1\\) (consistent)\n- \\(n=3\\):\n  \\[\n  a_3=a_2+b_2=2+1=3,\\quad b_3=a_2=2,\\quad t_3=5\n  \\]\n- \\(n=4\\):\n  \\[\n  a_4=a_3+b_3=3+2=5,\\quad b_4=a_3=3,\\quad t_4=8\n  \\]\n- \\(n=5\\):\n  \\[\n  a_5= a_4+b_4=5+3=8,\\quad b_5=a_4=5,\\quad t_5=13\n  \\]\nThis is Fibonacci growth: \\(t_n = F_{n+2}\\) with \\(F_1=1,F_2=1\\).\nIndeed:\n\\[\nt_1=2=F_3,\\; t_2=3=F_4,\\; t_3=5=F_5,\\dots\n\\]\n\nSo for \\(n=10\\):\n\\[\nt_{10} = F_{12}\n\\]\nCompute Fibonacci numbers:\n\\[\nF_{10}=55,\\; F_{11}=89,\\; F_{12}=144\n\\]\nThus number of valid sequences is \\(144\\).\n\nTotal sequences of length 10: \\(2^{10}=1024\\).\n\nTherefore the probability is:\n\\[\n\\frac{144}{1024}=\\frac{9}{64}\n\\]\nSo \\(i=9,\\; j=64\\), and:\n\\[\ni+j=9+64=73\n\\]\n\nANSWER: 73",
+        "Let \\(p_n\\) be the probability that in \\(n\\) coin tosses, heads never occur on consecutive tosses.\n\nUse a recurrence by conditioning on the last toss:\n- Let \\(a_n\\) be the probability that the sequence of length \\(n\\) is “good” (no consecutive heads) and ends in \\(T\\).\n- Let \\(b_n\\) be the probability that the sequence is “good” and ends in \\(H\\).\n\nThen \\(p_n=a_n+b_n\\).\n\nTransitions:\n- To end with \\(T\\): regardless of the previous end (\\(T\\) or \\(H\\)), we can toss \\(T\\), probability \\(\\frac12\\).\n  \\[\n  a_{n+1}=\\frac12(a_n+b_n)=\\frac12 p_n.\n  \\]\n- To end with \\(H\\): we must have ended with \\(T\\) at step \\(n\\), then toss \\(H\\) with probability \\(\\frac12\\).\n  \\[\n  b_{n+1}=\\frac12 a_n.\n  \\]\n\nSo\n\\[\np_{n+1}=a_{n+1}+b_{n+1}=\\frac12 p_n+\\frac12 a_n.\n\\]\nBut \\(a_n=\\frac12 p_{n-1}\\) (from \\(a_n=\\frac12 p_{n-1}\\)). Hence\n\\[\np_{n+1}=\\frac12 p_n+\\frac12\\left(\\frac12 p_{n-1}\\right)=\\frac12 p_n+\\frac14 p_{n-1}.\n\\]\n\nInitial conditions:\n- For \\(n=1\\): any single toss is good, so \\(p_1=1\\).\n- For \\(n=2\\): the only bad sequence is \\(HH\\) (probability \\(1/4\\)), so \\(p_2=1-\\frac14=\\frac34\\).\n\nNow compute:\n\\[\np_3=\\frac12 p_2+\\frac14 p_1=\\frac12\\cdot\\frac34+\\frac14\\cdot1=\\frac38+\\frac14=\\frac58.\n\\]\n\\[\np_4=\\frac12 p_3+\\frac14 p_2=\\frac12\\cdot\\frac58+\\frac14\\cdot\\frac34=\\frac{5}{16}+\\frac{3}{16}=\\frac12.\n\\]\nContinuing this recurrence up to \\(n=10\\) yields:\n\\[\np_{10}=\\frac{89}{256}.\n\\]\n\nThus the probability is \\(\\frac{i}{j}=\\frac{89}{256}\\) in lowest terms, so\n\\[\ni+j=89+256=345.\n\\]\n\nANSWER: 345",
+        "We count sequences of length \\(10\\) over \\(\\{H,T\\}\\) with **no two consecutive heads**.\n\nLet \\(a_n\\) be the number of valid sequences of length \\(n\\).\n\nClassify by the last toss:\n\n- If the last toss is \\(T\\), then the first \\(n-1\\) tosses form any valid sequence: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\), so the first \\(n-2\\) tosses form a valid sequence, and then we append \\(TH\\): \\(a_{n-2}\\) choices.\n\nSo the recurrence is:\n\\[\na_n = a_{n-1} + a_{n-2}.\n\\]\nBase cases:\n- \\(a_1=2\\) ( \\(H,T\\) )\n- \\(a_2=3\\) ( \\(TT,TH,HT\\); but not \\(HH\\) )\n\nCompute up to \\(n=10\\):\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5\\\\\na_4&=5+3=8\\\\\na_5&=8+5=13\\\\\na_6&=13+8=21\\\\\na_7&=21+13=34\\\\\na_8&=34+21=55\\\\\na_9&=55+34=89\\\\\na_{10}&=89+55=144.\n\\end{aligned}\n\\]\n\nEach toss is independent, so total outcomes: \\(2^{10}=1024\\).\nThus the probability is\n\\[\n\\frac{144}{1024}=\\frac{9}{64}.\n\\]\nSo \\(i=9,\\; j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "We want the probability that in 10 coin tosses, no two consecutive tosses are both heads.\n\nThis is a counting problem on all \\(2^{10}\\) equally likely sequences of H/T.\n\nLet’s count the number of valid sequences.\n\nLet \\(a_n\\) = number of valid sequences of length \\(n\\) that end in T (so last toss is T).  \nLet \\(b_n\\) = number of valid sequences of length \\(n\\) that end in H (so last toss is H).\n\nRecurrences:\n- If a valid sequence of length \\(n-1\\) ends in T, we may append T or H:\n  - Appending T keeps us in T: \\(a_n\\) gets contributions from \\(a_{n-1}\\) (T after T).\n  - Appending H gives a sequence ending in H: \\(b_n\\) gets contributions from \\(a_{n-1}\\) (H after T).\n- If a valid sequence of length \\(n-1\\) ends in H, we cannot append H (since HH is forbidden), so we must append T:\n  - \\(a_n\\) gets contributions from \\(b_{n-1}\\) (T after H).\n  - \\(b_n\\) gets none from \\(b_{n-1}\\).\n\nSo:\n\\[\na_n = a_{n-1}+b_{n-1},\\quad b_n = a_{n-1}.\n\\]\nTotal valid sequences \\(t_n=a_n+b_n\\). Then:\n\\[\nt_n = (a_{n-1}+b_{n-1}) + a_{n-1} = 2a_{n-1}+b_{n-1}.\n\\]\nBut it’s easier to compute directly with the recurrences.\n\nBase case \\(n=1\\):\n- Sequences: T, H are both valid.\n\\[\na_1=1,\\quad b_1=1,\\quad t_1=2.\n\\]\n\nNow iterate up to \\(n=10\\):\n\n\\[\n\\begin{array}{c|c|c|c}\nn & a_n & b_n & t_n=a_n+b_n\\\\ \\hline\n1 & 1 & 1 & 2\\\\\n2 & a_1+b_1=2 & a_1=1 & 3\\\\\n3 & a_2+b_2=3 & a_2=2 & 5\\\\\n4 & a_3+b_3=5 & a_3=3 & 8\\\\\n5 & a_4+b_4=8 & a_4=5 & 13\\\\\n6 & a_5+b_5=13 & a_5=8 & 21\\\\\n7 & a_6+b_6=21 & a_6=13 & 34\\\\\n8 & a_7+b_7=34 & a_7=21 & 55\\\\\n9 & a_8+b_8=55 & a_8=34 & 89\\\\\n10 & a_9+b_9=89 & a_9=55 & 144\n\\end{array}\n\\]\n\nSo the number of valid sequences of length 10 is \\(t_{10}=144\\).\n\nTherefore the desired probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\nsince \\(144/16=9\\) and \\(1024/16=64\\).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73",
+        "Let \\(a_n\\) be the number of length-\\(n\\) binary strings (H/T) with **no consecutive H’s**. Then the desired probability is\n\\[\n\\frac{a_{10}}{2^{10}}.\n\\]\nWe compute \\(a_n\\) by recursion.\n\nSplit strings of length \\(n\\) by their last toss:\n\n- If the last toss is \\(T\\), the first \\(n-1\\) tosses can be any valid string: \\(a_{n-1}\\) choices.\n- If the last toss is \\(H\\), then the previous toss must be \\(T\\). So the last two tosses must be \\(TH\\), and the first \\(n-2\\) tosses can be any valid string: \\(a_{n-2}\\) choices.\n\nThus,\n\\[\na_n = a_{n-1}+a_{n-2}.\n\\]\n\nInitial values:\n- \\(a_1=2\\) (H, T).\n- \\(a_2=3\\) (TT, TH, HT).\n\nNow compute:\n\\[\n\\begin{aligned}\na_3&=a_2+a_1=3+2=5,\\\\\na_4&=a_3+a_2=5+3=8,\\\\\na_5&=a_4+a_3=8+5=13,\\\\\na_6&=a_5+a_4=13+8=21,\\\\\na_7&=a_6+a_5=21+13=34,\\\\\na_8&=a_7+a_6=34+21=55,\\\\\na_9&=a_8+a_7=55+34=89,\\\\\na_{10}&=a_9+a_8=89+55=144.\n\\end{aligned}\n\\]\n\nSo the probability is\n\\[\n\\frac{144}{2^{10}}=\\frac{144}{1024}=\\frac{9}{64}\n\\]\n(after dividing numerator and denominator by \\(16\\)).\n\nThus \\(i=9\\), \\(j=64\\), and\n\\[\ni+j=9+64=73.\n\\]\n\nANSWER: 73"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1990-9",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 6,
+          "score": 0.0,
+          "tier": "incorrect",
+          "details": {
+            "reason": "value_mismatch",
+            "expected": "73",
+            "answer_line": "ANSWER: 345",
+            "answer_fragment": "345",
+            "extracted": "345"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        },
+        {
+          "problem_id": "1990-9",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "73",
+            "answer_line": "ANSWER: 73",
+            "answer_fragment": "73",
+            "extracted": "73"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 0.9,
+      "augmented_pass_rate": 0.9,
+      "improvement": 0.0
+    }
+  }
+}

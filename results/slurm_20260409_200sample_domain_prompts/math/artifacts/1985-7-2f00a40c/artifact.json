@@ -1,0 +1,488 @@
+{
+  "problem_id": "1985-7",
+  "domain": "math",
+  "problem": {
+    "id": "1985-7",
+    "domain": "math",
+    "statement": "Assume that $a$ , $b$ , $c$ and $d$ are positive integers such that $a^5 = b^4$ , $c^3 = d^2$ and $c - a = 19$ . Determine $d - b$ .",
+    "answer": "757",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1985,
+      "problem_number": 7
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nAssume that $a$ , $b$ , $c$ and $d$ are positive integers such that $a^5 = b^4$ , $c^3 = d^2$ and $c - a = 19$ . Determine $d - b$ .",
+      "solutions": [
+        "Since \\(a^5=b^4\\) with positive integers, prime-exponent comparison implies that exponents must match in lowest terms.\n\n### 1) Solve \\(a^5=b^4\\)\nLet the prime factorization of \\(a\\) be \\(a=\\prod p^{\\alpha_p}\\). Then\n\\[\na^5=\\prod p^{5\\alpha_p},\\qquad b^4=\\prod p^{4\\beta_p}.\n\\]\nEquality forces \\(5\\alpha_p=4\\beta_p\\) for each \\(p\\). Thus \\(\\alpha_p\\) must be a multiple of 4 and \\(\\beta_p\\) a multiple of 5:\n\\[\n\\alpha_p=4k_p,\\ \\beta_p=5k_p.\n\\]\nSo \\(a\\) is a 4th power and \\(b\\) is a 5th power. Write\n\\[\na=t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\n### 2) Solve \\(c^3=d^2\\)\nSimilarly, from \\(c^3=d^2\\), exponent comparison gives\n\\[\nc=u^2,\\quad d=u^3\n\\]\nfor some positive integer \\(u\\).\n\n### 3) Use \\(c-a=19\\)\nSubstitute \\(c=u^2\\) and \\(a=t^4\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nRewrite:\n\\[\nu^2 - (t^2)^2 = 19\n\\]\nLet \\(x=t^2\\). Then\n\\[\nu^2 - x^2 = 19 \\implies (u-x)(u+x)=19.\n\\]\nSince \\(19\\) is prime and \\(u>x>0\\), the only positive factorization is\n\\[\nu-x=1,\\quad u+x=19.\n\\]\nAdd the equations:\n\\[\n2u=20 \\implies u=10,\\qquad x=9.\n\\]\nThus\n\\[\nt^2=x=9 \\implies t=3.\n\\]\n\n### 4) Compute \\(d-b\\)\nWe have\n\\[\nd=u^3=10^3=1000,\\qquad b=t^5=3^5=243.\n\\]\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime exponents must match.\n\n### Step 1: Relate \\(a\\) and \\(b\\)\nWrite\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p=4\\beta_p.\n\\]\nSo \\(\\alpha_p\\) must be a multiple of \\(4\\), and \\(\\beta_p\\) a multiple of \\(5\\). Concretely, there is an integer \\(t\\ge1\\) such that\n\\[\na = t^4,\\quad b=t^5.\n\\]\n(Indeed: \\((t^4)^5=t^{20}=(t^5)^4=t^{20}\\).)\n\n### Step 2: Relate \\(c\\) and \\(d\\)\nSimilarly, from \\(c^3=d^2\\), we get\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some integer \\(s\\ge1\\).\n\n### Step 3: Use \\(c-a=19\\)\nWe have\n\\[\nc-a = s^2 - t^4 = 19\n\\]\nso\n\\[\ns^2 = t^4 + 19.\n\\]\nWe need \\(t^4+19\\) to be a perfect square.\n\nLet \\(s^2 - t^4 = 19\\). Factor:\n\\[\ns^2 - t^4 = (s - t^2)(s + t^2)=19.\n\\]\nSince \\(19\\) is prime and all quantities are positive integers, the only factor pairs are\n\\[\ns - t^2 = 1,\\quad s + t^2=19\n\\]\n(or swapped, but \\(s-t^2>0\\)). Solving:\n\\[\n2s = 20 \\implies s=10,\\quad 2t^2=18 \\implies t^2=9 \\implies t=3.\n\\]\n\n### Step 4: Compute \\(d-b\\)\nNow\n\\[\nd = s^3 = 10^3=1000,\\quad b=t^5=3^5=243.\n\\]\nThus\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime-exponent matching implies\n\\[\na = t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\). Similarly, from \\(c^3=d^2\\),\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4+19.\n\\]\nTry \\(t\\) so that \\(t^4+19\\) is a perfect square.\n\nCheck small \\(t\\):\n- \\(t=1:\\ t^4+19=20\\) not a square.\n- \\(t=2:\\ t^4+19=16+19=35\\) not a square.\n- \\(t=3:\\ t^4+19=81+19=100=10^2\\).\n\nSo \\(t=3\\) gives \\(s=10\\).\n\nTherefore:\n\\[\nb=t^5=3^5=243,\\quad d=s^3=10^3=1000.\n\\]\nHence\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime exponents must match.\n\n### 1) Relate \\(a\\) and \\(b\\)\nLet \\(a=\\prod p^{\\alpha_p}\\) and \\(b=\\prod p^{\\beta_p}\\).  \nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p = 4\\beta_p \\quad \\text{for all }p.\n\\]\nSo \\(\\alpha_p\\) must be a multiple of \\(4\\), say \\(\\alpha_p=4k_p\\). Then\n\\[\n\\beta_p=\\frac{5\\alpha_p}{4}=5k_p.\n\\]\nHence there exists a positive integer \\(t\\) such that\n\\[\na=t^4,\\quad b=t^5.\n\\]\n\n### 2) Relate \\(c\\) and \\(d\\)\nSimilarly from \\(c^3=d^2\\), we get\n\\[\n3\\gamma_p = 2\\delta_p \\implies \\gamma_p \\text{ is a multiple of }2.\n\\]\nSo there exists a positive integer \\(s\\) such that\n\\[\nc=s^2,\\quad d=s^3.\n\\]\n\n### 3) Use \\(c-a=19\\)\nGiven \\(c-a=19\\),\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4 + 19.\n\\]\nNote \\(t^4\\) grows quickly; we test small \\(t\\).\n\n- \\(t=1\\): \\(t^4+19=1+19=20\\) not a square.\n- \\(t=2\\): \\(t^4+19=16+19=35\\) not a square.\n- \\(t=3\\): \\(t^4+19=81+19=100=10^2\\) works.\n\nThus\n\\[\ns=10,\\quad t=3.\n\\]\n\n### 4) Compute \\(d-b\\)\n\\[\nd=s^3=10^3=1000,\\quad b=t^5=3^5=243.\n\\]\nSo\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with \\(a,b\\) positive integers, prime-exponent comparison shows the exponents must match in a common multiple.\n\nLet\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen \\(a^5=b^4\\) implies \\(5\\alpha_p=4\\beta_p\\) for each prime \\(p\\). Hence \\(4\\mid 5\\alpha_p\\), so \\(\\alpha_p\\) must be a multiple of \\(4\\), say \\(\\alpha_p=4k_p\\). Then \\(\\beta_p=5k_p\\). Therefore\n\\[\na = t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\nSimilarly, from \\(c^3=d^2\\), we get \\(3\\gamma_p=2\\delta_p\\). Thus \\(\\gamma_p\\) must be a multiple of \\(2\\), say \\(\\gamma_p=2m_p\\), giving \\(\\delta_p=3m_p\\). Hence\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as a difference of squares by factoring \\(s^2-19=t^4\\) is not directly helpful, but note that \\(t^4\\) is a perfect fourth power, so try to express \\(s^2\\) near \\(t^4\\). Let\n\\[\ns^2 = t^4 + 19.\n\\]\nWe need \\(t^4\\) such that \\(t^4+19\\) is a perfect square. Let’s check small \\(t\\):\n\n- \\(t=1\\): \\(t^4+19=1+19=20\\) not a square.\n- \\(t=2\\): \\(16+19=35\\) not a square.\n- \\(t=3\\): \\(81+19=100=10^2\\) works.\n\nSo \\(t=3\\) gives \\(s^2=100\\Rightarrow s=10\\).\n\nThen\n\\[\nb=t^5=3^5=243,\\qquad d=s^3=10^3=1000.\n\\]\nTherefore\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, compare prime exponents.\n\nFrom \\(a^5=b^4\\): for each prime \\(p\\),\n\\[\n5\\alpha_p(a)=4\\alpha_p(b)\\implies \\alpha_p(a)=4t,\\ \\alpha_p(b)=5t\n\\]\nfor some integer \\(t\\ge 0\\). Thus\n\\[\na = k^4,\\quad b = k^5\n\\]\nfor some positive integer \\(k\\).\n\nSimilarly from \\(c^3=d^2\\):\n\\[\n3\\alpha_p(c)=2\\alpha_p(d)\\implies \\alpha_p(c)=2s,\\ \\alpha_p(d)=3s\n\\]\nso\n\\[\nc = m^2,\\quad d = m^3\n\\]\nfor some positive integer \\(m\\).\n\nGiven \\(c-a=19\\), we have\n\\[\nm^2 - k^4 = 19.\n\\]\nRewrite as a difference of squares by factoring:\n\\[\nm^2 - 19 = k^4 \\implies k^2 = \\sqrt{m^2-19}.\n\\]\nA cleaner approach is to note that\n\\[\nm^2 = k^4+19.\n\\]\nTry to express \\(k^4+19\\) as a square. Let’s test small \\(k\\):\n\n- \\(k=1\\): \\(k^4+19=1+19=20\\) not a square.\n- \\(k=2\\): \\(16+19=35\\) not a square.\n- \\(k=3\\): \\(81+19=100=10^2\\). Works!\n\nSo \\(k=3\\), hence\n\\[\na=k^4=3^4=81,\\quad b=k^5=3^5=243.\n\\]\nThen\n\\[\nc=a+19=81+19=100.\n\\]\nSince \\(c=m^2\\), we get \\(m=10\\). Therefore\n\\[\nd=m^3=10^3=1000.\n\\]\nFinally,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime exponents must match.\n\n### 1) From \\(a^5=b^4\\)\nLet \\(a=\\prod p^{\\alpha_p}\\), \\(b=\\prod p^{\\beta_p}\\).  \nThen \\(5\\alpha_p=4\\beta_p\\), so \\(\\alpha_p\\) is a multiple of \\(4\\) and \\(\\beta_p\\) is a multiple of \\(5\\).  \nThus there exists an integer \\(k\\) such that\n\\[\na=k^4,\\qquad b=k^5.\n\\]\n\n### 2) From \\(c^3=d^2\\)\nSimilarly, exponents satisfy \\(3\\gamma_p=2\\delta_p\\), so \\(\\gamma_p\\) is a multiple of \\(2\\) and \\(\\delta_p\\) a multiple of \\(3\\).  \nThus there exists an integer \\(m\\) such that\n\\[\nc=m^2,\\qquad d=m^3.\n\\]\n\n### 3) Use \\(c-a=19\\)\n\\[\nc-a = m^2 - k^4 = 19.\n\\]\nSo\n\\[\nm^2 = k^4+19.\n\\]\nRewrite \\(k^4+19\\) as a square:\n\\[\nk^4+19 = (k^2)^2+19.\n\\]\nLet \\(m=k^2+t\\). Then\n\\[\nm^2 = (k^2+t)^2 = k^4 + 2tk^2 + t^2.\n\\]\nSet equal to \\(k^4+19\\):\n\\[\n2tk^2+t^2=19.\n\\]\nSo \\(t\\) must be a positive divisor of \\(19\\) (since \\(k^2\\ge1\\)). Because \\(19\\) is prime, the possibilities are \\(t=1\\) or \\(t=19\\).\n\n- If \\(t=1\\): \\(2k^2+1=19 \\Rightarrow 2k^2=18 \\Rightarrow k^2=9 \\Rightarrow k=3.\\)\n- If \\(t=19\\): \\(2\\cdot 19\\, k^2 + 19^2 = 19 \\Rightarrow\\) impossible (left side \\(>19\\)).\n\nSo \\(k=3\\). Then\n\\[\na=k^4=3^4=81,\\qquad b=k^5=3^5=243.\n\\]\nAlso\n\\[\nm=k^2+t=9+1=10 \\Rightarrow c=m^2=100,\\qquad d=m^3=1000.\n\\]\n\n### 4) Compute \\(d-b\\)\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with \\(a,b\\in\\mathbb Z_{>0}\\), prime exponents must match. Write\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen \\(a^5=b^4\\) implies \\(5\\alpha_p=4\\beta_p\\) for each prime, so \\(\\alpha_p\\) is a multiple of \\(4\\) and \\(\\beta_p\\) is a multiple of \\(5\\). Thus there exists an integer \\(t>0\\) such that\n\\[\na=t^4,\\qquad b=t^5.\n\\]\n\nSimilarly, \\(c^3=d^2\\) implies \\(3\\gamma_p=2\\delta_p\\) for exponents, so there exists an integer \\(s>0\\) such that\n\\[\nc=s^2,\\qquad d=s^3.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19 \\quad\\Rightarrow\\quad s^2 = t^4+19.\n\\]\nWe need \\(t^4+19\\) to be a perfect square. Try small \\(t\\):\n- \\(t=1:\\ t^4+19=20\\) not a square.\n- \\(t=2:\\ t^4+19=16+19=35\\) not a square.\n- \\(t=3:\\ t^4+19=81+19=100=10^2\\) works.\n\nSo \\(t=3\\), hence\n\\[\na=t^4=3^4=81,\\qquad b=t^5=3^5=243.\n\\]\nAlso\n\\[\ns^2=t^4+19=100 \\Rightarrow s=10,\\qquad c=s^2=100,\\qquad d=s^3=1000.\n\\]\n\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), compare prime-exponent ratios.  \nWrite \\(a=\\prod p^{\\alpha_p}\\), \\(b=\\prod p^{\\beta_p}\\). Then\n\\[\n5\\alpha_p=4\\beta_p \\quad \\Rightarrow\\quad \\alpha_p=4k_p,\\ \\beta_p=5k_p\n\\]\nfor integers \\(k_p\\). Hence \\(a\\) is a perfect \\(4\\)th power and \\(b\\) is a perfect \\(5\\)th power up to the same base: more concretely there exists an integer \\(t\\) such that\n\\[\na=t^4,\\quad b=t^5.\n\\]\nSimilarly, from \\(c^3=d^2\\) we get\n\\[\nc=u^2,\\quad d=u^3\n\\]\nfor some integer \\(u\\).\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares:\n\\[\nu^2 - t^4 = (u-t^2)(u+t^2)=19.\n\\]\nBecause \\(19\\) is prime and both factors are positive integers, the only possibility is\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd these:\n\\[\n2u=20 \\Rightarrow u=10,\n\\]\nthen\n\\[\nu-t^2=1 \\Rightarrow 10-t^2=1 \\Rightarrow t^2=9 \\Rightarrow t=3.\n\\]\nTherefore\n\\[\nb=t^5=3^5=243,\\quad d=u^3=10^3=1000.\n\\]\nSo\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "From \\(a^5=b^4\\), compare prime exponents. For each prime \\(p\\), if \\(a\\) has exponent \\(\\alpha\\), then \\(a^5\\) has exponent \\(5\\alpha\\); similarly \\(b^4\\) has exponent \\(4\\beta\\) where \\(b\\) has exponent \\(\\beta\\). Equality gives\n\\[\n5\\alpha = 4\\beta \\implies \\alpha \\text{ is a multiple of }4,\\ \\beta \\text{ is a multiple of }5.\n\\]\nSo \\(a=t^4,\\ b=t^5\\) for some positive integer \\(t\\).\n\nSimilarly, from \\(c^3=d^2\\), let \\(c=s^2,\\ d=s^3\\) for some positive integer \\(s\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4 + 19.\n\\]\nTry small \\(t\\). Since \\(t^4\\) grows quickly, we check \\(t^4 \\le 19+\\) (next square). Note that \\(t^4+19\\) must be a perfect square.\n\nCompute:\n- \\(t=1\\): \\(t^4+19=1+19=20\\) not a square.\n- \\(t=2\\): \\(16+19=35\\) not a square.\n- \\(t=3\\): \\(81+19=100\\) which is \\(10^2\\). Works.\n\nThus \\(t=3\\), \\(a=t^4=81\\), and \\(s=10\\), \\(c=s^2=100\\).\n\nThen\n\\[\nb=t^5=3^5=243,\\qquad d=s^3=10^3=1000.\n\\]\nSo\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1985-7",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "Since \\(a^5=b^4\\) with positive integers, prime-exponent comparison implies that exponents must match in lowest terms.\n\n### 1) Solve \\(a^5=b^4\\)\nLet the prime factorization of \\(a\\) be \\(a=\\prod p^{\\alpha_p}\\). Then\n\\[\na^5=\\prod p^{5\\alpha_p},\\qquad b^4=\\prod p^{4\\beta_p}.\n\\]\nEquality forces \\(5\\alpha_p=4\\beta_p\\) for each \\(p\\). Thus \\(\\alpha_p\\) must be a multiple of 4 and \\(\\beta_p\\) a multiple of 5:\n\\[\n\\alpha_p=4k_p,\\ \\beta_p=5k_p.\n\\]\nSo \\(a\\) is a 4th power and \\(b\\) is a 5th power. Write\n\\[\na=t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\n### 2) Solve \\(c^3=d^2\\)\nSimilarly, from \\(c^3=d^2\\), exponent comparison gives\n\\[\nc=u^2,\\quad d=u^3\n\\]\nfor some positive integer \\(u\\).\n\n### 3) Use \\(c-a=19\\)\nSubstitute \\(c=u^2\\) and \\(a=t^4\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nRewrite:\n\\[\nu^2 - (t^2)^2 = 19\n\\]\nLet \\(x=t^2\\). Then\n\\[\nu^2 - x^2 = 19 \\implies (u-x)(u+x)=19.\n\\]\nSince \\(19\\) is prime and \\(u>x>0\\), the only positive factorization is\n\\[\nu-x=1,\\quad u+x=19.\n\\]\nAdd the equations:\n\\[\n2u=20 \\implies u=10,\\qquad x=9.\n\\]\nThus\n\\[\nt^2=x=9 \\implies t=3.\n\\]\n\n### 4) Compute \\(d-b\\)\nWe have\n\\[\nd=u^3=10^3=1000,\\qquad b=t^5=3^5=243.\n\\]\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\), prime exponents must match.\n\n### Step 1: Relate \\(a\\) and \\(b\\)\nWrite\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p=4\\beta_p.\n\\]\nSo \\(\\alpha_p\\) must be a multiple of \\(4\\), and \\(\\beta_p\\) a multiple of \\(5\\). Concretely, there is an integer \\(t\\ge1\\) such that\n\\[\na = t^4,\\quad b=t^5.\n\\]\n(Indeed: \\((t^4)^5=t^{20}=(t^5)^4=t^{20}\\).)\n\n### Step 2: Relate \\(c\\) and \\(d\\)\nSimilarly, from \\(c^3=d^2\\), we get\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some integer \\(s\\ge1\\).\n\n### Step 3: Use \\(c-a=19\\)\nWe have\n\\[\nc-a = s^2 - t^4 = 19\n\\]\nso\n\\[\ns^2 = t^4 + 19.\n\\]\nWe need \\(t^4+19\\) to be a perfect square.\n\nLet \\(s^2 - t^4 = 19\\). Factor:\n\\[\ns^2 - t^4 = (s - t^2)(s + t^2)=19.\n\\]\nSince \\(19\\) is prime and all quantities are positive integers, the only factor pairs are\n\\[\ns - t^2 = 1,\\quad s + t^2=19\n\\]\n(or swapped, but \\(s-t^2>0\\)). Solving:\n\\[\n2s = 20 \\implies s=10,\\quad 2t^2=18 \\implies t^2=9 \\implies t=3.\n\\]\n\n### Step 4: Compute \\(d-b\\)\nNow\n\\[\nd = s^3 = 10^3=1000,\\quad b=t^5=3^5=243.\n\\]\nThus\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\), prime-exponent matching implies\n\\[\na = t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\). Similarly, from \\(c^3=d^2\\),\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4+19.\n\\]\nTry \\(t\\) so that \\(t^4+19\\) is a perfect square.\n\nCheck small \\(t\\):\n- \\(t=1:\\ t^4+19=20\\) not a square.\n- \\(t=2:\\ t^4+19=16+19=35\\) not a square.\n- \\(t=3:\\ t^4+19=81+19=100=10^2\\).\n\nSo \\(t=3\\) gives \\(s=10\\).\n\nTherefore:\n\\[\nb=t^5=3^5=243,\\quad d=s^3=10^3=1000.\n\\]\nHence\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\), prime exponents must match.\n\n### 1) Relate \\(a\\) and \\(b\\)\nLet \\(a=\\prod p^{\\alpha_p}\\) and \\(b=\\prod p^{\\beta_p}\\).  \nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p = 4\\beta_p \\quad \\text{for all }p.\n\\]\nSo \\(\\alpha_p\\) must be a multiple of \\(4\\), say \\(\\alpha_p=4k_p\\). Then\n\\[\n\\beta_p=\\frac{5\\alpha_p}{4}=5k_p.\n\\]\nHence there exists a positive integer \\(t\\) such that\n\\[\na=t^4,\\quad b=t^5.\n\\]\n\n### 2) Relate \\(c\\) and \\(d\\)\nSimilarly from \\(c^3=d^2\\), we get\n\\[\n3\\gamma_p = 2\\delta_p \\implies \\gamma_p \\text{ is a multiple of }2.\n\\]\nSo there exists a positive integer \\(s\\) such that\n\\[\nc=s^2,\\quad d=s^3.\n\\]\n\n### 3) Use \\(c-a=19\\)\nGiven \\(c-a=19\\),\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4 + 19.\n\\]\nNote \\(t^4\\) grows quickly; we test small \\(t\\).\n\n- \\(t=1\\): \\(t^4+19=1+19=20\\) not a square.\n- \\(t=2\\): \\(t^4+19=16+19=35\\) not a square.\n- \\(t=3\\): \\(t^4+19=81+19=100=10^2\\) works.\n\nThus\n\\[\ns=10,\\quad t=3.\n\\]\n\n### 4) Compute \\(d-b\\)\n\\[\nd=s^3=10^3=1000,\\quad b=t^5=3^5=243.\n\\]\nSo\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\) with \\(a,b\\) positive integers, prime-exponent comparison shows the exponents must match in a common multiple.\n\nLet\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen \\(a^5=b^4\\) implies \\(5\\alpha_p=4\\beta_p\\) for each prime \\(p\\). Hence \\(4\\mid 5\\alpha_p\\), so \\(\\alpha_p\\) must be a multiple of \\(4\\), say \\(\\alpha_p=4k_p\\). Then \\(\\beta_p=5k_p\\). Therefore\n\\[\na = t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\nSimilarly, from \\(c^3=d^2\\), we get \\(3\\gamma_p=2\\delta_p\\). Thus \\(\\gamma_p\\) must be a multiple of \\(2\\), say \\(\\gamma_p=2m_p\\), giving \\(\\delta_p=3m_p\\). Hence\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as a difference of squares by factoring \\(s^2-19=t^4\\) is not directly helpful, but note that \\(t^4\\) is a perfect fourth power, so try to express \\(s^2\\) near \\(t^4\\). Let\n\\[\ns^2 = t^4 + 19.\n\\]\nWe need \\(t^4\\) such that \\(t^4+19\\) is a perfect square. Let’s check small \\(t\\):\n\n- \\(t=1\\): \\(t^4+19=1+19=20\\) not a square.\n- \\(t=2\\): \\(16+19=35\\) not a square.\n- \\(t=3\\): \\(81+19=100=10^2\\) works.\n\nSo \\(t=3\\) gives \\(s^2=100\\Rightarrow s=10\\).\n\nThen\n\\[\nb=t^5=3^5=243,\\qquad d=s^3=10^3=1000.\n\\]\nTherefore\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\) with positive integers, compare prime exponents.\n\nFrom \\(a^5=b^4\\): for each prime \\(p\\),\n\\[\n5\\alpha_p(a)=4\\alpha_p(b)\\implies \\alpha_p(a)=4t,\\ \\alpha_p(b)=5t\n\\]\nfor some integer \\(t\\ge 0\\). Thus\n\\[\na = k^4,\\quad b = k^5\n\\]\nfor some positive integer \\(k\\).\n\nSimilarly from \\(c^3=d^2\\):\n\\[\n3\\alpha_p(c)=2\\alpha_p(d)\\implies \\alpha_p(c)=2s,\\ \\alpha_p(d)=3s\n\\]\nso\n\\[\nc = m^2,\\quad d = m^3\n\\]\nfor some positive integer \\(m\\).\n\nGiven \\(c-a=19\\), we have\n\\[\nm^2 - k^4 = 19.\n\\]\nRewrite as a difference of squares by factoring:\n\\[\nm^2 - 19 = k^4 \\implies k^2 = \\sqrt{m^2-19}.\n\\]\nA cleaner approach is to note that\n\\[\nm^2 = k^4+19.\n\\]\nTry to express \\(k^4+19\\) as a square. Let’s test small \\(k\\):\n\n- \\(k=1\\): \\(k^4+19=1+19=20\\) not a square.\n- \\(k=2\\): \\(16+19=35\\) not a square.\n- \\(k=3\\): \\(81+19=100=10^2\\). Works!\n\nSo \\(k=3\\), hence\n\\[\na=k^4=3^4=81,\\quad b=k^5=3^5=243.\n\\]\nThen\n\\[\nc=a+19=81+19=100.\n\\]\nSince \\(c=m^2\\), we get \\(m=10\\). Therefore\n\\[\nd=m^3=10^3=1000.\n\\]\nFinally,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\), prime exponents must match.\n\n### 1) From \\(a^5=b^4\\)\nLet \\(a=\\prod p^{\\alpha_p}\\), \\(b=\\prod p^{\\beta_p}\\).  \nThen \\(5\\alpha_p=4\\beta_p\\), so \\(\\alpha_p\\) is a multiple of \\(4\\) and \\(\\beta_p\\) is a multiple of \\(5\\).  \nThus there exists an integer \\(k\\) such that\n\\[\na=k^4,\\qquad b=k^5.\n\\]\n\n### 2) From \\(c^3=d^2\\)\nSimilarly, exponents satisfy \\(3\\gamma_p=2\\delta_p\\), so \\(\\gamma_p\\) is a multiple of \\(2\\) and \\(\\delta_p\\) a multiple of \\(3\\).  \nThus there exists an integer \\(m\\) such that\n\\[\nc=m^2,\\qquad d=m^3.\n\\]\n\n### 3) Use \\(c-a=19\\)\n\\[\nc-a = m^2 - k^4 = 19.\n\\]\nSo\n\\[\nm^2 = k^4+19.\n\\]\nRewrite \\(k^4+19\\) as a square:\n\\[\nk^4+19 = (k^2)^2+19.\n\\]\nLet \\(m=k^2+t\\). Then\n\\[\nm^2 = (k^2+t)^2 = k^4 + 2tk^2 + t^2.\n\\]\nSet equal to \\(k^4+19\\):\n\\[\n2tk^2+t^2=19.\n\\]\nSo \\(t\\) must be a positive divisor of \\(19\\) (since \\(k^2\\ge1\\)). Because \\(19\\) is prime, the possibilities are \\(t=1\\) or \\(t=19\\).\n\n- If \\(t=1\\): \\(2k^2+1=19 \\Rightarrow 2k^2=18 \\Rightarrow k^2=9 \\Rightarrow k=3.\\)\n- If \\(t=19\\): \\(2\\cdot 19\\, k^2 + 19^2 = 19 \\Rightarrow\\) impossible (left side \\(>19\\)).\n\nSo \\(k=3\\). Then\n\\[\na=k^4=3^4=81,\\qquad b=k^5=3^5=243.\n\\]\nAlso\n\\[\nm=k^2+t=9+1=10 \\Rightarrow c=m^2=100,\\qquad d=m^3=1000.\n\\]\n\n### 4) Compute \\(d-b\\)\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\) with \\(a,b\\in\\mathbb Z_{>0}\\), prime exponents must match. Write\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen \\(a^5=b^4\\) implies \\(5\\alpha_p=4\\beta_p\\) for each prime, so \\(\\alpha_p\\) is a multiple of \\(4\\) and \\(\\beta_p\\) is a multiple of \\(5\\). Thus there exists an integer \\(t>0\\) such that\n\\[\na=t^4,\\qquad b=t^5.\n\\]\n\nSimilarly, \\(c^3=d^2\\) implies \\(3\\gamma_p=2\\delta_p\\) for exponents, so there exists an integer \\(s>0\\) such that\n\\[\nc=s^2,\\qquad d=s^3.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19 \\quad\\Rightarrow\\quad s^2 = t^4+19.\n\\]\nWe need \\(t^4+19\\) to be a perfect square. Try small \\(t\\):\n- \\(t=1:\\ t^4+19=20\\) not a square.\n- \\(t=2:\\ t^4+19=16+19=35\\) not a square.\n- \\(t=3:\\ t^4+19=81+19=100=10^2\\) works.\n\nSo \\(t=3\\), hence\n\\[\na=t^4=3^4=81,\\qquad b=t^5=3^5=243.\n\\]\nAlso\n\\[\ns^2=t^4+19=100 \\Rightarrow s=10,\\qquad c=s^2=100,\\qquad d=s^3=1000.\n\\]\n\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "Since \\(a^5=b^4\\), compare prime-exponent ratios.  \nWrite \\(a=\\prod p^{\\alpha_p}\\), \\(b=\\prod p^{\\beta_p}\\). Then\n\\[\n5\\alpha_p=4\\beta_p \\quad \\Rightarrow\\quad \\alpha_p=4k_p,\\ \\beta_p=5k_p\n\\]\nfor integers \\(k_p\\). Hence \\(a\\) is a perfect \\(4\\)th power and \\(b\\) is a perfect \\(5\\)th power up to the same base: more concretely there exists an integer \\(t\\) such that\n\\[\na=t^4,\\quad b=t^5.\n\\]\nSimilarly, from \\(c^3=d^2\\) we get\n\\[\nc=u^2,\\quad d=u^3\n\\]\nfor some integer \\(u\\).\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares:\n\\[\nu^2 - t^4 = (u-t^2)(u+t^2)=19.\n\\]\nBecause \\(19\\) is prime and both factors are positive integers, the only possibility is\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd these:\n\\[\n2u=20 \\Rightarrow u=10,\n\\]\nthen\n\\[\nu-t^2=1 \\Rightarrow 10-t^2=1 \\Rightarrow t^2=9 \\Rightarrow t=3.\n\\]\nTherefore\n\\[\nb=t^5=3^5=243,\\quad d=u^3=10^3=1000.\n\\]\nSo\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+          "From \\(a^5=b^4\\), compare prime exponents. For each prime \\(p\\), if \\(a\\) has exponent \\(\\alpha\\), then \\(a^5\\) has exponent \\(5\\alpha\\); similarly \\(b^4\\) has exponent \\(4\\beta\\) where \\(b\\) has exponent \\(\\beta\\). Equality gives\n\\[\n5\\alpha = 4\\beta \\implies \\alpha \\text{ is a multiple of }4,\\ \\beta \\text{ is a multiple of }5.\n\\]\nSo \\(a=t^4,\\ b=t^5\\) for some positive integer \\(t\\).\n\nSimilarly, from \\(c^3=d^2\\), let \\(c=s^2,\\ d=s^3\\) for some positive integer \\(s\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4 + 19.\n\\]\nTry small \\(t\\). Since \\(t^4\\) grows quickly, we check \\(t^4 \\le 19+\\) (next square). Note that \\(t^4+19\\) must be a perfect square.\n\nCompute:\n- \\(t=1\\): \\(t^4+19=1+19=20\\) not a square.\n- \\(t=2\\): \\(16+19=35\\) not a square.\n- \\(t=3\\): \\(81+19=100\\) which is \\(10^2\\). Works.\n\nThus \\(t=3\\), \\(a=t^4=81\\), and \\(s=10\\), \\(c=s^2=100\\).\n\nThen\n\\[\nb=t^5=3^5=243,\\qquad d=s^3=10^3=1000.\n\\]\nSo\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nAssume that $a$ , $b$ , $c$ and $d$ are positive integers such that $a^5 = b^4$ , $c^3 = d^2$ and $c - a = 19$ . Determine $d - b$ ."
+      },
+      "baseline_solutions": [
+        "Since \\(a^5=b^4\\), prime exponents must match. Let the common prime-exponent ratio be:\n\\[\na = t^{4},\\quad b=t^{5}\n\\]\nbecause \\(a^5=t^{20}\\) and \\(b^4=t^{20}\\). So\n\\[\nb=t^5,\\qquad a=t^4.\n\\]\n\nSimilarly, from \\(c^3=d^2\\), we get\n\\[\nc=u^{2},\\quad d=u^{3}\n\\]\nbecause \\(c^3=u^{6}\\) and \\(d^2=u^{6}\\). So\n\\[\nc=u^2,\\qquad d=u^3.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares:\n\\[\nu^2 - t^4 = (u-t^2)(u+t^2)=19.\n\\]\nSince \\(u,t^2\\) are positive integers, both factors are positive integers. Also \\(19\\) is prime, so the only possibilities are\n\\[\nu-t^2=1,\\quad u+t^2=19\n\\]\nor\n\\[\nu-t^2=19,\\quad u+t^2=1 \\ (\\text{impossible}).\n\\]\nThus\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd the equations:\n\\[\n2u=20 \\implies u=10.\n\\]\nThen\n\\[\n10-t^2=1 \\implies t^2=9 \\implies t=3.\n\\]\n\nNow compute:\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, prime exponents must match. Let\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p=4\\beta_p \\implies \\alpha_p=4k_p,\\ \\beta_p=5k_p\n\\]\nfor integers \\(k_p\\). Hence \\(a\\) is a perfect \\(4\\)th power and \\(b\\) is the corresponding \\(5\\)th power to the same base:\n\\[\na=t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\nSimilarly, from \\(c^3=d^2\\), matching exponents gives\n\\[\n3\\gamma_p=2\\delta_p \\implies \\gamma_p=2m_p,\\ \\delta_p=3m_p,\n\\]\nso\n\\[\nc=u^2,\\quad d=u^3\n\\]\nfor some positive integer \\(u\\).\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares:\n\\[\nu^2 - t^4 = (u-t^2)(u+t^2)=19.\n\\]\nSince \\(19\\) is prime and \\(u+t^2>u-t^2>0\\), the only factorization into positive integers is\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd these:\n\\[\n2u=20 \\implies u=10.\n\\]\nThen\n\\[\nt^2 = \\frac{(u+t^2)-(u-t^2)}{2}=\\frac{19-1}{2}=9 \\implies t=3.\n\\]\n\nNow compute:\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, the prime-exponent comparison implies that for every prime \\(p\\),\n\\[\n5\\alpha_p(a)=4\\alpha_p(b).\n\\]\nThus \\(\\alpha_p(a)\\) must be a multiple of 4, say \\(\\alpha_p(a)=4k_p\\). Then\n\\[\n\\alpha_p(b)=5k_p.\n\\]\nSo \\(a\\) and \\(b\\) have the form\n\\[\na=t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\). Therefore\n\\[\nb=t^5.\n\\]\n\nSimilarly, from \\(c^3=d^2\\), exponent comparison gives\n\\[\n3\\alpha_p(c)=2\\alpha_p(d),\n\\]\nso \\(\\alpha_p(c)\\) is a multiple of 2. Write \\(\\alpha_p(c)=2m_p\\), then \\(\\alpha_p(d)=3m_p\\), hence\n\\[\nc=s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\). Therefore\n\\[\nd=s^3.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19 \\quad\\Longrightarrow\\quad s^2 = t^4+19.\n\\]\nWe need perfect squares of the form \\(t^4+19\\). Try small \\(t\\) (since \\(t\\ge1\\)):\n\n- \\(t=1:\\ t^4+19=1+19=20\\) not a square.\n- \\(t=2:\\ t^4+19=16+19=35\\) not a square.\n- \\(t=3:\\ t^4+19=81+19=100=10^2\\).\n\nSo \\(t=3\\) gives \\(s^2=100\\Rightarrow s=10\\) (positive). Thus\n\\[\na=t^4=3^4=81,\\quad b=t^5=3^5=243,\\quad c=s^2=10^2=100,\\quad d=s^3=10^3=1000.\n\\]\n\nFinally,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), compare prime exponents. Let a prime \\(p\\) appear with exponent \\(\\alpha\\) in \\(a\\). Then in \\(a^5\\) it appears with exponent \\(5\\alpha\\), and in \\(b^4\\) it appears with exponent \\(4\\beta\\) if \\(\\beta\\) is the exponent of \\(p\\) in \\(b\\). Equality implies \\(5\\alpha=4\\beta\\), so \\(\\alpha\\) is a multiple of \\(4\\) and \\(\\beta\\) a multiple of \\(5\\). Thus there exists a positive integer \\(k\\) such that\n\\[\na = k^4,\\qquad b = k^5.\n\\]\nSimilarly, from \\(c^3=d^2\\), we get\n\\[\nc = m^2,\\qquad d = m^3\n\\]\nfor some positive integer \\(m\\).\n\nGiven \\(c-a=19\\), substitute:\n\\[\nm^2 - k^4 = 19\n\\]\nso\n\\[\nm^2 = k^4+19.\n\\]\nNotice \\(k^4+19\\) must be a perfect square. Try small \\(k\\) (since \\(19\\) is small):\n- \\(k=1:\\; 1+19=20\\) not square\n- \\(k=2:\\; 16+19=35\\) not square\n- \\(k=3:\\; 81+19=100=10^2\\)\n\nSo \\(k=3\\) works, giving \\(m=10\\). Then\n\\[\nb=k^5=3^5=243,\\qquad d=m^3=10^3=1000.\n\\]\nTherefore,\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime-exponent comparison gives a common power structure. Let\n\\[\na = t^4,\\quad b = t^5\n\\]\nbecause then \\(a^5=t^{20}\\) and \\(b^4=t^{20}\\). (More formally: \\(\\text{lcm}(5,4)=20\\), so exponents must match with ratio \\(a:t^4\\), \\(b:t^5\\).)\n\nSimilarly, from \\(c^3=d^2\\),\n\\[\nc = s^2,\\quad d = s^3\n\\]\nbecause \\(c^3=s^6\\) and \\(d^2=s^6\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nSo\n\\[\ns^2 = t^4 + 19.\n\\]\nRewrite \\(t^4\\) as a square:\n\\[\nt^4 = (t^2)^2.\n\\]\nThus\n\\[\ns^2 - (t^2)^2 = 19\n\\]\n\\[\n(s - t^2)(s + t^2)=19.\n\\]\nSince \\(s\\) and \\(t\\) are positive integers, both factors are positive integers. The positive factor pairs of \\(19\\) are only\n\\[\n(1,19).\n\\]\nSo we must have\n\\[\ns - t^2 = 1,\\quad s + t^2 = 19.\n\\]\nAdd:\n\\[\n2s = 20 \\implies s=10.\n\\]\nThen\n\\[\nt^2 = 19 - s = 9 \\implies t=3.\n\\]\n\nNow compute \\(b\\) and \\(d\\):\n\\[\nb = t^5 = 3^5 = 243,\n\\]\n\\[\nd = s^3 = 10^3 = 1000.\n\\]\nTherefore,\n\\[\nd-b = 1000-243 = 757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with \\(a,b\\) positive integers, prime-exponent matching gives that the exponent pattern must be a common multiple of 5 and 4.  \nSo there exists a positive integer \\(t\\) such that\n\\[\na=t^4,\\qquad b=t^5,\n\\]\nbecause then\n\\[\na^5=(t^4)^5=t^{20},\\quad b^4=(t^5)^4=t^{20}.\n\\]\n\nSimilarly, \\(c^3=d^2\\) implies there exists a positive integer \\(s\\) such that\n\\[\nc=s^2,\\qquad d=s^3,\n\\]\nbecause\n\\[\nc^3=(s^2)^3=s^6,\\quad d^2=(s^3)^2=s^6.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nSo\n\\[\ns^2 = t^4 + 19.\n\\]\nWe need \\(t^4+19\\) to be a perfect square.\n\nCheck small \\(t\\):\n- \\(t=1\\): \\(t^4+19=20\\) not a square.\n- \\(t=2\\): \\(16+19=35\\) not a square.\n- \\(t=3\\): \\(81+19=100=10^2\\) works.\n\nThus \\(t=3\\Rightarrow a=t^4=81\\). Also \\(s^2=100\\Rightarrow s=10\\Rightarrow c=s^2=100\\), and\n\\[\nb=t^5=3^5=243,\\qquad d=s^3=10^3=1000.\n\\]\n\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime-exponent matching gives the common form.  \nWrite\n\\[\na=\\prod p^{\\alpha},\\quad b=\\prod p^{\\beta}.\n\\]\nThen \\(a^5=b^4\\) implies \\(5\\alpha=4\\beta\\) for each prime, so \\(\\alpha\\) is a multiple of \\(4\\) and \\(\\beta\\) a multiple of \\(5\\). Let\n\\[\na=t^4,\\qquad b=t^5\n\\]\nfor some positive integer \\(t\\). (Indeed: \\((t^4)^5=t^{20}\\) and \\((t^5)^4=t^{20}\\).)\n\nSimilarly, from \\(c^3=d^2\\), exponent matching gives\n\\[\nc=u^2,\\qquad d=u^3\n\\]\nfor some positive integer \\(u\\).\n\nNow use \\(c-a=19\\):\n\\[\nu^2-t^4=19.\n\\]\nFactor:\n\\[\nu^2=(t^4)+19.\n\\]\nTry to solve by rewriting \\(t^4\\) as a quadratic in \\(t^2\\). Let \\(x=t^2\\). Then \\(t^4=x^2\\), and\n\\[\nu^2=x^2+19 \\implies u^2-x^2=19 \\implies (u-x)(u+x)=19.\n\\]\nSince \\(19\\) is prime and \\(u>x>0\\), the only positive factorization is\n\\[\nu-x=1,\\quad u+x=19.\n\\]\nSolve:\n\\[\n2u=20 \\Rightarrow u=10,\\qquad 2x=18 \\Rightarrow x=9.\n\\]\nThus \\(t^2=x=9\\Rightarrow t=3\\). Then\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) and \\(a,b\\in\\mathbb Z_{>0}\\), compare prime-exponent patterns.\n\nLet \\(a=\\prod p^{\\alpha_p}\\), \\(b=\\prod p^{\\beta_p}\\).\nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p=4\\beta_p \\ \\text{for all primes }p.\n\\]\nThus \\(4\\mid 5\\alpha_p\\), so \\(\\alpha_p\\) must be a multiple of \\(4\\) (because \\(\\gcd(5,4)=1\\)). Write\n\\[\n\\alpha_p=4k_p \\quad\\Rightarrow\\quad \\beta_p=5k_p.\n\\]\nSo \\(a\\) is a perfect 4th power and \\(b\\) is the corresponding perfect 5th power:\n\\[\na=t^4,\\quad b=t^5 \\quad \\text{for some } t\\in \\mathbb Z_{>0}.\n\\]\n\nSimilarly, from \\(c^3=d^2\\):\n\\[\nc^3=d^2 \\implies 3\\gamma_p=2\\delta_p \\ \\forall p.\n\\]\nWith \\(\\gcd(3,2)=1\\), \\(\\gamma_p\\) must be a multiple of \\(2\\). Write\n\\[\n\\gamma_p=2m_p \\Rightarrow \\delta_p=3m_p,\n\\]\nso\n\\[\nc=u^2,\\quad d=u^3 \\quad \\text{for some } u\\in\\mathbb Z_{>0}.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares in the form\n\\[\nu^2-(t^2)^2 = (u-t^2)(u+t^2)=19.\n\\]\nSince \\(u-t^2\\) and \\(u+t^2\\) are positive integers whose product is \\(19\\), and \\(19\\) is prime, we must have\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd these equations:\n\\[\n2u=20 \\implies u=10.\n\\]\nThen\n\\[\nt^2= u-1 = 9 \\implies t=3 \\ (\\text{positive}).\n\\]\n\nNow compute:\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "We have\n\\[\na^5=b^4,\\qquad c^3=d^2,\\qquad c-a=19.\n\\]\n\n### 1) Solve \\(a^5=b^4\\)\nPrime factorize. The standard way is to match exponents: for each prime \\(p\\),\n\\[\n(a\\text{ has exponent } \\alpha)\\Rightarrow a^5 \\text{ has }5\\alpha,\\quad b^4 \\text{ has }4\\beta,\n\\]\nso \\(5\\alpha=4\\beta\\). Thus \\(\\alpha\\) must be a multiple of 4 and \\(\\beta\\) a multiple of 5. Let\n\\[\na = t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\n### 2) Solve \\(c^3=d^2\\)\nSimilarly, if prime exponents in \\(c\\) are multiples of 2 and in \\(d\\) multiples of 3:\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\).\n\n### 3) Use \\(c-a=19\\)\nSubstitute:\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4 + 19.\n\\]\nNow note \\(t^4\\) grows quickly; we can search by modulo constraints and small values.\n\nCompute \\(t^4 \\pmod{16}\\). For any integer \\(t\\),\n- if \\(t\\) even, \\(t^4 \\equiv 0 \\pmod{16}\\),\n- if \\(t\\) odd, \\(t^4 \\equiv 1 \\pmod{16}\\).\n\nThen\n\\[\ns^2 = t^4+19 \\equiv t^4 + 3 \\pmod{16}.\n\\]\nSquares mod 16 are \\(0,1,4,9\\).\n- If \\(t\\) even: \\(t^4+3 \\equiv 3 \\pmod{16}\\), not a square.\n- Therefore \\(t\\) must be odd, so \\(t^4\\equiv 1\\pmod{16}\\), hence\n\\[\ns^2 \\equiv 1+3=4 \\pmod{16},\n\\]\nwhich is possible.\n\nSo \\(t\\) is odd. Try small odd \\(t\\):\n\n- \\(t=1\\): \\(t^4+19=20\\) not a square.\n- \\(t=3\\): \\(t^4=81\\), \\(81+19=100=10^2\\). Works!\n\nThus \\(t=3\\), so\n\\[\na=t^4=3^4=81,\\quad b=t^5=3^5=243.\n\\]\nThen\n\\[\nc=a+19=81+19=100 = s^2 \\Rightarrow s=10,\n\\]\nso\n\\[\nd=s^3=10^3=1000.\n\\]\n\n### 4) Compute \\(d-b\\)\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, prime-exponent comparison gives that \\(a\\) and \\(b\\) must be perfect powers with a common exponent.  \nLet \\(a=x^4\\) and \\(b=x^5\\). Then\n\\[\na^5=(x^4)^5=x^{20},\\quad b^4=(x^5)^4=x^{20},\n\\]\nso \\(a^5=b^4\\) holds, and the parametrization is valid.\n\nSimilarly, from \\(c^3=d^2\\), we can write\n\\[\nc=y^2,\\quad d=y^3,\n\\]\nsince\n\\[\nc^3=(y^2)^3=y^6,\\quad d^2=(y^3)^2=y^6.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\nc-a = y^2 - x^4 = 19.\n\\]\nSo\n\\[\ny^2 = x^4 + 19.\n\\]\nRewrite \\(x^4+19\\) as a difference of squares attempt:\n\\[\nx^4+19 = x^4 + 16 + 3 = (x^2)^2 + 4^2 + 3,\n\\]\nnot immediately helpful. Instead, set \\(y=x^2+k\\). Then\n\\[\ny^2=(x^2+k)^2=x^4+2kx^2+k^2.\n\\]\nMatch with \\(x^4+19\\):\n\\[\n2kx^2+k^2=19.\n\\]\nSince \\(x,k\\) are positive integers, \\(19\\) is small. Try possible factorizations of \\(2kx^2+k^2=k(2x^2+k)=19\\).\n\nBecause \\(19\\) is prime, the only way \\(k(2x^2+k)=19\\) with \\(k\\ge1\\) is:\n- \\(k=1\\) and \\(2x^2+1=19 \\Rightarrow 2x^2=18 \\Rightarrow x^2=9 \\Rightarrow x=3\\).\n\nThen\n\\[\na=x^4=3^4=81,\\quad b=x^5=3^5=243.\n\\]\nAlso\n\\[\ny=x^2+k=9+1=10,\\quad c=y^2=10^2=100,\\quad d=y^3=10^3=1000.\n\\]\n\nFinally,\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1985-7",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Since \\(a^5=b^4\\), prime exponents must match. Let the common prime-exponent ratio be:\n\\[\na = t^{4},\\quad b=t^{5}\n\\]\nbecause \\(a^5=t^{20}\\) and \\(b^4=t^{20}\\). So\n\\[\nb=t^5,\\qquad a=t^4.\n\\]\n\nSimilarly, from \\(c^3=d^2\\), we get\n\\[\nc=u^{2},\\quad d=u^{3}\n\\]\nbecause \\(c^3=u^{6}\\) and \\(d^2=u^{6}\\). So\n\\[\nc=u^2,\\qquad d=u^3.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares:\n\\[\nu^2 - t^4 = (u-t^2)(u+t^2)=19.\n\\]\nSince \\(u,t^2\\) are positive integers, both factors are positive integers. Also \\(19\\) is prime, so the only possibilities are\n\\[\nu-t^2=1,\\quad u+t^2=19\n\\]\nor\n\\[\nu-t^2=19,\\quad u+t^2=1 \\ (\\text{impossible}).\n\\]\nThus\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd the equations:\n\\[\n2u=20 \\implies u=10.\n\\]\nThen\n\\[\n10-t^2=1 \\implies t^2=9 \\implies t=3.\n\\]\n\nNow compute:\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, prime exponents must match. Let\n\\[\na=\\prod p^{\\alpha_p},\\quad b=\\prod p^{\\beta_p}.\n\\]\nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p=4\\beta_p \\implies \\alpha_p=4k_p,\\ \\beta_p=5k_p\n\\]\nfor integers \\(k_p\\). Hence \\(a\\) is a perfect \\(4\\)th power and \\(b\\) is the corresponding \\(5\\)th power to the same base:\n\\[\na=t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\nSimilarly, from \\(c^3=d^2\\), matching exponents gives\n\\[\n3\\gamma_p=2\\delta_p \\implies \\gamma_p=2m_p,\\ \\delta_p=3m_p,\n\\]\nso\n\\[\nc=u^2,\\quad d=u^3\n\\]\nfor some positive integer \\(u\\).\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares:\n\\[\nu^2 - t^4 = (u-t^2)(u+t^2)=19.\n\\]\nSince \\(19\\) is prime and \\(u+t^2>u-t^2>0\\), the only factorization into positive integers is\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd these:\n\\[\n2u=20 \\implies u=10.\n\\]\nThen\n\\[\nt^2 = \\frac{(u+t^2)-(u-t^2)}{2}=\\frac{19-1}{2}=9 \\implies t=3.\n\\]\n\nNow compute:\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, the prime-exponent comparison implies that for every prime \\(p\\),\n\\[\n5\\alpha_p(a)=4\\alpha_p(b).\n\\]\nThus \\(\\alpha_p(a)\\) must be a multiple of 4, say \\(\\alpha_p(a)=4k_p\\). Then\n\\[\n\\alpha_p(b)=5k_p.\n\\]\nSo \\(a\\) and \\(b\\) have the form\n\\[\na=t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\). Therefore\n\\[\nb=t^5.\n\\]\n\nSimilarly, from \\(c^3=d^2\\), exponent comparison gives\n\\[\n3\\alpha_p(c)=2\\alpha_p(d),\n\\]\nso \\(\\alpha_p(c)\\) is a multiple of 2. Write \\(\\alpha_p(c)=2m_p\\), then \\(\\alpha_p(d)=3m_p\\), hence\n\\[\nc=s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\). Therefore\n\\[\nd=s^3.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19 \\quad\\Longrightarrow\\quad s^2 = t^4+19.\n\\]\nWe need perfect squares of the form \\(t^4+19\\). Try small \\(t\\) (since \\(t\\ge1\\)):\n\n- \\(t=1:\\ t^4+19=1+19=20\\) not a square.\n- \\(t=2:\\ t^4+19=16+19=35\\) not a square.\n- \\(t=3:\\ t^4+19=81+19=100=10^2\\).\n\nSo \\(t=3\\) gives \\(s^2=100\\Rightarrow s=10\\) (positive). Thus\n\\[\na=t^4=3^4=81,\\quad b=t^5=3^5=243,\\quad c=s^2=10^2=100,\\quad d=s^3=10^3=1000.\n\\]\n\nFinally,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), compare prime exponents. Let a prime \\(p\\) appear with exponent \\(\\alpha\\) in \\(a\\). Then in \\(a^5\\) it appears with exponent \\(5\\alpha\\), and in \\(b^4\\) it appears with exponent \\(4\\beta\\) if \\(\\beta\\) is the exponent of \\(p\\) in \\(b\\). Equality implies \\(5\\alpha=4\\beta\\), so \\(\\alpha\\) is a multiple of \\(4\\) and \\(\\beta\\) a multiple of \\(5\\). Thus there exists a positive integer \\(k\\) such that\n\\[\na = k^4,\\qquad b = k^5.\n\\]\nSimilarly, from \\(c^3=d^2\\), we get\n\\[\nc = m^2,\\qquad d = m^3\n\\]\nfor some positive integer \\(m\\).\n\nGiven \\(c-a=19\\), substitute:\n\\[\nm^2 - k^4 = 19\n\\]\nso\n\\[\nm^2 = k^4+19.\n\\]\nNotice \\(k^4+19\\) must be a perfect square. Try small \\(k\\) (since \\(19\\) is small):\n- \\(k=1:\\; 1+19=20\\) not square\n- \\(k=2:\\; 16+19=35\\) not square\n- \\(k=3:\\; 81+19=100=10^2\\)\n\nSo \\(k=3\\) works, giving \\(m=10\\). Then\n\\[\nb=k^5=3^5=243,\\qquad d=m^3=10^3=1000.\n\\]\nTherefore,\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime-exponent comparison gives a common power structure. Let\n\\[\na = t^4,\\quad b = t^5\n\\]\nbecause then \\(a^5=t^{20}\\) and \\(b^4=t^{20}\\). (More formally: \\(\\text{lcm}(5,4)=20\\), so exponents must match with ratio \\(a:t^4\\), \\(b:t^5\\).)\n\nSimilarly, from \\(c^3=d^2\\),\n\\[\nc = s^2,\\quad d = s^3\n\\]\nbecause \\(c^3=s^6\\) and \\(d^2=s^6\\).\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nSo\n\\[\ns^2 = t^4 + 19.\n\\]\nRewrite \\(t^4\\) as a square:\n\\[\nt^4 = (t^2)^2.\n\\]\nThus\n\\[\ns^2 - (t^2)^2 = 19\n\\]\n\\[\n(s - t^2)(s + t^2)=19.\n\\]\nSince \\(s\\) and \\(t\\) are positive integers, both factors are positive integers. The positive factor pairs of \\(19\\) are only\n\\[\n(1,19).\n\\]\nSo we must have\n\\[\ns - t^2 = 1,\\quad s + t^2 = 19.\n\\]\nAdd:\n\\[\n2s = 20 \\implies s=10.\n\\]\nThen\n\\[\nt^2 = 19 - s = 9 \\implies t=3.\n\\]\n\nNow compute \\(b\\) and \\(d\\):\n\\[\nb = t^5 = 3^5 = 243,\n\\]\n\\[\nd = s^3 = 10^3 = 1000.\n\\]\nTherefore,\n\\[\nd-b = 1000-243 = 757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with \\(a,b\\) positive integers, prime-exponent matching gives that the exponent pattern must be a common multiple of 5 and 4.  \nSo there exists a positive integer \\(t\\) such that\n\\[\na=t^4,\\qquad b=t^5,\n\\]\nbecause then\n\\[\na^5=(t^4)^5=t^{20},\\quad b^4=(t^5)^4=t^{20}.\n\\]\n\nSimilarly, \\(c^3=d^2\\) implies there exists a positive integer \\(s\\) such that\n\\[\nc=s^2,\\qquad d=s^3,\n\\]\nbecause\n\\[\nc^3=(s^2)^3=s^6,\\quad d^2=(s^3)^2=s^6.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\ns^2 - t^4 = 19.\n\\]\nSo\n\\[\ns^2 = t^4 + 19.\n\\]\nWe need \\(t^4+19\\) to be a perfect square.\n\nCheck small \\(t\\):\n- \\(t=1\\): \\(t^4+19=20\\) not a square.\n- \\(t=2\\): \\(16+19=35\\) not a square.\n- \\(t=3\\): \\(81+19=100=10^2\\) works.\n\nThus \\(t=3\\Rightarrow a=t^4=81\\). Also \\(s^2=100\\Rightarrow s=10\\Rightarrow c=s^2=100\\), and\n\\[\nb=t^5=3^5=243,\\qquad d=s^3=10^3=1000.\n\\]\n\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\), prime-exponent matching gives the common form.  \nWrite\n\\[\na=\\prod p^{\\alpha},\\quad b=\\prod p^{\\beta}.\n\\]\nThen \\(a^5=b^4\\) implies \\(5\\alpha=4\\beta\\) for each prime, so \\(\\alpha\\) is a multiple of \\(4\\) and \\(\\beta\\) a multiple of \\(5\\). Let\n\\[\na=t^4,\\qquad b=t^5\n\\]\nfor some positive integer \\(t\\). (Indeed: \\((t^4)^5=t^{20}\\) and \\((t^5)^4=t^{20}\\).)\n\nSimilarly, from \\(c^3=d^2\\), exponent matching gives\n\\[\nc=u^2,\\qquad d=u^3\n\\]\nfor some positive integer \\(u\\).\n\nNow use \\(c-a=19\\):\n\\[\nu^2-t^4=19.\n\\]\nFactor:\n\\[\nu^2=(t^4)+19.\n\\]\nTry to solve by rewriting \\(t^4\\) as a quadratic in \\(t^2\\). Let \\(x=t^2\\). Then \\(t^4=x^2\\), and\n\\[\nu^2=x^2+19 \\implies u^2-x^2=19 \\implies (u-x)(u+x)=19.\n\\]\nSince \\(19\\) is prime and \\(u>x>0\\), the only positive factorization is\n\\[\nu-x=1,\\quad u+x=19.\n\\]\nSolve:\n\\[\n2u=20 \\Rightarrow u=10,\\qquad 2x=18 \\Rightarrow x=9.\n\\]\nThus \\(t^2=x=9\\Rightarrow t=3\\). Then\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) and \\(a,b\\in\\mathbb Z_{>0}\\), compare prime-exponent patterns.\n\nLet \\(a=\\prod p^{\\alpha_p}\\), \\(b=\\prod p^{\\beta_p}\\).\nThen\n\\[\na^5=b^4 \\implies 5\\alpha_p=4\\beta_p \\ \\text{for all primes }p.\n\\]\nThus \\(4\\mid 5\\alpha_p\\), so \\(\\alpha_p\\) must be a multiple of \\(4\\) (because \\(\\gcd(5,4)=1\\)). Write\n\\[\n\\alpha_p=4k_p \\quad\\Rightarrow\\quad \\beta_p=5k_p.\n\\]\nSo \\(a\\) is a perfect 4th power and \\(b\\) is the corresponding perfect 5th power:\n\\[\na=t^4,\\quad b=t^5 \\quad \\text{for some } t\\in \\mathbb Z_{>0}.\n\\]\n\nSimilarly, from \\(c^3=d^2\\):\n\\[\nc^3=d^2 \\implies 3\\gamma_p=2\\delta_p \\ \\forall p.\n\\]\nWith \\(\\gcd(3,2)=1\\), \\(\\gamma_p\\) must be a multiple of \\(2\\). Write\n\\[\n\\gamma_p=2m_p \\Rightarrow \\delta_p=3m_p,\n\\]\nso\n\\[\nc=u^2,\\quad d=u^3 \\quad \\text{for some } u\\in\\mathbb Z_{>0}.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\nu^2 - t^4 = 19.\n\\]\nFactor as a difference of squares in the form\n\\[\nu^2-(t^2)^2 = (u-t^2)(u+t^2)=19.\n\\]\nSince \\(u-t^2\\) and \\(u+t^2\\) are positive integers whose product is \\(19\\), and \\(19\\) is prime, we must have\n\\[\nu-t^2=1,\\quad u+t^2=19.\n\\]\nAdd these equations:\n\\[\n2u=20 \\implies u=10.\n\\]\nThen\n\\[\nt^2= u-1 = 9 \\implies t=3 \\ (\\text{positive}).\n\\]\n\nNow compute:\n\\[\nb=t^5=3^5=243,\\qquad d=u^3=10^3=1000.\n\\]\nTherefore,\n\\[\nd-b=1000-243=757.\n\\]\n\nANSWER: 757",
+        "We have\n\\[\na^5=b^4,\\qquad c^3=d^2,\\qquad c-a=19.\n\\]\n\n### 1) Solve \\(a^5=b^4\\)\nPrime factorize. The standard way is to match exponents: for each prime \\(p\\),\n\\[\n(a\\text{ has exponent } \\alpha)\\Rightarrow a^5 \\text{ has }5\\alpha,\\quad b^4 \\text{ has }4\\beta,\n\\]\nso \\(5\\alpha=4\\beta\\). Thus \\(\\alpha\\) must be a multiple of 4 and \\(\\beta\\) a multiple of 5. Let\n\\[\na = t^4,\\quad b=t^5\n\\]\nfor some positive integer \\(t\\).\n\n### 2) Solve \\(c^3=d^2\\)\nSimilarly, if prime exponents in \\(c\\) are multiples of 2 and in \\(d\\) multiples of 3:\n\\[\nc = s^2,\\quad d=s^3\n\\]\nfor some positive integer \\(s\\).\n\n### 3) Use \\(c-a=19\\)\nSubstitute:\n\\[\ns^2 - t^4 = 19.\n\\]\nRewrite as\n\\[\ns^2 = t^4 + 19.\n\\]\nNow note \\(t^4\\) grows quickly; we can search by modulo constraints and small values.\n\nCompute \\(t^4 \\pmod{16}\\). For any integer \\(t\\),\n- if \\(t\\) even, \\(t^4 \\equiv 0 \\pmod{16}\\),\n- if \\(t\\) odd, \\(t^4 \\equiv 1 \\pmod{16}\\).\n\nThen\n\\[\ns^2 = t^4+19 \\equiv t^4 + 3 \\pmod{16}.\n\\]\nSquares mod 16 are \\(0,1,4,9\\).\n- If \\(t\\) even: \\(t^4+3 \\equiv 3 \\pmod{16}\\), not a square.\n- Therefore \\(t\\) must be odd, so \\(t^4\\equiv 1\\pmod{16}\\), hence\n\\[\ns^2 \\equiv 1+3=4 \\pmod{16},\n\\]\nwhich is possible.\n\nSo \\(t\\) is odd. Try small odd \\(t\\):\n\n- \\(t=1\\): \\(t^4+19=20\\) not a square.\n- \\(t=3\\): \\(t^4=81\\), \\(81+19=100=10^2\\). Works!\n\nThus \\(t=3\\), so\n\\[\na=t^4=3^4=81,\\quad b=t^5=3^5=243.\n\\]\nThen\n\\[\nc=a+19=81+19=100 = s^2 \\Rightarrow s=10,\n\\]\nso\n\\[\nd=s^3=10^3=1000.\n\\]\n\n### 4) Compute \\(d-b\\)\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757",
+        "Since \\(a^5=b^4\\) with positive integers, prime-exponent comparison gives that \\(a\\) and \\(b\\) must be perfect powers with a common exponent.  \nLet \\(a=x^4\\) and \\(b=x^5\\). Then\n\\[\na^5=(x^4)^5=x^{20},\\quad b^4=(x^5)^4=x^{20},\n\\]\nso \\(a^5=b^4\\) holds, and the parametrization is valid.\n\nSimilarly, from \\(c^3=d^2\\), we can write\n\\[\nc=y^2,\\quad d=y^3,\n\\]\nsince\n\\[\nc^3=(y^2)^3=y^6,\\quad d^2=(y^3)^2=y^6.\n\\]\n\nNow use \\(c-a=19\\):\n\\[\nc-a = y^2 - x^4 = 19.\n\\]\nSo\n\\[\ny^2 = x^4 + 19.\n\\]\nRewrite \\(x^4+19\\) as a difference of squares attempt:\n\\[\nx^4+19 = x^4 + 16 + 3 = (x^2)^2 + 4^2 + 3,\n\\]\nnot immediately helpful. Instead, set \\(y=x^2+k\\). Then\n\\[\ny^2=(x^2+k)^2=x^4+2kx^2+k^2.\n\\]\nMatch with \\(x^4+19\\):\n\\[\n2kx^2+k^2=19.\n\\]\nSince \\(x,k\\) are positive integers, \\(19\\) is small. Try possible factorizations of \\(2kx^2+k^2=k(2x^2+k)=19\\).\n\nBecause \\(19\\) is prime, the only way \\(k(2x^2+k)=19\\) with \\(k\\ge1\\) is:\n- \\(k=1\\) and \\(2x^2+1=19 \\Rightarrow 2x^2=18 \\Rightarrow x^2=9 \\Rightarrow x=3\\).\n\nThen\n\\[\na=x^4=3^4=81,\\quad b=x^5=3^5=243.\n\\]\nAlso\n\\[\ny=x^2+k=9+1=10,\\quad c=y^2=10^2=100,\\quad d=y^3=10^3=1000.\n\\]\n\nFinally,\n\\[\nd-b = 1000-243=757.\n\\]\n\nANSWER: 757"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1985-7",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        },
+        {
+          "problem_id": "1985-7",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "757",
+            "answer_line": "ANSWER: 757",
+            "answer_fragment": "757",
+            "extracted": "757"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}

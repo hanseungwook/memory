@@ -1,0 +1,488 @@
+{
+  "problem_id": "1984-13",
+  "domain": "math",
+  "problem": {
+    "id": "1984-13",
+    "domain": "math",
+    "statement": "Find the value of $10\\cot(\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21).$",
+    "answer": "15",
+    "test_cases": null,
+    "starter_code": null,
+    "metadata": {
+      "year": 1984,
+      "problem_number": 13
+    }
+  },
+  "stages": {
+    "generation": {
+      "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+      "user_prompt": "Solve the following AIME problem:\n\nFind the value of $10\\cot(\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21).$",
+      "solutions": [
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\left(\\frac{ab-1}{a+b}\\right)\n\\]\n(valid up to an integer multiple of \\(\\pi\\), but here the angles are in \\((0,\\pi)\\) so the final result for \\(\\cot\\theta\\) is consistent).\n\nPair them:\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\left(\\frac{3\\cdot 21-1}{3+21}\\right)=\\cot^{-1}\\left(\\frac{63-1}{24}\\right)=\\cot^{-1}\\left(\\frac{62}{24}\\right)=\\cot^{-1}\\left(\\frac{31}{12}\\right),\n\\]\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\left(\\frac{7\\cdot 13-1}{7+13}\\right)=\\cot^{-1}\\left(\\frac{91-1}{20}\\right)=\\cot^{-1}\\left(\\frac{90}{20}\\right)=\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\nSo\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\nAgain combine:\n\\[\n\\cot\\theta=\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}\n=\\frac{\\frac{279}{24}-1}{\\frac{31}{12}+\\frac{54}{12}}\n=\\frac{\\frac{279-24}{24}}{\\frac{85}{12}}\n=\\frac{\\frac{255}{24}}{\\frac{85}{12}}\n=\\frac{255}{24}\\cdot\\frac{12}{85}\n=\\frac{255}{2\\cdot 85}\n=\\frac{255}{170}\n=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot\\theta = 10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "We use the identity\n\\[\n\\cot^{-1}x=\\theta \\iff \\cot\\theta=x.\n\\]\nLet\n\\[\n\\alpha=\\cot^{-1}3,\\ \\beta=\\cot^{-1}7,\\ \\gamma=\\cot^{-1}13,\\ \\delta=\\cot^{-1}21.\n\\]\nThen\n\\[\n\\cot\\alpha=3,\\ \\cot\\beta=7,\\ \\cot\\gamma=13,\\ \\cot\\delta=21,\n\\]\nand we want\n\\[\n10\\cot(\\alpha+\\beta+\\gamma+\\delta).\n\\]\n\nUse the formula for \\(\\cot(A+B)\\):\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}.\n\\]\n\nFirst pair:\n\\[\n\\cot(\\alpha+\\beta)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\alpha+\\beta=\\cot^{-1}(2)\\quad (\\text{cotine }=2).\n\\]\n\nSecond pair:\n\\[\n\\cot(\\gamma+\\delta)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\gamma+\\delta=\\cot^{-1}(8).\n\\]\n\nNow add:\n\\[\n\\cot\\big((\\alpha+\\beta)+(\\gamma+\\delta)\\big)=\\cot(\\cot^{-1}2+\\cot^{-1}8)\n=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot(\\alpha+\\beta+\\gamma+\\delta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nSet \\(x_i=\\cot^{-1}(a_i)\\). Then \\(\\cot x_i = a_i\\), so\n\\[\n\\cot \\theta=\\cot(x_1+x_2+x_3+x_4)=\\frac{\\cos\\theta}{\\sin\\theta}\n\\]\nbut an easier route is to use the tangent addition identity in cot form via\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nWe pair terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}21,\\qquad \\cot^{-1}7+\\cot^{-1}13.\n\\]\n\n### Pair 1: \\( \\cot^{-1}3+\\cot^{-1}21 \\)\nLet \\(\\alpha=\\cot^{-1}3\\), \\(\\beta=\\cot^{-1}21\\). Then \\(\\cot\\alpha=3,\\ \\cot\\beta=21\\).\n\\[\n\\cot(\\alpha+\\beta)=\\frac{(3)(21)-1}{3+21}=\\frac{63-1}{24}=\\frac{62}{24}=\\frac{31}{12}.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\left(\\frac{31}{12}\\right)\n\\]\n(up to the principal-value behavior; the resulting angle will lie in the correct range since all terms are in \\((0,\\pi/2)\\)).\n\n### Pair 2: \\( \\cot^{-1}7+\\cot^{-1}13 \\)\nLet \\(\\gamma=\\cot^{-1}7\\), \\(\\delta=\\cot^{-1}13\\). Then \\(\\cot\\gamma=7,\\ \\cot\\delta=13\\).\n\\[\n\\cot(\\gamma+\\delta)=\\frac{(7)(13)-1}{7+13}=\\frac{91-1}{20}=\\frac{90}{20}=\\frac{9}{2}.\n\\]\nSo\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\n\n### Combine the pairs\nNow\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\nLet \\(u=\\cot^{-1}\\left(\\frac{31}{12}\\right)\\), \\(v=\\cot^{-1}\\left(\\frac{9}{2}\\right)\\). Then\n\\[\n\\cot\\theta=\\cot(u+v)=\\frac{\\cot u\\,\\cot v-1}{\\cot u+\\cot v}\n=\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}.\n\\]\nCompute:\n\\[\n\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)=\\frac{31\\cdot 9}{24}=\\frac{279}{24}=\\frac{93}{8}.\n\\]\nSo numerator:\n\\[\n\\frac{93}{8}-1=\\frac{93}{8}-\\frac{8}{8}=\\frac{85}{8}.\n\\]\nDenominator:\n\\[\n\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nThen\n\\[\n10\\cot\\theta=10\\cdot \\frac{1}{\\tan\\theta}.\n\\]\nUse \\(\\cot^{-1}x=\\tan^{-1}\\left(\\frac1x\\right)\\) (for positive \\(x\\), all angles are in \\((0,\\pi/2)\\)), so\n\\[\n\\theta=\\tan^{-1}\\left(\\frac13\\right)+\\tan^{-1}\\left(\\frac17\\right)+\\tan^{-1}\\left(\\frac1{13}\\right)+\\tan^{-1}\\left(\\frac1{21}\\right).\n\\]\nPair terms to use the tangent addition formula. First,\n\\[\n\\tan^{-1}\\left(\\frac13\\right)+\\tan^{-1}\\left(\\frac17\\right)=\\tan^{-1}\\left(\\frac{\\frac13+\\frac17}{1-\\frac13\\cdot\\frac17}\\right).\n\\]\nCompute:\n\\[\n\\frac{\\frac13+\\frac17}{1-\\frac1{21}}=\\frac{\\frac{7+3}{21}}{\\frac{20}{21}}=\\frac{\\frac{10}{21}}{\\frac{20}{21}}=\\frac{1}{2}.\n\\]\nSo\n\\[\n\\tan^{-1}\\left(\\frac13\\right)+\\tan^{-1}\\left(\\frac17\\right)=\\tan^{-1}\\left(\\frac12\\right).\n\\]\nSimilarly,\n\\[\n\\tan^{-1}\\left(\\frac1{13}\\right)+\\tan^{-1}\\left(\\frac1{21}\\right)=\\tan^{-1}\\left(\\frac{\\frac1{13}+\\frac1{21}}{1-\\frac1{273}}\\right).\n\\]\nCompute:\n\\[\n\\frac{\\frac{21+13}{273}}{\\frac{272}{273}}=\\frac{\\frac{34}{273}}{\\frac{272}{273}}=\\frac{34}{272}=\\frac18.\n\\]\nSo\n\\[\n\\tan^{-1}\\left(\\frac1{13}\\right)+\\tan^{-1}\\left(\\frac1{21}\\right)=\\tan^{-1}\\left(\\frac18\\right).\n\\]\nTherefore,\n\\[\n\\theta=\\tan^{-1}\\left(\\frac12\\right)+\\tan^{-1}\\left(\\frac18\\right).\n\\]\nAgain add:\n\\[\n\\tan\\theta=\\frac{\\frac12+\\frac18}{1-\\frac12\\cdot\\frac18}\n=\\frac{\\frac{4+1}{8}}{1-\\frac{1}{16}}\n=\\frac{\\frac{5}{8}}{\\frac{15}{16}}\n=\\frac{5}{8}\\cdot\\frac{16}{15}\n=\\frac{10}{15}=\\frac{2}{3}.\n\\]\nHence\n\\[\n\\cot\\theta=\\frac{1}{\\tan\\theta}=\\frac{3}{2}.\n\\]\nFinally,\n\\[\n10\\cot\\theta=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse \\(\\cot^{-1}x\\) meaning an angle in \\((0,\\pi)\\) with cotangent \\(x\\). Then we can work with tangents via\n\\[\n\\cot^{-1}x=\\arctan\\left(\\frac1x\\right)\\quad\\text{(for }x>0\\text{)}.\n\\]\nSo\n\\[\n\\theta=\\arctan\\frac13+\\arctan\\frac17+\\arctan\\frac1{13}+\\arctan\\frac1{21}.\n\\]\nPair terms:\n\\[\n\\arctan\\frac13+\\arctan\\frac17=\\arctan\\left(\\frac{\\frac13+\\frac17}{1-\\frac1{21}}\\right)\n=\\arctan\\left(\\frac{\\frac{10}{21}}{\\frac{20}{21}}\\right)=\\arctan\\left(\\frac12\\right),\n\\]\nsince \\(1-\\frac{1}{3\\cdot 7}=1-\\frac1{21}=\\frac{20}{21}\\).\n\nSimilarly,\n\\[\n\\arctan\\frac1{13}+\\arctan\\frac1{21}\n=\\arctan\\left(\\frac{\\frac1{13}+\\frac1{21}}{1-\\frac1{273}}\\right)\n=\\arctan\\left(\\frac{\\frac{34}{273}}{\\frac{272}{273}}\\right)=\\arctan\\left(\\frac{34}{272}\\right)\n=\\arctan\\left(\\frac18\\right).\n\\]\nThus\n\\[\n\\theta=\\arctan\\left(\\frac12\\right)+\\arctan\\left(\\frac18\\right).\n\\]\nAgain combine:\n\\[\n\\theta=\\arctan\\left(\\frac{\\frac12+\\frac18}{1-\\frac{1}{16}}\\right)\n=\\arctan\\left(\\frac{\\frac{5}{8}}{\\frac{15}{16}}\\right)\n=\\arctan\\left(\\frac{5}{8}\\cdot\\frac{16}{15}\\right)\n=\\arctan\\left(\\frac{2}{3}\\right).\n\\]\nSo\n\\[\n\\cot(\\theta)=\\cot\\left(\\arctan\\frac23\\right)=\\frac{1}{\\tan(\\arctan\\frac23)}=\\frac{1}{\\frac23}=\\frac32.\n\\]\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot\\frac32=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot(\\cot^{-1}a+\\cot^{-1}b)=\\frac{ab-1}{a+b}.\n\\]\n\nPair the terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}7 \\implies \\cot=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}2.\n\\]\n\nSimilarly,\n\\[\n\\cot^{-1}13+\\cot^{-1}21 \\implies \\cot=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8,\n\\]\nso\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}8.\n\\]\n\nThus\n\\[\n\\theta=\\cot^{-1}2+\\cot^{-1}8.\n\\]\nNow apply the same identity again:\n\\[\n\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nSet \\(x=\\cot^{-1}3,\\ y=\\cot^{-1}7,\\ z=\\cot^{-1}13,\\ w=\\cot^{-1}21\\), so\n\\[\n\\cot x=3,\\ \\cot y=7,\\ \\cot z=13,\\ \\cot w=21,\n\\]\nand \\(\\theta=x+y+z+w\\).\n\nUse the identity\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\,\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nCombine in pairs:\n\\[\n\\cot(x+y)=\\frac{(3)(7)-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\n\\[\n\\cot(z+w)=\\frac{(13)(21)-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\n\nNow\n\\[\n\\cot\\theta=\\cot\\big((x+y)+(z+w)\\big)=\\frac{\\cot(x+y)\\cot(z+w)-1}{\\cot(x+y)+\\cot(z+w)}\n=\\frac{(2)(8)-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot\\theta = 10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\!\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nsince \\(\\cot(\\alpha+\\beta)=\\frac{ab-1}{a+b}\\) when \\(\\cot\\alpha=a,\\cot\\beta=b\\).\n\nCompute stepwise.\n\n### 1) Combine \\(\\cot^{-1}3+\\cot^{-1}7\\)\n\\[\n\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}2.\n\\]\n\n### 2) Combine \\(\\cot^{-1}13+\\cot^{-1}21\\)\n\\[\n\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}8.\n\\]\n\nThus\n\\[\n\\theta=\\cot^{-1}2+\\cot^{-1}8.\n\\]\n\n### 3) Combine \\(\\cot^{-1}2+\\cot^{-1}8\\)\n\\[\n\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nSo\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{3}{2}\\right).\n\\]\n\nTherefore\n\\[\n\\cot\\theta=\\frac{3}{2}.\n\\]\nFinally,\n\\[\n10\\cot(\\theta)=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse \\(\\cot(\\cot^{-1}x)=x\\). Set\n\\[\n\\cot A=3,\\ \\cot B=7,\\ \\cot C=13,\\ \\cot D=21\n\\]\nso \\(A=\\cot^{-1}3\\), etc., and \\(\\theta=A+B+C+D\\).\n\nA key identity: for angles where cotangents are defined,\n\\[\n\\cot(x+y)=\\frac{\\cot x\\cot y-1}{\\cot x+\\cot y}.\n\\]\n\nCompute stepwise.\n\n### 1) \\(\\cot(A+B)\\)\n\\[\n\\cot(A+B)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\n\n### 2) \\(\\cot(C+D)\\)\n\\[\n\\cot(C+D)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\n\n### 3) \\(\\cot(\\theta)=\\cot\\big((A+B)+(C+D)\\big)\\)\nSo\n\\[\n\\cot(\\theta)=\\cot\\big((A+B)+(C+D)\\big)=\\frac{(2)(8)-1}{2+8}\n=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "We need\n\\[\n10\\cot\\left(\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21\\right).\n\\]\nLet \\(\\theta=\\sum_{k=1}^4 \\cot^{-1} a_k\\) with \\(a_1=3,a_2=7,a_3=13,a_4=21\\).\nUse the identity (for positive \\(x,y\\)):\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\nSo if \\(\\cot\\alpha=x,\\ \\cot\\beta=y\\), then\n\\[\n\\cot(\\alpha+\\beta)=\\frac{xy-1}{x+y}.\n\\]\n\nPair terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}7 \\quad\\Rightarrow\\quad \\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot\\bigl(\\cot^{-1}3+\\cot^{-1}7\\bigr)=2.\n\\]\nSimilarly,\n\\[\n\\cot^{-1}13+\\cot^{-1}21 \\quad\\Rightarrow\\quad \\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nThus if we set\n\\[\nA=\\cot^{-1}3+\\cot^{-1}7,\\quad B=\\cot^{-1}13+\\cot^{-1}21,\n\\]\nthen \\(\\cot A=2\\) and \\(\\cot B=8\\), and \\(\\theta=A+B\\).\n\nNow apply the addition formula:\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nTherefore\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15"
+      ]
+    },
+    "scoring": {
+      "scores": [
+        {
+          "problem_id": "1984-13",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        }
+      ]
+    },
+    "memory": {
+      "grouped_solutions": {
+        "correct": [
+          "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\left(\\frac{ab-1}{a+b}\\right)\n\\]\n(valid up to an integer multiple of \\(\\pi\\), but here the angles are in \\((0,\\pi)\\) so the final result for \\(\\cot\\theta\\) is consistent).\n\nPair them:\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\left(\\frac{3\\cdot 21-1}{3+21}\\right)=\\cot^{-1}\\left(\\frac{63-1}{24}\\right)=\\cot^{-1}\\left(\\frac{62}{24}\\right)=\\cot^{-1}\\left(\\frac{31}{12}\\right),\n\\]\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\left(\\frac{7\\cdot 13-1}{7+13}\\right)=\\cot^{-1}\\left(\\frac{91-1}{20}\\right)=\\cot^{-1}\\left(\\frac{90}{20}\\right)=\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\nSo\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\nAgain combine:\n\\[\n\\cot\\theta=\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}\n=\\frac{\\frac{279}{24}-1}{\\frac{31}{12}+\\frac{54}{12}}\n=\\frac{\\frac{279-24}{24}}{\\frac{85}{12}}\n=\\frac{\\frac{255}{24}}{\\frac{85}{12}}\n=\\frac{255}{24}\\cdot\\frac{12}{85}\n=\\frac{255}{2\\cdot 85}\n=\\frac{255}{170}\n=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot\\theta = 10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "We use the identity\n\\[\n\\cot^{-1}x=\\theta \\iff \\cot\\theta=x.\n\\]\nLet\n\\[\n\\alpha=\\cot^{-1}3,\\ \\beta=\\cot^{-1}7,\\ \\gamma=\\cot^{-1}13,\\ \\delta=\\cot^{-1}21.\n\\]\nThen\n\\[\n\\cot\\alpha=3,\\ \\cot\\beta=7,\\ \\cot\\gamma=13,\\ \\cot\\delta=21,\n\\]\nand we want\n\\[\n10\\cot(\\alpha+\\beta+\\gamma+\\delta).\n\\]\n\nUse the formula for \\(\\cot(A+B)\\):\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}.\n\\]\n\nFirst pair:\n\\[\n\\cot(\\alpha+\\beta)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\alpha+\\beta=\\cot^{-1}(2)\\quad (\\text{cotine }=2).\n\\]\n\nSecond pair:\n\\[\n\\cot(\\gamma+\\delta)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\gamma+\\delta=\\cot^{-1}(8).\n\\]\n\nNow add:\n\\[\n\\cot\\big((\\alpha+\\beta)+(\\gamma+\\delta)\\big)=\\cot(\\cot^{-1}2+\\cot^{-1}8)\n=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot(\\alpha+\\beta+\\gamma+\\delta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nSet \\(x_i=\\cot^{-1}(a_i)\\). Then \\(\\cot x_i = a_i\\), so\n\\[\n\\cot \\theta=\\cot(x_1+x_2+x_3+x_4)=\\frac{\\cos\\theta}{\\sin\\theta}\n\\]\nbut an easier route is to use the tangent addition identity in cot form via\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nWe pair terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}21,\\qquad \\cot^{-1}7+\\cot^{-1}13.\n\\]\n\n### Pair 1: \\( \\cot^{-1}3+\\cot^{-1}21 \\)\nLet \\(\\alpha=\\cot^{-1}3\\), \\(\\beta=\\cot^{-1}21\\). Then \\(\\cot\\alpha=3,\\ \\cot\\beta=21\\).\n\\[\n\\cot(\\alpha+\\beta)=\\frac{(3)(21)-1}{3+21}=\\frac{63-1}{24}=\\frac{62}{24}=\\frac{31}{12}.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\left(\\frac{31}{12}\\right)\n\\]\n(up to the principal-value behavior; the resulting angle will lie in the correct range since all terms are in \\((0,\\pi/2)\\)).\n\n### Pair 2: \\( \\cot^{-1}7+\\cot^{-1}13 \\)\nLet \\(\\gamma=\\cot^{-1}7\\), \\(\\delta=\\cot^{-1}13\\). Then \\(\\cot\\gamma=7,\\ \\cot\\delta=13\\).\n\\[\n\\cot(\\gamma+\\delta)=\\frac{(7)(13)-1}{7+13}=\\frac{91-1}{20}=\\frac{90}{20}=\\frac{9}{2}.\n\\]\nSo\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\n\n### Combine the pairs\nNow\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\nLet \\(u=\\cot^{-1}\\left(\\frac{31}{12}\\right)\\), \\(v=\\cot^{-1}\\left(\\frac{9}{2}\\right)\\). Then\n\\[\n\\cot\\theta=\\cot(u+v)=\\frac{\\cot u\\,\\cot v-1}{\\cot u+\\cot v}\n=\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}.\n\\]\nCompute:\n\\[\n\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)=\\frac{31\\cdot 9}{24}=\\frac{279}{24}=\\frac{93}{8}.\n\\]\nSo numerator:\n\\[\n\\frac{93}{8}-1=\\frac{93}{8}-\\frac{8}{8}=\\frac{85}{8}.\n\\]\nDenominator:\n\\[\n\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nThen\n\\[\n10\\cot\\theta=10\\cdot \\frac{1}{\\tan\\theta}.\n\\]\nUse \\(\\cot^{-1}x=\\tan^{-1}\\left(\\frac1x\\right)\\) (for positive \\(x\\), all angles are in \\((0,\\pi/2)\\)), so\n\\[\n\\theta=\\tan^{-1}\\left(\\frac13\\right)+\\tan^{-1}\\left(\\frac17\\right)+\\tan^{-1}\\left(\\frac1{13}\\right)+\\tan^{-1}\\left(\\frac1{21}\\right).\n\\]\nPair terms to use the tangent addition formula. First,\n\\[\n\\tan^{-1}\\left(\\frac13\\right)+\\tan^{-1}\\left(\\frac17\\right)=\\tan^{-1}\\left(\\frac{\\frac13+\\frac17}{1-\\frac13\\cdot\\frac17}\\right).\n\\]\nCompute:\n\\[\n\\frac{\\frac13+\\frac17}{1-\\frac1{21}}=\\frac{\\frac{7+3}{21}}{\\frac{20}{21}}=\\frac{\\frac{10}{21}}{\\frac{20}{21}}=\\frac{1}{2}.\n\\]\nSo\n\\[\n\\tan^{-1}\\left(\\frac13\\right)+\\tan^{-1}\\left(\\frac17\\right)=\\tan^{-1}\\left(\\frac12\\right).\n\\]\nSimilarly,\n\\[\n\\tan^{-1}\\left(\\frac1{13}\\right)+\\tan^{-1}\\left(\\frac1{21}\\right)=\\tan^{-1}\\left(\\frac{\\frac1{13}+\\frac1{21}}{1-\\frac1{273}}\\right).\n\\]\nCompute:\n\\[\n\\frac{\\frac{21+13}{273}}{\\frac{272}{273}}=\\frac{\\frac{34}{273}}{\\frac{272}{273}}=\\frac{34}{272}=\\frac18.\n\\]\nSo\n\\[\n\\tan^{-1}\\left(\\frac1{13}\\right)+\\tan^{-1}\\left(\\frac1{21}\\right)=\\tan^{-1}\\left(\\frac18\\right).\n\\]\nTherefore,\n\\[\n\\theta=\\tan^{-1}\\left(\\frac12\\right)+\\tan^{-1}\\left(\\frac18\\right).\n\\]\nAgain add:\n\\[\n\\tan\\theta=\\frac{\\frac12+\\frac18}{1-\\frac12\\cdot\\frac18}\n=\\frac{\\frac{4+1}{8}}{1-\\frac{1}{16}}\n=\\frac{\\frac{5}{8}}{\\frac{15}{16}}\n=\\frac{5}{8}\\cdot\\frac{16}{15}\n=\\frac{10}{15}=\\frac{2}{3}.\n\\]\nHence\n\\[\n\\cot\\theta=\\frac{1}{\\tan\\theta}=\\frac{3}{2}.\n\\]\nFinally,\n\\[\n10\\cot\\theta=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse \\(\\cot^{-1}x\\) meaning an angle in \\((0,\\pi)\\) with cotangent \\(x\\). Then we can work with tangents via\n\\[\n\\cot^{-1}x=\\arctan\\left(\\frac1x\\right)\\quad\\text{(for }x>0\\text{)}.\n\\]\nSo\n\\[\n\\theta=\\arctan\\frac13+\\arctan\\frac17+\\arctan\\frac1{13}+\\arctan\\frac1{21}.\n\\]\nPair terms:\n\\[\n\\arctan\\frac13+\\arctan\\frac17=\\arctan\\left(\\frac{\\frac13+\\frac17}{1-\\frac1{21}}\\right)\n=\\arctan\\left(\\frac{\\frac{10}{21}}{\\frac{20}{21}}\\right)=\\arctan\\left(\\frac12\\right),\n\\]\nsince \\(1-\\frac{1}{3\\cdot 7}=1-\\frac1{21}=\\frac{20}{21}\\).\n\nSimilarly,\n\\[\n\\arctan\\frac1{13}+\\arctan\\frac1{21}\n=\\arctan\\left(\\frac{\\frac1{13}+\\frac1{21}}{1-\\frac1{273}}\\right)\n=\\arctan\\left(\\frac{\\frac{34}{273}}{\\frac{272}{273}}\\right)=\\arctan\\left(\\frac{34}{272}\\right)\n=\\arctan\\left(\\frac18\\right).\n\\]\nThus\n\\[\n\\theta=\\arctan\\left(\\frac12\\right)+\\arctan\\left(\\frac18\\right).\n\\]\nAgain combine:\n\\[\n\\theta=\\arctan\\left(\\frac{\\frac12+\\frac18}{1-\\frac{1}{16}}\\right)\n=\\arctan\\left(\\frac{\\frac{5}{8}}{\\frac{15}{16}}\\right)\n=\\arctan\\left(\\frac{5}{8}\\cdot\\frac{16}{15}\\right)\n=\\arctan\\left(\\frac{2}{3}\\right).\n\\]\nSo\n\\[\n\\cot(\\theta)=\\cot\\left(\\arctan\\frac23\\right)=\\frac{1}{\\tan(\\arctan\\frac23)}=\\frac{1}{\\frac23}=\\frac32.\n\\]\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot\\frac32=15.\n\\]\n\nANSWER: 15",
+          "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot(\\cot^{-1}a+\\cot^{-1}b)=\\frac{ab-1}{a+b}.\n\\]\n\nPair the terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}7 \\implies \\cot=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}2.\n\\]\n\nSimilarly,\n\\[\n\\cot^{-1}13+\\cot^{-1}21 \\implies \\cot=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8,\n\\]\nso\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}8.\n\\]\n\nThus\n\\[\n\\theta=\\cot^{-1}2+\\cot^{-1}8.\n\\]\nNow apply the same identity again:\n\\[\n\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "Let\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nSet \\(x=\\cot^{-1}3,\\ y=\\cot^{-1}7,\\ z=\\cot^{-1}13,\\ w=\\cot^{-1}21\\), so\n\\[\n\\cot x=3,\\ \\cot y=7,\\ \\cot z=13,\\ \\cot w=21,\n\\]\nand \\(\\theta=x+y+z+w\\).\n\nUse the identity\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\,\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nCombine in pairs:\n\\[\n\\cot(x+y)=\\frac{(3)(7)-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\n\\[\n\\cot(z+w)=\\frac{(13)(21)-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\n\nNow\n\\[\n\\cot\\theta=\\cot\\big((x+y)+(z+w)\\big)=\\frac{\\cot(x+y)\\cot(z+w)-1}{\\cot(x+y)+\\cot(z+w)}\n=\\frac{(2)(8)-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot\\theta = 10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "Let\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\!\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nsince \\(\\cot(\\alpha+\\beta)=\\frac{ab-1}{a+b}\\) when \\(\\cot\\alpha=a,\\cot\\beta=b\\).\n\nCompute stepwise.\n\n### 1) Combine \\(\\cot^{-1}3+\\cot^{-1}7\\)\n\\[\n\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}2.\n\\]\n\n### 2) Combine \\(\\cot^{-1}13+\\cot^{-1}21\\)\n\\[\n\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}8.\n\\]\n\nThus\n\\[\n\\theta=\\cot^{-1}2+\\cot^{-1}8.\n\\]\n\n### 3) Combine \\(\\cot^{-1}2+\\cot^{-1}8\\)\n\\[\n\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nSo\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{3}{2}\\right).\n\\]\n\nTherefore\n\\[\n\\cot\\theta=\\frac{3}{2}.\n\\]\nFinally,\n\\[\n10\\cot(\\theta)=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse \\(\\cot(\\cot^{-1}x)=x\\). Set\n\\[\n\\cot A=3,\\ \\cot B=7,\\ \\cot C=13,\\ \\cot D=21\n\\]\nso \\(A=\\cot^{-1}3\\), etc., and \\(\\theta=A+B+C+D\\).\n\nA key identity: for angles where cotangents are defined,\n\\[\n\\cot(x+y)=\\frac{\\cot x\\cot y-1}{\\cot x+\\cot y}.\n\\]\n\nCompute stepwise.\n\n### 1) \\(\\cot(A+B)\\)\n\\[\n\\cot(A+B)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\n\n### 2) \\(\\cot(C+D)\\)\n\\[\n\\cot(C+D)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\n\n### 3) \\(\\cot(\\theta)=\\cot\\big((A+B)+(C+D)\\big)\\)\nSo\n\\[\n\\cot(\\theta)=\\cot\\big((A+B)+(C+D)\\big)=\\frac{(2)(8)-1}{2+8}\n=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+          "We need\n\\[\n10\\cot\\left(\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21\\right).\n\\]\nLet \\(\\theta=\\sum_{k=1}^4 \\cot^{-1} a_k\\) with \\(a_1=3,a_2=7,a_3=13,a_4=21\\).\nUse the identity (for positive \\(x,y\\)):\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\nSo if \\(\\cot\\alpha=x,\\ \\cot\\beta=y\\), then\n\\[\n\\cot(\\alpha+\\beta)=\\frac{xy-1}{x+y}.\n\\]\n\nPair terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}7 \\quad\\Rightarrow\\quad \\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot\\bigl(\\cot^{-1}3+\\cot^{-1}7\\bigr)=2.\n\\]\nSimilarly,\n\\[\n\\cot^{-1}13+\\cot^{-1}21 \\quad\\Rightarrow\\quad \\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nThus if we set\n\\[\nA=\\cot^{-1}3+\\cot^{-1}7,\\quad B=\\cot^{-1}13+\\cot^{-1}21,\n\\]\nthen \\(\\cot A=2\\) and \\(\\cot B=8\\), and \\(\\theta=A+B\\).\n\nNow apply the addition formula:\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nTherefore\n\\[\n10\\cot(\\theta)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15"
+        ]
+      },
+      "prompt": null,
+      "skipped": true,
+      "skip_reason": "insufficient_tiers",
+      "items": [],
+      "raw_response": null
+    },
+    "evaluation": {
+      "baseline_prompt": {
+        "system_prompt": "You are an expert mathematician solving competition-level problems. Show your reasoning step by step. Your response should have this overall shape: first the reasoning, then a final line exactly in the format ANSWER: <integer>. For example, a valid response could end like this:\n...\nANSWER: 42",
+        "user_prompt": "Solve the following AIME problem:\n\nFind the value of $10\\cot(\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21).$"
+      },
+      "baseline_solutions": [
+        "Let the angle be\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nSet \\(x=\\cot\\theta\\). Use the identity\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\nWe will combine two at a time.\n\nFirst combine \\(\\cot^{-1}3\\) and \\(\\cot^{-1}7\\):\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2)\n\\]\n(because the principal values match since all cot values are positive).\n\nNext combine \\(\\cot^{-1}13\\) and \\(\\cot^{-1}21\\):\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore\n\\[\n\\theta=\\cot^{-1}(2)+\\cot^{-1}(8),\n\\]\nand\n\\[\nx=\\cot\\theta=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nNow compute the requested value:\n\\[\n10\\cot(\\theta)=10\\left(\\frac{3}{2}\\right)=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}.\n\\]\nCompute in pairs.\n\nFirst,\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nNext,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot(\\theta)=\\cot\\bigl((\\cot^{-1}3+\\cot^{-1}7)+(\\cot^{-1}13+\\cot^{-1}21)\\bigr)\n=\\cot(\\alpha+\\beta)\n\\]\nwhere \\(\\cot\\alpha=2\\), \\(\\cot\\beta=8\\). Then\n\\[\n\\cot(\\alpha+\\beta)=\\frac{(2)(8)-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{3}{2}\\quad\\Longrightarrow\\quad 10\\cot\\theta=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (valid for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nbecause if \\(\\alpha=\\cot^{-1}a\\) and \\(\\beta=\\cot^{-1}b\\), then\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}=\\frac{ab-1}{a+b}.\n\\]\n\nFirst combine in pairs.\n\n### Step 1: Combine \\(\\cot^{-1}3+\\cot^{-1}21\\)\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}21)=\\frac{3\\cdot 21-1}{3+21}=\\frac{63-1}{24}=\\frac{62}{24}=\\frac{31}{12}.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\left(\\frac{31}{12}\\right).\n\\]\n\n### Step 2: Combine \\(\\cot^{-1}7+\\cot^{-1}13\\)\n\\[\n\\cot(\\cot^{-1}7+\\cot^{-1}13)=\\frac{7\\cdot 13-1}{7+13}=\\frac{91-1}{20}=\\frac{90}{20}=\\frac{9}{2}.\n\\]\nSo\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\n\nThus\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\n\n### Step 3: Combine the two remaining terms\nLet \\(a=\\frac{31}{12}\\), \\(b=\\frac{9}{2}\\). Then\n\\[\n\\cot\\theta=\\cot\\left(\\cot^{-1}a+\\cot^{-1}b\\right)=\\frac{ab-1}{a+b}.\n\\]\nCompute:\n\\[\nab=\\frac{31}{12}\\cdot\\frac{9}{2}=\\frac{279}{24}=\\frac{93}{8},\n\\]\nso\n\\[\nab-1=\\frac{93}{8}-1=\\frac{85}{8}.\n\\]\nAlso\n\\[\na+b=\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nTherefore\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\n\nFinally, the expression is\n\\[\n10\\cot(\\theta)=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let the angles be in \\((0,\\pi)\\), so \\(\\cot^{-1}x\\) denotes the angle \\(\\theta\\) with \\(\\cot\\theta=x\\).\n\nSet\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nThen\n\\[\n\\cot(\\cot^{-1}3)=3,\\ \\cot(\\cot^{-1}7)=7,\\ \\cot(\\cot^{-1}13)=13,\\ \\cot(\\cot^{-1}21)=21.\n\\]\n\nUse the identity (for \\(\\alpha,\\beta\\) with \\(\\sin\\alpha,\\sin\\beta\\neq 0\\)):\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nPair the terms:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}21)=\\frac{3\\cdot 21-1}{3+21}=\\frac{63-1}{24}=\\frac{62}{24}=\\frac{31}{12}.\n\\]\nAlso,\n\\[\n\\cot(\\cot^{-1}7+\\cot^{-1}13)=\\frac{7\\cdot 13-1}{7+13}=\\frac{91-1}{20}=\\frac{90}{20}=\\frac{9}{2}.\n\\]\nSo\n\\[\n\\theta=(\\cot^{-1}3+\\cot^{-1}21)+(\\cot^{-1}7+\\cot^{-1}13),\n\\]\nand\n\\[\n\\cot\\theta=\\cot\\Big((\\cot^{-1}3+\\cot^{-1}21)+(\\cot^{-1}7+\\cot^{-1}13)\\Big)\n=\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}.\n\\]\n\nCompute numerator:\n\\[\n\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)=\\frac{31\\cdot 9}{24}=\\frac{279}{24}=\\frac{93}{8},\n\\quad\n\\frac{93}{8}-1=\\frac{93-8}{8}=\\frac{85}{8}.\n\\]\nCompute denominator:\n\\[\n\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot\\theta=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nThen\n\\[\n10\\cot(\\theta)\n\\]\nis requested.\n\n### Step 1: Convert \\(\\cot^{-1}\\) to tangent addition\nUse the identity: if \\(\\cot^{-1}x=\\alpha\\), then \\(\\cot\\alpha=x\\) and \\(\\tan\\alpha=\\frac1x\\).\nSo define\n\\[\na=\\cot^{-1}3,\\quad b=\\cot^{-1}7,\\quad c=\\cot^{-1}13,\\quad d=\\cot^{-1}21,\n\\]\nso\n\\[\n\\tan a=\\frac13,\\ \\tan b=\\frac17,\\ \\tan c=\\frac1{13},\\ \\tan d=\\frac1{21}.\n\\]\nLet\n\\[\nt=\\tan\\theta=\\tan(a+b+c+d).\n\\]\nThen\n\\[\n\\cot\\theta=\\frac1t.\n\\]\n\n### Step 2: Pair terms\nFirst compute\n\\[\n\\tan(a+b)=\\frac{\\tan a+\\tan b}{1-\\tan a\\tan b}\n=\\frac{\\frac13+\\frac17}{1-\\frac13\\cdot\\frac17}\n=\\frac{\\frac{10}{21}}{1-\\frac1{21}}\n=\\frac{\\frac{10}{21}}{\\frac{20}{21}}=\\frac12.\n\\]\nSimilarly,\n\\[\n\\tan(c+d)=\\frac{\\frac1{13}+\\frac1{21}}{1-\\frac1{13}\\cdot\\frac1{21}}\n=\\frac{\\frac{34}{273}}{1-\\frac1{273}}\n=\\frac{\\frac{34}{273}}{\\frac{272}{273}}=\\frac{17}{136}.\n\\]\n\nSo\n\\[\n\\tan\\theta=\\tan\\big((a+b)+(c+d)\\big)=\\frac{\\tan(a+b)+\\tan(c+d)}{1-\\tan(a+b)\\tan(c+d)}.\n\\]\nLet \\(\\tan(a+b)=\\frac12\\) and \\(\\tan(c+d)=\\frac{17}{136}\\). Then\n\\[\n\\tan\\theta=\\frac{\\frac12+\\frac{17}{136}}{1-\\frac12\\cdot\\frac{17}{136}}.\n\\]\nCompute:\n\\[\n\\frac12=\\frac{68}{136}\\quad\\Rightarrow\\quad \\frac12+\\frac{17}{136}=\\frac{85}{136}.\n\\]\nAlso,\n\\[\n\\frac12\\cdot\\frac{17}{136}=\\frac{17}{272},\n\\]\nso\n\\[\n1-\\frac{17}{272}=\\frac{272-17}{272}=\\frac{255}{272}.\n\\]\nTherefore\n\\[\n\\tan\\theta=\\frac{\\frac{85}{136}}{\\frac{255}{272}}=\\frac{85}{136}\\cdot\\frac{272}{255}.\n\\]\nSince \\(272/136=2\\),\n\\[\n\\tan\\theta=\\frac{85\\cdot 2}{255}=\\frac{170}{255}=\\frac{2}{3}.\n\\]\n\n### Step 3: Convert back to cot\n\\[\n\\cot\\theta=\\frac1{\\tan\\theta}=\\frac1{2/3}=\\frac32.\n\\]\nThus\n\\[\n10\\cot\\theta=10\\cdot\\frac32=15.\n\\]\n\nANSWER: 15",
+        "First note that for positive \\(x\\),\n\\[\n\\cot^{-1}x=\\theta \\quad\\Longrightarrow\\quad \\cot\\theta=x.\n\\]\nLet\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21,\n\\]\nso that\n\\[\n\\cot(\\theta)=?\n\\]\n\nUse the identity for cotangents:\n\\[\n\\cot(a+b)=\\frac{\\cot a\\cot b-1}{\\cot a+\\cot b}.\n\\]\n\nStart pairing:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2).\n\\]\n\nSimilarly,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore,\n\\[\n\\theta=\\cot^{-1}(2)+\\cot^{-1}(8).\n\\]\nNow compute:\n\\[\n\\cot(\\theta)=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac32.\n\\]\n\nThus,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac32=15.\n\\]\n\nANSWER: 15",
+        "Let\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\!\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nwhich comes from \\(\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}\\).\n\nPair the terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\!\\left(\\frac{3\\cdot 21-1}{3+21}\\right)\n=\\cot^{-1}\\!\\left(\\frac{63-1}{24}\\right)=\\cot^{-1}\\!\\left(\\frac{62}{24}\\right)=\\cot^{-1}\\!\\left(\\frac{31}{12}\\right).\n\\]\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\!\\left(\\frac{7\\cdot 13-1}{7+13}\\right)\n=\\cot^{-1}\\!\\left(\\frac{91-1}{20}\\right)=\\cot^{-1}\\!\\left(\\frac{90}{20}\\right)=\\cot^{-1}\\!\\left(\\frac{9}{2}\\right).\n\\]\nSo\n\\[\n\\theta=\\cot^{-1}\\!\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\!\\left(\\frac{9}{2}\\right).\n\\]\nApply the same identity again:\n\\[\n\\theta=\\cot^{-1}\\!\\left(\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}\\right).\n\\]\nCompute the numerator:\n\\[\n\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)=\\frac{279}{24}=\\frac{93}{8},\\quad\n\\frac{93}{8}-1=\\frac{93}{8}-\\frac{8}{8}=\\frac{85}{8}.\n\\]\nCompute the denominator:\n\\[\n\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\nx=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity for cotangent addition:\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}.\n\\]\n\nPair the terms:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2).\n\\]\n\nSimilarly,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore\n\\[\nx=\\cot^{-1}(2)+\\cot^{-1}(8).\n\\]\nNow compute\n\\[\n\\cot x=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac32.\n\\]\nSo\n\\[\nx=\\cot^{-1}\\left(\\frac32\\right).\n\\]\nHence\n\\[\n10\\cot x=10\\cdot \\frac32=15.\n\\]\n\nANSWER: 15",
+        "Let \\(A=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21\\).  \nSet \\(x=\\cot A\\). We want \\(10\\cot A=10x\\).\n\nUse the identity for cotangent of a sum: for \\( \\alpha,\\beta\\),\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nPair terms:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=2 \\quad\\Rightarrow\\quad \\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2).\n\\]\n\nSimilarly,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore\n\\[\nA=\\cot^{-1}(2)+\\cot^{-1}(8),\n\\]\nand\n\\[\nx=\\cot A=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nThus\n\\[\n10\\cot A=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\!\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nsince \\(\\cot(\\cot^{-1}a)=a\\).\n\nPair terms:\n\n**1) First pair:**\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}\\!\\left(\\frac{3\\cdot 7-1}{3+7}\\right)=\\cot^{-1}\\!\\left(\\frac{21-1}{10}\\right)=\\cot^{-1}\\!\\left(2\\right).\n\\]\n\n**2) Second pair:**\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}\\!\\left(\\frac{13\\cdot 21-1}{13+21}\\right)=\\cot^{-1}\\!\\left(\\frac{273-1}{34}\\right)=\\cot^{-1}\\!\\left(\\frac{272}{34}\\right)=\\cot^{-1}(8).\n\\]\n\nSo\n\\[\n\\theta=\\cot^{-1}2+\\cot^{-1}8.\n\\]\n\nApply the identity again:\n\\[\n\\cot^{-1}2+\\cot^{-1}8=\\cot^{-1}\\!\\left(\\frac{2\\cdot 8-1}{2+8}\\right)=\\cot^{-1}\\!\\left(\\frac{16-1}{10}\\right)=\\cot^{-1}\\!\\left(\\frac{15}{10}\\right)=\\cot^{-1}\\!\\left(\\frac{3}{2}\\right).\n\\]\n\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cot\\left(\\cot^{-1}\\!\\left(\\frac{3}{2}\\right)\\right)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15"
+      ],
+      "baseline_results": [
+        {
+          "problem_id": "1984-13",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        }
+      ],
+      "augmented_prompt": null,
+      "augmented_solutions": [
+        "Let the angle be\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nSet \\(x=\\cot\\theta\\). Use the identity\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\nWe will combine two at a time.\n\nFirst combine \\(\\cot^{-1}3\\) and \\(\\cot^{-1}7\\):\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2)\n\\]\n(because the principal values match since all cot values are positive).\n\nNext combine \\(\\cot^{-1}13\\) and \\(\\cot^{-1}21\\):\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore\n\\[\n\\theta=\\cot^{-1}(2)+\\cot^{-1}(8),\n\\]\nand\n\\[\nx=\\cot\\theta=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nNow compute the requested value:\n\\[\n10\\cot(\\theta)=10\\left(\\frac{3}{2}\\right)=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}.\n\\]\nCompute in pairs.\n\nFirst,\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nNext,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot(\\theta)=\\cot\\bigl((\\cot^{-1}3+\\cot^{-1}7)+(\\cot^{-1}13+\\cot^{-1}21)\\bigr)\n=\\cot(\\alpha+\\beta)\n\\]\nwhere \\(\\cot\\alpha=2\\), \\(\\cot\\beta=8\\). Then\n\\[\n\\cot(\\alpha+\\beta)=\\frac{(2)(8)-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{3}{2}\\quad\\Longrightarrow\\quad 10\\cot\\theta=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (valid for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nbecause if \\(\\alpha=\\cot^{-1}a\\) and \\(\\beta=\\cot^{-1}b\\), then\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}=\\frac{ab-1}{a+b}.\n\\]\n\nFirst combine in pairs.\n\n### Step 1: Combine \\(\\cot^{-1}3+\\cot^{-1}21\\)\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}21)=\\frac{3\\cdot 21-1}{3+21}=\\frac{63-1}{24}=\\frac{62}{24}=\\frac{31}{12}.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\left(\\frac{31}{12}\\right).\n\\]\n\n### Step 2: Combine \\(\\cot^{-1}7+\\cot^{-1}13\\)\n\\[\n\\cot(\\cot^{-1}7+\\cot^{-1}13)=\\frac{7\\cdot 13-1}{7+13}=\\frac{91-1}{20}=\\frac{90}{20}=\\frac{9}{2}.\n\\]\nSo\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\n\nThus\n\\[\n\\theta=\\cot^{-1}\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\left(\\frac{9}{2}\\right).\n\\]\n\n### Step 3: Combine the two remaining terms\nLet \\(a=\\frac{31}{12}\\), \\(b=\\frac{9}{2}\\). Then\n\\[\n\\cot\\theta=\\cot\\left(\\cot^{-1}a+\\cot^{-1}b\\right)=\\frac{ab-1}{a+b}.\n\\]\nCompute:\n\\[\nab=\\frac{31}{12}\\cdot\\frac{9}{2}=\\frac{279}{24}=\\frac{93}{8},\n\\]\nso\n\\[\nab-1=\\frac{93}{8}-1=\\frac{85}{8}.\n\\]\nAlso\n\\[\na+b=\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nTherefore\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\n\nFinally, the expression is\n\\[\n10\\cot(\\theta)=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let the angles be in \\((0,\\pi)\\), so \\(\\cot^{-1}x\\) denotes the angle \\(\\theta\\) with \\(\\cot\\theta=x\\).\n\nSet\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nThen\n\\[\n\\cot(\\cot^{-1}3)=3,\\ \\cot(\\cot^{-1}7)=7,\\ \\cot(\\cot^{-1}13)=13,\\ \\cot(\\cot^{-1}21)=21.\n\\]\n\nUse the identity (for \\(\\alpha,\\beta\\) with \\(\\sin\\alpha,\\sin\\beta\\neq 0\\)):\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nPair the terms:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}21)=\\frac{3\\cdot 21-1}{3+21}=\\frac{63-1}{24}=\\frac{62}{24}=\\frac{31}{12}.\n\\]\nAlso,\n\\[\n\\cot(\\cot^{-1}7+\\cot^{-1}13)=\\frac{7\\cdot 13-1}{7+13}=\\frac{91-1}{20}=\\frac{90}{20}=\\frac{9}{2}.\n\\]\nSo\n\\[\n\\theta=(\\cot^{-1}3+\\cot^{-1}21)+(\\cot^{-1}7+\\cot^{-1}13),\n\\]\nand\n\\[\n\\cot\\theta=\\cot\\Big((\\cot^{-1}3+\\cot^{-1}21)+(\\cot^{-1}7+\\cot^{-1}13)\\Big)\n=\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}.\n\\]\n\nCompute numerator:\n\\[\n\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)=\\frac{31\\cdot 9}{24}=\\frac{279}{24}=\\frac{93}{8},\n\\quad\n\\frac{93}{8}-1=\\frac{93-8}{8}=\\frac{85}{8}.\n\\]\nCompute denominator:\n\\[\n\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\n\nTherefore,\n\\[\n10\\cot\\theta=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nThen\n\\[\n10\\cot(\\theta)\n\\]\nis requested.\n\n### Step 1: Convert \\(\\cot^{-1}\\) to tangent addition\nUse the identity: if \\(\\cot^{-1}x=\\alpha\\), then \\(\\cot\\alpha=x\\) and \\(\\tan\\alpha=\\frac1x\\).\nSo define\n\\[\na=\\cot^{-1}3,\\quad b=\\cot^{-1}7,\\quad c=\\cot^{-1}13,\\quad d=\\cot^{-1}21,\n\\]\nso\n\\[\n\\tan a=\\frac13,\\ \\tan b=\\frac17,\\ \\tan c=\\frac1{13},\\ \\tan d=\\frac1{21}.\n\\]\nLet\n\\[\nt=\\tan\\theta=\\tan(a+b+c+d).\n\\]\nThen\n\\[\n\\cot\\theta=\\frac1t.\n\\]\n\n### Step 2: Pair terms\nFirst compute\n\\[\n\\tan(a+b)=\\frac{\\tan a+\\tan b}{1-\\tan a\\tan b}\n=\\frac{\\frac13+\\frac17}{1-\\frac13\\cdot\\frac17}\n=\\frac{\\frac{10}{21}}{1-\\frac1{21}}\n=\\frac{\\frac{10}{21}}{\\frac{20}{21}}=\\frac12.\n\\]\nSimilarly,\n\\[\n\\tan(c+d)=\\frac{\\frac1{13}+\\frac1{21}}{1-\\frac1{13}\\cdot\\frac1{21}}\n=\\frac{\\frac{34}{273}}{1-\\frac1{273}}\n=\\frac{\\frac{34}{273}}{\\frac{272}{273}}=\\frac{17}{136}.\n\\]\n\nSo\n\\[\n\\tan\\theta=\\tan\\big((a+b)+(c+d)\\big)=\\frac{\\tan(a+b)+\\tan(c+d)}{1-\\tan(a+b)\\tan(c+d)}.\n\\]\nLet \\(\\tan(a+b)=\\frac12\\) and \\(\\tan(c+d)=\\frac{17}{136}\\). Then\n\\[\n\\tan\\theta=\\frac{\\frac12+\\frac{17}{136}}{1-\\frac12\\cdot\\frac{17}{136}}.\n\\]\nCompute:\n\\[\n\\frac12=\\frac{68}{136}\\quad\\Rightarrow\\quad \\frac12+\\frac{17}{136}=\\frac{85}{136}.\n\\]\nAlso,\n\\[\n\\frac12\\cdot\\frac{17}{136}=\\frac{17}{272},\n\\]\nso\n\\[\n1-\\frac{17}{272}=\\frac{272-17}{272}=\\frac{255}{272}.\n\\]\nTherefore\n\\[\n\\tan\\theta=\\frac{\\frac{85}{136}}{\\frac{255}{272}}=\\frac{85}{136}\\cdot\\frac{272}{255}.\n\\]\nSince \\(272/136=2\\),\n\\[\n\\tan\\theta=\\frac{85\\cdot 2}{255}=\\frac{170}{255}=\\frac{2}{3}.\n\\]\n\n### Step 3: Convert back to cot\n\\[\n\\cot\\theta=\\frac1{\\tan\\theta}=\\frac1{2/3}=\\frac32.\n\\]\nThus\n\\[\n10\\cot\\theta=10\\cdot\\frac32=15.\n\\]\n\nANSWER: 15",
+        "First note that for positive \\(x\\),\n\\[\n\\cot^{-1}x=\\theta \\quad\\Longrightarrow\\quad \\cot\\theta=x.\n\\]\nLet\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21,\n\\]\nso that\n\\[\n\\cot(\\theta)=?\n\\]\n\nUse the identity for cotangents:\n\\[\n\\cot(a+b)=\\frac{\\cot a\\cot b-1}{\\cot a+\\cot b}.\n\\]\n\nStart pairing:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2).\n\\]\n\nSimilarly,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore,\n\\[\n\\theta=\\cot^{-1}(2)+\\cot^{-1}(8).\n\\]\nNow compute:\n\\[\n\\cot(\\theta)=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac32.\n\\]\n\nThus,\n\\[\n10\\cot(\\theta)=10\\cdot \\frac32=15.\n\\]\n\nANSWER: 15",
+        "Let\n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\!\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nwhich comes from \\(\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}\\).\n\nPair the terms:\n\\[\n\\cot^{-1}3+\\cot^{-1}21=\\cot^{-1}\\!\\left(\\frac{3\\cdot 21-1}{3+21}\\right)\n=\\cot^{-1}\\!\\left(\\frac{63-1}{24}\\right)=\\cot^{-1}\\!\\left(\\frac{62}{24}\\right)=\\cot^{-1}\\!\\left(\\frac{31}{12}\\right).\n\\]\n\\[\n\\cot^{-1}7+\\cot^{-1}13=\\cot^{-1}\\!\\left(\\frac{7\\cdot 13-1}{7+13}\\right)\n=\\cot^{-1}\\!\\left(\\frac{91-1}{20}\\right)=\\cot^{-1}\\!\\left(\\frac{90}{20}\\right)=\\cot^{-1}\\!\\left(\\frac{9}{2}\\right).\n\\]\nSo\n\\[\n\\theta=\\cot^{-1}\\!\\left(\\frac{31}{12}\\right)+\\cot^{-1}\\!\\left(\\frac{9}{2}\\right).\n\\]\nApply the same identity again:\n\\[\n\\theta=\\cot^{-1}\\!\\left(\\frac{\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)-1}{\\frac{31}{12}+\\frac{9}{2}}\\right).\n\\]\nCompute the numerator:\n\\[\n\\left(\\frac{31}{12}\\right)\\left(\\frac{9}{2}\\right)=\\frac{279}{24}=\\frac{93}{8},\\quad\n\\frac{93}{8}-1=\\frac{93}{8}-\\frac{8}{8}=\\frac{85}{8}.\n\\]\nCompute the denominator:\n\\[\n\\frac{31}{12}+\\frac{9}{2}=\\frac{31}{12}+\\frac{54}{12}=\\frac{85}{12}.\n\\]\nThus\n\\[\n\\cot\\theta=\\frac{\\frac{85}{8}}{\\frac{85}{12}}=\\frac{85}{8}\\cdot\\frac{12}{85}=\\frac{12}{8}=\\frac{3}{2}.\n\\]\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cdot\\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\nx=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity for cotangent addition:\n\\[\n\\cot(A+B)=\\frac{\\cot A\\cot B-1}{\\cot A+\\cot B}.\n\\]\n\nPair the terms:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2).\n\\]\n\nSimilarly,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore\n\\[\nx=\\cot^{-1}(2)+\\cot^{-1}(8).\n\\]\nNow compute\n\\[\n\\cot x=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac32.\n\\]\nSo\n\\[\nx=\\cot^{-1}\\left(\\frac32\\right).\n\\]\nHence\n\\[\n10\\cot x=10\\cdot \\frac32=15.\n\\]\n\nANSWER: 15",
+        "Let \\(A=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21\\).  \nSet \\(x=\\cot A\\). We want \\(10\\cot A=10x\\).\n\nUse the identity for cotangent of a sum: for \\( \\alpha,\\beta\\),\n\\[\n\\cot(\\alpha+\\beta)=\\frac{\\cot\\alpha\\cot\\beta-1}{\\cot\\alpha+\\cot\\beta}.\n\\]\n\nPair terms:\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=\\frac{3\\cdot 7-1}{3+7}=\\frac{21-1}{10}=\\frac{20}{10}=2.\n\\]\nSo\n\\[\n\\cot(\\cot^{-1}3+\\cot^{-1}7)=2 \\quad\\Rightarrow\\quad \\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}(2).\n\\]\n\nSimilarly,\n\\[\n\\cot(\\cot^{-1}13+\\cot^{-1}21)=\\frac{13\\cdot 21-1}{13+21}=\\frac{273-1}{34}=\\frac{272}{34}=8.\n\\]\nSo\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}(8).\n\\]\n\nTherefore\n\\[\nA=\\cot^{-1}(2)+\\cot^{-1}(8),\n\\]\nand\n\\[\nx=\\cot A=\\cot(\\cot^{-1}2+\\cot^{-1}8)=\\frac{2\\cdot 8-1}{2+8}=\\frac{16-1}{10}=\\frac{15}{10}=\\frac{3}{2}.\n\\]\n\nThus\n\\[\n10\\cot A=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15",
+        "Let  \n\\[\n\\theta=\\cot^{-1}3+\\cot^{-1}7+\\cot^{-1}13+\\cot^{-1}21.\n\\]\nUse the identity (for positive \\(a,b\\)):\n\\[\n\\cot^{-1}a+\\cot^{-1}b=\\cot^{-1}\\!\\left(\\frac{ab-1}{a+b}\\right),\n\\]\nsince \\(\\cot(\\cot^{-1}a)=a\\).\n\nPair terms:\n\n**1) First pair:**\n\\[\n\\cot^{-1}3+\\cot^{-1}7=\\cot^{-1}\\!\\left(\\frac{3\\cdot 7-1}{3+7}\\right)=\\cot^{-1}\\!\\left(\\frac{21-1}{10}\\right)=\\cot^{-1}\\!\\left(2\\right).\n\\]\n\n**2) Second pair:**\n\\[\n\\cot^{-1}13+\\cot^{-1}21=\\cot^{-1}\\!\\left(\\frac{13\\cdot 21-1}{13+21}\\right)=\\cot^{-1}\\!\\left(\\frac{273-1}{34}\\right)=\\cot^{-1}\\!\\left(\\frac{272}{34}\\right)=\\cot^{-1}(8).\n\\]\n\nSo\n\\[\n\\theta=\\cot^{-1}2+\\cot^{-1}8.\n\\]\n\nApply the identity again:\n\\[\n\\cot^{-1}2+\\cot^{-1}8=\\cot^{-1}\\!\\left(\\frac{2\\cdot 8-1}{2+8}\\right)=\\cot^{-1}\\!\\left(\\frac{16-1}{10}\\right)=\\cot^{-1}\\!\\left(\\frac{15}{10}\\right)=\\cot^{-1}\\!\\left(\\frac{3}{2}\\right).\n\\]\n\nTherefore,\n\\[\n10\\cot(\\theta)=10\\cot\\left(\\cot^{-1}\\!\\left(\\frac{3}{2}\\right)\\right)=10\\cdot \\frac{3}{2}=15.\n\\]\n\nANSWER: 15"
+      ],
+      "augmented_results": [
+        {
+          "problem_id": "1984-13",
+          "generation_index": 0,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 1,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 2,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 3,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 4,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 5,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 6,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 7,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 8,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        },
+        {
+          "problem_id": "1984-13",
+          "generation_index": 9,
+          "score": 1.0,
+          "tier": "correct",
+          "details": {
+            "reason": "correct",
+            "expected": "15",
+            "answer_line": "ANSWER: 15",
+            "answer_fragment": "15",
+            "extracted": "15"
+          }
+        }
+      ],
+      "used_baseline_for_augmented": true,
+      "baseline_pass_rate": 1.0,
+      "augmented_pass_rate": 1.0,
+      "improvement": 0.0
+    }
+  }
+}
