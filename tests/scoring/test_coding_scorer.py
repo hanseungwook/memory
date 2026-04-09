@@ -1,7 +1,5 @@
 """Tests for CodingScorer routing between function-based and stdin-based execution."""
 
-import pytest
-
 from memgen.config import ScoringConfig
 from memgen.data.base import Problem
 from memgen.scoring.coding_scorer import CodingScorer, _is_function_based
@@ -73,6 +71,23 @@ class TestCodingScorerStdin:
         result = self.scorer.score(problem, "print(1)", 0)
         assert result.score == 0.0
         assert result.tier == "fail"
+
+    def test_score_truncates_large_case_details(self):
+        scorer = CodingScorer(ScoringConfig(timeout_seconds=10, max_output_length=64))
+        huge = "x" * 20000
+        problem = Problem(
+            id="p4",
+            domain="coding",
+            statement="",
+            test_cases=[{"input": "", "output": huge}],
+        )
+        result = scorer.score(problem, "```python\nprint('x' * 20000)\n```", 0)
+        case = result.details["cases"][0]
+        assert result.score == 1.0
+        assert len(case["expected"]) <= 64
+        assert len(case["actual"]) <= 64
+        assert case["expected"].endswith("[truncated]")
+        assert case["actual"].endswith("[truncated]")
 
 
 class TestCodingScorerFunctionBased:

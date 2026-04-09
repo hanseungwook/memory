@@ -69,6 +69,20 @@ memgen run -c config/math_aime.yaml --stage evaluate
 memgen report -c config/math_aime.yaml
 ```
 
+### Build an interactive viewer for one result set
+
+```bash
+# Writes results/slurm_20260408_10sample/math/visualization.html
+memgen visualize results/slurm_20260408_10sample/math
+
+# Write somewhere else and open it immediately
+memgen visualize results/slurm_20260408_10sample/math \
+  --output /tmp/memgen-math-view.html \
+  --open
+```
+
+`memgen visualize` is scoped to one result-set directory at a time. Point it at a path like `results/<run>/<domain>` or `results/<domain>`, and the generated page lets you switch across problem details, generation, scoring, memory, and evaluation views for that specific set.
+
 The CLI surface is implemented in [`src/memgen/cli.py`](src/memgen/cli.py), and stage dispatch lives in [`src/memgen/pipeline.py`](src/memgen/pipeline.py).
 
 ## Configuration

@@ -1,9 +1,8 @@
 """Tests for the dual-path code execution sandbox."""
 
-import pytest
+import json
 
 from memgen.scoring.sandbox import (
-    ExecutionResult,
     _compare_stdio_output,
     execute_function_based,
     execute_stdin_based,
@@ -76,6 +75,21 @@ class TestStdinExecution:
         results = execute_stdin_based(code, [""], ["a\nb\nc"], timeout=10)
         assert len(results) == 1
         assert results[0].passed
+
+    def test_large_output_is_truncated(self):
+        code = "print('x' * 20000)"
+        expected = "x" * 20000
+        results = execute_stdin_based(
+            code,
+            [""],
+            [expected],
+            timeout=10,
+            max_output_length=128,
+        )
+        assert len(results) == 1
+        assert results[0].passed
+        assert len(results[0].actual) <= 128
+        assert results[0].actual.endswith("[truncated]")
 
 
 # ---------------------------------------------------------------------------
@@ -168,6 +182,21 @@ class TestFunctionExecution:
         )
         assert len(results) == 1
         assert not results[0].passed
+
+    def test_large_function_output_is_truncated(self):
+        code = "def emit():\n    return 'x' * 20000\n"
+        results = execute_function_based(
+            code,
+            func_name="emit",
+            all_inputs=[""],
+            all_outputs=[json.dumps("x" * 20000)],
+            timeout=10,
+            max_output_length=128,
+        )
+        assert len(results) == 1
+        assert results[0].passed
+        assert len(results[0].actual) <= 128
+        assert results[0].actual.endswith("[truncated]")
 
 
 # ---------------------------------------------------------------------------

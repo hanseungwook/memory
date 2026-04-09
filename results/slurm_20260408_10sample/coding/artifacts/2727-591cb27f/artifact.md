@@ -377,3 +377,3671 @@ class Solution:
 ```
 
 </details>
+
+## Scoring
+
+| Generation | Score | Tier |
+| --- | ---: | --- |
+| 0 | 1.0000 | `full` |
+| 1 | 1.0000 | `full` |
+| 2 | 1.0000 | `full` |
+| 3 | 1.0000 | `full` |
+| 4 | 1.0000 | `full` |
+| 5 | 1.0000 | `full` |
+| 6 | 1.0000 | `full` |
+| 7 | 1.0000 | `full` |
+| 8 | 1.0000 | `full` |
+| 9 | 1.0000 | `full` |
+
+<details>
+<summary>Score details for generation 0</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 1</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 2</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 3</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 4</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 5</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 6</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 7</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 8</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 9</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+## Memory
+
+- Skipped: `true`
+- Reason: `insufficient_tiers`
+
+### Grouped Solutions
+
+#### Tier: `full`
+
+<details>
+<summary>full attempt 1</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        seniors = 0
+        for s in details:
+            # Age is encoded in positions 11 and 12 (0-indexed)
+            age = int(s[11:13])
+            if age > 60:
+                seniors += 1
+        return seniors
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 2</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        seniors = 0
+        for s in details:
+            age = int(s[11:13])  # characters at indices 11 and 12
+            if age > 60:
+                seniors += 1
+        return seniors
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 5</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        # Age is encoded in characters [11:13] (next two characters after gender at index 10)
+        # and is strictly more than 60.
+        count = 0
+        for s in details:
+            age = int(s[11:13])
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 6</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # last 2 digits before seat start (positions 11 and 12)
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 7</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 8</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            # age is encoded in characters 11 and 12 (0-indexed)
+            age = int(s[11:13])
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 9</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        seniors = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                seniors += 1
+        return seniors
+```
+```
+
+</details>
+
+<details>
+<summary>full attempt 10</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # characters 11 and 12
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+## Evaluation
+
+- Baseline pass@1: `1.0000`
+- Augmented pass@1: `1.0000`
+- Improvement: `+0.0000`
+
+- Augmented outputs reused baseline generations because no memory was available.
+
+### Baseline
+
+### System Prompt
+
+```text
+You are an expert Python programmer. You will be given a question (problem specification) and will generate a correct Python program that matches the specification and passes all tests.
+```
+
+### User Prompt
+
+```text
+### Question:
+You are given a 0-indexed array of strings details. Each element of details provides information about a given passenger compressed into a string of length 15. The system is such that:
+
+The first ten characters consist of the phone number of passengers.
+The next character denotes the gender of the person.
+The following two characters are used to indicate the age of the person.
+The last two characters determine the seat allotted to that person.
+
+Return the number of passengers who are strictly more than 60 years old.
+ 
+Example 1:
+
+Input: details = ["7868190130M7522","5303914400F9211","9273338290F4010"]
+Output: 2
+Explanation: The passengers at indices 0, 1, and 2 have ages 75, 92, and 40. Thus, there are 2 people who are over 60 years old.
+
+Example 2:
+
+Input: details = ["1313579440F2036","2921522980M5644"]
+Output: 0
+Explanation: None of the passengers are older than 60.
+
+ 
+Constraints:
+
+1 <= details.length <= 100
+details[i].length == 15
+details[i] consists of digits from '0' to '9'.
+details[i][10] is either 'M' or 'F' or 'O'.
+The phone numbers and seat numbers of the passengers are distinct.
+
+### Format: You will use the following starter code to write the solution to the problem and enclose your code within delimiters.
+```python
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        
+```
+
+### Answer: (use the provided format with backticks)
+```
+
+#### Outputs
+
+<details>
+<summary>Baseline generation 1</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # two characters for age
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 2</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # last 4: gender at 10, age at 11-12
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # two characters after gender
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 5</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # last part before seat: two characters
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 6</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # characters 11 and 12
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 7</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            # Age is represented by characters at positions 11 and 12 (0-indexed)
+            age = int(s[11:13])
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 8</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # two characters for age
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 9</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        seniors = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                seniors += 1
+        return seniors
+```
+```
+
+</details>
+
+<details>
+<summary>Baseline generation 10</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        # Age is encoded in characters 11 and 12 (0-indexed)
+        count = 0
+        for s in details:
+            age = int(s[11:13])
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+#### Baseline Scores
+
+| Generation | Score | Tier |
+| --- | ---: | --- |
+| 0 | 1.0000 | `full` |
+| 1 | 1.0000 | `full` |
+| 2 | 1.0000 | `full` |
+| 3 | 1.0000 | `full` |
+| 4 | 1.0000 | `full` |
+| 5 | 1.0000 | `full` |
+| 6 | 1.0000 | `full` |
+| 7 | 1.0000 | `full` |
+| 8 | 1.0000 | `full` |
+| 9 | 1.0000 | `full` |
+
+<details>
+<summary>Score details for generation 0</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 1</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 2</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 3</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 4</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 5</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 6</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 7</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 8</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 9</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+### Augmented
+
+#### Outputs
+
+<details>
+<summary>Augmented generation 1</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # two characters for age
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 2</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # last 4: gender at 10, age at 11-12
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 3</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # two characters after gender
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 4</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 5</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # last part before seat: two characters
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 6</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        ans = 0
+        for s in details:
+            age = int(s[11:13])  # characters 11 and 12
+            if age > 60:
+                ans += 1
+        return ans
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 7</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            # Age is represented by characters at positions 11 and 12 (0-indexed)
+            age = int(s[11:13])
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 8</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        count = 0
+        for s in details:
+            age = int(s[11:13])  # two characters for age
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 9</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        seniors = 0
+        for s in details:
+            age = int(s[11:13])  # next two characters after gender
+            if age > 60:
+                seniors += 1
+        return seniors
+```
+```
+
+</details>
+
+<details>
+<summary>Augmented generation 10</summary>
+
+```text
+```python
+from typing import List
+
+class Solution:
+    def countSeniors(self, details: List[str]) -> int:
+        # Age is encoded in characters 11 and 12 (0-indexed)
+        count = 0
+        for s in details:
+            age = int(s[11:13])
+            if age > 60:
+                count += 1
+        return count
+```
+```
+
+</details>
+
+#### Augmented Scores
+
+| Generation | Score | Tier |
+| --- | ---: | --- |
+| 0 | 1.0000 | `full` |
+| 1 | 1.0000 | `full` |
+| 2 | 1.0000 | `full` |
+| 3 | 1.0000 | `full` |
+| 4 | 1.0000 | `full` |
+| 5 | 1.0000 | `full` |
+| 6 | 1.0000 | `full` |
+| 7 | 1.0000 | `full` |
+| 8 | 1.0000 | `full` |
+| 9 | 1.0000 | `full` |
+
+<details>
+<summary>Score details for generation 0</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 1</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 2</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 3</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 4</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 5</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 6</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 7</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 8</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>Score details for generation 9</summary>
+
+```json
+{
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "1",
+      "actual": "1",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "0",
+      "actual": "0",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "3",
+      "actual": "3",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "2",
+      "actual": "2",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "7",
+      "actual": "7",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "33",
+      "actual": "33",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "48",
+      "actual": "48",
+      "error": ""
+    },
+    {
+      "passed": true,
+      "expected": "53",
+      "actual": "53",
+      "error": ""
+    }
+  ]
+}
+```
+
+</details>

@@ -2,11 +2,13 @@
 
 import asyncio
 import logging
+import webbrowser
+from pathlib import Path
 
 import click
 
 from memgen.config import load_config
-from memgen.persistence.store import ResultStore
+from memgen.visualization import write_visualization
 
 
 @click.group()
@@ -48,6 +50,33 @@ def report(config):
     from memgen.pipeline import Pipeline
     pipeline = Pipeline(cfg)
     pipeline.print_report()
+
+
+@main.command()
+@click.argument("results_path", type=click.Path(exists=True, file_okay=False, path_type=Path))
+@click.option(
+    "--output",
+    "-o",
+    type=click.Path(dir_okay=False, path_type=Path),
+    default=None,
+    help="Where to write the HTML viewer. Defaults to <results_path>/visualization.html.",
+)
+@click.option(
+    "--open/--no-open",
+    "open_browser",
+    default=False,
+    help="Open the generated viewer in the default browser.",
+)
+def visualize(results_path: Path, output: Path | None, open_browser: bool):
+    """Build a browser-based viewer for one result-set directory."""
+    try:
+        output_path = write_visualization(results_path, output)
+    except ValueError as exc:
+        raise click.ClickException(str(exc)) from exc
+
+    click.echo(f"Wrote visualization to {output_path}")
+    if open_browser:
+        webbrowser.open(output_path.resolve().as_uri())
 
 
 if __name__ == "__main__":

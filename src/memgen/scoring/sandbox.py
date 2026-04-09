@@ -17,12 +17,10 @@ import os
 import platform
 import signal
 import sys
-import time
 from dataclasses import dataclass
 from decimal import Decimal
 from io import StringIO
 from types import ModuleType
-from typing import Any
 from unittest.mock import mock_open, patch
 
 # Large import block prepended to submitted code so common libraries are available.
@@ -46,6 +44,17 @@ class ExecutionResult:
     passed: bool
     actual: str
     error: str | None = None
+
+
+_TRUNCATION_SUFFIX = "...[truncated]"
+
+
+def _truncate_text(value: str, max_length: int) -> str:
+    if max_length <= 0 or len(value) <= max_length:
+        return value
+    if max_length <= len(_TRUNCATION_SUFFIX):
+        return value[:max_length]
+    return value[: max_length - len(_TRUNCATION_SUFFIX)] + _TRUNCATION_SUFFIX
 
 
 # ---------------------------------------------------------------------------
@@ -287,7 +296,8 @@ def _worker_function_based(
     all_inputs: list[str],
     all_outputs: list[str],
     timeout: int,
-    result_queue: multiprocessing.Queue,
+    max_output_length: int,
+    result_conn,
 ) -> None:
     """Run call-based grading inside a child process."""
     signal.signal(signal.SIGALRM, _timeout_handler)
@@ -297,25 +307,40 @@ def _worker_function_based(
     try:
         compiled = _compile_code(code, timeout)
     except Exception as exc:
-        result_queue.put([
-            ExecutionResult(passed=False, actual="", error=f"Compilation error: {exc}")
+        result_conn.send([
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text(f"Compilation error: {exc}", max_output_length),
+            )
             for _ in all_inputs
         ])
+        result_conn.close()
         return
 
     if compiled is None:
-        result_queue.put([
-            ExecutionResult(passed=False, actual="", error="Compilation returned None")
+        result_conn.send([
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text("Compilation returned None", max_output_length),
+            )
             for _ in all_inputs
         ])
+        result_conn.close()
         return
 
     method = getattr(compiled, func_name, None)
     if method is None:
-        result_queue.put([
-            ExecutionResult(passed=False, actual="", error=f"Function '{func_name}' not found")
+        result_conn.send([
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text(f"Function '{func_name}' not found", max_output_length),
+            )
             for _ in all_inputs
         ])
+        result_conn.close()
         return
 
     parsed_inputs = [
@@ -334,17 +359,31 @@ def _worker_function_based(
             if isinstance(prediction, tuple):
                 prediction = list(prediction)
             ok = prediction == expected
-            results.append(ExecutionResult(
-                passed=ok,
-                actual=repr(prediction),
-                error=None if ok else "Wrong Answer",
-            ))
+            results.append(
+                ExecutionResult(
+                    passed=ok,
+                    actual=_truncate_text(repr(prediction), max_output_length),
+                    error=None if ok else _truncate_text("Wrong Answer", max_output_length),
+                )
+            )
         except TimeoutException:
-            results.append(ExecutionResult(passed=False, actual="", error="Time Limit Exceeded"))
+            results.append(
+                ExecutionResult(
+                    passed=False,
+                    actual="",
+                    error=_truncate_text("Time Limit Exceeded", max_output_length),
+                )
+            )
             break
         except Exception as exc:
             signal.alarm(0)
-            results.append(ExecutionResult(passed=False, actual="", error=f"Runtime Error: {exc}"))
+            results.append(
+                ExecutionResult(
+                    passed=False,
+                    actual="",
+                    error=_truncate_text(f"Runtime Error: {exc}", max_output_length),
+                )
+            )
             break
         finally:
             signal.alarm(0)
@@ -352,9 +391,16 @@ def _worker_function_based(
 
     # Pad remaining as not-run if we broke early
     while len(results) < len(all_inputs):
-        results.append(ExecutionResult(passed=False, actual="", error="Skipped (earlier failure)"))
+        results.append(
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text("Skipped (earlier failure)", max_output_length),
+            )
+        )
 
-    result_queue.put(results)
+    result_conn.send(results)
+    result_conn.close()
 
 
 def _worker_stdin_based(
@@ -362,7 +408,8 @@ def _worker_stdin_based(
     all_inputs: list[str],
     all_outputs: list[str],
     timeout: int,
-    result_queue: multiprocessing.Queue,
+    max_output_length: int,
+    result_conn,
 ) -> None:
     """Run stdin-based grading inside a child process."""
     signal.signal(signal.SIGALRM, _timeout_handler)
@@ -374,25 +421,40 @@ def _worker_stdin_based(
     try:
         compiled = _compile_code(code, timeout)
     except Exception as exc:
-        result_queue.put([
-            ExecutionResult(passed=False, actual="", error=f"Compilation error: {exc}")
+        result_conn.send([
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text(f"Compilation error: {exc}", max_output_length),
+            )
             for _ in all_inputs
         ])
+        result_conn.close()
         return
 
     if compiled is None:
-        result_queue.put([
-            ExecutionResult(passed=False, actual="", error="Compilation returned None")
+        result_conn.send([
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text("Compilation returned None", max_output_length),
+            )
             for _ in all_inputs
         ])
+        result_conn.close()
         return
 
     method = getattr(compiled, "wrapped_function", None)
     if method is None:
-        result_queue.put([
-            ExecutionResult(passed=False, actual="", error="wrapped_function not found")
+        result_conn.send([
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text("wrapped_function not found", max_output_length),
+            )
             for _ in all_inputs
         ])
+        result_conn.close()
         return
 
     results: list[ExecutionResult] = []
@@ -405,11 +467,23 @@ def _worker_stdin_based(
                 signal.alarm(0)
             except TimeoutException:
                 signal.alarm(0)
-                results.append(ExecutionResult(passed=False, actual="", error="Time Limit Exceeded"))
+                results.append(
+                    ExecutionResult(
+                        passed=False,
+                        actual="",
+                        error=_truncate_text("Time Limit Exceeded", max_output_length),
+                    )
+                )
                 break
             except Exception as exc:
                 signal.alarm(0)
-                results.append(ExecutionResult(passed=False, actual="", error=f"Runtime Error: {exc}"))
+                results.append(
+                    ExecutionResult(
+                        passed=False,
+                        actual="",
+                        error=_truncate_text(f"Runtime Error: {exc}", max_output_length),
+                    )
+                )
                 break
             finally:
                 signal.alarm(0)
@@ -417,16 +491,61 @@ def _worker_stdin_based(
 
         actual = captured[0] if captured else ""
         ok = _compare_stdio_output(actual, expected)
-        results.append(ExecutionResult(
-            passed=ok,
-            actual=actual.strip(),
-            error=None if ok else "Wrong Answer",
-        ))
+        results.append(
+            ExecutionResult(
+                passed=ok,
+                actual=_truncate_text(actual.strip(), max_output_length),
+                error=None if ok else _truncate_text("Wrong Answer", max_output_length),
+            )
+        )
 
     while len(results) < len(all_inputs):
-        results.append(ExecutionResult(passed=False, actual="", error="Skipped (earlier failure)"))
+        results.append(
+            ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text("Skipped (earlier failure)", max_output_length),
+            )
+        )
 
-    result_queue.put(results)
+    result_conn.send(results)
+    result_conn.close()
+
+
+def _run_with_result_conn(
+    worker,
+    worker_args: tuple,
+    wait_timeout: int,
+    fallback_count: int,
+) -> list[ExecutionResult]:
+    ctx = multiprocessing.get_context("fork")
+    recv_conn, send_conn = ctx.Pipe(duplex=False)
+    proc = ctx.Process(target=worker, args=(*worker_args, send_conn))
+    proc.start()
+    send_conn.close()
+
+    try:
+        if recv_conn.poll(wait_timeout):
+            try:
+                results = recv_conn.recv()
+            except EOFError:
+                results = [
+                    ExecutionResult(passed=False, actual="", error="No results returned")
+                    for _ in range(fallback_count)
+                ]
+        else:
+            results = [
+                ExecutionResult(passed=False, actual="", error="Process timed out")
+                for _ in range(fallback_count)
+            ]
+    finally:
+        recv_conn.close()
+        proc.join(timeout=0.5)
+        if proc.is_alive():
+            proc.kill()
+            proc.join()
+
+    return results
 
 
 # ---------------------------------------------------------------------------
@@ -439,6 +558,7 @@ def execute_function_based(
     all_inputs: list[str],
     all_outputs: list[str],
     timeout: int = 30,
+    max_output_length: int = 10000,
 ) -> list[ExecutionResult]:
     """Execute function-based (LeetCode-style) code against test cases.
 
@@ -446,30 +566,19 @@ def execute_function_based(
     Each output is a JSON-encoded expected return value.
     Returns one ``ExecutionResult`` per test case.
     """
-    ctx = multiprocessing.get_context("fork")
-    q: multiprocessing.Queue = ctx.Queue()
-    proc = ctx.Process(
-        target=_worker_function_based,
-        args=(code, func_name, all_inputs, all_outputs, timeout, q),
+    return _run_with_result_conn(
+        _worker_function_based,
+        (
+            code,
+            func_name,
+            all_inputs,
+            all_outputs,
+            timeout,
+            max_output_length,
+        ),
+        wait_timeout=(timeout + 1) * len(all_inputs) + 5,
+        fallback_count=len(all_inputs),
     )
-    proc.start()
-    proc.join(timeout=(timeout + 1) * len(all_inputs) + 5)
-
-    if proc.is_alive():
-        proc.kill()
-        proc.join()
-        return [
-            ExecutionResult(passed=False, actual="", error="Process timed out")
-            for _ in all_inputs
-        ]
-
-    if q.empty():
-        return [
-            ExecutionResult(passed=False, actual="", error="No results returned")
-            for _ in all_inputs
-        ]
-
-    return q.get()
 
 
 def execute_stdin_based(
@@ -477,6 +586,7 @@ def execute_stdin_based(
     all_inputs: list[str],
     all_outputs: list[str],
     timeout: int = 30,
+    max_output_length: int = 10000,
 ) -> list[ExecutionResult]:
     """Execute stdin-based (Codeforces/AtCoder-style) code against test cases.
 
@@ -484,27 +594,15 @@ def execute_stdin_based(
     Each output is the expected stdout string.
     Returns one ``ExecutionResult`` per test case.
     """
-    ctx = multiprocessing.get_context("fork")
-    q: multiprocessing.Queue = ctx.Queue()
-    proc = ctx.Process(
-        target=_worker_stdin_based,
-        args=(code, all_inputs, all_outputs, timeout, q),
+    return _run_with_result_conn(
+        _worker_stdin_based,
+        (
+            code,
+            all_inputs,
+            all_outputs,
+            timeout,
+            max_output_length,
+        ),
+        wait_timeout=(timeout + 1) * len(all_inputs) + 5,
+        fallback_count=len(all_inputs),
     )
-    proc.start()
-    proc.join(timeout=(timeout + 1) * len(all_inputs) + 5)
-
-    if proc.is_alive():
-        proc.kill()
-        proc.join()
-        return [
-            ExecutionResult(passed=False, actual="", error="Process timed out")
-            for _ in all_inputs
-        ]
-
-    if q.empty():
-        return [
-            ExecutionResult(passed=False, actual="", error="No results returned")
-            for _ in all_inputs
-        ]
-
-    return q.get()

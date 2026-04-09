@@ -12,6 +12,17 @@ from memgen.scoring.sandbox import (
 )
 
 
+_TRUNCATION_SUFFIX = "...[truncated]"
+
+
+def _truncate_text(value: str, max_length: int) -> str:
+    if max_length <= 0 or len(value) <= max_length:
+        return value
+    if max_length <= len(_TRUNCATION_SUFFIX):
+        return value[:max_length]
+    return value[: max_length - len(_TRUNCATION_SUFFIX)] + _TRUNCATION_SUFFIX
+
+
 def _is_function_based(problem: Problem) -> bool:
     """Determine if a problem uses call-based (function) execution."""
     return bool(problem.metadata.get("func_name"))
@@ -20,6 +31,7 @@ def _is_function_based(problem: Problem) -> bool:
 class CodingScorer:
     def __init__(self, config: ScoringConfig):
         self.timeout = config.timeout_seconds
+        self.max_output_length = config.max_output_length
 
     def score(self, problem: Problem, generation: str, index: int) -> ScoreResult:
         """Score a single coding generation by running it against test cases."""
@@ -41,11 +53,20 @@ class CodingScorer:
         if _is_function_based(problem):
             func_name = problem.metadata["func_name"]
             results = execute_function_based(
-                code, func_name, all_inputs, all_outputs, timeout=self.timeout
+                code,
+                func_name,
+                all_inputs,
+                all_outputs,
+                timeout=self.timeout,
+                max_output_length=self.max_output_length,
             )
         else:
             results = execute_stdin_based(
-                code, all_inputs, all_outputs, timeout=self.timeout
+                code,
+                all_inputs,
+                all_outputs,
+                timeout=self.timeout,
+                max_output_length=self.max_output_length,
             )
 
         passed = sum(1 for r in results if r.passed)
@@ -53,9 +74,9 @@ class CodingScorer:
         case_results = [
             {
                 "passed": r.passed,
-                "expected": exp.strip() if exp else "",
-                "actual": r.actual,
-                "error": r.error or "",
+                "expected": _truncate_text(exp.strip() if exp else "", self.max_output_length),
+                "actual": _truncate_text(r.actual, self.max_output_length),
+                "error": _truncate_text(r.error or "", self.max_output_length),
             }
             for r, exp in zip(results, all_outputs)
         ]
