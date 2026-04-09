@@ -8,6 +8,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 
 from memgen.config import GenerationConfig
 from memgen.data.base import Problem
+from memgen.openai_compat import build_chat_completion_request
 
 load_dotenv()
 
@@ -23,10 +24,12 @@ class Generator:
         """Single API call with retry and concurrency control."""
         async with self.semaphore:
             response = await self.client.chat.completions.create(
-                model=self.config.model,
-                messages=messages,
-                temperature=self.config.temperature,
-                max_tokens=self.config.max_tokens,
+                **build_chat_completion_request(
+                    model=self.config.model,
+                    messages=messages,
+                    temperature=self.config.temperature,
+                    max_tokens=self.config.max_tokens,
+                )
             )
             return response.choices[0].message.content
 

@@ -14,6 +14,7 @@ from memgen.memory.prompts import (
     build_memory_creation_prompt,
     parse_memory_response,
 )
+from memgen.openai_compat import build_chat_completion_request
 from memgen.scoring.base import ScoreResult
 
 load_dotenv()
@@ -72,13 +73,15 @@ class MemoryCreator:
     )
     async def _request_memory(self, prompt: str) -> str:
         response = await self.client.chat.completions.create(
-            model=self.config.model,
-            temperature=self.config.temperature,
-            max_tokens=self.config.max_tokens,
-            messages=[
-                {"role": "system", "content": MEMORY_SYSTEM_PROMPT},
-                {"role": "user", "content": prompt},
-            ],
+            **build_chat_completion_request(
+                model=self.config.model,
+                temperature=self.config.temperature,
+                max_tokens=self.config.max_tokens,
+                messages=[
+                    {"role": "system", "content": MEMORY_SYSTEM_PROMPT},
+                    {"role": "user", "content": prompt},
+                ],
+            )
         )
         content = response.choices[0].message.content
         return content.strip() if content else ""
