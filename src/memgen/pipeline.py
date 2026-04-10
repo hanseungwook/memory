@@ -60,6 +60,36 @@ class Pipeline:
             await self.run_evaluate()
         self.print_report()
 
+    async def _run_problem_batch(self, items, desc: str, worker, save_result) -> None:
+        if not items:
+            return
+
+        concurrency = self.config.concurrent_problems
+        if concurrency == 1:
+            for item in tqdm(items, desc=desc):
+                save_result(await worker(item))
+            return
+
+        semaphore = asyncio.Semaphore(concurrency)
+
+        async def bounded(item):
+            async with semaphore:
+                return await worker(item)
+
+        tasks = [asyncio.create_task(bounded(item)) for item in items]
+        try:
+            for future in tqdm(
+                asyncio.as_completed(tasks),
+                total=len(tasks),
+                desc=desc,
+            ):
+                save_result(await future)
+        except Exception:
+            for task in tasks:
+                task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
+            raise
+
     async def run_generate(self):
         """Run only the generation stage."""
         problems = self._load_problems()
@@ -71,10 +101,20 @@ class Pipeline:
             logger.info("Generation: all %d problems already completed", len(problems))
             return
 
-        logger.info("Generation: %d/%d problems to process", len(todo), len(problems))
-        for problem in tqdm(todo, desc="Generating"):
+        logger.info(
+            "Generation: %d/%d problems to process (%d concurrent)",
+            len(todo),
+            len(problems),
+            self.config.concurrent_problems,
+        )
+
+        async def generate_problem(problem):
             system_prompt, user_prompt = prompt_fn(problem)
             solutions = await self.generator.generate_k(problem, system_prompt, user_prompt)
+            return problem, system_prompt, user_prompt, solutions
+
+        def save_generation(result):
+            problem, system_prompt, user_prompt, solutions = result
             self.store.save_generation(problem.id, solutions)
             self.store.save_problem_artifact(
                 problem,
@@ -85,6 +125,8 @@ class Pipeline:
                     "solutions": solutions,
                 },
             )
+
+        await self._run_problem_batch(todo, "Generating", generate_problem, save_generation)
 
     async def run_score(self):
         """Run only the scoring stage."""
@@ -97,17 +139,34 @@ class Pipeline:
             logger.info("Scoring: all problems already scored")
             return
 
-        logger.info("Scoring: %d problems to score", len(todo))
-        for pid, solutions in tqdm(todo.items(), desc="Scoring"):
+        logger.info(
+            "Scoring: %d problems to score (%d concurrent)",
+            len(todo),
+            self.config.concurrent_problems,
+        )
+
+        async def score_problem(item):
+            pid, solutions = item
             problem = problems_by_id[pid]
-            results = self.scorer.score_batch(problem, solutions)
+            results = await asyncio.to_thread(self.scorer.score_batch, problem, solutions)
             score_dicts = [dataclasses.asdict(r) for r in results]
+            return problem, pid, score_dicts
+
+        def save_scores(result):
+            problem, pid, score_dicts = result
             self.store.save_scores(pid, score_dicts)
             self.store.save_problem_artifact(
                 problem,
                 "scoring",
                 {"scores": score_dicts},
             )
+
+        await self._run_problem_batch(
+            list(todo.items()),
+            "Scoring",
+            score_problem,
+            save_scores,
+        )
 
     async def run_memory(self):
         """Run only the memory creation stage."""
@@ -121,8 +180,13 @@ class Pipeline:
             logger.info("Memory: all problems already processed")
             return
 
-        logger.info("Memory: %d problems to process", len(todo_ids))
-        for pid in tqdm(todo_ids, desc="Creating memories"):
+        logger.info(
+            "Memory: %d problems to process (%d concurrent)",
+            len(todo_ids),
+            self.config.concurrent_problems,
+        )
+
+        async def create_memory_for_problem(pid):
             problem = problems_by_id[pid]
             solutions = generations[pid]
             score_dicts = all_scores[pid]
@@ -138,7 +202,7 @@ class Pipeline:
             memory = await self.creator.create_memory(problem, grouped, scores)
 
             if memory is None:
-                self.store.save_memory(pid, {"skipped": True})
+                memory_payload = {"skipped": True}
                 artifact_payload = {
                     "grouped_solutions": grouped,
                     "prompt": memory_prompt,
@@ -148,7 +212,7 @@ class Pipeline:
                     "raw_response": None,
                 }
             else:
-                self.store.save_memory(pid, dataclasses.asdict(memory))
+                memory_payload = dataclasses.asdict(memory)
                 artifact_payload = {
                     "grouped_solutions": grouped,
                     "prompt": memory_prompt,
@@ -159,7 +223,19 @@ class Pipeline:
                     ],
                     "raw_response": memory.raw_response,
                 }
+            return problem, pid, memory_payload, artifact_payload
+
+        def save_memory_result(result):
+            problem, pid, memory_payload, artifact_payload = result
+            self.store.save_memory(pid, memory_payload)
             self.store.save_problem_artifact(problem, "memory", artifact_payload)
+
+        await self._run_problem_batch(
+            todo_ids,
+            "Creating memories",
+            create_memory_for_problem,
+            save_memory_result,
+        )
 
     async def run_evaluate(self):
         """Run only the evaluation stage."""
@@ -172,8 +248,14 @@ class Pipeline:
             logger.info("Evaluation: all problems already evaluated")
             return
 
-        logger.info("Evaluation: %d problems to evaluate", len(todo))
-        for pid, mem_dict in tqdm(todo.items(), desc="Evaluating"):
+        logger.info(
+            "Evaluation: %d problems to evaluate (%d concurrent)",
+            len(todo),
+            self.config.concurrent_problems,
+        )
+
+        async def evaluate_problem_item(item):
+            pid, mem_dict = item
             problem = problems_by_id[pid]
 
             if mem_dict.get("skipped"):
@@ -190,7 +272,7 @@ class Pipeline:
                 )
 
             evaluation_run = await self.evaluator.evaluate_problem(problem, memory)
-            self.store.save_evaluation(pid, dataclasses.asdict(evaluation_run.result))
+            evaluation_result = dataclasses.asdict(evaluation_run.result)
             evaluation_artifact = dataclasses.asdict(evaluation_run.artifact)
             evaluation_artifact.update(
                 {
@@ -199,7 +281,19 @@ class Pipeline:
                     "improvement": evaluation_run.result.improvement,
                 }
             )
+            return problem, pid, evaluation_result, evaluation_artifact
+
+        def save_evaluation_result(result):
+            problem, pid, evaluation_result, evaluation_artifact = result
+            self.store.save_evaluation(pid, evaluation_result)
             self.store.save_problem_artifact(problem, "evaluation", evaluation_artifact)
+
+        await self._run_problem_batch(
+            list(todo.items()),
+            "Evaluating",
+            evaluate_problem_item,
+            save_evaluation_result,
+        )
 
     async def run_feedback_loop(self):
         """Feedback loop mode: per-problem generate -> score -> [memory -> evaluate -> refine]."""

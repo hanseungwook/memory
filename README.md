@@ -132,6 +132,7 @@ So when you run `memgen run -c config/math_aime.yaml`, the effective fallback va
 | `evaluation.extra_body` | `{}` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `scoring.timeout_seconds` | `30` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `scoring.max_output_length` | `10000` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `concurrent_problems` | `1` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `results_dir` | `results` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `resume` | `true` | [`src/memgen/config.py`](src/memgen/config.py) |
 
@@ -207,6 +208,8 @@ The async generation engine is [`src/memgen/generation/generator.py`](src/memgen
 - enforces a semaphore using `generation.concurrent_requests`,
 - retries failed requests with exponential backoff,
 - gathers `K` independent samples concurrently.
+
+In `memory_mode: single`, the pipeline can also process multiple problems concurrently by setting `concurrent_problems`. That stage-level concurrency is separate from `generation.concurrent_requests`: the former controls how many problems are in flight, while the latter caps the shared generator's chat-completions concurrency.
 
 ### 3. Score
 

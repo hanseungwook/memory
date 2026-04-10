@@ -77,6 +77,7 @@ class PipelineConfig(BaseModel):
     evaluation: EvaluationConfig = Field(default_factory=EvaluationConfig)
     memory_mode: MemoryMode = MemoryMode.SINGLE
     feedback: FeedbackConfig = Field(default_factory=FeedbackConfig)
+    concurrent_problems: int = Field(default=1, ge=1)
     results_dir: str = "results"
     resume: bool = True
 
