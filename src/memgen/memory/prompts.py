@@ -283,6 +283,42 @@ def _domain_specific_guidance(domain: str) -> list[str]:
     ]
 
 
+def build_memory_refinement_prompt(
+    problem: Problem,
+    grouped_solutions: dict[str, list[str]],
+    previous_memory: Memory,
+    iteration: int,
+) -> str:
+    """Build a refinement prompt that wraps the base creation prompt with feedback context."""
+    base_prompt = build_memory_creation_prompt(problem, grouped_solutions)
+    previous_items_text = _format_previous_memories(previous_memory)
+
+    refinement_preamble = (
+        f"## Refinement Context (Iteration {iteration})\n"
+        "You previously produced the following set of memories for this problem, "
+        "but they did not sufficiently improve problem-solving performance when applied. "
+        "The solution pool below contains attempts that were generated USING those "
+        "previous memories — analyze how the model applied (or failed to apply) them.\n\n"
+        "### Previous Memories\n"
+        f"{previous_items_text}\n\n"
+        "### Instructions for Refinement\n"
+        "- Analyze why the previous memories may not have helped, based on the solutions below.\n"
+        "- Produce an IMPROVED set of memories. You may keep, revise, or discard any previous items.\n"
+        "- Focus on what was MISSING or MISLEADING in the previous set.\n"
+        "- The same rules apply: every memory must be generalizable and transferable.\n\n"
+    )
+    return refinement_preamble + base_prompt
+
+
+def _format_previous_memories(memory: Memory) -> str:
+    lines = []
+    for i, item in enumerate(memory.items, 1):
+        lines.append(f"{i}. **{item.title}**: {item.description}")
+        if item.content and item.content != item.description:
+            lines.append(f"   {item.content}")
+    return "\n".join(lines)
+
+
 def _example_memories_for_domain(domain: str) -> list[str]:
     if domain == "math":
         return [

@@ -847,12 +847,12 @@ def render_visualization_html(data: dict[str, Any]) -> str:
         {
           label: "Mean Baseline",
           value: formatRate(summary.mean_baseline_pass_rate),
-          detail: "pass@1 across evaluated problems",
+          detail: "avg@k across evaluated problems",
         },
         {
           label: "Mean Augmented",
           value: formatRate(summary.mean_augmented_pass_rate),
-          detail: "pass@1 with memory injection",
+          detail: "avg@k with memory injection",
         },
         {
           label: "Mean Improvement",
@@ -1222,8 +1222,8 @@ def render_visualization_html(data: dict[str, Any]) -> str:
         <section class="panel">
           <h2 class="section-title">Evaluation</h2>
           <div class="three-col" style="margin-top: 14px;">
-            ${infoCard("Baseline pass@1", formatRate(evaluation.baseline_pass_rate))}
-            ${infoCard("Augmented pass@1", formatRate(evaluation.augmented_pass_rate))}
+            ${infoCard("Baseline avg@k", formatRate(evaluation.baseline_pass_rate))}
+            ${infoCard("Augmented avg@k", formatRate(evaluation.augmented_pass_rate))}
             ${infoCard("Improvement", formatDelta(evaluation.improvement), evaluation.used_baseline_for_augmented ? "augmented reused baseline outputs" : "")}
           </div>
         </section>

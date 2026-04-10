@@ -1,0 +1,34 @@
+dataset:
+  domain: "coding"
+  name: "hanseungwook/code_generation_lite"
+  split: "train"
+  max_problems: 500
+llm:
+  provider: "vllm"
+  base_url: "http://fs-mbz-gpu-574:8000/v1"
+  api_key: null
+  timeout_seconds: 300
+  max_retries: 2
+generation:
+  model: "MiniMaxAI/MiniMax-M2.5"
+  k: 10
+  temperature: 1.0
+  max_tokens: 4096
+  extra_body: {}
+  concurrent_requests: 10
+scoring:
+  timeout_seconds: 30
+  max_output_length: 10000
+memory:
+  model: "MiniMaxAI/MiniMax-M2.5"
+  max_tokens: 2048
+  temperature: 1.0
+  extra_body: {}
+evaluation:
+  model: "MiniMaxAI/MiniMax-M2.5"
+  k: 10
+  temperature: 1.0
+  max_tokens: 4096
+  extra_body: {}
+results_dir: "results/slurm_20260410_vllm_minimax_m25_500sample"
+resume: true

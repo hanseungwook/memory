@@ -246,8 +246,8 @@ class ResultStore:
             lines.extend(["## Evaluation", ""])
             lines.extend(
                 [
-                    f"- Baseline pass@1: `{evaluation.get('baseline_pass_rate', 0.0):.4f}`",
-                    f"- Augmented pass@1: `{evaluation.get('augmented_pass_rate', 0.0):.4f}`",
+                    f"- Baseline avg@k: `{evaluation.get('baseline_pass_rate', 0.0):.4f}`",
+                    f"- Augmented avg@k: `{evaluation.get('augmented_pass_rate', 0.0):.4f}`",
                     f"- Improvement: `{evaluation.get('improvement', 0.0):+.4f}`",
                     "",
                 ]

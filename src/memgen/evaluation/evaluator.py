@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from memgen.config import EvaluationConfig, GenerationConfig
+from memgen.config import EvaluationConfig, GenerationConfig, LLMConfig
 from memgen.data.base import Problem
 from memgen.evaluation.prompts import get_augmented_prompt_fn, get_baseline_prompt_fn
 from memgen.memory.prompts import Memory
@@ -43,14 +43,21 @@ class EvaluationRun:
 
 
 class Evaluator:
-    def __init__(self, config: EvaluationConfig, scorer):
+    def __init__(
+        self,
+        config: EvaluationConfig,
+        scorer,
+        llm_config: LLMConfig | None = None,
+    ):
         self.config = config
         self.scorer = scorer
+        self.llm_config = llm_config or LLMConfig()
         self.generator_config = GenerationConfig(
             model=config.model,
             k=config.k,
             temperature=config.temperature,
             max_tokens=config.max_tokens,
+            extra_body=config.extra_body.copy(),
             concurrent_requests=config.k,
         )
         self._generator = None
@@ -106,8 +113,8 @@ class Evaluator:
             augmented_scores = [result.score for result in augmented_results]
             used_baseline_for_augmented = False
 
-        baseline_pass_rate = self._pass_at_1(baseline_scores)
-        augmented_pass_rate = self._pass_at_1(augmented_scores)
+        baseline_pass_rate = self._avg_at_k(baseline_results)
+        augmented_pass_rate = self._avg_at_k(augmented_results)
 
         result = EvaluationResult(
             problem_id=problem.id,
@@ -136,11 +143,13 @@ class Evaluator:
                 raise ImportError(
                     "memgen.generation.generator.Generator is required for evaluation"
                 ) from exc
-            self._generator = Generator(self.generator_config)
+            self._generator = Generator(self.generator_config, self.llm_config)
         return self._generator
 
     @staticmethod
-    def _pass_at_1(scores: list[float]) -> float:
-        if not scores:
+    def _avg_at_k(results: list[ScoreResult]) -> float:
+        if not results:
             return 0.0
-        return sum(1.0 for score in scores if score == 1.0) / len(scores)
+        # avg@k is the average of binarized per-sample correctness:
+        # full credit counts as 1.0, everything else counts as 0.0.
+        return sum(1.0 for result in results if result.score == 1.0) / len(results)

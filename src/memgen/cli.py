@@ -20,13 +20,17 @@ def main():
 @click.option("--config", "-c", type=click.Path(exists=True), required=True, help="Path to YAML config")
 @click.option("--stage", type=click.Choice(["all", "generate", "score", "memory", "evaluate"]), default="all", help="Pipeline stage to run")
 @click.option("--max-problems", type=int, default=None, help="Override max problems (for testing)")
-def run(config, stage, max_problems):
+@click.option("--memory-mode", type=click.Choice(["single", "feedback_loop"]), default=None, help="Override memory mode from config")
+def run(config, stage, max_problems, memory_mode):
     """Run the experiment pipeline."""
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
     cfg = load_config(config)
     if max_problems is not None:
         cfg.dataset.max_problems = max_problems
+    if memory_mode is not None:
+        from memgen.config import MemoryMode
+        cfg.memory_mode = MemoryMode(memory_mode)
 
     from memgen.pipeline import Pipeline
     pipeline = Pipeline(cfg)

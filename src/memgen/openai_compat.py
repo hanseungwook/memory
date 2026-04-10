@@ -1,16 +1,20 @@
 import logging
 from typing import Any
 
+from memgen.config import LLMProvider
+
 logger = logging.getLogger(__name__)
 _WARNED_TEMPERATURE_MODELS: set[str] = set()
 
 
 def build_chat_completion_request(
     *,
+    provider: LLMProvider | str = LLMProvider.OPENAI,
     model: str,
     messages: list[dict[str, Any]],
     max_tokens: int | None = None,
     temperature: float | None = None,
+    extra_body: dict[str, Any] | None = None,
     **extra: Any,
 ) -> dict[str, Any]:
     request: dict[str, Any] = {
@@ -18,11 +22,17 @@ def build_chat_completion_request(
         "messages": messages,
         **extra,
     }
+    normalized_provider = LLMProvider(provider)
 
     if max_tokens is not None:
-        request["max_completion_tokens"] = max_tokens
+        token_field = (
+            "max_completion_tokens"
+            if normalized_provider == LLMProvider.OPENAI
+            else "max_tokens"
+        )
+        request[token_field] = max_tokens
 
-    if _supports_custom_temperature(model):
+    if normalized_provider != LLMProvider.OPENAI or _supports_custom_temperature(model):
         if temperature is not None:
             request["temperature"] = temperature
     elif temperature not in (None, 1, 1.0):
@@ -35,6 +45,9 @@ def build_chat_completion_request(
                 model,
             )
             _WARNED_TEMPERATURE_MODELS.add(normalized_model)
+
+    if extra_body:
+        request["extra_body"] = extra_body
 
     return request
 

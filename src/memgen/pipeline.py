@@ -8,12 +8,13 @@ import logging
 
 from tqdm import tqdm
 
-from memgen.config import Domain, PipelineConfig
+from memgen.config import Domain, MemoryMode, PipelineConfig
 from memgen.data.base import Problem
-from memgen.evaluation.evaluator import Evaluator
+from memgen.evaluation.evaluator import EvaluationResult, Evaluator
 from memgen.generation.generator import Generator
 from memgen.generation.prompts import get_prompt_fn
 from memgen.memory.creator import MemoryCreator
+from memgen.evaluation.prompts import get_augmented_prompt_fn
 from memgen.memory.prompts import Memory, MemoryItem, build_memory_creation_prompt
 from memgen.persistence.store import ResultStore
 from memgen.scoring.base import ScoreResult
@@ -27,9 +28,9 @@ class Pipeline:
         self.config = config
         self.store = ResultStore(config.results_dir, config.dataset.domain.value)
         self.scorer = get_scorer(config.dataset.domain.value, config.scoring)
-        self.generator = Generator(config.generation)
-        self.creator = MemoryCreator(config.memory)
-        self.evaluator = Evaluator(config.evaluation, self.scorer)
+        self.generator = Generator(config.generation, config.llm)
+        self.creator = MemoryCreator(config.memory, config.llm)
+        self.evaluator = Evaluator(config.evaluation, self.scorer, config.llm)
         self.problems: list[Problem] = []
 
     def _load_problems(self) -> list[Problem]:
@@ -50,10 +51,13 @@ class Pipeline:
 
     async def run(self):
         """Full pipeline: load -> generate -> score -> create memories -> evaluate -> report."""
-        await self.run_generate()
-        await self.run_score()
-        await self.run_memory()
-        await self.run_evaluate()
+        if self.config.memory_mode == MemoryMode.FEEDBACK_LOOP:
+            await self.run_feedback_loop()
+        else:
+            await self.run_generate()
+            await self.run_score()
+            await self.run_memory()
+            await self.run_evaluate()
         self.print_report()
 
     async def run_generate(self):
@@ -197,6 +201,194 @@ class Pipeline:
             )
             self.store.save_problem_artifact(problem, "evaluation", evaluation_artifact)
 
+    async def run_feedback_loop(self):
+        """Feedback loop mode: per-problem generate -> score -> [memory -> evaluate -> refine]."""
+        problems = self._load_problems()
+        completed = self.store.get_completed_ids("evaluation") if self.config.resume else set()
+        todo = [p for p in problems if p.id not in completed]
+
+        if not todo:
+            logger.info("Feedback loop: all %d problems already completed", len(problems))
+            return
+
+        feedback_cfg = self.config.feedback
+        logger.info(
+            "Feedback loop: %d/%d problems to process (max %d iterations, %d concurrent)",
+            len(todo), len(problems), feedback_cfg.max_iterations, feedback_cfg.concurrent_problems,
+        )
+
+        sem = asyncio.Semaphore(feedback_cfg.concurrent_problems)
+        done_count = 0
+
+        async def bounded(problem):
+            nonlocal done_count
+            async with sem:
+                await self._run_single_problem_loop(problem)
+            done_count += 1
+            logger.info("Feedback loop: completed %d/%d problems", done_count, len(todo))
+
+        await asyncio.gather(*[bounded(p) for p in todo])
+
+    async def _run_single_problem_loop(self, problem):
+        """Run the full feedback loop for a single problem."""
+        feedback_cfg = self.config.feedback
+        max_iter = feedback_cfg.max_iterations
+        threshold = feedback_cfg.improvement_threshold
+        prompt_fn = get_prompt_fn(self.config.dataset.domain.value)
+
+        # Step 1: Generate K initial solutions
+        system_prompt, user_prompt = prompt_fn(problem)
+        solutions = await self.generator.generate_k(problem, system_prompt, user_prompt)
+        self.store.save_generation(problem.id, solutions)
+
+        # Step 2: Score initial solutions
+        score_results = self.scorer.score_batch(problem, solutions)
+        score_dicts = [dataclasses.asdict(r) for r in score_results]
+        self.store.save_scores(problem.id, score_dicts)
+
+        # Step 3: Create initial memory from tier groupings
+        grouped = MemoryCreator.group_solutions(solutions, score_results)
+        memory = await self.creator.create_memory(problem, grouped, score_results)
+
+        if memory is None:
+            self.store.save_memory(problem.id, {"skipped": True})
+            self.store.save_evaluation(problem.id, {
+                "problem_id": problem.id,
+                "baseline_pass_rate": 0.0, "augmented_pass_rate": 0.0,
+                "improvement": 0.0, "baseline_scores": [], "augmented_scores": [],
+            })
+            return
+
+        # Step 4: Evaluate iteration 1 — get both baseline and augmented
+        eval_run = await self.evaluator.evaluate_problem(problem, memory)
+        baseline_pass_rate = eval_run.result.baseline_pass_rate
+
+        iterations = [{
+            "iteration": 1,
+            "baseline_pass_rate": baseline_pass_rate,
+            "augmented_pass_rate": eval_run.result.augmented_pass_rate,
+            "improvement": eval_run.result.improvement,
+            "accepted": eval_run.result.augmented_pass_rate > baseline_pass_rate + threshold,
+            "memory_items": [dataclasses.asdict(item) for item in memory.items],
+        }]
+
+        best_memory = memory
+        best_augmented_rate = eval_run.result.augmented_pass_rate
+        best_iteration = 1
+        best_eval_result = eval_run.result
+
+        # Check if already good enough
+        if eval_run.result.augmented_pass_rate > baseline_pass_rate + threshold:
+            logger.debug("Problem %s: accepted at iteration 1", problem.id)
+        else:
+            # Refine loop (iterations 2..max_iter)
+            prev_augmented_solutions = eval_run.artifact.augmented_solutions
+            prev_augmented_results = eval_run.artifact.augmented_results
+            prev_memory = memory
+
+            eval_generator = self.evaluator._get_generator()
+            augmented_prompt_fn = get_augmented_prompt_fn(problem.domain)
+
+            for iteration in range(2, max_iter + 1):
+                # Build tier pool from ONLY the previous augmented solutions
+                aug_score_results = [
+                    ScoreResult(
+                        problem_id=r.problem_id,
+                        generation_index=i,
+                        score=r.score,
+                        tier=r.tier,
+                        details=r.details,
+                    )
+                    for i, r in enumerate(prev_augmented_results)
+                ]
+                aug_grouped = MemoryCreator.group_solutions(
+                    prev_augmented_solutions, aug_score_results
+                )
+
+                # Create refined memory
+                refined = await self.creator.create_refined_memory(
+                    problem, aug_grouped, prev_memory, iteration
+                )
+                if refined is None:
+                    logger.debug("Problem %s: refinement returned None at iteration %d", problem.id, iteration)
+                    break
+
+                # Generate augmented-only solutions with refined memory
+                aug_sys, aug_user = augmented_prompt_fn(problem, refined)
+                aug_solutions = await eval_generator.generate_k(
+                    problem, aug_sys, aug_user, k=self.config.evaluation.k
+                )
+                aug_results = [
+                    self.scorer.score(problem, gen, i)
+                    for i, gen in enumerate(aug_solutions)
+                ]
+                aug_scores = [r.score for r in aug_results]
+                augmented_pass_rate = self.evaluator._avg_at_k(aug_results)
+                improvement = augmented_pass_rate - baseline_pass_rate
+                accepted = augmented_pass_rate > baseline_pass_rate + threshold
+
+                iterations.append({
+                    "iteration": iteration,
+                    "baseline_pass_rate": baseline_pass_rate,
+                    "augmented_pass_rate": augmented_pass_rate,
+                    "improvement": improvement,
+                    "accepted": accepted,
+                    "memory_items": [dataclasses.asdict(item) for item in refined.items],
+                })
+
+                # Track best
+                if augmented_pass_rate > best_augmented_rate:
+                    best_memory = refined
+                    best_augmented_rate = augmented_pass_rate
+                    best_iteration = iteration
+                    best_eval_result = EvaluationResult(
+                        problem_id=problem.id,
+                        baseline_pass_rate=baseline_pass_rate,
+                        augmented_pass_rate=augmented_pass_rate,
+                        improvement=improvement,
+                        baseline_scores=eval_run.result.baseline_scores,
+                        augmented_scores=aug_scores,
+                    )
+
+                if accepted:
+                    logger.debug("Problem %s: accepted at iteration %d", problem.id, iteration)
+                    break
+
+                # Prepare for next iteration
+                prev_augmented_solutions = aug_solutions
+                prev_augmented_results = aug_results
+                prev_memory = refined
+
+        # Save final results — use the best memory across iterations
+        self.store.save_memory(problem.id, dataclasses.asdict(best_memory))
+        self.store.save_evaluation(problem.id, dataclasses.asdict(best_eval_result))
+
+        # Save artifacts with iteration history
+        feedback_loop_data = {
+            "iterations": iterations,
+            "total_iterations": len(iterations),
+            "best_iteration": best_iteration,
+        }
+        self.store.save_problem_artifact(problem, "generation", {
+            "system_prompt": system_prompt,
+            "user_prompt": user_prompt,
+            "solutions": solutions,
+        })
+        self.store.save_problem_artifact(problem, "scoring", {"scores": score_dicts})
+        self.store.save_problem_artifact(problem, "memory", {
+            "grouped_solutions": grouped,
+            "skipped": False,
+            "items": [dataclasses.asdict(item) for item in best_memory.items],
+            "raw_response": best_memory.raw_response,
+            "feedback_loop": feedback_loop_data,
+        })
+        self.store.save_problem_artifact(problem, "evaluation", {
+            "baseline_pass_rate": best_eval_result.baseline_pass_rate,
+            "augmented_pass_rate": best_eval_result.augmented_pass_rate,
+            "improvement": best_eval_result.improvement,
+            "feedback_loop": feedback_loop_data,
+        })
+
     def print_report(self):
         """Print aggregate statistics from completed evaluations."""
         evaluations = self.store.load_evaluations()
@@ -227,8 +419,8 @@ class Pipeline:
         print("  Memory from Generations - Results")
         print(f"{'='*50}")
         print(f"  Problems evaluated:       {n}")
-        print(f"  Mean baseline pass@1:     {sum(baseline_rates)/n:.4f}")
-        print(f"  Mean augmented pass@1:    {sum(augmented_rates)/n:.4f}")
+        print(f"  Mean baseline avg@k:     {sum(baseline_rates)/n:.4f}")
+        print(f"  Mean augmented avg@k:    {sum(augmented_rates)/n:.4f}")
         print(f"  Mean improvement:         {sum(improvements)/n:+.4f}")
         print(f"  Memory helped:            {helped} ({helped/n*100:.1f}%)")
         print(f"  Memory hurt:              {hurt} ({hurt/n*100:.1f}%)")

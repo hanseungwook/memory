@@ -2,30 +2,35 @@ from __future__ import annotations
 
 from collections import OrderedDict
 
-from dotenv import load_dotenv
-from openai import AsyncOpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from memgen.config import MemoryConfig
+from memgen.config import LLMConfig, MemoryConfig
 from memgen.data.base import Problem
+from memgen.llm import create_async_openai_client
 from memgen.memory.prompts import (
     MEMORY_SYSTEM_PROMPT,
     Memory,
     build_memory_creation_prompt,
+    build_memory_refinement_prompt,
     parse_memory_response,
 )
 from memgen.openai_compat import build_chat_completion_request
 from memgen.scoring.base import ScoreResult
 
-load_dotenv()
-
 _TIER_ORDER = ("correct", "incorrect", "full", "partial", "fail")
 
 
 class MemoryCreator:
-    def __init__(self, config: MemoryConfig):
-        self.client = AsyncOpenAI()
+    def __init__(self, config: MemoryConfig, llm_config: LLMConfig | None = None):
         self.config = config
+        self.llm_config = llm_config or LLMConfig()
+        self._client = None
+
+    @property
+    def client(self):
+        if self._client is None:
+            self._client = create_async_openai_client(self.llm_config)
+        return self._client
 
     async def create_memory(
         self,
@@ -40,6 +45,23 @@ class MemoryCreator:
             return None
 
         prompt = build_memory_creation_prompt(problem, grouped_solutions)
+        raw_response = await self._request_memory(prompt)
+        return parse_memory_response(problem.id, raw_response)
+
+    async def create_refined_memory(
+        self,
+        problem: Problem,
+        grouped_solutions: dict[str, list[str]],
+        previous_memory: Memory,
+        iteration: int,
+    ) -> Memory | None:
+        non_empty_tiers = [t for t, items in grouped_solutions.items() if items]
+        if len(non_empty_tiers) < 2:
+            return None
+
+        prompt = build_memory_refinement_prompt(
+            problem, grouped_solutions, previous_memory, iteration
+        )
         raw_response = await self._request_memory(prompt)
         return parse_memory_response(problem.id, raw_response)
 
@@ -74,9 +96,11 @@ class MemoryCreator:
     async def _request_memory(self, prompt: str) -> str:
         response = await self.client.chat.completions.create(
             **build_chat_completion_request(
+                provider=self.llm_config.provider,
                 model=self.config.model,
                 temperature=self.config.temperature,
                 max_tokens=self.config.max_tokens,
+                extra_body=self.config.extra_body,
                 messages=[
                     {"role": "system", "content": MEMORY_SYSTEM_PROMPT},
                     {"role": "user", "content": prompt},

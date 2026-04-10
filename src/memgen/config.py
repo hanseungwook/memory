@@ -1,13 +1,19 @@
 from enum import Enum
 from pathlib import Path
+from typing import Any
 
 import yaml
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Domain(str, Enum):
     MATH = "math"
     CODING = "coding"
+
+
+class LLMProvider(str, Enum):
+    OPENAI = "openai"
+    VLLM = "vllm"
 
 
 class DatasetConfig(BaseModel):
@@ -17,11 +23,23 @@ class DatasetConfig(BaseModel):
     max_problems: int | None = None
 
 
-class GenerationConfig(BaseModel):
+class LLMConfig(BaseModel):
+    provider: LLMProvider = LLMProvider.OPENAI
+    base_url: str | None = None
+    api_key: str | None = None
+    timeout_seconds: float | None = None
+    max_retries: int = 2
+
+
+class ChatCompletionConfig(BaseModel):
     model: str = "gpt-5-mini"
-    k: int = 16
     temperature: float = 0.7
     max_tokens: int = 4096
+    extra_body: dict[str, Any] = Field(default_factory=dict)
+
+
+class GenerationConfig(ChatCompletionConfig):
+    k: int = 16
     concurrent_requests: int = 16
 
 
@@ -30,25 +48,35 @@ class ScoringConfig(BaseModel):
     max_output_length: int = 10000
 
 
-class MemoryConfig(BaseModel):
-    model: str = "gpt-5-mini"
+class MemoryConfig(ChatCompletionConfig):
     temperature: float = 0.3
     max_tokens: int = 2048
 
 
-class EvaluationConfig(BaseModel):
-    model: str = "gpt-5-mini"
+class EvaluationConfig(ChatCompletionConfig):
     k: int = 16
-    temperature: float = 0.7
-    max_tokens: int = 4096
+
+
+class MemoryMode(str, Enum):
+    SINGLE = "single"
+    FEEDBACK_LOOP = "feedback_loop"
+
+
+class FeedbackConfig(BaseModel):
+    max_iterations: int = 3
+    improvement_threshold: float = 0.0
+    concurrent_problems: int = 1
 
 
 class PipelineConfig(BaseModel):
     dataset: DatasetConfig
-    generation: GenerationConfig = GenerationConfig()
-    scoring: ScoringConfig = ScoringConfig()
-    memory: MemoryConfig = MemoryConfig()
-    evaluation: EvaluationConfig = EvaluationConfig()
+    llm: LLMConfig = Field(default_factory=LLMConfig)
+    generation: GenerationConfig = Field(default_factory=GenerationConfig)
+    scoring: ScoringConfig = Field(default_factory=ScoringConfig)
+    memory: MemoryConfig = Field(default_factory=MemoryConfig)
+    evaluation: EvaluationConfig = Field(default_factory=EvaluationConfig)
+    memory_mode: MemoryMode = MemoryMode.SINGLE
+    feedback: FeedbackConfig = Field(default_factory=FeedbackConfig)
     results_dir: str = "results"
     resume: bool = True
 

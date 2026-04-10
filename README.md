@@ -18,7 +18,7 @@ Each stage persists JSONL outputs under `results/<domain>/`, so runs can resume 
 | Generate | Builds a domain-specific prompt and issues `K` async Chat Completions calls through the OpenAI SDK. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/generation/prompts.py`](src/memgen/generation/prompts.py), [`src/memgen/generation/generator.py`](src/memgen/generation/generator.py), [`src/memgen/openai_compat.py`](src/memgen/openai_compat.py) |
 | Score | Math expects a final `ANSWER: <integer>` line and scores exact integer correctness. Coding extracts the last fenced code block, runs it against all tests, and assigns `fail` / `partial` / `full`. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/scoring/base.py`](src/memgen/scoring/base.py), [`src/memgen/scoring/math_scorer.py`](src/memgen/scoring/math_scorer.py), [`src/memgen/scoring/coding_scorer.py`](src/memgen/scoring/coding_scorer.py), [`src/memgen/scoring/sandbox.py`](src/memgen/scoring/sandbox.py) |
 | Create memories | Groups solutions by tier, builds a contrastive prompt over all solutions in each non-empty tier, requests a memory response, and parses `<reasoning>` / `<memory>` tags. If fewer than two tiers are populated, memory creation is skipped. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/memory/creator.py`](src/memgen/memory/creator.py), [`src/memgen/memory/prompts.py`](src/memgen/memory/prompts.py) |
-| Evaluate | Regenerates baseline samples, then regenerates augmented samples with memory injection when memory exists. `pass@1` is computed as the fraction of samples with score exactly `1.0`. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/evaluation/evaluator.py`](src/memgen/evaluation/evaluator.py), [`src/memgen/evaluation/prompts.py`](src/memgen/evaluation/prompts.py) |
+| Evaluate | Regenerates baseline samples, then regenerates augmented samples with memory injection when memory exists. `avg@k` is computed by binarizing each sample score to `1.0` only when it earns full credit, then averaging across the `K` samples. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/evaluation/evaluator.py`](src/memgen/evaluation/evaluator.py), [`src/memgen/evaluation/prompts.py`](src/memgen/evaluation/prompts.py) |
 | Persist and inspect | Appends stage results to JSONL files and also writes per-problem artifact bundles as both JSON and Markdown. | [`src/memgen/persistence/store.py`](src/memgen/persistence/store.py) |
 | CLI entrypoints | Runs the pipeline by stage and prints aggregate evaluation stats. | [`src/memgen/cli.py`](src/memgen/cli.py) |
 
@@ -32,6 +32,15 @@ Environment:
 
 ```bash
 export OPENAI_API_KEY=sk-...
+```
+
+For a local vLLM server, add an explicit `llm` block to your config and point it at the OpenAI-compatible endpoint:
+
+```yaml
+llm:
+  provider: "vllm"
+  base_url: "http://localhost:8000/v1"
+  api_key: "token"
 ```
 
 The package requires Python 3.12+ and installs its runtime dependencies from [`pyproject.toml`](pyproject.toml).
@@ -101,30 +110,64 @@ So when you run `memgen run -c config/math_aime.yaml`, the effective fallback va
 
 | Parameter | Default in code | Where it lives |
 | --- | --- | --- |
+| `llm.provider` | `openai` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `llm.base_url` | `null` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `llm.api_key` | `null` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `llm.timeout_seconds` | `null` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `llm.max_retries` | `2` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `generation.model` | `gpt-5-mini` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `generation.k` | `16` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `generation.temperature` | `0.7` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `generation.max_tokens` | `4096` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `generation.extra_body` | `{}` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `generation.concurrent_requests` | `16` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `memory.model` | `gpt-5-mini` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `memory.temperature` | `0.3` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `memory.max_tokens` | `2048` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `memory.extra_body` | `{}` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `evaluation.model` | `gpt-5-mini` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `evaluation.k` | `16` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `evaluation.temperature` | `0.7` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `evaluation.max_tokens` | `4096` | [`src/memgen/config.py`](src/memgen/config.py) |
+| `evaluation.extra_body` | `{}` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `scoring.timeout_seconds` | `30` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `scoring.max_output_length` | `10000` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `results_dir` | `results` | [`src/memgen/config.py`](src/memgen/config.py) |
 | `resume` | `true` | [`src/memgen/config.py`](src/memgen/config.py) |
 
-### OpenAI request compatibility
+### LLM provider compatibility
 
 Request shaping is handled by [`src/memgen/openai_compat.py`](src/memgen/openai_compat.py).
 
-- The client sends `max_completion_tokens`, not `max_tokens`.
-- For models whose names start with `gpt-5`, custom `temperature` values are intentionally omitted because the Chat Completions API only supports the default temperature for those models.
-- For non-`gpt-5` models, `temperature` is passed through normally.
+- `llm.provider: openai` sends `max_completion_tokens`.
+- `llm.provider: vllm` currently sends `max_tokens` and preserves configured sampling parameters such as `temperature`. Current vLLM chat-completions docs also accept `max_completion_tokens` and mark `max_tokens` as deprecated.
+- For OpenAI GPT-5 chat models, custom `temperature` values are intentionally omitted because the API only supports the default temperature.
+- `generation.extra_body`, `memory.extra_body`, and `evaluation.extra_body` are passed through to the OpenAI SDK as `extra_body`, which is useful for vLLM-only request options such as `top_k`.
+
+Example vLLM override:
+
+```yaml
+llm:
+  provider: "vllm"
+  base_url: "http://localhost:8000/v1"
+  api_key: "token"
+generation:
+  model: "Qwen/Qwen3-32B"
+  extra_body:
+    top_k: 20
+memory:
+  model: "Qwen/Qwen3-32B"
+evaluation:
+  model: "Qwen/Qwen3-32B"
+```
+
+If you launch vLLM locally, prefer a command like this so request-time sampling settings from the pipeline win over model repository defaults:
+
+```bash
+vllm serve Qwen/Qwen3-32B --api-key token --generation-config vllm
+```
+
+The served model must expose a chat template for `/v1/chat/completions`. If it does not, start vLLM with `--chat-template ./path/to/template.jinja`.
 
 ## Datasets
 
@@ -160,7 +203,7 @@ Prompt selection is domain-specific:
 
 The async generation engine is [`src/memgen/generation/generator.py`](src/memgen/generation/generator.py). It:
 
-- creates one shared `AsyncOpenAI` client,
+- lazily creates one shared `AsyncOpenAI` client for that generator instance,
 - enforces a semaphore using `generation.concurrent_requests`,
 - retries failed requests with exponential backoff,
 - gathers `K` independent samples concurrently.
@@ -212,9 +255,9 @@ Current behavior:
 2. Score those samples with the same scorer used earlier in the pipeline.
 3. If memory exists, prepend the memory items to the user prompt and generate a second augmented batch.
 4. If memory was skipped, reuse the baseline generations and mark `used_baseline_for_augmented = true`.
-5. Compute `pass@1` as the share of samples with score exactly `1.0`.
+5. Compute `avg@k` by binarizing each sample score to `1.0` only when it earns full credit, then averaging across the `K` samples.
 
-That last point matters for coding: `partial` generations contribute to the stored per-sample scores, but they do not count as pass@1 successes.
+That last point matters for coding: `partial` generations are still stored in the per-sample scores, but they contribute `0.0` to `avg@k`.
 
 ## Output Structure
 
