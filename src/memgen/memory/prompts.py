@@ -49,14 +49,11 @@ class Memory:
 
 
 MEMORY_SYSTEM_PROMPT = (
-    "You are an expert analyst studying problem-solving approaches. Your job is "
-    "to extract and summarize useful insights in the format of memory items "
-    "based on comparing successful and unsuccessful solution attempts. "
-    "Every insight you produce must be GENERALIZABLE and TRANSFERABLE to other "
-    "problems — never tied to one specific problem's details. Prefer reusable "
-    "meta-reasoning patterns such as reformulating constraints, choosing a "
-    "better state or invariant, validating risky transformations, or selecting "
-    "a simpler counting/search strategy."
+    "You are an expert analyst. Extract reusable memory items from one or more "
+    "tiers of solution attempts. If multiple tiers are present, use contrast; "
+    "if one tier is present, mine recurring patterns. Produce cross-domain "
+    "insights that transfer whenever the reasoning structure matches. Favor "
+    "meta-reasoning and problem-solving techniques over problem-specific facts."
 )
 
 _MAX_SOLUTIONS_PER_TIER = None  # Use all solutions
@@ -73,36 +70,30 @@ _PROMPT_TIER_ORDER = ("Correct", "Partially Correct", "Incorrect")
 def build_memory_creation_prompt(
     problem: Problem, grouped_solutions: dict[str, list[str]]
 ) -> str:
-    domain = _normalize_domain(problem.domain)
+    domain = _resolve_domain_family(problem.domain)
+    non_empty_tiers = [tier for tier, items in grouped_solutions.items() if items]
     sections = [
         "## Guidelines",
-        "You need to extract and summarize useful insights in the format of memory items "
-        "based on comparing the successful and unsuccessful solution attempts below.",
-        "The goal of summarized memory items is to be GENERALIZABLE and TRANSFERABLE — "
-        "each insight must be useful not just for this problem, but for a broad class of "
-        "similar problems. Write each memory as advice that would help someone who has "
-        "never seen this specific problem.",
+        "Analyze the solution attempts below and extract reusable memory items.",
+        "Use contrast when tiers differ. If only one tier is present, mine repeated patterns within that tier.",
+        "Write advice that transfers across problems, including across domains when the reasoning structure matches.",
         "",
         "## Important notes",
-        "- You must first think about why certain attempts succeeded and others failed, then summarize the insights.",
-        "- You can extract multiple memory items from the comparison. Each should capture a distinct, independent insight.",
-        "- Prioritize GENERAL META-REASONING techniques over object-level hints. Favor principles about representation choice, constraint formalization, invariant selection, validation, decomposition, debugging, or algorithm selection.",
-        "- Convert failure observations into POSITIVE reusable guidance. Do not write memories that are just restatements of one wrong step.",
-        "- Do NOT mention specific values, answers, variable names, or problem-specific details. "
-        "Every memory item must stand on its own as a general problem-solving principle or technique "
-        "that transfers across different problems in the same domain.",
-        "- Avoid narrow one-off tricks unless they clearly transfer to a recurring class of problems. Fewer high-quality memories are better than many repetitive ones.",
-        "- Emphasize high-level strategies that would still make sense on a different problem in the same domain.",
+        "- Prioritize GENERAL META-REASONING and PROBLEM-SOLVING techniques over object-level hints.",
+        "- Convert failures into positive reusable guidance.",
+        "- Do NOT mention specific values, answers, variable names, or problem-specific details.",
+        "- Favor fewer, stronger memories that still make sense when the surface domain changes.",
         "",
     ]
-    sections.extend(_domain_specific_guidance(domain))
+    sections.extend(_analysis_mode_guidance(non_empty_tiers))
     sections.extend(
         [
-            "## Examples of good meta-reasoning memories",
-            *_example_memories_for_domain(domain),
+            "## Solution Pool",
+            f"- Outcome tiers present: {_describe_solution_pool(non_empty_tiers)}",
             "",
         ]
     )
+    sections.extend(_domain_specific_guidance(domain))
     sections.extend(
         [
         "### Problem",
@@ -122,21 +113,20 @@ def build_memory_creation_prompt(
     sections.extend(
         [
             "## Response format",
-            "First write your analysis inside <reasoning> tags, then produce one or more memory items.",
-            "Each memory item must be a self-contained, generalizable insight that transfers to other problems.",
-            "A good memory reads like a reusable principle; a bad memory reads like a hint for one specific problem.",
+            "First write analysis in <reasoning>, then produce one or more memory items.",
+            "Each memory must be a self-contained principle, not a hint for one specific problem.",
             "Each memory item must use this schema:",
             '- "title": a short label for the memory item',
             '- "description": one sentence summary of the memory item',
-            '- "content": 1-3 sentences describing the insight learned for successfully accomplishing similar tasks',
+            '- "content": 1-3 sentences describing the reusable insight',
             "",
-            "<reasoning>Think about why certain attempts succeeded and others failed. What patterns distinguish them?</reasoning>",
+            "<reasoning>Identify the patterns that support transferable advice. Use cross-tier contrasts when available; otherwise use repeated patterns within the single tier.</reasoning>",
             "",
             "<memories>",
             "<memory>",
             "<title>The title of the memory item</title>",
             "<description>One sentence summary of the memory item.</description>",
-            "<content>One to three sentences describing the reusable insight learned from the comparison.</content>",
+            "<content>One to three sentences describing the reusable insight.</content>",
             "</memory>",
             "<memory>",
             "<title>Another distinct reusable principle</title>",
@@ -266,21 +256,131 @@ def _normalize_domain(domain: str) -> str:
     return str(domain).strip().lower()
 
 
-def _domain_specific_guidance(domain: str) -> list[str]:
-    if domain != "math":
-        return []
+def _resolve_domain_family(domain: str) -> str:
+    normalized = _normalize_domain(domain)
+    aliases = {
+        "math": {"math"},
+        "coding": {"coding", "code", "programming"},
+        "science": {"science"},
+        "logic": {"logic"},
+        "simulation": {"simulation", "sim"},
+        "table": {"table", "tables", "tabular", "tabular_reasoning", "table_reasoning"},
+    }
 
-    return [
-        "## Math-specific guidance",
-        "- For math, prefer memories about how to choose a representation, invariant, proof strategy, or validation step rather than advice tied to one theorem, construction, or object type.",
-        "- A good math memory should still make sense if the next problem uses different mathematical objects but has the same structural challenge.",
-        "- If a draft memory mainly says to use a particular theorem, formula, or named construction, rewrite it one level more abstract: explain the signal for using that move and the mistake it helps prevent.",
-        "- Prefer titles that name the reasoning move, not the surface topic.",
-        "- Favor reusable proof moves such as explicit constraint modeling, invariant selection, validating transformed equations, disciplined casework, complement or bijection counting, extremal arguments, and completeness or bounding proofs.",
-        "- Merge overlapping memories that express the same proof move. Do not split one idea into several object-specific variants.",
-        "- In the content field, explain both when to use the idea and what class of failure it helps avoid.",
-        "",
+    for family, names in aliases.items():
+        if normalized in names:
+            return family
+
+    return "generic"
+
+
+def _analysis_mode_guidance(non_empty_tiers: list[str]) -> list[str]:
+    if len(non_empty_tiers) >= 2:
+        return [
+            "## Analysis mode",
+            "- Multiple outcome tiers are available. Use the gap between stronger and weaker attempts to identify what transfers.",
+            "- Explain which decisions, checks, or representations separate the better attempts from the worse ones.",
+            "",
+        ]
+
+    if not non_empty_tiers:
+        return [
+            "## Analysis mode",
+            "- No scored attempts are available. If this happens, return no memories rather than fabricating evidence.",
+            "",
+        ]
+
+    only_tier = non_empty_tiers[0]
+    label = _PROMPT_TIER_LABELS.get(only_tier, only_tier.replace("_", " ").title())
+    guidance = [
+        "## Analysis mode",
+        f"- Only one outcome tier is available in this batch: {label}.",
+        "- Do not say the task requires contrast. Extract reusable lessons from the repeated patterns in these attempts.",
     ]
+
+    if only_tier in {"correct", "full"}:
+        guidance.extend(
+            [
+                "- Distill the shared moves that repeatedly worked: representation choices, decomposition, validation steps, or decision rules.",
+                "- Focus on what made the successful reasoning robust, not on restating the final algorithm for this one problem.",
+            ]
+        )
+    elif only_tier == "partial":
+        guidance.extend(
+            [
+                "- Preserve what the attempts got right, then explain what missing step, state, or validation kept them from full completion.",
+                "- Rewrite the failure mode as positive, reusable guidance for how to finish similar problems correctly.",
+            ]
+        )
+    else:
+        guidance.extend(
+            [
+                "- Diagnose the recurring bottlenecks, omissions, or false assumptions behind the failed attempts.",
+                "- Rewrite those failure patterns as positive, reusable guidance rather than problem-specific criticism.",
+            ]
+        )
+
+    guidance.append("")
+    return guidance
+
+
+def _describe_solution_pool(non_empty_tiers: list[str]) -> str:
+    if not non_empty_tiers:
+        return "none"
+
+    labels = [
+        _PROMPT_TIER_LABELS.get(tier, tier.replace("_", " ").title())
+        for tier in non_empty_tiers
+    ]
+    return ", ".join(labels)
+
+
+def _domain_specific_guidance(domain: str) -> list[str]:
+    guidance_map = {
+        "math": [
+            "## Math-specific guidance",
+            "- Name the reasoning move, not the theorem or topic.",
+            "- Prefer representation, invariant, completeness, and validation moves that transfer beyond one math setting.",
+            "",
+        ],
+        "coding": [
+            "## Code-specific guidance",
+            "- Name the design move, not the exact algorithm or API.",
+            "- Prefer state, transition, boundary, and contract checks that transfer across implementations.",
+            "",
+        ],
+        "science": [
+            "## Science-specific guidance",
+            "- Name the reasoning move, not the scientific topic or fact.",
+            "- Prefer mechanism, evidence, and unit/scale checks that transfer across topics.",
+            "",
+        ],
+        "logic": [
+            "## Logic-specific guidance",
+            "- Name the inference pattern, not the story or entities.",
+            "- Prefer explicit constraints, consistency checks, and clean separation of forced moves from branches.",
+            "",
+        ],
+        "simulation": [
+            "## Simulation-specific guidance",
+            "- Name the modeling move, not the scenario.",
+            "- Prefer state, update-order, boundary, and fidelity checks that transfer across simulations.",
+            "",
+        ],
+        "table": [
+            "## Table-specific guidance",
+            "- Name the data reasoning move, not the schema fields.",
+            "- Prefer slice, scope, denominator, and aggregation checks that transfer across tables.",
+            "",
+        ],
+        "generic": [
+            "## Cross-domain guidance",
+            "- Name a transferable reasoning move: representation choice, validation, decomposition, completeness, or scope control.",
+            "- If the domain is unfamiliar or mixed, stay abstract and avoid domain-local jargon.",
+            "",
+        ],
+    }
+    return guidance_map[domain]
 
 
 def build_memory_refinement_prompt(
@@ -298,7 +398,9 @@ def build_memory_refinement_prompt(
         "You previously produced the following set of memories for this problem, "
         "but they did not sufficiently improve problem-solving performance when applied. "
         "The solution pool below contains attempts that were generated USING those "
-        "previous memories — analyze how the model applied (or failed to apply) them.\n\n"
+        "previous memories — analyze how the model applied (or failed to apply) them. "
+        "If the pool collapses to a single outcome tier, mine the repeated patterns within "
+        "that tier instead of refusing due to lack of contrast.\n\n"
         "### Previous Memories\n"
         f"{previous_items_text}\n\n"
         "### Instructions for Refinement\n"
@@ -317,33 +419,3 @@ def _format_previous_memories(memory: Memory) -> str:
         if item.content and item.content != item.description:
             lines.append(f"   {item.content}")
     return "\n".join(lines)
-
-
-def _example_memories_for_domain(domain: str) -> list[str]:
-    if domain == "math":
-        return [
-            "- Title: Validate Lossy Transformations",
-            '  Description: Check transformed candidates against the original constraints before finalizing.',
-            "  Content: If you square, divide, drop a case, or weaken a condition, add a verification pass against the original problem. This prevents transformed solutions from being accepted just because they satisfy an easier intermediate condition.",
-            "- Title: Switch to an Explicit Constraint Model",
-            '  Description: When a diagram, identity, or theorem application is ambiguous, rewrite the givens as direct equations or inequalities.',
-            "  Content: Introduce variables for the unknown quantities and encode each condition explicitly. This is often safer than forcing a theorem whose prerequisites may not actually be established.",
-            "- Title: Prove Search Completeness",
-            '  Description: If you test candidates or scan cases, justify why no untested case can beat the selected answer.',
-            "  Content: Use a bound, invariant, monotonicity argument, or exhaustion proof to show the search space is complete. This turns a plausible candidate check into a full proof.",
-            "- Title: Choose a Counting Model with a Verified Bijection",
-            '  Description: In combinatorics, count through a model only after proving it matches the original objects one-to-one.',
-            "  Content: If you switch to gaps, complements, or auxiliary configurations, verify the mapping in both directions. This prevents elegant-looking counts that miss or double-count cases.",
-        ]
-
-    return [
-        "- Title: Constraint-First Reformulation",
-        '  Description: Turn informal requirements into explicit constraints before solving.',
-        "  Content: Rewrite vague conditions as equations, inequalities, parity rules, or state constraints. Use those formal constraints to guide the solution and reject invalid branches early.",
-        "- Title: Validate Risky Transformations",
-        '  Description: Check any step that can introduce invalid candidates against the original problem.',
-        "  Content: Squaring, dividing, relaxing constraints, or compressing state can create artifacts that look valid only in the transformed setting. Add a direct verification pass against the original conditions before committing to an answer.",
-        "- Title: Model the Smallest Faithful State",
-        '  Description: Reduce the problem to the minimal state that still determines future decisions.',
-        "  Content: If only parity, remainder class, last element, or turn matters, build the reasoning or DP around that reduced state instead of the full object. This shrinks search and makes transitions easier to verify.",
-    ]

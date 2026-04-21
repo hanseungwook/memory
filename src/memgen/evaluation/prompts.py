@@ -1,10 +1,9 @@
 from __future__ import annotations
 
-from memgen.config import Domain
 from memgen.data.base import Problem
 from memgen.memory.prompts import Memory
 
-MATH_SYSTEM_PROMPT = (
+LEGACY_MATH_SYSTEM_PROMPT = (
     "You are an expert mathematician solving competition-level problems. "
     "Solve it step by step. You should output the final answer in a final line "
     "exactly in the format ANSWER: {answer}.\n\n"
@@ -12,11 +11,43 @@ MATH_SYSTEM_PROMPT = (
     "...\n"
     "ANSWER: 42"
 )
+MATH_SYSTEM_PROMPT = LEGACY_MATH_SYSTEM_PROMPT
 CODING_SYSTEM_PROMPT = (
     "You are an expert Python programmer. You will be given a question (problem "
     "specification) and will generate a correct Python program that matches the "
     "specification and passes all tests."
 )
+DOMAIN_REASONING_SYSTEM_PROMPTS = {
+    "math": (
+        "You are an expert mathematical reasoner. Solve the task carefully and follow "
+        "the output format requested in the question exactly."
+    ),
+    "science": (
+        "You are an expert scientific reasoner. Solve the task carefully and follow "
+        "the output format requested in the question exactly."
+    ),
+    "logic": (
+        "You are an expert logical reasoner. Solve the task carefully and follow "
+        "the output format requested in the question exactly."
+    ),
+    "simulation": (
+        "You are an expert simulation reasoner. Infer the correct state or input and "
+        "follow the output format requested in the question exactly."
+    ),
+    "table": (
+        "You are an expert table reasoner. Use the provided tables carefully and follow "
+        "the output format requested in the question exactly."
+    ),
+}
+
+
+def reasoning_system_prompt(domain: str) -> str:
+    normalized = _normalize_domain(domain)
+    return DOMAIN_REASONING_SYSTEM_PROMPTS.get(
+        normalized,
+        "You are an expert reasoner. Solve the task carefully and follow the output "
+        "format requested in the question exactly.",
+    )
 
 
 def format_memory_for_injection(memory: Memory) -> str:
@@ -37,23 +68,55 @@ def format_memory_for_injection(memory: Memory) -> str:
 
 
 def math_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
-    system_prompt, user_prompt = get_baseline_prompt_fn(Domain.MATH.value)(problem)
+    system_prompt, user_prompt = get_baseline_prompt_fn("math")(problem)
     injected_memory = format_memory_for_injection(memory)
     return system_prompt, f"{injected_memory}\n\n{user_prompt}"
 
 
 def coding_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
-    system_prompt, user_prompt = get_baseline_prompt_fn(Domain.CODING.value)(problem)
+    system_prompt, user_prompt = get_baseline_prompt_fn("coding")(problem)
+    injected_memory = format_memory_for_injection(memory)
+    return system_prompt, f"{injected_memory}\n\n{user_prompt}"
+
+
+def science_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
+    system_prompt, user_prompt = get_baseline_prompt_fn("science")(problem)
+    injected_memory = format_memory_for_injection(memory)
+    return system_prompt, f"{injected_memory}\n\n{user_prompt}"
+
+
+def logic_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
+    system_prompt, user_prompt = get_baseline_prompt_fn("logic")(problem)
+    injected_memory = format_memory_for_injection(memory)
+    return system_prompt, f"{injected_memory}\n\n{user_prompt}"
+
+
+def simulation_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
+    system_prompt, user_prompt = get_baseline_prompt_fn("simulation")(problem)
+    injected_memory = format_memory_for_injection(memory)
+    return system_prompt, f"{injected_memory}\n\n{user_prompt}"
+
+
+def table_augmented_prompt(problem: Problem, memory: Memory) -> tuple[str, str]:
+    system_prompt, user_prompt = get_baseline_prompt_fn("table")(problem)
     injected_memory = format_memory_for_injection(memory)
     return system_prompt, f"{injected_memory}\n\n{user_prompt}"
 
 
 def get_augmented_prompt_fn(domain: str):
     normalized = _normalize_domain(domain)
-    if normalized == Domain.MATH.value:
+    if normalized == "math":
         return math_augmented_prompt
-    if normalized == Domain.CODING.value:
+    if normalized == "coding":
         return coding_augmented_prompt
+    if normalized == "science":
+        return science_augmented_prompt
+    if normalized == "logic":
+        return logic_augmented_prompt
+    if normalized == "simulation":
+        return simulation_augmented_prompt
+    if normalized in {"table", "tabular"}:
+        return table_augmented_prompt
     raise ValueError(f"Unsupported domain: {domain}")
 
 
@@ -65,16 +128,16 @@ def get_baseline_prompt_fn(domain: str):
         if prompt_fn is not None:
             return prompt_fn
 
-    if normalized == Domain.MATH.value:
+    if normalized == "math":
         return _fallback_math_prompt
-    if normalized == Domain.CODING.value:
+    if normalized == "coding":
         return _fallback_coding_prompt
+    if normalized in DOMAIN_REASONING_SYSTEM_PROMPTS:
+        return _fallback_reasoning_prompt
     raise ValueError(f"Unsupported domain: {domain}")
 
 
 def _normalize_domain(domain: str) -> str:
-    if isinstance(domain, Domain):
-        return domain.value
     return str(domain).strip().lower()
 
 
@@ -92,16 +155,13 @@ def _resolve_generation_prompt_fn(generation_prompts, domain: str):
         try:
             return get_prompt_fn(domain)
         except Exception:
-            try:
-                return get_prompt_fn(Domain(domain))
-            except Exception:
-                pass
+            pass
 
     fallback_names = {
-        Domain.MATH.value: ("math_prompt", "build_math_prompt"),
-        Domain.CODING.value: ("coding_prompt", "build_coding_prompt"),
+        "math": ("math_prompt", "build_math_prompt"),
+        "coding": ("coding_prompt", "build_coding_prompt"),
     }
-    for name in fallback_names[domain]:
+    for name in fallback_names.get(domain, ()):
         candidate = getattr(generation_prompts, name, None)
         if callable(candidate):
             return candidate
@@ -109,7 +169,9 @@ def _resolve_generation_prompt_fn(generation_prompts, domain: str):
 
 
 def _fallback_math_prompt(problem: Problem) -> tuple[str, str]:
-    return MATH_SYSTEM_PROMPT, _format_problem_body(problem)
+    if problem.metadata.get("data_source"):
+        return reasoning_system_prompt("math"), problem.statement
+    return LEGACY_MATH_SYSTEM_PROMPT, _format_problem_body(problem)
 
 
 def _fallback_coding_prompt(problem: Problem) -> tuple[str, str]:
@@ -134,6 +196,10 @@ def _fallback_coding_prompt(problem: Problem) -> tuple[str, str]:
         f"### Answer: (use the provided format with backticks)\n"
     )
     return CODING_SYSTEM_PROMPT, user
+
+
+def _fallback_reasoning_prompt(problem: Problem) -> tuple[str, str]:
+    return reasoning_system_prompt(problem.domain), problem.statement
 
 
 def _format_problem_body(problem: Problem) -> str:

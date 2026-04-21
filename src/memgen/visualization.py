@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import html
 import json
 import re
 from collections import Counter
@@ -16,6 +17,21 @@ STAGE_FILES = {
     "evaluation": ("evaluations", "evaluations.jsonl"),
 }
 HTML_FILENAME = "visualization.html"
+DOMAIN_PLOTS_HTML_FILENAME = "domain_plots.html"
+DOMAIN_PLOT_FILES = {
+    "counts": "domain_counts.svg",
+    "rates": "domain_pass_rates.svg",
+    "improvement": "domain_improvement.svg",
+}
+DOMAIN_ORDER = ("math", "coding", "science", "logic", "simulation", "table")
+DOMAIN_LABELS = {
+    "math": "Math",
+    "coding": "Coding",
+    "science": "Science",
+    "logic": "Logic",
+    "simulation": "Simulation",
+    "table": "Table",
+}
 
 
 def build_visualization_data(results_path: str | Path) -> dict[str, Any]:
@@ -1300,6 +1316,133 @@ def write_visualization(results_path: str | Path, output_path: str | Path | None
     return output
 
 
+def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
+    root = Path(results_path).expanduser().resolve()
+    evaluation_records = _load_recursive_latest_evaluations(root)
+    if not evaluation_records:
+        raise ValueError(f"No evaluation records found under {root}")
+
+    domain_index = _load_recursive_domain_index(root)
+    rows: list[dict[str, Any]] = []
+    unknown_count = 0
+    completed_count = len(evaluation_records)
+
+    for domain in DOMAIN_ORDER:
+        rows.append(
+            {
+                "domain": domain,
+                "label": DOMAIN_LABELS[domain],
+                "count": 0,
+                "baseline_sum": 0.0,
+                "augmented_sum": 0.0,
+                "improvement_sum": 0.0,
+                "helped": 0,
+                "hurt": 0,
+                "unchanged": 0,
+            }
+        )
+    row_by_domain = {row["domain"]: row for row in rows}
+
+    for problem_id, record in evaluation_records.items():
+        domain = domain_index.get(problem_id) or _infer_guru_problem_domain(problem_id)
+        if domain not in row_by_domain:
+            unknown_count += 1
+            continue
+
+        baseline = float(record.get("baseline_pass_rate", 0.0) or 0.0)
+        augmented = float(record.get("augmented_pass_rate", 0.0) or 0.0)
+        improvement = float(record.get("improvement", augmented - baseline) or 0.0)
+        row = row_by_domain[domain]
+        row["count"] += 1
+        row["baseline_sum"] += baseline
+        row["augmented_sum"] += augmented
+        row["improvement_sum"] += improvement
+        if improvement > 0:
+            row["helped"] += 1
+        elif improvement < 0:
+            row["hurt"] += 1
+        else:
+            row["unchanged"] += 1
+
+    plotted_count = 0
+    total_baseline = 0.0
+    total_augmented = 0.0
+    total_improvement = 0.0
+    total_helped = 0
+    total_hurt = 0
+    total_unchanged = 0
+    finalized_rows = []
+    for row in rows:
+        count = row["count"]
+        plotted_count += count
+        total_baseline += row["baseline_sum"]
+        total_augmented += row["augmented_sum"]
+        total_improvement += row["improvement_sum"]
+        total_helped += row["helped"]
+        total_hurt += row["hurt"]
+        total_unchanged += row["unchanged"]
+        finalized_rows.append(
+            {
+                "domain": row["domain"],
+                "label": row["label"],
+                "count": count,
+                "baseline": row["baseline_sum"] / count if count else 0.0,
+                "augmented": row["augmented_sum"] / count if count else 0.0,
+                "improvement": row["improvement_sum"] / count if count else 0.0,
+                "helped": row["helped"],
+                "hurt": row["hurt"],
+                "unchanged": row["unchanged"],
+            }
+        )
+
+    return {
+        "results_path": str(root),
+        "completed_count": completed_count,
+        "plotted_count": plotted_count,
+        "unknown_count": unknown_count,
+        "rows": finalized_rows,
+        "summary": {
+            "mean_baseline": total_baseline / plotted_count if plotted_count else 0.0,
+            "mean_augmented": total_augmented / plotted_count if plotted_count else 0.0,
+            "mean_improvement": total_improvement / plotted_count if plotted_count else 0.0,
+            "helped": total_helped,
+            "hurt": total_hurt,
+            "unchanged": total_unchanged,
+        },
+    }
+
+
+def write_guru_domain_plots(
+    results_path: str | Path,
+    output_dir: str | Path | None = None,
+) -> dict[str, Path]:
+    root = Path(results_path).expanduser().resolve()
+    output_root = (
+        Path(output_dir).expanduser().resolve()
+        if output_dir is not None
+        else root / "plots" / "domain_summary"
+    )
+    output_root.mkdir(parents=True, exist_ok=True)
+
+    data = build_guru_domain_plot_data(root)
+    chart_paths = {
+        "counts": output_root / DOMAIN_PLOT_FILES["counts"],
+        "rates": output_root / DOMAIN_PLOT_FILES["rates"],
+        "improvement": output_root / DOMAIN_PLOT_FILES["improvement"],
+    }
+    chart_paths["counts"].write_text(_render_domain_counts_svg(data), encoding="utf-8")
+    chart_paths["rates"].write_text(_render_domain_pass_rates_svg(data), encoding="utf-8")
+    chart_paths["improvement"].write_text(_render_domain_improvement_svg(data), encoding="utf-8")
+
+    html_path = output_root / DOMAIN_PLOTS_HTML_FILENAME
+    html_path.write_text(
+        _render_guru_domain_plots_html(data, chart_paths),
+        encoding="utf-8",
+    )
+    chart_paths["html"] = html_path
+    return chart_paths
+
+
 def _load_stage_records(root: Path, subdir: str, filename: str) -> dict[str, dict[str, Any]]:
     filepath = root / subdir / filename
     if not filepath.exists():
@@ -1340,6 +1483,47 @@ def _load_artifact_index(root: Path) -> dict[str, dict[str, Any]]:
         if problem_id:
             result[problem_id] = record
     return result
+
+
+def _load_recursive_latest_evaluations(root: Path) -> dict[str, dict[str, Any]]:
+    result: dict[str, dict[str, Any]] = {}
+    for path in _iter_result_files(root, "evaluations", "evaluations.jsonl"):
+        for line in path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            record = json.loads(line)
+            problem_id = record.get("problem_id")
+            if not problem_id:
+                continue
+            result[problem_id] = {k: v for k, v in record.items() if k != "problem_id"}
+    return result
+
+
+def _load_recursive_domain_index(root: Path) -> dict[str, str]:
+    result: dict[str, str] = {}
+    for index_path in _iter_result_files(root, "artifacts", "index.json"):
+        for record in json.loads(index_path.read_text(encoding="utf-8")):
+            problem_id = record.get("problem_id")
+            domain = record.get("domain")
+            if problem_id and domain:
+                result[str(problem_id)] = str(domain)
+    return result
+
+
+def _iter_result_files(root: Path, subdir: str, filename: str) -> list[Path]:
+    candidates: set[Path] = set()
+    direct = root / subdir / filename
+    if direct.exists():
+        candidates.add(direct)
+
+    for pattern in (
+        f"shard_*_of_*/{subdir}/{filename}",
+        f"*/shard_*_of_*/{subdir}/{filename}",
+    ):
+        candidates.update(root.glob(pattern))
+
+    return sorted(path.resolve() for path in candidates if path.exists())
 
 
 def _build_links(artifact_json_path: Path) -> dict[str, str]:
@@ -1413,6 +1597,25 @@ def _mean(values: list[float]) -> float | None:
     return sum(values) / len(values) if values else None
 
 
+def _infer_guru_problem_domain(problem_id: str) -> str:
+    pid = str(problem_id)
+    if pid.startswith("codegen__"):
+        return "coding"
+    if pid.startswith("math__"):
+        return "math"
+    if pid.startswith("table__"):
+        return "table"
+    if pid.startswith("stem__") or pid.startswith("stem_"):
+        return "science"
+    if pid.startswith("simulation__codeio"):
+        return "simulation"
+    if pid.startswith("logic__"):
+        return "logic"
+    if pid.startswith(("simulation__arcagi", "simulation__barc")):
+        return "logic"
+    return "unknown"
+
+
 def _display_name(root: Path) -> str:
     parts = root.parts
     if "results" in parts:
@@ -1423,14 +1626,310 @@ def _display_name(root: Path) -> str:
 
 def _infer_domain(root: Path) -> str:
     lowered = root.name.lower()
-    if lowered in {"math", "coding"}:
+    if lowered in {"math", "coding", "science", "logic", "simulation", "table", "guru"}:
         return lowered
     for path in root.parents:
         lowered = path.name.lower()
-        if lowered in {"math", "coding"}:
+        if lowered in {"math", "coding", "science", "logic", "simulation", "table", "guru"}:
             return lowered
     return "unknown"
 
 
 def _natural_sort_key(value: str) -> list[Any]:
     return [int(chunk) if chunk.isdigit() else chunk.lower() for chunk in re.split(r"(\d+)", value)]
+
+
+def _render_domain_counts_svg(data: dict[str, Any]) -> str:
+    rows = data["rows"]
+    width = 980
+    left = 190
+    right = 80
+    top = 70
+    row_height = 48
+    bottom = 36
+    plot_width = width - left - right
+    height = top + bottom + row_height * len(rows)
+    max_count = max((row["count"] for row in rows), default=1) or 1
+
+    parts = [_svg_header(width, height, "Completed problems by domain")]
+    parts.append(f'<text x="{left}" y="36" class="title">Completed Problems By Domain</text>')
+    parts.append(f'<text x="{left}" y="56" class="subtitle">Completed subset only</text>')
+    for index, row in enumerate(rows):
+        y = top + index * row_height
+        bar_width = 0 if max_count == 0 else plot_width * row["count"] / max_count
+        parts.append(f'<text x="{left - 14}" y="{y + 22}" class="label" text-anchor="end">{html.escape(row["label"])}</text>')
+        parts.append(f'<rect x="{left}" y="{y + 8}" width="{plot_width}" height="20" class="bar-track" rx="10"></rect>')
+        parts.append(f'<rect x="{left}" y="{y + 8}" width="{bar_width:.2f}" height="20" class="bar-count" rx="10"></rect>')
+        parts.append(f'<text x="{left + bar_width + 8:.2f}" y="{y + 22}" class="value">{row["count"]:,}</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def _render_domain_pass_rates_svg(data: dict[str, Any]) -> str:
+    rows = data["rows"]
+    width = 980
+    left = 190
+    right = 90
+    top = 82
+    row_height = 56
+    bottom = 40
+    plot_width = width - left - right
+    height = top + bottom + row_height * len(rows)
+
+    parts = [_svg_header(width, height, "Baseline vs augmented avg@16 by domain")]
+    parts.append(f'<text x="{left}" y="36" class="title">Baseline Vs Augmented Avg@16</text>')
+    parts.append(f'<text x="{left}" y="56" class="subtitle">Mean pass rate on completed problems</text>')
+    parts.append(f'<rect x="{left}" y="18" width="14" height="14" class="bar-baseline" rx="4"></rect>')
+    parts.append(f'<text x="{left + 20}" y="30" class="legend">Baseline</text>')
+    parts.append(f'<rect x="{left + 96}" y="18" width="14" height="14" class="bar-augmented" rx="4"></rect>')
+    parts.append(f'<text x="{left + 116}" y="30" class="legend">Augmented</text>')
+    for index, row in enumerate(rows):
+        y = top + index * row_height
+        baseline_width = plot_width * row["baseline"]
+        augmented_width = plot_width * row["augmented"]
+        parts.append(f'<text x="{left - 14}" y="{y + 24}" class="label" text-anchor="end">{html.escape(row["label"])}</text>')
+        parts.append(f'<rect x="{left}" y="{y + 6}" width="{plot_width}" height="14" class="bar-track" rx="7"></rect>')
+        parts.append(f'<rect x="{left}" y="{y + 30}" width="{plot_width}" height="14" class="bar-track" rx="7"></rect>')
+        parts.append(f'<rect x="{left}" y="{y + 6}" width="{baseline_width:.2f}" height="14" class="bar-baseline" rx="7"></rect>')
+        parts.append(f'<rect x="{left}" y="{y + 30}" width="{augmented_width:.2f}" height="14" class="bar-augmented" rx="7"></rect>')
+        parts.append(f'<text x="{left + baseline_width + 8:.2f}" y="{y + 18}" class="value">{row["baseline"]:.3f}</text>')
+        parts.append(f'<text x="{left + augmented_width + 8:.2f}" y="{y + 42}" class="value">{row["augmented"]:.3f}</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def _render_domain_improvement_svg(data: dict[str, Any]) -> str:
+    rows = data["rows"]
+    width = 980
+    left = 190
+    right = 90
+    top = 70
+    row_height = 48
+    bottom = 44
+    plot_width = width - left - right
+    height = top + bottom + row_height * len(rows)
+    max_abs = max((abs(row["improvement"]) for row in rows), default=0.01)
+    max_abs = max(max_abs, 0.01)
+    zero_x = left + plot_width / 2
+
+    parts = [_svg_header(width, height, "Improvement by domain")]
+    parts.append(f'<text x="{left}" y="36" class="title">Mean Improvement By Domain</text>')
+    parts.append(f'<text x="{left}" y="56" class="subtitle">Augmented minus baseline avg@16</text>')
+    parts.append(f'<line x1="{zero_x:.2f}" y1="{top - 6}" x2="{zero_x:.2f}" y2="{height - bottom + 8}" class="axis-line"></line>')
+    parts.append(f'<text x="{left}" y="{height - 12}" class="axis-label" text-anchor="start">-{max_abs:.3f}</text>')
+    parts.append(f'<text x="{zero_x:.2f}" y="{height - 12}" class="axis-label" text-anchor="middle">0</text>')
+    parts.append(f'<text x="{left + plot_width}" y="{height - 12}" class="axis-label" text-anchor="end">+{max_abs:.3f}</text>')
+    for index, row in enumerate(rows):
+        y = top + index * row_height
+        value = row["improvement"]
+        bar_width = (abs(value) / max_abs) * (plot_width / 2)
+        bar_x = zero_x if value >= 0 else zero_x - bar_width
+        klass = "bar-positive" if value >= 0 else "bar-negative"
+        label_x = zero_x + bar_width + 8 if value >= 0 else zero_x - bar_width - 8
+        anchor = "start" if value >= 0 else "end"
+        parts.append(f'<text x="{left - 14}" y="{y + 22}" class="label" text-anchor="end">{html.escape(row["label"])}</text>')
+        parts.append(f'<rect x="{left}" y="{y + 8}" width="{plot_width}" height="20" class="bar-track" rx="10"></rect>')
+        parts.append(f'<rect x="{bar_x:.2f}" y="{y + 8}" width="{bar_width:.2f}" height="20" class="{klass}" rx="10"></rect>')
+        parts.append(f'<text x="{label_x:.2f}" y="{y + 22}" class="value" text-anchor="{anchor}">{value:+.3f}</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def _render_guru_domain_plots_html(data: dict[str, Any], chart_paths: dict[str, Path]) -> str:
+    summary = data["summary"]
+    rows_html = "".join(
+        (
+            "<tr>"
+            f"<td>{html.escape(row['label'])}</td>"
+            f"<td>{row['count']:,}</td>"
+            f"<td>{row['baseline']:.4f}</td>"
+            f"<td>{row['augmented']:.4f}</td>"
+            f"<td>{row['improvement']:+.4f}</td>"
+            f"<td>{row['helped']}</td>"
+            f"<td>{row['hurt']}</td>"
+            f"<td>{row['unchanged']}</td>"
+            "</tr>"
+        )
+        for row in data["rows"]
+    )
+    note = (
+        f"<p class='note'>{data['unknown_count']} completed problems fell outside the six-domain plot mapping and were excluded.</p>"
+        if data["unknown_count"]
+        else ""
+    )
+    return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guru Domain Performance</title>
+  <style>
+    :root {{
+      --bg: #f7f4ec;
+      --paper: #fffdf8;
+      --ink: #1f2430;
+      --muted: #5e6573;
+      --line: rgba(48, 58, 79, 0.16);
+      --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.10);
+      --good: #18794e;
+      --good-soft: rgba(24, 121, 78, 0.14);
+      --bad: #b42318;
+      --bad-soft: rgba(180, 35, 24, 0.12);
+      --warm: #b45309;
+      --shadow: 0 18px 40px rgba(31, 36, 48, 0.08);
+      --mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+      --sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      padding: 32px;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(180, 83, 9, 0.10), transparent 22%),
+        linear-gradient(180deg, #faf6ee 0%, #f0e7d7 100%);
+    }}
+    .page {{ max-width: 1180px; margin: 0 auto; }}
+    h1 {{ margin: 0 0 8px; font-size: 34px; letter-spacing: -0.03em; }}
+    .eyebrow {{
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }}
+    .subtle {{ color: var(--muted); margin: 0; }}
+    .cards {{
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0 20px;
+    }}
+    .card, .panel {{
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }}
+    .card {{ padding: 16px 18px; }}
+    .card .label {{
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }}
+    .card .value {{ margin-top: 8px; font-size: 28px; font-weight: 700; }}
+    .panel {{ padding: 18px; margin-top: 16px; }}
+    .panel h2 {{ margin: 0 0 12px; font-size: 20px; letter-spacing: -0.02em; }}
+    .panel img {{
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }}
+    .note {{ margin: 16px 0 0; color: var(--muted); }}
+    table {{
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }}
+    th, td {{
+      padding: 12px 10px;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }}
+    th {{
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }}
+    td:nth-child(n + 2) {{
+      font-family: var(--mono);
+    }}
+    @media (max-width: 960px) {{
+      body {{ padding: 18px; }}
+      .cards {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+    }}
+    @media (max-width: 640px) {{
+      .cards {{ grid-template-columns: 1fr; }}
+      table {{ font-size: 12px; }}
+    }}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="eyebrow">Memgen Guru Summary</p>
+    <h1>Completed-Domain Performance</h1>
+    <p class="subtle">{html.escape(data['results_path'])}</p>
+    <div class="cards">
+      <div class="card"><div class="label">Completed Problems</div><div class="value">{data['completed_count']:,}</div></div>
+      <div class="card"><div class="label">Mean Baseline</div><div class="value">{summary['mean_baseline']:.4f}</div></div>
+      <div class="card"><div class="label">Mean Augmented</div><div class="value">{summary['mean_augmented']:.4f}</div></div>
+      <div class="card"><div class="label">Mean Improvement</div><div class="value">{summary['mean_improvement']:+.4f}</div></div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="label">Helped</div><div class="value">{summary['helped']:,}</div></div>
+      <div class="card"><div class="label">Hurt</div><div class="value">{summary['hurt']:,}</div></div>
+      <div class="card"><div class="label">Unchanged</div><div class="value">{summary['unchanged']:,}</div></div>
+      <div class="card"><div class="label">Plotted Domains</div><div class="value">{data['plotted_count']:,}</div></div>
+    </div>
+    <div class="panel">
+      <h2>Completed Count</h2>
+      <img src="{chart_paths['counts'].name}" alt="Completed problem counts by domain">
+    </div>
+    <div class="panel">
+      <h2>Baseline Vs Augmented</h2>
+      <img src="{chart_paths['rates'].name}" alt="Baseline and augmented pass rates by domain">
+    </div>
+    <div class="panel">
+      <h2>Improvement</h2>
+      <img src="{chart_paths['improvement'].name}" alt="Improvement by domain">
+    </div>
+    <div class="panel">
+      <h2>Domain Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>Completed</th>
+            <th>Baseline</th>
+            <th>Augmented</th>
+            <th>Improvement</th>
+            <th>Helped</th>
+            <th>Hurt</th>
+            <th>Unchanged</th>
+          </tr>
+        </thead>
+        <tbody>{rows_html}</tbody>
+      </table>
+      {note}
+    </div>
+  </div>
+</body>
+</html>
+"""
+
+
+def _svg_header(width: int, height: int, title: str) -> str:
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+        f'viewBox="0 0 {width} {height}" role="img" aria-label="{html.escape(title)}">'
+        "<style>"
+        ".title{font:700 24px 'Avenir Next','Segoe UI',sans-serif;fill:#1f2430;letter-spacing:-0.03em;}"
+        ".subtitle{font:13px 'Avenir Next','Segoe UI',sans-serif;fill:#5e6573;}"
+        ".label{font:600 14px 'Avenir Next','Segoe UI',sans-serif;fill:#1f2430;}"
+        ".legend,.value,.axis-label{font:12px 'IBM Plex Mono','SFMono-Regular',monospace;fill:#1f2430;}"
+        ".bar-track{fill:rgba(48,58,79,0.08);}"
+        ".bar-count{fill:#b45309;}"
+        ".bar-baseline{fill:#0f766e;}"
+        ".bar-augmented{fill:#18794e;}"
+        ".bar-positive{fill:#18794e;}"
+        ".bar-negative{fill:#b42318;}"
+        ".axis-line{stroke:rgba(48,58,79,0.28);stroke-width:1.5;}"
+        "</style>"
+    )

@@ -17,6 +17,7 @@ from memgen.memory.creator import MemoryCreator
 from memgen.evaluation.prompts import get_augmented_prompt_fn
 from memgen.memory.prompts import Memory, MemoryItem, build_memory_creation_prompt
 from memgen.persistence.store import ResultStore
+from memgen.request_limiter import RequestLimiter
 from memgen.scoring.base import ScoreResult
 from memgen.scoring.coding_scorer import get_scorer
 
@@ -26,11 +27,40 @@ logger = logging.getLogger(__name__)
 class Pipeline:
     def __init__(self, config: PipelineConfig):
         self.config = config
-        self.store = ResultStore(config.results_dir, config.dataset.domain.value)
-        self.scorer = get_scorer(config.dataset.domain.value, config.scoring)
-        self.generator = Generator(config.generation, config.llm)
-        self.creator = MemoryCreator(config.memory, config.llm)
-        self.evaluator = Evaluator(config.evaluation, self.scorer, config.llm)
+        shared_request_limit = max(
+            config.generation.concurrent_requests,
+            config.evaluation.concurrent_requests or 0,
+            1,
+        )
+        self.request_limiter = RequestLimiter(shared_request_limit)
+        self.store = ResultStore(
+            config.results_dir,
+            config.dataset.domain.value,
+            shard_slug=config.dataset.shard_slug,
+        )
+        self.scorer = get_scorer(
+            config.dataset.domain.value,
+            config.scoring,
+            config.llm,
+            judge_model=config.generation.model,
+            request_limiter=self.request_limiter,
+        )
+        self.generator = Generator(
+            config.generation,
+            config.llm,
+            request_limiter=self.request_limiter,
+        )
+        self.creator = MemoryCreator(
+            config.memory,
+            config.llm,
+            request_limiter=self.request_limiter,
+        )
+        self.evaluator = Evaluator(
+            config.evaluation,
+            self.scorer,
+            config.llm,
+            request_limiter=self.request_limiter,
+        )
         self.problems: list[Problem] = []
 
     def _load_problems(self) -> list[Problem]:
@@ -40,9 +70,14 @@ class Pipeline:
         if self.config.dataset.domain == Domain.MATH:
             from memgen.data.math_loader import load_math_problems
             self.problems = load_math_problems(self.config.dataset)
-        else:
+        elif self.config.dataset.domain == Domain.CODING:
             from memgen.data.coding_loader import load_coding_problems
             self.problems = load_coding_problems(self.config.dataset)
+        elif self.config.dataset.domain == Domain.GURU:
+            from memgen.data.guru_loader import load_guru_problems
+            self.problems = load_guru_problems(self.config.dataset)
+        else:
+            raise ValueError(f"Unsupported dataset domain: {self.config.dataset.domain}")
 
         return self.problems
 
@@ -93,7 +128,6 @@ class Pipeline:
     async def run_generate(self):
         """Run only the generation stage."""
         problems = self._load_problems()
-        prompt_fn = get_prompt_fn(self.config.dataset.domain.value)
         completed = self.store.get_completed_ids("generation") if self.config.resume else set()
 
         todo = [p for p in problems if p.id not in completed]
@@ -109,6 +143,7 @@ class Pipeline:
         )
 
         async def generate_problem(problem):
+            prompt_fn = get_prompt_fn(problem.domain)
             system_prompt, user_prompt = prompt_fn(problem)
             solutions = await self.generator.generate_k(problem, system_prompt, user_prompt)
             return problem, system_prompt, user_prompt, solutions
@@ -196,18 +231,21 @@ class Pipeline:
             non_empty_tiers = [tier for tier, items in grouped.items() if items]
             memory_prompt = (
                 build_memory_creation_prompt(problem, grouped)
-                if len(non_empty_tiers) >= 2
+                if non_empty_tiers
                 else None
             )
             memory = await self.creator.create_memory(problem, grouped, scores)
 
             if memory is None:
-                memory_payload = {"skipped": True}
+                memory_payload = {
+                    "skipped": True,
+                    "skip_reason": "no_scored_solutions",
+                }
                 artifact_payload = {
                     "grouped_solutions": grouped,
                     "prompt": memory_prompt,
                     "skipped": True,
-                    "skip_reason": "insufficient_tiers",
+                    "skip_reason": "no_scored_solutions",
                     "items": [],
                     "raw_response": None,
                 }
@@ -328,29 +366,59 @@ class Pipeline:
         feedback_cfg = self.config.feedback
         max_iter = feedback_cfg.max_iterations
         threshold = feedback_cfg.improvement_threshold
-        prompt_fn = get_prompt_fn(self.config.dataset.domain.value)
 
         # Step 1: Generate K initial solutions
+        prompt_fn = get_prompt_fn(problem.domain)
         system_prompt, user_prompt = prompt_fn(problem)
         solutions = await self.generator.generate_k(problem, system_prompt, user_prompt)
         self.store.save_generation(problem.id, solutions)
 
         # Step 2: Score initial solutions
-        score_results = self.scorer.score_batch(problem, solutions)
+        score_results = await asyncio.to_thread(self.scorer.score_batch, problem, solutions)
         score_dicts = [dataclasses.asdict(r) for r in score_results]
         self.store.save_scores(problem.id, score_dicts)
 
         # Step 3: Create initial memory from tier groupings
         grouped = MemoryCreator.group_solutions(solutions, score_results)
+        non_empty_tiers = [tier for tier, items in grouped.items() if items]
+        memory_prompt = (
+            build_memory_creation_prompt(problem, grouped)
+            if non_empty_tiers
+            else None
+        )
         memory = await self.creator.create_memory(problem, grouped, score_results)
 
+        self.store.save_problem_artifact(problem, "generation", {
+            "system_prompt": system_prompt,
+            "user_prompt": user_prompt,
+            "solutions": solutions,
+        })
+        self.store.save_problem_artifact(problem, "scoring", {"scores": score_dicts})
+
         if memory is None:
-            self.store.save_memory(problem.id, {"skipped": True})
-            self.store.save_evaluation(problem.id, {
-                "problem_id": problem.id,
-                "baseline_pass_rate": 0.0, "augmented_pass_rate": 0.0,
-                "improvement": 0.0, "baseline_scores": [], "augmented_scores": [],
+            self.store.save_memory(
+                problem.id,
+                {"skipped": True, "skip_reason": "no_scored_solutions"},
+            )
+            eval_run = await self.evaluator.evaluate_problem(problem, None)
+            self.store.save_evaluation(problem.id, dataclasses.asdict(eval_run.result))
+            self.store.save_problem_artifact(problem, "memory", {
+                "grouped_solutions": grouped,
+                "prompt": memory_prompt,
+                "skipped": True,
+                "skip_reason": "no_scored_solutions",
+                "items": [],
+                "raw_response": None,
             })
+            evaluation_artifact = dataclasses.asdict(eval_run.artifact)
+            evaluation_artifact.update(
+                {
+                    "baseline_pass_rate": eval_run.result.baseline_pass_rate,
+                    "augmented_pass_rate": eval_run.result.augmented_pass_rate,
+                    "improvement": eval_run.result.improvement,
+                }
+            )
+            self.store.save_problem_artifact(problem, "evaluation", evaluation_artifact)
             return
 
         # Step 4: Evaluate iteration 1 — get both baseline and augmented
@@ -412,10 +480,11 @@ class Pipeline:
                 aug_solutions = await eval_generator.generate_k(
                     problem, aug_sys, aug_user, k=self.config.evaluation.k
                 )
-                aug_results = [
-                    self.scorer.score(problem, gen, i)
-                    for i, gen in enumerate(aug_solutions)
-                ]
+                aug_results = await asyncio.to_thread(
+                    self.scorer.score_batch,
+                    problem,
+                    aug_solutions,
+                )
                 aug_scores = [r.score for r in aug_results]
                 augmented_pass_rate = self.evaluator._avg_at_k(aug_results)
                 improvement = augmented_pass_rate - baseline_pass_rate
@@ -463,14 +532,9 @@ class Pipeline:
             "total_iterations": len(iterations),
             "best_iteration": best_iteration,
         }
-        self.store.save_problem_artifact(problem, "generation", {
-            "system_prompt": system_prompt,
-            "user_prompt": user_prompt,
-            "solutions": solutions,
-        })
-        self.store.save_problem_artifact(problem, "scoring", {"scores": score_dicts})
         self.store.save_problem_artifact(problem, "memory", {
             "grouped_solutions": grouped,
+            "prompt": memory_prompt,
             "skipped": False,
             "items": [dataclasses.asdict(item) for item in best_memory.items],
             "raw_response": best_memory.raw_response,

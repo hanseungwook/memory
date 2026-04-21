@@ -2,8 +2,9 @@
 
 import re
 
-from memgen.config import ScoringConfig
+from memgen.config import LLMConfig, ScoringConfig
 from memgen.data.base import Problem
+from memgen.request_limiter import RequestLimiter
 from memgen.scoring.base import ScoreResult
 from memgen.scoring.sandbox import (
     ExecutionResult,
@@ -115,12 +116,27 @@ class CodingScorer:
         return code
 
 
-def get_scorer(domain: str, config: ScoringConfig):
+def get_scorer(
+    domain: str,
+    config: ScoringConfig,
+    llm_config: LLMConfig | None = None,
+    judge_model: str | None = None,
+    request_limiter: RequestLimiter | None = None,
+):
     """Factory function returning the appropriate scorer for the domain."""
-    if domain == "math":
+    normalized = str(domain).strip().lower()
+    if normalized == "math":
         from memgen.scoring.math_scorer import MathScorer
         return MathScorer()
-    elif domain == "coding":
+    elif normalized == "coding":
         return CodingScorer(config)
+    elif normalized == "guru":
+        from memgen.scoring.guru_scorer import GuruScorer
+        return GuruScorer(
+            config,
+            llm_config=llm_config,
+            judge_model=judge_model,
+            request_limiter=request_limiter,
+        )
     else:
         raise ValueError(f"Unknown domain: {domain}")

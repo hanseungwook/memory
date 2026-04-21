@@ -15,8 +15,10 @@ _STAGE_ORDER = ("generation", "scoring", "memory", "evaluation")
 class ResultStore:
     """JSONL-based persistence with per-problem granularity."""
 
-    def __init__(self, base_dir: str, domain: str):
+    def __init__(self, base_dir: str, domain: str, shard_slug: str | None = None):
         self.base_dir = Path(base_dir) / domain
+        if shard_slug:
+            self.base_dir = self.base_dir / shard_slug
         self.base_dir.mkdir(parents=True, exist_ok=True)
 
     def _ensure_dir(self, subdir: str) -> Path:
@@ -28,7 +30,7 @@ class ResultStore:
         dir_path = self._ensure_dir(subdir)
         filepath = dir_path / filename
         with open(filepath, "a") as f:
-            f.write(json.dumps(data) + "\n")
+            f.write(json.dumps(self._normalize_value(data)) + "\n")
 
     def _load_jsonl(self, subdir: str, filename: str) -> list[dict]:
         filepath = self.base_dir / subdir / filename
@@ -45,7 +47,7 @@ class ResultStore:
     def _write_json(self, filepath: Path, data: dict | list) -> None:
         filepath.parent.mkdir(parents=True, exist_ok=True)
         with open(filepath, "w") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
+            json.dump(self._normalize_value(data), f, indent=2, ensure_ascii=False)
             f.write("\n")
 
     def _write_text(self, filepath: Path, content: str) -> None:
@@ -75,12 +77,16 @@ class ResultStore:
     def _normalize_value(self, value):
         if dataclasses.is_dataclass(value):
             return dataclasses.asdict(value)
+        if value is Ellipsis:
+            return "..."
         if isinstance(value, dict):
             return {str(k): self._normalize_value(v) for k, v in value.items()}
         if isinstance(value, list):
             return [self._normalize_value(item) for item in value]
         if isinstance(value, tuple):
             return [self._normalize_value(item) for item in value]
+        if isinstance(value, (set, frozenset)):
+            return [self._normalize_value(item) for item in sorted(value, key=repr)]
         return value
 
     def _load_problem_artifact(self, problem_id: str) -> dict:

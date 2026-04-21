@@ -7,6 +7,7 @@ from datasets import load_dataset
 
 from memgen.config import DatasetConfig
 from memgen.data.base import Problem
+from memgen.data.sharding import is_problem_in_shard
 
 
 def _decode_test_cases(raw: str) -> list[dict]:
@@ -55,6 +56,10 @@ def load_coding_problems(config: DatasetConfig | None = None) -> list[Problem]:
 
     problems = []
     for row in ds:
+        problem_id = str(row["question_id"])
+        if not is_problem_in_shard(problem_id, config):
+            continue
+
         public_tests = _decode_test_cases(row.get("public_test_cases", ""))
         private_tests = _decode_test_cases(row.get("private_test_cases", ""))
 
@@ -74,7 +79,7 @@ def load_coding_problems(config: DatasetConfig | None = None) -> list[Problem]:
         meta["difficulty"] = row.get("difficulty", "")
 
         problem = Problem(
-            id=str(row["question_id"]),
+            id=problem_id,
             domain="coding",
             statement=row["question_content"],
             test_cases=public_tests + private_tests,
@@ -82,8 +87,7 @@ def load_coding_problems(config: DatasetConfig | None = None) -> list[Problem]:
             metadata=meta,
         )
         problems.append(problem)
-
-    if max_problems is not None:
-        problems = problems[:max_problems]
+        if max_problems is not None and len(problems) >= max_problems:
+            break
 
     return problems

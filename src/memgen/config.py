@@ -9,6 +9,11 @@ from pydantic import BaseModel, Field
 class Domain(str, Enum):
     MATH = "math"
     CODING = "coding"
+    SCIENCE = "science"
+    LOGIC = "logic"
+    SIMULATION = "simulation"
+    TABLE = "table"
+    GURU = "guru"
 
 
 class LLMProvider(str, Enum):
@@ -21,6 +26,31 @@ class DatasetConfig(BaseModel):
     name: str  # HuggingFace path
     split: str = "train"
     max_problems: int | None = None
+    num_shards: int | None = None
+    shard_index: int | None = None
+
+    def model_post_init(self, __context: Any) -> None:
+        del __context
+
+        if self.num_shards is None and self.shard_index is None:
+            return
+
+        if self.num_shards is None or self.shard_index is None:
+            raise ValueError("dataset.num_shards and dataset.shard_index must be set together")
+        if self.num_shards < 1:
+            raise ValueError("dataset.num_shards must be at least 1")
+        if not 0 <= self.shard_index < self.num_shards:
+            raise ValueError("dataset.shard_index must be in [0, dataset.num_shards)")
+
+    @property
+    def is_sharded(self) -> bool:
+        return self.num_shards not in (None, 1)
+
+    @property
+    def shard_slug(self) -> str | None:
+        if not self.is_sharded:
+            return None
+        return f"shard_{self.shard_index}_of_{self.num_shards}"
 
 
 class LLMConfig(BaseModel):
@@ -55,6 +85,7 @@ class MemoryConfig(ChatCompletionConfig):
 
 class EvaluationConfig(ChatCompletionConfig):
     k: int = 16
+    concurrent_requests: int | None = None
 
 
 class MemoryMode(str, Enum):
@@ -63,7 +94,7 @@ class MemoryMode(str, Enum):
 
 
 class FeedbackConfig(BaseModel):
-    max_iterations: int = 3
+    max_iterations: int = 5
     improvement_threshold: float = 0.0
     concurrent_problems: int = 1
 

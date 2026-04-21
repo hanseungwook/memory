@@ -17,7 +17,7 @@ Each stage persists JSONL outputs under `results/<domain>/`, so runs can resume 
 | Load data | Lazily loads problems once per run. Math uses a HuggingFace AIME dataset loader; coding uses a HuggingFace loader that also decodes compressed test cases. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/data/math_loader.py`](src/memgen/data/math_loader.py), [`src/memgen/data/coding_loader.py`](src/memgen/data/coding_loader.py), [`src/memgen/data/base.py`](src/memgen/data/base.py) |
 | Generate | Builds a domain-specific prompt and issues `K` async Chat Completions calls through the OpenAI SDK. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/generation/prompts.py`](src/memgen/generation/prompts.py), [`src/memgen/generation/generator.py`](src/memgen/generation/generator.py), [`src/memgen/openai_compat.py`](src/memgen/openai_compat.py) |
 | Score | Math expects a final `ANSWER: <integer>` line and scores exact integer correctness. Coding extracts the last fenced code block, runs it against all tests, and assigns `fail` / `partial` / `full`. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/scoring/base.py`](src/memgen/scoring/base.py), [`src/memgen/scoring/math_scorer.py`](src/memgen/scoring/math_scorer.py), [`src/memgen/scoring/coding_scorer.py`](src/memgen/scoring/coding_scorer.py), [`src/memgen/scoring/sandbox.py`](src/memgen/scoring/sandbox.py) |
-| Create memories | Groups solutions by tier, builds a contrastive prompt over all solutions in each non-empty tier, requests a memory response, and parses `<reasoning>` / `<memory>` tags. If fewer than two tiers are populated, memory creation is skipped. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/memory/creator.py`](src/memgen/memory/creator.py), [`src/memgen/memory/prompts.py`](src/memgen/memory/prompts.py) |
+| Create memories | Groups solutions by tier, builds a prompt over all solutions in each non-empty tier, requests a memory response, and parses `<reasoning>` / `<memory>` tags. When multiple tiers are present the prompt is contrastive; when only one tier is present it mines recurring patterns within that tier. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/memory/creator.py`](src/memgen/memory/creator.py), [`src/memgen/memory/prompts.py`](src/memgen/memory/prompts.py) |
 | Evaluate | Regenerates baseline samples, then regenerates augmented samples with memory injection when memory exists. `avg@k` is computed by binarizing each sample score to `1.0` only when it earns full credit, then averaging across the `K` samples. | [`src/memgen/pipeline.py`](src/memgen/pipeline.py), [`src/memgen/evaluation/evaluator.py`](src/memgen/evaluation/evaluator.py), [`src/memgen/evaluation/prompts.py`](src/memgen/evaluation/prompts.py) |
 | Persist and inspect | Appends stage results to JSONL files and also writes per-problem artifact bundles as both JSON and Markdown. | [`src/memgen/persistence/store.py`](src/memgen/persistence/store.py) |
 | CLI entrypoints | Runs the pipeline by stage and prints aggregate evaluation stats. | [`src/memgen/cli.py`](src/memgen/cli.py) |
@@ -62,6 +62,16 @@ memgen run -c config/coding_lcb.yaml
 ```bash
 memgen run -c config/math_aime.yaml --max-problems 3
 ```
+
+### Run one shard of a dataset
+
+```bash
+memgen run -c path/to/guru.yaml --num-shards 64 --shard-index 7
+```
+
+Shard runs keep the usual per-problem resume behavior, but write into a shard-specific
+subdirectory such as `results/<domain>/shard_7_of_64/` so many jobs can run safely
+at the same time.
 
 ### Run individual stages
 
@@ -170,6 +180,44 @@ vllm serve Qwen/Qwen3-32B --api-key token --generation-config vllm
 
 The served model must expose a chat template for `/v1/chat/completions`. If it does not, start vLLM with `--chat-template ./path/to/template.jinja`.
 
+## Sharded Launches
+
+For large datasets such as Guru, you can generate one command per shard or a Slurm
+array launcher:
+
+```bash
+python scripts/generate_shard_launcher.py \
+  --config path/to/guru.yaml \
+  --num-shards 64 \
+  --mode commands
+```
+
+```bash
+python scripts/generate_shard_launcher.py \
+  --config path/to/guru.yaml \
+  --num-shards 64 \
+  --mode slurm-array \
+  --output launch_guru_shards.sbatch
+```
+
+To give each shard its own local vLLM server before running memgen, generate a
+Slurm array script with `--bootstrap-vllm`. The generated script starts
+`MiniMaxAI/MiniMax-M2.7`, waits for `/health` to return success and `/v1/models`
+to expose the expected model id, and only then launches the shard:
+
+```bash
+python scripts/generate_shard_launcher.py \
+  --config path/to/guru.yaml \
+  --num-shards 64 \
+  --mode slurm-array \
+  --bootstrap-vllm \
+  --venv-activate /path/to/vllm/.venv/bin/activate \
+  --served-model MiniMaxAI/MiniMax-M2.7 \
+  --generation-concurrent-requests 16 \
+  --concurrent-problems 4 \
+  --output launch_guru_vllm_shards.sbatch
+```
+
 ## Datasets
 
 | Domain | Default dataset config | Loader |
@@ -239,8 +287,8 @@ Memory grouping and request logic live in [`src/memgen/memory/creator.py`](src/m
 Current behavior:
 
 1. Solutions are grouped by score tier in generation order.
-2. If fewer than two tiers are populated, the pipeline writes `{"skipped": true}` for that problem and does not call the memory model.
-3. Otherwise, the prompt includes the problem statement plus all solutions from each populated tier.
+2. If one or more tiers are populated, the pipeline prompts the memory model using all solutions from those tiers.
+3. When multiple tiers are present, the prompt asks for contrastive analysis; when only one tier is present, it asks for reusable lessons from repeated success, partial progress, or repeated failure modes within that tier.
 4. The response parser extracts one shared `<reasoning>` block and zero or more structured `<memory>` items containing `<title>`, `<description>`, and `<content>`.
 
 The grouped tiers are:
@@ -257,7 +305,7 @@ Current behavior:
 1. Generate `evaluation.k` baseline samples using the same domain prompt family as the generation stage.
 2. Score those samples with the same scorer used earlier in the pipeline.
 3. If memory exists, prepend the memory items to the user prompt and generate a second augmented batch.
-4. If memory was skipped, reuse the baseline generations and mark `used_baseline_for_augmented = true`.
+4. If memory creation is skipped only because no scored solutions are available, reuse the baseline generations and mark `used_baseline_for_augmented = true`.
 5. Compute `avg@k` by binarizing each sample score to `1.0` only when it earns full credit, then averaging across the `K` samples.
 
 That last point matters for coding: `partial` generations are still stored in the per-sample scores, but they contribute `0.0` to `avg@k`.
@@ -300,6 +348,6 @@ Per-problem artifacts include the original problem plus accumulated stage payloa
 
 - Resume support is implemented by checking completed problem IDs in the corresponding JSONL files. See `ResultStore.get_completed_ids()` in [`src/memgen/persistence/store.py`](src/memgen/persistence/store.py).
 - The coding executor reduces accidental damage but is not suitable for securely running adversarial code. The warning is documented directly in [`src/memgen/scoring/sandbox.py`](src/memgen/scoring/sandbox.py).
-- Memory creation only runs when at least two score tiers are present for a problem.
+- Memory creation runs whenever at least one scored tier is present for a problem; contrastive analysis is preferred when multiple tiers are available, but homogeneous pools are still mined for reusable patterns.
 - If a memory response parses zero `<memory>` items, evaluation still treats that problem as having a memory object and will run an augmented pass with effectively no injected advice beyond blank separation.
 - `memgen report` only summarizes completed evaluation outputs; it does not rerun any stage.

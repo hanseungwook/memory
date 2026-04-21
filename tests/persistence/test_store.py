@@ -114,3 +114,29 @@ def test_save_problem_artifact_writes_json_markdown_and_index(tmp_path):
     assert "## Evaluation" in markdown
     assert "problem/1" in index
     assert "+0.5000" in index
+
+
+def test_save_scores_normalizes_non_json_native_values(tmp_path):
+    store = ResultStore(str(tmp_path), "guru")
+
+    store.save_scores(
+        "problem/2",
+        [
+            {
+                "problem_id": "problem/2",
+                "generation_index": 0,
+                "score": 0.0,
+                "tier": "fail",
+                "details": {
+                    "predicted": [Ellipsis],
+                    "expected": {"values": {2, 1}},
+                },
+            }
+        ],
+    )
+
+    loaded = store.load_scores()
+    details = loaded["problem/2"][0]["details"]
+
+    assert details["predicted"] == ["..."]
+    assert details["expected"]["values"] == [1, 2]

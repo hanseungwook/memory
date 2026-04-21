@@ -4,6 +4,7 @@ import json
 
 from memgen.scoring.sandbox import (
     _compare_stdio_output,
+    _get_multiprocessing_context,
     execute_function_based,
     execute_stdin_based,
 )
@@ -228,3 +229,41 @@ class TestCompareStdioOutput:
     def test_integer_as_decimal(self):
         # "10" and "10" should match through decimal path too
         assert _compare_stdio_output("10", "10")
+
+
+class TestMultiprocessingContext:
+    def test_prefers_forkserver_over_spawn(self, monkeypatch):
+        calls = []
+
+        class DummyContext:
+            pass
+
+        def fake_get_context(method=None):
+            calls.append(method)
+            return DummyContext()
+
+        monkeypatch.setattr("memgen.scoring.sandbox.multiprocessing.get_all_start_methods", lambda: ["fork", "spawn", "forkserver"])
+        monkeypatch.setattr("memgen.scoring.sandbox.multiprocessing.get_context", fake_get_context)
+
+        context = _get_multiprocessing_context()
+
+        assert isinstance(context, DummyContext)
+        assert calls == ["forkserver"]
+
+    def test_falls_back_to_spawn_when_forkserver_missing(self, monkeypatch):
+        calls = []
+
+        class DummyContext:
+            pass
+
+        def fake_get_context(method=None):
+            calls.append(method)
+            return DummyContext()
+
+        monkeypatch.setattr("memgen.scoring.sandbox.multiprocessing.get_all_start_methods", lambda: ["spawn"])
+        monkeypatch.setattr("memgen.scoring.sandbox.multiprocessing.get_context", fake_get_context)
+
+        context = _get_multiprocessing_context()
+
+        assert isinstance(context, DummyContext)
+        assert calls == ["spawn"]

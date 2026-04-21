@@ -68,6 +68,8 @@ def test_build_memory_creation_prompt_uses_simple_solution_sections():
     assert "#### Incorrect" in prompt
     assert "<tier name=" not in prompt
     assert "<solution_attempts>" not in prompt
+    assert "including across domains when the reasoning structure matches" in prompt
+    assert "## Example memories" not in prompt
 
 
 def test_build_memory_creation_prompt_adds_math_specific_guidance():
@@ -81,11 +83,25 @@ def test_build_memory_creation_prompt_adds_math_specific_guidance():
     )
 
     assert "## Math-specific guidance" in prompt
-    assert "Prefer titles that name the reasoning move, not the surface topic." in prompt
-    assert "A good math memory should still make sense if the next problem uses different mathematical objects" in prompt
-    assert "## Examples of good meta-reasoning memories" in prompt
-    assert "Title: Validate Lossy Transformations" in prompt
-    assert "Title: Switch to an Explicit Constraint Model" in prompt
+    assert "Name the reasoning move, not the theorem or topic." in prompt
+    assert "representation, invariant, completeness, and validation moves" in prompt
+    assert "## Example memories" not in prompt
+
+
+def test_build_memory_creation_prompt_supports_single_tier_analysis():
+    problem = Problem(id="p1", domain="math", statement="Solve the task.", answer="42")
+    prompt = build_memory_creation_prompt(
+        problem,
+        {
+            "incorrect": ["wrong solution 1", "wrong solution 2"],
+        },
+    )
+
+    assert "## Analysis mode" in prompt
+    assert "Only one outcome tier is available in this batch: Incorrect." in prompt
+    assert "Do not say the task requires contrast." in prompt
+    assert "Rewrite those failure patterns as positive, reusable guidance" in prompt
+    assert "- Outcome tiers present: Incorrect" in prompt
 
 
 def test_build_memory_creation_prompt_keeps_math_specific_guidance_out_of_coding():
@@ -99,5 +115,34 @@ def test_build_memory_creation_prompt_keeps_math_specific_guidance_out_of_coding
     )
 
     assert "## Math-specific guidance" not in prompt
-    assert "Title: Validate Lossy Transformations" not in prompt
-    assert "Title: Constraint-First Reformulation" in prompt
+    assert "## Example memories" not in prompt
+
+
+def test_build_memory_creation_prompt_adds_science_specific_guidance():
+    problem = Problem(id="p1", domain="science", statement="Explain the phenomenon.", answer="")
+    prompt = build_memory_creation_prompt(
+        problem,
+        {
+            "correct": ["good explanation"],
+            "incorrect": ["bad explanation"],
+        },
+    )
+
+    assert "## Science-specific guidance" in prompt
+    assert "Prefer mechanism, evidence, and unit/scale checks" in prompt
+    assert "## Example memories" not in prompt
+
+
+def test_build_memory_creation_prompt_supports_table_alias_domain():
+    problem = Problem(id="p1", domain="tabular", statement="Answer the question from the table.", answer="")
+    prompt = build_memory_creation_prompt(
+        problem,
+        {
+            "correct": ["good table reasoning"],
+            "incorrect": ["bad table reasoning"],
+        },
+    )
+
+    assert "## Table-specific guidance" in prompt
+    assert "slice, scope, denominator, and aggregation checks" in prompt
+    assert "## Example memories" not in prompt

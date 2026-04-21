@@ -8,14 +8,20 @@ from memgen.config import GenerationConfig, LLMConfig
 from memgen.data.base import Problem
 from memgen.llm import create_async_openai_client
 from memgen.openai_compat import build_chat_completion_request
+from memgen.request_limiter import RequestLimiter
 
 
 class Generator:
-    def __init__(self, config: GenerationConfig, llm_config: LLMConfig | None = None):
+    def __init__(
+        self,
+        config: GenerationConfig,
+        llm_config: LLMConfig | None = None,
+        request_limiter: RequestLimiter | None = None,
+    ):
         self.config = config
         self.llm_config = llm_config or LLMConfig()
         self._client = None
-        self.semaphore = asyncio.Semaphore(config.concurrent_requests)
+        self.request_limiter = request_limiter
 
     @property
     def client(self):
@@ -26,7 +32,20 @@ class Generator:
     @retry(stop=stop_after_attempt(3), wait=wait_exponential(min=1, max=30))
     async def generate_one(self, messages: list[dict]) -> str:
         """Single API call with retry and concurrency control."""
-        async with self.semaphore:
+        if self.request_limiter is None:
+            response = await self.client.chat.completions.create(
+                **build_chat_completion_request(
+                    provider=self.llm_config.provider,
+                    model=self.config.model,
+                    messages=messages,
+                    temperature=self.config.temperature,
+                    max_tokens=self.config.max_tokens,
+                    extra_body=self.config.extra_body,
+                )
+            )
+            return response.choices[0].message.content
+
+        async with self.request_limiter.async_slot():
             response = await self.client.chat.completions.create(
                 **build_chat_completion_request(
                     provider=self.llm_config.provider,

@@ -1,0 +1,47 @@
+dataset:
+  domain: "guru"
+  name: "LLM360/guru-RL-92k"
+  split: "train"
+  max_problems: 10
+llm:
+  provider: "vllm"
+  base_url: "http://127.0.0.1:8000/v1"
+  api_key: "token"
+  timeout_seconds: 300
+  max_retries: 2
+generation:
+  model: "MiniMaxAI/MiniMax-M2.7"
+  k: 16
+  temperature: 1.0
+  max_tokens: 4096
+  extra_body:
+    top_p: 0.95
+    top_k: 50
+  concurrent_requests: 256
+scoring:
+  timeout_seconds: 30
+  max_output_length: 10000
+memory:
+  model: "MiniMaxAI/MiniMax-M2.7"
+  max_tokens: 2048
+  temperature: 1.0
+  extra_body:
+    top_p: 0.95
+    top_k: 50
+evaluation:
+  model: "MiniMaxAI/MiniMax-M2.7"
+  k: 16
+  temperature: 1.0
+  max_tokens: 4096
+  extra_body:
+    top_p: 0.95
+    top_k: 50
+  concurrent_requests: 256
+concurrent_problems: 32
+memory_mode: "feedback_loop"
+feedback:
+  max_iterations: 5
+  improvement_threshold: 0.0
+  concurrent_problems: 32
+results_dir: "results/guru_20260420_10sample_vllm_minimax_m27_feedback"
+resume: true

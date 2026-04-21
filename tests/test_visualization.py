@@ -5,7 +5,11 @@ import json
 from click.testing import CliRunner
 
 from memgen.cli import main
-from memgen.visualization import build_visualization_data, render_visualization_html
+from memgen.visualization import (
+    build_guru_domain_plot_data,
+    build_visualization_data,
+    render_visualization_html,
+)
 
 
 def test_build_visualization_data_merges_artifacts_and_stage_jsonl(tmp_path):
@@ -148,6 +152,99 @@ def test_visualize_cli_writes_html_for_specific_result_path(tmp_path):
     assert "1983-9" in html
     assert "Problem Table" in html
     assert "Wrote visualization to" in result.output
+
+
+def test_build_guru_domain_plot_data_aggregates_completed_domains(tmp_path):
+    result_root = tmp_path / "guru_run" / "guru"
+    _write_jsonl(
+        result_root / "shard_0_of_2" / "evaluations" / "evaluations.jsonl",
+        [
+            {
+                "problem_id": "m1",
+                "baseline_pass_rate": 0.25,
+                "augmented_pass_rate": 0.5,
+                "improvement": 0.25,
+            },
+            {
+                "problem_id": "c1",
+                "baseline_pass_rate": 0.5,
+                "augmented_pass_rate": 0.75,
+                "improvement": 0.25,
+            },
+        ],
+    )
+    artifact_index = [
+        {
+            "problem_id": "m1",
+            "domain": "math",
+            "stages": ["generation", "scoring", "memory", "evaluation"],
+            "improvement": 0.25,
+        },
+        {
+            "problem_id": "c1",
+            "domain": "coding",
+            "stages": ["generation", "scoring", "memory", "evaluation"],
+            "improvement": 0.25,
+        },
+    ]
+    artifact_index_path = result_root / "shard_0_of_2" / "artifacts" / "index.json"
+    artifact_index_path.parent.mkdir(parents=True, exist_ok=True)
+    artifact_index_path.write_text(json.dumps(artifact_index), encoding="utf-8")
+
+    data = build_guru_domain_plot_data(result_root.parent)
+    rows = {row["domain"]: row for row in data["rows"]}
+
+    assert data["completed_count"] == 2
+    assert data["plotted_count"] == 2
+    assert data["unknown_count"] == 0
+    assert rows["math"]["count"] == 1
+    assert rows["math"]["improvement"] == 0.25
+    assert rows["coding"]["augmented"] == 0.75
+    assert data["summary"]["mean_improvement"] == 0.25
+
+
+def test_plot_domains_cli_writes_html_and_svg_assets(tmp_path):
+    result_root = tmp_path / "guru_run" / "guru"
+    _write_jsonl(
+        result_root / "shard_0_of_1" / "evaluations" / "evaluations.jsonl",
+        [
+            {
+                "problem_id": "logic__zebra_puzzle_dataset:1",
+                "baseline_pass_rate": 0.125,
+                "augmented_pass_rate": 0.5,
+                "improvement": 0.375,
+            }
+        ],
+    )
+    artifact_index_path = result_root / "shard_0_of_1" / "artifacts" / "index.json"
+    artifact_index_path.parent.mkdir(parents=True, exist_ok=True)
+    artifact_index_path.write_text(
+        json.dumps(
+            [
+                {
+                    "problem_id": "logic__zebra_puzzle_dataset:1",
+                    "domain": "logic",
+                    "stages": ["generation", "scoring", "memory", "evaluation"],
+                    "improvement": 0.375,
+                }
+            ]
+        ),
+        encoding="utf-8",
+    )
+    output_dir = tmp_path / "plots"
+
+    runner = CliRunner()
+    result = runner.invoke(main, ["plot-domains", str(result_root.parent), "--output-dir", str(output_dir)])
+
+    assert result.exit_code == 0, result.output
+    assert (output_dir / "domain_plots.html").exists()
+    assert (output_dir / "domain_counts.svg").exists()
+    assert (output_dir / "domain_pass_rates.svg").exists()
+    assert (output_dir / "domain_improvement.svg").exists()
+    html_output = (output_dir / "domain_plots.html").read_text(encoding="utf-8")
+    assert "Completed-Domain Performance" in html_output
+    assert "Logic" in html_output
+    assert "Wrote domain plots to" in result.output
 
 
 def _write_jsonl(path, records):

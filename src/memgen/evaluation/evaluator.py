@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass
 
 from memgen.config import EvaluationConfig, GenerationConfig, LLMConfig
 from memgen.data.base import Problem
 from memgen.evaluation.prompts import get_augmented_prompt_fn, get_baseline_prompt_fn
 from memgen.memory.prompts import Memory
+from memgen.request_limiter import RequestLimiter
 from memgen.scoring.base import ScoreResult
 
 
@@ -48,17 +50,20 @@ class Evaluator:
         config: EvaluationConfig,
         scorer,
         llm_config: LLMConfig | None = None,
+        request_limiter: RequestLimiter | None = None,
     ):
         self.config = config
         self.scorer = scorer
         self.llm_config = llm_config or LLMConfig()
+        self.request_limiter = request_limiter
+        concurrent_requests = config.concurrent_requests or config.k
         self.generator_config = GenerationConfig(
             model=config.model,
             k=config.k,
             temperature=config.temperature,
             max_tokens=config.max_tokens,
             extra_body=config.extra_body.copy(),
-            concurrent_requests=config.k,
+            concurrent_requests=concurrent_requests,
         )
         self._generator = None
 
@@ -79,10 +84,7 @@ class Evaluator:
             baseline_user_prompt,
             k=self.config.k,
         )
-        baseline_results = [
-            self.scorer.score(problem, generation_text, index)
-            for index, generation_text in enumerate(baseline_solutions)
-        ]
+        baseline_results = await self._score_generations(problem, baseline_solutions)
         baseline_scores = [result.score for result in baseline_results]
 
         if memory is None:
@@ -106,10 +108,7 @@ class Evaluator:
                 augmented_user_prompt,
                 k=self.config.k,
             )
-            augmented_results = [
-                self.scorer.score(problem, generation_text, index)
-                for index, generation_text in enumerate(augmented_solutions)
-            ]
+            augmented_results = await self._score_generations(problem, augmented_solutions)
             augmented_scores = [result.score for result in augmented_results]
             used_baseline_for_augmented = False
 
@@ -143,8 +142,24 @@ class Evaluator:
                 raise ImportError(
                     "memgen.generation.generator.Generator is required for evaluation"
                 ) from exc
-            self._generator = Generator(self.generator_config, self.llm_config)
+            self._generator = Generator(
+                self.generator_config,
+                self.llm_config,
+                request_limiter=self.request_limiter,
+            )
         return self._generator
+
+    async def _score_generations(self, problem: Problem, generations: list[str]) -> list[ScoreResult]:
+        if hasattr(self.scorer, "score_batch"):
+            return await asyncio.to_thread(self.scorer.score_batch, problem, generations)
+
+        def _score_one_by_one() -> list[ScoreResult]:
+            return [
+                self.scorer.score(problem, generation_text, index)
+                for index, generation_text in enumerate(generations)
+            ]
+
+        return await asyncio.to_thread(_score_one_by_one)
 
     @staticmethod
     def _avg_at_k(results: list[ScoreResult]) -> float:

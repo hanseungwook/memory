@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guru Domain Performance</title>
+  <style>
+    :root {
+      --bg: #f7f4ec;
+      --paper: #fffdf8;
+      --ink: #1f2430;
+      --muted: #5e6573;
+      --line: rgba(48, 58, 79, 0.16);
+      --accent: #0f766e;
+      --accent-soft: rgba(15, 118, 110, 0.10);
+      --good: #18794e;
+      --good-soft: rgba(24, 121, 78, 0.14);
+      --bad: #b42318;
+      --bad-soft: rgba(180, 35, 24, 0.12);
+      --warm: #b45309;
+      --shadow: 0 18px 40px rgba(31, 36, 48, 0.08);
+      --mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+      --sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(180, 83, 9, 0.10), transparent 22%),
+        linear-gradient(180deg, #faf6ee 0%, #f0e7d7 100%);
+    }
+    .page { max-width: 1180px; margin: 0 auto; }
+    h1 { margin: 0 0 8px; font-size: 34px; letter-spacing: -0.03em; }
+    .eyebrow {
+      margin: 0 0 6px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .subtle { color: var(--muted); margin: 0; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0 20px;
+    }
+    .card, .panel {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .card { padding: 16px 18px; }
+    .card .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    .card .value { margin-top: 8px; font-size: 28px; font-weight: 700; }
+    .panel { padding: 18px; margin-top: 16px; }
+    .panel h2 { margin: 0 0 12px; font-size: 20px; letter-spacing: -0.02em; }
+    .panel img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .note { margin: 16px 0 0; color: var(--muted); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px 10px;
+      border-top: 1px solid var(--line);
+      text-align: left;
+    }
+    th {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+    td:nth-child(n + 2) {
+      font-family: var(--mono);
+    }
+    @media (max-width: 960px) {
+      body { padding: 18px; }
+      .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 640px) {
+      .cards { grid-template-columns: 1fr; }
+      table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <p class="eyebrow">Memgen Guru Summary</p>
+    <h1>Completed-Domain Performance</h1>
+    <p class="subtle">/mnt/weka/home/seungwook.han/memory/results/guru_20260420_full_vllm_minimax_m27_feedback</p>
+    <div class="cards">
+      <div class="card"><div class="label">Completed Problems</div><div class="value">82,878</div></div>
+      <div class="card"><div class="label">Mean Baseline</div><div class="value">0.3615</div></div>
+      <div class="card"><div class="label">Mean Augmented</div><div class="value">0.4846</div></div>
+      <div class="card"><div class="label">Mean Improvement</div><div class="value">+0.1231</div></div>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="label">Helped</div><div class="value">53,790</div></div>
+      <div class="card"><div class="label">Hurt</div><div class="value">2,913</div></div>
+      <div class="card"><div class="label">Unchanged</div><div class="value">26,175</div></div>
+      <div class="card"><div class="label">Plotted Domains</div><div class="value">82,878</div></div>
+    </div>
+    <div class="panel">
+      <h2>Completed Count</h2>
+      <img src="domain_counts.svg" alt="Completed problem counts by domain">
+    </div>
+    <div class="panel">
+      <h2>Baseline Vs Augmented</h2>
+      <img src="domain_pass_rates.svg" alt="Baseline and augmented pass rates by domain">
+    </div>
+    <div class="panel">
+      <h2>Improvement</h2>
+      <img src="domain_improvement.svg" alt="Improvement by domain">
+    </div>
+    <div class="panel">
+      <h2>Domain Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Domain</th>
+            <th>Completed</th>
+            <th>Baseline</th>
+            <th>Augmented</th>
+            <th>Improvement</th>
+            <th>Helped</th>
+            <th>Hurt</th>
+            <th>Unchanged</th>
+          </tr>
+        </thead>
+        <tbody><tr><td>Math</td><td>53,608</td><td>0.3620</td><td>0.4901</td><td>+0.1281</td><td>34552</td><td>1993</td><td>17063</td></tr><tr><td>Coding</td><td>18,084</td><td>0.3000</td><td>0.4085</td><td>+0.1085</td><td>11542</td><td>598</td><td>5944</td></tr><tr><td>Science</td><td>1,164</td><td>0.7688</td><td>0.8731</td><td>+0.1042</td><td>965</td><td>34</td><td>165</td></tr><tr><td>Logic</td><td>6,306</td><td>0.3256</td><td>0.4675</td><td>+0.1419</td><td>4475</td><td>231</td><td>1600</td></tr><tr><td>Simulation</td><td>2,872</td><td>0.6225</td><td>0.7191</td><td>+0.0966</td><td>1830</td><td>31</td><td>1011</td></tr><tr><td>Table</td><td>844</td><td>0.4691</td><td>0.5595</td><td>+0.0904</td><td>426</td><td>26</td><td>392</td></tr></tbody>
+      </table>
+      
+    </div>
+  </div>
+</body>
+</html>

@@ -512,13 +512,75 @@ def _worker_stdin_based(
     result_conn.close()
 
 
+def _worker_assertion_program(
+    code: str,
+    test_program: str,
+    timeout: int,
+    max_output_length: int,
+    result_conn,
+) -> None:
+    """Run a Python assertion-based test program inside a child process."""
+    signal.signal(signal.SIGALRM, _timeout_handler)
+    reliability_guard()
+
+    program = IMPORT_STRING + "\n\n" + code + "\n\n" + test_program
+
+    signal.alarm(timeout)
+    faulthandler.enable()
+    with Capturing() as captured:
+        try:
+            _compile_code(program, timeout)
+            signal.alarm(0)
+            result = ExecutionResult(
+                passed=True,
+                actual=_truncate_text((captured[0] if captured else "").strip(), max_output_length),
+                error=None,
+            )
+        except TimeoutException:
+            signal.alarm(0)
+            result = ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text("Time Limit Exceeded", max_output_length),
+            )
+        except AssertionError as exc:
+            signal.alarm(0)
+            result = ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text(f"Assertion Error: {exc}", max_output_length),
+            )
+        except Exception as exc:
+            signal.alarm(0)
+            result = ExecutionResult(
+                passed=False,
+                actual="",
+                error=_truncate_text(f"Runtime Error: {exc}", max_output_length),
+            )
+        finally:
+            signal.alarm(0)
+            faulthandler.disable()
+
+    result_conn.send(result)
+    result_conn.close()
+
+
+def _get_multiprocessing_context():
+    """Use a thread-safe process start method on Python 3.12+."""
+    available = set(multiprocessing.get_all_start_methods())
+    for method in ("forkserver", "spawn"):
+        if method in available:
+            return multiprocessing.get_context(method)
+    return multiprocessing.get_context()
+
+
 def _run_with_result_conn(
     worker,
     worker_args: tuple,
     wait_timeout: int,
     fallback_count: int,
 ) -> list[ExecutionResult]:
-    ctx = multiprocessing.get_context("fork")
+    ctx = _get_multiprocessing_context()
     recv_conn, send_conn = ctx.Pipe(duplex=False)
     proc = ctx.Process(target=worker, args=(*worker_args, send_conn))
     proc.start()
@@ -606,3 +668,26 @@ def execute_stdin_based(
         wait_timeout=(timeout + 1) * len(all_inputs) + 5,
         fallback_count=len(all_inputs),
     )
+
+
+def execute_python_assertions(
+    code: str,
+    test_program: str,
+    timeout: int = 30,
+    max_output_length: int = 10000,
+) -> ExecutionResult:
+    """Execute Python code plus an assertion-based test harness."""
+    results = _run_with_result_conn(
+        _worker_assertion_program,
+        (
+            code,
+            test_program,
+            timeout,
+            max_output_length,
+        ),
+        wait_timeout=timeout + 5,
+        fallback_count=1,
+    )
+    if isinstance(results, list):
+        return results[0]
+    return results

@@ -15,15 +15,22 @@ from memgen.memory.prompts import (
     parse_memory_response,
 )
 from memgen.openai_compat import build_chat_completion_request
+from memgen.request_limiter import RequestLimiter
 from memgen.scoring.base import ScoreResult
 
 _TIER_ORDER = ("correct", "incorrect", "full", "partial", "fail")
 
 
 class MemoryCreator:
-    def __init__(self, config: MemoryConfig, llm_config: LLMConfig | None = None):
+    def __init__(
+        self,
+        config: MemoryConfig,
+        llm_config: LLMConfig | None = None,
+        request_limiter: RequestLimiter | None = None,
+    ):
         self.config = config
         self.llm_config = llm_config or LLMConfig()
+        self.request_limiter = request_limiter
         self._client = None
 
     @property
@@ -41,7 +48,7 @@ class MemoryCreator:
         del scores
 
         non_empty_tiers = [tier for tier, items in grouped_solutions.items() if items]
-        if len(non_empty_tiers) < 2:
+        if not non_empty_tiers:
             return None
 
         prompt = build_memory_creation_prompt(problem, grouped_solutions)
@@ -56,7 +63,7 @@ class MemoryCreator:
         iteration: int,
     ) -> Memory | None:
         non_empty_tiers = [t for t, items in grouped_solutions.items() if items]
-        if len(non_empty_tiers) < 2:
+        if not non_empty_tiers:
             return None
 
         prompt = build_memory_refinement_prompt(
@@ -94,18 +101,36 @@ class MemoryCreator:
         reraise=True,
     )
     async def _request_memory(self, prompt: str) -> str:
-        response = await self.client.chat.completions.create(
-            **build_chat_completion_request(
-                provider=self.llm_config.provider,
-                model=self.config.model,
-                temperature=self.config.temperature,
-                max_tokens=self.config.max_tokens,
-                extra_body=self.config.extra_body,
-                messages=[
-                    {"role": "system", "content": MEMORY_SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt},
-                ],
+        if self.request_limiter is None:
+            response = await self.client.chat.completions.create(
+                **build_chat_completion_request(
+                    provider=self.llm_config.provider,
+                    model=self.config.model,
+                    temperature=self.config.temperature,
+                    max_tokens=self.config.max_tokens,
+                    extra_body=self.config.extra_body,
+                    messages=[
+                        {"role": "system", "content": MEMORY_SYSTEM_PROMPT},
+                        {"role": "user", "content": prompt},
+                    ],
+                )
             )
-        )
-        content = response.choices[0].message.content
-        return content.strip() if content else ""
+            content = response.choices[0].message.content
+            return content.strip() if content else ""
+
+        async with self.request_limiter.async_slot():
+            response = await self.client.chat.completions.create(
+                **build_chat_completion_request(
+                    provider=self.llm_config.provider,
+                    model=self.config.model,
+                    temperature=self.config.temperature,
+                    max_tokens=self.config.max_tokens,
+                    extra_body=self.config.extra_body,
+                    messages=[
+                        {"role": "system", "content": MEMORY_SYSTEM_PROMPT},
+                        {"role": "user", "content": prompt},
+                    ],
+                )
+            )
+            content = response.choices[0].message.content
+            return content.strip() if content else ""

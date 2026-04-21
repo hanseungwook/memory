@@ -4,6 +4,7 @@ from datasets import load_dataset
 
 from memgen.config import DatasetConfig
 from memgen.data.base import Problem
+from memgen.data.sharding import is_problem_in_shard
 
 
 def _get_first_present(row: dict, *keys: str, required: bool = True):
@@ -48,6 +49,8 @@ def load_math_problems(config: DatasetConfig | None = None) -> list[Problem]:
     problems = []
     for row in ds:
         problem_id = str(_get_first_present(row, "ID", "id"))
+        if not is_problem_in_shard(problem_id, config):
+            continue
         year, inferred_problem_number = _parse_problem_metadata(problem_id)
 
         problem = Problem(
@@ -63,8 +66,7 @@ def load_math_problems(config: DatasetConfig | None = None) -> list[Problem]:
             },
         )
         problems.append(problem)
-
-    if max_problems is not None:
-        problems = problems[:max_problems]
+        if max_problems is not None and len(problems) >= max_problems:
+            break
 
     return problems
