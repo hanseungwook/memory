@@ -216,6 +216,43 @@ def test_plot_domains_cli_writes_html_and_svg_assets(tmp_path):
             }
         ],
     )
+    artifact_dir = result_root / "shard_0_of_1" / "artifacts" / "logic__zebra_puzzle_dataset-1"
+    artifact_dir.mkdir(parents=True, exist_ok=True)
+    artifact_path = artifact_dir / "artifact.json"
+    artifact_path.write_text(
+        json.dumps(
+            {
+                "problem_id": "logic__zebra_puzzle_dataset:1",
+                "domain": "logic",
+                "problem": {
+                    "id": "logic__zebra_puzzle_dataset:1",
+                    "domain": "logic",
+                    "statement": "Alice lives in the red house. Who owns the zebra?",
+                    "answer": "Bob owns the zebra.",
+                    "metadata": {"data_source": "logic__zebra_puzzle_dataset"},
+                },
+                "stages": {
+                    "memory": {
+                        "items": [
+                            {
+                                "title": "Externalize Constraints Early",
+                                "description": "Turn prose rules into explicit constraints first.",
+                                "content": "Write each clue in a structured form before chaining deductions.",
+                            }
+                        ]
+                    },
+                    "evaluation": {
+                        "baseline_pass_rate": 0.125,
+                        "augmented_pass_rate": 0.5,
+                        "improvement": 0.375,
+                        "baseline_solutions": ["Alice owns the zebra."],
+                        "augmented_solutions": ["Bob owns the zebra."],
+                    },
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
     artifact_index_path = result_root / "shard_0_of_1" / "artifacts" / "index.json"
     artifact_index_path.parent.mkdir(parents=True, exist_ok=True)
     artifact_index_path.write_text(
@@ -226,6 +263,7 @@ def test_plot_domains_cli_writes_html_and_svg_assets(tmp_path):
                     "domain": "logic",
                     "stages": ["generation", "scoring", "memory", "evaluation"],
                     "improvement": 0.375,
+                    "path": str(artifact_dir.relative_to(result_root.parent)),
                 }
             ]
         ),
@@ -244,6 +282,12 @@ def test_plot_domains_cli_writes_html_and_svg_assets(tmp_path):
     html_output = (output_dir / "domain_plots.html").read_text(encoding="utf-8")
     assert "Completed-Domain Performance" in html_output
     assert "Logic" in html_output
+    assert "Logic Examples" in html_output
+    assert "Alice lives in the red house. Who owns the zebra?" in html_output
+    assert "Bob owns the zebra." in html_output
+    assert "Externalize Constraints Early" in html_output
+    assert "Baseline Generations" in html_output
+    assert "Augmented Generations" in html_output
     assert "Wrote domain plots to" in result.output
 
 

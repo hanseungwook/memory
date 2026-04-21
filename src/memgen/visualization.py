@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import html
 import json
+import random
 import re
 from collections import Counter
 from pathlib import Path
@@ -1322,7 +1323,12 @@ def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
     if not evaluation_records:
         raise ValueError(f"No evaluation records found under {root}")
 
-    domain_index = _load_recursive_domain_index(root)
+    stored_domain_index, sampled_artifact_records = _load_recursive_domain_index_and_samples(
+        root,
+        completed_problem_ids=set(evaluation_records),
+        sample_size=5,
+        seed=0,
+    )
     rows: list[dict[str, Any]] = []
     unknown_count = 0
     completed_count = len(evaluation_records)
@@ -1342,9 +1348,14 @@ def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
             }
         )
     row_by_domain = {row["domain"]: row for row in rows}
+    examples_by_domain: dict[str, list[dict[str, Any]]] = {domain: [] for domain in DOMAIN_ORDER}
 
     for problem_id, record in evaluation_records.items():
-        domain = domain_index.get(problem_id) or _infer_guru_problem_domain(problem_id)
+        domain = (
+            sampled_artifact_records.get(problem_id, {}).get("domain")
+            or stored_domain_index.get(problem_id)
+            or _infer_guru_problem_domain(problem_id)
+        )
         if domain not in row_by_domain:
             unknown_count += 1
             continue
@@ -1364,6 +1375,16 @@ def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
         else:
             row["unchanged"] += 1
 
+        artifact_record = sampled_artifact_records.get(problem_id)
+        if artifact_record:
+            examples_by_domain[domain].append(
+                _build_guru_domain_example(
+                    problem_id=problem_id,
+                    evaluation_record=record,
+                    artifact_record=artifact_record,
+                )
+            )
+
     plotted_count = 0
     total_baseline = 0.0
     total_augmented = 0.0
@@ -1371,6 +1392,7 @@ def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
     total_helped = 0
     total_hurt = 0
     total_unchanged = 0
+    rng = random.Random(0)
     finalized_rows = []
     for row in rows:
         count = row["count"]
@@ -1381,6 +1403,10 @@ def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
         total_helped += row["helped"]
         total_hurt += row["hurt"]
         total_unchanged += row["unchanged"]
+        domain_examples = examples_by_domain[row["domain"]]
+        if len(domain_examples) > 5:
+            domain_examples = rng.sample(domain_examples, 5)
+            domain_examples.sort(key=lambda item: item["problem_id"])
         finalized_rows.append(
             {
                 "domain": row["domain"],
@@ -1392,6 +1418,7 @@ def build_guru_domain_plot_data(results_path: str | Path) -> dict[str, Any]:
                 "helped": row["helped"],
                 "hurt": row["hurt"],
                 "unchanged": row["unchanged"],
+                "examples": domain_examples,
             }
         )
 
@@ -1500,17 +1527,6 @@ def _load_recursive_latest_evaluations(root: Path) -> dict[str, dict[str, Any]]:
     return result
 
 
-def _load_recursive_domain_index(root: Path) -> dict[str, str]:
-    result: dict[str, str] = {}
-    for index_path in _iter_result_files(root, "artifacts", "index.json"):
-        for record in json.loads(index_path.read_text(encoding="utf-8")):
-            problem_id = record.get("problem_id")
-            domain = record.get("domain")
-            if problem_id and domain:
-                result[str(problem_id)] = str(domain)
-    return result
-
-
 def _iter_result_files(root: Path, subdir: str, filename: str) -> list[Path]:
     candidates: set[Path] = set()
     direct = root / subdir / filename
@@ -1524,6 +1540,99 @@ def _iter_result_files(root: Path, subdir: str, filename: str) -> list[Path]:
         candidates.update(root.glob(pattern))
 
     return sorted(path.resolve() for path in candidates if path.exists())
+
+
+def _load_recursive_artifact_records(root: Path) -> dict[str, dict[str, Any]]:
+    _, sampled_records = _load_recursive_domain_index_and_samples(
+        root,
+        completed_problem_ids=set(),
+        sample_size=10_000_000,
+        seed=0,
+    )
+    return sampled_records
+
+
+def _load_recursive_domain_index_and_samples(
+    root: Path,
+    *,
+    completed_problem_ids: set[str],
+    sample_size: int,
+    seed: int,
+) -> tuple[dict[str, str], dict[str, dict[str, Any]]]:
+    domain_index: dict[str, str] = {}
+    reservoirs: dict[str, list[dict[str, Any]]] = {domain: [] for domain in DOMAIN_ORDER}
+    seen_counts: dict[str, int] = {domain: 0 for domain in DOMAIN_ORDER}
+    rng = random.Random(seed)
+    project_root = _find_project_root_from_results(root)
+    for index_path in _iter_result_files(root, "artifacts", "index.json"):
+        for record in json.loads(index_path.read_text(encoding="utf-8")):
+            problem_id = record.get("problem_id")
+            if not problem_id:
+                continue
+            problem_id = str(problem_id)
+            domain = str(record.get("domain") or _infer_guru_problem_domain(problem_id))
+            if domain:
+                domain_index[problem_id] = domain
+            if completed_problem_ids and problem_id not in completed_problem_ids:
+                continue
+            if domain not in reservoirs:
+                continue
+            artifact_path = _resolve_artifact_json_path(project_root, record.get("path"))
+            if artifact_path is None:
+                continue
+            candidate = {
+                "problem_id": problem_id,
+                "domain": domain,
+                "artifact_json_path": str(artifact_path),
+            }
+            seen_counts[domain] += 1
+            reservoir = reservoirs[domain]
+            if len(reservoir) < sample_size:
+                reservoir.append(candidate)
+                continue
+            replace_index = rng.randrange(seen_counts[domain])
+            if replace_index < sample_size:
+                reservoir[replace_index] = candidate
+
+    result: dict[str, dict[str, Any]] = {}
+    for domain in DOMAIN_ORDER:
+        for candidate in reservoirs[domain]:
+            artifact_path = Path(candidate["artifact_json_path"])
+            artifact_data = json.loads(artifact_path.read_text(encoding="utf-8"))
+            result[candidate["problem_id"]] = {
+                "domain": candidate["domain"],
+                "artifact_json_path": str(artifact_path),
+                "artifact_data": artifact_data,
+            }
+    return domain_index, result
+
+
+def _find_project_root_from_results(root: Path) -> Path:
+    for candidate in [root, *root.parents]:
+        if candidate.name == "results":
+            return candidate.parent
+    return root
+
+
+def _resolve_artifact_json_path(project_root: Path, artifact_dir: Any) -> Path | None:
+    if not artifact_dir:
+        return None
+    raw = Path(str(artifact_dir))
+    candidates = []
+    if raw.is_absolute():
+        candidates.append(raw)
+    else:
+        candidates.append((project_root / raw).resolve())
+        candidates.append(raw.resolve())
+
+    for candidate in candidates:
+        if candidate.is_dir():
+            artifact_json = candidate / "artifact.json"
+            if artifact_json.exists():
+                return artifact_json
+        elif candidate.is_file():
+            return candidate
+    return None
 
 
 def _build_links(artifact_json_path: Path) -> dict[str, str]:
@@ -1614,6 +1723,84 @@ def _infer_guru_problem_domain(problem_id: str) -> str:
     if pid.startswith(("simulation__arcagi", "simulation__barc")):
         return "logic"
     return "unknown"
+
+
+def _build_guru_domain_example(
+    *,
+    problem_id: str,
+    evaluation_record: dict[str, Any],
+    artifact_record: dict[str, Any],
+) -> dict[str, Any]:
+    artifact_data = artifact_record["artifact_data"]
+    problem = artifact_data.get("problem") or {}
+    stages = artifact_data.get("stages") or {}
+    memory_stage = stages.get("memory") or {}
+    evaluation_stage = stages.get("evaluation") or {}
+
+    memory_items = memory_stage.get("items") or []
+    baseline_generations = _extract_feedback_generations(evaluation_stage, "baseline")
+    augmented_generations = _extract_feedback_generations(evaluation_stage, "augmented")
+
+    return {
+        "problem_id": problem_id,
+        "statement": _truncate_text(str(problem.get("statement") or ""), 2200),
+        "verifier": _truncate_text(_extract_verifier_summary(problem), 1600),
+        "memory_items": [
+            {
+                "title": _truncate_text(str(item.get("title") or ""), 180),
+                "description": _truncate_text(str(item.get("description") or ""), 260),
+                "content": _truncate_text(str(item.get("content") or ""), 900),
+            }
+            for item in memory_items[:8]
+        ],
+        "baseline_pass_rate": float(evaluation_record.get("baseline_pass_rate", 0.0) or 0.0),
+        "augmented_pass_rate": float(evaluation_record.get("augmented_pass_rate", 0.0) or 0.0),
+        "improvement": float(evaluation_record.get("improvement", 0.0) or 0.0),
+        "baseline_generations": [_truncate_text(text, 2000) for text in baseline_generations[:4]],
+        "augmented_generations": [_truncate_text(text, 2000) for text in augmented_generations[:4]],
+        "missing_eval_generations": not baseline_generations and not augmented_generations,
+    }
+
+
+def _extract_feedback_generations(evaluation_stage: dict[str, Any], kind: str) -> list[str]:
+    direct = evaluation_stage.get(f"{kind}_solutions")
+    if isinstance(direct, list):
+        return [str(item) for item in direct]
+
+    feedback_loop = evaluation_stage.get("feedback_loop") or {}
+    best_evaluation = feedback_loop.get("best_evaluation") or {}
+    nested = best_evaluation.get(f"{kind}_solutions")
+    if isinstance(nested, list):
+        return [str(item) for item in nested]
+    return []
+
+
+def _extract_verifier_summary(problem: dict[str, Any]) -> str:
+    answer = problem.get("answer")
+    if answer not in (None, "", []):
+        return f"Answer: {answer}"
+
+    metadata = problem.get("metadata") or {}
+    ground_truth = metadata.get("ground_truth")
+    if ground_truth not in (None, "", []):
+        return f"Ground Truth / Verifier: {ground_truth}"
+
+    test_cases = problem.get("test_cases") or []
+    if test_cases:
+        return f"Verifier: {len(test_cases)} test cases"
+
+    data_source = metadata.get("data_source")
+    if data_source:
+        return f"Verifier Source: {data_source}"
+
+    return "Verifier details unavailable"
+
+
+def _truncate_text(value: str, limit: int) -> str:
+    text = value.strip()
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1].rstrip() + "…"
 
 
 def _display_name(root: Path) -> str:
@@ -1737,6 +1924,7 @@ def _render_domain_improvement_svg(data: dict[str, Any]) -> str:
 
 def _render_guru_domain_plots_html(data: dict[str, Any], chart_paths: dict[str, Path]) -> str:
     summary = data["summary"]
+    example_sections = "".join(_render_domain_example_section(row) for row in data["rows"] if row["examples"])
     rows_html = "".join(
         (
             "<tr>"
@@ -1851,13 +2039,125 @@ def _render_guru_domain_plots_html(data: dict[str, Any], chart_paths: dict[str, 
     td:nth-child(n + 2) {{
       font-family: var(--mono);
     }}
+    .domain-examples {{
+      margin-top: 22px;
+      display: grid;
+      gap: 16px;
+    }}
+    .domain-examples h3 {{
+      margin: 0 0 12px;
+      font-size: 20px;
+      letter-spacing: -0.02em;
+    }}
+    .example {{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.74);
+      margin-top: 10px;
+      overflow: hidden;
+    }}
+    .example summary {{
+      cursor: pointer;
+      list-style: none;
+      padding: 14px 16px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }}
+    .example summary::-webkit-details-marker {{ display: none; }}
+    .example-body {{
+      border-top: 1px solid var(--line);
+      padding: 16px;
+      display: grid;
+      gap: 14px;
+    }}
+    .metric-row {{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }}
+    .metric {{
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }}
+    .metric .label {{
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }}
+    .metric .value {{
+      font: 600 14px var(--mono);
+    }}
+    .example-grid {{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+    }}
+    .block {{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--paper);
+      padding: 14px;
+    }}
+    .block h4 {{
+      margin: 0 0 10px;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }}
+    .text-block, .gen {{
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 13px;
+      line-height: 1.5;
+    }}
+    .memories {{
+      display: grid;
+      gap: 10px;
+    }}
+    .memory-card {{
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.88);
+    }}
+    .memory-card strong {{
+      display: block;
+      margin-bottom: 6px;
+    }}
+    .gens {{
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }}
+    .gen-list {{
+      display: grid;
+      gap: 10px;
+    }}
+    .gen-card {{
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,0.88);
+    }}
     @media (max-width: 960px) {{
       body {{ padding: 18px; }}
       .cards {{ grid-template-columns: repeat(2, minmax(0, 1fr)); }}
+      .example-grid, .gens {{ grid-template-columns: 1fr; }}
     }}
     @media (max-width: 640px) {{
       .cards {{ grid-template-columns: 1fr; }}
       table {{ font-size: 12px; }}
+      .metric-row {{ grid-template-columns: 1fr; }}
     }}
   </style>
 </head>
@@ -1909,6 +2209,7 @@ def _render_guru_domain_plots_html(data: dict[str, Any], chart_paths: dict[str, 
       </table>
       {note}
     </div>
+    <div class="domain-examples">{example_sections}</div>
   </div>
 </body>
 </html>
@@ -1932,4 +2233,104 @@ def _svg_header(width: int, height: int, title: str) -> str:
         ".bar-negative{fill:#b42318;}"
         ".axis-line{stroke:rgba(48,58,79,0.28);stroke-width:1.5;}"
         "</style>"
+    )
+
+
+def _render_domain_example_section(row: dict[str, Any]) -> str:
+    examples_html = "".join(_render_domain_example(example) for example in row["examples"])
+    return (
+        "<div class='panel'>"
+        f"<h3>{html.escape(row['label'])} Examples</h3>"
+        f"<p class='subtle'>{row['count']:,} completed, baseline {row['baseline']:.4f}, augmented {row['augmented']:.4f}, improvement {row['improvement']:+.4f}</p>"
+        f"{examples_html}"
+        "</div>"
+    )
+
+
+def _render_domain_example(example: dict[str, Any]) -> str:
+    memory_html = (
+        "<div class='memories'>"
+        + "".join(
+            (
+                "<div class='memory-card'>"
+                f"<strong>{html.escape(item['title'] or 'Untitled Memory')}</strong>"
+                f"<div class='subtle'>{html.escape(item['description'])}</div>"
+                f"<p class='text-block'>{html.escape(item['content'])}</p>"
+                "</div>"
+            )
+            for item in example["memory_items"]
+        )
+        + "</div>"
+        if example["memory_items"]
+        else "<p class='subtle'>No memory items stored for this example.</p>"
+    )
+    baseline_html = _render_generation_column(
+        "Baseline Generations",
+        example["baseline_generations"],
+        example["missing_eval_generations"],
+    )
+    augmented_html = _render_generation_column(
+        "Augmented Generations",
+        example["augmented_generations"],
+        example["missing_eval_generations"],
+    )
+    return (
+        "<details class='example'>"
+        "<summary>"
+        f"<span>{html.escape(example['problem_id'])}</span>"
+        f"<span class='value'>{example['improvement']:+.4f}</span>"
+        "</summary>"
+        "<div class='example-body'>"
+        "<div class='metric-row'>"
+        f"<div class='metric'><span class='label'>Baseline</span><span class='value'>{example['baseline_pass_rate']:.4f}</span></div>"
+        f"<div class='metric'><span class='label'>Augmented</span><span class='value'>{example['augmented_pass_rate']:.4f}</span></div>"
+        f"<div class='metric'><span class='label'>Improvement</span><span class='value'>{example['improvement']:+.4f}</span></div>"
+        "</div>"
+        "<div class='example-grid'>"
+        "<div class='block'>"
+        "<h4>Question</h4>"
+        f"<p class='text-block'>{html.escape(example['statement'])}</p>"
+        "</div>"
+        "<div class='block'>"
+        "<h4>Answer / Verifier</h4>"
+        f"<p class='text-block'>{html.escape(example['verifier'])}</p>"
+        "</div>"
+        "</div>"
+        "<div class='block'>"
+        "<h4>Memories Created</h4>"
+        f"{memory_html}"
+        "</div>"
+        "<div class='gens'>"
+        f"{baseline_html}"
+        f"{augmented_html}"
+        "</div>"
+        "</div>"
+        "</details>"
+    )
+
+
+def _render_generation_column(title: str, generations: list[str], missing: bool) -> str:
+    if generations:
+        body = "<div class='gen-list'>" + "".join(
+            (
+                "<div class='gen-card'>"
+                f"<div class='subtle'>Sample {index + 1}</div>"
+                f"<pre class='gen'>{html.escape(text)}</pre>"
+                "</div>"
+            )
+            for index, text in enumerate(generations)
+        ) + "</div>"
+    elif missing:
+        body = (
+            "<p class='subtle'>These evaluation generations were not persisted in the current "
+            "feedback-loop artifact schema for this run.</p>"
+        )
+    else:
+        body = "<p class='subtle'>No generations stored.</p>"
+
+    return (
+        "<div class='block'>"
+        f"<h4>{html.escape(title)}</h4>"
+        f"{body}"
+        "</div>"
     )
